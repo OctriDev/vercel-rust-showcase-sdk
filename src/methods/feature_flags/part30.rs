@@ -3,12 +3,12 @@
 
 use super::*;
 use crate::types::{
-    UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs,
-    UpdateFlagSegmentRequestDataRulesItemConditionsItemRhs,
-    UpdateFlagSegmentRequestDataRulesItemOutcome,
+    CreateFlagSegmentRequestDataRulesItemConditionsItemLhs,
+    CreateFlagSegmentRequestDataRulesItemConditionsItemRhs,
+    CreateFlagSegmentRequestDataRulesItemOutcome,
 };
 
-impl serde::Serialize for UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
+impl serde::Serialize for CreateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -17,7 +17,7 @@ impl serde::Serialize for UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
+impl<'de> serde::Deserialize<'de> for CreateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -52,19 +52,19 @@ impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentDataRulesItemConditionsIt
     }
 }
 
-impl std::fmt::Display for UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
+impl std::fmt::Display for CreateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentDataRulesItemConditionsItemCmpOptions {
+pub struct CreateFlagSegmentDataRulesItemConditionsItemCmpOptions {
     #[serde(rename = "ignoreCase", skip_serializing_if = "Option::is_none")]
     pub ignore_case: Option<bool>,
 }
 
-impl UpdateFlagSegmentDataRulesItemConditionsItemCmpOptions {
+impl CreateFlagSegmentDataRulesItemConditionsItemCmpOptions {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self { ignore_case: None }
@@ -72,21 +72,21 @@ impl UpdateFlagSegmentDataRulesItemConditionsItemCmpOptions {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentDataRulesItemConditionsItem {
-    /// Typed representation of the `UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs` API schema.
-    pub lhs: UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs,
-    pub cmp: UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum,
-    /// Typed representation of the `UpdateFlagSegmentRequestDataRulesItemConditionsItemRhs` API schema.
+pub struct CreateFlagSegmentDataRulesItemConditionsItem {
+    /// Typed representation of the `CreateFlagSegmentRequestDataRulesItemConditionsItemLhs` API schema.
+    pub lhs: CreateFlagSegmentRequestDataRulesItemConditionsItemLhs,
+    pub cmp: CreateFlagSegmentDataRulesItemConditionsItemCmpEnum,
+    /// Typed representation of the `CreateFlagSegmentRequestDataRulesItemConditionsItemRhs` API schema.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rhs: Option<UpdateFlagSegmentRequestDataRulesItemConditionsItemRhs>,
+    pub rhs: Option<CreateFlagSegmentRequestDataRulesItemConditionsItemRhs>,
     #[serde(rename = "cmpOptions", skip_serializing_if = "Option::is_none")]
-    pub cmp_options: Option<UpdateFlagSegmentDataRulesItemConditionsItemCmpOptions>,
+    pub cmp_options: Option<CreateFlagSegmentDataRulesItemConditionsItemCmpOptions>,
 }
 
-impl UpdateFlagSegmentDataRulesItemConditionsItem {
+impl CreateFlagSegmentDataRulesItemConditionsItem {
     pub fn new(
-        lhs: UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs,
-        cmp: UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum,
+        lhs: CreateFlagSegmentRequestDataRulesItemConditionsItemLhs,
+        cmp: CreateFlagSegmentDataRulesItemConditionsItemCmpEnum,
     ) -> Self {
         Self {
             lhs,
@@ -98,18 +98,18 @@ impl UpdateFlagSegmentDataRulesItemConditionsItem {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentDataRulesItem {
+pub struct CreateFlagSegmentDataRulesItem {
     pub id: String,
-    pub conditions: Vec<UpdateFlagSegmentDataRulesItemConditionsItem>,
-    /// Typed representation of the `UpdateFlagSegmentRequestDataRulesItemOutcome` API schema.
-    pub outcome: UpdateFlagSegmentRequestDataRulesItemOutcome,
+    pub conditions: Vec<CreateFlagSegmentDataRulesItemConditionsItem>,
+    /// Typed representation of the `CreateFlagSegmentRequestDataRulesItemOutcome` API schema.
+    pub outcome: CreateFlagSegmentRequestDataRulesItemOutcome,
 }
 
-impl UpdateFlagSegmentDataRulesItem {
+impl CreateFlagSegmentDataRulesItem {
     pub fn new(
         id: String,
-        conditions: Vec<UpdateFlagSegmentDataRulesItemConditionsItem>,
-        outcome: UpdateFlagSegmentRequestDataRulesItemOutcome,
+        conditions: Vec<CreateFlagSegmentDataRulesItemConditionsItem>,
+        outcome: CreateFlagSegmentRequestDataRulesItemOutcome,
     ) -> Self {
         Self {
             id,
@@ -120,53 +120,53 @@ impl UpdateFlagSegmentDataRulesItem {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentDataIncludeValueValueItem {
+pub struct CreateFlagSegmentDataIncludeValueValueItem {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
     pub value: String,
 }
 
-impl UpdateFlagSegmentDataIncludeValueValueItem {
+impl CreateFlagSegmentDataIncludeValueValueItem {
     pub fn new(value: String) -> Self {
         Self { note: None, value }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentDataExcludeValueValueItem {
+pub struct CreateFlagSegmentDataExcludeValueValueItem {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
     pub value: String,
 }
 
-impl UpdateFlagSegmentDataExcludeValueValueItem {
+impl CreateFlagSegmentDataExcludeValueValueItem {
     pub fn new(value: String) -> Self {
         Self { note: None, value }
     }
 }
 
-pub type UpdateFlagSegmentDataInclude = std::collections::HashMap<
+pub type CreateFlagSegmentDataInclude = std::collections::HashMap<
     String,
-    std::collections::HashMap<String, Vec<UpdateFlagSegmentDataIncludeValueValueItem>>,
+    std::collections::HashMap<String, Vec<CreateFlagSegmentDataIncludeValueValueItem>>,
 >;
 
-pub type UpdateFlagSegmentDataExclude = std::collections::HashMap<
+pub type CreateFlagSegmentDataExclude = std::collections::HashMap<
     String,
-    std::collections::HashMap<String, Vec<UpdateFlagSegmentDataExcludeValueValueItem>>,
+    std::collections::HashMap<String, Vec<CreateFlagSegmentDataExcludeValueValueItem>>,
 >;
 
 /// The data of the segment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentData {
+pub struct CreateFlagSegmentData {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rules: Option<Vec<UpdateFlagSegmentDataRulesItem>>,
+    pub rules: Option<Vec<CreateFlagSegmentDataRulesItem>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub include: Option<UpdateFlagSegmentDataInclude>,
+    pub include: Option<CreateFlagSegmentDataInclude>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub exclude: Option<UpdateFlagSegmentDataExclude>,
+    pub exclude: Option<CreateFlagSegmentDataExclude>,
 }
 
-impl UpdateFlagSegmentData {
+impl CreateFlagSegmentData {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         if let Some(value) = self.rules.as_ref() {
             crate::validation::validate_items(
@@ -194,126 +194,87 @@ impl UpdateFlagSegmentData {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentFeatureFlagsResponseStatus {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "deploymentId")]
-    pub deployment_id: String,
-    /// The number of flag definitions returned by the flags discovery endpoint.
-    #[serde(rename = "flagCount")]
-    pub flag_count: f64,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// The HTTP status code from the flags discovery endpoint.
-    #[serde(rename = "responseStatus")]
-    pub response_status: f64,
+pub struct CreateFlagSegmentResponseDataExcludeValueValueItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    pub value: String,
 }
 
-impl GetDeploymentFeatureFlagsResponseStatus {
-    pub fn new(
-        created_at: f64,
-        deployment_id: String,
-        flag_count: f64,
-        project_id: String,
-        response_status: f64,
-    ) -> Self {
-        Self {
-            created_at,
-            deployment_id,
-            flag_count,
-            project_id,
-            response_status,
-        }
+impl CreateFlagSegmentResponseDataExcludeValueValueItem {
+    pub fn new(value: String) -> Self {
+        Self { note: None, value }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentFeatureFlagsResponse {
-    pub flags: Vec<serde_json::Value>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub status: Option<GetDeploymentFeatureFlagsResponseStatus>,
+pub struct CreateFlagSegmentResponseDataIncludeValueValueItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    pub value: String,
 }
 
-impl GetDeploymentFeatureFlagsResponse {
-    pub fn new(
-        flags: Vec<serde_json::Value>,
-        status: Option<GetDeploymentFeatureFlagsResponseStatus>,
-    ) -> Self {
-        Self { flags, status }
+impl CreateFlagSegmentResponseDataIncludeValueValueItem {
+    pub fn new(value: String) -> Self {
+        Self { note: None, value }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSdkKeysResponseDataItemTypeEnum {
+pub enum CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum {
     #[default]
-    Client,
-    Mobile,
-    Server,
+    Contains,
+    Endswith,
+    Eq,
+    Ex,
+    Oneof,
+    Regex,
+    Startswith,
+    After,
+    Before,
+    Contains2,
+    Containsallof,
+    Containsanyof,
+    Containsnoneof,
+    Endswith2,
+    Eq2,
+    Ex2,
+    Gt,
+    Gte,
+    Lt,
+    Lte,
+    Oneof2,
+    Regex2,
+    Startswith2,
     Unknown(String),
 }
 
-impl GetSdkKeysResponseDataItemTypeEnum {
+impl CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Client => "client",
-            Self::Mobile => "mobile",
-            Self::Server => "server",
+            Self::Contains => "!contains",
+            Self::Endswith => "!endsWith",
+            Self::Eq => "!eq",
+            Self::Ex => "!ex",
+            Self::Oneof => "!oneOf",
+            Self::Regex => "!regex",
+            Self::Startswith => "!startsWith",
+            Self::After => "after",
+            Self::Before => "before",
+            Self::Contains2 => "contains",
+            Self::Containsallof => "containsAllOf",
+            Self::Containsanyof => "containsAnyOf",
+            Self::Containsnoneof => "containsNoneOf",
+            Self::Endswith2 => "endsWith",
+            Self::Eq2 => "eq",
+            Self::Ex2 => "ex",
+            Self::Gt => "gt",
+            Self::Gte => "gte",
+            Self::Lt => "lt",
+            Self::Lte => "lte",
+            Self::Oneof2 => "oneOf",
+            Self::Regex2 => "regex",
+            Self::Startswith2 => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for GetSdkKeysResponseDataItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetSdkKeysResponseDataItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "client" => Self::Client,
-            "mobile" => Self::Mobile,
-            "server" => Self::Server,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSdkKeysResponseDataItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Shared metadata for a Flags SDK key, safe to return on both LIST and CREATE. Never contains cleartext secrets.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSdkKeysResponseDataItem {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    pub environment: String,
-    #[serde(rename = "hashKey")]
-    pub hash_key: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    /// Partially-masked representation of the SDK key value, safe to display in UIs. The value is the `vf_<type\>_` prefix followed by the first 3 characters of the secret portion and a fixed 8-character `\*` mask (e.g. `vf_server_abc\*\*\*\*\*\*\*\*`).
-    #[serde(rename = "partialKeyValue")]
-    pub partial_key_value: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetSdkKeysResponseDataItemTypeEnum,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
 }

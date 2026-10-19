@@ -3,6 +3,53 @@
 
 // integrations domain models (part 3)
 
+impl GetConfigurationResponseVariant0 {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        id: String,
+        integration_id: String,
+        notification: GetConfigurationResponseVariant0Notification,
+        owner_id: String,
+        project_selection: GetConfigurationResponseVariant0ProjectSelectionEnum,
+        scopes: Vec<String>,
+        slug: String,
+        transfer_request: GetConfigurationResponseVariant0TransferRequest,
+        type_: GetConfigurationResponseVariant0TypeEnum,
+        updated_at: f64,
+        user_id: String,
+    ) -> Self {
+        Self {
+            accepted_policies_inherited_from_installation_id: None,
+            can_configure_open_telemetry: None,
+            completed_at: None,
+            created_at,
+            customer_delete_requested_at: None,
+            deleted_at: None,
+            delete_requested_at: None,
+            disabled_at: None,
+            disabled_reason: None,
+            external_id: None,
+            id,
+            installation_type: None,
+            integration_id,
+            notification,
+            owner_id,
+            projects: None,
+            project_selection,
+            scopes,
+            slug,
+            source: None,
+            status: None,
+            team_id: None,
+            transfer_request,
+            type_,
+            updated_at,
+            user_id,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetConfigurationResponseVariant1DisabledReasonEnum {
     #[default]
@@ -441,38 +488,5 @@ impl GetConfigurationResponseVariant2DisabledReasonEnum {
             Self::OriginalOwnerRoleDowngraded => "original-owner-role-downgraded",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for GetConfigurationResponseVariant2DisabledReasonEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetConfigurationResponseVariant2DisabledReasonEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "account-plan-downgrade" => Self::AccountPlanDowngrade,
-            "disabled-by-admin" => Self::DisabledByAdmin,
-            "disabled-by-owner" => Self::DisabledByOwner,
-            "feature-not-available" => Self::FeatureNotAvailable,
-            "original-owner-left-the-team" => Self::OriginalOwnerLeftTheTeam,
-            "original-owner-role-downgraded" => Self::OriginalOwnerRoleDowngraded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetConfigurationResponseVariant2DisabledReasonEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

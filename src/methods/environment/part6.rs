@@ -4,6 +4,109 @@
 use super::*;
 use crate::types::UpdateSharedEnvVariableResponseUpdatedItemLastEditedByPrincipal;
 
+impl UpdateSharedEnvVariableResponseFailedItemError {
+    pub fn new(code: String, message: String) -> Self {
+        Self {
+            action: None,
+            code,
+            env_var_id: None,
+            env_var_key: None,
+            git_branch: None,
+            key: None,
+            link: None,
+            message,
+            project: None,
+            target: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSharedEnvVariableResponseFailedItem {
+    pub error: UpdateSharedEnvVariableResponseFailedItemError,
+}
+
+impl UpdateSharedEnvVariableResponseFailedItem {
+    pub fn new(error: UpdateSharedEnvVariableResponseFailedItemError) -> Self {
+        Self { error }
+    }
+}
+
+/// environments this env variable targets
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The type of this cosmos doc instance, if blank, assume secret.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateSharedEnvVariableResponseUpdatedItemTypeEnum {
+    #[default]
+    Encrypted,
+    Plain,
+    Sensitive,
+    System,
+    Unknown(String),
+}
+
+impl UpdateSharedEnvVariableResponseUpdatedItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for UpdateSharedEnvVariableResponseUpdatedItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -191,99 +294,4 @@ pub enum DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
     Preview,
     Production,
     Unknown(String),
-}
-
-impl DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

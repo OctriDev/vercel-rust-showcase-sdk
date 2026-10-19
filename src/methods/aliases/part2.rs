@@ -3,6 +3,44 @@
 
 use super::*;
 
+impl
+    ::std::convert::From<
+        Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant3>,
+    > for ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue
+{
+    fn from(
+        value: Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant3>,
+    ) -> Self {
+        Self::EmailInvite(value)
+    }
+}
+
+/// A list of the aliases assigned to the deployment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListAliasesForDeploymentResponseAliasesItem {
+    /// The alias name, it could be a `.vercel.app` subdomain or a custom domain
+    pub alias: String,
+    /// The date when the alias was created
+    pub created: String,
+    /// The protection bypass for the alias
+    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
+    pub protection_bypass: Option<
+        std::collections::HashMap<
+            String,
+            ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue,
+        >,
+    >,
+    /// Target destination domain for redirect when the alias is a redirect
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    /// The unique identifier of the alias
+    pub uid: String,
+}
+
 impl ListAliasesForDeploymentResponseAliasesItem {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         crate::validation::validate_model_date_time("created", &self.created)?;
@@ -104,6 +142,18 @@ impl<'de> serde::Deserialize<'de> for ListAliases {
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListAliases branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for ListAliases {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for ListAliases {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -281,49 +331,12 @@ impl<'de> serde::Deserialize<'de> for ListAliasesResponseAliasesItemMicrofronten
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListAliasesResponseAliasesItemMicrofrontendsDefaultApp {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-}
-
-impl ListAliasesResponseAliasesItemMicrofrontendsDefaultApp {
-    pub fn new(project_id: String) -> Self {
-        Self { project_id }
-    }
-}
-
-/// The microfrontends for the alias including the routing configuration
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListAliasesResponseAliasesItemMicrofrontends {
-    pub applications: ListAliasesResponseAliasesItemMicrofrontendsApplications,
-    #[serde(rename = "defaultApp")]
-    pub default_app: ListAliasesResponseAliasesItemMicrofrontendsDefaultApp,
-}
-
-impl ListAliasesResponseAliasesItemMicrofrontends {
-    pub fn new(
-        applications: ListAliasesResponseAliasesItemMicrofrontendsApplications,
-        default_app: ListAliasesResponseAliasesItemMicrofrontendsDefaultApp,
+impl ::std::convert::From<Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant0Item>>
+    for ListAliasesResponseAliasesItemMicrofrontendsApplications
+{
+    fn from(
+        value: Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant0Item>,
     ) -> Self {
-        Self {
-            applications,
-            default_app,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListAliasesResponseAliasesItemProtectionBypassValueVariant0ScopeEnum {
-    #[serde(rename = "shareable-link")]
-    #[default]
-    ShareableLink,
-}
-
-impl ListAliasesResponseAliasesItemProtectionBypassValueVariant0ScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ShareableLink => "shareable-link",
-        }
+        Self::Variant0ItemArray(value)
     }
 }

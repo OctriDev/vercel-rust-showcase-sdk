@@ -3,36 +3,65 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enterprise" => Self::Enterprise,
+            "hobby" => Self::Hobby,
+            "pro" => Self::Pro,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -42,7 +71,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesVercelR
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum
+    for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -50,142 +79,45 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum>,
-    pub active: bool,
-}
-
-impl DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRules {
-    pub ai_bots: DeleteProjectAvatarResponseSecurityManagedRulesAiBots,
-    pub bot_filter: DeleteProjectAvatarResponseSecurityManagedRulesBotFilter,
-    pub owasp: DeleteProjectAvatarResponseSecurityManagedRulesOwasp,
-    pub traffic_sources: DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources,
-    pub vercel_ruleset: DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset,
-}
-
-impl DeleteProjectAvatarResponseSecurityManagedRules {
-    pub fn new(
-        ai_bots: DeleteProjectAvatarResponseSecurityManagedRulesAiBots,
-        bot_filter: DeleteProjectAvatarResponseSecurityManagedRulesBotFilter,
-        owasp: DeleteProjectAvatarResponseSecurityManagedRulesOwasp,
-        traffic_sources: DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources,
-        vercel_ruleset: DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset,
-    ) -> Self {
-        Self {
-            ai_bots,
-            bot_filter,
-            owasp,
-            traffic_sources,
-            vercel_ruleset,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     #[default]
-    Unknown2,
+    Promoted,
+    Rolling,
+    Staged,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -195,7 +127,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueLogHea
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum
+    for DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -203,69 +135,37 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     #[default]
-    FixedWindow,
-    TokenBucket,
+    Lambdas,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::FixedWindow => "fixed_window",
-            Self::TokenBucket => "token_bucket",
+            Self::Lambdas => "LAMBDAS",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -274,32 +174,21 @@ impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueRateLi
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum
-{
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
+            "LAMBDAS" => Self::Lambdas,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityRulesetsValueRateLimit {
-    pub algo: DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
 }

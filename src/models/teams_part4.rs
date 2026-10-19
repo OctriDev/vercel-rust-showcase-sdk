@@ -3,6 +3,13 @@
 
 // teams domain models (part 4)
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum TeamMembershipJoinedFromGitUserId {
+    String(String),
+    Number(f64),
+}
+
 impl<'de> serde::Deserialize<'de> for TeamMembershipJoinedFromGitUserId {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -26,6 +33,18 @@ impl<'de> serde::Deserialize<'de> for TeamMembershipJoinedFromGitUserId {
                 "no TeamMembershipJoinedFromGitUserId branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for TeamMembershipJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for TeamMembershipJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -456,29 +475,4 @@ pub struct TeamMembership {
     /// Optional `string` value serialized in the `uid` wire field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid: Option<String>,
-}
-
-impl TeamMembership {
-    pub fn new(
-        confirmed: bool,
-        created: f64,
-        created_at: f64,
-        role: TeamMembershipRoleEnum,
-    ) -> Self {
-        Self {
-            access_requested_at: None,
-            confirmed,
-            created,
-            created_at,
-            entitlements: None,
-            is_org_backing_team_membership: None,
-            joined_from: None,
-            organization_id: None,
-            role,
-            team_id: None,
-            team_permissions: None,
-            team_roles: None,
-            uid: None,
-        }
-    }
 }

@@ -3,6 +3,49 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant0ItemSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
+        Self {
+            location,
+            permanent,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant0ItemSecurityRulesetsValue {
+    pub action: ListProjectsResponseVariant0ItemSecurityRulesetsValueActionEnum,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeaders>,
+    #[serde(
+        rename = "rateLimit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rate_limit: Option<Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueRateLimit>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueRedirect>>,
+}
+
 impl ListProjectsResponseVariant0ItemSecurityRulesetsValue {
     pub fn new(action: ListProjectsResponseVariant0ItemSecurityRulesetsValueActionEnum) -> Self {
         Self {
@@ -259,49 +302,4 @@ pub enum ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
     Preview,
     ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
-}
-
-impl ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

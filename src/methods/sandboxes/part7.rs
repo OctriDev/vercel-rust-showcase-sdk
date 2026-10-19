@@ -4,6 +4,163 @@
 use super::*;
 use crate::types::{Session, Snapshot};
 
+/// Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse {
+    /// HTTP status code returned to the sandbox.
+    #[serde(rename = "statusCode")]
+    pub status_code: i64,
+    /// HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<std::collections::HashMap<String, String>>,
+    /// UTF-8 response body. Requires `contentType`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    /// Value of the `Content-Type` response header. Required when `body` is set.
+    #[serde(rename = "contentType", skip_serializing_if = "Option::is_none")]
+    pub content_type: Option<String>,
+}
+
+impl UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_range(
+            "statusCode",
+            self.status_code as f64,
+            crate::validation::RangeOpts {
+                min: Some(200_f64),
+                max: Some(599_f64),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(status_code: i64) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            status_code,
+            headers: None,
+            body: None,
+            content_type: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem {
+    /// Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+    #[serde(rename = "match", skip_serializing_if = "Option::is_none")]
+    pub match_: Option<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemMatch>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub transform:
+        Option<Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemTransformItem>>,
+    /// HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
+    #[serde(rename = "forwardURL", skip_serializing_if = "Option::is_none")]
+    pub forward_url: Option<String>,
+    /// Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response: Option<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse>,
+}
+
+impl UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            match_: None,
+            transform: None,
+            forward_url: None,
+            response: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateSessionNetworkPolicyVariant1Allow {
+    StringArray(Vec<String>),
+    Variant1ValueItemArrayMap(
+        std::collections::HashMap<
+            String,
+            Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateSessionNetworkPolicyVariant1Allow {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            std::collections::HashMap<
+                String,
+                Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
+            >,
+        >(value.clone())
+        {
+            let candidate = Self::Variant1ValueItemArrayMap(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no UpdateSessionNetworkPolicyVariant1Allow branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for UpdateSessionNetworkPolicyVariant1Allow {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        std::collections::HashMap<
+            String,
+            Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    > for UpdateSessionNetworkPolicyVariant1Allow
+{
+    fn from(
+        value: std::collections::HashMap<
+            String,
+            Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ) -> Self {
+        Self::Variant1ValueItemArrayMap(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant1Subnets {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deny: Option<Vec<String>>,
+}
+
+impl UpdateSessionNetworkPolicyVariant1Subnets {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            allow: None,
+            deny: None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateSessionNetworkPolicyVariant1 {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -54,6 +211,18 @@ impl<'de> serde::Deserialize<'de> for UpdateSessionNetworkPolicy {
         lossy.ok_or_else(|| {
             serde::de::Error::custom("no UpdateSessionNetworkPolicy branch accepts this payload")
         })
+    }
+}
+
+impl ::std::convert::From<Box<UpdateSessionNetworkPolicyVariant0>> for UpdateSessionNetworkPolicy {
+    fn from(value: Box<UpdateSessionNetworkPolicyVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateSessionNetworkPolicyVariant1>> for UpdateSessionNetworkPolicy {
+    fn from(value: Box<UpdateSessionNetworkPolicyVariant1>) -> Self {
+        Self::Object2(value)
     }
 }
 
@@ -185,123 +354,4 @@ pub struct CreateSandboxesByNameForkV2MountsValue {
     /// Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<CreateSandboxesByNameForkV2MountsValueModeEnum>,
-}
-
-impl CreateSandboxesByNameForkV2MountsValue {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "drive",
-            &self.drive,
-            crate::validation::LengthOpts {
-                max: Some(64),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_pattern("drive", &self.drive, "^[a-zA-Z0-9_-]+$")?;
-        Ok(())
-    }
-
-    pub fn new(drive: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { drive, mode: None };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateSandboxesByNameForkV2FailoverRegionsItemEnum {
-    #[default]
-    Iad1,
-    Sfo1,
-    Cle1,
-    Cdg1,
-    Fra1,
-    Arn1,
-    Sin1,
-    Pdx1,
-    Lhr1,
-    Icn1,
-    Bom1,
-    Cpt1,
-    Dub1,
-    Gru1,
-    Hkg1,
-    Syd1,
-    Yul1,
-    Hnd1,
-    Kix1,
-    Unknown(String),
-}
-
-impl CreateSandboxesByNameForkV2FailoverRegionsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Iad1 => "iad1",
-            Self::Sfo1 => "sfo1",
-            Self::Cle1 => "cle1",
-            Self::Cdg1 => "cdg1",
-            Self::Fra1 => "fra1",
-            Self::Arn1 => "arn1",
-            Self::Sin1 => "sin1",
-            Self::Pdx1 => "pdx1",
-            Self::Lhr1 => "lhr1",
-            Self::Icn1 => "icn1",
-            Self::Bom1 => "bom1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
-            Self::Hnd1 => "hnd1",
-            Self::Kix1 => "kix1",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateSandboxesByNameForkV2FailoverRegionsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateSandboxesByNameForkV2FailoverRegionsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "iad1" => Self::Iad1,
-            "sfo1" => Self::Sfo1,
-            "cle1" => Self::Cle1,
-            "cdg1" => Self::Cdg1,
-            "fra1" => Self::Fra1,
-            "arn1" => Self::Arn1,
-            "sin1" => Self::Sin1,
-            "pdx1" => Self::Pdx1,
-            "lhr1" => Self::Lhr1,
-            "icn1" => Self::Icn1,
-            "bom1" => Self::Bom1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
-            "hnd1" => Self::Hnd1,
-            "kix1" => Self::Kix1,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateSandboxesByNameForkV2FailoverRegionsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

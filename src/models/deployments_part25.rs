@@ -3,358 +3,12 @@
 
 // deployments domain models (part 25)
 
-impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1SchemaEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CancelDeploymentResponseServicesItemVariant1SchemaEnum::Experimentalservicesv2 => {
-                f.write_str("experimentalServicesV2")
-            }
-        }
-    }
-}
-
-/// Services detected during build from vercel.json experimentalServices or auto-detected from project structure. Used to inject service URLs as environment variables at runtime.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseServicesItemVariant1 {
-    /// Caller-side bindings to other services.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub bindings: Option<Vec<CancelDeploymentResponseServicesItemVariant1BindingsItem>>,
-    #[serde(rename = "buildCommand", skip_serializing_if = "Option::is_none")]
-    pub build_command: Option<String>,
-    /// Builder selected by the resolver.
-    pub builder: CancelDeploymentResponseServicesItemVariant1Builder,
-    #[serde(rename = "cleanUrls", skip_serializing_if = "Option::is_none")]
-    pub clean_urls: Option<bool>,
-    /// Command override for `runtime: "container"` services.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub command: Option<Vec<String>>,
-    #[serde(rename = "devCommand", skip_serializing_if = "Option::is_none")]
-    pub dev_command: Option<String>,
-    /// Resolved entrypoint, relative to the service root.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub entrypoint: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub framework: Option<String>,
-    /// Function configuration scoped to this service.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub functions: Option<
-        std::collections::HashMap<
-            String,
-            CancelDeploymentResponseServicesItemVariant1FunctionsValue,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub headers: Option<Vec<CancelDeploymentResponseServicesItemVariant1HeadersItem>>,
-    #[serde(rename = "ignoreCommand", skip_serializing_if = "Option::is_none")]
-    pub ignore_command: Option<String>,
-    #[serde(rename = "installCommand", skip_serializing_if = "Option::is_none")]
-    pub install_command: Option<String>,
-    pub name: String,
-    #[serde(rename = "outputDirectory", skip_serializing_if = "Option::is_none")]
-    pub output_directory: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub redirects: Option<Vec<CancelDeploymentResponseServicesItemVariant1RedirectsItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rewrites: Option<Vec<CancelDeploymentResponseServicesItemVariant1RewritesItem>>,
-    /// Path to the service root, relative to the project root.
-    pub root: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub routes: Option<Vec<CancelDeploymentResponseServicesItemVariant1RoutesItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    pub schema: CancelDeploymentResponseServicesItemVariant1SchemaEnum,
-    #[serde(rename = "trailingSlash", skip_serializing_if = "Option::is_none")]
-    pub trailing_slash: Option<bool>,
-}
-
-impl CancelDeploymentResponseServicesItemVariant1 {
-    pub fn new(
-        builder: CancelDeploymentResponseServicesItemVariant1Builder,
-        name: String,
-        root: String,
-        schema: CancelDeploymentResponseServicesItemVariant1SchemaEnum,
-    ) -> Self {
-        Self {
-            bindings: None,
-            build_command: None,
-            builder,
-            clean_urls: None,
-            command: None,
-            dev_command: None,
-            entrypoint: None,
-            framework: None,
-            functions: None,
-            headers: None,
-            ignore_command: None,
-            install_command: None,
-            name,
-            output_directory: None,
-            redirects: None,
-            rewrites: None,
-            root,
-            routes: None,
-            runtime: None,
-            schema,
-            trailing_slash: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseServicesItem {
-    ExperimentalServices(Box<CancelDeploymentResponseServicesItemVariant0>),
-    ExperimentalServicesV2(Box<CancelDeploymentResponseServicesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseServicesItem {
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value
+{
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CancelDeploymentResponseServicesItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::ExperimentalServices(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CancelDeploymentResponseServicesItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::ExperimentalServicesV2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CancelDeploymentResponseServicesItem branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// The file content encoding, it could be either a base64 (useful for images, etc.) of the files or the plain text for source code.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentRequestFilesItemVariant0EncodingEnum {
-    #[default]
-    Base64,
-    Utf8,
-    Unknown(String),
-}
-
-impl CreateDeploymentRequestFilesItemVariant0EncodingEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Base64 => "base64",
-            Self::Utf8 => "utf-8",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentRequestFilesItemVariant0EncodingEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestFilesItemVariant0EncodingEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "base64" => Self::Base64,
-            "utf-8" => Self::Utf8,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentRequestFilesItemVariant0EncodingEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Used in the case you want to inline a file inside the request
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentRequestFilesItemVariant0 {
-    /// The file content, it could be either a `base64` (useful for images, etc.) of the files or the plain content for source code
-    pub data: String,
-    /// The file content encoding, it could be either a base64 (useful for images, etc.) of the files or the plain text for source code.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub encoding: Option<CreateDeploymentRequestFilesItemVariant0EncodingEnum>,
-    /// The file name including the whole path
-    pub file: String,
-}
-
-impl CreateDeploymentRequestFilesItemVariant0 {
-    pub fn new(data: String, file: String) -> Self {
-        Self {
-            data,
-            encoding: None,
-            file,
-        }
-    }
-}
-
-/// Used in the case you want to reference a file that was already uploaded
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentRequestFilesItemVariant1 {
-    /// The file path relative to the project root
-    pub file: String,
-    /// The file contents hashed with SHA1, used to check the integrity
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sha: Option<String>,
-    /// The file size in bytes
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub size: Option<i64>,
-}
-
-impl CreateDeploymentRequestFilesItemVariant1 {
-    pub fn new(file: String) -> Self {
-        Self {
-            file,
-            sha: None,
-            size: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentRequestFilesItem {
-    InlinedFile(Box<CreateDeploymentRequestFilesItemVariant0>),
-    UploadedFile(Box<CreateDeploymentRequestFilesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestFilesItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateDeploymentRequestFilesItemVariant0>>(value.clone())
-        {
-            let candidate = Self::InlinedFile(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateDeploymentRequestFilesItemVariant1>>(value.clone())
-        {
-            let candidate = Self::UploadedFile(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateDeploymentRequestFilesItem branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentRequestGitSourceVariant0TypeEnum {
-    #[default]
-    Vercel,
-    Unknown(String),
-}
-
-impl CreateDeploymentRequestGitSourceVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Vercel => "vercel",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentRequestGitSourceVariant0TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant0TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "vercel" => Self::Vercel,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentRequestGitSourceVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentRequestGitSourceVariant0 {
-    #[serde(rename = "type")]
-    pub type_: CreateDeploymentRequestGitSourceVariant0TypeEnum,
-    /// The stable Vercel Git repository ID.
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
-    pub sha: String,
-}
-
-impl CreateDeploymentRequestGitSourceVariant0 {
-    pub fn new(
-        type_: CreateDeploymentRequestGitSourceVariant0TypeEnum,
-        repo_id: String,
-        sha: String,
-    ) -> Self {
-        Self {
-            type_,
-            repo_id,
-            sha,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentRequestGitSourceVariant1RepoId {
-    Number(f64),
-    String(String),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant1RepoId {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
         if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
             let candidate = Self::String(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
@@ -362,102 +16,72 @@ impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant1Re
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateDeploymentRequestGitSourceVariant1RepoId branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentRequestGitSourceVariant1TypeEnum {
-    #[default]
-    Github,
-    Unknown(String),
-}
-
-impl CreateDeploymentRequestGitSourceVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Github => "github",
-            Self::Unknown(value) => value.as_str(),
+        if let Ok(branch) = serde_json::from_value::<Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0ValueVariant1>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value branch accepts this payload"))
     }
 }
 
-impl serde::Serialize for CreateDeploymentRequestGitSourceVariant1TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<String>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant1TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "github" => Self::Github,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentRequestGitSourceVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0ValueVariant1>> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value {
+    fn from(value: Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0ValueVariant1>) -> Self {
+        Self::Object(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentRequestGitSourceVariant1 {
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    #[serde(rename = "repoId")]
-    pub repo_id: CreateDeploymentRequestGitSourceVariant1RepoId,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sha: Option<String>,
+pub struct CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0 {
     #[serde(rename = "type")]
-    pub type_: CreateDeploymentRequestGitSourceVariant1TypeEnum,
+    pub type_:
+        CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0TypeEnum,
+    pub value:
+        CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value,
 }
 
-impl CreateDeploymentRequestGitSourceVariant1 {
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0 {
     pub fn new(
-        ref_: String,
-        repo_id: CreateDeploymentRequestGitSourceVariant1RepoId,
-        type_: CreateDeploymentRequestGitSourceVariant1TypeEnum,
+        type_: CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0TypeEnum,
+        value: CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0Value,
     ) -> Self {
-        Self {
-            ref_,
-            repo_id,
-            sha: None,
-            type_,
-        }
+        Self { type_, value }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentRequestGitSourceVariant2TypeEnum {
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum {
     #[default]
-    Github,
+    Cookie,
+    Header,
+    Query,
     Unknown(String),
 }
 
-impl CreateDeploymentRequestGitSourceVariant2TypeEnum {
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Github => "github",
+            Self::Cookie => "cookie",
+            Self::Header => "header",
+            Self::Query => "query",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateDeploymentRequestGitSourceVariant2TypeEnum {
+impl serde::Serialize
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -466,57 +90,451 @@ impl serde::Serialize for CreateDeploymentRequestGitSourceVariant2TypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant2TypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "github" => Self::Github,
+            "cookie" => Self::Cookie,
+            "header" => Self::Header,
+            "query" => Self::Query,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateDeploymentRequestGitSourceVariant2TypeEnum {
+impl std::fmt::Display
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentRequestGitSourceVariant2 {
-    pub org: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub repo: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sha: Option<String>,
-    #[serde(rename = "type")]
-    pub type_: CreateDeploymentRequestGitSourceVariant2TypeEnum,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq
+{
+    String(String),
+    Number(f64),
 }
 
-impl CreateDeploymentRequestGitSourceVariant2 {
-    pub fn new(
-        org: String,
-        ref_: String,
-        repo: String,
-        type_: CreateDeploymentRequestGitSourceVariant2TypeEnum,
-    ) -> Self {
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub eq: Option<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1Eq>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gt: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gte: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inc: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lt: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lte: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neq: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ninc: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pre: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub re: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suf: Option<String>,
+}
+
+impl
+    CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1
+{
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            org,
-            ref_,
-            repo,
-            sha: None,
-            type_,
+            eq: None,
+            gt: None,
+            gte: None,
+            inc: None,
+            lt: None,
+            lte: None,
+            neq: None,
+            ninc: None,
+            pre: None,
+            re: None,
+            suf: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateDeploymentRequestGitSourceVariant3RepoId {
-    Number(f64),
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value {
     String(String),
+    Object(Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1>> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value {
+    fn from(value: Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1ValueVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1 {
+    pub key: String,
+    #[serde(rename = "type")]
+    pub type_:
+        CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<
+        CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1Value,
+    >,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1 {
+    pub fn new(
+        key: String,
+        type_: CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            key,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItem {
+    Host(Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0>),
+    Object(Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItem
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Host(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItem branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0>,
+    > for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItem
+{
+    fn from(
+        value: Box<
+            CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant0,
+        >,
+    ) -> Self {
+        Self::Host(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1>,
+    > for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItem
+{
+    fn from(
+        value: Box<
+            CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MissingItemVariant1,
+        >,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0Mitigate {
+    pub action: CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0Mitigate {
+    pub fn new(
+        action: CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0MitigateActionEnum,
+    ) -> Self {
+        Self { action }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0Args {
+    String(String),
+    StringArray(Vec<String>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0Args
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0Args branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0Args
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0Args
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0OpEnum
+{
+    #[default]
+    Append,
+    Delete,
+    Set,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0OpEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Append => "append",
+            Self::Delete => "delete",
+            Self::Set => "set",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0OpEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0OpEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "append" => Self::Append,
+            "delete" => Self::Delete,
+            "set" => Self::Set,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0OpEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0TargetKeyVariant1Eq
+{
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0TargetKeyVariant1Eq {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1RoutesItemVariant0TransformsItemVariant0TargetKeyVariant1Eq branch accepts this payload"))
+    }
 }

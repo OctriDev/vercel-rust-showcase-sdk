@@ -225,6 +225,86 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant120Job {
     }
 }
 
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant0>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant0>) -> Self {
+        Self::BitbucketPush(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant1>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant1>) -> Self {
+        Self::BitbucketNowComment(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant2>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant2>) -> Self {
+        Self::Pr(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant3>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant3>) -> Self {
+        Self::Push(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant4>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant4>) -> Self {
+        Self::NowComment(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant5>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant5>) -> Self {
+        Self::GitlabPush(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant6>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant6>) -> Self {
+        Self::GitlabNowComment(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant7>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant7>) -> Self {
+        Self::VercelPush(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant8>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant8>) -> Self {
+        Self::CursorOriginPush(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant120JobVariant9>>
+    for UserEventPayloadVariant120Job
+{
+    fn from(value: Box<UserEventPayloadVariant120JobVariant9>) -> Self {
+        Self::CursorOriginNowComment(value)
+    }
+}
+
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UserEventPayloadVariant120 {
@@ -460,70 +540,5 @@ impl serde::Serialize for UserEventPayloadVariant124RuleNameEnum {
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant124RuleNameEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deploymentSources" => Self::Deploymentsources,
-            "gitSources" => Self::Gitsources,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant124RuleNameEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Team-level or project-level rule.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant124RuleProvenanceEnum {
-    #[default]
-    Default,
-    Project,
-    Team,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant124RuleProvenanceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Default => "default",
-            Self::Project => "project",
-            Self::Team => "team",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant124RuleProvenanceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant124RuleProvenanceEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "default" => Self::Default,
-            "project" => Self::Project,
-            "team" => Self::Team,
-            _ => Self::Unknown(value),
-        })
     }
 }

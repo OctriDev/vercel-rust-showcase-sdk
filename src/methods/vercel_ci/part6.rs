@@ -2,7 +2,107 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::ListVercelCiInvocationsResponseInvocationsItemSource;
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
+    #[serde(rename = "sandbox_named")]
+    #[default]
+    SandboxNamed,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SandboxNamed => "sandbox_named",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum::SandboxNamed => {
+                f.write_str("sandbox_named")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
+    #[serde(rename = "jobs_on_hive_clone_dispatched")]
+    #[default]
+    JobsOnHiveCloneDispatched,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::JobsOnHiveCloneDispatched => "jobs_on_hive_clone_dispatched",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum::JobsOnHiveCloneDispatched => f.write_str("jobs_on_hive_clone_dispatched"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
+    #[serde(rename = "jobs_on_hive_dispatched")]
+    #[default]
+    JobsOnHiveDispatched,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::JobsOnHiveDispatched => "jobs_on_hive_dispatched",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum::JobsOnHiveDispatched => f.write_str("jobs_on_hive_dispatched"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
+    #[serde(rename = "jobs_on_hive_completed")]
+    #[default]
+    JobsOnHiveCompleted,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::JobsOnHiveCompleted => "jobs_on_hive_completed",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum::JobsOnHiveCompleted => f.write_str("jobs_on_hive_completed"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant9Enum {
+    #[serde(rename = "jobs_on_hive_failed")]
+    #[default]
+    JobsOnHiveFailed,
+}
 
 impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant9Enum {
     pub fn as_str(&self) -> &str {
@@ -217,142 +317,10 @@ impl<'de> serde::Deserialize<'de> for ListVercelCiInvocationsResponseInvocations
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationsResponseInvocationsItem {
-    #[serde(rename = "invocationId")]
-    pub invocation_id: String,
-    pub attempt: f64,
-    #[serde(rename = "teamId")]
-    pub team_id: String,
-    /// Typed representation of the `ListVercelCiInvocationsResponseInvocationsItemSource` API schema.
-    pub source: ListVercelCiInvocationsResponseInvocationsItemSource,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "repositoryKey")]
-    pub repository_key: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    #[serde(rename = "commitSha")]
-    pub commit_sha: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub skipped: Option<ListVercelCiInvocationsResponseInvocationsItemSkipped>,
-    #[serde(
-        rename = "bootstrappingStarted",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bootstrapping_started:
-        Option<ListVercelCiInvocationsResponseInvocationsItemBootstrappingStarted>,
-    #[serde(
-        rename = "bootstrappingFailed",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bootstrapping_failed:
-        Option<ListVercelCiInvocationsResponseInvocationsItemBootstrappingFailed>,
-    #[serde(rename = "sandboxSnapshotted", skip_serializing_if = "Option::is_none")]
-    pub sandbox_snapshotted:
-        Option<ListVercelCiInvocationsResponseInvocationsItemSandboxSnapshotted>,
-    #[serde(rename = "sandboxNamed", skip_serializing_if = "Option::is_none")]
-    pub sandbox_named: Option<ListVercelCiInvocationsResponseInvocationsItemSandboxNamed>,
-    #[serde(
-        rename = "jobDefinitionsCreated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub job_definitions_created:
-        Option<ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreated>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub completed: Option<ListVercelCiInvocationsResponseInvocationsItemCompleted>,
-    /// The terminal setup result. Omitted while invocation setup is still running.
-    #[serde(rename = "setupConclusion", skip_serializing_if = "Option::is_none")]
-    pub setup_conclusion: Option<ListVercelCiInvocationsResponseInvocationsItemSetupConclusion>,
-    /// The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
-    #[serde(rename = "runConclusion", skip_serializing_if = "Option::is_none")]
-    pub run_conclusion: Option<ListVercelCiInvocationsResponseInvocationsItemRunConclusion>,
-    pub status: ListVercelCiInvocationsResponseInvocationsItemStatus,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItem {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        invocation_id: String,
-        attempt: f64,
-        team_id: String,
-        source: ListVercelCiInvocationsResponseInvocationsItemSource,
-        created_at: f64,
-        repository_key: String,
-        ref_: String,
-        commit_sha: String,
-        status: ListVercelCiInvocationsResponseInvocationsItemStatus,
-    ) -> Self {
-        Self {
-            invocation_id,
-            attempt,
-            team_id,
-            source,
-            created_at,
-            repository_key,
-            ref_,
-            commit_sha,
-            skipped: None,
-            bootstrapping_started: None,
-            bootstrapping_failed: None,
-            sandbox_snapshotted: None,
-            sandbox_named: None,
-            job_definitions_created: None,
-            completed: None,
-            setup_conclusion: None,
-            run_conclusion: None,
-            status,
-        }
+impl ::std::convert::From<Box<ListVercelCiInvocationsResponseInvocationsItemStatusVariant0Enum>>
+    for ListVercelCiInvocationsResponseInvocationsItemStatus
+{
+    fn from(value: Box<ListVercelCiInvocationsResponseInvocationsItemStatusVariant0Enum>) -> Self {
+        Self::Object(value)
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationsResponsePagination {
-    #[serde(rename = "nextCursor", skip_serializing_if = "Option::is_none")]
-    pub next_cursor: Option<String>,
-}
-
-impl ListVercelCiInvocationsResponsePagination {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { next_cursor: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationsResponse {
-    pub invocations: Vec<ListVercelCiInvocationsResponseInvocationsItem>,
-    pub repositories: serde_json::Value,
-    pub pagination: ListVercelCiInvocationsResponsePagination,
-}
-
-impl ListVercelCiInvocationsResponse {
-    pub fn new(
-        invocations: Vec<ListVercelCiInvocationsResponseInvocationsItem>,
-        repositories: serde_json::Value,
-        pagination: ListVercelCiInvocationsResponsePagination,
-    ) -> Self {
-        Self {
-            invocations,
-            repositories,
-            pagination,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiBranchesResponseBranchesItem {
-    pub name: String,
-    pub count: f64,
-}
-
-impl ListVercelCiBranchesResponseBranchesItem {
-    pub fn new(name: String, count: f64) -> Self {
-        Self { name, count }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiBranchesResponse {
-    pub branches: Vec<ListVercelCiBranchesResponseBranchesItem>,
 }

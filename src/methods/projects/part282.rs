@@ -3,79 +3,126 @@
 
 use super::*;
 
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flags-secret" => Self::FlagsSecret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Similar to `contentHints`, but should not be exposed to the user.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0InternalContentHint {
-    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
-    #[serde(rename = "encryptedValue")]
-    pub encrypted_value: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0InternalContentHint {
+impl DeleteProjectAvatarResponseTargetsValue {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        encrypted_value: String,
-        type_: CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum,
+        created_at: f64,
+        created_in: String,
+        creator: Option<DeleteProjectAvatarResponseTargetsValueCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: DeleteProjectAvatarResponseTargetsValuePlanEnum,
+        private: bool,
+        ready_state: DeleteProjectAvatarResponseTargetsValueReadyStateEnum,
+        type_: DeleteProjectAvatarResponseTargetsValueTypeEnum,
+        url: String,
     ) -> Self {
         Self {
-            encrypted_value,
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
             type_,
+            url,
+            user_id: None,
+            with_cache: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum {
+pub enum DeleteProjectAvatarResponseTierEnum {
     #[default]
-    Production,
-    Preview,
-    Development,
+    Priority,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum {
+impl DeleteProjectAvatarResponseTierEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
-            Self::Development => "development",
+            Self::Priority => "priority",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseTierEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTierEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "priority" => Self::Priority,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTierEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
+    #[default]
+    External,
+    Internal,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::External => "external",
+            Self::Internal => "internal",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -85,7 +132,7 @@ impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TargetVariant0I
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum
+    for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -93,41 +140,38 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
-            "development" => Self::Development,
+            "external" => Self::External,
+            "internal" => Self::Internal,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum {
+pub enum DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
     #[default]
-    Production,
     Preview,
-    Development,
+    Production,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum {
+impl DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Production => "production",
             Self::Preview => "preview",
-            Self::Development => "development",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum {
+impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -136,91 +180,89 @@ impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TargetVariant1E
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "production" => Self::Production,
             "preview" => Self::Preview,
-            "development" => Self::Development,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum {
+impl std::fmt::Display for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateProjectEnvResponseCreatedVariant0Target {
-    Variant0ItemEnumArray(Vec<CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum>),
-    Literal(CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTracingSamplingRulesItem {
+    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub destination: Option<DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum>,
+    pub rate: f64,
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0Target {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemEnumArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl DeleteProjectAvatarResponseTracingSamplingRulesItem {
+    pub fn new(rate: f64) -> Self {
+        Self {
+            destination: None,
+            env: None,
+            rate,
+            request_path: None,
         }
-        if let Ok(branch) = serde_json::from_value::<
-            CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTracing {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<String>,
+    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
+    pub ignore_paths: Option<Vec<String>>,
+    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
+    pub sampling_rules: Option<Vec<DeleteProjectAvatarResponseTracingSamplingRulesItem>>,
+}
+
+impl DeleteProjectAvatarResponseTracing {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            domains: None,
+            ignore_paths: None,
+            sampling_rules: None,
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateProjectEnvResponseCreatedVariant0Target branch accepts this payload",
-            )
-        })
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant0TypeEnum {
+pub enum DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
     #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
+    AllCustom,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0TypeEnum {
+impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+impl serde::Serialize
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -229,73 +271,44 @@ impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "secret" => Self::Secret,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
-    #[default]
-    Config,
-    Secret,
-    Unknown(String),
+/// The target envs on the current project that may be accessed.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset:
+        Option<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
 }
 
-impl CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Config => "config",
-            Self::Secret => "secret",
-            Self::Unknown(value) => value.as_str(),
+impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
         }
-    }
-}
-
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "config" => Self::Config,
-            "secret" => Self::Secret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

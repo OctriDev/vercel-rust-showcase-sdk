@@ -2,60 +2,8 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::UpdateProjectRequestDismissedToastsItemValue;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectDismissedToastsItem {
-    /// unique identifier for the dismissed toast
-    pub key: String,
-    /// unix timestamp representing the time the toast was dimissed
-    #[serde(rename = "dismissedAt")]
-    pub dismissed_at: f64,
-    /// Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed
-    pub action: UpdateProjectDismissedToastsItemActionEnum,
-    /// Typed representation of the `UpdateProjectRequestDismissedToastsItemValue` API schema.
-    pub value: UpdateProjectRequestDismissedToastsItemValue,
-}
-
-impl UpdateProjectDismissedToastsItem {
-    pub fn new(
-        key: String,
-        dismissed_at: f64,
-        action: UpdateProjectDismissedToastsItemActionEnum,
-        value: UpdateProjectRequestDismissedToastsItemValue,
-    ) -> Self {
-        Self {
-            key,
-            dismissed_at,
-            action,
-            value,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemConfiguredByEnum {
-    #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseAliasItemConfiguredByEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::A => "A",
-            Self::Cname => "CNAME",
-            Self::Dns01 => "dns-01",
-            Self::Http => "http",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseAliasItemConfiguredByEnum {
+impl serde::Serialize for UpdateProjectFrameworkEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -64,91 +12,117 @@ impl serde::Serialize for UpdateProjectResponseAliasItemConfiguredByEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemConfiguredByEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectFrameworkEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "A" => Self::A,
-            "CNAME" => Self::Cname,
-            "dns-01" => Self::Dns01,
-            "http" => Self::Http,
+            "container" => Self::Container,
+            "blitzjs" => Self::Blitzjs,
+            "nextjs" => Self::Nextjs,
+            "gatsby" => Self::Gatsby,
+            "remix" => Self::Remix,
+            "react-router" => Self::ReactRouter,
+            "astro" => Self::Astro,
+            "hexo" => Self::Hexo,
+            "eleventy" => Self::Eleventy,
+            "docusaurus-2" => Self::Docusaurus2,
+            "docusaurus" => Self::Docusaurus,
+            "preact" => Self::Preact,
+            "solidstart-1" => Self::Solidstart1,
+            "solidstart" => Self::Solidstart,
+            "dojo" => Self::Dojo,
+            "ember" => Self::Ember,
+            "vue" => Self::Vue,
+            "scully" => Self::Scully,
+            "ionic-angular" => Self::IonicAngular,
+            "angular" => Self::Angular,
+            "polymer" => Self::Polymer,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "ionic-react" => Self::IonicReact,
+            "create-react-app" => Self::CreateReactApp,
+            "gridsome" => Self::Gridsome,
+            "umijs" => Self::Umijs,
+            "sapper" => Self::Sapper,
+            "saber" => Self::Saber,
+            "stencil" => Self::Stencil,
+            "nuxtjs" => Self::Nuxtjs,
+            "redwoodjs" => Self::Redwoodjs,
+            "hugo" => Self::Hugo,
+            "jekyll" => Self::Jekyll,
+            "brunch" => Self::Brunch,
+            "middleman" => Self::Middleman,
+            "zola" => Self::Zola,
+            "hydrogen" => Self::Hydrogen,
+            "vite" => Self::Vite,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "vitepress" => Self::Vitepress,
+            "vuepress" => Self::Vuepress,
+            "parcel" => Self::Parcel,
+            "fastapi" => Self::Fastapi,
+            "flask" => Self::Flask,
+            "fasthtml" => Self::Fasthtml,
+            "django" => Self::Django,
+            "ash" => Self::Ash,
+            "factory-eve" => Self::FactoryEve,
+            "eve" => Self::Eve,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "storybook" => Self::Storybook,
+            "nitro" => Self::Nitro,
+            "hono" => Self::Hono,
+            "express" => Self::Express,
+            "h3" => Self::H3,
+            "koa" => Self::Koa,
+            "nestjs" => Self::Nestjs,
+            "elysia" => Self::Elysia,
+            "fastify" => Self::Fastify,
+            "xmcp" => Self::Xmcp,
+            "python" => Self::Python,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "axum" => Self::Axum,
+            "actix-web" => Self::ActixWeb,
+            "bun" => Self::Bun,
+            "node" => Self::Node,
+            "go" => Self::Go,
+            "services" => Self::Services,
+            "mastra" => Self::Mastra,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemConfiguredByEnum {
+impl std::fmt::Display for UpdateProjectFrameworkEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseAliasItemDeploymentAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentAliasAssigned {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeploymentAliasError {
-    pub code: String,
-    pub message: String,
-}
-
-impl UpdateProjectResponseAliasItemDeploymentAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+pub enum UpdateProjectResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Endswith,
-    Equals,
-    Startswith,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl UpdateProjectResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl serde::Serialize for UpdateProjectResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -157,90 +131,111 @@ impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentBranchMatcherT
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateProjectResourceConfigBuildMachineSelectionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl std::fmt::Display for UpdateProjectResourceConfigBuildMachineSelectionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl UpdateProjectResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResourceConfigBuildQueueConfigurationEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResourceConfigBuildQueueConfigurationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeploymentBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
-}
-
-impl UpdateProjectResponseAliasItemDeploymentBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: UpdateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeploymentBuildsItem {
+pub struct UpdateProjectResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
+    pub configuration: Option<UpdateProjectResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl UpdateProjectResponseAliasItemDeploymentBuildsItem {
-    pub fn new(use_: String) -> Self {
+impl UpdateProjectResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            dest: None,
-            src: None,
-            use_,
+            configuration: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+pub enum UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    StandardLegacy,
+    Standard,
+    Performance,
+    PerformanceXl,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Standard => "standard",
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl serde::Serialize for UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -249,44 +244,40 @@ impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentChecksConclusi
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "standard_legacy" => Self::StandardLegacy,
+            "standard" => Self::Standard,
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl std::fmt::Display for UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentChecksStateEnum {
+pub enum UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
     #[default]
-    Completed,
-    Registered,
-    Running,
+    OomFailure,
+    EnospcFailure,
+    BuildTimeoutFailure,
+    BasicFloor,
+    HighPeakMemory,
+    SustainedHighCpu,
+    HighPeakDisk,
+    LongBuildDuration,
+    ShortBuildDuration,
+    EnterpriseFloor,
     Unknown(String),
-}
-
-impl UpdateProjectResponseAliasItemDeploymentChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

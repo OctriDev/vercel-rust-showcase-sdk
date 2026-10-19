@@ -3,6 +3,51 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant0ItemSsoProtectionDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListProjectsResponseVariant0ItemSsoProtection {
     #[serde(
@@ -61,6 +106,18 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemTargetsVal
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant0ItemTargetsValueAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for ListProjectsResponseVariant0ItemTargetsValueAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for ListProjectsResponseVariant0ItemTargetsValueAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 
@@ -229,68 +286,4 @@ pub enum ListProjectsResponseVariant0ItemTargetsValueChecksStateEnum {
     Registered,
     Running,
     Unknown(String),
-}
-
-impl ListProjectsResponseVariant0ItemTargetsValueChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant0ItemTargetsValueChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemTargetsValueChecksStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant0ItemTargetsValueChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant0ItemTargetsValueCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
-}
-
-impl ListProjectsResponseVariant0ItemTargetsValueCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
 }

@@ -36,6 +36,18 @@ impl<'de> serde::Deserialize<'de> for ListAccessGroupsResponse {
     }
 }
 
+impl ::std::convert::From<Box<ListAccessGroupsResponseVariant1>> for ListAccessGroupsResponse {
+    fn from(value: Box<ListAccessGroupsResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for ListAccessGroupsResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 /// The project role that will be added to this Access Group. "null" will remove this project level role.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateAccessGroupProjectsItemRoleEnum {
@@ -277,36 +289,5 @@ impl ListAccessGroupProjectsResponseProjectsItemRoleEnum {
             Self::ProjectViewer => "PROJECT_VIEWER",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "ADMIN" => Self::Admin,
-            "PROJECT_DEVELOPER" => Self::ProjectDeveloper,
-            "PROJECT_GUEST" => Self::ProjectGuest,
-            "PROJECT_VIEWER" => Self::ProjectViewer,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

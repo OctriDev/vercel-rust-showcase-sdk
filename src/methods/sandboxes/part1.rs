@@ -34,6 +34,18 @@ impl<'de> serde::Deserialize<'de> for ListNamedSandboxes {
     }
 }
 
+impl ::std::convert::From<String> for ListNamedSandboxes {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for ListNamedSandboxes {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListNamedSandboxesResponsePagination {
     pub count: f64,
@@ -303,29 +315,4 @@ pub struct CreateSandboxesV2KeepLastSnapshots {
     /// Whether to immediately delete evicted snapshots. Defaults to true.
     #[serde(rename = "deleteEvicted", skip_serializing_if = "Option::is_none")]
     pub delete_evicted: Option<bool>,
-}
-
-impl CreateSandboxesV2KeepLastSnapshots {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_range(
-            "count",
-            self.count as f64,
-            crate::validation::RangeOpts {
-                min: Some(1_f64),
-                max: Some(10_f64),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(count: i64) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            count,
-            expiration: None,
-            delete_evicted: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
 }

@@ -206,6 +206,20 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseFlags {
     }
 }
 
+impl ::std::convert::From<Box<CancelDeploymentResponseFlagsVariant0>>
+    for CancelDeploymentResponseFlags
+{
+    fn from(value: Box<CancelDeploymentResponseFlagsVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Vec<serde_json::Value>> for CancelDeploymentResponseFlags {
+    fn from(value: Vec<serde_json::Value>) -> Self {
+        Self::ValueArray(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CancelDeploymentResponseFunctionsValueAffinityModeEnum {
     #[default]
@@ -276,28 +290,5 @@ impl CancelDeploymentResponseFunctionsValueArchitectureEnum {
             Self::X8664 => "x86_64",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseFunctionsValueArchitectureEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseFunctionsValueArchitectureEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "arm64" => Self::Arm64,
-            "x86_64" => Self::X8664,
-            _ => Self::Unknown(value),
-        })
     }
 }

@@ -5,6 +5,28 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
+use crate::types::ListAuthTokensResponse;
+
+/// Lists authentication tokens for the authenticated user. The response includes token records and pagination metadata for reviewing the user's tokens.
+///
+/// Retrieve a list of the current User's authentication tokens.
+pub fn list_auth_tokens(
+    config: &ClientConfig,
+    options: Option<&RequestOptions>,
+) -> Result<ListAuthTokensResponse, SdkError> {
+    Ok(sdk_request::<ListAuthTokensResponse>(
+        "GET",
+        "/v6/user/tokens",
+        config,
+        RequestOpts {
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_auth_tokens",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct CreateAuthTokenParams {

@@ -3,6 +3,17 @@
 
 // connect domain models (part 17)
 
+impl ConnectEnvironmentVariant0Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ConnectEnvironmentVariant0Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -503,17 +514,4 @@ impl ConnectTriggerDestinationInputVariant0 {
         value.validate_constraints()?;
         Ok(value)
     }
-}
-
-/// Required object value serialized in the `destinations[]` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ConnectTriggerDestinationInputVariant1 {
-    /// Project that receives matching trigger requests.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Git branch used to select a preview deployment.
-    pub branch: String,
-    /// Route path on the linked project that receives forwarded trigger requests.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
 }

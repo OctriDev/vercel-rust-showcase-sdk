@@ -4,201 +4,295 @@
 use super::*;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12 {
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1 {
     #[serde(rename = "storeId")]
     pub store_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12 {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1 {
     pub fn new(
         store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum,
     ) -> Self {
         Self { store_id, type_ }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum {
-    #[serde(rename = "postgres-database")]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum {
+    #[serde(rename = "redis-rest-api-token")]
     #[default]
-    PostgresDatabase,
+    RedisRestApiToken,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::PostgresDatabase => "postgres-database",
+            Self::RedisRestApiToken => "redis-rest-api-token",
         }
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum::PostgresDatabase => f.write_str("postgres-database"),
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum::RedisRestApiToken => f.write_str("redis-rest-api-token"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13 {
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2 {
     #[serde(rename = "storeId")]
     pub store_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13 {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2 {
     pub fn new(
         store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum,
     ) -> Self {
         Self { store_id, type_ }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum {
-    #[serde(rename = "postgres-url-no-ssl")]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum {
+    #[serde(rename = "redis-rest-api-read-only-token")]
     #[default]
-    PostgresUrlNoSsl,
+    RedisRestApiReadOnlyToken,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
+            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
         }
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum::PostgresUrlNoSsl => f.write_str("postgres-url-no-ssl"),
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => f.write_str("redis-rest-api-read-only-token"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14 {
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3 {
     #[serde(rename = "storeId")]
     pub store_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14 {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3 {
     pub fn new(
         store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum,
     ) -> Self {
         Self { store_id, type_ }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum {
-    #[serde(rename = "integration-store-secret")]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum {
+    #[serde(rename = "blob-read-write-token")]
     #[default]
-    IntegrationStoreSecret,
+    BlobReadWriteToken,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::IntegrationStoreSecret => "integration-store-secret",
+            Self::BlobReadWriteToken => "blob-read-write-token",
         }
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum::IntegrationStoreSecret => f.write_str("integration-store-secret"),
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum::BlobReadWriteToken => f.write_str("blob-read-write-token"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15 {
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    #[serde(rename = "integrationProductId")]
-    pub integration_product_id: String,
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4 {
     #[serde(rename = "storeId")]
     pub store_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15 {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4 {
     pub fn new(
-        integration_configuration_id: String,
-        integration_id: String,
-        integration_product_id: String,
         store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum,
     ) -> Self {
-        Self {
-            integration_configuration_id,
-            integration_id,
-            integration_product_id,
-            store_id,
-            type_,
-        }
+        Self { store_id, type_ }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum {
-    #[serde(rename = "flags-connection-string")]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum {
+    #[serde(rename = "blob-store-id")]
     #[default]
-    FlagsConnectionString,
+    BlobStoreId,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::FlagsConnectionString => "flags-connection-string",
+            Self::BlobStoreId => "blob-store-id",
         }
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum::FlagsConnectionString => f.write_str("flags-connection-string"),
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum::BlobStoreId => f.write_str("blob-store-id"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16 {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16 {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5 {
     pub fn new(
-        project_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16TypeEnum,
+        store_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum,
     ) -> Self {
-        Self { project_id, type_ }
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum {
+    #[serde(rename = "blob-webhook-public-key")]
+    #[default]
+    BlobWebhookPublicKey,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobWebhookPublicKey => "blob-webhook-public-key",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum::BlobWebhookPublicKey => f.write_str("blob-webhook-public-key"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6 {
+    pub fn new(
+        store_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant6TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum {
+    #[serde(rename = "postgres-url")]
+    #[default]
+    PostgresUrl,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrl => "postgres-url",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum::PostgresUrl => f.write_str("postgres-url"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7 {
+    pub fn new(
+        store_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant7TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant8TypeEnum {
+    #[serde(rename = "postgres-url-non-pooling")]
+    #[default]
+    PostgresUrlNonPooling,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant8TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrlNonPooling => "postgres-url-non-pooling",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant8TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant8TypeEnum::PostgresUrlNonPooling => f.write_str("postgres-url-non-pooling"),
+        }
     }
 }

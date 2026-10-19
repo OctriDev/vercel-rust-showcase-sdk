@@ -3,319 +3,296 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItem {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant3 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant3 {
     pub fn new(
-        created_at: f64,
-        id: String,
-        slug: String,
-        type_: UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum,
-        updated_at: f64,
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum,
     ) -> Self {
-        Self {
-            branch_matcher: None,
-            created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
-            id,
-            slug,
-            type_,
-            updated_at,
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum {
+    #[serde(rename = "blob-read-write-token")]
+    #[default]
+    BlobReadWriteToken,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobReadWriteToken => "blob-read-write-token",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum::BlobReadWriteToken => {
+                f.write_str("blob-read-write-token")
+            }
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDataCache {
-    #[serde(
-        rename = "storageSizeBytes",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub storage_size_bytes: Option<Option<f64>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub unlimited: Option<bool>,
-    #[serde(rename = "userDisabled")]
-    pub user_disabled: bool,
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant4 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum,
 }
 
-impl UpdateMicrofrontendsResponseDataCache {
-    pub fn new(user_disabled: bool) -> Self {
-        Self {
-            storage_size_bytes: None,
-            unlimited: None,
-            user_disabled,
-        }
+impl RemoveProjectEnvResponseVariant2ContentHintVariant4 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant4TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum {
+    #[serde(rename = "blob-store-id")]
     #[default]
-    BasicFloor,
-    BuildTimeoutFailure,
-    EnospcFailure,
-    EnterpriseFloor,
-    HighPeakDisk,
-    HighPeakMemory,
-    LongBuildDuration,
-    OomFailure,
-    ShortBuildDuration,
-    SustainedHighCpu,
-    Unknown(String),
+    BlobStoreId,
 }
 
-impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+impl RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::BasicFloor => "basic-floor",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::OomFailure => "oom-failure",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::SustainedHighCpu => "sustained-high-cpu",
-            Self::Unknown(value) => value.as_str(),
+            Self::BlobStoreId => "blob-store-id",
         }
     }
 }
 
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic-floor" => Self::BasicFloor,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "long-build-duration" => Self::LongBuildDuration,
-            "oom-failure" => Self::OomFailure,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum
-{
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    #[default]
-    Downgrade,
-    Upgrade,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    pub fn as_str(&self) -> &str {
         match self {
-            Self::Downgrade => "downgrade",
-            Self::Upgrade => "upgrade",
-            Self::Unknown(value) => value.as_str(),
+            RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum::BlobStoreId => {
+                f.write_str("blob-store-id")
+            }
         }
-    }
-}
-
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "downgrade" => Self::Downgrade,
-            "upgrade" => Self::Upgrade,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransition {
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-    pub at: f64,
-    pub direction:
-        UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant5 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum,
 }
 
-impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransition {
+impl RemoveProjectEnvResponseVariant2ContentHintVariant5 {
     pub fn new(
-        algorithm_version: String,
-        at: f64,
-        direction: UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant5TypeEnum,
     ) -> Self {
-        Self {
-            algorithm_version,
-            at,
-            direction,
-        }
+        Self { store_id, type_ }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum {
+    #[serde(rename = "blob-webhook-public-key")]
     #[default]
-    Elastic,
-    Fixed,
-    Unknown(String),
+    BlobWebhookPublicKey,
 }
 
-impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum {
+impl RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
-            Self::Unknown(value) => value.as_str(),
+            Self::BlobWebhookPublicKey => "blob-webhook-public-key",
         }
     }
 }
 
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "elastic" => Self::Elastic,
-            "fixed" => Self::Fixed,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum
-{
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum::BlobWebhookPublicKey => {
+                f.write_str("blob-webhook-public-key")
+            }
+        }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum {
-    #[default]
-    Basic,
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant6 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum,
 }
 
-impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum {
+impl RemoveProjectEnvResponseVariant2ContentHintVariant6 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant6TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum {
+    #[serde(rename = "postgres-url")]
+    #[default]
+    PostgresUrl,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Basic => "basic",
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
+            Self::PostgresUrl => "postgres-url",
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum::PostgresUrl => {
+                f.write_str("postgres-url")
+            }
+        }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant7 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant7 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant7TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum {
+    #[serde(rename = "postgres-url-non-pooling")]
     #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
-    Unknown(String),
+    PostgresUrlNonPooling,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrlNonPooling => "postgres-url-non-pooling",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum::PostgresUrlNonPooling => {
+                f.write_str("postgres-url-non-pooling")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant8 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant8 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant8TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum {
+    #[serde(rename = "postgres-prisma-url")]
+    #[default]
+    PostgresPrismaUrl,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresPrismaUrl => "postgres-prisma-url",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum::PostgresPrismaUrl => {
+                f.write_str("postgres-prisma-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant9 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant9 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant9TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant10TypeEnum {
+    #[serde(rename = "postgres-user")]
+    #[default]
+    PostgresUser,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant10TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUser => "postgres-user",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant10TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant10TypeEnum::PostgresUser => {
+                f.write_str("postgres-user")
+            }
+        }
+    }
 }

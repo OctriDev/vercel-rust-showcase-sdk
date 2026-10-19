@@ -3,329 +3,327 @@
 
 use super::*;
 
-impl CreateProjectResourceConfigBuildMachineElasticReasonEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::OomFailure => "oom-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::BasicFloor => "basic-floor",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::SustainedHighCpu => "sustained-high-cpu",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "oom-failure" => Self::OomFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "basic-floor" => Self::BasicFloor,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "long-build-duration" => Self::LongBuildDuration,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    #[default]
-    Upgrade,
-    Downgrade,
-    Unknown(String),
-}
-
-impl CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Upgrade => "upgrade",
-            Self::Downgrade => "downgrade",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "upgrade" => Self::Upgrade,
-            "downgrade" => Self::Downgrade,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResourceConfigBuildMachineElasticTransition {
-    pub at: f64,
-    pub direction: CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-}
-
-impl CreateProjectResourceConfigBuildMachineElasticTransition {
-    pub fn new(
-        at: f64,
-        direction: CreateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
-        algorithm_version: String,
-    ) -> Self {
-        Self {
-            at,
-            direction,
-            algorithm_version,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigBuildQueueConfigurationEnum {
-    #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
-    Unknown(String),
-}
-
-impl CreateProjectResourceConfigBuildQueueConfigurationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResourceConfigBuildQueueConfigurationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResourceConfigBuildQueueConfigurationEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigBuildQueueConfigurationEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResourceConfigBuildQueue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub configuration: Option<CreateProjectResourceConfigBuildQueueConfigurationEnum>,
-}
-
-impl CreateProjectResourceConfigBuildQueue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            configuration: None,
-        }
-    }
-}
-
-/// Specifies resource override configuration for the project
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResourceConfig {
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<CreateProjectResourceConfigBuildMachineTypeEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    /// The regions to deploy Vercel Functions to for this project
-    #[serde(
-        rename = "functionDefaultRegions",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_regions: Option<Vec<String>>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum>,
-    /// Specifies whether Zero Config Failover is enabled for this project.
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection: Option<CreateProjectResourceConfigBuildMachineSelectionEnum>,
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<CreateProjectResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<CreateProjectResourceConfigBuildMachineElasticTransition>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<CreateProjectResourceConfigBuildQueue>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
-}
-
-impl CreateProjectResourceConfig {
+impl GetProjectTraceResponseTraceSpansItem {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.function_default_regions.as_ref() {
-            crate::validation::validate_items(
-                "functionDefaultRegions",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    ..Default::default()
-                },
-            )?;
-        }
-        if let Some(value) = self.function_default_timeout.as_ref() {
-            crate::validation::validate_range(
-                "functionDefaultTimeout",
-                *value,
-                crate::validation::RangeOpts {
-                    min: Some(1_f64),
-                    max: Some(900_f64),
-                    ..Default::default()
-                },
-            )?;
-        }
+        crate::validation::validate_items(
+            "duration",
+            self.duration.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(2),
+                max: Some(2),
+            },
+        )?;
+        crate::validation::validate_items(
+            "endTime",
+            self.end_time.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(2),
+                max: Some(2),
+            },
+        )?;
+        crate::validation::validate_items(
+            "startTime",
+            self.start_time.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(2),
+                max: Some(2),
+            },
+        )?;
         Ok(())
     }
 
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        attributes: std::collections::HashMap<String, serde_json::Value>,
+        duration: Vec<f64>,
+        end_time: Vec<f64>,
+        events: Vec<GetProjectTraceResponseTraceSpansItemEventsItem>,
+        kind: f64,
+        library: GetProjectTraceResponseTraceSpansItemLibrary,
+        links: Vec<std::collections::HashMap<String, serde_json::Value>>,
+        name: String,
+        resource: String,
+        span_id: String,
+        start_time: Vec<f64>,
+        status: GetProjectTraceResponseTraceSpansItemStatus,
+        trace_flags: f64,
+    ) -> Result<Self, crate::errors::SdkError> {
         let value = Self {
-            build_machine_type: None,
-            fluid: None,
-            function_default_regions: None,
-            function_default_timeout: None,
-            function_default_memory_type: None,
-            function_zero_config_failover: None,
-            elastic_concurrency_enabled: None,
-            build_machine_selection: None,
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            is_nsnb_disabled: None,
-            build_queue: None,
-            enable_functions_beta: None,
+            attributes,
+            duration,
+            end_time,
+            events,
+            kind,
+            library,
+            links,
+            name,
+            parent_span_id: None,
+            resource,
+            span_id,
+            start_time,
+            status,
+            trace_flags,
+            trace_state: None,
         };
         value.validate_constraints()?;
         Ok(value)
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponseTrace {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resources: Option<Vec<GetProjectTraceResponseTraceResourcesItem>>,
+    #[serde(rename = "rootSpanId", skip_serializing_if = "Option::is_none")]
+    pub root_span_id: Option<String>,
+    pub spans: Vec<GetProjectTraceResponseTraceSpansItem>,
+    #[serde(rename = "traceId")]
+    pub trace_id: String,
+}
+
+impl GetProjectTraceResponseTrace {
+    pub fn new(spans: Vec<GetProjectTraceResponseTraceSpansItem>, trace_id: String) -> Self {
+        Self {
+            resources: None,
+            root_span_id: None,
+            spans,
+            trace_id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponse {
+    pub trace: GetProjectTraceResponseTrace,
+}
+
+impl GetProjectTraceResponse {
+    pub fn new(trace: GetProjectTraceResponseTrace) -> Self {
+        Self { trace }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseAliasItemConfiguredByEnum {
+pub enum CreateProjectEnvironmentVariablesItemTargetVariant0Enum {
     #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
+    Production,
+    Preview,
+    Development,
     Unknown(String),
 }
 
-impl CreateProjectResponseAliasItemConfiguredByEnum {
+impl CreateProjectEnvironmentVariablesItemTargetVariant0Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::A => "A",
-            Self::Cname => "CNAME",
-            Self::Dns01 => "dns-01",
-            Self::Http => "http",
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
             Self::Unknown(value) => value.as_str(),
         }
     }
+}
+
+impl serde::Serialize for CreateProjectEnvironmentVariablesItemTargetVariant0Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvironmentVariablesItemTargetVariant0Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "production" => Self::Production,
+            "preview" => Self::Preview,
+            "development" => Self::Development,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvironmentVariablesItemTargetVariant0Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum {
+    #[default]
+    Production,
+    Preview,
+    Development,
+    Unknown(String),
+}
+
+impl CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "production" => Self::Production,
+            "preview" => Self::Preview,
+            "development" => Self::Development,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateProjectEnvironmentVariablesItemTarget {
+    Literal(CreateProjectEnvironmentVariablesItemTargetVariant0Enum),
+    Variant1ItemEnumArray(Vec<CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvironmentVariablesItemTarget {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            CreateProjectEnvironmentVariablesItemTargetVariant0Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Vec<CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum>,
+        >(value.clone())
+        {
+            let candidate = Self::Variant1ItemEnumArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateProjectEnvironmentVariablesItemTarget branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<CreateProjectEnvironmentVariablesItemTargetVariant0Enum>
+    for CreateProjectEnvironmentVariablesItemTarget
+{
+    fn from(value: CreateProjectEnvironmentVariablesItemTargetVariant0Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+impl ::std::convert::From<Vec<CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum>>
+    for CreateProjectEnvironmentVariablesItemTarget
+{
+    fn from(value: Vec<CreateProjectEnvironmentVariablesItemTargetVariant1ItemEnum>) -> Self {
+        Self::Variant1ItemEnumArray(value)
+    }
+}
+
+/// Type of the ENV variable
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvironmentVariablesItemTypeEnum {
+    #[default]
+    System,
+    Encrypted,
+    Plain,
+    Sensitive,
+    Unknown(String),
+}
+
+impl CreateProjectEnvironmentVariablesItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Sensitive => "sensitive",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvironmentVariablesItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvironmentVariablesItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "system" => Self::System,
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "sensitive" => Self::Sensitive,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvironmentVariablesItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectEnvironmentVariablesItem {
+    /// Name of the ENV variable
+    pub key: String,
+    /// Deployment Target or Targets in which the ENV variable will be used
+    pub target: CreateProjectEnvironmentVariablesItemTarget,
+    /// If defined, the git branch of the environment variable (must have target=preview)
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    /// Type of the ENV variable
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<CreateProjectEnvironmentVariablesItemTypeEnum>,
+    /// Value for the ENV variable
+    pub value: String,
 }

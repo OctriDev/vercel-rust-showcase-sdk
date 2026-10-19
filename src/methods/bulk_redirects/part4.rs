@@ -8,6 +8,44 @@ use crate::errors::{SdkError, SdkNetworkError};
 use crate::types::DeleteRedirectsResponse;
 use crate::validation::{validate_items, validate_length, validate_range, LengthOpts, RangeOpts};
 
+impl serde::Serialize for GetRedirectsEnume81375c7 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetRedirectsEnume81375c7 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "asc" => Self::Asc,
+            "desc" => Self::Desc,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetRedirectsEnume81375c7 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateVersionActionEnum {
+    #[default]
+    Discard,
+    Promote,
+    Restore,
+    Unknown(String),
+}
+
 impl UpdateVersionActionEnum {
     pub fn as_str(&self) -> &str {
         match self {

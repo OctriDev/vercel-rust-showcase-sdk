@@ -3,6 +3,54 @@
 
 use super::*;
 
+impl serde::Serialize for ListVercelCiInvocationsItemEnum146c1f41 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListVercelCiInvocationsItemEnum146c1f41 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "succeeded" => Self::Succeeded,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListVercelCiInvocationsItemEnum146c1f41 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListVercelCiInvocationsItemEnumead06394 {
+    #[default]
+    VercelCi,
+    VercelNativeChecks,
+    Unknown(String),
+}
+
+impl ListVercelCiInvocationsItemEnumead06394 {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::VercelCi => "vercel-ci",
+            Self::VercelNativeChecks => "vercel-native-checks",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ListVercelCiInvocationsItemEnumead06394 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -226,78 +274,44 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreated {
-    pub names: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSource>,
-    #[serde(rename = "scheduledAt", skip_serializing_if = "Option::is_none")]
-    pub scheduled_at: Option<f64>,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreated {
-    pub fn new(names: Vec<String>) -> Self {
-        Self {
-            names,
-            source: None,
-            scheduled_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant0Enum {
-    #[serde(rename = "succeeded")]
-    #[default]
-    Succeeded,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Succeeded => "succeeded",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant0Enum
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant0Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSource
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant0Enum::Succeeded => f.write_str("succeeded"),
-        }
+    fn from(
+        value: Box<
+            ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant0Enum,
+        >,
+    ) -> Self {
+        Self::Object(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant1Enum {
-    #[serde(rename = "failed")]
-    #[default]
-    Failed,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Failed => "failed",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant1Enum
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant1Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSource
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant1Enum::Failed => f.write_str("failed"),
-        }
+    fn from(
+        value: Box<
+            ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant1Enum,
+        >,
+    ) -> Self {
+        Self::Object2(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemCompletedConclusionVariant2Enum {
-    #[serde(rename = "skipped")]
-    #[default]
-    Skipped,
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant2Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSource
+{
+    fn from(
+        value: Box<
+            ListVercelCiInvocationsResponseInvocationsItemJobDefinitionsCreatedSourceVariant2Enum,
+        >,
+    ) -> Self {
+        Self::Object3(value)
+    }
 }

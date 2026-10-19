@@ -3,6 +3,24 @@
 
 // vercel_ci domain models (part 4)
 
+impl ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Skipped => "skipped",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum::Skipped => f.write_str("skipped"),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2 {
     pub result: ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum,
@@ -207,6 +225,18 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1Target branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1TargetVariant0Enum>> for ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1Target {
+    fn from(value: Box<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1TargetVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1TargetVariant1Enum>> for ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1Target {
+    fn from(value: Box<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperationVariant1TargetVariant1Enum>) -> Self {
+        Self::Object2(value)
     }
 }
 
@@ -487,42 +517,4 @@ pub enum SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0Res
     #[serde(rename = "succeeded")]
     #[default]
     Succeeded,
-}
-
-impl SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Succeeded => "succeeded",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum::Succeeded => f.write_str("succeeded"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0 {
-    pub result: SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum,
-}
-
-impl SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0 {
-    pub fn new(
-        result: SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum,
-    ) -> Self {
-        Self { result }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant1ResultEnum {
-    #[serde(rename = "cached")]
-    #[default]
-    Cached,
 }

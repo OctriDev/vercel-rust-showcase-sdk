@@ -3,6 +3,209 @@
 
 // feature_flags domain models (part 8)
 
+/// Typed representation of the `Segment` API schema.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct Segment {
+    /// Required `number` value serialized in the `createdAt` wire field.
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Optional `string` value serialized in the `createdBy` wire field.
+    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
+    /// Required object value serialized in the `data` wire field.
+    pub data: SegmentData,
+    /// Optional `string` value serialized in the `description` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Required `string` value serialized in the `hint` wire field.
+    pub hint: String,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Required `string` value serialized in the `label` wire field.
+    pub label: String,
+    /// Required `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    /// Required `string` value serialized in the `slug` wire field.
+    pub slug: String,
+    /// Required enumerated value serialized in the `typeName` wire field.
+    #[serde(rename = "typeName")]
+    pub type_name: SegmentTypeNameEnum,
+    /// Required `number` value serialized in the `updatedAt` wire field.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+    /// Optional array value serialized in the `usedByFlags` wire field.
+    #[serde(rename = "usedByFlags", skip_serializing_if = "Option::is_none")]
+    pub used_by_flags: Option<Vec<String>>,
+    /// Optional array value serialized in the `usedBySegments` wire field.
+    #[serde(rename = "usedBySegments", skip_serializing_if = "Option::is_none")]
+    pub used_by_segments: Option<Vec<String>>,
+    /// Optional object value serialized in the `metadata` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<SegmentMetadata>,
+}
+
+impl Segment {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        data: SegmentData,
+        hint: String,
+        id: String,
+        label: String,
+        project_id: String,
+        slug: String,
+        type_name: SegmentTypeNameEnum,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            created_at,
+            created_by: None,
+            data,
+            description: None,
+            hint,
+            id,
+            label,
+            project_id,
+            slug,
+            type_name,
+            updated_at,
+            used_by_flags: None,
+            used_by_segments: None,
+            metadata: None,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum {
+    #[serde(rename = "segment")]
+    #[default]
+    Segment,
+}
+
+impl SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Segment => "segment",
+        }
+    }
+}
+
+impl std::fmt::Display for SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum::Segment => {
+                f.write_str("segment")
+            }
+        }
+    }
+}
+
+/// Required object value serialized in the `lhs` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct SegmentDataRulesItemConditionsItemLhsVariant0 {
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum,
+}
+
+impl SegmentDataRulesItemConditionsItemLhsVariant0 {
+    pub fn new(type_: SegmentDataRulesItemConditionsItemLhsVariant0TypeEnum) -> Self {
+        Self { type_ }
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum {
+    #[serde(rename = "entity")]
+    #[default]
+    Entity,
+}
+
+impl SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Entity => "entity",
+        }
+    }
+}
+
+impl std::fmt::Display for SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum::Entity => f.write_str("entity"),
+        }
+    }
+}
+
+/// Required object value serialized in the `lhs` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct SegmentDataRulesItemConditionsItemLhsVariant1 {
+    /// Required `string` value serialized in the `attribute` wire field.
+    pub attribute: String,
+    /// Required `string` value serialized in the `kind` wire field.
+    pub kind: String,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum,
+}
+
+impl SegmentDataRulesItemConditionsItemLhsVariant1 {
+    pub fn new(
+        attribute: String,
+        kind: String,
+        type_: SegmentDataRulesItemConditionsItemLhsVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            attribute,
+            kind,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum SegmentDataRulesItemConditionsItemLhs {
+    Segment(Box<SegmentDataRulesItemConditionsItemLhsVariant0>),
+    Entity(Box<SegmentDataRulesItemConditionsItemLhsVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for SegmentDataRulesItemConditionsItemLhs {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<SegmentDataRulesItemConditionsItemLhsVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Segment(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<SegmentDataRulesItemConditionsItemLhsVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Entity(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no SegmentDataRulesItemConditionsItemLhs branch accepts this payload",
+            )
+        })
+    }
+}
+
 /// Required object value serialized in the `items[]` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct SegmentDataRulesItemConditionsItemRhsVariant2ItemsItemVariant0 {
@@ -81,6 +284,22 @@ impl<'de> serde::Deserialize<'de> for SegmentDataRulesItemConditionsItemRhsVaria
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no SegmentDataRulesItemConditionsItemRhsVariant2ItemsItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<SegmentDataRulesItemConditionsItemRhsVariant2ItemsItemVariant0>>
+    for SegmentDataRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(value: Box<SegmentDataRulesItemConditionsItemRhsVariant2ItemsItemVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<SegmentDataRulesItemConditionsItemRhsVariant2ItemsItemVariant1>>
+    for SegmentDataRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(value: Box<SegmentDataRulesItemConditionsItemRhsVariant2ItemsItemVariant1>) -> Self {
+        Self::Object2(value)
     }
 }
 
@@ -294,218 +513,4 @@ pub enum SegmentDataRulesItemOutcomeVariant1BaseTypeEnum {
     #[default]
     Entity,
     Unknown(String),
-}
-
-impl SegmentDataRulesItemOutcomeVariant1BaseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Entity => "entity",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for SegmentDataRulesItemOutcomeVariant1BaseTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for SegmentDataRulesItemOutcomeVariant1BaseTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "entity" => Self::Entity,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for SegmentDataRulesItemOutcomeVariant1BaseTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `base` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct SegmentDataRulesItemOutcomeVariant1Base {
-    /// Required `string` value serialized in the `attribute` wire field.
-    pub attribute: String,
-    /// Required `string` value serialized in the `kind` wire field.
-    pub kind: String,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: SegmentDataRulesItemOutcomeVariant1BaseTypeEnum,
-}
-
-impl SegmentDataRulesItemOutcomeVariant1Base {
-    pub fn new(
-        attribute: String,
-        kind: String,
-        type_: SegmentDataRulesItemOutcomeVariant1BaseTypeEnum,
-    ) -> Self {
-        Self {
-            attribute,
-            kind,
-            type_,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum SegmentDataRulesItemOutcomeVariant1TypeEnum {
-    #[serde(rename = "split")]
-    #[default]
-    Split,
-}
-
-impl SegmentDataRulesItemOutcomeVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Split => "split",
-        }
-    }
-}
-
-impl std::fmt::Display for SegmentDataRulesItemOutcomeVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            SegmentDataRulesItemOutcomeVariant1TypeEnum::Split => f.write_str("split"),
-        }
-    }
-}
-
-/// Required object value serialized in the `outcome` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct SegmentDataRulesItemOutcomeVariant1 {
-    /// Required object value serialized in the `base` wire field.
-    pub base: SegmentDataRulesItemOutcomeVariant1Base,
-    /// Required `number` value serialized in the `passPromille` wire field.
-    #[serde(rename = "passPromille")]
-    pub pass_promille: f64,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: SegmentDataRulesItemOutcomeVariant1TypeEnum,
-}
-
-impl SegmentDataRulesItemOutcomeVariant1 {
-    pub fn new(
-        base: SegmentDataRulesItemOutcomeVariant1Base,
-        pass_promille: f64,
-        type_: SegmentDataRulesItemOutcomeVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            base,
-            pass_promille,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum SegmentDataRulesItemOutcome {
-    All(Box<SegmentDataRulesItemOutcomeVariant0>),
-    Split(Box<SegmentDataRulesItemOutcomeVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for SegmentDataRulesItemOutcome {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<SegmentDataRulesItemOutcomeVariant0>>(value.clone())
-        {
-            let candidate = Self::All(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<SegmentDataRulesItemOutcomeVariant1>>(value.clone())
-        {
-            let candidate = Self::Split(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no SegmentDataRulesItemOutcome branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant0 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-}
-
-impl UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant0 {
-    pub fn new(type_: serde_json::Value) -> Self {
-        Self { type_ }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant1 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    pub kind: String,
-    pub attribute: String,
-}
-
-impl UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant1 {
-    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
-        Self {
-            type_,
-            kind,
-            attribute,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs {
-    Object(Box<UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant0>),
-    Object2(Box<UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateFlagSegmentRequestDataRulesItemConditionsItemLhsVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFlagSegmentRequestDataRulesItemConditionsItemLhs branch accepts this payload"))
-    }
 }

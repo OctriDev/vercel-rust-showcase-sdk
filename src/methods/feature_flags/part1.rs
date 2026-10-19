@@ -109,6 +109,36 @@ impl<'de> serde::Deserialize<'de> for CreateFlagVariantsItemValue {
     }
 }
 
+impl ::std::convert::From<String> for CreateFlagVariantsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateFlagVariantsItemValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateFlagVariantsItemValue {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<Vec<serde_json::Value>> for CreateFlagVariantsItemValue {
+    fn from(value: Vec<serde_json::Value>) -> Self {
+        Self::ValueArray(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for CreateFlagVariantsItemValue {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CreateFlagVariantsItem {
     /// The id of the variant
@@ -243,62 +273,18 @@ impl<'de> serde::Deserialize<'de> for CreateFlagEnvironmentsValueRulesItemCondit
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagEnvironmentsValueRulesItemConditionsItemCmpEnum {
-    #[default]
-    Eq,
-    Eq2,
-    Oneof,
-    Oneof2,
-    Containsallof,
-    Containsanyof,
-    Containsnoneof,
-    Startswith,
-    Startswith2,
-    Endswith,
-    Endswith2,
-    Contains,
-    Contains2,
-    Ex,
-    Ex2,
-    Gt,
-    Gte,
-    Lt,
-    Lte,
-    Regex,
-    Regex2,
-    Before,
-    After,
-    Unknown(String),
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant0>>
+    for CreateFlagEnvironmentsValueRulesItemConditionsItemLhs
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant0>) -> Self {
+        Self::Object(value)
+    }
 }
 
-impl CreateFlagEnvironmentsValueRulesItemConditionsItemCmpEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Eq => "eq",
-            Self::Eq2 => "!eq",
-            Self::Oneof => "oneOf",
-            Self::Oneof2 => "!oneOf",
-            Self::Containsallof => "containsAllOf",
-            Self::Containsanyof => "containsAnyOf",
-            Self::Containsnoneof => "containsNoneOf",
-            Self::Startswith => "startsWith",
-            Self::Startswith2 => "!startsWith",
-            Self::Endswith => "endsWith",
-            Self::Endswith2 => "!endsWith",
-            Self::Contains => "contains",
-            Self::Contains2 => "!contains",
-            Self::Ex => "ex",
-            Self::Ex2 => "!ex",
-            Self::Gt => "gt",
-            Self::Gte => "gte",
-            Self::Lt => "lt",
-            Self::Lte => "lte",
-            Self::Regex => "regex",
-            Self::Regex2 => "!regex",
-            Self::Before => "before",
-            Self::After => "after",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant1>>
+    for CreateFlagEnvironmentsValueRulesItemConditionsItemLhs
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant1>) -> Self {
+        Self::Object2(value)
     }
 }

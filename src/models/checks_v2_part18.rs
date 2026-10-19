@@ -4,6 +4,263 @@
 // checks_v2 domain models (part 18)
 
 #[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
+    #[default]
+    Integration,
+    Unknown(String),
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "integration" => Self::Integration,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant0 {
+    #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
+    pub external_resource_id: Option<String>,
+    #[serde(rename = "integrationConfigurationId")]
+    pub integration_configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum,
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant0 {
+    pub fn new(
+        integration_configuration_id: String,
+        integration_id: String,
+        kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant0KindEnum,
+    ) -> Self {
+        Self {
+            external_resource_id: None,
+            integration_configuration_id,
+            integration_id,
+            kind,
+            resource_id: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum {
+    #[default]
+    Webhook,
+    Unknown(String),
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Webhook => "webhook",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "webhook" => Self::Webhook,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant1 {
+    pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum,
+    #[serde(rename = "webhookId", skip_serializing_if = "Option::is_none")]
+    pub webhook_id: Option<String>,
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant1 {
+    pub fn new(kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant1KindEnum) -> Self {
+        Self {
+            kind,
+            webhook_id: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum {
+    #[default]
+    GitProvider,
+    Unknown(String),
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::GitProvider => "git-provider",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "git-provider" => Self::GitProvider,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum {
+    #[default]
+    Bitbucket,
+    Github,
+    Gitlab,
+    Unknown(String),
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Bitbucket => "bitbucket",
+            Self::Github => "github",
+            Self::Gitlab => "gitlab",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "bitbucket" => Self::Bitbucket,
+            "github" => Self::Github,
+            "gitlab" => Self::Gitlab,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant2 {
+    #[serde(rename = "externalCheckName")]
+    pub external_check_name: String,
+    pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum,
+    pub provider: UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum,
+}
+
+impl UpdateDeploymentCheckRunResponseVariant0SourceVariant2 {
+    pub fn new(
+        external_check_name: String,
+        kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant2KindEnum,
+        provider: UpdateDeploymentCheckRunResponseVariant0SourceVariant2ProviderEnum,
+    ) -> Self {
+        Self {
+            external_check_name,
+            kind,
+            provider,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant3OriginEnum {
     #[default]
     Api,
@@ -229,282 +486,4 @@ impl std::fmt::Display
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1 {
     pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1KindEnum,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1 {
-    pub fn new(
-        kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1KindEnum,
-    ) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum {
-    #[serde(rename = "job")]
-    #[default]
-    Job,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Job => "job",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum::Job => f.write_str("job"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2 {
-    pub job: String,
-    pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2 {
-    pub fn new(
-        job: String,
-        kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum,
-    ) -> Self {
-        Self { job, kind }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum {
-    #[default]
-    Turborepo,
-    Unknown(String),
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Turborepo => "Turborepo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "Turborepo" => Self::Turborepo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum {
-    #[serde(rename = "turborepo")]
-    #[default]
-    Turborepo,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Turborepo => "turborepo",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum::Turborepo => f.write_str("turborepo"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3 {
-    #[serde(rename = "failIfNoMatch", skip_serializing_if = "Option::is_none")]
-    pub fail_if_no_match: Option<bool>,
-    pub filters: Vec<String>,
-    pub job: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum,
-    pub kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum,
-    pub task: String,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3 {
-    pub fn new(
-        filters: Vec<String>,
-        job: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum,
-        kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3KindEnum,
-        task: String,
-    ) -> Self {
-        Self {
-            fail_if_no_match: None,
-            filters,
-            job,
-            kind,
-            task,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant4Selection {
-    Invocation(Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>),
-    Deployment(Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>),
-    Job(Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>),
-    Turborepo(Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4Selection
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Invocation(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Deployment(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::Job(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::Turborepo(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateDeploymentCheckRunResponseVariant0SourceVariant4Selection branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    #[default]
-    VercelCiCheck,
-    Unknown(String),
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelCiCheck => "vercel-ci-check",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "vercel-ci-check" => Self::VercelCiCheck,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Project-defined CI requirement; its selection is frozen on each check run.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDeploymentCheckRunResponseVariant0SourceVariant4 {
-    pub origin: UpdateDeploymentCheckRunResponseVariant0SourceVariant4OriginEnum,
-    pub selection: UpdateDeploymentCheckRunResponseVariant0SourceVariant4Selection,
-    #[serde(rename = "subKind")]
-    pub sub_kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum,
-}
-
-impl UpdateDeploymentCheckRunResponseVariant0SourceVariant4 {
-    pub fn new(
-        origin: UpdateDeploymentCheckRunResponseVariant0SourceVariant4OriginEnum,
-        selection: UpdateDeploymentCheckRunResponseVariant0SourceVariant4Selection,
-        sub_kind: UpdateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum,
-    ) -> Self {
-        Self {
-            origin,
-            selection,
-            sub_kind,
-        }
-    }
 }

@@ -181,6 +181,24 @@ impl<'de> serde::Deserialize<'de> for CreateSharedEnvVariableResponseFailedItemE
     }
 }
 
+impl ::std::convert::From<Vec<CreateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum>>
+    for CreateSharedEnvVariableResponseFailedItemErrorTarget
+{
+    fn from(
+        value: Vec<CreateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum>,
+    ) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum>
+    for CreateSharedEnvVariableResponseFailedItemErrorTarget
+{
+    fn from(value: CreateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateSharedEnvVariableResponseFailedItemErrorValueVariant1ItemEnum {
     #[default]
@@ -265,26 +283,18 @@ impl<'de> serde::Deserialize<'de> for CreateSharedEnvVariableResponseFailedItemE
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateSharedEnvVariableResponseFailedItemError {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<String>,
-    pub code: String,
-    #[serde(rename = "envVarId", skip_serializing_if = "Option::is_none")]
-    pub env_var_id: Option<String>,
-    #[serde(rename = "envVarKey", skip_serializing_if = "Option::is_none")]
-    pub env_var_key: Option<String>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub link: Option<String>,
-    pub message: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<CreateSharedEnvVariableResponseFailedItemErrorTarget>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<CreateSharedEnvVariableResponseFailedItemErrorValue>,
+impl ::std::convert::From<String> for CreateSharedEnvVariableResponseFailedItemErrorValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<CreateSharedEnvVariableResponseFailedItemErrorValueVariant1ItemEnum>>
+    for CreateSharedEnvVariableResponseFailedItemErrorValue
+{
+    fn from(
+        value: Vec<CreateSharedEnvVariableResponseFailedItemErrorValueVariant1ItemEnum>,
+    ) -> Self {
+        Self::Variant1ItemEnumArray(value)
+    }
 }

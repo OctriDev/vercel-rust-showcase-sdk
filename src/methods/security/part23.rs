@@ -3,6 +3,258 @@
 
 use super::*;
 
+impl GetSecurityFirewallConfigResponseVersionsItemCrsPhp {
+    pub fn new(
+        action: GetSecurityFirewallConfigResponseVersionsItemCrsPhpActionEnum,
+        active: bool,
+    ) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseVersionsItemCrsRce {
+    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum,
+    pub active: bool,
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsRce {
+    pub fn new(
+        action: GetSecurityFirewallConfigResponseVersionsItemCrsRceActionEnum,
+        active: bool,
+    ) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseVersionsItemCrsRfi {
+    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum,
+    pub active: bool,
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsRfi {
+    pub fn new(
+        action: GetSecurityFirewallConfigResponseVersionsItemCrsRfiActionEnum,
+        active: bool,
+    ) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseVersionsItemCrsSd {
+    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum,
+    pub active: bool,
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsSd {
+    pub fn new(
+        action: GetSecurityFirewallConfigResponseVersionsItemCrsSdActionEnum,
+        active: bool,
+    ) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseVersionsItemCrsSf {
+    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum,
+    pub active: bool,
+}
+
 impl GetSecurityFirewallConfigResponseVersionsItemCrsSf {
     pub fn new(
         action: GetSecurityFirewallConfigResponseVersionsItemCrsSfActionEnum,
@@ -27,289 +279,5 @@ impl GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum {
             Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseVersionsItemCrsSqli {
-    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum,
-    pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemCrsSqli {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseVersionsItemCrsSqliActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseVersionsItemCrsXss {
-    pub action: GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum,
-    pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemCrsXss {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseVersionsItemCrsXssActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseVersionsItemCrs {
-    pub gen: GetSecurityFirewallConfigResponseVersionsItemCrsGen,
-    pub java: GetSecurityFirewallConfigResponseVersionsItemCrsJava,
-    pub lfi: GetSecurityFirewallConfigResponseVersionsItemCrsLfi,
-    pub ma: GetSecurityFirewallConfigResponseVersionsItemCrsMa,
-    pub php: GetSecurityFirewallConfigResponseVersionsItemCrsPhp,
-    pub rce: GetSecurityFirewallConfigResponseVersionsItemCrsRce,
-    pub rfi: GetSecurityFirewallConfigResponseVersionsItemCrsRfi,
-    pub sd: GetSecurityFirewallConfigResponseVersionsItemCrsSd,
-    pub sf: GetSecurityFirewallConfigResponseVersionsItemCrsSf,
-    pub sqli: GetSecurityFirewallConfigResponseVersionsItemCrsSqli,
-    pub xss: GetSecurityFirewallConfigResponseVersionsItemCrsXss,
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemCrs {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        gen: GetSecurityFirewallConfigResponseVersionsItemCrsGen,
-        java: GetSecurityFirewallConfigResponseVersionsItemCrsJava,
-        lfi: GetSecurityFirewallConfigResponseVersionsItemCrsLfi,
-        ma: GetSecurityFirewallConfigResponseVersionsItemCrsMa,
-        php: GetSecurityFirewallConfigResponseVersionsItemCrsPhp,
-        rce: GetSecurityFirewallConfigResponseVersionsItemCrsRce,
-        rfi: GetSecurityFirewallConfigResponseVersionsItemCrsRfi,
-        sd: GetSecurityFirewallConfigResponseVersionsItemCrsSd,
-        sf: GetSecurityFirewallConfigResponseVersionsItemCrsSf,
-        sqli: GetSecurityFirewallConfigResponseVersionsItemCrsSqli,
-        xss: GetSecurityFirewallConfigResponseVersionsItemCrsXss,
-    ) -> Self {
-        Self {
-            gen,
-            java,
-            lfi,
-            ma,
-            php,
-            rce,
-            rfi,
-            sd,
-            sf,
-            sqli,
-            xss,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum {
-    #[default]
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseVersionsItemIpsItem {
-    pub action: GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum,
-    pub hostname: String,
-    pub id: String,
-    pub ip: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemIpsItem {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseVersionsItemIpsItemActionEnum,
-        hostname: String,
-        id: String,
-        ip: String,
-    ) -> Self {
-        Self {
-            action,
-            hostname,
-            id,
-            ip,
-            notes: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseVersionsItemLogHeadersVariant1Enum {
-    #[default]
-    Unknown2,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseVersionsItemLogHeadersVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Unknown2 => "*",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseVersionsItemLogHeadersVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseVersionsItemLogHeadersVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "*" => Self::Unknown2,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseVersionsItemLogHeadersVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

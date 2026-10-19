@@ -3,6 +3,73 @@
 
 use super::*;
 
+impl ::std::convert::From<Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant1Item>>
+    for ListAliasesResponseAliasesItemMicrofrontendsApplications
+{
+    fn from(
+        value: Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant1Item>,
+    ) -> Self {
+        Self::Variant1ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant2Item>>
+    for ListAliasesResponseAliasesItemMicrofrontendsApplications
+{
+    fn from(
+        value: Vec<ListAliasesResponseAliasesItemMicrofrontendsApplicationsVariant2Item>,
+    ) -> Self {
+        Self::Variant2ItemArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListAliasesResponseAliasesItemMicrofrontendsDefaultApp {
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+}
+
+impl ListAliasesResponseAliasesItemMicrofrontendsDefaultApp {
+    pub fn new(project_id: String) -> Self {
+        Self { project_id }
+    }
+}
+
+/// The microfrontends for the alias including the routing configuration
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListAliasesResponseAliasesItemMicrofrontends {
+    pub applications: ListAliasesResponseAliasesItemMicrofrontendsApplications,
+    #[serde(rename = "defaultApp")]
+    pub default_app: ListAliasesResponseAliasesItemMicrofrontendsDefaultApp,
+}
+
+impl ListAliasesResponseAliasesItemMicrofrontends {
+    pub fn new(
+        applications: ListAliasesResponseAliasesItemMicrofrontendsApplications,
+        default_app: ListAliasesResponseAliasesItemMicrofrontendsDefaultApp,
+    ) -> Self {
+        Self {
+            applications,
+            default_app,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListAliasesResponseAliasesItemProtectionBypassValueVariant0ScopeEnum {
+    #[serde(rename = "shareable-link")]
+    #[default]
+    ShareableLink,
+}
+
+impl ListAliasesResponseAliasesItemProtectionBypassValueVariant0ScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ShareableLink => "shareable-link",
+        }
+    }
+}
+
 impl std::fmt::Display for ListAliasesResponseAliasesItemProtectionBypassValueVariant0ScopeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -242,62 +309,5 @@ impl ListAliasesResponseAliasesItemProtectionBypassValueVariant3 {
             last_updated_by,
             scope,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListAliasesResponseAliasesItemProtectionBypassValue {
-    ShareableLink(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>),
-    User(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>),
-    AliasProtectionOverride(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>),
-    EmailInvite(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListAliasesResponseAliasesItemProtectionBypassValue {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::ShareableLink(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::User(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::AliasProtectionOverride(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::EmailInvite(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListAliasesResponseAliasesItemProtectionBypassValue branch accepts this payload"))
     }
 }

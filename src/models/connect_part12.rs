@@ -3,6 +3,22 @@
 
 // connect domain models (part 12)
 
+impl ConnectConnectorUpdateDataVariant3 {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            app_id: None,
+            app_name: None,
+            client_id: None,
+            app_scopes: None,
+            user_scopes: None,
+            owner_organization: None,
+            application: None,
+            extras: None,
+        }
+    }
+}
+
 /// Optional object value serialized in the `data` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct ConnectConnectorUpdateDataVariant4 {
@@ -561,24 +577,4 @@ impl std::fmt::Display
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ConnectConnectorUpdateDataRequestVariant0ServerConfigJwksKeysItem {
-    /// JSON Web Key type.
-    pub kty: String,
-    /// JSON Web Key identifier.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub kid: Option<String>,
-    /// Intended key use: signing or encryption.
-    #[serde(rename = "use", skip_serializing_if = "Option::is_none")]
-    pub use_: Option<ConnectConnectorUpdateDataRequestVariant0ServerConfigJwksKeysItemUseEnum>,
-    /// Operations permitted for this key.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key_ops: Option<Vec<String>>,
-    /// Algorithm intended for this key.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alg: Option<String>,
-    #[serde(flatten)]
-    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
 }

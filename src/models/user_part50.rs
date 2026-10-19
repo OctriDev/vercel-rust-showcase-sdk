@@ -3,6 +3,78 @@
 
 // user domain models (part 50)
 
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant141PreviousEchModeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "auto" => Self::Auto,
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant141PreviousEchModeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant141 {
+    /// Required `string` value serialized in the `domain` wire field.
+    pub domain: String,
+    /// Required enumerated value serialized in the `echMode` wire field.
+    #[serde(rename = "echMode")]
+    pub ech_mode: UserEventPayloadVariant141EchModeEnum,
+    /// Required enumerated value serialized in the `previousEchMode` wire field.
+    #[serde(rename = "previousEchMode")]
+    pub previous_ech_mode: UserEventPayloadVariant141PreviousEchModeEnum,
+}
+
+impl UserEventPayloadVariant141 {
+    pub fn new(
+        domain: String,
+        ech_mode: UserEventPayloadVariant141EchModeEnum,
+        previous_ech_mode: UserEventPayloadVariant141PreviousEchModeEnum,
+    ) -> Self {
+        Self {
+            domain,
+            ech_mode,
+            previous_ech_mode,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant142 {
+    /// Required `string` value serialized in the `domain` wire field.
+    pub domain: String,
+    /// Required enumerated value serialized in the `zone` wire field.
+    pub zone: bool,
+}
+
+impl UserEventPayloadVariant142 {
+    pub fn new(domain: String, zone: bool) -> Self {
+        Self { domain, zone }
+    }
+}
+
+/// Required enumerated value serialized in the `initiator` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant143InitiatorEnum {
+    #[default]
+    System,
+    User,
+    Unknown(String),
+}
+
 impl UserEventPayloadVariant143InitiatorEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -472,70 +544,4 @@ pub enum UserEventPayloadVariant160FromAccountTypeEnum {
     Team,
     User,
     Unknown(String),
-}
-
-impl UserEventPayloadVariant160FromAccountTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Team => "team",
-            Self::User => "user",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant160FromAccountTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant160FromAccountTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "team" => Self::Team,
-            "user" => Self::User,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant160FromAccountTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `fromAccount` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant160FromAccount {
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `slug` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slug: Option<String>,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant160FromAccountTypeEnum,
-    /// Optional `string` value serialized in the `username` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-}
-
-impl UserEventPayloadVariant160FromAccount {
-    pub fn new(id: String, type_: UserEventPayloadVariant160FromAccountTypeEnum) -> Self {
-        Self {
-            id,
-            slug: None,
-            type_,
-            username: None,
-        }
-    }
 }

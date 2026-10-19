@@ -3,295 +3,310 @@
 
 use super::*;
 
-impl UpdateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCronsDefinitionsItem {
+    /// A human-readable description of what this cron job does.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// The hostname that should be used.
+    pub host: String,
+    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
+    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
+    pub host_inferred: Option<bool>,
+    /// The path that should be called for the cronjob.
+    pub path: String,
+    /// The cron expression.
+    pub schedule: String,
+    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<UpdateProjectResponseCronsDefinitionsItemSourceEnum>,
+}
+
+impl UpdateProjectResponseCronsDefinitionsItem {
+    pub fn new(host: String, path: String, schedule: String) -> Self {
         Self {
-            enabled,
-            propagate_failures,
+            description: None,
+            host,
+            host_inferred: None,
+            path,
+            schedule,
+            source: None,
         }
-    }
-}
-
-/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    #[default]
-    Disabled,
-    Enabled,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseGitProviderOptions {
-    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-    #[serde(
-        rename = "consolidatedGitCommitStatus",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub consolidated_git_commit_status:
-        Option<UpdateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus>,
-    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-    #[serde(rename = "createDeployments")]
-    pub create_deployments: UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
-    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
-    #[serde(
-        rename = "disableRepositoryDispatchEvents",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub disable_repository_dispatch_events: Option<bool>,
-    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
-    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
-    pub git_commit_status: Option<bool>,
-    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
-    #[serde(
-        rename = "requireVerifiedCommits",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub require_verified_commits: Option<bool>,
+pub struct UpdateProjectResponseCrons {
+    pub definitions: Vec<UpdateProjectResponseCronsDefinitionsItem>,
+    /// The ID of the Deployment from which the definitions originated.
+    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
+    pub deployment_id: Option<String>,
+    /// The time the feature was disabled for this project.
+    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
+    pub disabled_at: Option<f64>,
+    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl UpdateProjectResponseGitProviderOptions {
+impl UpdateProjectResponseCrons {
     pub fn new(
-        create_deployments: UpdateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
+        definitions: Vec<UpdateProjectResponseCronsDefinitionsItem>,
+        deployment_id: Option<String>,
+        disabled_at: Option<f64>,
+        enabled_at: f64,
+        updated_at: f64,
     ) -> Self {
         Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+            definitions,
+            deployment_id,
+            disabled_at,
+            enabled_at,
+            updated_at,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
 }
 
-impl UpdateProjectResponseIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
+impl UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Configuration for matching git branches to this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCustomEnvironmentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
+}
+
+impl UpdateProjectResponseCustomEnvironmentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
         Self {
-            bucket,
-            default: None,
-            support_until: None,
+            domain,
+            reason,
+            type_,
+            value,
         }
     }
 }
 
+/// List of domains associated with this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseJobsFlagdefinitionspresent {
-    pub targets: Vec<String>,
-}
-
-impl UpdateProjectResponseJobsFlagdefinitionspresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseJobsLint {
-    pub targets: Vec<String>,
-}
-
-impl UpdateProjectResponseJobsLint {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseJobsMfeconfigpresent {
-    pub targets: Vec<String>,
-}
-
-impl UpdateProjectResponseJobsMfeconfigpresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseJobsTypecheck {
-    pub targets: Vec<String>,
-}
-
-impl UpdateProjectResponseJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseJobs {
+pub struct UpdateProjectResponseCustomEnvironmentsItemDomainsItem {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
     #[serde(
-        rename = "flag-definitions-present",
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verification:
+        Option<Vec<UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
+}
+
+impl UpdateProjectResponseCustomEnvironmentsItemDomainsItem {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
+        }
+    }
+}
+
+/// The type of environment (production, preview, or development)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Internal representation of a custom environment with all required properties
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCustomEnvironmentsItem {
+    /// Configuration for matching git branches to this environment
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<UpdateProjectResponseCustomEnvironmentsItemBranchMatcher>,
+    /// Timestamp when the environment was created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// List of aliases for the current deployment
+    #[serde(
+        rename = "currentDeploymentAliases",
         skip_serializing_if = "Option::is_none"
     )]
-    pub flag_definitions_present: Option<UpdateProjectResponseJobsFlagdefinitionspresent>,
+    pub current_deployment_aliases: Option<Vec<String>>,
+    /// Optional description of the environment's purpose
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lint: Option<UpdateProjectResponseJobsLint>,
-    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
-    pub mfe_config_present: Option<UpdateProjectResponseJobsMfeconfigpresent>,
+    pub description: Option<String>,
+    /// List of domains associated with this environment
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub typecheck: Option<UpdateProjectResponseJobsTypecheck>,
-}
-
-impl UpdateProjectResponseJobs {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            flag_definitions_present: None,
-            lint: None,
-            mfe_config_present: None,
-            typecheck: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseLastAliasRequestJobStatusEnum {
-    #[default]
-    Failed,
-    InProgress,
-    Pending,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseLastAliasRequestJobStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Failed => "failed",
-            Self::InProgress => "in-progress",
-            Self::Pending => "pending",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseLastAliasRequestJobStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseLastAliasRequestJobStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "in-progress" => Self::InProgress,
-            "pending" => Self::Pending,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseLastAliasRequestJobStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseLastAliasRequestTypeEnum {
-    #[default]
-    Promote,
-    Rollback,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseLastAliasRequestTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promote => "promote",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseLastAliasRequestTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseLastAliasRequestTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "promote" => Self::Promote,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseLastAliasRequestTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
+    pub domains: Option<Vec<UpdateProjectResponseCustomEnvironmentsItemDomainsItem>>,
+    /// Unique identifier for the custom environment (format: env_\*)
+    pub id: String,
+    /// URL-friendly name of the environment
+    pub slug: String,
+    /// The type of environment (production, preview, or development)
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseCustomEnvironmentsItemTypeEnum,
+    /// Timestamp when the environment was last updated
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }

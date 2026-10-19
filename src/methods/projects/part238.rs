@@ -3,273 +3,48 @@
 
 use super::*;
 
-impl serde::Serialize for UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTargetsValueBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum,
+pub struct UploadProjectAvatarResponseResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        UploadProjectAvatarResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
 }
 
-impl UploadProjectAvatarResponseTargetsValueBranchMatcher {
+impl UploadProjectAvatarResponseResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        pattern: String,
-        type_: UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTargetsValueBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
-}
-
-impl UploadProjectAvatarResponseTargetsValueBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTargetsValueChecksConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseTargetsValueChecksConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseTargetsValueChecksConclusionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTargetsValueChecksConclusionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseTargetsValueChecksConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTargetsValueChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseTargetsValueChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseTargetsValueChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTargetsValueChecksStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseTargetsValueChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTargetsValueCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
-}
-
-impl UploadProjectAvatarResponseTargetsValueCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTargetsValueOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl UploadProjectAvatarResponseTargetsValueOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        algorithm_version: String,
+        at: f64,
+        direction: UploadProjectAvatarResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTargetsValuePlanEnum {
+pub enum UploadProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTargetsValuePlanEnum {
+impl UploadProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseTargetsValuePlanEnum {
+impl serde::Serialize for UploadProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -278,22 +53,250 @@ impl serde::Serialize for UploadProjectAvatarResponseTargetsValuePlanEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTargetsValuePlanEnum {
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseResourceConfigBuildMachineSelectionEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseTargetsValuePlanEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseResourceConfigBuildMachineTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseResourceConfigBuildQueue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configuration: Option<UploadProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum>,
+}
+
+impl UploadProjectAvatarResponseResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            configuration: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

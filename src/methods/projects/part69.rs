@@ -3,313 +3,294 @@
 
 use super::*;
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum
+{
+    #[default]
+    Bitbucket,
+    Github,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Bitbucket => "bitbucket",
+            Self::Github => "github",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "bitbucket" => Self::Bitbucket,
+            "github" => Self::Github,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Allowlist entry for GitHub and Bitbucket, whose repos are identified by a flat `org`/`repo` (Bitbucket's workspace/owner maps to `org`, its repo slug to `repo`). Omit `repo` to match any repo in the org. Org is matched case-insensitively.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0 {
+    pub org: String,
+    pub provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0 {
+    pub fn new(
+        org: String,
+        provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
+    ) -> Self {
+        Self {
+            org,
+            provider,
+            repo: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum
+{
+    #[default]
+    Gitlab,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Gitlab => "gitlab",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "gitlab" => Self::Gitlab,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Allowlist entry for GitLab, which uses nested groups rather than a flat org/repo. `namespace` is the full group path (e.g. `group` or `group/subgroup`); `project` is the leaf project name. Omit `project` to match any project under the namespace. Namespace is matched case-insensitively.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
+    pub namespace: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project: Option<String>,
+    pub provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
+    pub fn new(
+        namespace: String,
+        provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
+    ) -> Self {
+        Self {
+            namespace,
+            project: None,
+            provider,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValue {
-    String(String),
-    Number(f64),
-    Object(Box<ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2>),
-    Bool(bool),
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem {
+    Object(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>),
+    Gitlab(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValue
+    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2>,
-        >(value.clone())
-        {
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>>(value.clone()) {
             let candidate = Self::Object(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>>(value.clone()) {
+            let candidate = Self::Gitlab(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValue branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem branch accepts this payload"))
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDismissedToastsItem {
-    pub action: ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum,
-    #[serde(rename = "dismissedAt")]
-    pub dismissed_at: f64,
-    pub key: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub value: Option<ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValue>,
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>) -> Self {
+        Self::Object(value)
+    }
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDismissedToastsItem {
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>) -> Self {
+        Self::Gitlab(value)
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+    pub sources:
+        Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem {
     pub fn new(
-        action: ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum,
-        dismissed_at: f64,
-        key: String,
-        value: Option<ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValue>,
+        enabled: bool,
+        environments: Vec<
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem,
+        >,
     ) -> Self {
         Self {
-            action,
-            dismissed_at,
-            key,
-            value,
+            enabled,
+            environments,
+            sources,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum {
-    #[serde(rename = "redis-url")]
-    #[default]
-    RedisUrl,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisUrl => "redis-url",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum::RedisUrl => f.write_str("redis-url"),
-        }
-    }
-}
-
+/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum,
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicy {
+    #[serde(
+        rename = "deploymentSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deployment_sources: Option<
+        Option<Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem>>,
+    >,
+    #[serde(
+        rename = "gitSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_sources:
+        Option<Option<Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem>>>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant0TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicy {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployment_sources: None,
+            git_sources: None,
+        }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum {
-    #[serde(rename = "redis-rest-api-url")]
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
     #[default]
-    RedisRestApiUrl,
+    Accept,
+    Cancel,
+    Delete,
+    Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::RedisRestApiUrl => "redis-rest-api-url",
+            Self::Accept => "accept",
+            Self::Cancel => "cancel",
+            Self::Delete => "delete",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum
 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "accept" => Self::Accept,
+            "cancel" => Self::Cancel,
+            "delete" => Self::Delete,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum::RedisRestApiUrl => f.write_str("redis-rest-api-url"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant1TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum {
-    #[serde(rename = "redis-rest-api-token")]
-    #[default]
-    RedisRestApiToken,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiToken => "redis-rest-api-token",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum::RedisRestApiToken => f.write_str("redis-rest-api-token"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant2TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum {
-    #[serde(rename = "redis-rest-api-read-only-token")]
-    #[default]
-    RedisRestApiReadOnlyToken,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => f.write_str("redis-rest-api-read-only-token"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant3TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum {
-    #[serde(rename = "blob-read-write-token")]
-    #[default]
-    BlobReadWriteToken,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobReadWriteToken => "blob-read-write-token",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum::BlobReadWriteToken => f.write_str("blob-read-write-token"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant4TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum {
-    #[serde(rename = "blob-store-id")]
-    #[default]
-    BlobStoreId,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobStoreId => "blob-store-id",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant5TypeEnum::BlobStoreId => f.write_str("blob-store-id"),
-        }
+        f.write_str(self.as_str())
     }
 }

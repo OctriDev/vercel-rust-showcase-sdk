@@ -3,6 +3,48 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum::PostgresUrlNoSsl => f.write_str("postgres-url-no-ssl"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14 {
+    pub fn new(
+        store_id: String,
+        type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant15TypeEnum {
+    #[serde(rename = "integration-store-secret")]
+    #[default]
+    IntegrationStoreSecret,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant15TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -299,62 +341,32 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemEn
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum {
-    #[default]
-    FlagsSecret,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FlagsSecret => "flags-secret",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0>,
+    ) -> Self {
+        Self::RedisUrl(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant1>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flags-secret" => Self::FlagsSecret,
-            _ => Self::Unknown(value),
-        })
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant1>,
+    ) -> Self {
+        Self::RedisRestApiUrl(value)
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant2>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant2>,
+    ) -> Self {
+        Self::RedisRestApiToken(value)
     }
-}
-
-/// Similar to `contentHints`, but should not be exposed to the user.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHint {
-    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
-    #[serde(rename = "encryptedValue")]
-    pub encrypted_value: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum,
 }

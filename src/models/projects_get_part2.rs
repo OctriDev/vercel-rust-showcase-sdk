@@ -441,109 +441,138 @@ impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0ContentHint {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant0>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant0>) -> Self {
+        Self::RedisUrl(value)
     }
 }
 
-impl serde::Serialize for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant1>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant1>) -> Self {
+        Self::RedisRestApiUrl(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant2>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant2>) -> Self {
+        Self::RedisRestApiToken(value)
     }
 }
 
-impl std::fmt::Display for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant3>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant3>) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectEnvResponseVariant0TargetVariant1Enum {
-    #[default]
-    Production,
-    Preview,
-    Development,
-    Unknown(String),
-}
-
-impl GetProjectEnvResponseVariant0TargetVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
-            Self::Development => "development",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant4>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant4>) -> Self {
+        Self::BlobReadWriteToken(value)
     }
 }
 
-impl serde::Serialize for GetProjectEnvResponseVariant0TargetVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant5>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant5>) -> Self {
+        Self::BlobStoreId(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0TargetVariant1Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
-            "development" => Self::Development,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant6>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant6>) -> Self {
+        Self::BlobWebhookPublicKey(value)
     }
 }
 
-impl std::fmt::Display for GetProjectEnvResponseVariant0TargetVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant7>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant7>) -> Self {
+        Self::PostgresUrl(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectEnvResponseVariant0Target {
-    Variant0ItemEnumArray(Vec<GetProjectEnvResponseVariant0TargetVariant0ItemEnum>),
-    Literal(GetProjectEnvResponseVariant0TargetVariant1Enum),
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant8>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant8>) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant9>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant9>) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant10>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant10>) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant11>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant11>) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant12>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant12>) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant13>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant13>) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant14>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant14>) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant15>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant15>) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant0ContentHintVariant16>>
+    for GetProjectEnvResponseVariant0ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant0ContentHintVariant16>) -> Self {
+        Self::FlagsConnectionString(value)
+    }
 }

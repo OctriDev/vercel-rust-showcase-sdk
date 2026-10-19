@@ -3,213 +3,47 @@
 
 use super::*;
 
-impl UpdateProjectResponseServicesItemFrameworkEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
-            Self::Unknown(value) => value.as_str(),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction: UpdateProjectResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl UpdateProjectResponseResourceConfigBuildMachineElasticTransition {
+    pub fn new(
+        algorithm_version: String,
+        at: f64,
+        direction: UpdateProjectResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    ) -> Self {
+        Self {
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseServicesItemFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseServicesItemFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseServicesItemFrameworkEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Service kind (Service.type). Omitted for schemas that do not define one.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseServicesItemServiceTypeEnum {
+pub enum UpdateProjectResponseResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Cron,
-    Job,
-    Web,
-    Worker,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl UpdateProjectResponseServicesItemServiceTypeEnum {
+impl UpdateProjectResponseResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Cron => "cron",
-            Self::Job => "job",
-            Self::Web => "web",
-            Self::Worker => "worker",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseServicesItemServiceTypeEnum {
+impl serde::Serialize for UpdateProjectResponseResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -218,83 +52,247 @@ impl serde::Serialize for UpdateProjectResponseServicesItemServiceTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseServicesItemServiceTypeEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseResourceConfigBuildMachineSelectionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cron" => Self::Cron,
-            "job" => Self::Job,
-            "web" => Self::Web,
-            "worker" => Self::Worker,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseServicesItemServiceTypeEnum {
+impl std::fmt::Display for UpdateProjectResponseResourceConfigBuildMachineSelectionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseResourceConfigBuildMachineTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseResourceConfigBuildMachineTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseServicesItem {
-    /// Framework slug, when the service has one (omitted otherwise).
+pub struct UpdateProjectResponseResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub framework: Option<UpdateProjectResponseServicesItemFrameworkEnum>,
-    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    /// Service name from the deployment (Service.name).
-    #[serde(rename = "serviceName")]
-    pub service_name: String,
-    /// Service kind (Service.type). Omitted for schemas that do not define one.
-    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
-    pub service_type: Option<UpdateProjectResponseServicesItemServiceTypeEnum>,
+    pub configuration: Option<UpdateProjectResponseResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl UpdateProjectResponseServicesItem {
-    pub fn new(service_name: String) -> Self {
+impl UpdateProjectResponseResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            framework: None,
-            runtime: None,
-            service_name,
-            service_type: None,
+            configuration: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseSpeedInsights {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
-    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
-    pub data_received_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
 }
 
-impl UpdateProjectResponseSpeedInsights {
-    pub fn new(id: String) -> Self {
-        Self {
-            canceled_at: None,
-            data_received_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
-            paid_at: None,
+impl UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

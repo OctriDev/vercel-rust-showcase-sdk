@@ -2,362 +2,306 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{
-    GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
-    GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
-    GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem,
-    GetProjectsResponseDismissedToastsItemValue,
-};
+
+impl serde::Serialize for GetProjectsResponseAliasItemDeploymentReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseAliasItemDeploymentReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseAliasItemDeploymentReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl GetProjectsResponseAliasItemDeploymentReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseAliasItemDeploymentReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentReadySubstateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseAliasItemDeploymentReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseAliasItemDeploymentTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl GetProjectsResponseAliasItemDeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseAliasItemDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseAliasItemDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDefaultResourceConfig {
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<GetProjectsResponseDefaultResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
+pub struct GetProjectsResponseAliasItemDeployment {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
+    pub alias: Option<Vec<String>>,
     #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine: Option<GetProjectsResponseDefaultResourceConfigElasticBuildMachine>,
-}
-
-impl GetProjectsResponseDefaultResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
-        Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
-        }
-    }
-}
-
-/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDeploymentExpiration {
-    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
-    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
-    pub deployments_to_keep: Option<f64>,
-    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
-    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
-    pub expiration_days: Option<f64>,
-    /// Number of days to keep canceled deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysCanceled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_canceled: Option<f64>,
-    /// Number of days to keep errored deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysErrored",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_errored: Option<f64>,
-    /// Number of days to keep production deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysProduction",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_production: Option<f64>,
-}
-
-impl GetProjectsResponseDeploymentExpiration {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            deployments_to_keep: None,
-            expiration_days: None,
-            expiration_days_canceled: None,
-            expiration_days_errored: None,
-            expiration_days_production: None,
-        }
-    }
-}
-
-/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
-    #[default]
-    Cli,
-    DeployHook,
-    Git,
-    Integration,
-    RestApi,
-    V0,
-    Unknown(String),
-}
-
-impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Cli => "cli",
-            Self::DeployHook => "deploy-hook",
-            Self::Git => "git",
-            Self::Integration => "integration",
-            Self::RestApi => "rest-api",
-            Self::V0 => "v0",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "cli" => Self::Cli,
-            "deploy-hook" => Self::DeployHook,
-            "git" => Self::Git,
-            "integration" => Self::Integration,
-            "rest-api" => Self::RestApi,
-            "v0" => Self::V0,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// `enabled: true` with empty `sources` is deny-all.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDeploymentPolicyDeploymentSourcesItem {
-    pub enabled: bool,
-    pub environments: Vec<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
-    pub sources: Vec<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
-}
-
-impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItem {
-    pub fn new(
-        enabled: bool,
-        environments: Vec<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
-        sources: Vec<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
-    ) -> Self {
-        Self {
-            enabled,
-            environments,
-            sources,
-        }
-    }
-}
-
-/// `enabled: true` with empty `sources` is deny-all.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDeploymentPolicyGitSourcesItem {
-    pub enabled: bool,
-    pub environments: Vec<GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
-    pub sources: Vec<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
-}
-
-impl GetProjectsResponseDeploymentPolicyGitSourcesItem {
-    pub fn new(
-        enabled: bool,
-        environments: Vec<GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
-        sources: Vec<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
-    ) -> Self {
-        Self {
-            enabled,
-            environments,
-            sources,
-        }
-    }
-}
-
-/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDeploymentPolicy {
-    #[serde(
-        rename = "deploymentSources",
+        rename = "aliasAssigned",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub deployment_sources:
-        Option<Option<Vec<GetProjectsResponseDeploymentPolicyDeploymentSourcesItem>>>,
+    pub alias_assigned: Option<Option<GetProjectsResponseAliasItemDeploymentAliasAssigned>>,
     #[serde(
-        rename = "gitSources",
+        rename = "aliasError",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub git_sources: Option<Option<Vec<GetProjectsResponseDeploymentPolicyGitSourcesItem>>>,
-}
-
-impl GetProjectsResponseDeploymentPolicy {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            deployment_sources: None,
-            git_sources: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDismissedToastsItemActionEnum {
-    #[default]
-    Accept,
-    Cancel,
-    Delete,
-    Unknown(String),
-}
-
-impl GetProjectsResponseDismissedToastsItemActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Accept => "accept",
-            Self::Cancel => "cancel",
-            Self::Delete => "delete",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseDismissedToastsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseDismissedToastsItemActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "accept" => Self::Accept,
-            "cancel" => Self::Cancel,
-            "delete" => Self::Delete,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseDismissedToastsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDismissedToastsItem {
-    pub action: GetProjectsResponseDismissedToastsItemActionEnum,
-    #[serde(rename = "dismissedAt")]
-    pub dismissed_at: f64,
-    pub key: String,
-    /// Typed representation of the `GetProjectsResponseDismissedToastsItemValue` API schema.
+    pub alias_error: Option<Option<GetProjectsResponseAliasItemDeploymentAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<GetProjectsResponseAliasItemDeploymentBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<GetProjectsResponseAliasItemDeploymentBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<GetProjectsResponseAliasItemDeploymentChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<GetProjectsResponseAliasItemDeploymentChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
     #[serde(deserialize_with = "Option::deserialize")]
-    pub value: Option<GetProjectsResponseDismissedToastsItemValue>,
+    pub creator: Option<GetProjectsResponseAliasItemDeploymentCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<GetProjectsResponseAliasItemDeploymentOidcTokenClaims>,
+    pub plan: GetProjectsResponseAliasItemDeploymentPlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: GetProjectsResponseAliasItemDeploymentReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<GetProjectsResponseAliasItemDeploymentReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseAliasItemDeploymentTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }
 
-impl GetProjectsResponseDismissedToastsItem {
+impl GetProjectsResponseAliasItemDeployment {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        action: GetProjectsResponseDismissedToastsItemActionEnum,
-        dismissed_at: f64,
-        key: String,
-        value: Option<GetProjectsResponseDismissedToastsItemValue>,
+        created_at: f64,
+        created_in: String,
+        creator: Option<GetProjectsResponseAliasItemDeploymentCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: GetProjectsResponseAliasItemDeploymentPlanEnum,
+        private: bool,
+        ready_state: GetProjectsResponseAliasItemDeploymentReadyStateEnum,
+        type_: GetProjectsResponseAliasItemDeploymentTypeEnum,
+        url: String,
     ) -> Self {
         Self {
-            action,
-            dismissed_at,
-            key,
-            value,
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseEnvItemInternalContentHintTypeEnum {
+pub enum GetProjectsResponseAliasItemEnvironmentEnum {
     #[default]
-    FlagsSecret,
+    Preview,
+    Production,
     Unknown(String),
 }

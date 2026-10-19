@@ -33,6 +33,34 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItemVariant0>,
+    > for CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(
+        value: Box<
+            CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItemVariant0,
+        >,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItemVariant1>,
+    > for CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(
+        value: Box<
+            CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2ItemsItemVariant1,
+        >,
+    ) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateFlagSegmentResponseDataRulesItemConditionsItemRhsVariant2TypeEnum {
     #[default]
@@ -497,20 +525,4 @@ pub enum FlagEnvironmentsValueFallthroughVariant1TypeEnum {
     #[serde(rename = "split")]
     #[default]
     Split,
-}
-
-impl FlagEnvironmentsValueFallthroughVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Split => "split",
-        }
-    }
-}
-
-impl std::fmt::Display for FlagEnvironmentsValueFallthroughVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FlagEnvironmentsValueFallthroughVariant1TypeEnum::Split => f.write_str("split"),
-        }
-    }
 }

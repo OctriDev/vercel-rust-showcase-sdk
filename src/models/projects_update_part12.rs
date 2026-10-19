@@ -3,6 +3,233 @@
 
 // projects_update domain models (part 12)
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue {
+    String(String),
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseDismissedToastsItemValueVariant2 {
+    #[serde(rename = "currentValue")]
+    pub current_value: UpdateProjectResponseDismissedToastsItemValueVariant2CurrentValue,
+    #[serde(rename = "previousValue")]
+    pub previous_value: UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue,
+}
+
+impl UpdateProjectResponseDismissedToastsItemValueVariant2 {
+    pub fn new(
+        current_value: UpdateProjectResponseDismissedToastsItemValueVariant2CurrentValue,
+        previous_value: UpdateProjectResponseDismissedToastsItemValueVariant2PreviousValue,
+    ) -> Self {
+        Self {
+            current_value,
+            previous_value,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(untagged)]
+pub enum UpdateProjectResponseDismissedToastsItemValue {
+    String(String),
+    Number(f64),
+    Object(Box<UpdateProjectResponseDismissedToastsItemValueVariant2>),
+    Bool(bool),
+}
+
+impl UpdateProjectResponseDismissedToastsItemValue {
+    pub fn as_numeric_wire_value(&self) -> Option<f64> {
+        match self {
+            Self::Number(value) => Some(*value),
+            _ => None,
+        }
+    }
+}
+
+impl UpdateProjectResponseDismissedToastsItemValue {
+    pub fn as_string_wire_value(&self) -> Option<&str> {
+        match self {
+            Self::String(value) => Some(value.as_str()),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseEnvItemContentHintVariant0TypeEnum {
+    #[serde(rename = "redis-url")]
+    #[default]
+    RedisUrl,
+}
+
+impl UpdateProjectResponseEnvItemContentHintVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisUrl => "redis-url",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseEnvItemContentHintVariant0TypeEnum::RedisUrl => {
+                f.write_str("redis-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseEnvItemContentHintVariant0 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseEnvItemContentHintVariant0TypeEnum,
+}
+
+impl UpdateProjectResponseEnvItemContentHintVariant0 {
+    pub fn new(
+        store_id: String,
+        type_: UpdateProjectResponseEnvItemContentHintVariant0TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    #[serde(rename = "redis-rest-api-url")]
+    #[default]
+    RedisRestApiUrl,
+}
+
+impl UpdateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiUrl => "redis-rest-api-url",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseEnvItemContentHintVariant1TypeEnum::RedisRestApiUrl => {
+                f.write_str("redis-rest-api-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseEnvItemContentHintVariant1 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseEnvItemContentHintVariant1TypeEnum,
+}
+
+impl UpdateProjectResponseEnvItemContentHintVariant1 {
+    pub fn new(
+        store_id: String,
+        type_: UpdateProjectResponseEnvItemContentHintVariant1TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseEnvItemContentHintVariant2TypeEnum {
+    #[serde(rename = "redis-rest-api-token")]
+    #[default]
+    RedisRestApiToken,
+}
+
+impl UpdateProjectResponseEnvItemContentHintVariant2TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiToken => "redis-rest-api-token",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant2TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseEnvItemContentHintVariant2TypeEnum::RedisRestApiToken => {
+                f.write_str("redis-rest-api-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseEnvItemContentHintVariant2 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseEnvItemContentHintVariant2TypeEnum,
+}
+
 impl UpdateProjectResponseEnvItemContentHintVariant2 {
     pub fn new(
         store_id: String,
@@ -275,226 +502,6 @@ impl UpdateProjectResponseEnvItemContentHintVariant9TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::PostgresPrismaUrl => "postgres-prisma-url",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant9TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant9TypeEnum::PostgresPrismaUrl => {
-                f.write_str("postgres-prisma-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseEnvItemContentHintVariant9 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseEnvItemContentHintVariant9TypeEnum,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant9 {
-    pub fn new(
-        store_id: String,
-        type_: UpdateProjectResponseEnvItemContentHintVariant9TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseEnvItemContentHintVariant10TypeEnum {
-    #[serde(rename = "postgres-user")]
-    #[default]
-    PostgresUser,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant10TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUser => "postgres-user",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant10TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant10TypeEnum::PostgresUser => {
-                f.write_str("postgres-user")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseEnvItemContentHintVariant10 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseEnvItemContentHintVariant10TypeEnum,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant10 {
-    pub fn new(
-        store_id: String,
-        type_: UpdateProjectResponseEnvItemContentHintVariant10TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseEnvItemContentHintVariant11TypeEnum {
-    #[serde(rename = "postgres-host")]
-    #[default]
-    PostgresHost,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant11TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresHost => "postgres-host",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant11TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant11TypeEnum::PostgresHost => {
-                f.write_str("postgres-host")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseEnvItemContentHintVariant11 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseEnvItemContentHintVariant11TypeEnum,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant11 {
-    pub fn new(
-        store_id: String,
-        type_: UpdateProjectResponseEnvItemContentHintVariant11TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseEnvItemContentHintVariant12TypeEnum {
-    #[serde(rename = "postgres-password")]
-    #[default]
-    PostgresPassword,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant12TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPassword => "postgres-password",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant12TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant12TypeEnum::PostgresPassword => {
-                f.write_str("postgres-password")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseEnvItemContentHintVariant12 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseEnvItemContentHintVariant12TypeEnum,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant12 {
-    pub fn new(
-        store_id: String,
-        type_: UpdateProjectResponseEnvItemContentHintVariant12TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    #[serde(rename = "postgres-database")]
-    #[default]
-    PostgresDatabase,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresDatabase => "postgres-database",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant13TypeEnum::PostgresDatabase => {
-                f.write_str("postgres-database")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseEnvItemContentHintVariant13 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseEnvItemContentHintVariant13TypeEnum,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant13 {
-    pub fn new(
-        store_id: String,
-        type_: UpdateProjectResponseEnvItemContentHintVariant13TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseEnvItemContentHintVariant14TypeEnum {
-    #[serde(rename = "postgres-url-no-ssl")]
-    #[default]
-    PostgresUrlNoSsl,
-}
-
-impl UpdateProjectResponseEnvItemContentHintVariant14TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseEnvItemContentHintVariant14TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseEnvItemContentHintVariant14TypeEnum::PostgresUrlNoSsl => {
-                f.write_str("postgres-url-no-ssl")
-            }
         }
     }
 }

@@ -3,6 +3,13 @@
 
 use super::*;
 
+impl RequestAccessToTeamResponseGitlab {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { login: None }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum RequestAccessToTeamResponseJoinedFromGitUserId {
@@ -33,6 +40,18 @@ impl<'de> serde::Deserialize<'de> for RequestAccessToTeamResponseJoinedFromGitUs
                 "no RequestAccessToTeamResponseJoinedFromGitUserId branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for RequestAccessToTeamResponseJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for RequestAccessToTeamResponseJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -257,38 +276,5 @@ impl GetTeamAccessRequestResponseGitlab {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self { login: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetTeamAccessRequestResponseJoinedFromGitUserId {
-    String(String),
-    Number(f64),
-}
-
-impl<'de> serde::Deserialize<'de> for GetTeamAccessRequestResponseJoinedFromGitUserId {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetTeamAccessRequestResponseJoinedFromGitUserId branch accepts this payload",
-            )
-        })
     }
 }

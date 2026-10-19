@@ -3,6 +3,19 @@
 
 // vercel_ci domain models (part 3)
 
+impl GetVercelCiTaskLogsResponseTasksItemConclusionVariant0 {
+    pub fn new(result: GetVercelCiTaskLogsResponseTasksItemConclusionVariant0ResultEnum) -> Self {
+        Self { result }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiTaskLogsResponseTasksItemConclusionVariant1ResultEnum {
+    #[serde(rename = "cached")]
+    #[default]
+    Cached,
+}
+
 impl GetVercelCiTaskLogsResponseTasksItemConclusionVariant1ResultEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -512,22 +525,4 @@ pub enum ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2Result
     #[serde(rename = "skipped")]
     #[default]
     Skipped,
-}
-
-impl ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Skipped => "skipped",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiJobRunsResponseJobRunsItemCompletedConclusionVariant2ResultEnum::Skipped => f.write_str("skipped"),
-        }
-    }
 }

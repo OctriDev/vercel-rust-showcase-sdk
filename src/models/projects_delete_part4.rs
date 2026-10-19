@@ -3,6 +3,72 @@
 
 // projects_delete domain models (part 4)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseEnvItemContentHintVariant9 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseEnvItemContentHintVariant9TypeEnum,
+}
+
+impl DeleteProjectAvatarResponseEnvItemContentHintVariant9 {
+    pub fn new(
+        store_id: String,
+        type_: DeleteProjectAvatarResponseEnvItemContentHintVariant9TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
+    #[serde(rename = "postgres-user")]
+    #[default]
+    PostgresUser,
+}
+
+impl DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUser => "postgres-user",
+        }
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum::PostgresUser => {
+                f.write_str("postgres-user")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseEnvItemContentHintVariant10 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum,
+}
+
+impl DeleteProjectAvatarResponseEnvItemContentHintVariant10 {
+    pub fn new(
+        store_id: String,
+        type_: DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum DeleteProjectAvatarResponseEnvItemContentHintVariant11TypeEnum {
+    #[serde(rename = "postgres-host")]
+    #[default]
+    PostgresHost,
+}
+
 impl DeleteProjectAvatarResponseEnvItemContentHintVariant11TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -484,77 +550,4 @@ pub struct DeleteProjectAvatarResponseExpirationVariant1 {
     /// userId of the actor that triggered the lock (system or admin).
     #[serde(rename = "lockedBy")]
     pub locked_by: String,
-}
-
-impl DeleteProjectAvatarResponseExpirationVariant1 {
-    pub fn new(locked_at: f64, locked_by: String) -> Self {
-        Self {
-            locked_at,
-            locked_by,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum DeleteProjectAvatarResponseExpiration {
-    Object(Box<DeleteProjectAvatarResponseExpirationVariant0>),
-    Object2(Box<DeleteProjectAvatarResponseExpirationVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseExpiration {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<DeleteProjectAvatarResponseExpirationVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<DeleteProjectAvatarResponseExpirationVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no DeleteProjectAvatarResponseExpiration branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseInternalRoutesItemVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiry: Option<f64>,
-    pub src: String,
-    pub status: f64,
-}
-
-impl DeleteProjectAvatarResponseInternalRoutesItemVariant0 {
-    pub fn new(src: String, status: f64) -> Self {
-        Self {
-            expiry: None,
-            src,
-            status,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
-    #[default]
-    XVercelIpCountry,
-    Unknown(String),
 }

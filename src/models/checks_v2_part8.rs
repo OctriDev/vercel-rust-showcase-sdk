@@ -3,6 +3,119 @@
 
 // checks_v2 domain models (part 8)
 
+impl std::fmt::Display for GetDeploymentCheckRunResponseVariant1BlocksEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentCheckRunResponseVariant1ConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Neutral,
+    Skipped,
+    Succeeded,
+    Timeout,
+    Unknown(String),
+}
+
+impl GetDeploymentCheckRunResponseVariant1ConclusionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Neutral => "neutral",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Timeout => "timeout",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "neutral" => Self::Neutral,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            "timeout" => Self::Timeout,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentCheckRunResponseVariant1ExpectationRef {
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    #[serde(rename = "jobRunAttempt")]
+    pub job_run_attempt: f64,
+}
+
+impl GetDeploymentCheckRunResponseVariant1ExpectationRef {
+    pub fn new(
+        invocation_attempt: f64,
+        invocation_id: String,
+        job_definition_id: String,
+        job_run_attempt: f64,
+    ) -> Self {
+        Self {
+            invocation_attempt,
+            invocation_id,
+            job_definition_id,
+            job_run_attempt,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentCheckRunResponseVariant1RequiresEnum {
+    #[default]
+    BuildReady,
+    DeploymentUrl,
+    None,
+    Unknown(String),
+}
+
+impl GetDeploymentCheckRunResponseVariant1RequiresEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BuildReady => "build-ready",
+            Self::DeploymentUrl => "deployment-url",
+            Self::None => "none",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for GetDeploymentCheckRunResponseVariant1RequiresEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -331,6 +444,22 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant1Sourc
     }
 }
 
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant1SourceVariant0>>
+    for GetDeploymentCheckRunResponseVariant1Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant1SourceVariant0>) -> Self {
+        Self::Config(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant1SourceVariant1>>
+    for GetDeploymentCheckRunResponseVariant1Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant1SourceVariant1>) -> Self {
+        Self::Platform(value)
+    }
+}
+
 /// Vercel CI check run without a parent `check` (no `checkId` field).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetDeploymentCheckRunResponseVariant1 {
@@ -379,141 +508,4 @@ pub struct GetDeploymentCheckRunResponseVariant1 {
     #[serde(rename = "updatedAt")]
     pub updated_at: f64,
     pub source: GetDeploymentCheckRunResponseVariant1Source,
-}
-
-impl GetDeploymentCheckRunResponseVariant1 {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        deployment_id: String,
-        id: String,
-        name: String,
-        owner_id: String,
-        status: GetDeploymentCheckRunResponseVariant1StatusEnum,
-        timeout: f64,
-        updated_at: f64,
-        source: GetDeploymentCheckRunResponseVariant1Source,
-    ) -> Self {
-        Self {
-            blocks: None,
-            completed_at: None,
-            conclusion: None,
-            conclusion_text: None,
-            created_at,
-            deployment_id,
-            expectation_ref: None,
-            expectation_revision: None,
-            external_id: None,
-            external_url: None,
-            id,
-            name,
-            output: None,
-            owner_id,
-            project_id: None,
-            requires: None,
-            started_at: None,
-            status,
-            targets: None,
-            task_summary: None,
-            timeout,
-            updated_at,
-            source,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetDeploymentCheckRunResponse {
-    Object(Box<GetDeploymentCheckRunResponseVariant0>),
-    Object2(Box<GetDeploymentCheckRunResponseVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponse {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<GetDeploymentCheckRunResponseVariant0>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<GetDeploymentCheckRunResponseVariant1>>(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no GetDeploymentCheckRunResponse branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectCheckResponseSourceVariant0KindEnum {
-    #[serde(rename = "integration")]
-    #[default]
-    Integration,
-}
-
-impl GetProjectCheckResponseSourceVariant0KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Integration => "integration",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectCheckResponseSourceVariant0KindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectCheckResponseSourceVariant0KindEnum::Integration => {
-                f.write_str("integration")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectCheckResponseSourceVariant0 {
-    #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
-    pub external_resource_id: Option<String>,
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    pub kind: GetProjectCheckResponseSourceVariant0KindEnum,
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
-}
-
-impl GetProjectCheckResponseSourceVariant0 {
-    pub fn new(
-        integration_configuration_id: String,
-        integration_id: String,
-        kind: GetProjectCheckResponseSourceVariant0KindEnum,
-    ) -> Self {
-        Self {
-            external_resource_id: None,
-            integration_configuration_id,
-            integration_id,
-            kind,
-            resource_id: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectCheckResponseSourceVariant1KindEnum {
-    #[serde(rename = "webhook")]
-    #[default]
-    Webhook,
 }

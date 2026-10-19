@@ -3,517 +3,532 @@
 
 // deployments domain models (part 29)
 
-impl CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Build resource configuration snapshot for this deployment.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueue {
-    /// Build resource configuration snapshot for this deployment.
+pub struct CreateDeploymentRequestGitSourceVariant7 {
+    pub owner: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub configuration:
-        Option<CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum>,
+    pub sha: Option<String>,
+    pub slug: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentRequestGitSourceVariant7TypeEnum,
 }
 
-impl CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            configuration: None,
-        }
-    }
-}
-
-/// When elastic concurrency is used for this deployment, a value is set. The value tells the reason where the setting was coming from. \- TEAM_SETTING: Inherited from team settings \- PROJECT_SETTING: Inherited from project settings \- SKIP_QUEUE: Manually triggered by user to skip the queues
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
-    #[default]
-    ProjectSetting,
-    SkipQueue,
-    TeamSetting,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ProjectSetting => "PROJECT_SETTING",
-            Self::SkipQueue => "SKIP_QUEUE",
-            Self::TeamSetting => "TEAM_SETTING",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROJECT_SETTING" => Self::ProjectSetting,
-            "SKIP_QUEUE" => Self::SkipQueue,
-            "TEAM_SETTING" => Self::TeamSetting,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Machine type that was used for the build.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum {
-    #[default]
-    Basic,
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Basic => "basic",
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
-    /// Machine type that was used for the build.
-    #[serde(
-        rename = "purchaseType",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub purchase_type: Option<
-        Option<CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum>,
-    >,
-}
-
-impl CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            purchase_type: None,
-        }
-    }
-}
-
-/// Build resource configuration snapshot for this deployment.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ConfigResourceConfig {
-    /// Build resource configuration snapshot for this deployment.
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<CreateDeploymentResponseVariant1ConfigResourceConfigBuildQueue>,
-    /// When elastic concurrency is used for this deployment, a value is set. The value tells the reason where the setting was coming from. \- TEAM_SETTING: Inherited from team settings \- PROJECT_SETTING: Inherited from project settings \- SKIP_QUEUE: Manually triggered by user to skip the queues
-    #[serde(rename = "elasticConcurrency", skip_serializing_if = "Option::is_none")]
-    pub elastic_concurrency:
-        Option<CreateDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum>,
-    #[serde(rename = "buildMachine", skip_serializing_if = "Option::is_none")]
-    pub build_machine: Option<CreateDeploymentResponseVariant1ConfigResourceConfigBuildMachine>,
-}
-
-impl CreateDeploymentResponseVariant1ConfigResourceConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            build_queue: None,
-            elastic_concurrency: None,
-            build_machine: None,
-        }
-    }
-}
-
-/// Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Config {
-    #[serde(rename = "functionMemoryType")]
-    pub function_memory_type: CreateDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum,
-    #[serde(rename = "functionTimeout", deserialize_with = "Option::deserialize")]
-    pub function_timeout: Option<f64>,
-    #[serde(rename = "functionType")]
-    pub function_type: CreateDeploymentResponseVariant1ConfigFunctionTypeEnum,
-    #[serde(rename = "isUsingActiveCPU", skip_serializing_if = "Option::is_none")]
-    pub is_using_active_cpu: Option<bool>,
-    /// Build resource configuration snapshot for this deployment.
-    #[serde(rename = "resourceConfig", skip_serializing_if = "Option::is_none")]
-    pub resource_config: Option<CreateDeploymentResponseVariant1ConfigResourceConfig>,
-    #[serde(
-        rename = "secureComputeFallbackRegion",
-        deserialize_with = "Option::deserialize"
-    )]
-    pub secure_compute_fallback_region: Option<String>,
-    #[serde(
-        rename = "secureComputePrimaryRegion",
-        deserialize_with = "Option::deserialize"
-    )]
-    pub secure_compute_primary_region: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: Option<f64>,
-}
-
-impl CreateDeploymentResponseVariant1Config {
+impl CreateDeploymentRequestGitSourceVariant7 {
     pub fn new(
-        function_memory_type: CreateDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum,
-        function_timeout: Option<f64>,
-        function_type: CreateDeploymentResponseVariant1ConfigFunctionTypeEnum,
-        secure_compute_fallback_region: Option<String>,
-        secure_compute_primary_region: Option<String>,
+        owner: String,
+        ref_: String,
+        slug: String,
+        type_: CreateDeploymentRequestGitSourceVariant7TypeEnum,
     ) -> Self {
         Self {
-            function_memory_type,
-            function_timeout,
-            function_type,
-            is_using_active_cpu: None,
-            resource_config: None,
-            secure_compute_fallback_region,
-            secure_compute_primary_region,
-            version: None,
-        }
-    }
-}
-
-/// Principal type of the deployment creator.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1CreatorTypeEnum {
-    #[default]
-    App,
-    Integration,
-    System,
-    User,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1CreatorTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::App => "app",
-            Self::Integration => "integration",
-            Self::System => "system",
-            Self::User => "user",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1CreatorTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1CreatorTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "app" => Self::App,
-            "integration" => Self::Integration,
-            "system" => Self::System,
-            "user" => Self::User,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1CreatorTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Information about the deployment creator
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Creator {
-    /// The avatar of the user that created the deployment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Principal type of the deployment creator.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<CreateDeploymentResponseVariant1CreatorTypeEnum>,
-    /// Stable creator id across principal types (user id, app id, integration configuration id, or `system`).
-    pub uid: String,
-    /// The username of the user that created the deployment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-}
-
-impl CreateDeploymentResponseVariant1Creator {
-    pub fn new(uid: String) -> Self {
-        Self {
-            avatar: None,
-            type_: None,
-            uid,
-            username: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CronsItem {
-    pub path: String,
-    pub schedule: String,
-}
-
-impl CreateDeploymentResponseVariant1CronsItem {
-    pub fn new(path: String, schedule: String) -> Self {
-        Self { path, schedule }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Configuration for matching git branches to this environment
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum,
-}
-
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
+            owner,
+            ref_,
+            sha: None,
+            slug,
             type_,
-            value,
         }
     }
 }
 
-/// List of domains associated with this environment
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentRequestGitSourceVariant8TypeEnum {
+    #[default]
+    CursorOrigin,
+    Unknown(String),
+}
+
+impl CreateDeploymentRequestGitSourceVariant8TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::CursorOrigin => "cursor-origin",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentRequestGitSourceVariant8TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSourceVariant8TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "cursor-origin" => Self::CursorOrigin,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentRequestGitSourceVariant8TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Deploys from the Cursor Origin repository linked to the target project. The repository ID must match the linked repository; Vercel resolves the owner and repository name from the project link.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+pub struct CreateDeploymentRequestGitSourceVariant8 {
+    /// The Origin workspace slug. Optional because Vercel resolves it from the linked project.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification: Option<
-        Vec<CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem>,
-    >,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
+    pub owner: Option<String>,
+    /// The branch or Git reference to deploy.
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    /// The Origin repository name. Optional because Vercel resolves it from the linked project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    /// The stable Origin repository ID. Read it from the `link.repoId` field returned by the project API.
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    /// The commit SHA to deploy. When omitted, Vercel resolves the latest commit on `ref`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sha: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentRequestGitSourceVariant8TypeEnum,
+}
+
+impl CreateDeploymentRequestGitSourceVariant8 {
+    pub fn new(
+        ref_: String,
+        repo_id: String,
+        type_: CreateDeploymentRequestGitSourceVariant8TypeEnum,
+    ) -> Self {
+        Self {
+            owner: None,
+            ref_,
+            repo: None,
+            repo_id,
+            sha: None,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateDeploymentRequestGitSource {
+    Vercel(Box<CreateDeploymentRequestGitSourceVariant0>),
+    Github(Box<CreateDeploymentRequestGitSourceVariant1>),
+    Github2(Box<CreateDeploymentRequestGitSourceVariant2>),
+    GithubLimited(Box<CreateDeploymentRequestGitSourceVariant3>),
+    GithubLimited2(Box<CreateDeploymentRequestGitSourceVariant4>),
+    Gitlab(Box<CreateDeploymentRequestGitSourceVariant5>),
+    Bitbucket(Box<CreateDeploymentRequestGitSourceVariant6>),
+    Bitbucket2(Box<CreateDeploymentRequestGitSourceVariant7>),
+    CursorOrigin(Box<CreateDeploymentRequestGitSourceVariant8>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentRequestGitSource {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant0>>(value.clone())
+        {
+            let candidate = Self::Vercel(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant1>>(value.clone())
+        {
+            let candidate = Self::Github(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant2>>(value.clone())
+        {
+            let candidate = Self::Github2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant3>>(value.clone())
+        {
+            let candidate = Self::GithubLimited(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant4>>(value.clone())
+        {
+            let candidate = Self::GithubLimited2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant5>>(value.clone())
+        {
+            let candidate = Self::Gitlab(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant6>>(value.clone())
+        {
+            let candidate = Self::Bitbucket(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant7>>(value.clone())
+        {
+            let candidate = Self::Bitbucket2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentRequestGitSourceVariant8>>(value.clone())
+        {
+            let candidate = Self::CursorOrigin(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateDeploymentRequestGitSource branch accepts this payload",
+            )
+        })
+    }
+}
+
+/// An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant0AliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl CreateDeploymentResponseVariant0AliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant0AliasWarning {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<String>,
+    pub code: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link: Option<String>,
+    pub message: String,
+}
+
+impl CreateDeploymentResponseVariant0AliasWarning {
+    pub fn new(code: String, message: String) -> Self {
+        Self {
+            action: None,
+            code,
+            link: None,
+            message,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant0Duration {
+    /// Unix timestamp in milliseconds when the build container exited.
+    #[serde(rename = "endTime", skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<f64>,
+    /// Build-container exit Unix timestamp in milliseconds, capped at 45 minutes after `startTime`.
+    #[serde(rename = "endTimeCapped", skip_serializing_if = "Option::is_none")]
+    pub end_time_capped: Option<f64>,
+    /// Unix timestamp in milliseconds when the deployment entered BUILDING.
+    #[serde(rename = "startTime", skip_serializing_if = "Option::is_none")]
+    pub start_time: Option<f64>,
+    /// Billable build-container duration in milliseconds, capped at 45 minutes, rounded up to a whole minute, with a one-minute minimum.
+    #[serde(rename = "timeForBilling", skip_serializing_if = "Option::is_none")]
+    pub time_for_billing: Option<f64>,
+    /// Milliseconds from entering BUILDING until the build container exited, without the billing cap.
+    #[serde(
+        rename = "timeToContainerExit",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub time_to_container_exit: Option<f64>,
+    /// Build-container duration in milliseconds, capped at 45 minutes and without billing rounding.
+    #[serde(
+        rename = "timeToContainerExitCapped",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub time_to_container_exit_capped: Option<f64>,
+    /// Milliseconds from entering BUILDING until the deployment reached its current ready state.
+    #[serde(rename = "timeToReady", skip_serializing_if = "Option::is_none")]
+    pub time_to_ready: Option<f64>,
+}
+
+impl CreateDeploymentResponseVariant0Duration {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            end_time: None,
+            end_time_capped: None,
+            start_time: None,
+            time_for_billing: None,
+            time_to_container_exit: None,
+            time_to_container_exit_capped: None,
+            time_to_ready: None,
+        }
+    }
+}
+
+/// The state of the deployment depending on the process of deploying, or if it is ready or in an error state
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant0ReadyStateEnum {
+    #[default]
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant0ReadyStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant0ReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant0ReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant0ReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// If defined, either `staging` if a staging alias in the format `<project\>.<team\>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant0TargetEnum {
+    #[default]
+    Production,
+    Staging,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant0TargetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Production => "production",
+            Self::Staging => "staging",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant0TargetEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant0TargetEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "production" => Self::Production,
+            "staging" => Self::Staging,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant0TargetEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Returns the reduced deployment view for anonymous (`vcn_`) callers. Pool-team details are withheld.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(rename = "aliasAssigned")]
+    pub alias_assigned: bool,
+    /// An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<CreateDeploymentResponseVariant0AliasError>>,
+    #[serde(
+        rename = "aliasWarning",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_warning: Option<Option<CreateDeploymentResponseVariant0AliasWarning>>,
+    pub duration: CreateDeploymentResponseVariant0Duration,
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    pub error_code: Option<String>,
+    #[serde(
+        rename = "errorMessage",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub error_message: Option<Option<String>>,
+    /// A string holding the unique ID of the deployment
+    pub id: String,
+    /// The state of the deployment depending on the process of deploying, or if it is ready or in an error state
+    #[serde(rename = "readyState")]
+    pub ready_state: CreateDeploymentResponseVariant0ReadyStateEnum,
+    /// If defined, either `staging` if a staging alias in the format `<project\>.<team\>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<CreateDeploymentResponseVariant0TargetEnum>>,
+}
+
+impl CreateDeploymentResponseVariant0 {
+    pub fn new(
+        alias_assigned: bool,
+        duration: CreateDeploymentResponseVariant0Duration,
+        id: String,
+        ready_state: CreateDeploymentResponseVariant0ReadyStateEnum,
+    ) -> Self {
+        Self {
+            alias: None,
+            alias_assigned,
+            alias_error: None,
+            alias_warning: None,
+            duration,
+            error_code: None,
+            error_message: None,
+            id,
+            ready_state,
+            target: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateDeploymentResponseVariant1AliasAssignedAt {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1AliasAssignedAt {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateDeploymentResponseVariant1AliasAssignedAt branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<f64> for CreateDeploymentResponseVariant1AliasAssignedAt {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateDeploymentResponseVariant1AliasAssignedAt {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+/// An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AliasError {
+    pub code: String,
+    pub message: String,
 }

@@ -3,243 +3,297 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimit {
+impl serde::Serialize for UpdateMicrofrontendsResponseFrameworkEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseFrameworkEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseFrameworkEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseGitComments {
+    /// Whether the Vercel bot should comment on commits
+    #[serde(rename = "onCommit")]
+    pub on_commit: bool,
+    /// Whether the Vercel bot should comment on PRs
+    #[serde(rename = "onPullRequest")]
+    pub on_pull_request: bool,
+}
+
+impl UpdateMicrofrontendsResponseGitComments {
+    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
+        Self {
+            on_commit,
+            on_pull_request,
+        }
+    }
+}
+
+/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    /// Whether consolidated commit status is enabled.
+    pub enabled: bool,
+    /// Whether to propagate individual deployment failures to the consolidated status.
+    #[serde(rename = "propagateFailures")]
+    pub propagate_failures: bool,
+}
+
+impl UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
+        Self {
+            enabled,
+            propagate_failures,
+        }
+    }
+}
+
+/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+    #[default]
+    Disabled,
+    Enabled,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseGitProviderOptions {
+    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+    #[serde(
+        rename = "consolidatedGitCommitStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub consolidated_git_commit_status:
+        Option<UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus>,
+    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+    #[serde(rename = "createDeployments")]
+    pub create_deployments: UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum,
+    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    #[serde(
+        rename = "disableRepositoryDispatchEvents",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_repository_dispatch_events: Option<bool>,
+    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
+    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
+    pub git_commit_status: Option<bool>,
+    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    #[serde(
+        rename = "requireVerifiedCommits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_verified_commits: Option<bool>,
+}
+
+impl UpdateMicrofrontendsResponseGitProviderOptions {
     pub fn new(
-        algo: UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum,
-        keys: Vec<String>,
-        limit: f64,
-        window: f64,
+        create_deployments: UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum,
     ) -> Self {
         Self {
-            algo,
-            keys,
-            limit,
-            window,
+            consolidated_git_commit_status: None,
+            create_deployments,
+            disable_repository_dispatch_events: None,
+            git_commit_status: None,
+            require_verified_commits: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityRulesetsValueRedirect {
-    pub location: String,
-    pub permanent: bool,
-}
-
-impl UpdateMicrofrontendsResponseSecurityRulesetsValueRedirect {
-    pub fn new(location: String, permanent: bool) -> Self {
-        Self {
-            location,
-            permanent,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityRulesetsValue {
-    pub action: UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum,
-    #[serde(
-        rename = "actionDuration",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub action_duration: Option<Option<String>>,
-    #[serde(
-        rename = "bypassSystem",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub bypass_system: Option<Option<bool>>,
-    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders>,
-    #[serde(
-        rename = "rateLimit",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rate_limit: Option<Option<UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimit>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<UpdateMicrofrontendsResponseSecurityRulesetsValueRedirect>>,
-}
-
-impl UpdateMicrofrontendsResponseSecurityRulesetsValue {
-    pub fn new(action: UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum) -> Self {
-        Self {
-            action,
-            action_duration: None,
-            bypass_system: None,
-            log_headers: None,
-            rate_limit: None,
-            redirect: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurity {
-    #[serde(
-        rename = "attackModeActiveUntil",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub attack_mode_active_until: Option<Option<f64>>,
-    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
-    pub attack_mode_enabled: Option<bool>,
-    #[serde(
-        rename = "attackModeUpdatedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub attack_mode_updated_at: Option<f64>,
-    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
-    pub bot_id_enabled: Option<bool>,
-    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
-    pub firewall_bypass_ips: Option<Vec<String>>,
-    #[serde(
-        rename = "firewallConfigVersion",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub firewall_config_version: Option<f64>,
-    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
-    pub firewall_enabled: Option<bool>,
-    #[serde(
-        rename = "firewallSeawallEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub firewall_seawall_enabled: Option<bool>,
-    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
-    pub firewall_updated_at: Option<f64>,
-    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
-    pub ja3_enabled: Option<bool>,
-    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
-    pub ja4_enabled: Option<bool>,
+pub struct UpdateMicrofrontendsResponseIpBucketsItem {
+    pub bucket: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<UpdateMicrofrontendsResponseSecurityLogHeaders>,
-    #[serde(
-        rename = "managedRules",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub managed_rules: Option<Option<UpdateMicrofrontendsResponseSecurityManagedRules>>,
-    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
-    #[serde(
-        rename = "pageIntegrityEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub page_integrity_enabled: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rulesets: Option<
-        std::collections::HashMap<String, UpdateMicrofrontendsResponseSecurityRulesetsValue>,
-    >,
+    pub default: Option<bool>,
+    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
+    pub support_until: Option<f64>,
 }
 
-impl UpdateMicrofrontendsResponseSecurity {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl UpdateMicrofrontendsResponseIpBucketsItem {
+    pub fn new(bucket: String) -> Self {
         Self {
-            attack_mode_active_until: None,
-            attack_mode_enabled: None,
-            attack_mode_updated_at: None,
-            bot_id_enabled: None,
-            firewall_bypass_ips: None,
-            firewall_config_version: None,
-            firewall_enabled: None,
-            firewall_seawall_enabled: None,
-            firewall_updated_at: None,
-            ja3_enabled: None,
-            ja4_enabled: None,
-            log_headers: None,
-            managed_rules: None,
-            page_integrity_enabled: None,
-            rulesets: None,
+            bucket,
+            default: None,
+            support_until: None,
         }
     }
 }
 
-/// Framework slug, when the service has one (omitted otherwise).
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
-    #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseJobsFlagdefinitionspresent {
+    pub targets: Vec<String>,
+}
+
+impl UpdateMicrofrontendsResponseJobsFlagdefinitionspresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseJobsLint {
+    pub targets: Vec<String>,
+}
+
+impl UpdateMicrofrontendsResponseJobsLint {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseJobsMfeconfigpresent {
+    pub targets: Vec<String>,
+}
+
+impl UpdateMicrofrontendsResponseJobsMfeconfigpresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseJobsTypecheck {
+    pub targets: Vec<String>,
+}
+
+impl UpdateMicrofrontendsResponseJobsTypecheck {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
 }

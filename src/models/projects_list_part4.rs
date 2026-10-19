@@ -396,6 +396,22 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseItemInternalRoutesItem
     }
 }
 
+impl ::std::convert::From<Box<ListProjectsResponseItemInternalRoutesItemVariant1HasItemVariant0>>
+    for ListProjectsResponseItemInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<ListProjectsResponseItemInternalRoutesItemVariant1HasItemVariant0>) -> Self {
+        Self::Header(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseItemInternalRoutesItemVariant1HasItemVariant1>>
+    for ListProjectsResponseItemInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<ListProjectsResponseItemInternalRoutesItemVariant1HasItemVariant1>) -> Self {
+        Self::Host(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListProjectsResponseItemInternalRoutesItemVariant1MitigateActionEnum {
     #[default]

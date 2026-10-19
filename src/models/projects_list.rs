@@ -437,6 +437,22 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseItemCreatorVariant0Via
     }
 }
 
+impl ::std::convert::From<Box<ListProjectsResponseItemCreatorVariant0ViaVariant0>>
+    for ListProjectsResponseItemCreatorVariant0Via
+{
+    fn from(value: Box<ListProjectsResponseItemCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseItemCreatorVariant0ViaVariant1>>
+    for ListProjectsResponseItemCreatorVariant0Via
+{
+    fn from(value: Box<ListProjectsResponseItemCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct ListProjectsResponseItemCreatorVariant0User {
     pub id: String,
@@ -498,19 +514,4 @@ impl ListProjectsResponseItemCreatorVariant1TypeEnum {
             Self::App => "app",
         }
     }
-}
-
-impl std::fmt::Display for ListProjectsResponseItemCreatorVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseItemCreatorVariant1TypeEnum::App => f.write_str("app"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseItemCreatorVariant1 {
-    pub app: ListProjectsResponseItemCreatorVariant1App,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseItemCreatorVariant1TypeEnum,
 }

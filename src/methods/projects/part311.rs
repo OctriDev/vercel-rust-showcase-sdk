@@ -2,59 +2,227 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::EditProjectEnvResponseContentHint;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseJobs {
+pub struct EditProjectEnvResponse {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
     #[serde(
-        rename = "flag-definitions-present",
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    /// Typed representation of the `EditProjectEnvResponseContentHint` API schema.
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<EditProjectEnvResponseContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
         skip_serializing_if = "Option::is_none"
     )]
-    pub flag_definitions_present: Option<UpdateMicrofrontendsResponseJobsFlagdefinitionspresent>,
+    pub custom_environment_ids: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lint: Option<UpdateMicrofrontendsResponseJobsLint>,
-    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
-    pub mfe_config_present: Option<UpdateMicrofrontendsResponseJobsMfeconfigpresent>,
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub typecheck: Option<UpdateMicrofrontendsResponseJobsTypecheck>,
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint: Option<Option<EditProjectEnvResponseInternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<EditProjectEnvResponseTarget>,
+    #[serde(rename = "type")]
+    pub type_: EditProjectEnvResponseTypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<EditProjectEnvResponseVisibilityEnum>,
 }
 
-impl UpdateMicrofrontendsResponseJobs {
+impl EditProjectEnvResponse {
+    pub fn new(key: String, type_: EditProjectEnvResponseTypeEnum, value: String) -> Self {
+        Self {
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct BatchRemoveProjectEnvResponse {
+    pub deleted: f64,
+    pub ids: Vec<String>,
+}
+
+impl BatchRemoveProjectEnvResponse {
+    pub fn new(deleted: f64, ids: Vec<String>) -> Self {
+        Self { deleted, ids }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectTransferRequestResponse {
+    pub code: String,
+}
+
+impl CreateProjectTransferRequestResponse {
+    pub fn new(code: String) -> Self {
+        Self { code }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AcceptProjectTransferRequestPaidFeatures {
+    #[serde(
+        rename = "concurrentBuilds",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub concurrent_builds: Option<Option<i64>>,
+    #[serde(
+        rename = "passwordProtection",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub password_protection: Option<Option<bool>>,
+    #[serde(
+        rename = "previewDeploymentSuffix",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub preview_deployment_suffix: Option<Option<bool>>,
+}
+
+impl AcceptProjectTransferRequestPaidFeatures {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            flag_definitions_present: None,
-            lint: None,
-            mfe_config_present: None,
-            typecheck: None,
+            concurrent_builds: None,
+            password_protection: None,
+            preview_deployment_suffix: None,
         }
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AcceptProjectTransferRequestAcceptedPoliciesValue {
+    pub eula: String,
+    pub privacy: String,
+    #[serde(flatten)]
+    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
+}
+
+impl AcceptProjectTransferRequestAcceptedPoliciesValue {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_model_date_time("eula", &self.eula)?;
+        crate::validation::validate_model_date_time("privacy", &self.privacy)?;
+        Ok(())
+    }
+
+    pub fn new(eula: String, privacy: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            eula,
+            privacy,
+            additional_properties: Default::default(),
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
+pub enum AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum {
     #[default]
-    Failed,
-    InProgress,
-    Pending,
-    Skipped,
-    Succeeded,
+    Errored,
+    Fulfilled,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
+impl AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Failed => "failed",
-            Self::InProgress => "in-progress",
-            Self::Pending => "pending",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Errored => "errored",
+            Self::Fulfilled => "fulfilled",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
+impl serde::Serialize for AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -63,235 +231,80 @@ impl serde::Serialize for UpdateMicrofrontendsResponseLastAliasRequestJobStatusE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
+impl<'de> serde::Deserialize<'de>
+    for AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "in-progress" => Self::InProgress,
-            "pending" => Self::Pending,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "errored" => Self::Errored,
+            "fulfilled" => Self::Fulfilled,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
-    #[default]
-    Promote,
-    Rollback,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promote => "promote",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "promote" => Self::Promote,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
+impl std::fmt::Display for AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLastAliasRequest {
-    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
-    pub from_deployment_id: Option<String>,
-    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
-    #[serde(
-        rename = "fromRollingReleaseId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub from_rolling_release_id: Option<String>,
-    #[serde(rename = "jobStatus")]
-    pub job_status: UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum,
-    #[serde(rename = "requestedAt")]
-    pub requested_at: f64,
-    #[serde(rename = "toDeploymentId")]
-    pub to_deployment_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseLastAliasRequestTypeEnum,
+pub struct AcceptProjectTransferRequestResponsePartnerCallsItemResult {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<serde_json::Value>,
+    pub status: AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum,
 }
 
-impl UpdateMicrofrontendsResponseLastAliasRequest {
+impl AcceptProjectTransferRequestResponsePartnerCallsItemResult {
     pub fn new(
-        from_deployment_id: Option<String>,
-        job_status: UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum,
-        requested_at: f64,
-        to_deployment_id: String,
-        type_: UpdateMicrofrontendsResponseLastAliasRequestTypeEnum,
+        status: AcceptProjectTransferRequestResponsePartnerCallsItemResultStatusEnum,
     ) -> Self {
         Self {
-            from_deployment_id,
-            from_rolling_release_id: None,
-            job_status,
-            requested_at,
-            to_deployment_id,
-            type_,
+            code: None,
+            error: None,
+            status,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemAliasError {
-    pub code: String,
-    pub message: String,
+pub struct AcceptProjectTransferRequestResponsePartnerCallsItem {
+    #[serde(rename = "installationId")]
+    pub installation_id: String,
+    #[serde(rename = "resourceIds")]
+    pub resource_ids: Vec<String>,
+    pub result: AcceptProjectTransferRequestResponsePartnerCallsItemResult,
 }
 
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum,
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcher {
+impl AcceptProjectTransferRequestResponsePartnerCallsItem {
     pub fn new(
-        pattern: String,
-        type_: UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+        installation_id: String,
+        resource_ids: Vec<String>,
+        result: AcceptProjectTransferRequestResponsePartnerCallsItemResult,
     ) -> Self {
-        Self { pattern, type_ }
+        Self {
+            installation_id,
+            resource_ids,
+            result,
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
+pub struct AcceptProjectTransferRequestResponse {
+    #[serde(rename = "partnerCalls")]
+    pub partner_calls: Vec<AcceptProjectTransferRequestResponsePartnerCallsItem>,
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+    #[serde(rename = "resourceTransferErrors")]
+    pub resource_transfer_errors: Vec<serde_json::Value>,
+    #[serde(rename = "transferredStoreIds")]
+    pub transferred_store_ids: Vec<String>,
 }

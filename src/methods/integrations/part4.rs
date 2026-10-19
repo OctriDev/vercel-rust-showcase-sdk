@@ -3,6 +3,103 @@
 
 use super::*;
 
+impl ::std::convert::From<Box<SearchRepoResponseVariant2>> for SearchRepoResponse {
+    fn from(value: Box<SearchRepoResponseVariant2>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<SearchRepoResponseVariant3>> for SearchRepoResponse {
+    fn from(value: Box<SearchRepoResponseVariant3>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for SearchRepoResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetBillingPlansResponsePlansItemDetailsItem {
+    pub label: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+
+impl GetBillingPlansResponsePlansItemDetailsItem {
+    pub fn new(label: String) -> Self {
+        Self { label, value: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetBillingPlansResponsePlansItemHighlightedDetailsItem {
+    pub label: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+
+impl GetBillingPlansResponsePlansItemHighlightedDetailsItem {
+    pub fn new(label: String) -> Self {
+        Self { label, value: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetBillingPlansResponsePlansItemQuoteItem {
+    pub amount: String,
+    pub line: String,
+}
+
+impl GetBillingPlansResponsePlansItemQuoteItem {
+    pub fn new(amount: String, line: String) -> Self {
+        Self { amount, line }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetBillingPlansResponsePlansItemScopeEnum {
+    #[default]
+    Installation,
+    Resource,
+    Unknown(String),
+}
+
+impl GetBillingPlansResponsePlansItemScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Installation => "installation",
+            Self::Resource => "resource",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetBillingPlansResponsePlansItemScopeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetBillingPlansResponsePlansItemScopeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "installation" => Self::Installation,
+            "resource" => Self::Resource,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display for GetBillingPlansResponsePlansItemScopeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -183,113 +280,6 @@ impl<'de> serde::Deserialize<'de> for ConnectIntegrationResourceToProjectEnvVarE
 }
 
 impl std::fmt::Display for ConnectIntegrationResourceToProjectEnvVarEnvironmentsItem {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetConfigurationsResponseVariant0ItemDisabledReasonEnum {
-    #[default]
-    AccountPlanDowngrade,
-    DisabledByAdmin,
-    DisabledByOwner,
-    FeatureNotAvailable,
-    OriginalOwnerLeftTheTeam,
-    OriginalOwnerRoleDowngraded,
-    Unknown(String),
-}
-
-impl GetConfigurationsResponseVariant0ItemDisabledReasonEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AccountPlanDowngrade => "account-plan-downgrade",
-            Self::DisabledByAdmin => "disabled-by-admin",
-            Self::DisabledByOwner => "disabled-by-owner",
-            Self::FeatureNotAvailable => "feature-not-available",
-            Self::OriginalOwnerLeftTheTeam => "original-owner-left-the-team",
-            Self::OriginalOwnerRoleDowngraded => "original-owner-role-downgraded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetConfigurationsResponseVariant0ItemDisabledReasonEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetConfigurationsResponseVariant0ItemDisabledReasonEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "account-plan-downgrade" => Self::AccountPlanDowngrade,
-            "disabled-by-admin" => Self::DisabledByAdmin,
-            "disabled-by-owner" => Self::DisabledByOwner,
-            "feature-not-available" => Self::FeatureNotAvailable,
-            "original-owner-left-the-team" => Self::OriginalOwnerLeftTheTeam,
-            "original-owner-role-downgraded" => Self::OriginalOwnerRoleDowngraded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetConfigurationsResponseVariant0ItemDisabledReasonEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Defines the installation type. \- 'external' integrations are installed via the existing integrations flow \- 'marketplace' integrations are natively installed: \- when accepting the TOS of a partner during the store creation process \- if undefined, assume 'external'
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetConfigurationsResponseVariant0ItemInstallationTypeEnum {
-    #[default]
-    External,
-    Marketplace,
-    Unknown(String),
-}
-
-impl GetConfigurationsResponseVariant0ItemInstallationTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::External => "external",
-            Self::Marketplace => "marketplace",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetConfigurationsResponseVariant0ItemInstallationTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetConfigurationsResponseVariant0ItemInstallationTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "external" => Self::External,
-            "marketplace" => Self::Marketplace,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetConfigurationsResponseVariant0ItemInstallationTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

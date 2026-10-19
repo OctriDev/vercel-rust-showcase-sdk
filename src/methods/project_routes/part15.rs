@@ -3,24 +3,72 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0 {
-    #[serde(rename = "type")]
-    pub type_: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0TypeEnum,
-    pub value: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0Value,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value {
+    String(String),
+    Object(Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0ValueVariant1>),
 }
 
-impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0 {
+impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0ValueVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0ValueVariant1>>
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value
+{
+    fn from(
+        value: Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0ValueVariant1>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0 {
+    #[serde(rename = "type")]
+    pub type_: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0TypeEnum,
+    pub value: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value,
+}
+
+impl GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0 {
     pub fn new(
-        type_: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0TypeEnum,
-        value: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0Value,
+        type_: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0TypeEnum,
+        value: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0Value,
     ) -> Self {
         Self { type_, value }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
+pub enum GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum {
     #[default]
     Cookie,
     Header,
@@ -28,7 +76,7 @@ pub enum GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
     Unknown(String),
 }
 
-impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
+impl GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Cookie => "cookie",
@@ -39,7 +87,7 @@ impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
     }
 }
 
-impl serde::Serialize for GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
+impl serde::Serialize for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -49,7 +97,7 @@ impl serde::Serialize for GetRoutesResponseVariant3RoutesItemRouteMissingItemVar
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -65,7 +113,7 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-impl std::fmt::Display for GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum {
+impl std::fmt::Display for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -73,13 +121,13 @@ impl std::fmt::Display for GetRoutesResponseVariant3RoutesItemRouteMissingItemVa
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1Eq {
+pub enum GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq {
     String(String),
     Number(f64),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1Eq
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -98,14 +146,30 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1Eq branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1 {
+pub struct GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub eq: Option<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1Eq>,
+    pub eq: Option<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1Eq>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gt: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -128,7 +192,7 @@ pub struct GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVaria
     pub suf: Option<String>,
 }
 
-impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1 {
+impl GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1 {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
@@ -149,14 +213,12 @@ impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1 {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1Value {
+pub enum GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value {
     String(String),
-    Object(Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1>),
+    Object(Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1>),
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1Value
-{
+impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
@@ -168,7 +230,7 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1ValueVariant1>,
+            Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1>,
         >(value.clone())
         {
             let candidate = Self::Object(branch);
@@ -177,23 +239,39 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1Value branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1>>
+    for GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value
+{
+    fn from(
+        value: Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1ValueVariant1>,
+    ) -> Self {
+        Self::Object(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1 {
+pub struct GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1 {
     pub key: String,
     #[serde(rename = "type")]
-    pub type_: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum,
+    pub type_: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1Value>,
+    pub value: Option<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1Value>,
 }
 
-impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1 {
+impl GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1 {
     pub fn new(
         key: String,
-        type_: GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1TypeEnum,
+        type_: GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1TypeEnum,
     ) -> Self {
         Self {
             key,
@@ -205,17 +283,17 @@ impl GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1 {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetRoutesResponseVariant3RoutesItemRouteMissingItem {
-    Host(Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0>),
-    Object(Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1>),
+pub enum GetRoutesResponseVariant3RoutesItemRouteHasItem {
+    Host(Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0>),
+    Object(Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1>),
 }
 
-impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteMissingItem {
+impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteHasItem {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant0>,
+            Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0>,
         >(value.clone())
         {
             let candidate = Self::Host(branch);
@@ -225,7 +303,7 @@ impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteMi
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetRoutesResponseVariant3RoutesItemRouteMissingItemVariant1>,
+            Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant1>,
         >(value.clone())
         {
             let candidate = Self::Object(branch);
@@ -234,64 +312,18 @@ impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteMi
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetRoutesResponseVariant3RoutesItemRouteMissingItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Unknown(String),
-}
-
-impl GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            _ => Self::Unknown(value),
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetRoutesResponseVariant3RoutesItemRouteHasItem branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display for GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRoutesResponseVariant3RoutesItemRouteMitigate {
-    pub action: GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum,
-}
-
-impl GetRoutesResponseVariant3RoutesItemRouteMitigate {
-    pub fn new(action: GetRoutesResponseVariant3RoutesItemRouteMitigateActionEnum) -> Self {
-        Self { action }
+impl ::std::convert::From<Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0>>
+    for GetRoutesResponseVariant3RoutesItemRouteHasItem
+{
+    fn from(value: Box<GetRoutesResponseVariant3RoutesItemRouteHasItemVariant0>) -> Self {
+        Self::Host(value)
     }
 }

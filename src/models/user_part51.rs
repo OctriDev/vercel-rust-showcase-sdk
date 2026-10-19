@@ -3,6 +3,72 @@
 
 // user domain models (part 51)
 
+impl UserEventPayloadVariant160FromAccountTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Team => "team",
+            Self::User => "user",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant160FromAccountTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant160FromAccountTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "team" => Self::Team,
+            "user" => Self::User,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant160FromAccountTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required object value serialized in the `fromAccount` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant160FromAccount {
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Optional `string` value serialized in the `slug` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant160FromAccountTypeEnum,
+    /// Optional `string` value serialized in the `username` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
+impl UserEventPayloadVariant160FromAccount {
+    pub fn new(id: String, type_: UserEventPayloadVariant160FromAccountTypeEnum) -> Self {
+        Self {
+            id,
+            slug: None,
+            type_,
+            username: None,
+        }
+    }
+}
+
 /// Required enumerated value serialized in the `type` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UserEventPayloadVariant160ToAccountTypeEnum {
@@ -370,6 +436,18 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant167Target {
     }
 }
 
+impl ::std::convert::From<String> for UserEventPayloadVariant167Target {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for UserEventPayloadVariant167Target {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UserEventPayloadVariant167 {
@@ -419,101 +497,4 @@ pub struct UserEventPayloadVariant167 {
     /// Optional API value serialized in the `target` wire field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<UserEventPayloadVariant167Target>,
-}
-
-impl UserEventPayloadVariant167 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            custom_environment_slugs: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            ip_address: None,
-            key: None,
-            project_id: None,
-            project_name: None,
-            source: None,
-            target: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UserEventPayloadVariant168Target {
-    String(String),
-    StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant168Target {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UserEventPayloadVariant168Target branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// Required enumerated value serialized in the `newTarget[]` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant168UpdateDiffNewTargetItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant168UpdateDiffNewTargetItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant168UpdateDiffNewTargetItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant168UpdateDiffNewTargetItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
 }

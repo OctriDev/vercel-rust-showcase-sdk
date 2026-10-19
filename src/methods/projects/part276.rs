@@ -3,306 +3,293 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponse {
-    #[allow(clippy::too_many_arguments)]
+impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum>,
+    pub active: bool,
+}
+
+impl DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum>,
+    pub active: bool,
+}
+
+impl DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseSecurityManagedRules {
+    pub ai_bots: DeleteProjectAvatarResponseSecurityManagedRulesAiBots,
+    pub bot_filter: DeleteProjectAvatarResponseSecurityManagedRulesBotFilter,
+    pub owasp: DeleteProjectAvatarResponseSecurityManagedRulesOwasp,
+    pub traffic_sources: DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources,
+    pub vercel_ruleset: DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset,
+}
+
+impl DeleteProjectAvatarResponseSecurityManagedRules {
     pub fn new(
-        account_id: String,
-        alias: Vec<DeleteProjectAvatarResponseAliasItem>,
-        default_resource_config: DeleteProjectAvatarResponseDefaultResourceConfig,
-        deployment_expiration: DeleteProjectAvatarResponseDeploymentExpiration,
-        directory_listing: bool,
-        id: String,
-        name: String,
-        node_version: DeleteProjectAvatarResponseNodeVersionEnum,
-        resource_config: DeleteProjectAvatarResponseResourceConfig,
+        ai_bots: DeleteProjectAvatarResponseSecurityManagedRulesAiBots,
+        bot_filter: DeleteProjectAvatarResponseSecurityManagedRulesBotFilter,
+        owasp: DeleteProjectAvatarResponseSecurityManagedRulesOwasp,
+        traffic_sources: DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources,
+        vercel_ruleset: DeleteProjectAvatarResponseSecurityManagedRulesVercelRuleset,
     ) -> Self {
         Self {
-            account_id,
-            alias,
-            analytics: None,
-            applied_cve55182_migration: None,
-            auto_assign_custom_domains: None,
-            auto_assign_custom_domains_updated_by: None,
-            auto_expose_system_envs: None,
-            avatar: None,
-            avatar_dark_mode: None,
-            blobs: None,
-            build_command: None,
-            command_for_ignoring_build_step: None,
-            concurrency_bucket_name: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            connect_configurations: None,
-            created_at: None,
-            creator: None,
-            crons: None,
-            custom_environments: None,
-            customer_support_code_visibility: None,
-            data_cache: None,
-            default_resource_config,
-            deployment_expiration,
-            deployment_policy: None,
-            dev_command: None,
-            directory_listing,
-            dismissed_toasts: None,
-            enable_affected_projects_deployments: None,
-            enable_external_rewrite_caching: None,
-            enable_preview_feedback: None,
-            enable_production_feedback: None,
-            env: None,
-            expiration: None,
-            features: None,
-            framework: None,
-            git_comments: None,
-            git_fork_protection: None,
-            git_lfs: None,
-            git_provider_options: None,
-            has_active_branches: None,
-            has_deployments: None,
-            id,
-            install_command: None,
-            internal_routes: None,
-            ip_buckets: None,
-            jobs: None,
-            last_alias_request: None,
-            last_rollback_target: None,
-            latest_deployments: None,
-            link: None,
-            live: None,
-            microfrontends: None,
-            name,
-            node_version,
-            oidc_token_config: None,
-            options_allowlist: None,
-            output_directory: None,
-            passive_connect_configuration_id: None,
-            passport: None,
-            password_protection: None,
-            paused: None,
-            permissions: None,
-            production_deployments_fast_lane: None,
-            protected_sourcemaps: None,
-            protection_bypass: None,
-            protection_config: None,
-            resource_config,
-            rollback_description: None,
-            rolling_release: None,
-            root_directory: None,
-            sandbox: None,
-            security: None,
-            serverless_function_zero_config_failover: None,
-            services: None,
-            skew_protection_allowed_domains: None,
-            skew_protection_boundary_at: None,
-            skew_protection_max_age: None,
-            skip_git_connect_during_link: None,
-            source_files_outside_root_directory: None,
-            speed_insights: None,
-            sso_protection: None,
-            static_ips: None,
-            targets: None,
-            tier: None,
-            tracing: None,
-            transfer_completed_at: None,
-            transferred_from_account_id: None,
-            transfer_started_at: None,
-            transfer_to_account_id: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            updated_at: None,
-            usage_status: None,
-            v0: None,
-            v0_created: None,
-            web_analytics: None,
+            ai_bots,
+            bot_filter,
+            owasp,
+            traffic_sources,
+            vercel_ruleset,
         }
     }
 }
 
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectDomainResponseVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
 }
 
-impl GetProjectDomainResponseVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
+impl DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Bypass => "bypass",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Redirect => "redirect",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectDomainResponse {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification: Option<Vec<GetProjectDomainResponseVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
+impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl GetProjectDomainResponse {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "bypass" => Self::Bypass,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            "redirect" => Self::Redirect,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectDomainResponseVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl UpdateProjectDomainResponseVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
+impl serde::Serialize for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectDomainResponse {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification: Option<Vec<UpdateProjectDomainResponseVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
-}
-
-impl UpdateProjectDomainResponse {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
-        }
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
     }
 }
 
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddProjectDomainResponseVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
+impl std::fmt::Display for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-impl AddProjectDomainResponseVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders {
+    StringArray(Vec<String>),
+    Literal(DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum>
+    for DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(value: DeleteProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    #[default]
+    FixedWindow,
+    TokenBucket,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }

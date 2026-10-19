@@ -2,6 +2,169 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::GlobalConfigItemValue;
+
+impl HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse {
+    pub fn new(digest: String, items: std::collections::HashMap<String, Option<GlobalConfigItemValue>>, updated_at: f64) -> Self {
+        Self { digest, items, purpose: None, updated_at }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum
+{
+    #[default]
+    Experimentation,
+    Flags,
+    Unknown(String),
+}
+
+impl GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Experimentation => "experimentation",
+            Self::Flags => "flags",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "experimentation" => Self::Experimentation,
+            "flags" => Self::Flags,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse {
+    pub digest: String,
+    pub items: std::collections::HashMap<String, Option<GlobalConfigItemValue>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub purpose: Option<GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum>,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse {
+    pub fn new(digest: String, items: std::collections::HashMap<String, Option<GlobalConfigItemValue>>, updated_at: f64) -> Self {
+        Self { digest, items, purpose: None, updated_at }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum
+{
+    #[default]
+    Experimentation,
+    Flags,
+    Unknown(String),
+}
+
+impl ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Experimentation => "experimentation",
+            Self::Flags => "flags",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "experimentation" => Self::Experimentation,
+            "flags" => Self::Flags,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse {
+    pub digest: String,
+    pub items: std::collections::HashMap<String, Option<GlobalConfigItemValue>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub purpose: Option<ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponsePurposeEnum>,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse {
+    pub fn new(digest: String, items: std::collections::HashMap<String, Option<GlobalConfigItemValue>>, updated_at: f64) -> Self {
+        Self { digest, items, purpose: None, updated_at }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateInstallationStatusEnum {
+    #[default]
+    Error,
+    Onboarding,
+    Pending,
+    Ready,
+    Resumed,
+    Suspended,
+    Uninstalled,
+    Unknown(String),
+}
+
+impl UpdateInstallationStatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Error => "error",
+            Self::Onboarding => "onboarding",
+            Self::Pending => "pending",
+            Self::Ready => "ready",
+            Self::Resumed => "resumed",
+            Self::Suspended => "suspended",
+            Self::Uninstalled => "uninstalled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
 
 impl serde::Serialize for UpdateInstallationStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -110,168 +273,6 @@ impl ImportResourceStatusEnum {
             Self::Resumed => "resumed",
             Self::Suspended => "suspended",
             Self::Uninstalled => "uninstalled",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ImportResourceStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ImportResourceStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error" => Self::Error,
-            "onboarding" => Self::Onboarding,
-            "pending" => Self::Pending,
-            "ready" => Self::Ready,
-            "resumed" => Self::Resumed,
-            "suspended" => Self::Suspended,
-            "uninstalled" => Self::Uninstalled,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ImportResourceStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateResourceOwnershipEnum {
-    #[default]
-    Linked,
-    Owned,
-    Sandbox,
-    Unknown(String),
-}
-
-impl UpdateResourceOwnershipEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Linked => "linked",
-            Self::Owned => "owned",
-            Self::Sandbox => "sandbox",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateResourceOwnershipEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateResourceOwnershipEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "linked" => Self::Linked,
-            "owned" => Self::Owned,
-            "sandbox" => Self::Sandbox,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateResourceOwnershipEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateResourceStatusEnum {
-    #[default]
-    Error,
-    Onboarding,
-    Pending,
-    Ready,
-    Resumed,
-    Suspended,
-    Uninstalled,
-    Unknown(String),
-}
-
-impl UpdateResourceStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Error => "error",
-            Self::Onboarding => "onboarding",
-            Self::Pending => "pending",
-            Self::Ready => "ready",
-            Self::Resumed => "resumed",
-            Self::Suspended => "suspended",
-            Self::Uninstalled => "uninstalled",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateResourceStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateResourceStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error" => Self::Error,
-            "onboarding" => Self::Onboarding,
-            "pending" => Self::Pending,
-            "ready" => Self::Ready,
-            "resumed" => Self::Resumed,
-            "suspended" => Self::Suspended,
-            "uninstalled" => Self::Uninstalled,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateResourceStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateInvoiceActionEnum {
-    #[default]
-    Refund,
-    Unknown(String),
-}
-
-impl UpdateInvoiceActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Refund => "refund",
             Self::Unknown(value) => value.as_str(),
         }
     }

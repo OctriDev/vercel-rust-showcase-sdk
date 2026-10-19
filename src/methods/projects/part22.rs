@@ -3,6 +3,41 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display
     for ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
 {
@@ -66,6 +101,30 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant0>,
+    > for ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1>,
+    > for ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant0ItemTrustedSourcesOidcProvidersValueItemToVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
     }
 }
 
@@ -257,67 +316,38 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+    > for ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<
+            ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0,
+        >,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+    > for ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<
+            ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1,
+        >,
+    ) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
 {
     #[default]
     AllCustom,
     Unknown(String),
-}
-
-impl
-    ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl ListProjectsResponseVariant0ItemTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
 }

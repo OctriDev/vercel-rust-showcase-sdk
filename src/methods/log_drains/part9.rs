@@ -3,6 +3,90 @@
 
 use super::*;
 
+impl ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1 {
+    pub fn new(
+        text: String,
+        type_: ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1TypeEnum,
+    ) -> Self {
+        Self { text, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2Filter {
+    Basic(Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0>),
+    Odata(Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2Filter
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Basic(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Odata(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2Filter branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0>>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2Filter
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0>,
+    ) -> Self {
+        Self::Basic(value)
+    }
+}
+
+impl
+    ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1>>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2Filter
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant1>,
+    ) -> Self {
+        Self::Odata(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2VersionEnum {
+    #[default]
+    V2,
+    Unknown(String),
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2VersionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::V2 => "v2",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2VersionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -242,88 +326,5 @@ impl ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVarian
             Self::IntegrationSecret => "INTEGRATION_SECRET",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1KindEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1KindEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "INTEGRATION_SECRET" => Self::IntegrationSecret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1 {
-    pub kind: ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1KindEnum,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1 {
-    pub fn new(
-        kind: ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1KindEnum,
-    ) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0Secret {
-    String(String),
-    INTEGRATIONSECRET(
-        Box<ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0Secret
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0SecretVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::INTEGRATIONSECRET(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListLogDrainsResponseVariant1DrainsVariant1ItemDeliveryVariant0Secret branch accepts this payload"))
     }
 }

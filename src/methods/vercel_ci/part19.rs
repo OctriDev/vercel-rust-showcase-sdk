@@ -2,249 +2,344 @@
 // This file is machine-generated from your OpenAPI spec.
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant2Enum {
-    #[serde(rename = "bootstrapping")]
+pub enum GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum {
+    #[serde(rename = "turbo-json")]
     #[default]
-    Bootstrapping,
+    TurboJson,
 }
 
-impl GetVercelCiInvocationResponseInvocationStatusVariant2Enum {
+impl GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Bootstrapping => "bootstrapping",
+            Self::TurboJson => "turbo-json",
         }
     }
 }
 
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant2Enum {
+impl std::fmt::Display
+    for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant2Enum::Bootstrapping => {
-                f.write_str("bootstrapping")
+            GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum::TurboJson => f.write_str("turbo-json"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum {
+    #[serde(rename = "vercel-ci-config")]
+    #[default]
+    VercelCiConfig,
+}
+
+impl GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::VercelCiConfig => "vercel-ci-config",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum::VercelCiConfig => f.write_str("vercel-ci-config"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum {
+    #[serde(rename = "project-settings")]
+    #[default]
+    ProjectSettings,
+}
+
+impl GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ProjectSettings => "project-settings",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum::ProjectSettings => f.write_str("project-settings"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource {
+    Object(Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>),
+    Object2(Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>),
+    Object3(Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>,
+    > for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
+    > for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
+    ) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>,
+    > for GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>,
+    ) -> Self {
+        Self::Object3(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationResponseInvocationJobDefinitionsCreated {
+    pub names: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<GetVercelCiInvocationResponseInvocationJobDefinitionsCreatedSource>,
+    #[serde(rename = "scheduledAt", skip_serializing_if = "Option::is_none")]
+    pub scheduled_at: Option<f64>,
+}
+
+impl GetVercelCiInvocationResponseInvocationJobDefinitionsCreated {
+    pub fn new(names: Vec<String>) -> Self {
+        Self {
+            names,
+            source: None,
+            scheduled_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum {
+    #[serde(rename = "succeeded")]
+    #[default]
+    Succeeded,
+}
+
+impl GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Succeeded => "succeeded",
+        }
+    }
+}
+
+impl std::fmt::Display for GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum::Succeeded => {
+                f.write_str("succeeded")
             }
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant3Enum {
-    #[serde(rename = "bootstrapping_failed")]
+pub enum GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum {
+    #[serde(rename = "failed")]
     #[default]
-    BootstrappingFailed,
+    Failed,
 }
 
-impl GetVercelCiInvocationResponseInvocationStatusVariant3Enum {
+impl GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::BootstrappingFailed => "bootstrapping_failed",
+            Self::Failed => "failed",
         }
     }
 }
 
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant3Enum {
+impl std::fmt::Display for GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant3Enum::BootstrappingFailed => {
-                f.write_str("bootstrapping_failed")
+            GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum::Failed => {
+                f.write_str("failed")
             }
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant4Enum {
-    #[serde(rename = "snapshotted")]
+pub enum GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum {
+    #[serde(rename = "skipped")]
     #[default]
-    Snapshotted,
+    Skipped,
 }
 
-impl GetVercelCiInvocationResponseInvocationStatusVariant4Enum {
+impl GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Snapshotted => "snapshotted",
+            Self::Skipped => "skipped",
         }
     }
 }
 
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant4Enum {
+impl std::fmt::Display for GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant4Enum::Snapshotted => {
-                f.write_str("snapshotted")
+            GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum::Skipped => {
+                f.write_str("skipped")
             }
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant5Enum {
-    #[serde(rename = "sandbox_named")]
-    #[default]
-    SandboxNamed,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetVercelCiInvocationResponseInvocationCompletedConclusion {
+    Object(Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum>),
+    Object2(Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum>),
+    Object3(Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum>),
 }
 
-impl GetVercelCiInvocationResponseInvocationStatusVariant5Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SandboxNamed => "sandbox_named",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant5Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant5Enum::SandboxNamed => {
-                f.write_str("sandbox_named")
+impl<'de> serde::Deserialize<'de> for GetVercelCiInvocationResponseInvocationCompletedConclusion {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
             }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant6Enum {
-    #[serde(rename = "jobs_on_hive_clone_dispatched")]
-    #[default]
-    JobsOnHiveCloneDispatched,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant6Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveCloneDispatched => "jobs_on_hive_clone_dispatched",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant6Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant6Enum::JobsOnHiveCloneDispatched => f.write_str("jobs_on_hive_clone_dispatched"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant7Enum {
-    #[serde(rename = "jobs_on_hive_dispatched")]
-    #[default]
-    JobsOnHiveDispatched,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant7Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveDispatched => "jobs_on_hive_dispatched",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant7Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant7Enum::JobsOnHiveDispatched => {
-                f.write_str("jobs_on_hive_dispatched")
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
             }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant8Enum {
-    #[serde(rename = "jobs_on_hive_completed")]
-    #[default]
-    JobsOnHiveCompleted,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant8Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveCompleted => "jobs_on_hive_completed",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant8Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant8Enum::JobsOnHiveCompleted => {
-                f.write_str("jobs_on_hive_completed")
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
             }
+            lossy.get_or_insert(candidate);
         }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetVercelCiInvocationResponseInvocationCompletedConclusion branch accepts this payload"))
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant9Enum {
-    #[serde(rename = "jobs_on_hive_failed")]
-    #[default]
-    JobsOnHiveFailed,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant9Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveFailed => "jobs_on_hive_failed",
-        }
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum>,
+    > for GetVercelCiInvocationResponseInvocationCompletedConclusion
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant0Enum>,
+    ) -> Self {
+        Self::Object(value)
     }
 }
 
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant9Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant9Enum::JobsOnHiveFailed => {
-                f.write_str("jobs_on_hive_failed")
-            }
-        }
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum>,
+    > for GetVercelCiInvocationResponseInvocationCompletedConclusion
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant1Enum>,
+    ) -> Self {
+        Self::Object2(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant10Enum {
-    #[serde(rename = "awaiting_jobs")]
-    #[default]
-    AwaitingJobs,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant10Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AwaitingJobs => "awaiting_jobs",
-        }
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum>,
+    > for GetVercelCiInvocationResponseInvocationCompletedConclusion
+{
+    fn from(
+        value: Box<GetVercelCiInvocationResponseInvocationCompletedConclusionVariant2Enum>,
+    ) -> Self {
+        Self::Object3(value)
     }
 }
 
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant10Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant10Enum::AwaitingJobs => {
-                f.write_str("awaiting_jobs")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationResponseInvocationStatusVariant11Enum {
-    #[serde(rename = "completed")]
-    #[default]
-    Completed,
-}
-
-impl GetVercelCiInvocationResponseInvocationStatusVariant11Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationResponseInvocationStatusVariant11Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationResponseInvocationStatusVariant11Enum::Completed => {
-                f.write_str("completed")
-            }
-        }
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationResponseInvocationCompleted {
+    #[serde(rename = "completedAt")]
+    pub completed_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conclusion: Option<GetVercelCiInvocationResponseInvocationCompletedConclusion>,
 }

@@ -2,446 +2,298 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_items, validate_length, LengthOpts};
 
-#[derive(Debug, Clone)]
-pub struct AddRouteParams {
-    pub project_id: String,
-    pub route: AddRouteRoute,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub position: Option<AddRoutePosition>,
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponseRouteActionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<GenerateRouteResponseRouteActionsItemHeadersItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<f64>,
+    #[serde(rename = "subType", skip_serializing_if = "Option::is_none")]
+    pub sub_type: Option<GenerateRouteResponseRouteActionsItemSubTypeEnum>,
+    #[serde(rename = "type")]
+    pub type_: GenerateRouteResponseRouteActionsItemTypeEnum,
 }
 
-/// Adds a routing rule to a project and stages a new routing-rule version. Supply a `route` with its `name` and route configuration; the route configuration must include `src`. Use `position` to choose where to insert the rule, or omit it to add the rule at the end.
-///
-/// Add a single routing rule to a project at a specified position. Defaults to the end of the list if no position is provided. The route is enabled by default. Stages a new version with the added route.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `position` - Controls where the route is inserted. Defaults to "end" if
-///   omitted.
-pub fn add_route(
-    config: &ClientConfig,
-    params: AddRouteParams,
-    options: Option<&RequestOptions>,
-) -> Result<AddRouteResponse, SdkError> {
-    let AddRouteParams {
-        project_id,
-        route,
-        team_id,
-        slug,
-        position,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl GenerateRouteResponseRouteActionsItem {
+    pub fn new(type_: GenerateRouteResponseRouteActionsItemTypeEnum) -> Self {
+        Self {
+            dest: None,
+            headers: None,
+            status: None,
+            sub_type: None,
+            type_,
+        }
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "route".to_string(),
-        serde_json::to_value(route).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = position {
-        __body_map.insert(
-            "position".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<AddRouteResponse>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/routes",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "add_route",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Deletes one or more routing rules from a project by ID and stages a new version with those rules removed. Supply the IDs in `routeIds`; the array must contain at least one route ID. The response includes the number of deleted rules and the staged version.
-///
-/// Delete one or more routing rules from a project by ID. Stages a new version with the routes removed.
-///
-/// # Arguments
-///
-/// * `route_ids` - The IDs of the routes to delete
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_routes(
-    config: &ClientConfig,
-    project_id: String,
-    route_ids: Vec<String>,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<DeleteRoutesResponse, SdkError> {
-    validate_items(
-        "routeIds",
-        &route_ids,
-        LengthOpts {
-            min: Some(1),
-            ..Default::default()
-        },
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "routeIds".to_string(),
-        serde_json::to_value(route_ids).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<DeleteRoutesResponse>(
-        "DELETE",
-        &format!(
-            "/v1/projects/{}/routes",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "delete_routes",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GenerateRouteResponseRouteConditionsItemFieldEnum {
+    #[default]
+    Cookie,
+    Header,
+    Host,
+    Query,
+    Unknown(String),
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct EditRouteParams {
-    pub project_id: String,
-    pub route_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub route: Option<EditRouteRoute>,
-    pub restore: Option<bool>,
+impl GenerateRouteResponseRouteConditionsItemFieldEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Cookie => "cookie",
+            Self::Header => "header",
+            Self::Host => "host",
+            Self::Query => "query",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }
 
-/// Updates a routing rule in a project by replacing it or restoring its value from the current production version. Supply `route` with the complete replacement rule, or set `restore` to restore the production value. The update stages a new routing-rule version.
-///
-/// Replace a routing rule identified by its ID, or restore it from the current production version. Stages a new version with the modified route.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `route` - The full route object to replace the existing route with
-/// * `restore` - If true, restores the staged route to the value in the
-///   production version.
-pub fn edit_route(
-    config: &ClientConfig,
-    params: EditRouteParams,
-    options: Option<&RequestOptions>,
-) -> Result<EditRouteResponse, SdkError> {
-    let EditRouteParams {
-        project_id,
-        route_id,
-        team_id,
-        slug,
-        route,
-        restore,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl serde::Serialize for GenerateRouteResponseRouteConditionsItemFieldEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = route {
-        __body_map.insert(
-            "route".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = restore {
-        __body_map.insert(
-            "restore".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<EditRouteResponse>(
-        "PATCH",
-        &format!(
-            "/v1/projects/{}/routes/{}",
-            crate::client::encode_path_segment(&project_id),
-            crate::client::encode_path_segment(&route_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "edit_route",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct GenerateRouteParams {
-    pub project_id: String,
-    pub prompt: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub current_route: Option<GenerateRouteCurrentRoute>,
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRouteConditionsItemFieldEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "cookie" => Self::Cookie,
+            "header" => Self::Header,
+            "host" => Self::Host,
+            "query" => Self::Query,
+            _ => Self::Unknown(value),
+        })
+    }
 }
 
-/// Generates a suggested routing-rule configuration from a natural-language description. Provide the request in `prompt`, which can be up to 2000 characters, and optionally include `currentRoute` as context. Review the suggested route before saving it with a routing-rule operation.
-///
-/// Generate a routing rule configuration from a natural language description. Returns a suggested route configuration that can be reviewed and saved.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn generate_route(
-    config: &ClientConfig,
-    params: GenerateRouteParams,
-    options: Option<&RequestOptions>,
-) -> Result<GenerateRouteResponse, SdkError> {
-    let GenerateRouteParams {
-        project_id,
-        prompt,
-        team_id,
-        slug,
-        current_route,
-    } = params;
-    validate_length(
-        "prompt",
-        &prompt,
-        LengthOpts {
-            max: Some(2000),
-            ..Default::default()
-        },
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl std::fmt::Display for GenerateRouteResponseRouteConditionsItemFieldEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "prompt".to_string(),
-        serde_json::to_value(prompt).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = current_route {
-        __body_map.insert(
-            "currentRoute".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<GenerateRouteResponse>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/routes/generate",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "generate_route",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Lists the version history for a project's routing rules. The results include the staging version, when one exists, followed by production versions in descending recency. Use `isStaging` to identify the staged version and `isLive` to identify the current production version.
-///
-/// Get the version history for a project's routing rules. Returns the staging version (if one exists) followed by production versions, most recent first. The staging version has `isStaging: true` and the current production version has `isLive: true`.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_route_versions(
-    config: &ClientConfig,
-    project_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetRouteVersionsResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetRouteVersionsResponse>(
-        "GET",
-        &format!(
-            "/v1/projects/{}/routes/versions",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_route_versions",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GenerateRouteResponseRouteConditionsItemOperatorEnum {
+    #[default]
+    Contains,
+    Eq,
+    Exists,
+    Re,
+    Unknown(String),
 }
 
-#[derive(Debug, Clone)]
-pub struct UpdateRouteVersionsParams {
-    pub project_id: String,
+impl GenerateRouteResponseRouteConditionsItemOperatorEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Contains => "contains",
+            Self::Eq => "eq",
+            Self::Exists => "exists",
+            Self::Re => "re",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GenerateRouteResponseRouteConditionsItemOperatorEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRouteConditionsItemOperatorEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "contains" => Self::Contains,
+            "eq" => Self::Eq,
+            "exists" => Self::Exists,
+            "re" => Self::Re,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GenerateRouteResponseRouteConditionsItemOperatorEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponseRouteConditionsItem {
+    pub field: GenerateRouteResponseRouteConditionsItemFieldEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    pub missing: bool,
+    pub operator: GenerateRouteResponseRouteConditionsItemOperatorEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+
+impl GenerateRouteResponseRouteConditionsItem {
+    pub fn new(
+        field: GenerateRouteResponseRouteConditionsItemFieldEnum,
+        missing: bool,
+        operator: GenerateRouteResponseRouteConditionsItemOperatorEnum,
+    ) -> Self {
+        Self {
+            field,
+            key: None,
+            missing,
+            operator,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GenerateRouteResponseRoutePathConditionSyntaxEnum {
+    #[default]
+    Equals,
+    PathToRegexp,
+    Regex,
+    Unknown(String),
+}
+
+impl GenerateRouteResponseRoutePathConditionSyntaxEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Equals => "equals",
+            Self::PathToRegexp => "path-to-regexp",
+            Self::Regex => "regex",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GenerateRouteResponseRoutePathConditionSyntaxEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRoutePathConditionSyntaxEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "equals" => Self::Equals,
+            "path-to-regexp" => Self::PathToRegexp,
+            "regex" => Self::Regex,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GenerateRouteResponseRoutePathConditionSyntaxEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponseRoutePathCondition {
+    pub syntax: GenerateRouteResponseRoutePathConditionSyntaxEnum,
+    pub value: String,
+}
+
+impl GenerateRouteResponseRoutePathCondition {
+    pub fn new(syntax: GenerateRouteResponseRoutePathConditionSyntaxEnum, value: String) -> Self {
+        Self { syntax, value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponseRoute {
+    pub actions: Vec<GenerateRouteResponseRouteActionsItem>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conditions: Option<Vec<GenerateRouteResponseRouteConditionsItem>>,
+    pub description: String,
+    pub name: String,
+    #[serde(rename = "pathCondition")]
+    pub path_condition: GenerateRouteResponseRoutePathCondition,
+}
+
+impl GenerateRouteResponseRoute {
+    pub fn new(
+        actions: Vec<GenerateRouteResponseRouteActionsItem>,
+        description: String,
+        name: String,
+        path_condition: GenerateRouteResponseRoutePathCondition,
+    ) -> Self {
+        Self {
+            actions,
+            conditions: None,
+            description,
+            name,
+            path_condition,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponse {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub route: Option<GenerateRouteResponseRoute>,
+}
+
+impl GenerateRouteResponse {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            error: None,
+            route: None,
+        }
+    }
+}
+
+/// A version of routing rules stored in S3.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetRouteVersionsResponseVersionsItem {
+    /// The staging alias for previewing this version.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<String>,
+    /// The user who created this version.
+    #[serde(rename = "createdBy")]
+    pub created_by: String,
+    /// Unique identifier for the version.
     pub id: String,
-    pub action: UpdateRouteVersionsActionEnum,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Promotes staged routing rules to production, restores an earlier production version, or discards staged changes. Supply the version `id` and choose an `action` of `promote`, `restore`, or `discard`. The response returns the resulting routing-rule version.
-///
-/// Promote staged routing rules to production, restore a previous production version, or discard staged changes. \- `promote`: Publishes the staging version to production. \- `restore`: Rolls back to a previous production version. \- `discard`: Removes the staging version without publishing.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn update_route_versions(
-    config: &ClientConfig,
-    params: UpdateRouteVersionsParams,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateRouteVersionsResponse, SdkError> {
-    let UpdateRouteVersionsParams {
-        project_id,
-        id,
-        action,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "id".to_string(),
-        serde_json::to_value(id).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "action".to_string(),
-        serde_json::to_value(action).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<UpdateRouteVersionsResponse>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/routes/versions",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_route_versions",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+    /// Whether this version is currently live in production.
+    #[serde(rename = "isLive", skip_serializing_if = "Option::is_none")]
+    pub is_live: Option<bool>,
+    /// Whether this version is staged and not yet promoted to production.
+    #[serde(rename = "isStaging", skip_serializing_if = "Option::is_none")]
+    pub is_staging: Option<bool>,
+    /// Timestamp of when this version was last modified.
+    #[serde(rename = "lastModified")]
+    pub last_modified: f64,
+    /// The number of routing rules in this version.
+    #[serde(rename = "ruleCount", skip_serializing_if = "Option::is_none")]
+    pub rule_count: Option<f64>,
+    /// The S3 key where the routing rules are stored.
+    #[serde(rename = "s3Key")]
+    pub s3_key: String,
 }

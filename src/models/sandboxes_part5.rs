@@ -3,6 +3,31 @@
 
 // sandboxes domain models (part 5)
 
+/// Restore the sandbox filesystem from an existing snapshot.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV2RequestSourceVariant2 {
+    /// Indicates the source is a snapshot.
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    /// The unique identifier of the snapshot to restore.
+    #[serde(rename = "snapshotId")]
+    pub snapshot_id: String,
+}
+
+impl CreateSandboxesV2RequestSourceVariant2 {
+    pub fn new(type_: serde_json::Value, snapshot_id: String) -> Self {
+        Self { type_, snapshot_id }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateSandboxesV2RequestSource {
+    Object(Box<CreateSandboxesV2RequestSourceVariant0>),
+    Object2(Box<CreateSandboxesV2RequestSourceVariant1>),
+    Object3(Box<CreateSandboxesV2RequestSourceVariant2>),
+}
+
 impl<'de> serde::Deserialize<'de> for CreateSandboxesV2RequestSource {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -522,18 +547,5 @@ impl CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemMatch {
             query_string: None,
             headers: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemTransformItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub headers: Option<std::collections::HashMap<String, String>>,
-}
-
-impl CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemTransformItem {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { headers: None }
     }
 }

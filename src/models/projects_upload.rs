@@ -184,6 +184,22 @@ impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseCreatorVariant0
     }
 }
 
+impl ::std::convert::From<Box<UploadProjectAvatarResponseCreatorVariant0ViaVariant0>>
+    for UploadProjectAvatarResponseCreatorVariant0Via
+{
+    fn from(value: Box<UploadProjectAvatarResponseCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<UploadProjectAvatarResponseCreatorVariant0ViaVariant1>>
+    for UploadProjectAvatarResponseCreatorVariant0Via
+{
+    fn from(value: Box<UploadProjectAvatarResponseCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UploadProjectAvatarResponseCreatorVariant0User {
     pub id: String,
@@ -492,21 +508,5 @@ impl std::fmt::Display for UploadProjectAvatarResponseDeploymentPolicyDeployment
         match self {
             UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub target: UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-}
-
-impl UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub fn new(
-        target: UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-        type_: UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-    ) -> Self {
-        Self { target, type_ }
     }
 }

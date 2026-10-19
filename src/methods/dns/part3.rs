@@ -8,6 +8,35 @@ use crate::errors::{SdkError, SdkNetworkError};
 use crate::types::CreateRecordResponse;
 use crate::validation::{validate_length, validate_range, LengthOpts, RangeOpts};
 
+impl serde::Serialize for UpdateRecordResponseTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateRecordResponseTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "record" => Self::Record,
+            "record-sys" => Self::RecordSys,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateRecordResponseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateRecordResponse {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -445,49 +474,6 @@ pub fn update_record(
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "update_record",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Deletes an existing DNS record from a domain. Supply the domain and record identifiers to select the record to remove. The response confirms removal of the specified record.
-///
-/// Removes an existing DNS record from a domain name.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn remove_record(
-    config: &ClientConfig,
-    domain: String,
-    record_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "DELETE",
-        &format!(
-            "/v2/domains/{}/records/{}",
-            crate::client::encode_path_segment(&domain),
-            crate::client::encode_path_segment(&record_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "remove_record",
             options,
             ..Default::default()
         },

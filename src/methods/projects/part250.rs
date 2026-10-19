@@ -3,59 +3,24 @@
 
 use super::*;
 
-impl serde::Serialize for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
+    AllCustom,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -66,7 +31,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -74,265 +39,307 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseDefaultResourceConfigBuildQueue {
+pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub configuration:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildQueueConfigurationEnum>,
+    pub preset: Option<
+        UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum,
+    >,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
 }
 
-impl DeleteProjectAvatarResponseDefaultResourceConfigBuildQueue {
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The target envs on the current project that may be accessed.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub preset:
+        UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+}
+
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub fn new(
+        preset: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    ) -> Self {
+        Self {
+            preset,
+            slugs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo {
+    AllCustom(Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
+    AllCustom2(
+        Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    ),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    > for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    > for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
+/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub from: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+    pub to: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+}
+
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub fn new(
+        from: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+        to: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+    ) -> Self {
+        Self { from, to }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValue {
+    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
+    pub custom_allow:
+        Option<Vec<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+}
+
+impl UploadProjectAvatarResponseTrustedSourcesProjectsValue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            configuration: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    #[default]
-    Performance,
-    PerformanceXl,
-    Standard,
-    StandardLegacy,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Performance => "performance",
-            Self::PerformanceXl => "performance_xl",
-            Self::Standard => "standard",
-            Self::StandardLegacy => "standard_legacy",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "performance" => Self::Performance,
-            "performance_xl" => Self::PerformanceXl,
-            "standard" => Self::Standard,
-            "standard_legacy" => Self::StandardLegacy,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    #[default]
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachine {
-    pub cores: f64,
-    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-    pub label: DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
-    pub memory: f64,
-}
-
-impl DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachine {
-    pub fn new(
-        cores: f64,
-        label: DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
-    ) -> Self {
-        Self {
-            cores,
-            label,
-            memory,
+            custom_allow: None,
+            label: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseDefaultResourceConfig {
+pub struct UploadProjectAvatarResponseTrustedSources {
+    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
     #[serde(
-        rename = "buildMachineElasticLastUpdated",
+        rename = "enableVercelCiSameRepository",
         skip_serializing_if = "Option::is_none"
     )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
+    pub enable_vercel_ci_same_repository: Option<bool>,
+    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
+    pub oidc_providers: Option<
+        std::collections::HashMap<
+            String,
+            Vec<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItem>,
+        >,
+    >,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine:
-        Option<DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachine>,
+    pub projects: Option<
+        std::collections::HashMap<String, UploadProjectAvatarResponseTrustedSourcesProjectsValue>,
+    >,
 }
 
-impl DeleteProjectAvatarResponseDefaultResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
+impl UploadProjectAvatarResponseTrustedSources {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
+            enable_vercel_ci_same_repository: None,
+            oidc_providers: None,
+            projects: None,
         }
     }
+}
+
+/// Billing mode. Always 'flat' for flat-rate projects.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseUsageStatusKindEnum {
+    #[default]
+    Flat,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseUsageStatusKindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Flat => "flat",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseUsageStatusKindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseUsageStatusKindEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flat" => Self::Flat,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseUsageStatusKindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseUsageStatus {
+    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
+    #[serde(
+        rename = "bypassThrottleUntil",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bypass_throttle_until: Option<f64>,
+    /// Timestamp until which the project has exceeded its CDN allowance.
+    #[serde(
+        rename = "exceededAllowanceUntil",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub exceeded_allowance_until: Option<f64>,
+    /// Billing mode. Always 'flat' for flat-rate projects.
+    pub kind: UploadProjectAvatarResponseUsageStatusKindEnum,
+    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
+    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
+    pub team_throttled: Option<bool>,
+    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub throttled: Option<bool>,
 }

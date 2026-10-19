@@ -3,68 +3,26 @@
 
 use super::*;
 
-impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UicontrolEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UihiddenVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uihidden {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UihiddenVariant2Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidescriptionVariant1
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0
 {
     pub expr: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidescriptionVariant1 {
-    pub fn new(expr: String) -> Self {
-        Self { expr }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidescription
-{
-    String(String),
-    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidescriptionVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidescription {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidescriptionVariant1>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidescription branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant0
-{
-    pub expr: String,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant0 {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0 {
     pub fn new(expr: String) -> Self {
         Self { expr }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum
 {
     #[default]
     Create,
@@ -72,7 +30,7 @@ pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertie
     Unknown(String),
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Create => "create",
@@ -82,7 +40,7 @@ impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesVal
     }
 }
 
-impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum {
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -91,7 +49,7 @@ impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetada
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -105,7 +63,7 @@ impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreP
     }
 }
 
-impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum {
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -113,18 +71,18 @@ impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetad
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidisabled
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly
 {
-    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant0>),
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0>),
     Bool(bool),
-    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum),
+    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum),
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidisabled {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant0>>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0>>(value.clone()) {
             let candidate = Self::Object(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
@@ -138,61 +96,113 @@ impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreP
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UidisabledVariant2Enum>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum>(value.clone()) {
             let candidate = Self::Literal(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uidisabled branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UireadonlyVariant2Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uiformattedvalue
-{
-    pub expr: String,
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default: Option<Vec<f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    pub items: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Items,
+    #[serde(rename = "maxItems", skip_serializing_if = "Option::is_none")]
+    pub max_items: Option<f64>,
+    #[serde(rename = "minItems", skip_serializing_if = "Option::is_none")]
+    pub min_items: Option<f64>,
+    #[serde(rename = "type")]
+    pub type_: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3TypeEnum,
+    #[serde(rename = "ui:control")]
+    pub ui_control: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UicontrolEnum,
+    #[serde(rename = "ui:description", skip_serializing_if = "Option::is_none")]
+    pub ui_description: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uidescription>,
+    #[serde(rename = "ui:disabled", skip_serializing_if = "Option::is_none")]
+    pub ui_disabled: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uidisabled>,
+    #[serde(rename = "ui:formatted-value", skip_serializing_if = "Option::is_none")]
+    pub ui_formatted_value: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uiformattedvalue>,
+    #[serde(rename = "ui:hidden", skip_serializing_if = "Option::is_none")]
+    pub ui_hidden: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uihidden>,
+    #[serde(rename = "ui:label", skip_serializing_if = "Option::is_none")]
+    pub ui_label: Option<String>,
+    #[serde(rename = "ui:paid-only", skip_serializing_if = "Option::is_none")]
+    pub ui_paid_only: Option<bool>,
+    #[serde(rename = "ui:read-only", skip_serializing_if = "Option::is_none")]
+    pub ui_read_only: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Uireadonly>,
+    #[serde(rename = "ui:steps")]
+    pub ui_steps: Vec<f64>,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uiformattedvalue {
-    pub fn new(expr: String) -> Self {
-        Self { expr }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant0
-{
-    pub expr: String,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant0 {
-    pub fn new(expr: String) -> Self {
-        Self { expr }
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3 {
+    pub fn new(
+        items: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3Items,
+        type_: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3TypeEnum,
+        ui_control: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant3UicontrolEnum,
+        ui_steps: Vec<f64>,
+    ) -> Self {
+        Self {
+            default: None,
+            description: None,
+            items,
+            max_items: None,
+            min_items: None,
+            type_,
+            ui_control,
+            ui_description: None,
+            ui_disabled: None,
+            ui_formatted_value: None,
+            ui_hidden: None,
+            ui_label: None,
+            ui_paid_only: None,
+            ui_read_only: None,
+            ui_steps,
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4TypeEnum
 {
     #[default]
-    Create,
-    Update,
+    String,
     Unknown(String),
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Create => "create",
-            Self::Update => "update",
+            Self::String => "string",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum {
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -201,91 +211,78 @@ impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetada
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "create" => Self::Create,
-            "update" => Self::Update,
+            "string" => Self::String,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum {
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uihidden
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UicontrolEnum
 {
-    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant0>),
-    Bool(bool),
-    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum),
+    #[default]
+    Select,
+    Unknown(String),
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uihidden {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant0>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UicontrolEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Select => "select",
+            Self::Unknown(value) => value.as_str(),
         }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UihiddenVariant2Enum>(value.clone()) {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6Uihidden branch accepts this payload"))
+    }
+}
+
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UicontrolEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UicontrolEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "select" => Self::Select,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UicontrolEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UioptionsItemDisabledVariant0
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UidescriptionVariant1
 {
     pub expr: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UioptionsItemDisabledVariant0 {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant4UidescriptionVariant1 {
     pub fn new(expr: String) -> Self {
         Self { expr }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UioptionsItemDisabledVariant2Enum
-{
-    #[default]
-    Create,
-    Update,
-    Unknown(String),
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant6UioptionsItemDisabledVariant2Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Create => "create",
-            Self::Update => "update",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

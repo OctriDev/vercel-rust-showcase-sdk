@@ -3,7 +3,7 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentTypeEnum {
+impl serde::Serialize for UpdateProjectTracingSamplingRulesItemDestinationEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,211 +12,201 @@ impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectTracingSamplingRulesItemDestinationEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
+            "internal" => Self::Internal,
+            "external" => Self::External,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentTypeEnum {
+impl std::fmt::Display for UpdateProjectTracingSamplingRulesItemDestinationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeployment {
+pub struct UpdateProjectTracingSamplingRulesItem {
+    /// Sampling rate from 0 to 1
+    pub rate: f64,
+    /// Environment to apply sampling to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
-    #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned: Option<Option<UpdateProjectResponseAliasItemDeploymentAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error: Option<Option<UpdateProjectResponseAliasItemDeploymentAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<UpdateProjectResponseAliasItemDeploymentBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
+    pub env: Option<UpdateProjectTracingSamplingRulesItemEnvEnum>,
+    /// Request path prefix to apply the sampling rule to
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
+    /// Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<UpdateProjectResponseAliasItemDeploymentBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion: Option<UpdateProjectResponseAliasItemDeploymentChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state: Option<UpdateProjectResponseAliasItemDeploymentChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<UpdateProjectResponseAliasItemDeploymentCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims: Option<UpdateProjectResponseAliasItemDeploymentOidcTokenClaims>,
-    pub plan: UpdateProjectResponseAliasItemDeploymentPlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: UpdateProjectResponseAliasItemDeploymentReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate: Option<UpdateProjectResponseAliasItemDeploymentReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseAliasItemDeploymentTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+    pub destination: Option<UpdateProjectTracingSamplingRulesItemDestinationEnum>,
 }
 
-impl UpdateProjectResponseAliasItemDeployment {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<UpdateProjectResponseAliasItemDeploymentCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: UpdateProjectResponseAliasItemDeploymentPlanEnum,
-        private: bool,
-        ready_state: UpdateProjectResponseAliasItemDeploymentReadyStateEnum,
-        type_: UpdateProjectResponseAliasItemDeploymentTypeEnum,
-        url: String,
-    ) -> Self {
+impl UpdateProjectTracingSamplingRulesItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_range(
+            "rate",
+            self.rate,
+            crate::validation::RangeOpts {
+                min: Some(0_f64),
+                max: Some(1_f64),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(rate: f64) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            rate,
+            env: None,
+            request_path: None,
+            destination: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Tracing configuration for this project
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTracing {
+    /// Comma-separated list of drain endpoint domains
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<String>,
+    /// Paths to ignore for tracing
+    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
+    pub ignore_paths: Option<Vec<String>>,
+    /// Sampling rules for trace collection
+    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
+    pub sampling_rules: Option<Vec<UpdateProjectTracingSamplingRulesItem>>,
+}
+
+impl UpdateProjectTracing {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.sampling_rules.as_ref() {
+            crate::validation::validate_items(
+                "samplingRules",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    max: Some(10),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            domains: None,
+            ignore_paths: None,
+            sampling_rules: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectOidcTokenConfigIssuerModeEnum {
+    #[default]
+    Team,
+    Global,
+    Unknown(String),
+}
+
+impl UpdateProjectOidcTokenConfigIssuerModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Team => "team",
+            Self::Global => "global",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectOidcTokenConfigIssuerModeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectOidcTokenConfigIssuerModeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "team" => Self::Team,
+            "global" => Self::Global,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectOidcTokenConfigIssuerModeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// OpenID Connect JSON Web Token generation configuration.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectOidcTokenConfig {
+    /// Whether or not to generate OpenID Connect JSON Web Tokens.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    /// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
+    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
+    pub issuer_mode: Option<UpdateProjectOidcTokenConfigIssuerModeEnum>,
+}
+
+impl UpdateProjectOidcTokenConfig {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+            enabled: None,
+            issuer_mode: None,
         }
     }
 }
 
+/// Specify if the password will apply to every Deployment Target or just Preview
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemEnvironmentEnum {
+pub enum UpdateProjectPasswordProtectionDeploymentTypeEnum {
     #[default]
+    All,
     Preview,
-    Production,
+    ProdDeploymentUrlsAndAllPreviews,
+    AllExceptCustomDomains,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemEnvironmentEnum {
+impl UpdateProjectPasswordProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
+            Self::All => "all",
             Self::Preview => "preview",
-            Self::Production => "production",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseAliasItemEnvironmentEnum {
+impl serde::Serialize for UpdateProjectPasswordProtectionDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -225,72 +215,88 @@ impl serde::Serialize for UpdateProjectResponseAliasItemEnvironmentEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemEnvironmentEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectPasswordProtectionDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
+            "all" => Self::All,
             "preview" => Self::Preview,
-            "production" => Self::Production,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemEnvironmentEnum {
+impl std::fmt::Display for UpdateProjectPasswordProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
+    }
+}
+
+/// Allows to protect project deployments with a password
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectPasswordProtection {
+    /// Specify if the password will apply to every Deployment Target or just Preview
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateProjectPasswordProtectionDeploymentTypeEnum,
+    /// The password that will be used to protect Project Deployments
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub password: Option<Option<String>>,
+}
+
+impl UpdateProjectPasswordProtection {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(Some(value)) = self.password.as_ref() {
+            crate::validation::validate_length(
+                "password",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(72),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn new(
+        deployment_type: UpdateProjectPasswordProtectionDeploymentTypeEnum,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            deployment_type,
+            password: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemTargetEnum {
+pub enum UpdateProjectPassportDeploymentTypeEnum {
     #[default]
+    All,
     Preview,
-    Production,
-    Staging,
+    ProdDeploymentUrlsAndAllPreviews,
+    AllExceptCustomDomains,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemTargetEnum {
+impl UpdateProjectPassportDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Preview => "PREVIEW",
-            Self::Production => "PRODUCTION",
-            Self::Staging => "STAGING",
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseAliasItemTargetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemTargetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PREVIEW" => Self::Preview,
-            "PRODUCTION" => Self::Production,
-            "STAGING" => Self::Staging,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseAliasItemTargetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

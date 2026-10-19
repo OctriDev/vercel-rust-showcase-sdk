@@ -303,7 +303,12 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemCr
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemCreatorVariant0User {
-    pub id: String,
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0ViaVariant0>>
+    for ListProjectsResponseVariant1ProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0ViaVariant0>,
+    ) -> Self {
+        Self::App(value)
+    }
 }

@@ -3,242 +3,315 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponseSecurityRulesetsValueRateLimit {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned:
+        Option<Option<DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<DeleteProjectAvatarResponseLatestDeploymentsItemAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<DeleteProjectAvatarResponseLatestDeploymentsItemBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion:
+        Option<DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<DeleteProjectAvatarResponseLatestDeploymentsItemCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<DeleteProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims>,
+    pub plan: DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<DeleteProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
+}
+
+impl DeleteProjectAvatarResponseLatestDeploymentsItem {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        algo: DeleteProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum,
-        keys: Vec<String>,
-        limit: f64,
-        window: f64,
+        created_at: f64,
+        created_in: String,
+        creator: Option<DeleteProjectAvatarResponseLatestDeploymentsItemCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum,
+        private: bool,
+        ready_state: DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum,
+        type_: DeleteProjectAvatarResponseLatestDeploymentsItemTypeEnum,
+        url: String,
     ) -> Self {
         Self {
-            algo,
-            keys,
-            limit,
-            window,
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityRulesetsValueRedirect {
-    pub location: String,
-    pub permanent: bool,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseNodeVersionEnum {
+    #[default]
+    _10X,
+    _12X,
+    _14X,
+    _16X,
+    _18X,
+    _20X,
+    _22X,
+    _24X,
+    _26X,
+    _810X,
+    Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityRulesetsValueRedirect {
-    pub fn new(location: String, permanent: bool) -> Self {
-        Self {
-            location,
-            permanent,
+impl DeleteProjectAvatarResponseNodeVersionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::_10X => "10.x",
+            Self::_12X => "12.x",
+            Self::_14X => "14.x",
+            Self::_16X => "16.x",
+            Self::_18X => "18.x",
+            Self::_20X => "20.x",
+            Self::_22X => "22.x",
+            Self::_24X => "24.x",
+            Self::_26X => "26.x",
+            Self::_810X => "8.10.x",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityRulesetsValue {
-    pub action: DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum,
-    #[serde(
-        rename = "actionDuration",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub action_duration: Option<Option<String>>,
-    #[serde(
-        rename = "bypassSystem",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub bypass_system: Option<Option<bool>>,
-    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<DeleteProjectAvatarResponseSecurityRulesetsValueLogHeaders>,
-    #[serde(
-        rename = "rateLimit",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rate_limit: Option<Option<DeleteProjectAvatarResponseSecurityRulesetsValueRateLimit>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<DeleteProjectAvatarResponseSecurityRulesetsValueRedirect>>,
+impl serde::Serialize for DeleteProjectAvatarResponseNodeVersionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl DeleteProjectAvatarResponseSecurityRulesetsValue {
-    pub fn new(action: DeleteProjectAvatarResponseSecurityRulesetsValueActionEnum) -> Self {
-        Self {
-            action,
-            action_duration: None,
-            bypass_system: None,
-            log_headers: None,
-            rate_limit: None,
-            redirect: None,
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseNodeVersionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "10.x" => Self::_10X,
+            "12.x" => Self::_12X,
+            "14.x" => Self::_14X,
+            "16.x" => Self::_16X,
+            "18.x" => Self::_18X,
+            "20.x" => Self::_20X,
+            "22.x" => Self::_22X,
+            "24.x" => Self::_24X,
+            "26.x" => Self::_26X,
+            "8.10.x" => Self::_810X,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseNodeVersionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+    #[default]
+    Global,
+    Team,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Global => "global",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
+impl serde::Serialize for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "global" => Self::Global,
+            "team" => Self::Team,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurity {
-    #[serde(
-        rename = "attackModeActiveUntil",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub attack_mode_active_until: Option<Option<f64>>,
-    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
-    pub attack_mode_enabled: Option<bool>,
-    #[serde(
-        rename = "attackModeUpdatedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub attack_mode_updated_at: Option<f64>,
-    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
-    pub bot_id_enabled: Option<bool>,
-    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
-    pub firewall_bypass_ips: Option<Vec<String>>,
-    #[serde(
-        rename = "firewallConfigVersion",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub firewall_config_version: Option<f64>,
-    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
-    pub firewall_enabled: Option<bool>,
-    #[serde(
-        rename = "firewallSeawallEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub firewall_seawall_enabled: Option<bool>,
-    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
-    pub firewall_updated_at: Option<f64>,
-    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
-    pub ja3_enabled: Option<bool>,
-    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
-    pub ja4_enabled: Option<bool>,
+pub struct DeleteProjectAvatarResponseOidcTokenConfig {
+    /// Whether or not to generate OpenID Connect JSON Web Tokens.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<DeleteProjectAvatarResponseSecurityLogHeaders>,
-    #[serde(
-        rename = "managedRules",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub managed_rules: Option<Option<DeleteProjectAvatarResponseSecurityManagedRules>>,
-    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
-    #[serde(
-        rename = "pageIntegrityEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub page_integrity_enabled: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rulesets:
-        Option<std::collections::HashMap<String, DeleteProjectAvatarResponseSecurityRulesetsValue>>,
+    pub enabled: Option<bool>,
+    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
+    pub issuer_mode: Option<DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum>,
 }
 
-impl DeleteProjectAvatarResponseSecurity {
+impl DeleteProjectAvatarResponseOidcTokenConfig {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            attack_mode_active_until: None,
-            attack_mode_enabled: None,
-            attack_mode_updated_at: None,
-            bot_id_enabled: None,
-            firewall_bypass_ips: None,
-            firewall_config_version: None,
-            firewall_enabled: None,
-            firewall_seawall_enabled: None,
-            firewall_updated_at: None,
-            ja3_enabled: None,
-            ja4_enabled: None,
-            log_headers: None,
-            managed_rules: None,
-            page_integrity_enabled: None,
-            rulesets: None,
+            enabled: None,
+            issuer_mode: None,
         }
     }
 }
 
-/// Framework slug, when the service has one (omitted otherwise).
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseServicesItemFrameworkEnum {
-    #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseOptionsAllowlistPathsItem {
+    pub value: String,
 }

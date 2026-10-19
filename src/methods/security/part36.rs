@@ -3,80 +3,61 @@
 
 use super::*;
 
-impl PutFirewallConfigRulesetsVariant0Item {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "name",
-            &self.name,
-            crate::validation::LengthOpts {
-                max: Some(160),
-                ..Default::default()
-            },
-        )?;
-        if let Some(value) = self.description.as_ref() {
-            crate::validation::validate_length(
-                "description",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(256),
-                    ..Default::default()
-                },
-            )?;
-        }
-        crate::validation::validate_items(
-            "conditionGroup",
-            self.condition_group.as_slice(),
-            crate::validation::LengthOpts {
-                max: Some(25),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        name: String,
-        active: bool,
-        condition_group: Vec<PutFirewallConfigRulesetsVariant0ItemConditionGroupItem>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            id: None,
-            name,
-            description: None,
-            active,
-            condition_group,
-            action: None,
-            valid: None,
-            validation_errors: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+impl std::fmt::Display
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum PutFirewallConfigRulesetsVariant1ValueActionEnum {
+pub enum PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
     #[default]
-    Deny,
-    Challenge,
-    Log,
-    Allow,
+    Re,
+    Eq,
+    Neq,
+    Ex,
+    Nex,
+    Inc,
+    Ninc,
+    Pre,
+    Suf,
+    Sub,
+    Gt,
+    Gte,
+    Lt,
+    Lte,
+    List,
     Unknown(String),
 }
 
-impl PutFirewallConfigRulesetsVariant1ValueActionEnum {
+impl PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Deny => "deny",
-            Self::Challenge => "challenge",
-            Self::Log => "log",
-            Self::Allow => "allow",
+            Self::Re => "re",
+            Self::Eq => "eq",
+            Self::Neq => "neq",
+            Self::Ex => "ex",
+            Self::Nex => "nex",
+            Self::Inc => "inc",
+            Self::Ninc => "ninc",
+            Self::Pre => "pre",
+            Self::Suf => "suf",
+            Self::Sub => "sub",
+            Self::Gt => "gt",
+            Self::Gte => "gte",
+            Self::Lt => "lt",
+            Self::Lte => "lte",
+            Self::List => "list",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for PutFirewallConfigRulesetsVariant1ValueActionEnum {
+impl serde::Serialize
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -85,159 +66,54 @@ impl serde::Serialize for PutFirewallConfigRulesetsVariant1ValueActionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for PutFirewallConfigRulesetsVariant1ValueActionEnum {
+impl<'de> serde::Deserialize<'de>
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "challenge" => Self::Challenge,
-            "log" => Self::Log,
-            "allow" => Self::Allow,
+            "re" => Self::Re,
+            "eq" => Self::Eq,
+            "neq" => Self::Neq,
+            "ex" => Self::Ex,
+            "nex" => Self::Nex,
+            "inc" => Self::Inc,
+            "ninc" => Self::Ninc,
+            "pre" => Self::Pre,
+            "suf" => Self::Suf,
+            "sub" => Self::Sub,
+            "gt" => Self::Gt,
+            "gte" => Self::Gte,
+            "lt" => Self::Lt,
+            "lte" => Self::Lte,
+            "list" => Self::List,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for PutFirewallConfigRulesetsVariant1ValueActionEnum {
+impl std::fmt::Display
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PutFirewallConfigRulesetsVariant1Value {
-    pub action: PutFirewallConfigRulesetsVariant1ValueActionEnum,
-}
-
-impl PutFirewallConfigRulesetsVariant1Value {
-    pub fn new(action: PutFirewallConfigRulesetsVariant1ValueActionEnum) -> Self {
-        Self { action }
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum PutFirewallConfigRulesets {
-    Variant0ItemArray(Vec<PutFirewallConfigRulesetsVariant0Item>),
-    Variant1ValueMap(std::collections::HashMap<String, PutFirewallConfigRulesetsVariant1Value>),
-}
-
-impl<'de> serde::Deserialize<'de> for PutFirewallConfigRulesets {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Vec<PutFirewallConfigRulesetsVariant0Item>>(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            std::collections::HashMap<String, PutFirewallConfigRulesetsVariant1Value>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant1ValueMap(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no PutFirewallConfigRulesets branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum PutFirewallConfigIpsItemActionEnum {
-    #[default]
-    Deny,
-    Challenge,
-    Log,
-    Bypass,
-    Unknown(String),
-}
-
-impl PutFirewallConfigIpsItemActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Challenge => "challenge",
-            Self::Log => "log",
-            Self::Bypass => "bypass",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for PutFirewallConfigIpsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for PutFirewallConfigIpsItemActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "challenge" => Self::Challenge,
-            "log" => Self::Log,
-            "bypass" => Self::Bypass,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for PutFirewallConfigIpsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PutFirewallConfigIpsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    pub hostname: String,
-    pub ip: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub notes: Option<String>,
-    pub action: PutFirewallConfigIpsItemActionEnum,
-}
-
-impl PutFirewallConfigIpsItem {
-    pub fn new(hostname: String, ip: String, action: PutFirewallConfigIpsItemActionEnum) -> Self {
-        Self {
-            id: None,
-            hostname,
-            ip,
-            notes: None,
-            action,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum PutFirewallConfigLogHeaders {
+pub enum PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue {
     String(String),
     StringArray(Vec<String>),
+    Number(f64),
 }
 
-impl<'de> serde::Deserialize<'de> for PutFirewallConfigLogHeaders {
+impl<'de> serde::Deserialize<'de>
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
@@ -255,52 +131,168 @@ impl<'de> serde::Deserialize<'de> for PutFirewallConfigLogHeaders {
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no PutFirewallConfigLogHeaders branch accepts this payload")
-        })
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    #[serde(rename = "type")]
+    pub type_: PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+    pub op: PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemValue>,
+}
+
+impl PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    pub fn new(
+        type_: PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+        op: PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+    ) -> Self {
+        Self {
+            type_,
+            op,
+            neg: None,
+            key: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PutFirewallConfigRulesetsVariant0ItemConditionGroupItem {
+    pub conditions: Vec<PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItem>,
+}
+
+impl PutFirewallConfigRulesetsVariant0ItemConditionGroupItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "conditions",
+            self.conditions.as_slice(),
+            crate::validation::LengthOpts {
+                max: Some(65),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        conditions: Vec<PutFirewallConfigRulesetsVariant0ItemConditionGroupItemConditionsItem>,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { conditions };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum PutFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItemOpEnum {
+pub enum PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum {
     #[default]
-    Eq,
-    Ex,
-    Gt,
-    Gte,
-    Inc,
-    List,
-    Lt,
-    Lte,
-    Neq,
-    Nex,
-    Ninc,
-    Pre,
-    Re,
-    Sub,
-    Suf,
+    Deny,
+    Challenge,
+    Log,
     Unknown(String),
 }
 
-impl PutFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItemOpEnum {
+impl PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Eq => "eq",
-            Self::Ex => "ex",
-            Self::Gt => "gt",
-            Self::Gte => "gte",
-            Self::Inc => "inc",
-            Self::List => "list",
-            Self::Lt => "lt",
-            Self::Lte => "lte",
-            Self::Neq => "neq",
-            Self::Nex => "nex",
-            Self::Ninc => "ninc",
-            Self::Pre => "pre",
-            Self::Re => "re",
-            Self::Sub => "sub",
-            Self::Suf => "suf",
+            Self::Deny => "deny",
+            Self::Challenge => "challenge",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "challenge" => Self::Challenge,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PutFirewallConfigRulesetsVariant0ItemActionMitigate {
+    pub action: PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum,
+}
+
+impl PutFirewallConfigRulesetsVariant0ItemActionMitigate {
+    pub fn new(action: PutFirewallConfigRulesetsVariant0ItemActionMitigateActionEnum) -> Self {
+        Self { action }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PutFirewallConfigRulesetsVariant0ItemAction {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mitigate: Option<PutFirewallConfigRulesetsVariant0ItemActionMitigate>,
+}
+
+impl PutFirewallConfigRulesetsVariant0ItemAction {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { mitigate: None }
     }
 }

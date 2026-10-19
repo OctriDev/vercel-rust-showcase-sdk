@@ -3,6 +3,171 @@
 
 // projects_update domain models (part 10)
 
+impl UpdateProjectRequestDismissedToastsItemValue {
+    pub fn as_numeric_wire_value(&self) -> Option<f64> {
+        match self {
+            Self::Number(value) => Some(*value),
+            _ => None,
+        }
+    }
+}
+
+impl UpdateProjectRequestDismissedToastsItemValue {
+    pub fn as_string_wire_value(&self) -> Option<&str> {
+        match self {
+            Self::String(value) => Some(value.as_str()),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseCreatorVariant0TypeEnum {
+    #[serde(rename = "user")]
+    #[default]
+    User,
+}
+
+impl UpdateProjectResponseCreatorVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::User => "user",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseCreatorVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseCreatorVariant0TypeEnum::User => f.write_str("user"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCreatorVariant0ViaVariant0App {
+    /// The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+    #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    /// The internal ID of the Vercel App backing this principal.
+    pub id: String,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant0App {
+    pub fn new(id: String) -> Self {
+        Self {
+            client_id: None,
+            id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum {
+    #[serde(rename = "app")]
+    #[default]
+    App,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::App => "app",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum::App => f.write_str("app"),
+        }
+    }
+}
+
+/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCreatorVariant0ViaVariant0 {
+    pub app: UpdateProjectResponseCreatorVariant0ViaVariant0App,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant0 {
+    pub fn new(
+        app: UpdateProjectResponseCreatorVariant0ViaVariant0App,
+        type_: UpdateProjectResponseCreatorVariant0ViaVariant0TypeEnum,
+    ) -> Self {
+        Self { app, type_ }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCreatorVariant0ViaVariant1Integration {
+    #[serde(rename = "configurationId")]
+    pub configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant1Integration {
+    pub fn new(configuration_id: String, integration_id: String) -> Self {
+        Self {
+            configuration_id,
+            integration_id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum {
+    #[serde(rename = "integration")]
+    #[default]
+    Integration,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum::Integration => {
+                f.write_str("integration")
+            }
+        }
+    }
+}
+
+/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseCreatorVariant0ViaVariant1 {
+    pub integration: UpdateProjectResponseCreatorVariant0ViaVariant1Integration,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum,
+}
+
+impl UpdateProjectResponseCreatorVariant0ViaVariant1 {
+    pub fn new(
+        integration: UpdateProjectResponseCreatorVariant0ViaVariant1Integration,
+        type_: UpdateProjectResponseCreatorVariant0ViaVariant1TypeEnum,
+    ) -> Self {
+        Self { integration, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateProjectResponseCreatorVariant0Via {
+    App(Box<UpdateProjectResponseCreatorVariant0ViaVariant0>),
+    Integration(Box<UpdateProjectResponseCreatorVariant0ViaVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for UpdateProjectResponseCreatorVariant0Via {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -32,6 +197,22 @@ impl<'de> serde::Deserialize<'de> for UpdateProjectResponseCreatorVariant0Via {
                 "no UpdateProjectResponseCreatorVariant0Via branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Box<UpdateProjectResponseCreatorVariant0ViaVariant0>>
+    for UpdateProjectResponseCreatorVariant0Via
+{
+    fn from(value: Box<UpdateProjectResponseCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateProjectResponseCreatorVariant0ViaVariant1>>
+    for UpdateProjectResponseCreatorVariant0Via
+{
+    fn from(value: Box<UpdateProjectResponseCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
     }
 }
 
@@ -328,200 +509,4 @@ pub enum UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsI
     #[serde(rename = "system")]
     #[default]
     System,
-}
-
-impl UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::System => "system",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub target: UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-}
-
-impl UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub fn new(
-        target: UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-        type_: UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-    ) -> Self {
-        Self { target, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum
-{
-    #[serde(rename = "custom")]
-    #[default]
-    Custom,
-}
-
-impl UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Custom => "custom",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
-    #[serde(rename = "environmentId")]
-    pub environment_id: String,
-    #[serde(rename = "type")]
-    pub type_:
-        UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum,
-}
-
-impl UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
-    pub fn new(
-        environment_id: String,
-        type_: UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            environment_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem {
-    System(Box<UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>),
-    Custom(Box<UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::System(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Custom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
-    #[serde(rename = "system")]
-    #[default]
-    System,
-}
-
-impl UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::System => "system",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
-        }
-    }
 }

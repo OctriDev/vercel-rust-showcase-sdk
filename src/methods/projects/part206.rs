@@ -3,7 +3,93 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateProjectResponseTargetsValueBranchMatcherTypeEnum {
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gate: Option<UpdateProjectResponseRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages: Option<Option<Vec<UpdateProjectResponseRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
+}
+
+impl UpdateProjectResponseRollingRelease {
+    pub fn new(target: String) -> Self {
+        Self {
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+    #[default]
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,88 +98,176 @@ impl serde::Serialize for UpdateProjectResponseTargetsValueBranchMatcherTypeEnum
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTargetsValueBranchMatcherTypeEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseTargetsValueBranchMatcherTypeEnum {
+impl std::fmt::Display for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseSandboxRegionEnum {
+    #[default]
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseSandboxRegionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseSandboxRegionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSandboxRegionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseSandboxRegionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTargetsValueBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseTargetsValueBranchMatcherTypeEnum,
-}
-
-impl UpdateProjectResponseTargetsValueBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: UpdateProjectResponseTargetsValueBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTargetsValueBuildsItem {
+pub struct UpdateProjectResponseSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions: Option<Vec<UpdateProjectResponseSandboxFailoverRegionsItemEnum>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
+    pub region: Option<UpdateProjectResponseSandboxRegionEnum>,
 }
 
-impl UpdateProjectResponseTargetsValueBuildsItem {
-    pub fn new(use_: String) -> Self {
+impl UpdateProjectResponseSandbox {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            dest: None,
-            src: None,
-            use_,
+            failover_regions: None,
+            region: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTargetsValueChecksConclusionEnum {
+pub enum UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    Unknown2,
     Unknown(String),
 }
 
-impl UpdateProjectResponseTargetsValueChecksConclusionEnum {
+impl UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Unknown2 => "*",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseTargetsValueChecksConclusionEnum {
+impl serde::Serialize for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -102,198 +276,20 @@ impl serde::Serialize for UpdateProjectResponseTargetsValueChecksConclusionEnum 
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTargetsValueChecksConclusionEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "*" => Self::Unknown2,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseTargetsValueChecksConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTargetsValueChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTargetsValueChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseTargetsValueChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTargetsValueChecksStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseTargetsValueChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTargetsValueCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
-}
-
-impl UpdateProjectResponseTargetsValueCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTargetsValueOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl UpdateProjectResponseTargetsValueOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
-    ) -> Self {
-        Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTargetsValuePlanEnum {
-    #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTargetsValuePlanEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseTargetsValuePlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTargetsValuePlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseTargetsValuePlanEnum {
+impl std::fmt::Display for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

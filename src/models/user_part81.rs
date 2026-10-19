@@ -3,6 +3,475 @@
 
 // user domain models (part 81)
 
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant343 {
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant343Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant343Previous,
+    /// Optional `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    /// Optional `string` value serialized in the `projectName` wire field.
+    #[serde(rename = "projectName", skip_serializing_if = "Option::is_none")]
+    pub project_name: Option<String>,
+}
+
+impl UserEventPayloadVariant343 {
+    pub fn new(
+        next: UserEventPayloadVariant343Next,
+        previous: UserEventPayloadVariant343Previous,
+    ) -> Self {
+        Self {
+            next,
+            previous,
+            project_id: None,
+            project_name: None,
+        }
+    }
+}
+
+/// Required object value serialized in the `next` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant344Next {
+    /// Required `number` value serialized in the `skewProtectionBoundaryAt` wire field.
+    #[serde(rename = "skewProtectionBoundaryAt")]
+    pub skew_protection_boundary_at: f64,
+}
+
+impl UserEventPayloadVariant344Next {
+    pub fn new(skew_protection_boundary_at: f64) -> Self {
+        Self {
+            skew_protection_boundary_at,
+        }
+    }
+}
+
+/// Required object value serialized in the `previous` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant344Previous {
+    /// Optional `number` value serialized in the `skewProtectionBoundaryAt` wire field.
+    #[serde(
+        rename = "skewProtectionBoundaryAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skew_protection_boundary_at: Option<f64>,
+}
+
+impl UserEventPayloadVariant344Previous {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            skew_protection_boundary_at: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant344 {
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant344Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant344Previous,
+    /// Required `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    /// Required `string` value serialized in the `projectName` wire field.
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+}
+
+impl UserEventPayloadVariant344 {
+    pub fn new(
+        next: UserEventPayloadVariant344Next,
+        previous: UserEventPayloadVariant344Previous,
+        project_id: String,
+        project_name: String,
+    ) -> Self {
+        Self {
+            next,
+            previous,
+            project_id,
+            project_name,
+        }
+    }
+}
+
+/// Required object value serialized in the `next` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant345Next {
+    /// Required `number` value serialized in the `skewProtectionMaxAge` wire field.
+    #[serde(rename = "skewProtectionMaxAge")]
+    pub skew_protection_max_age: f64,
+}
+
+impl UserEventPayloadVariant345Next {
+    pub fn new(skew_protection_max_age: f64) -> Self {
+        Self {
+            skew_protection_max_age,
+        }
+    }
+}
+
+/// Required object value serialized in the `previous` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant345Previous {
+    /// Optional `number` value serialized in the `skewProtectionMaxAge` wire field.
+    #[serde(
+        rename = "skewProtectionMaxAge",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skew_protection_max_age: Option<f64>,
+}
+
+impl UserEventPayloadVariant345Previous {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            skew_protection_max_age: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant345 {
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant345Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant345Previous,
+    /// Required `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    /// Required `string` value serialized in the `projectName` wire field.
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+}
+
+impl UserEventPayloadVariant345 {
+    pub fn new(
+        next: UserEventPayloadVariant345Next,
+        previous: UserEventPayloadVariant345Previous,
+        project_id: String,
+        project_name: String,
+    ) -> Self {
+        Self {
+            next,
+            previous,
+            project_id,
+            project_name,
+        }
+    }
+}
+
+/// Required object value serialized in the `next` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant346Next {
+    /// Required array value serialized in the `skewProtectionAllowedDomains` wire field.
+    #[serde(rename = "skewProtectionAllowedDomains")]
+    pub skew_protection_allowed_domains: Vec<String>,
+}
+
+impl UserEventPayloadVariant346Next {
+    pub fn new(skew_protection_allowed_domains: Vec<String>) -> Self {
+        Self {
+            skew_protection_allowed_domains,
+        }
+    }
+}
+
+/// Required object value serialized in the `previous` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant346Previous {
+    /// Optional array value serialized in the `skewProtectionAllowedDomains` wire field.
+    #[serde(
+        rename = "skewProtectionAllowedDomains",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skew_protection_allowed_domains: Option<Vec<String>>,
+}
+
+impl UserEventPayloadVariant346Previous {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            skew_protection_allowed_domains: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant346 {
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant346Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant346Previous,
+    /// Required `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    /// Required `string` value serialized in the `projectName` wire field.
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+}
+
+impl UserEventPayloadVariant346 {
+    pub fn new(
+        next: UserEventPayloadVariant346Next,
+        previous: UserEventPayloadVariant346Previous,
+        project_id: String,
+        project_name: String,
+    ) -> Self {
+        Self {
+            next,
+            previous,
+            project_id,
+            project_name,
+        }
+    }
+}
+
+/// Optional enumerated value serialized in the `april2026SecurityIncidentMigrationAppliedFrom` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum
+{
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Optional enumerated value serialized in the `cve55182MigrationAppliedFrom` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum {
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `deploymentType` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum {
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required object value serialized in the `oldSsoProtection` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant347OldSsoProtectionVariant0 {
+    /// Optional enumerated value serialized in the `april2026SecurityIncidentMigrationAppliedFrom` wire field.
+    #[serde(
+        rename = "april2026SecurityIncidentMigrationAppliedFrom",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub april2026_security_incident_migration_applied_from: Option<Option<UserEventPayloadVariant347OldSsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum>>,
+    /// Optional enumerated value serialized in the `cve55182MigrationAppliedFrom` wire field.
+    #[serde(
+        rename = "cve55182MigrationAppliedFrom",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub cve55182_migration_applied_from: Option<Option<UserEventPayloadVariant347OldSsoProtectionVariant0Cve55182MigrationAppliedFromEnum>>,
+    /// Required enumerated value serialized in the `deploymentType` wire field.
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum,
+}
+
+impl UserEventPayloadVariant347OldSsoProtectionVariant0 {
+    pub fn new(
+        deployment_type: UserEventPayloadVariant347OldSsoProtectionVariant0DeploymentTypeEnum,
+    ) -> Self {
+        Self {
+            april2026_security_incident_migration_applied_from: None,
+            cve55182_migration_applied_from: None,
+            deployment_type,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `oldSsoProtection` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant347OldSsoProtectionVariant1Enum {
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant347OldSsoProtectionVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant347OldSsoProtectionVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347OldSsoProtectionVariant1Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -64,455 +533,10 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347OldSsoProtection
     }
 }
 
-/// Optional enumerated value serialized in the `april2026SecurityIncidentMigrationAppliedFrom` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum
+impl ::std::convert::From<Box<UserEventPayloadVariant347OldSsoProtectionVariant0>>
+    for UserEventPayloadVariant347OldSsoProtection
 {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl
-    UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Optional enumerated value serialized in the `cve55182MigrationAppliedFrom` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `deploymentType` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `ssoProtection` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant347SsoProtectionVariant0 {
-    /// Optional enumerated value serialized in the `april2026SecurityIncidentMigrationAppliedFrom` wire field.
-    #[serde(
-        rename = "april2026SecurityIncidentMigrationAppliedFrom",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub april2026_security_incident_migration_applied_from: Option<Option<UserEventPayloadVariant347SsoProtectionVariant0April2026SecurityIncidentMigrationAppliedFromEnum>>,
-    /// Optional enumerated value serialized in the `cve55182MigrationAppliedFrom` wire field.
-    #[serde(
-        rename = "cve55182MigrationAppliedFrom",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub cve55182_migration_applied_from: Option<Option<UserEventPayloadVariant347SsoProtectionVariant0Cve55182MigrationAppliedFromEnum>>,
-    /// Required enumerated value serialized in the `deploymentType` wire field.
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum,
-}
-
-impl UserEventPayloadVariant347SsoProtectionVariant0 {
-    pub fn new(
-        deployment_type: UserEventPayloadVariant347SsoProtectionVariant0DeploymentTypeEnum,
-    ) -> Self {
-        Self {
-            april2026_security_incident_migration_applied_from: None,
-            cve55182_migration_applied_from: None,
-            deployment_type,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `ssoProtection` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant347SsoProtectionVariant1Enum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant347SsoProtectionVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant347SsoProtectionVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347SsoProtectionVariant1Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant347SsoProtectionVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UserEventPayloadVariant347SsoProtection {
-    Object(Box<UserEventPayloadVariant347SsoProtectionVariant0>),
-    Literal(UserEventPayloadVariant347SsoProtectionVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant347SsoProtection {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant347SsoProtectionVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            UserEventPayloadVariant347SsoProtectionVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UserEventPayloadVariant347SsoProtection branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant347 {
-    /// Required API value serialized in the `oldSsoProtection` wire field.
-    #[serde(rename = "oldSsoProtection", deserialize_with = "Option::deserialize")]
-    pub old_sso_protection: Option<UserEventPayloadVariant347OldSsoProtection>,
-    /// Optional `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<String>,
-    /// Optional `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName", skip_serializing_if = "Option::is_none")]
-    pub project_name: Option<String>,
-    /// Required API value serialized in the `ssoProtection` wire field.
-    #[serde(rename = "ssoProtection", deserialize_with = "Option::deserialize")]
-    pub sso_protection: Option<UserEventPayloadVariant347SsoProtection>,
-}
-
-impl UserEventPayloadVariant347 {
-    pub fn new(
-        old_sso_protection: Option<UserEventPayloadVariant347OldSsoProtection>,
-        sso_protection: Option<UserEventPayloadVariant347SsoProtection>,
-    ) -> Self {
-        Self {
-            old_sso_protection,
-            project_id: None,
-            project_name: None,
-            sso_protection,
-        }
-    }
-}
-
-/// Required object value serialized in the `staticIps` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348NextProjectStaticIps {
-    /// Optional `string` value serialized in the `buildRegion` wire field.
-    #[serde(rename = "buildRegion", skip_serializing_if = "Option::is_none")]
-    pub build_region: Option<String>,
-    /// Optional enumerated value serialized in the `builds` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<bool>,
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Optional array value serialized in the `regions` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<String>>,
-}
-
-impl UserEventPayloadVariant348NextProjectStaticIps {
-    pub fn new(enabled: bool) -> Self {
-        Self {
-            build_region: None,
-            builds: None,
-            enabled,
-            regions: None,
-        }
-    }
-}
-
-/// Required object value serialized in the `project` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348NextProject {
-    /// Optional `string` value serialized in the `id` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Required object value serialized in the `staticIps` wire field.
-    #[serde(rename = "staticIps")]
-    pub static_ips: UserEventPayloadVariant348NextProjectStaticIps,
-}
-
-impl UserEventPayloadVariant348NextProject {
-    pub fn new(static_ips: UserEventPayloadVariant348NextProjectStaticIps) -> Self {
-        Self {
-            id: None,
-            static_ips,
-        }
-    }
-}
-
-/// Required object value serialized in the `next` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348Next {
-    /// Required object value serialized in the `project` wire field.
-    pub project: UserEventPayloadVariant348NextProject,
-}
-
-impl UserEventPayloadVariant348Next {
-    pub fn new(project: UserEventPayloadVariant348NextProject) -> Self {
-        Self { project }
-    }
-}
-
-/// Required object value serialized in the `staticIps` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348PreviousProjectStaticIps {
-    /// Optional `string` value serialized in the `buildRegion` wire field.
-    #[serde(rename = "buildRegion", skip_serializing_if = "Option::is_none")]
-    pub build_region: Option<String>,
-    /// Optional enumerated value serialized in the `builds` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<bool>,
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Optional array value serialized in the `regions` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<String>>,
-}
-
-impl UserEventPayloadVariant348PreviousProjectStaticIps {
-    pub fn new(enabled: bool) -> Self {
-        Self {
-            build_region: None,
-            builds: None,
-            enabled,
-            regions: None,
-        }
-    }
-}
-
-/// Required object value serialized in the `project` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348PreviousProject {
-    /// Optional `string` value serialized in the `id` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Required object value serialized in the `staticIps` wire field.
-    #[serde(rename = "staticIps")]
-    pub static_ips: UserEventPayloadVariant348PreviousProjectStaticIps,
-}
-
-impl UserEventPayloadVariant348PreviousProject {
-    pub fn new(static_ips: UserEventPayloadVariant348PreviousProjectStaticIps) -> Self {
-        Self {
-            id: None,
-            static_ips,
-        }
-    }
-}
-
-/// Required object value serialized in the `previous` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant348Previous {
-    /// Required object value serialized in the `project` wire field.
-    pub project: UserEventPayloadVariant348PreviousProject,
-}
-
-impl UserEventPayloadVariant348Previous {
-    pub fn new(project: UserEventPayloadVariant348PreviousProject) -> Self {
-        Self { project }
+    fn from(value: Box<UserEventPayloadVariant347OldSsoProtectionVariant0>) -> Self {
+        Self::Object(value)
     }
 }

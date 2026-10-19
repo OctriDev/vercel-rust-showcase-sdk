@@ -3,6 +3,46 @@
 
 use super::*;
 
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemReadyStateEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemReadyStateEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemReadyStateEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemReadySubstateEnum {
     #[default]
@@ -283,40 +323,6 @@ impl GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItem {
             url,
             user_id: None,
             with_cache: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemNodeVersionEnum {
-    #[default]
-    _10X,
-    _12X,
-    _14X,
-    _16X,
-    _18X,
-    _20X,
-    _22X,
-    _24X,
-    _26X,
-    _810X,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemNodeVersionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::_10X => "10.x",
-            Self::_12X => "12.x",
-            Self::_14X => "14.x",
-            Self::_16X => "16.x",
-            Self::_18X => "18.x",
-            Self::_20X => "20.x",
-            Self::_22X => "22.x",
-            Self::_24X => "24.x",
-            Self::_26X => "26.x",
-            Self::_810X => "8.10.x",
-            Self::Unknown(value) => value.as_str(),
         }
     }
 }

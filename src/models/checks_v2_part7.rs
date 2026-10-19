@@ -3,6 +3,64 @@
 
 // checks_v2 domain models (part 7)
 
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum {
+    #[serde(rename = "job")]
+    #[default]
+    Job,
+}
+
+impl GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Job => "job",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum::Job => {
+                f.write_str("job")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2 {
+    pub job: String,
+    pub kind: GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum,
+}
+
+impl GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2 {
+    pub fn new(
+        job: String,
+        kind: GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2KindEnum,
+    ) -> Self {
+        Self { job, kind }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum {
+    #[default]
+    Turborepo,
+    Unknown(String),
+}
+
+impl GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Turborepo => "Turborepo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize
     for GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3JobEnum
 {
@@ -146,6 +204,46 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant0Sourc
     }
 }
 
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>>
+    for GetDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>,
+    ) -> Self {
+        Self::Invocation(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>>
+    for GetDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>,
+    ) -> Self {
+        Self::Deployment(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>>
+    for GetDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>,
+    ) -> Self {
+        Self::Job(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>>
+    for GetDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>,
+    ) -> Self {
+        Self::Turborepo(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
     #[default]
@@ -284,6 +382,46 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant0Sourc
                 "no GetDeploymentCheckRunResponseVariant0Source branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant0>>
+    for GetDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant0>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant1>>
+    for GetDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant1>) -> Self {
+        Self::Webhook(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant2>>
+    for GetDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant2>) -> Self {
+        Self::GitProvider(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant3>>
+    for GetDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant3>) -> Self {
+        Self::VercelNativeCheck(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentCheckRunResponseVariant0SourceVariant4>>
+    for GetDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<GetDeploymentCheckRunResponseVariant0SourceVariant4>) -> Self {
+        Self::Api(value)
     }
 }
 
@@ -429,118 +567,5 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant1Block
             "none" => Self::None,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentCheckRunResponseVariant1BlocksEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentCheckRunResponseVariant1ConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Neutral,
-    Skipped,
-    Succeeded,
-    Timeout,
-    Unknown(String),
-}
-
-impl GetDeploymentCheckRunResponseVariant1ConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Neutral => "neutral",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Timeout => "timeout",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "neutral" => Self::Neutral,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            "timeout" => Self::Timeout,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentCheckRunResponseVariant1ConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentCheckRunResponseVariant1ExpectationRef {
-    #[serde(rename = "invocationAttempt")]
-    pub invocation_attempt: f64,
-    #[serde(rename = "invocationId")]
-    pub invocation_id: String,
-    #[serde(rename = "jobDefinitionId")]
-    pub job_definition_id: String,
-    #[serde(rename = "jobRunAttempt")]
-    pub job_run_attempt: f64,
-}
-
-impl GetDeploymentCheckRunResponseVariant1ExpectationRef {
-    pub fn new(
-        invocation_attempt: f64,
-        invocation_id: String,
-        job_definition_id: String,
-        job_run_attempt: f64,
-    ) -> Self {
-        Self {
-            invocation_attempt,
-            invocation_id,
-            job_definition_id,
-            job_run_attempt,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentCheckRunResponseVariant1RequiresEnum {
-    #[default]
-    BuildReady,
-    DeploymentUrl,
-    None,
-    Unknown(String),
-}
-
-impl GetDeploymentCheckRunResponseVariant1RequiresEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BuildReady => "build-ready",
-            Self::DeploymentUrl => "deployment-url",
-            Self::None => "none",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

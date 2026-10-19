@@ -3,6 +3,160 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftManagedRulesOwasp {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<GetSecurityFirewallConfigResponseDraftManagedRulesOwaspActionEnum>,
+    pub active: bool,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<String>,
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
+impl GetSecurityFirewallConfigResponseDraftManagedRulesOwasp {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+            updated_at: None,
+            user_id: None,
+            username: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSources {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSourcesActionEnum>,
+    pub active: bool,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<String>,
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
+impl GetSecurityFirewallConfigResponseDraftManagedRulesTrafficSources {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+            updated_at: None,
+            user_id: None,
+            username: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftManagedRulesVercelRulesetActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseDraftManagedRulesVercelRulesetActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetSecurityFirewallConfigResponseDraftManagedRulesVercelRulesetActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseDraftManagedRulesVercelRulesetActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display
     for GetSecurityFirewallConfigResponseDraftManagedRulesVercelRulesetActionEnum
 {
@@ -147,150 +301,6 @@ impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftRule
 }
 
 impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum
-{
-    #[default]
-    BotCategory,
-    BotName,
-    BotProtection,
-    BotStatus,
-    Cookie,
-    DomainEnvironment,
-    Environment,
-    GeoAsNumber,
-    GeoCity,
-    GeoContinent,
-    GeoCountry,
-    GeoCountryRegion,
-    Header,
-    Host,
-    IpAddress,
-    Ja3Digest,
-    Ja4Digest,
-    Method,
-    Path,
-    Protocol,
-    Query,
-    RateLimitApiId,
-    RawPath,
-    Region,
-    ResponseCode,
-    Route,
-    Ruleset,
-    Scheme,
-    ServerAction,
-    SharedCondition,
-    TargetPath,
-    TrafficSource,
-    TrustedSource,
-    UserAgent,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BotCategory => "bot_category",
-            Self::BotName => "bot_name",
-            Self::BotProtection => "bot_protection",
-            Self::BotStatus => "bot_status",
-            Self::Cookie => "cookie",
-            Self::DomainEnvironment => "domain_environment",
-            Self::Environment => "environment",
-            Self::GeoAsNumber => "geo_as_number",
-            Self::GeoCity => "geo_city",
-            Self::GeoContinent => "geo_continent",
-            Self::GeoCountry => "geo_country",
-            Self::GeoCountryRegion => "geo_country_region",
-            Self::Header => "header",
-            Self::Host => "host",
-            Self::IpAddress => "ip_address",
-            Self::Ja3Digest => "ja3_digest",
-            Self::Ja4Digest => "ja4_digest",
-            Self::Method => "method",
-            Self::Path => "path",
-            Self::Protocol => "protocol",
-            Self::Query => "query",
-            Self::RateLimitApiId => "rate_limit_api_id",
-            Self::RawPath => "raw_path",
-            Self::Region => "region",
-            Self::ResponseCode => "response_code",
-            Self::Route => "route",
-            Self::Ruleset => "ruleset",
-            Self::Scheme => "scheme",
-            Self::ServerAction => "server_action",
-            Self::SharedCondition => "shared_condition",
-            Self::TargetPath => "target_path",
-            Self::TrafficSource => "traffic_source",
-            Self::TrustedSource => "trusted_source",
-            Self::UserAgent => "user_agent",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "bot_category" => Self::BotCategory,
-            "bot_name" => Self::BotName,
-            "bot_protection" => Self::BotProtection,
-            "bot_status" => Self::BotStatus,
-            "cookie" => Self::Cookie,
-            "domain_environment" => Self::DomainEnvironment,
-            "environment" => Self::Environment,
-            "geo_as_number" => Self::GeoAsNumber,
-            "geo_city" => Self::GeoCity,
-            "geo_continent" => Self::GeoContinent,
-            "geo_country" => Self::GeoCountry,
-            "geo_country_region" => Self::GeoCountryRegion,
-            "header" => Self::Header,
-            "host" => Self::Host,
-            "ip_address" => Self::IpAddress,
-            "ja3_digest" => Self::Ja3Digest,
-            "ja4_digest" => Self::Ja4Digest,
-            "method" => Self::Method,
-            "path" => Self::Path,
-            "protocol" => Self::Protocol,
-            "query" => Self::Query,
-            "rate_limit_api_id" => Self::RateLimitApiId,
-            "raw_path" => Self::RawPath,
-            "region" => Self::Region,
-            "response_code" => Self::ResponseCode,
-            "route" => Self::Route,
-            "ruleset" => Self::Ruleset,
-            "scheme" => Self::Scheme,
-            "server_action" => Self::ServerAction,
-            "shared_condition" => Self::SharedCondition,
-            "target_path" => Self::TargetPath,
-            "traffic_source" => Self::TrafficSource,
-            "trusted_source" => Self::TrustedSource,
-            "user_agent" => Self::UserAgent,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

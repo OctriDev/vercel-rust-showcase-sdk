@@ -4,6 +4,178 @@
 use super::*;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceCustomClaimsClaimRulesItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub when: Option<UpdateResourceCustomClaimsClaimRulesItemWhen>,
+    /// Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.
+    pub claims: std::collections::HashMap<
+        String,
+        Option<UpdateResourceCustomClaimsClaimRulesItemClaimsValue>,
+    >,
+}
+
+impl UpdateResourceCustomClaimsClaimRulesItem {
+    pub fn new(
+        claims: std::collections::HashMap<
+            String,
+            Option<UpdateResourceCustomClaimsClaimRulesItemClaimsValue>,
+        >,
+    ) -> Self {
+        Self { when: None, claims }
+    }
+}
+
+/// Custom claims embedded in the resource tokens Vercel mints for this resource.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceCustomClaims {
+    /// Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roles: Option<Vec<String>>,
+    /// Role used when the deployment does not request one. Required when `roles` is set.
+    #[serde(rename = "defaultRole", skip_serializing_if = "Option::is_none")]
+    pub default_role: Option<String>,
+    /// Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.
+    #[serde(rename = "claimRules", skip_serializing_if = "Option::is_none")]
+    pub claim_rules: Option<Vec<UpdateResourceCustomClaimsClaimRulesItem>>,
+}
+
+impl UpdateResourceCustomClaims {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.roles.as_ref() {
+            crate::validation::validate_items(
+                "roles",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    max: Some(32),
+                    ..Default::default()
+                },
+            )?;
+        }
+        if let Some(value) = self.default_role.as_ref() {
+            crate::validation::validate_length(
+                "defaultRole",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(32),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            roles: None,
+            default_role: None,
+            claim_rules: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceResponse {
+    pub name: String,
+}
+
+impl UpdateResourceResponse {
+    pub fn new(name: String) -> Self {
+        Self { name }
+    }
+}
+
+/// Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct SubmitBillingDataPeriod {
+    pub start: String,
+    pub end: String,
+}
+
+impl SubmitBillingDataPeriod {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_model_date_time("start", &self.start)?;
+        crate::validation::validate_model_date_time("end", &self.end)?;
+        Ok(())
+    }
+
+    pub fn new(start: String, end: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { start, end };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct SubmitBillingDataBillingVariant0Item {
+    /// Partner's billing plan ID.
+    #[serde(rename = "billingPlanId")]
+    pub billing_plan_id: String,
+    /// Partner's resource ID.
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    /// Start and end are only needed if different from the period's start/end.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start: Option<String>,
+    /// Start and end are only needed if different from the period's start/end.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end: Option<String>,
+    /// Line item name.
+    pub name: String,
+    /// Line item details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<String>,
+    /// Price per unit.
+    pub price: String,
+    /// Quantity of units.
+    pub quantity: f64,
+    /// Units of the quantity.
+    pub units: String,
+    /// Total amount.
+    pub total: String,
+}
+
+impl SubmitBillingDataBillingVariant0Item {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.start.as_ref() {
+            crate::validation::validate_model_date_time("start", value)?;
+        }
+        if let Some(value) = self.end.as_ref() {
+            crate::validation::validate_model_date_time("end", value)?;
+        }
+        crate::validation::validate_pattern("price", &self.price, "^[0-9]+(\\.[0-9]+)?$")?;
+        crate::validation::validate_pattern("total", &self.total, "^[0-9]+(\\.[0-9]+)?$")?;
+        Ok(())
+    }
+
+    pub fn new(
+        billing_plan_id: String,
+        name: String,
+        price: String,
+        quantity: f64,
+        units: String,
+        total: String,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            billing_plan_id,
+            resource_id: None,
+            start: None,
+            end: None,
+            name,
+            details: None,
+            price,
+            quantity,
+            units,
+            total,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct SubmitBillingDataBillingVariant1ItemsItem {
     /// Partner's billing plan ID.
     #[serde(rename = "billingPlanId")]
@@ -138,185 +310,4 @@ impl SubmitBillingDataBillingVariant1 {
             discounts: None,
         }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum SubmitBillingDataBilling {
-    Variant0ItemArray(Vec<SubmitBillingDataBillingVariant0Item>),
-    Object(Box<SubmitBillingDataBillingVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for SubmitBillingDataBilling {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Vec<SubmitBillingDataBillingVariant0Item>>(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<SubmitBillingDataBillingVariant1>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no SubmitBillingDataBilling branch accepts this payload")
-        })
-    }
-}
-
-/// Type of the metric.
-///               \- total: measured total value, such as Database size
-///               \- interval: usage during the period, such as i/o or number of queries.
-///               \- rate: rate of usage, such as queries per second.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum SubmitBillingDataUsageItemTypeEnum {
-    #[default]
-    Total,
-    Interval,
-    Rate,
-    Unknown(String),
-}
-
-impl SubmitBillingDataUsageItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Total => "total",
-            Self::Interval => "interval",
-            Self::Rate => "rate",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for SubmitBillingDataUsageItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for SubmitBillingDataUsageItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "total" => Self::Total,
-            "interval" => Self::Interval,
-            "rate" => Self::Rate,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for SubmitBillingDataUsageItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitBillingDataUsageItem {
-    /// Partner's resource ID.
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
-    /// Metric name.
-    pub name: String,
-    /// Type of the metric.
-    ///               \- total: measured total value, such as Database size
-    ///               \- interval: usage during the period, such as i/o or number of queries.
-    ///               \- rate: rate of usage, such as queries per second.
-    #[serde(rename = "type")]
-    pub type_: SubmitBillingDataUsageItemTypeEnum,
-    /// Metric units. Example: "GB"
-    pub units: String,
-    /// Metric value for the day. Could be a final or an interim value for the day.
-    #[serde(rename = "dayValue")]
-    pub day_value: f64,
-    /// Metric value for the billing period. Could be a final or an interim value for the period.
-    #[serde(rename = "periodValue")]
-    pub period_value: f64,
-    /// The limit value of the metric for a billing period, if a limit is defined by the plan.
-    #[serde(rename = "planValue", skip_serializing_if = "Option::is_none")]
-    pub plan_value: Option<f64>,
-}
-
-impl SubmitBillingDataUsageItem {
-    pub fn new(
-        name: String,
-        type_: SubmitBillingDataUsageItemTypeEnum,
-        units: String,
-        day_value: f64,
-        period_value: f64,
-    ) -> Self {
-        Self {
-            resource_id: None,
-            name,
-            type_,
-            units,
-            day_value,
-            period_value,
-            plan_value: None,
-        }
-    }
-}
-
-/// Subscription period for this billing cycle.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitInvoicePeriod {
-    pub start: String,
-    pub end: String,
-}
-
-impl SubmitInvoicePeriod {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_model_date_time("start", &self.start)?;
-        crate::validation::validate_model_date_time("end", &self.end)?;
-        Ok(())
-    }
-
-    pub fn new(start: String, end: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { start, end };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitInvoiceItemsItem {
-    /// Partner's resource ID.
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
-    /// Partner's billing plan ID.
-    #[serde(rename = "billingPlanId")]
-    pub billing_plan_id: String,
-    /// Start and end are only needed if different from the period's start/end.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub start: Option<String>,
-    /// Start and end are only needed if different from the period's start/end.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end: Option<String>,
-    pub name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub details: Option<String>,
-    /// Currency amount as a decimal string.
-    pub price: String,
-    pub quantity: f64,
-    pub units: String,
-    /// Currency amount as a decimal string.
-    pub total: String,
 }

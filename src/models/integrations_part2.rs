@@ -335,6 +335,22 @@ impl<'de> serde::Deserialize<'de> for GetConfigurationResponseVariant0TransferRe
     }
 }
 
+impl ::std::convert::From<Box<GetConfigurationResponseVariant0TransferRequestVariant0>>
+    for GetConfigurationResponseVariant0TransferRequest
+{
+    fn from(value: Box<GetConfigurationResponseVariant0TransferRequestVariant0>) -> Self {
+        Self::TransferToMarketplace(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetConfigurationResponseVariant0TransferRequestVariant1>>
+    for GetConfigurationResponseVariant0TransferRequest
+{
+    fn from(value: Box<GetConfigurationResponseVariant0TransferRequestVariant1>) -> Self {
+        Self::TransferFromMarketplace(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetConfigurationResponseVariant0TypeEnum {
     #[default]
@@ -476,51 +492,4 @@ pub struct GetConfigurationResponseVariant0 {
     /// The ID of the user that created the configuration.
     #[serde(rename = "userId")]
     pub user_id: String,
-}
-
-impl GetConfigurationResponseVariant0 {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        id: String,
-        integration_id: String,
-        notification: GetConfigurationResponseVariant0Notification,
-        owner_id: String,
-        project_selection: GetConfigurationResponseVariant0ProjectSelectionEnum,
-        scopes: Vec<String>,
-        slug: String,
-        transfer_request: GetConfigurationResponseVariant0TransferRequest,
-        type_: GetConfigurationResponseVariant0TypeEnum,
-        updated_at: f64,
-        user_id: String,
-    ) -> Self {
-        Self {
-            accepted_policies_inherited_from_installation_id: None,
-            can_configure_open_telemetry: None,
-            completed_at: None,
-            created_at,
-            customer_delete_requested_at: None,
-            deleted_at: None,
-            delete_requested_at: None,
-            disabled_at: None,
-            disabled_reason: None,
-            external_id: None,
-            id,
-            installation_type: None,
-            integration_id,
-            notification,
-            owner_id,
-            projects: None,
-            project_selection,
-            scopes,
-            slug,
-            source: None,
-            status: None,
-            team_id: None,
-            transfer_request,
-            type_,
-            updated_at,
-            user_id,
-        }
-    }
 }

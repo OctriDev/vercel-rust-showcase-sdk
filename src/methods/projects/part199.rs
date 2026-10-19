@@ -3,350 +3,313 @@
 
 use super::*;
 
-impl UpdateProjectResponseResourceConfigElasticBuildMachine {
-    pub fn new(
-        cores: f64,
-        label: UpdateProjectResponseResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
-    ) -> Self {
-        Self {
-            cores,
-            label,
-            memory,
-        }
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseResourceConfig {
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<UpdateProjectResponseResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<UpdateProjectResponseResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<UpdateProjectResponseResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<UpdateProjectResponseResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<UpdateProjectResponseResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
+pub struct UpdateProjectResponseLatestDeploymentsItem {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
+    pub alias: Option<Vec<String>>,
     #[serde(
-        rename = "functionDefaultMemoryType",
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned: Option<Option<UpdateProjectResponseLatestDeploymentsItemAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<UpdateProjectResponseLatestDeploymentsItemAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<UpdateProjectResponseLatestDeploymentsItemBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<UpdateProjectResponseLatestDeploymentsItemBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<UpdateProjectResponseLatestDeploymentsItemChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
         skip_serializing_if = "Option::is_none"
     )]
-    pub function_default_memory_type:
-        Option<UpdateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
+    pub connect_builds_enabled: Option<bool>,
     #[serde(
-        rename = "functionDefaultTimeout",
+        rename = "connectConfigurationId",
         skip_serializing_if = "Option::is_none"
     )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine: Option<UpdateProjectResponseResourceConfigElasticBuildMachine>,
-}
-
-impl UpdateProjectResponseResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
-        Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
-        }
-    }
-}
-
-/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseRollbackDescription {
-    /// Timestamp of when the rollback was requested.
+    pub connect_configuration_id: Option<String>,
     #[serde(rename = "createdAt")]
     pub created_at: f64,
-    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
-    pub description: String,
-    /// The user who rolled back the project.
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    /// The username of the user who rolled back the project.
-    pub username: String,
-}
-
-impl UpdateProjectResponseRollbackDescription {
-    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
-        Self {
-            created_at,
-            description,
-            user_id,
-            username,
-        }
-    }
-}
-
-/// What to do when the gate trips: pause the rollout, or roll it back.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseRollingReleaseGateActionEnum {
-    #[default]
-    Pause,
-    Rollback,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseRollingReleaseGateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Pause => "pause",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseRollingReleaseGateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseRollingReleaseGateActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "pause" => Self::Pause,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseRollingReleaseGateActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The metric this check evaluates.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum {
-    #[default]
-    ErrorRate5xx,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ErrorRate5xx => "error-rate-5xx",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error-rate-5xx" => Self::ErrorRate5xx,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The checks to evaluate. An empty array means nothing is evaluated.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseRollingReleaseGateChecksItem {
-    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
-    pub exclude_paths: Option<Vec<String>>,
-    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
-    pub exclude_status_codes: Option<Vec<f64>>,
-    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<UpdateProjectResponseLatestDeploymentsItemCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
     #[serde(
-        rename = "ingestWatermarkSeconds",
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<UpdateProjectResponseLatestDeploymentsItemOidcTokenClaims>,
+    pub plan: UpdateProjectResponseLatestDeploymentsItemPlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ingest_watermark_seconds: Option<f64>,
-    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
-    pub significance_level: Option<f64>,
-    /// The metric this check evaluates.
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum,
-}
-
-impl UpdateProjectResponseRollingReleaseGateChecksItem {
-    pub fn new(type_: UpdateProjectResponseRollingReleaseGateChecksItemTypeEnum) -> Self {
-        Self {
-            exclude_paths: None,
-            exclude_status_codes: None,
-            ingest_watermark_seconds: None,
-            significance_level: None,
-            type_,
-        }
-    }
-}
-
-/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseRollingReleaseGate {
-    /// What to do when the gate trips: pause the rollout, or roll it back.
-    pub action: UpdateProjectResponseRollingReleaseGateActionEnum,
-    /// The checks to evaluate. An empty array means nothing is evaluated.
-    pub checks: Vec<UpdateProjectResponseRollingReleaseGateChecksItem>,
-    /// When true, a tripped gate is only reported — {@link action} is not taken.
-    #[serde(rename = "dryRun")]
-    pub dry_run: bool,
-    /// Whether automated gating is enabled for this project's rollouts.
-    pub enabled: bool,
-    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
-    pub failure_threshold: Option<f64>,
-    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
-    pub window_size: Option<f64>,
-}
-
-impl UpdateProjectResponseRollingReleaseGate {
-    pub fn new(
-        action: UpdateProjectResponseRollingReleaseGateActionEnum,
-        checks: Vec<UpdateProjectResponseRollingReleaseGateChecksItem>,
-        dry_run: bool,
-        enabled: bool,
-    ) -> Self {
-        Self {
-            action,
-            checks,
-            dry_run,
-            enabled,
-            failure_threshold: None,
-            window_size: None,
-        }
-    }
-}
-
-/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseRollingReleaseStagesItem {
-    /// Duration in minutes for automatic advancement to the next stage
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub duration: Option<f64>,
-    /// Whether to linearly shift traffic over the duration of this stage
-    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
-    pub linear_shift: Option<bool>,
-    /// Whether or not this stage requires manual approval to proceed
-    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
-    pub require_approval: Option<bool>,
-    /// The percentage of traffic to serve to the canary deployment (0-100)
-    #[serde(rename = "targetPercentage")]
-    pub target_percentage: f64,
-}
-
-impl UpdateProjectResponseRollingReleaseStagesItem {
-    pub fn new(target_percentage: f64) -> Self {
-        Self {
-            duration: None,
-            linear_shift: None,
-            require_approval: None,
-            target_percentage,
-        }
-    }
-}
-
-/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseRollingRelease {
-    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
-    #[serde(
-        rename = "canaryResponseHeader",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub canary_response_header: Option<bool>,
-    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gate: Option<UpdateProjectResponseRollingReleaseGate>,
-    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: UpdateProjectResponseLatestDeploymentsItemReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<UpdateProjectResponseLatestDeploymentsItemReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub stages: Option<Option<Vec<UpdateProjectResponseRollingReleaseStagesItem>>>,
-    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
-    pub target: String,
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: UpdateProjectResponseLatestDeploymentsItemTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
+}
+
+impl UpdateProjectResponseLatestDeploymentsItem {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        created_in: String,
+        creator: Option<UpdateProjectResponseLatestDeploymentsItemCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: UpdateProjectResponseLatestDeploymentsItemPlanEnum,
+        private: bool,
+        ready_state: UpdateProjectResponseLatestDeploymentsItemReadyStateEnum,
+        type_: UpdateProjectResponseLatestDeploymentsItemTypeEnum,
+        url: String,
+    ) -> Self {
+        Self {
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseNodeVersionEnum {
+    #[default]
+    _10X,
+    _12X,
+    _14X,
+    _16X,
+    _18X,
+    _20X,
+    _22X,
+    _24X,
+    _26X,
+    _810X,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseNodeVersionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::_10X => "10.x",
+            Self::_12X => "12.x",
+            Self::_14X => "14.x",
+            Self::_16X => "16.x",
+            Self::_18X => "18.x",
+            Self::_20X => "20.x",
+            Self::_22X => "22.x",
+            Self::_24X => "24.x",
+            Self::_26X => "26.x",
+            Self::_810X => "8.10.x",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseNodeVersionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseNodeVersionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "10.x" => Self::_10X,
+            "12.x" => Self::_12X,
+            "14.x" => Self::_14X,
+            "16.x" => Self::_16X,
+            "18.x" => Self::_18X,
+            "20.x" => Self::_20X,
+            "22.x" => Self::_22X,
+            "24.x" => Self::_24X,
+            "26.x" => Self::_26X,
+            "8.10.x" => Self::_810X,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseNodeVersionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseOidcTokenConfigIssuerModeEnum {
+    #[default]
+    Global,
+    Team,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseOidcTokenConfigIssuerModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Global => "global",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseOidcTokenConfigIssuerModeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseOidcTokenConfigIssuerModeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "global" => Self::Global,
+            "team" => Self::Team,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseOidcTokenConfigIssuerModeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseOidcTokenConfig {
+    /// Whether or not to generate OpenID Connect JSON Web Tokens.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
+    pub issuer_mode: Option<UpdateProjectResponseOidcTokenConfigIssuerModeEnum>,
+}
+
+impl UpdateProjectResponseOidcTokenConfig {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            enabled: None,
+            issuer_mode: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseOptionsAllowlistPathsItem {
+    pub value: String,
 }

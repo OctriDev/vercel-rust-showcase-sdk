@@ -2,9 +2,126 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
+
+impl PatchUrlProtectionBypassVariant0 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.ttl.as_ref() {
+            crate::validation::validate_range(
+                "ttl",
+                *value,
+                crate::validation::RangeOpts {
+                    max: Some(63072000_f64),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            ttl: None,
+            revoke: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Invitation status for the user scoped bypass.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum PatchUrlProtectionBypassVariant1ScopeAccessEnum {
+    #[default]
+    Denied,
+    Granted,
+    Unknown(String),
+}
+
+impl PatchUrlProtectionBypassVariant1ScopeAccessEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Denied => "denied",
+            Self::Granted => "granted",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "denied" => Self::Denied,
+            "granted" => Self::Granted,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Instructions for creating a user scoped protection bypass
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PatchUrlProtectionBypassVariant1Scope {
+    /// Specified user id for the scoped bypass.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    /// Specified email for the scoped bypass.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    /// Invitation status for the user scoped bypass.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub access: Option<PatchUrlProtectionBypassVariant1ScopeAccessEnum>,
+}
+
+impl PatchUrlProtectionBypassVariant1Scope {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.email.as_ref() {
+            crate::validation::validate_email("email", value)?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            user_id: None,
+            email: None,
+            access: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct PatchUrlProtectionBypassVariant1 {
+    /// Instructions for creating a user scoped protection bypass
+    pub scope: PatchUrlProtectionBypassVariant1Scope,
+}
+
+impl PatchUrlProtectionBypassVariant1 {
+    pub fn new(scope: PatchUrlProtectionBypassVariant1Scope) -> Self {
+        Self { scope }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum PatchUrlProtectionBypassVariant2OverrideScopeEnum {
@@ -169,219 +286,20 @@ impl<'de> serde::Deserialize<'de> for PatchUrlProtectionBypass {
     }
 }
 
-/// Lists aliases assigned to a deployment. Use `teamId` or `slug` to specify the team context, and provide the deployment ID in `id`. The authenticated user or team must own the deployment.
-///
-/// Retrieves all Aliases for the Deployment with the given ID. The authenticated user or team must own the deployment.
-///
-/// # Arguments
-///
-/// * `id` - The ID of the deployment the aliases should be listed for
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_aliases_for_deployment(
-    config: &ClientConfig,
-    id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ListAliasesForDeploymentResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl ::std::convert::From<Box<PatchUrlProtectionBypassVariant0>> for PatchUrlProtectionBypass {
+    fn from(value: Box<PatchUrlProtectionBypassVariant0>) -> Self {
+        Self::Object(value)
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListAliasesForDeploymentResponse>(
-        "GET",
-        &format!(
-            "/v2/deployments/{}/aliases",
-            crate::client::encode_path_segment(&id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_aliases_for_deployment",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct AssignAliasParams {
-    pub id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub alias: Option<String>,
-    pub redirect: Option<Option<String>>,
+impl ::std::convert::From<Box<PatchUrlProtectionBypassVariant1>> for PatchUrlProtectionBypass {
+    fn from(value: Box<PatchUrlProtectionBypassVariant1>) -> Self {
+        Self::Object2(value)
+    }
 }
 
-/// Creates an alias for the deployment identified by a deployment or alias ID or URL. Provide the alias name in `alias`, and optionally set `redirect` to route the alias to another hostname with a 307 status code. If the alias is already assigned to another deployment, it is removed from that deployment and assigned to this one.
-///
-/// Creates a new alias for the deployment resolved from the given deployment or alias ID or URL. The authenticated user or team must own this deployment. If the desired alias is already assigned to another deployment, then it will be removed from the old deployment and assigned to the new one.
-///
-/// # Arguments
-///
-/// * `id` - The deployment or alias ID or URL to assign from
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `alias` - The alias we want to assign to the deployment defined in the URL
-/// * `redirect` - The redirect property will take precedence over the
-///   deployment id from the URL and consists of a hostname (like test.com) to
-///   which the alias should redirect using status code 307
-pub fn assign_alias(
-    config: &ClientConfig,
-    params: AssignAliasParams,
-    options: Option<&RequestOptions>,
-) -> Result<AssignAliasResponse, SdkError> {
-    let AssignAliasParams {
-        id,
-        team_id,
-        slug,
-        alias,
-        redirect,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl ::std::convert::From<Box<PatchUrlProtectionBypassVariant2>> for PatchUrlProtectionBypass {
+    fn from(value: Box<PatchUrlProtectionBypassVariant2>) -> Self {
+        Self::Object3(value)
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = alias {
-        __body_map.insert(
-            "alias".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = redirect {
-        __body_map.insert(
-            "redirect".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<AssignAliasResponse>(
-        "POST",
-        &format!(
-            "/v2/deployments/{}/aliases",
-            crate::client::encode_path_segment(&id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "assign_alias",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct ListAliasesParams {
-    pub domain: Option<ListAliases>,
-    pub from: Option<f64>,
-    pub limit: Option<f64>,
-    pub project_id: Option<String>,
-    pub since: Option<f64>,
-    pub until: Option<f64>,
-    pub rollback_deployment_id: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Lists aliases for the authenticated user or team, with optional filters for domain, project, creation time, or rollback deployment. Use `limit` to control the number of aliases returned, and inspect `pagination` for the previous and next page values.
-///
-/// Retrieves a list of aliases for the authenticated User or Team. When `domain` is provided, only aliases for that domain will be returned. When `projectId` is provided, it will only return the given project aliases.
-///
-/// # Arguments
-///
-/// * `domain` - Get only aliases of the given domain name
-/// * `from` - Get only aliases created after the provided timestamp
-/// * `limit` - Maximum number of aliases to list from a request
-/// * `project_id` - Filter aliases from the given `projectId`
-/// * `since` - Get aliases created after this JavaScript timestamp
-/// * `until` - Get aliases created before this JavaScript timestamp
-/// * `rollback_deployment_id` - Get aliases that would be rolled back for the
-///   given deployment
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_aliases(
-    config: &ClientConfig,
-    params: ListAliasesParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListAliasesResponse, SdkError> {
-    let ListAliasesParams {
-        domain,
-        from,
-        limit,
-        project_id,
-        since,
-        until,
-        rollback_deployment_id,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(9);
-    if let Some(ref v) = domain {
-        __query.push(("domain", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = from {
-        __query.push(("from", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = until {
-        __query.push(("until", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = rollback_deployment_id {
-        __query.push(("rollbackDeploymentId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListAliasesResponse>(
-        "GET",
-        "/v4/aliases",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_aliases",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }

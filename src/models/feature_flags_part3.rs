@@ -3,6 +3,22 @@
 
 // feature_flags domain models (part 3)
 
+impl FlagEnvironmentsValueFallthroughVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Split => "split",
+        }
+    }
+}
+
+impl std::fmt::Display for FlagEnvironmentsValueFallthroughVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            FlagEnvironmentsValueFallthroughVariant1TypeEnum::Split => f.write_str("split"),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct FlagEnvironmentsValueFallthroughVariant1 {
     pub base: FlagEnvironmentsValueFallthroughVariant1Base,
@@ -269,6 +285,38 @@ impl<'de> serde::Deserialize<'de> for FlagEnvironmentsValueFallthrough {
     }
 }
 
+impl ::std::convert::From<Box<FlagEnvironmentsValueFallthroughVariant0>>
+    for FlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<FlagEnvironmentsValueFallthroughVariant0>) -> Self {
+        Self::Variant(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueFallthroughVariant1>>
+    for FlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<FlagEnvironmentsValueFallthroughVariant1>) -> Self {
+        Self::Split(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueFallthroughVariant2>>
+    for FlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<FlagEnvironmentsValueFallthroughVariant2>) -> Self {
+        Self::Rollout(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueFallthroughVariant3>>
+    for FlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<FlagEnvironmentsValueFallthroughVariant3>) -> Self {
+        Self::Experiment(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum FlagEnvironmentsValuePausedOutcomeTypeEnum {
     #[default]
@@ -462,42 +510,5 @@ impl FlagEnvironmentsValueRulesItemConditionsItemCmpOptions {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self { ignore_case: None }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
-    #[serde(rename = "segment")]
-    #[default]
-    Segment,
-}
-
-impl FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Segment => "segment",
-        }
-    }
-}
-
-impl std::fmt::Display for FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum::Segment => {
-                f.write_str("segment")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
-    #[serde(rename = "type")]
-    pub type_: FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum,
-}
-
-impl FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
-    pub fn new(type_: FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum) -> Self {
-        Self { type_ }
     }
 }

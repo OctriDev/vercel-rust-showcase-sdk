@@ -485,27 +485,57 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>,
+    > for CreateDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant0>,
+    ) -> Self {
+        Self::Invocation(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>,
+    > for CreateDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant1>,
+    ) -> Self {
+        Self::Deployment(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>,
+    > for CreateDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant2>,
+    ) -> Self {
+        Self::Job(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>,
+    > for CreateDeploymentCheckRunResponseVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4SelectionVariant3>,
+    ) -> Self {
+        Self::Turborepo(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
     #[default]
     VercelCiCheck,
     Unknown(String),
-}
-
-impl CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelCiCheck => "vercel-ci-check",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
 }

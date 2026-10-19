@@ -3,269 +3,295 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTargetsValueReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTargetsValueReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTargetsValueReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueReadyStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTargetsValueReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTargetsValueReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTargetsValueReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTargetsValueReadySubstateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueReadySubstateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTargetsValueReadySubstateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTargetsValueTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTargetsValueTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTargetsValueTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTargetsValueTypeEnum {
+impl std::fmt::Display for GetProjectsResponseSecurityManagedRulesTrafficSourcesActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseTargetsValue {
+pub struct GetProjectsResponseSecurityManagedRulesTrafficSources {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
-    #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned: Option<Option<GetProjectsResponseTargetsValueAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error: Option<Option<GetProjectsResponseTargetsValueAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<GetProjectsResponseTargetsValueBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
+    pub action: Option<GetProjectsResponseSecurityManagedRulesTrafficSourcesActionEnum>,
+    pub active: bool,
+}
+
+impl GetProjectsResponseSecurityManagedRulesTrafficSources {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseSecurityManagedRulesVercelRuleset {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<GetProjectsResponseTargetsValueBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion: Option<GetProjectsResponseTargetsValueChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state: Option<GetProjectsResponseTargetsValueChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<GetProjectsResponseTargetsValueCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims: Option<GetProjectsResponseTargetsValueOidcTokenClaims>,
-    pub plan: GetProjectsResponseTargetsValuePlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: GetProjectsResponseTargetsValueReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate: Option<GetProjectsResponseTargetsValueReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseTargetsValueTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+    pub action: Option<GetProjectsResponseSecurityManagedRulesVercelRulesetActionEnum>,
+    pub active: bool,
+}
+
+impl GetProjectsResponseSecurityManagedRulesVercelRuleset {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseSecurityManagedRules {
+    pub ai_bots: GetProjectsResponseSecurityManagedRulesAiBots,
+    pub bot_filter: GetProjectsResponseSecurityManagedRulesBotFilter,
+    pub owasp: GetProjectsResponseSecurityManagedRulesOwasp,
+    pub traffic_sources: GetProjectsResponseSecurityManagedRulesTrafficSources,
+    pub vercel_ruleset: GetProjectsResponseSecurityManagedRulesVercelRuleset,
+}
+
+impl GetProjectsResponseSecurityManagedRules {
+    pub fn new(
+        ai_bots: GetProjectsResponseSecurityManagedRulesAiBots,
+        bot_filter: GetProjectsResponseSecurityManagedRulesBotFilter,
+        owasp: GetProjectsResponseSecurityManagedRulesOwasp,
+        traffic_sources: GetProjectsResponseSecurityManagedRulesTrafficSources,
+        vercel_ruleset: GetProjectsResponseSecurityManagedRulesVercelRuleset,
+    ) -> Self {
+        Self {
+            ai_bots,
+            bot_filter,
+            owasp,
+            traffic_sources,
+            vercel_ruleset,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseSecurityRulesetsValueActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
+}
+
+impl GetProjectsResponseSecurityRulesetsValueActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Bypass => "bypass",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Redirect => "redirect",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseSecurityRulesetsValueActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseSecurityRulesetsValueActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "bypass" => Self::Bypass,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            "redirect" => Self::Redirect,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseSecurityRulesetsValueActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseSecurityRulesetsValueLogHeaders {
+    StringArray(Vec<String>),
+    Literal(GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseSecurityRulesetsValueLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetProjectsResponseSecurityRulesetsValueLogHeaders branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for GetProjectsResponseSecurityRulesetsValueLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum>
+    for GetProjectsResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(value: GetProjectsResponseSecurityRulesetsValueLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    #[default]
+    FixedWindow,
+    TokenBucket,
+    Unknown(String),
+}
+
+impl GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }

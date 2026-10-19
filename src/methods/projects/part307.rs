@@ -2,335 +2,359 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{
-    UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
-    UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
-    UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem,
-    UpdateMicrofrontendsResponseDismissedToastsItemValue,
-};
 
-impl UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Cli => "cli",
-            Self::DeployHook => "deploy-hook",
-            Self::Git => "git",
-            Self::Integration => "integration",
-            Self::RestApi => "rest-api",
-            Self::V0 => "v0",
-            Self::Unknown(value) => value.as_str(),
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum RemoveProjectEnvResponseVariant2ContentHint {
+    RedisUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>),
+    RedisRestApiUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>),
+    RedisRestApiToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>),
+    RedisRestApiReadOnlyToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>),
+    BlobReadWriteToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>),
+    BlobStoreId(Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>),
+    BlobWebhookPublicKey(Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>),
+    PostgresUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>),
+    PostgresUrlNonPooling(Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>),
+    PostgresPrismaUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>),
+    PostgresUser(Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>),
+    PostgresHost(Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>),
+    PostgresPassword(Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>),
+    PostgresDatabase(Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>),
+    PostgresUrlNoSsl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>),
+    IntegrationStoreSecret(Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>),
+    FlagsConnectionString(Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>),
+}
+
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2ContentHint {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "cli" => Self::Cli,
-            "deploy-hook" => Self::DeployHook,
-            "git" => Self::Git,
-            "integration" => Self::Integration,
-            "rest-api" => Self::RestApi,
-            "v0" => Self::V0,
-            _ => Self::Unknown(value),
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiReadOnlyToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobReadWriteToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobStoreId(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobWebhookPublicKey(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNonPooling(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPrismaUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUser(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresHost(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPassword(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresDatabase(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNoSsl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>,
+        >(value.clone())
+        {
+            let candidate = Self::IntegrationStoreSecret(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>,
+        >(value.clone())
+        {
+            let candidate = Self::FlagsConnectionString(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no RemoveProjectEnvResponseVariant2ContentHint branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>>
+    for RemoveProjectEnvResponseVariant2ContentHint
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>) -> Self {
+        Self::RedisUrl(value)
     }
 }
 
-/// `enabled: true` with empty `sources` is deny-all.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem {
-    pub enabled: bool,
-    pub environments:
-        Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
-    pub sources:
-        Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
-}
-
-impl UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem {
-    pub fn new(
-        enabled: bool,
-        environments: Vec<
-            UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
-        >,
-        sources: Vec<
-            UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum,
-        >,
-    ) -> Self {
-        Self {
-            enabled,
-            environments,
-            sources,
-        }
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>) -> Self {
+        Self::RedisRestApiUrl(value)
     }
 }
 
-/// `enabled: true` with empty `sources` is deny-all.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem {
-    pub enabled: bool,
-    pub environments:
-        Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
-    pub sources: Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
-}
-
-impl UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem {
-    pub fn new(
-        enabled: bool,
-        environments: Vec<
-            UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
-        >,
-        sources: Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
-    ) -> Self {
-        Self {
-            enabled,
-            environments,
-            sources,
-        }
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>) -> Self {
+        Self::RedisRestApiToken(value)
     }
 }
 
-/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDeploymentPolicy {
-    #[serde(
-        rename = "deploymentSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub deployment_sources:
-        Option<Option<Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem>>>,
-    #[serde(
-        rename = "gitSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_sources:
-        Option<Option<Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem>>>,
-}
-
-impl UpdateMicrofrontendsResponseDeploymentPolicy {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            deployment_sources: None,
-            git_sources: None,
-        }
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
-    #[default]
-    Accept,
-    Cancel,
-    Delete,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Accept => "accept",
-            Self::Cancel => "cancel",
-            Self::Delete => "delete",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>) -> Self {
+        Self::BlobReadWriteToken(value)
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>) -> Self {
+        Self::BlobStoreId(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "accept" => Self::Accept,
-            "cancel" => Self::Cancel,
-            "delete" => Self::Delete,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>) -> Self {
+        Self::BlobWebhookPublicKey(value)
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>) -> Self {
+        Self::PostgresUrl(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDismissedToastsItem {
-    pub action: UpdateMicrofrontendsResponseDismissedToastsItemActionEnum,
-    #[serde(rename = "dismissedAt")]
-    pub dismissed_at: f64,
-    pub key: String,
-    /// Typed representation of the `UpdateMicrofrontendsResponseDismissedToastsItemValue` API schema.
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub value: Option<UpdateMicrofrontendsResponseDismissedToastsItemValue>,
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
 }
 
-impl UpdateMicrofrontendsResponseDismissedToastsItem {
-    pub fn new(
-        action: UpdateMicrofrontendsResponseDismissedToastsItemActionEnum,
-        dismissed_at: f64,
-        key: String,
-        value: Option<UpdateMicrofrontendsResponseDismissedToastsItemValue>,
-    ) -> Self {
-        Self {
-            action,
-            dismissed_at,
-            key,
-            value,
-        }
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>>
+    for RemoveProjectEnvResponseVariant2ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>) -> Self {
+        Self::FlagsConnectionString(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
+pub enum RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
     #[default]
     FlagsSecret,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
+impl RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::FlagsSecret => "flags-secret",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flags-secret" => Self::FlagsSecret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Similar to `contentHints`, but should not be exposed to the user.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseEnvItemInternalContentHint {
-    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
-    #[serde(rename = "encryptedValue")]
-    pub encrypted_value: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum,
-}
-
-impl UpdateMicrofrontendsResponseEnvItemInternalContentHint {
-    pub fn new(
-        encrypted_value: String,
-        type_: UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum,
-    ) -> Self {
-        Self {
-            encrypted_value,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
     }
 }

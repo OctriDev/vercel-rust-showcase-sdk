@@ -3,206 +3,92 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "elastic" => Self::Elastic,
-            "fixed" => Self::Fixed,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum {
-    #[default]
-    Basic,
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Basic => "basic",
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum {
-    #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// List of domains associated with this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueue {
+pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub configuration: Option<
-        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueueConfigurationEnum,
-    >,
+    pub verification: Option<Vec<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
         Self {
-            configuration: None,
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
         }
     }
 }
 
+/// The type of environment (production, preview, or development)
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
+pub enum ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
     #[default]
-    Performance,
-    PerformanceXl,
-    Standard,
-    StandardLegacy,
+    Development,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Performance => "performance",
-            Self::PerformanceXl => "performance_xl",
-            Self::Standard => "standard",
-            Self::StandardLegacy => "standard_legacy",
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -212,7 +98,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -220,100 +106,195 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "performance" => Self::Performance,
-            "performance_xl" => Self::PerformanceXl,
-            "standard" => Self::Standard,
-            "standard_legacy" => Self::StandardLegacy,
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum {
-    #[default]
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+/// Internal representation of a custom environment with all required properties
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachine {
-    pub cores: f64,
-    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-    pub label:
-        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum,
-    pub memory: f64,
+pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItem {
+    /// Configuration for matching git branches to this environment
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher:
+        Option<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher>,
+    /// Timestamp when the environment was created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// List of aliases for the current deployment
+    #[serde(
+        rename = "currentDeploymentAliases",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub current_deployment_aliases: Option<Vec<String>>,
+    /// Optional description of the environment's purpose
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// List of domains associated with this environment
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains:
+        Option<Vec<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem>>,
+    /// Unique identifier for the custom environment (format: env_\*)
+    pub id: String,
+    /// URL-friendly name of the environment
+    pub slug: String,
+    /// The type of environment (production, preview, or development)
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum,
+    /// Timestamp when the environment was last updated
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachine {
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItem {
     pub fn new(
-        cores: f64,
-        label: ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum,
+        updated_at: f64,
     ) -> Self {
         Self {
-            cores,
-            label,
-            memory,
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
+            type_,
+            updated_at,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDataCache {
+    #[serde(
+        rename = "storageSizeBytes",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub storage_size_bytes: Option<Option<f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unlimited: Option<bool>,
+    #[serde(rename = "userDisabled")]
+    pub user_disabled: bool,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDataCache {
+    pub fn new(user_disabled: bool) -> Self {
+        Self {
+            storage_size_bytes: None,
+            unlimited: None,
+            user_disabled,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+{
+    #[default]
+    BasicFloor,
+    BuildTimeoutFailure,
+    EnospcFailure,
+    EnterpriseFloor,
+    HighPeakDisk,
+    HighPeakMemory,
+    LongBuildDuration,
+    OomFailure,
+    ShortBuildDuration,
+    SustainedHighCpu,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BasicFloor => "basic-floor",
+            Self::BuildTimeoutFailure => "build-timeout-failure",
+            Self::EnospcFailure => "enospc-failure",
+            Self::EnterpriseFloor => "enterprise-floor",
+            Self::HighPeakDisk => "high-peak-disk",
+            Self::HighPeakMemory => "high-peak-memory",
+            Self::LongBuildDuration => "long-build-duration",
+            Self::OomFailure => "oom-failure",
+            Self::ShortBuildDuration => "short-build-duration",
+            Self::SustainedHighCpu => "sustained-high-cpu",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic-floor" => Self::BasicFloor,
+            "build-timeout-failure" => Self::BuildTimeoutFailure,
+            "enospc-failure" => Self::EnospcFailure,
+            "enterprise-floor" => Self::EnterpriseFloor,
+            "high-peak-disk" => Self::HighPeakDisk,
+            "high-peak-memory" => Self::HighPeakMemory,
+            "long-build-duration" => Self::LongBuildDuration,
+            "oom-failure" => Self::OomFailure,
+            "short-build-duration" => Self::ShortBuildDuration,
+            "sustained-high-cpu" => Self::SustainedHighCpu,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    #[default]
+    Downgrade,
+    Upgrade,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Downgrade => "downgrade",
+            Self::Upgrade => "upgrade",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }

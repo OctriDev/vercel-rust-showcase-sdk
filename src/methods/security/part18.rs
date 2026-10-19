@@ -3,6 +3,184 @@
 
 use super::*;
 
+impl std::fmt::Display
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum
+{
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl
+    GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum
+{
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeaders {
+    StringArray(Vec<String>),
+    Literal(GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeaders
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum>(value.clone()) {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum> for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeaders {
+    fn from(value: GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum {
+    #[default]
+    FixedWindow,
+    TokenBucket,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize
     for GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
 {
@@ -142,193 +320,4 @@ impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigate {
 pub struct GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemAction {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mitigate: Option<GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemActionMitigate>,
-}
-
-impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemAction {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { mitigate: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseDraftRulesetsVariant0Item {
-    pub active: bool,
-    #[serde(rename = "conditionGroup")]
-    pub condition_group:
-        Vec<GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItem>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    pub id: String,
-    pub name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemAction>,
-}
-
-impl GetSecurityFirewallConfigResponseDraftRulesetsVariant0Item {
-    pub fn new(
-        active: bool,
-        condition_group: Vec<
-            GetSecurityFirewallConfigResponseDraftRulesetsVariant0ItemConditionGroupItem,
-        >,
-        id: String,
-        name: String,
-    ) -> Self {
-        Self {
-            active,
-            condition_group,
-            description: None,
-            id,
-            name,
-            action: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueActionEnum {
-    #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum {
-    #[default]
-    Unknown2,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Unknown2 => "*",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "*" => Self::Unknown2,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeaders
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetSecurityFirewallConfigResponseDraftRulesetsVariant1ValueLogHeaders branch accepts this payload"))
-    }
 }

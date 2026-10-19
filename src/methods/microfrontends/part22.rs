@@ -3,135 +3,95 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeaders {
-    StringArray(Vec<String>),
-    Literal(GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeaders
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeaders branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBots {
+pub struct GetMicrofrontendsInGroupResponseProjectsItemRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBotsActionEnum>,
-    pub active: bool,
+    pub gate: Option<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages:
+        Option<Option<Vec<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesAiBots {
-    pub fn new(active: bool) -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemRollingRelease {
+    pub fn new(target: String) -> Self {
         Self {
-            action: None,
-            active,
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -142,7 +102,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -150,61 +110,175 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilter {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilterActionEnum>,
-    pub active: bool,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum {
+    #[default]
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
+    Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesBotFilter {
-    pub fn new(active: bool) -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions:
+        Option<Vec<GetMicrofrontendsInGroupResponseProjectsItemSandboxFailoverRegionsItemEnum>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<GetMicrofrontendsInGroupResponseProjectsItemSandboxRegionEnum>,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemSandbox {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            action: None,
-            active,
+            failover_regions: None,
+            region: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Unknown2,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Unknown2 => "*",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -215,7 +289,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -223,100 +297,16 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "*" => Self::Unknown2,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeadersVariant1Enum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwasp {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwaspActionEnum>,
-    pub active: bool,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesOwasp {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSources {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<
-        GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRulesTrafficSourcesActionEnum,
-    >,
-    pub active: bool,
 }

@@ -3,79 +3,93 @@
 
 use super::*;
 
-impl serde::Serialize
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
+pub struct DeleteProjectAvatarResponseRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<
-        DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum,
-    >,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
+    pub gate: Option<DeleteProjectAvatarResponseRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages: Option<Option<Vec<DeleteProjectAvatarResponseRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
 }
 
-impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
+impl DeleteProjectAvatarResponseRollingRelease {
+    pub fn new(target: String) -> Self {
         Self {
-            preset: None,
-            slugs,
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+pub enum DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     #[default]
-    AllCustom,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl serde::Serialize for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -84,175 +98,96 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl std::fmt::Display for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub preset:
-        DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub fn new(
-        preset: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo {
-    AllCustom(Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
-    AllCustom2(
-        Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
-    }
-}
-
-/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub from: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-    pub to: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-}
-
-impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub fn new(
-        from: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-        to: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-    ) -> Self {
-        Self { from, to }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValue {
-    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
-    pub custom_allow:
-        Option<Vec<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-}
-
-impl DeleteProjectAvatarResponseTrustedSourcesProjectsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            custom_allow: None,
-            label: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSources {
-    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
-    #[serde(
-        rename = "enableVercelCiSameRepository",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_vercel_ci_same_repository: Option<bool>,
-    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
-    pub oidc_providers: Option<
-        std::collections::HashMap<
-            String,
-            Vec<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItem>,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub projects: Option<
-        std::collections::HashMap<String, DeleteProjectAvatarResponseTrustedSourcesProjectsValue>,
-    >,
-}
-
-impl DeleteProjectAvatarResponseTrustedSources {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enable_vercel_ci_same_repository: None,
-            oidc_providers: None,
-            projects: None,
-        }
-    }
-}
-
-/// Billing mode. Always 'flat' for flat-rate projects.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseUsageStatusKindEnum {
+pub enum DeleteProjectAvatarResponseSandboxRegionEnum {
     #[default]
-    Flat,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseUsageStatusKindEnum {
+impl DeleteProjectAvatarResponseSandboxRegionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Flat => "flat",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseUsageStatusKindEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseSandboxRegionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -261,82 +196,101 @@ impl serde::Serialize for DeleteProjectAvatarResponseUsageStatusKindEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseUsageStatusKindEnum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSandboxRegionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "flat" => Self::Flat,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseUsageStatusKindEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseSandboxRegionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseUsageStatus {
-    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
-    #[serde(
-        rename = "bypassThrottleUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bypass_throttle_until: Option<f64>,
-    /// Timestamp until which the project has exceeded its CDN allowance.
-    #[serde(
-        rename = "exceededAllowanceUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub exceeded_allowance_until: Option<f64>,
-    /// Billing mode. Always 'flat' for flat-rate projects.
-    pub kind: DeleteProjectAvatarResponseUsageStatusKindEnum,
-    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
-    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
-    pub team_throttled: Option<bool>,
-    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+pub struct DeleteProjectAvatarResponseSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions: Option<Vec<DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub throttled: Option<bool>,
+    pub region: Option<DeleteProjectAvatarResponseSandboxRegionEnum>,
 }
 
-impl DeleteProjectAvatarResponseUsageStatus {
-    pub fn new(kind: DeleteProjectAvatarResponseUsageStatusKindEnum) -> Self {
+impl DeleteProjectAvatarResponseSandbox {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            bypass_throttle_until: None,
-            exceeded_allowance_until: None,
-            kind,
-            team_throttled: None,
-            throttled: None,
+            failover_regions: None,
+            region: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseWebAnalytics {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseWebAnalytics {
-    pub fn new(id: String) -> Self {
-        Self {
-            canceled_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
+impl DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

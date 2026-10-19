@@ -3,6 +3,365 @@
 
 // user domain models (part 65)
 
+impl UserEventPayloadVariant234SiftRoute {
+    pub fn new(name: String) -> Self {
+        Self { name }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant234 {
+    /// Optional `string` value serialized in the `blockReason` wire field.
+    #[serde(rename = "blockReason", skip_serializing_if = "Option::is_none")]
+    pub block_reason: Option<String>,
+    /// Required `string` value serialized in the `cause` wire field.
+    pub cause: String,
+    /// Required `string` value serialized in the `ownerId` wire field.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    /// Optional object value serialized in the `siftRoute` wire field.
+    #[serde(rename = "siftRoute", skip_serializing_if = "Option::is_none")]
+    pub sift_route: Option<UserEventPayloadVariant234SiftRoute>,
+    /// Required `string` value serialized in the `source` wire field.
+    pub source: String,
+}
+
+impl UserEventPayloadVariant234 {
+    pub fn new(cause: String, owner_id: String, source: String) -> Self {
+        Self {
+            block_reason: None,
+            cause,
+            owner_id,
+            sift_route: None,
+            source,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant235 {
+    /// Required `string` value serialized in the `cause` wire field.
+    pub cause: String,
+    /// Required `string` value serialized in the `ownerId` wire field.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    /// Optional `string` value serialized in the `reason` wire field.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub reason: Option<Option<String>>,
+    /// Required `string` value serialized in the `source` wire field.
+    pub source: String,
+}
+
+impl UserEventPayloadVariant235 {
+    pub fn new(cause: String, owner_id: String, source: String) -> Self {
+        Self {
+            cause,
+            owner_id,
+            reason: None,
+            source,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant236 {
+    /// Optional `string` value serialized in the `blockReason` wire field.
+    #[serde(rename = "blockReason", skip_serializing_if = "Option::is_none")]
+    pub block_reason: Option<String>,
+    /// Required `string` value serialized in the `cause` wire field.
+    pub cause: String,
+    /// Required `string` value serialized in the `ownerId` wire field.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    /// Required `string` value serialized in the `source` wire field.
+    pub source: String,
+}
+
+impl UserEventPayloadVariant236 {
+    pub fn new(cause: String, owner_id: String, source: String) -> Self {
+        Self {
+            block_reason: None,
+            cause,
+            owner_id,
+            source,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant237 {
+    /// Required `string` value serialized in the `cause` wire field.
+    pub cause: String,
+    /// Required `string` value serialized in the `ownerId` wire field.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    /// Required `string` value serialized in the `source` wire field.
+    pub source: String,
+}
+
+impl UserEventPayloadVariant237 {
+    pub fn new(cause: String, owner_id: String, source: String) -> Self {
+        Self {
+            cause,
+            owner_id,
+            source,
+        }
+    }
+}
+
+/// Optional enumerated value serialized in the `enforcementScope` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant238NextEnforcementScopeEnum {
+    #[default]
+    All,
+    Preview,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant238NextEnforcementScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant238NextEnforcementScopeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant238NextEnforcementScopeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant238NextEnforcementScopeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `newResourceBlockingPolicy` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum {
+    #[default]
+    Allow,
+    Block,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Block => "block",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "block" => Self::Block,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required object value serialized in the `next` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant238Next {
+    /// Required enumerated value serialized in the `allowUnsafeScriptSrcKeywords` wire field.
+    #[serde(rename = "allowUnsafeScriptSrcKeywords")]
+    pub allow_unsafe_script_src_keywords: bool,
+    /// Optional `string` value serialized in the `computedConnectSrc` wire field.
+    #[serde(rename = "computedConnectSrc", skip_serializing_if = "Option::is_none")]
+    pub computed_connect_src: Option<String>,
+    /// Optional `string` value serialized in the `computedConnectSrcPreview` wire field.
+    #[serde(
+        rename = "computedConnectSrcPreview",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub computed_connect_src_preview: Option<String>,
+    /// Optional `string` value serialized in the `computedScriptSrc` wire field.
+    #[serde(rename = "computedScriptSrc", skip_serializing_if = "Option::is_none")]
+    pub computed_script_src: Option<String>,
+    /// Optional `string` value serialized in the `computedScriptSrcPreview` wire field.
+    #[serde(
+        rename = "computedScriptSrcPreview",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub computed_script_src_preview: Option<String>,
+    /// Optional enumerated value serialized in the `connectSrcNotificationsEnabled` wire field.
+    #[serde(
+        rename = "connectSrcNotificationsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_src_notifications_enabled: Option<bool>,
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Optional enumerated value serialized in the `enforcementScope` wire field.
+    #[serde(rename = "enforcementScope", skip_serializing_if = "Option::is_none")]
+    pub enforcement_scope: Option<UserEventPayloadVariant238NextEnforcementScopeEnum>,
+    /// Required `number` value serialized in the `enforcePercentage` wire field.
+    #[serde(rename = "enforcePercentage")]
+    pub enforce_percentage: f64,
+    /// Required `string` value serialized in the `mode` wire field.
+    pub mode: String,
+    /// Required enumerated value serialized in the `newResourceBlockingPolicy` wire field.
+    #[serde(rename = "newResourceBlockingPolicy")]
+    pub new_resource_blocking_policy: UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum,
+    /// Optional enumerated value serialized in the `omitScriptNonce` wire field.
+    #[serde(rename = "omitScriptNonce", skip_serializing_if = "Option::is_none")]
+    pub omit_script_nonce: Option<bool>,
+}
+
+impl UserEventPayloadVariant238Next {
+    pub fn new(
+        allow_unsafe_script_src_keywords: bool,
+        enabled: bool,
+        enforce_percentage: f64,
+        mode: String,
+        new_resource_blocking_policy: UserEventPayloadVariant238NextNewResourceBlockingPolicyEnum,
+    ) -> Self {
+        Self {
+            allow_unsafe_script_src_keywords,
+            computed_connect_src: None,
+            computed_connect_src_preview: None,
+            computed_script_src: None,
+            computed_script_src_preview: None,
+            connect_src_notifications_enabled: None,
+            enabled,
+            enforcement_scope: None,
+            enforce_percentage,
+            mode,
+            new_resource_blocking_policy,
+            omit_script_nonce: None,
+        }
+    }
+}
+
+/// Optional enumerated value serialized in the `enforcementScope` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant238PreviousEnforcementScopeEnum {
+    #[default]
+    All,
+    Preview,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant238PreviousEnforcementScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant238PreviousEnforcementScopeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant238PreviousEnforcementScopeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant238PreviousEnforcementScopeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `newResourceBlockingPolicy` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant238PreviousNewResourceBlockingPolicyEnum {
+    #[default]
+    Allow,
+    Block,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant238PreviousNewResourceBlockingPolicyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Block => "block",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant238PreviousNewResourceBlockingPolicyEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de>
     for UserEventPayloadVariant238PreviousNewResourceBlockingPolicyEnum
 {
@@ -173,371 +532,4 @@ pub struct UserEventPayloadVariant240 {
     /// Required `string` value serialized in the `projectId` wire field.
     #[serde(rename = "projectId")]
     pub project_id: String,
-}
-
-impl UserEventPayloadVariant240 {
-    pub fn new(
-        header_name: String,
-        justification: Option<String>,
-        previous_status: String,
-        project_id: String,
-    ) -> Self {
-        Self {
-            header_name,
-            justification,
-            previous_status,
-            project_id,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant241 {
-    /// Required `number` value serialized in the `connectSrcCount` wire field.
-    #[serde(rename = "connectSrcCount")]
-    pub connect_src_count: f64,
-    /// Optional enumerated value serialized in the `connectSrcNormalizationRulesCleared` wire field.
-    #[serde(
-        rename = "connectSrcNormalizationRulesCleared",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_src_normalization_rules_cleared: Option<bool>,
-    /// Required `number` value serialized in the `connectSrcOriginCount` wire field.
-    #[serde(rename = "connectSrcOriginCount")]
-    pub connect_src_origin_count: f64,
-    /// Optional `number` value serialized in the `connectSrcUserNormalizationRuleCount` wire field.
-    #[serde(
-        rename = "connectSrcUserNormalizationRuleCount",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_src_user_normalization_rule_count: Option<f64>,
-    /// Required `number` value serialized in the `deletedCount` wire field.
-    #[serde(rename = "deletedCount")]
-    pub deleted_count: f64,
-    /// Required `number` value serialized in the `headerCount` wire field.
-    #[serde(rename = "headerCount")]
-    pub header_count: f64,
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `number` value serialized in the `scriptCount` wire field.
-    #[serde(rename = "scriptCount")]
-    pub script_count: f64,
-}
-
-impl UserEventPayloadVariant241 {
-    pub fn new(
-        connect_src_count: f64,
-        connect_src_origin_count: f64,
-        deleted_count: f64,
-        header_count: f64,
-        project_id: String,
-        project_name: String,
-        script_count: f64,
-    ) -> Self {
-        Self {
-            connect_src_count,
-            connect_src_normalization_rules_cleared: None,
-            connect_src_origin_count,
-            connect_src_user_normalization_rule_count: None,
-            deleted_count,
-            header_count,
-            project_id,
-            project_name,
-            script_count,
-        }
-    }
-}
-
-/// Optional enumerated value serialized in the `approvalScope` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant242ApprovalScopeEnum {
-    #[default]
-    All,
-    Preview,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant242ApprovalScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::Preview => "preview",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant242ApprovalScopeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant242ApprovalScopeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "preview" => Self::Preview,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant242ApprovalScopeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Optional enumerated value serialized in the `kind` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant242KindEnum {
-    #[default]
-    Connectsrc,
-    Script,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant242KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Connectsrc => "connectSrc",
-            Self::Script => "script",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant242KindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant242KindEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "connectSrc" => Self::Connectsrc,
-            "script" => Self::Script,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant242KindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant242 {
-    /// Optional enumerated value serialized in the `approvalScope` wire field.
-    #[serde(rename = "approvalScope", skip_serializing_if = "Option::is_none")]
-    pub approval_scope: Option<UserEventPayloadVariant242ApprovalScopeEnum>,
-    /// Required `string` value serialized in the `justification` wire field.
-    pub justification: String,
-    /// Optional enumerated value serialized in the `kind` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: Option<UserEventPayloadVariant242KindEnum>,
-    /// Required `string` value serialized in the `previousStatus` wire field.
-    #[serde(rename = "previousStatus")]
-    pub previous_status: String,
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `url` wire field.
-    pub url: String,
-}
-
-impl UserEventPayloadVariant242 {
-    pub fn new(
-        justification: String,
-        previous_status: String,
-        project_id: String,
-        url: String,
-    ) -> Self {
-        Self {
-            approval_scope: None,
-            justification,
-            kind: None,
-            previous_status,
-            project_id,
-            url,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant243TypeEnum {
-    #[default]
-    Script,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant243TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Script => "script",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant243TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant243TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "script" => Self::Script,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant243TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant243 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `resourceUrl` wire field.
-    #[serde(rename = "resourceUrl")]
-    pub resource_url: String,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant243TypeEnum,
-}
-
-impl UserEventPayloadVariant243 {
-    pub fn new(
-        project_id: String,
-        resource_url: String,
-        type_: UserEventPayloadVariant243TypeEnum,
-    ) -> Self {
-        Self {
-            project_id,
-            resource_url,
-            type_,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant244TypeEnum {
-    #[default]
-    Header,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant244TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Header => "header",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant244TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant244TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "header" => Self::Header,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant244TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant244 {
-    /// Required `string` value serialized in the `headerName` wire field.
-    #[serde(rename = "headerName")]
-    pub header_name: String,
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant244TypeEnum,
-}
-
-impl UserEventPayloadVariant244 {
-    pub fn new(
-        header_name: String,
-        project_id: String,
-        type_: UserEventPayloadVariant244TypeEnum,
-    ) -> Self {
-        Self {
-            header_name,
-            project_id,
-            type_,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant245TypeEnum {
-    #[default]
-    Connectsrc,
-    Unknown(String),
 }

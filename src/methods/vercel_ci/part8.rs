@@ -3,6 +3,302 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateVercelCiTaskAnalysisResponseStatus {
+    Object(Box<CreateVercelCiTaskAnalysisResponseStatusVariant0Enum>),
+    Object2(Box<CreateVercelCiTaskAnalysisResponseStatusVariant1Enum>),
+    Object3(Box<CreateVercelCiTaskAnalysisResponseStatusVariant2Enum>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateVercelCiTaskAnalysisResponseStatus {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateVercelCiTaskAnalysisResponseStatusVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateVercelCiTaskAnalysisResponseStatusVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateVercelCiTaskAnalysisResponseStatusVariant2Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateVercelCiTaskAnalysisResponseStatus branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<CreateVercelCiTaskAnalysisResponseStatusVariant0Enum>>
+    for CreateVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<CreateVercelCiTaskAnalysisResponseStatusVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateVercelCiTaskAnalysisResponseStatusVariant1Enum>>
+    for CreateVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<CreateVercelCiTaskAnalysisResponseStatusVariant1Enum>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateVercelCiTaskAnalysisResponseStatusVariant2Enum>>
+    for CreateVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<CreateVercelCiTaskAnalysisResponseStatusVariant2Enum>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateVercelCiTaskAnalysisResponse {
+    #[serde(rename = "analysisId")]
+    pub analysis_id: String,
+    pub status: CreateVercelCiTaskAnalysisResponseStatus,
+}
+
+impl CreateVercelCiTaskAnalysisResponse {
+    pub fn new(analysis_id: String, status: CreateVercelCiTaskAnalysisResponseStatus) -> Self {
+        Self {
+            analysis_id,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiTaskAnalysisResponseStatusVariant0Enum {
+    #[serde(rename = "pending")]
+    #[default]
+    Pending,
+}
+
+impl GetVercelCiTaskAnalysisResponseStatusVariant0Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Pending => "pending",
+        }
+    }
+}
+
+impl std::fmt::Display for GetVercelCiTaskAnalysisResponseStatusVariant0Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiTaskAnalysisResponseStatusVariant0Enum::Pending => f.write_str("pending"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiTaskAnalysisResponseStatusVariant1Enum {
+    #[serde(rename = "completed")]
+    #[default]
+    Completed,
+}
+
+impl GetVercelCiTaskAnalysisResponseStatusVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Completed => "completed",
+        }
+    }
+}
+
+impl std::fmt::Display for GetVercelCiTaskAnalysisResponseStatusVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiTaskAnalysisResponseStatusVariant1Enum::Completed => {
+                f.write_str("completed")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiTaskAnalysisResponseStatusVariant2Enum {
+    #[serde(rename = "failed")]
+    #[default]
+    Failed,
+}
+
+impl GetVercelCiTaskAnalysisResponseStatusVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Failed => "failed",
+        }
+    }
+}
+
+impl std::fmt::Display for GetVercelCiTaskAnalysisResponseStatusVariant2Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiTaskAnalysisResponseStatusVariant2Enum::Failed => f.write_str("failed"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetVercelCiTaskAnalysisResponseStatus {
+    Object(Box<GetVercelCiTaskAnalysisResponseStatusVariant0Enum>),
+    Object2(Box<GetVercelCiTaskAnalysisResponseStatusVariant1Enum>),
+    Object3(Box<GetVercelCiTaskAnalysisResponseStatusVariant2Enum>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetVercelCiTaskAnalysisResponseStatus {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiTaskAnalysisResponseStatusVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiTaskAnalysisResponseStatusVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiTaskAnalysisResponseStatusVariant2Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetVercelCiTaskAnalysisResponseStatus branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiTaskAnalysisResponseStatusVariant0Enum>>
+    for GetVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<GetVercelCiTaskAnalysisResponseStatusVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiTaskAnalysisResponseStatusVariant1Enum>>
+    for GetVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<GetVercelCiTaskAnalysisResponseStatusVariant1Enum>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiTaskAnalysisResponseStatusVariant2Enum>>
+    for GetVercelCiTaskAnalysisResponseStatus
+{
+    fn from(value: Box<GetVercelCiTaskAnalysisResponseStatusVariant2Enum>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiTaskAnalysisResponse {
+    #[serde(rename = "analysisId")]
+    pub analysis_id: String,
+    pub status: GetVercelCiTaskAnalysisResponseStatus,
+    #[serde(rename = "failureReason", skip_serializing_if = "Option::is_none")]
+    pub failure_reason: Option<String>,
+}
+
+impl GetVercelCiTaskAnalysisResponse {
+    pub fn new(analysis_id: String, status: GetVercelCiTaskAnalysisResponseStatus) -> Self {
+        Self {
+            analysis_id,
+            status,
+            failure_reason: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateVercelCiTaskConfigurationPullRequestTasksItem {
+    pub name: String,
+    #[serde(rename = "configPath")]
+    pub config_path: String,
+}
+
+impl CreateVercelCiTaskConfigurationPullRequestTasksItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_length(
+            "name",
+            &self.name,
+            crate::validation::LengthOpts {
+                max: Some(500),
+                ..Default::default()
+            },
+        )?;
+        crate::validation::validate_length(
+            "configPath",
+            &self.config_path,
+            crate::validation::LengthOpts {
+                max: Some(2000),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(name: String, config_path: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { name, config_path };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateVercelCiTaskConfigurationPullRequestResponse {
+    pub url: String,
+    #[serde(rename = "changedTaskNames")]
+    pub changed_task_names: Vec<String>,
+}
+
 impl CreateVercelCiTaskConfigurationPullRequestResponse {
     pub fn new(url: String, changed_task_names: Vec<String>) -> Self {
         Self {
@@ -42,259 +338,4 @@ impl ListVercelCiTaskAnalysisTasksResponsePagination {
     pub fn new() -> Self {
         Self { next_cursor: None }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiTaskAnalysisTasksResponse {
-    pub tasks: Vec<ListVercelCiTaskAnalysisTasksResponseTasksItem>,
-    pub pagination: ListVercelCiTaskAnalysisTasksResponsePagination,
-}
-
-impl ListVercelCiTaskAnalysisTasksResponse {
-    pub fn new(
-        tasks: Vec<ListVercelCiTaskAnalysisTasksResponseTasksItem>,
-        pagination: ListVercelCiTaskAnalysisTasksResponsePagination,
-    ) -> Self {
-        Self { tasks, pagination }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemSkipped {
-    pub reason: String,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemSkipped {
-    pub fn new(reason: String) -> Self {
-        Self { reason }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingStarted {
-    #[serde(rename = "startedAt")]
-    pub started_at: f64,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingStarted {
-    pub fn new(started_at: f64) -> Self {
-        Self { started_at }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingFailed {
-    pub reason: String,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingFailed {
-    pub fn new(reason: String) -> Self {
-        Self { reason }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxSnapshotted {
-    #[serde(rename = "sandboxSnapshotId")]
-    pub sandbox_snapshot_id: String,
-    #[serde(rename = "workingDirectory")]
-    pub working_directory: String,
-    #[serde(rename = "snapshottedAt", skip_serializing_if = "Option::is_none")]
-    pub snapshotted_at: Option<f64>,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxSnapshotted {
-    pub fn new(sandbox_snapshot_id: String, working_directory: String) -> Self {
-        Self {
-            sandbox_snapshot_id,
-            working_directory,
-            snapshotted_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxNamed {
-    #[serde(rename = "sandboxName")]
-    pub sandbox_name: String,
-    #[serde(rename = "workingDirectory")]
-    pub working_directory: String,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxNamed {
-    pub fn new(sandbox_name: String, working_directory: String) -> Self {
-        Self {
-            sandbox_name,
-            working_directory,
-            ready_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum {
-    #[serde(rename = "turbo-json")]
-    #[default]
-    TurboJson,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::TurboJson => "turbo-json",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum::TurboJson => f.write_str("turbo-json"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum {
-    #[serde(rename = "vercel-ci-config")]
-    #[default]
-    VercelCiConfig,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelCiConfig => "vercel-ci-config",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum::VercelCiConfig => f.write_str("vercel-ci-config"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum {
-    #[serde(rename = "project-settings")]
-    #[default]
-    ProjectSettings,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ProjectSettings => "project-settings",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum::ProjectSettings => f.write_str("project-settings"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSource {
-    Object(Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum>),
-    Object2(Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum>),
-    Object3(Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSource
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant0Enum>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant1Enum>>(value.clone()) {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSourceVariant2Enum>>(value.clone()) {
-            let candidate = Self::Object3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSource branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreated {
-    pub names: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source:
-        Option<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreatedSource>,
-    #[serde(rename = "scheduledAt", skip_serializing_if = "Option::is_none")]
-    pub scheduled_at: Option<f64>,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreated {
-    pub fn new(names: Vec<String>) -> Self {
-        Self {
-            names,
-            source: None,
-            scheduled_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemCompletedConclusionVariant0Enum {
-    #[serde(rename = "succeeded")]
-    #[default]
-    Succeeded,
-}
-
-impl ListVercelCiInvocationAttemptsResponseAttemptsItemCompletedConclusionVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Succeeded => "succeeded",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListVercelCiInvocationAttemptsResponseAttemptsItemCompletedConclusionVariant0Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationAttemptsResponseAttemptsItemCompletedConclusionVariant0Enum::Succeeded => f.write_str("succeeded"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationAttemptsResponseAttemptsItemCompletedConclusionVariant1Enum {
-    #[serde(rename = "failed")]
-    #[default]
-    Failed,
 }

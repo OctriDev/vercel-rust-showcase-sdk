@@ -2,491 +2,299 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::ListProjectsDomainsResponse;
-use crate::validation::{validate_length, LengthOpts};
 
-/// Deletes a project identified by its ID or name. Use the `teamId` or `slug` query parameter to make the request on behalf of a team. A 204 response confirms the project was removed.
-///
-/// Delete a specific project by passing either the project `id` or `name` in the URL.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_project(
-    config: &ClientConfig,
-    id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "DELETE",
-        &format!(
-            "/v9/projects/{}",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "delete_project",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Uploads an image to use as the avatar for a project identified by its ID or name. Send the raw image bytes and declare the image type with the `Content-Type` header; accepted formats are JPG, PNG, and SVG. SVG images are sanitized and optimized before storage, and the response returns the updated project.
-///
-/// Upload an image as the avatar of the project identified by `idOrName`. The request body is the raw bytes of a JPG, PNG, or SVG image; the `Content-Type` header must declare which. SVG payloads are sanitized and optimized server-side before storage. The final SHA-1 of the stored bytes becomes the project's `avatar` value. The actual upload pipeline (validation, sanitization, S3 write, conditional `updateProject`, and event emission) lives in the shared `@api/project-avatar-upload` helper so it can be reused by background workers.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn upload_project_avatar(
-    config: &ClientConfig,
-    id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    body: Option<Vec<u8>>,
-    options: Option<&RequestOptions>,
-) -> Result<UploadProjectAvatarResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl serde::Serialize for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<UploadProjectAvatarResponse>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/avatar",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body_bytes: body,
-            content_type: "application/octet-stream",
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "upload_project_avatar",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Removes the avatar assignment from a project identified by its ID or name. This clears the project's avatar field so a later production deployment can run avatar auto-detection again, but it does not delete the stored image. The response returns the updated project.
-///
-/// Remove the avatar of the project identified by `idOrName`. Deletes the chosen avatar field so the next production deploy can run auto-detection again. Does not delete the stored image.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_project_avatar(
-    config: &ClientConfig,
-    id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<DeleteProjectAvatarResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
+            _ => Self::Unknown(value),
+        })
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<DeleteProjectAvatarResponse>(
-        "DELETE",
-        &format!(
-            "/v1/projects/{}/avatar",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "delete_project_avatar",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct ListProjectsDomainsParams {
-    pub id_or_name: String,
-    pub production: Option<ListProjectsDomainsEnum>,
-    pub target: Option<ListProjectsDomainsEnumb689097b>,
-    pub custom_environment_id: Option<String>,
-    pub git_branch: Option<String>,
-    pub redirects: Option<ListProjectsDomainsEnum70f457a0>,
-    pub redirect: Option<String>,
-    pub verified: Option<ListProjectsDomainsEnum32180855>,
-    pub limit: Option<f64>,
-    pub since: Option<f64>,
-    pub until: Option<f64>,
-    pub order: Option<ListProjectsDomainsEnumb6eeff4f>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+impl std::fmt::Display for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-/// Lists domains associated with a project. Use the query parameters to filter by environment, branch, redirect, or verification status, and to control the result limit and sort order.
-///
-/// Retrieve the domains associated with a given project by passing either the project `id` or `name` in the URL.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `production` - Filters only production domains when set to `true`.
-/// * `target` - Filters on the target of the domain. Can be either
-///   "production", "preview"
-/// * `custom_environment_id` - The unique custom environment identifier within
-///   the project
-/// * `git_branch` - Filters domains based on specific branch.
-/// * `redirects` - Excludes redirect project domains when "false". Includes
-///   redirect project domains when "true" (default).
-/// * `redirect` - Filters domains based on their redirect target.
-/// * `verified` - Filters domains based on their verification status.
-/// * `limit` - Maximum number of domains to list from a request (max 100).
-/// * `since` - Get domains created after this JavaScript timestamp.
-/// * `until` - Get domains created before this JavaScript timestamp.
-/// * `order` - Domains sort order by createdAt
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_projects_domains(
-    config: &ClientConfig,
-    params: ListProjectsDomainsParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListProjectsDomainsResponse, SdkError> {
-    let ListProjectsDomainsParams {
-        id_or_name,
-        production,
-        target,
-        custom_environment_id,
-        git_branch,
-        redirects,
-        redirect,
-        verified,
-        limit,
-        since,
-        until,
-        order,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(13);
-    if let Some(ref v) = production {
-        __query.push(("production", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = target {
-        __query.push(("target", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = custom_environment_id {
-        __query.push(("customEnvironmentId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = git_branch {
-        __query.push(("gitBranch", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = redirects {
-        __query.push(("redirects", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = redirect {
-        __query.push(("redirect", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = verified {
-        __query.push(("verified", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = until {
-        __query.push(("until", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = order {
-        __query.push(("order", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListProjectsDomainsResponse>(
-        "GET",
-        &format!(
-            "/v9/projects/{}/domains",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_projects_domains",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+/// Service kind (Service.type). Omitted for schemas that do not define one.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+    #[default]
+    Cron,
+    Job,
+    Web,
+    Worker,
+    Unknown(String),
 }
 
-/// Retrieves a domain associated with a project. Use the project identifier or name and the domain name to identify the domain and inspect its configuration and verification status.
-///
-/// Get project domain by project id/name and domain name.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `domain` - The project domain name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_project_domain(
-    config: &ClientConfig,
-    id_or_name: String,
-    domain: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetProjectDomainResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Cron => "cron",
+            Self::Job => "job",
+            Self::Web => "web",
+            Self::Worker => "worker",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetProjectDomainResponse>(
-        "GET",
-        &format!(
-            "/v9/projects/{}/domains/{}",
-            crate::client::encode_path_segment(&id_or_name),
-            crate::client::encode_path_segment(&domain)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_project_domain",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct UpdateProjectDomainParams {
-    pub id_or_name: String,
-    pub domain: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub git_branch: Option<Option<String>>,
-    pub redirect: Option<Option<String>>,
-    pub redirect_status_code: Option<Option<i64>>,
+impl serde::Serialize for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-/// Updates a project domain’s configuration, including its Git branch association and redirect settings. Supply only the configuration fields you want to change; `redirectStatusCode` accepts 301, 302, 307, 308, or null.
-///
-/// Update a project domain's configuration, including the name, git branch and redirect of the domain.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `domain` - The project domain name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `git_branch` - Git branch to link the project domain
-/// * `redirect` - Target destination domain for redirect
-/// * `redirect_status_code` - Status code for domain redirect
-pub fn update_project_domain(
-    config: &ClientConfig,
-    params: UpdateProjectDomainParams,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateProjectDomainResponse, SdkError> {
-    let UpdateProjectDomainParams {
-        id_or_name,
-        domain,
-        team_id,
-        slug,
-        git_branch,
-        redirect,
-        redirect_status_code,
-    } = params;
-    if let Some(Some(ref git_branch_v)) = &git_branch {
-        validate_length(
-            "gitBranch",
-            git_branch_v,
-            LengthOpts {
-                max: Some(250),
-                ..Default::default()
-            },
-        )?;
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "cron" => Self::Cron,
+            "job" => Self::Job,
+            "web" => Self::Web,
+            "worker" => Self::Worker,
+            _ => Self::Unknown(value),
+        })
     }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = git_branch {
-        __body_map.insert(
-            "gitBranch".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = redirect {
-        __body_map.insert(
-            "redirect".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = redirect_status_code {
-        __body_map.insert(
-            "redirectStatusCode".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<UpdateProjectDomainResponse>(
-        "PATCH",
-        &format!(
-            "/v9/projects/{}/domains/{}",
-            crate::client::encode_path_segment(&id_or_name),
-            crate::client::encode_path_segment(&domain)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_project_domain",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct RemoveProjectDomainParams {
-    pub id_or_name: String,
-    pub domain: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub remove_redirects: Option<bool>,
+impl std::fmt::Display for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-/// Removes a domain from a project. Set `removeRedirects` to also remove project domains that redirect to the domain being deleted.
-///
-/// Remove a domain from a project by passing the domain name and by specifying the project by either passing the project `id` or `name` in the URL.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `domain` - The project domain name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `remove_redirects` - Whether to remove all domains from this project that
-///   redirect to the domain being removed.
-pub fn remove_project_domain(
-    config: &ClientConfig,
-    params: RemoveProjectDomainParams,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let RemoveProjectDomainParams {
-        id_or_name,
-        domain,
-        team_id,
-        slug,
-        remove_redirects,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseServicesItem {
+    /// Framework slug, when the service has one (omitted otherwise).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub framework: Option<UpdateMicrofrontendsResponseServicesItemFrameworkEnum>,
+    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub runtime: Option<String>,
+    /// Service name from the deployment (Service.name).
+    #[serde(rename = "serviceName")]
+    pub service_name: String,
+    /// Service kind (Service.type). Omitted for schemas that do not define one.
+    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
+    pub service_type: Option<UpdateMicrofrontendsResponseServicesItemServiceTypeEnum>,
+}
 
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = remove_redirects {
-        __body_map.insert(
-            "removeRedirects".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
+impl UpdateMicrofrontendsResponseServicesItem {
+    pub fn new(service_name: String) -> Self {
+        Self {
+            framework: None,
+            runtime: None,
+            service_name,
+            service_type: None,
+        }
     }
-    let __body = serde_json::Value::Object(__body_map);
+}
 
-    Ok(sdk_request::<serde_json::Value>(
-        "DELETE",
-        &format!(
-            "/v9/projects/{}/domains/{}",
-            crate::client::encode_path_segment(&id_or_name),
-            crate::client::encode_path_segment(&domain)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "remove_project_domain",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSpeedInsights {
+    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
+    pub canceled_at: Option<f64>,
+    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
+    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
+    pub data_received_at: Option<f64>,
+    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
+    pub disabled_at: Option<f64>,
+    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
+    pub enabled_at: Option<f64>,
+    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
+    pub has_data: Option<bool>,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+}
+
+impl UpdateMicrofrontendsResponseSpeedInsights {
+    pub fn new(id: String) -> Self {
+        Self {
+            canceled_at: None,
+            data_received_at: None,
+            disabled_at: None,
+            enabled_at: None,
+            has_data: None,
+            id,
+            paid_at: None,
+        }
+    }
 }

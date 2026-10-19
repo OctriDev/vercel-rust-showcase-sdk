@@ -2,16 +2,59 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::UpdateMicrofrontendsResponseEnvItemContentHint;
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+impl serde::Serialize for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2InternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2InternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum,
+    ) -> Self {
+        Self {
+            encrypted_value,
+            type_,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+pub enum RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
     #[default]
     Development,
     Preview,
@@ -19,7 +62,7 @@ pub enum UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+impl RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Development => "development",
@@ -30,7 +73,7 @@ impl UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+impl serde::Serialize for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -39,7 +82,7 @@ impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum 
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -54,7 +97,57 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTargetV
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+    #[default]
+    Production,
+    Preview,
+    Development,
+    Unknown(String),
+}
+
+impl RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "production" => Self::Production,
+            "preview" => Self::Preview,
+            "development" => Self::Development,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -62,17 +155,17 @@ impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum UpdateMicrofrontendsResponseEnvItemTarget {
-    Variant0ItemEnumArray(Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>),
-    Literal(UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum),
+pub enum RemoveProjectEnvResponseVariant2Target {
+    Variant0ItemEnumArray(Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>),
+    Literal(RemoveProjectEnvResponseVariant2TargetVariant1Enum),
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTarget {
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2Target {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
         if let Ok(branch) = serde_json::from_value::<
-            Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>,
+            Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>,
         >(value.clone())
         {
             let candidate = Self::Variant0ItemEnumArray(branch);
@@ -82,7 +175,7 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTarget 
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum,
+            RemoveProjectEnvResponseVariant2TargetVariant1Enum,
         >(value.clone())
         {
             let candidate = Self::Literal(branch);
@@ -93,14 +186,30 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTarget 
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no UpdateMicrofrontendsResponseEnvItemTarget branch accepts this payload",
+                "no RemoveProjectEnvResponseVariant2Target branch accepts this payload",
             )
         })
     }
 }
 
+impl ::std::convert::From<Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>>
+    for RemoveProjectEnvResponseVariant2Target
+{
+    fn from(value: Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<RemoveProjectEnvResponseVariant2TargetVariant1Enum>
+    for RemoveProjectEnvResponseVariant2Target
+{
+    fn from(value: RemoveProjectEnvResponseVariant2TargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseEnvItemTypeEnum {
+pub enum RemoveProjectEnvResponseVariant2TypeEnum {
     #[default]
     Encrypted,
     Plain,
@@ -110,7 +219,7 @@ pub enum UpdateMicrofrontendsResponseEnvItemTypeEnum {
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseEnvItemTypeEnum {
+impl RemoveProjectEnvResponseVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Encrypted => "encrypted",
@@ -123,7 +232,7 @@ impl UpdateMicrofrontendsResponseEnvItemTypeEnum {
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTypeEnum {
+impl serde::Serialize for RemoveProjectEnvResponseVariant2TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -132,7 +241,7 @@ impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTypeEnum {
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -149,7 +258,7 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTypeEnu
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTypeEnum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -157,14 +266,14 @@ impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTypeEnum {
 
 /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
+pub enum RemoveProjectEnvResponseVariant2VisibilityEnum {
     #[default]
     Config,
     Secret,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
+impl RemoveProjectEnvResponseVariant2VisibilityEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Config => "config",
@@ -172,123 +281,4 @@ impl UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "config" => Self::Config,
-            "secret" => Self::Secret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseEnvItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    /// Typed representation of the `UpdateMicrofrontendsResponseEnvItemContentHint` API schema.
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<UpdateMicrofrontendsResponseEnvItemContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub decrypted: Option<bool>,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Similar to `contentHints`, but should not be exposed to the user.
-    #[serde(
-        rename = "internalContentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub internal_content_hint:
-        Option<Option<UpdateMicrofrontendsResponseEnvItemInternalContentHint>>,
-    pub key: String,
-    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
-    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
-    pub legacy_value: Option<String>,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<UpdateMicrofrontendsResponseEnvItemTarget>,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseEnvItemTypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<UpdateMicrofrontendsResponseEnvItemVisibilityEnum>,
-    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
-    pub vsm_value: Option<String>,
 }

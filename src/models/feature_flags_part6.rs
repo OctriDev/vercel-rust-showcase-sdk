@@ -3,6 +3,176 @@
 
 // feature_flags domain models (part 6)
 
+impl serde::Serialize for FlagStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for FlagStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "active" => Self::Active,
+            "archived" => Self::Archived,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for FlagStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `typeName` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum FlagTypeNameEnum {
+    #[serde(rename = "flag")]
+    #[default]
+    Flag,
+}
+
+impl FlagTypeNameEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Flag => "flag",
+        }
+    }
+}
+
+impl std::fmt::Display for FlagTypeNameEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            FlagTypeNameEnum::Flag => f.write_str("flag"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum FlagVariantsItemValue {
+    String(String),
+    Number(f64),
+    ValueMap(std::collections::HashMap<String, serde_json::Value>),
+    ValueArray(Vec<serde_json::Value>),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for FlagVariantsItemValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            std::collections::HashMap<String, serde_json::Value>,
+        >(value.clone())
+        {
+            let candidate = Self::ValueMap(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<serde_json::Value>>(value.clone()) {
+            let candidate = Self::ValueArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no FlagVariantsItemValue branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<String> for FlagVariantsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for FlagVariantsItemValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<std::collections::HashMap<String, serde_json::Value>>
+    for FlagVariantsItemValue
+{
+    fn from(value: std::collections::HashMap<String, serde_json::Value>) -> Self {
+        Self::ValueMap(value)
+    }
+}
+
+impl ::std::convert::From<Vec<serde_json::Value>> for FlagVariantsItemValue {
+    fn from(value: Vec<serde_json::Value>) -> Self {
+        Self::ValueArray(value)
+    }
+}
+
+impl ::std::convert::From<bool> for FlagVariantsItemValue {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+/// Required object value serialized in the `variants[]` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct FlagVariantsItem {
+    /// Optional `string` value serialized in the `description` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Optional `string` value serialized in the `label` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    /// Required API value serialized in the `value` wire field.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub value: Option<FlagVariantsItemValue>,
+}
+
+impl FlagVariantsItem {
+    pub fn new(id: String, value: Option<FlagVariantsItemValue>) -> Self {
+        Self {
+            description: None,
+            id,
+            label: None,
+            value,
+        }
+    }
+}
+
 /// Optional object value serialized in the `creator` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct FlagMetadataCreator {
@@ -333,176 +503,5 @@ impl<'de> serde::Deserialize<'de> for MarketplaceFlagCategoryEnum {
             "flag" => Self::Flag,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for MarketplaceFlagCategoryEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `state` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum MarketplaceFlagStateEnum {
-    #[default]
-    Active,
-    Archived,
-    Unknown(String),
-}
-
-impl MarketplaceFlagStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for MarketplaceFlagStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for MarketplaceFlagStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for MarketplaceFlagStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `typeName` wire field.
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum MarketplaceFlagTypeNameEnum {
-    #[serde(rename = "marketplaceFlag")]
-    #[default]
-    Marketplaceflag,
-}
-
-impl MarketplaceFlagTypeNameEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Marketplaceflag => "marketplaceFlag",
-        }
-    }
-}
-
-impl std::fmt::Display for MarketplaceFlagTypeNameEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            MarketplaceFlagTypeNameEnum::Marketplaceflag => f.write_str("marketplaceFlag"),
-        }
-    }
-}
-
-/// Typed representation of the `MarketplaceFlag` API schema.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct MarketplaceFlag {
-    /// Optional enumerated value serialized in the `category` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub category: Option<MarketplaceFlagCategoryEnum>,
-    /// Optional `number` value serialized in the `createdAt` wire field.
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    /// Optional `string` value serialized in the `description` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// Required `string` value serialized in the `externalId` wire field.
-    #[serde(rename = "externalId")]
-    pub external_id: String,
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Required `string` value serialized in the `integrationConfigurationId` wire field.
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    /// Optional `string` value serialized in the `name` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Required `string` value serialized in the `origin` wire field.
-    pub origin: String,
-    /// Required `string` value serialized in the `ownerId` wire field.
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `resourceId` wire field.
-    #[serde(rename = "resourceId")]
-    pub resource_id: String,
-    /// Required `string` value serialized in the `slug` wire field.
-    pub slug: String,
-    /// Required enumerated value serialized in the `state` wire field.
-    pub state: MarketplaceFlagStateEnum,
-    /// Required enumerated value serialized in the `typeName` wire field.
-    #[serde(rename = "typeName")]
-    pub type_name: MarketplaceFlagTypeNameEnum,
-    /// Optional `number` value serialized in the `updatedAt` wire field.
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl MarketplaceFlag {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        external_id: String,
-        id: String,
-        integration_configuration_id: String,
-        origin: String,
-        owner_id: String,
-        project_id: String,
-        resource_id: String,
-        slug: String,
-        state: MarketplaceFlagStateEnum,
-        type_name: MarketplaceFlagTypeNameEnum,
-    ) -> Self {
-        Self {
-            category: None,
-            created_at: None,
-            description: None,
-            external_id,
-            id,
-            integration_configuration_id,
-            name: None,
-            origin,
-            owner_id,
-            project_id,
-            resource_id,
-            slug,
-            state,
-            type_name,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct SegmentDataExcludeValueValueItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-    pub value: String,
-}
-
-impl SegmentDataExcludeValueValueItem {
-    pub fn new(value: String) -> Self {
-        Self { note: None, value }
     }
 }

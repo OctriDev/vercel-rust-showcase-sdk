@@ -3,37 +3,57 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::GithubLimited => "github-limited",
+        }
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLinkVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemLinkVariant1TypeEnum::GithubLimited => {
+                f.write_str("github-limited")
+            }
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant6 {
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant1 {
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<f64>,
     #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant6DeployHooksItem>,
+    pub deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant1DeployHooksItem>,
     #[serde(rename = "gitCredentialId")]
     pub git_credential_id: String,
     pub org: String,
     #[serde(rename = "productionBranch")]
     pub production_branch: String,
-    pub repo: String,
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<f64>,
+    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
+    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
+    pub repo_owner_id: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sourceless: Option<bool>,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemLinkVariant6TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemLinkVariant1TypeEnum,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<f64>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLinkVariant6 {
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant1 {
     pub fn new(
-        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant6DeployHooksItem>,
+        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant1DeployHooksItem>,
         git_credential_id: String,
         org: String,
         production_branch: String,
-        repo: String,
-        repo_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant6TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant1TypeEnum,
     ) -> Self {
         Self {
             created_at: None,
@@ -41,8 +61,9 @@ impl ListProjectsResponseVariant2ProjectsItemLinkVariant6 {
             git_credential_id,
             org,
             production_branch,
-            repo,
-            repo_id,
+            repo: None,
+            repo_id: None,
+            repo_owner_id: None,
             sourceless: None,
             type_,
             updated_at: None,
@@ -51,7 +72,7 @@ impl ListProjectsResponseVariant2ProjectsItemLinkVariant6 {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem {
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant2DeployHooksItem {
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<f64>,
     pub id: String,
@@ -61,7 +82,7 @@ pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem {
     pub url: String,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem {
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant2DeployHooksItem {
     pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
         Self {
             created_at: None,
@@ -74,78 +95,76 @@ impl ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem {
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum {
-    #[serde(rename = "cursor-origin")]
+pub enum ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum {
+    #[serde(rename = "github-custom-host")]
     #[default]
-    CursorOrigin,
+    GithubCustomHost,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::CursorOrigin => "cursor-origin",
+            Self::GithubCustomHost => "github-custom-host",
         }
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum::CursorOrigin => {
-                f.write_str("cursor-origin")
+            ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum::GithubCustomHost => {
+                f.write_str("github-custom-host")
             }
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant7 {
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant2 {
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<f64>,
     #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem>,
+    pub deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant2DeployHooksItem>,
     #[serde(rename = "gitCredentialId")]
     pub git_credential_id: String,
-    /// Owner (namespace) slug, e.g. `acme`.
-    pub owner: String,
-    /// Origin namespace id (`ns_…`) of the owner.
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
+    pub host: String,
+    pub org: String,
     #[serde(rename = "productionBranch")]
     pub production_branch: String,
-    pub repo: String,
-    /// Origin repository id.
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<f64>,
+    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
+    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
+    pub repo_owner_id: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sourceless: Option<bool>,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<f64>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLinkVariant7 {
-    #[allow(clippy::too_many_arguments)]
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant2 {
     pub fn new(
-        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem>,
+        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant2DeployHooksItem>,
         git_credential_id: String,
-        owner: String,
-        owner_id: String,
+        host: String,
+        org: String,
         production_branch: String,
-        repo: String,
-        repo_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant2TypeEnum,
     ) -> Self {
         Self {
             created_at: None,
             deploy_hooks,
             git_credential_id,
-            owner,
-            owner_id,
+            host,
+            org,
             production_branch,
-            repo,
-            repo_id,
+            repo: None,
+            repo_id: None,
+            repo_owner_id: None,
             sourceless: None,
             type_,
             updated_at: None,
@@ -153,197 +172,160 @@ impl ListProjectsResponseVariant2ProjectsItemLinkVariant7 {
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemLink {
-    Github(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>),
-    GithubLimited(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>),
-    GithubCustomHost(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>),
-    Gitlab(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>),
-    Bitbucket(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>),
-    Vercel(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>),
-    V0(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>),
-    CursorOrigin(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant3DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemLink {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Github(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant3DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::GithubLimited(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum {
+    #[serde(rename = "gitlab")]
+    #[default]
+    Gitlab,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Gitlab => "gitlab",
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::GithubCustomHost(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum::Gitlab => {
+                f.write_str("gitlab")
             }
-            lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::Gitlab(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>,
-        >(value.clone())
-        {
-            let candidate = Self::Bitbucket(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>,
-        >(value.clone())
-        {
-            let candidate = Self::Vercel(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>,
-        >(value.clone())
-        {
-            let candidate = Self::V0(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>,
-        >(value.clone())
-        {
-            let candidate = Self::CursorOrigin(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListProjectsResponseVariant2ProjectsItemLink branch accepts this payload",
-            )
-        })
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant0 {
-    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-    /// Whether microfrontends are enabled for this project.
-    pub enabled: bool,
-    /// Whether the project was part of the legacy limits for hobby and pro-trial before billing was added. This field is only set when the team is upgraded to a paid plan and we are backfilling the subscription status. We cap the subscription to 2 projects and set this field for the 3rd project. When this field is set, the project is not charged for and we do not call any billing APIs for this project.
-    #[serde(
-        rename = "freeProjectForLegacyLimits",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub free_project_for_legacy_limits: Option<bool>,
-    /// The group IDs of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
-    #[serde(rename = "groupIds")]
-    pub group_ids: Vec<String>,
-    #[serde(rename = "isDefaultApp")]
-    pub is_default_app: bool,
-    /// Timestamp when the microfrontends settings were last updated.
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant3 {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(rename = "deployHooks")]
+    pub deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant3DeployHooksItem>,
+    #[serde(rename = "gitCredentialId")]
+    pub git_credential_id: String,
+    #[serde(rename = "productionBranch")]
+    pub production_branch: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+    #[serde(rename = "projectNamespace")]
+    pub project_namespace: String,
+    #[serde(rename = "projectNameWithNamespace")]
+    pub project_name_with_namespace: String,
+    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes. This is the id of the top level group that a namespace belongs to. Gitlab supports group nesting (up to 20 levels).
+    #[serde(rename = "projectOwnerId", skip_serializing_if = "Option::is_none")]
+    pub project_owner_id: Option<f64>,
+    #[serde(rename = "projectUrl")]
+    pub project_url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sourceless: Option<bool>,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant0 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "groupIds",
-            self.group_ids.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant3 {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        enabled: bool,
-        group_ids: Vec<String>,
-        is_default_app: bool,
-        updated_at: f64,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            default_route: None,
-            enabled,
-            free_project_for_legacy_limits: None,
-            group_ids,
-            is_default_app,
-            updated_at,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant3DeployHooksItem>,
+        git_credential_id: String,
+        production_branch: String,
+        project_id: String,
+        project_name: String,
+        project_namespace: String,
+        project_name_with_namespace: String,
+        project_url: String,
+        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant3TypeEnum,
+    ) -> Self {
+        Self {
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            production_branch,
+            project_id,
+            project_name,
+            project_namespace,
+            project_name_with_namespace,
+            project_owner_id: None,
+            project_url,
+            sourceless: None,
+            type_,
+            updated_at: None,
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant1 {
-    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-    /// Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
-    #[serde(
-        rename = "doNotRouteWithMicrofrontendsRouting",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub do_not_route_with_microfrontends_routing: Option<bool>,
-    /// Whether microfrontends are enabled for this project.
-    pub enabled: bool,
-    /// Whether the project was part of the legacy limits for hobby and pro-trial before billing was added. This field is only set when the team is upgraded to a paid plan and we are backfilling the subscription status. We cap the subscription to 2 projects and set this field for the 3rd project. When this field is set, the project is not charged for and we do not call any billing APIs for this project.
-    #[serde(
-        rename = "freeProjectForLegacyLimits",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub free_project_for_legacy_limits: Option<bool>,
-    /// The group IDs of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
-    #[serde(rename = "groupIds")]
-    pub group_ids: Vec<String>,
-    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
-    pub is_default_app: Option<bool>,
-    /// Whether observability data should be routed to this microfrontend project or a root project.
-    #[serde(
-        rename = "routeObservabilityToThisProject",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub route_observability_to_this_project: Option<bool>,
-    /// Timestamp when the microfrontends settings were last updated.
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant4DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant4DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemLinkVariant4TypeEnum {
+    #[serde(rename = "bitbucket")]
+    #[default]
+    Bitbucket,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Bitbucket => "bitbucket",
+        }
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLinkVariant4TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemLinkVariant4TypeEnum::Bitbucket => {
+                f.write_str("bitbucket")
+            }
+        }
+    }
 }

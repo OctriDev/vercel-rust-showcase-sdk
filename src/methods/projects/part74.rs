@@ -3,242 +3,317 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemExpirationVariant0 {
-    pub fn new(expires_at: f64) -> Self {
-        Self { expires_at }
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant11>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant11>,
+    ) -> Self {
+        Self::PostgresHost(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemExpirationVariant1 {
-    /// Unix ms timestamp when the project was locked.
-    #[serde(rename = "lockedAt")]
-    pub locked_at: f64,
-    /// userId of the actor that triggered the lock (system or admin).
-    #[serde(rename = "lockedBy")]
-    pub locked_by: String,
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant12>,
+    ) -> Self {
+        Self::PostgresPassword(value)
+    }
 }
 
-impl ListProjectsResponseVariant2ProjectsItemExpirationVariant1 {
-    pub fn new(locked_at: f64, locked_by: String) -> Self {
-        Self {
-            locked_at,
-            locked_by,
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant13>,
+    ) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant14>,
+    ) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant15>,
+    ) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemEnvItemContentHintVariant16>,
+    ) -> Self {
+        Self::FlagsConnectionString(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FlagsSecret => "flags-secret",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemExpiration {
-    Object(Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>),
-    Object2(Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>),
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemExpiration {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListProjectsResponseVariant2ProjectsItemExpiration branch accepts this payload",
-            )
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
         })
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemFeatures {
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<bool>,
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-impl ListProjectsResponseVariant2ProjectsItemFeatures {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHintTypeEnum,
+    ) -> Self {
         Self {
-            web_analytics: None,
+            encrypted_value,
+            type_,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemFrameworkEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    Development,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemFrameworkEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemTarget {
+    Variant0ItemEnumArray(
+        Vec<ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum>,
+    ),
+    Literal(ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemEnvItemTarget {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Vec<ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum>,
+        >(value.clone())
+        {
+            let candidate = Self::Variant0ItemEnumArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemEnvItemTarget branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<Vec<ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum>>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemTarget
+{
+    fn from(
+        value: Vec<ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant0ItemEnum>,
+    ) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum>
+    for ListProjectsResponseVariant2ProjectsItemEnvItemTarget
+{
+    fn from(value: ListProjectsResponseVariant2ProjectsItemEnvItemTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum {
+    #[default]
+    Encrypted,
+    Plain,
+    Secret,
+    Sensitive,
+    System,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Secret => "secret",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
             Self::Unknown(value) => value.as_str(),
         }
     }

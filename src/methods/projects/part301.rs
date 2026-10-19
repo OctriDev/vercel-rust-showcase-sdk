@@ -3,243 +3,168 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseAliasItemDeploymentOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant13TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant13TypeEnum::PostgresDatabase => {
+                f.write_str("postgres-database")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant13 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant13TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant13 {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant13TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum {
+    #[serde(rename = "postgres-url-no-ssl")]
+    #[default]
+    PostgresUrlNoSsl,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum::PostgresUrlNoSsl => {
+                f.write_str("postgres-url-no-ssl")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant14 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant14 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant14TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    #[serde(rename = "integration-store-secret")]
+    #[default]
+    IntegrationStoreSecret,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::IntegrationStoreSecret => "integration-store-secret",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum::IntegrationStoreSecret => f.write_str("integration-store-secret"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant15 {
+    #[serde(rename = "integrationConfigurationId")]
+    pub integration_configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    #[serde(rename = "integrationProductId")]
+    pub integration_product_id: String,
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant15 {
+    pub fn new(
+        integration_configuration_id: String,
+        integration_id: String,
+        integration_product_id: String,
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            integration_configuration_id,
+            integration_id,
+            integration_product_id,
+            store_id,
+            type_,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
+    #[serde(rename = "flags-connection-string")]
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
+    FlagsConnectionString,
 }
 
-impl UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum {
+impl RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
+            Self::FlagsConnectionString => "flags-connection-string",
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum {
-    pub fn as_str(&self) -> &str {
         match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
+            RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum::FlagsConnectionString => {
+                f.write_str("flags-connection-string")
+            }
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant16 {
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl RemoveProjectEnvResponseVariant1ContentHintVariant16 {
+    pub fn new(
+        project_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
+    ) -> Self {
+        Self { project_id, type_ }
     }
 }

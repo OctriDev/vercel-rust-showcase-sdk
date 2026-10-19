@@ -3,6 +3,119 @@
 
 // checks_v2 domain models (part 10)
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListCheckRunsResponseRunsItemVariant0StatusEnum {
+    #[default]
+    Completed,
+    Queued,
+    Running,
+    Unknown(String),
+}
+
+impl ListCheckRunsResponseRunsItemVariant0StatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Completed => "completed",
+            Self::Queued => "queued",
+            Self::Running => "running",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListCheckRunsResponseRunsItemVariant0StatusEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant0StatusEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "completed" => Self::Completed,
+            "queued" => Self::Queued,
+            "running" => Self::Running,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant0StatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListCheckRunsResponseRunsItemVariant0TaskSummary {
+    pub failed: f64,
+    pub pending: f64,
+    pub succeeded: f64,
+    pub total: f64,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0TaskSummary {
+    pub fn new(failed: f64, pending: f64, succeeded: f64, total: f64) -> Self {
+        Self {
+            failed,
+            pending,
+            succeeded,
+            total,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant0KindEnum {
+    #[default]
+    Integration,
+    Unknown(String),
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant0KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListCheckRunsResponseRunsItemVariant0SourceVariant0KindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant0SourceVariant0KindEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "integration" => Self::Integration,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant0SourceVariant0KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant0 {
     #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
@@ -367,123 +480,5 @@ impl<'de> serde::Deserialize<'de>
 impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant0SourceVariant4OriginEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum {
-    #[serde(rename = "invocation")]
-    #[default]
-    Invocation,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Invocation => "invocation",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum::Invocation => f.write_str("invocation"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0 {
-    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0 {
-    pub fn new(
-        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum,
-    ) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum {
-    #[serde(rename = "deployment")]
-    #[default]
-    Deployment,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deployment => "deployment",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum::Deployment => f.write_str("deployment"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1 {
-    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1 {
-    pub fn new(
-        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum,
-    ) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum {
-    #[serde(rename = "job")]
-    #[default]
-    Job,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Job => "job",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum::Job => {
-                f.write_str("job")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2 {
-    pub job: String,
-    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2 {
-    pub fn new(
-        job: String,
-        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum,
-    ) -> Self {
-        Self { job, kind }
     }
 }

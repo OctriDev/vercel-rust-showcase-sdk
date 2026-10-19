@@ -3,6 +3,38 @@
 
 // sandboxes domain models (part 7)
 
+/// Matcher for the entry key (header name or query key).
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemKey {
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
+impl CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemKey {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exact: None,
+            starts_with: None,
+        }
+    }
+}
+
+/// Matcher for the entry value.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue {
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
 impl CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
@@ -439,6 +471,30 @@ impl<'de> serde::Deserialize<'de> for CreateSandboxesV4RequestNetworkPolicyVaria
     }
 }
 
+impl ::std::convert::From<Vec<String>> for CreateSandboxesV4RequestNetworkPolicyVariant1Allow {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesV4RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    > for CreateSandboxesV4RequestNetworkPolicyVariant1Allow
+{
+    fn from(
+        value: std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesV4RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ) -> Self {
+        Self::Variant1ValueItemArrayMap(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSandboxesV4RequestNetworkPolicyVariant1Subnets {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -511,80 +567,5 @@ impl<'de> serde::Deserialize<'de> for CreateSandboxesV4RequestNetworkPolicy {
                 "no CreateSandboxesV4RequestNetworkPolicy branch accepts this payload",
             )
         })
-    }
-}
-
-/// Clone a Git repository into the sandbox.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV4RequestSourceVariant0 {
-    /// Indicates the source is a Git repository.
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    /// The URL of the Git repository to clone.
-    pub url: String,
-    /// Username for Git authentication. Required together with password for private repositories.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-    /// Password or personal access token for Git authentication. Required together with username for private repositories.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
-    /// Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub depth: Option<i64>,
-    /// The specific commit SHA, branch name, or tag to checkout after cloning.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision: Option<String>,
-}
-
-impl CreateSandboxesV4RequestSourceVariant0 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_uri("url", &self.url)?;
-        if let Some(value) = self.depth.as_ref() {
-            crate::validation::validate_range(
-                "depth",
-                *value as f64,
-                crate::validation::RangeOpts {
-                    min: Some(1_f64),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(type_: serde_json::Value, url: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            type_,
-            url,
-            username: None,
-            password: None,
-            depth: None,
-            revision: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Download and extract a gzipped tarball into the sandbox.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV4RequestSourceVariant1 {
-    /// Indicates the source is a tarball.
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    /// URL of a gzipped tarball (.tar.gz) to download and extract.
-    pub url: String,
-}
-
-impl CreateSandboxesV4RequestSourceVariant1 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_uri("url", &self.url)?;
-        Ok(())
-    }
-
-    pub fn new(type_: serde_json::Value, url: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { type_, url };
-        value.validate_constraints()?;
-        Ok(value)
     }
 }

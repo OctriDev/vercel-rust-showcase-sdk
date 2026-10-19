@@ -3,334 +3,111 @@
 
 // deployments domain models (part 37)
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1IntegrationsStatusEnum {
-    #[default]
-    Error,
-    Pending,
-    Ready,
-    Skipped,
-    Timeout,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1IntegrationsStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Error => "error",
-            Self::Pending => "pending",
-            Self::Ready => "ready",
-            Self::Skipped => "skipped",
-            Self::Timeout => "timeout",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1IntegrationsStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1IntegrationsStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error" => Self::Error,
-            "pending" => Self::Pending,
-            "ready" => Self::Ready,
-            "skipped" => Self::Skipped,
-            "timeout" => Self::Timeout,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1IntegrationsStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Integrations {
-    #[serde(rename = "claimedAt", skip_serializing_if = "Option::is_none")]
-    pub claimed_at: Option<f64>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<f64>,
-    #[serde(rename = "skippedAt", skip_serializing_if = "Option::is_none")]
-    pub skipped_at: Option<f64>,
-    #[serde(rename = "skippedBy", skip_serializing_if = "Option::is_none")]
-    pub skipped_by: Option<String>,
-    #[serde(rename = "startedAt")]
-    pub started_at: f64,
-    pub status: CreateDeploymentResponseVariant1IntegrationsStatusEnum,
-}
-
-impl CreateDeploymentResponseVariant1Integrations {
-    pub fn new(
-        started_at: f64,
-        status: CreateDeploymentResponseVariant1IntegrationsStatusEnum,
-    ) -> Self {
-        Self {
-            claimed_at: None,
-            completed_at: None,
-            skipped_at: None,
-            skipped_by: None,
-            started_at,
-            status,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1LambdasItemReadyStateEnum {
-    #[default]
-    Building,
-    Error,
-    Initializing,
-    Ready,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1LambdasItemReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Building => "BUILDING",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1LambdasItemReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1LambdasItemReadyStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BUILDING" => Self::Building,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1LambdasItemReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1LambdasItemOutputItem {
-    #[serde(rename = "functionName")]
-    pub function_name: String,
-    pub path: String,
-}
-
-impl CreateDeploymentResponseVariant1LambdasItemOutputItem {
-    pub fn new(function_name: String, path: String) -> Self {
-        Self {
-            function_name,
-            path,
-        }
-    }
-}
-
-/// A partial representation of a Build used by the deployment endpoint.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1LambdasItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
+pub struct CreateDeploymentResponseVariant1GitSourceVariant8 {
+    pub owner: String,
     #[serde(
+        rename = "prId",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub entrypoint: Option<Option<String>>,
-    pub id: String,
-    #[serde(rename = "readyState", skip_serializing_if = "Option::is_none")]
-    pub ready_state: Option<CreateDeploymentResponseVariant1LambdasItemReadyStateEnum>,
-    #[serde(rename = "readyStateAt", skip_serializing_if = "Option::is_none")]
-    pub ready_state_at: Option<f64>,
-    pub output: Vec<CreateDeploymentResponseVariant1LambdasItemOutputItem>,
+    pub pr_id: Option<Option<f64>>,
+    #[serde(
+        rename = "ref",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub ref_: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sha: Option<String>,
+    pub slug: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant8TypeEnum,
 }
 
-impl CreateDeploymentResponseVariant1LambdasItem {
+impl CreateDeploymentResponseVariant1GitSourceVariant8 {
     pub fn new(
-        id: String,
-        output: Vec<CreateDeploymentResponseVariant1LambdasItemOutputItem>,
+        owner: String,
+        slug: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant8TypeEnum,
     ) -> Self {
         Self {
-            created_at: None,
-            entrypoint: None,
-            id,
-            ready_state: None,
-            ready_state_at: None,
-            output,
+            owner,
+            pr_id: None,
+            ref_: None,
+            sha: None,
+            slug,
+            type_,
         }
     }
 }
 
-/// Current provisioning state
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ManualProvisioningStateEnum {
-    #[default]
-    Complete,
-    Pending,
-    Timeout,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1ManualProvisioningStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Complete => "COMPLETE",
-            Self::Pending => "PENDING",
-            Self::Timeout => "TIMEOUT",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1ManualProvisioningStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1ManualProvisioningStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "COMPLETE" => Self::Complete,
-            "PENDING" => Self::Pending,
-            "TIMEOUT" => Self::Timeout,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1ManualProvisioningStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Present when deployment was created with manual provisioning enabled, either explicitly or via the experimental BYOC git flow. The deployment stays in INITIALIZING until /continue is called.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ManualProvisioning {
-    /// Timestamp when manual provisioning completed
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<f64>,
-    /// Current provisioning state
-    pub state: CreateDeploymentResponseVariant1ManualProvisioningStateEnum,
+pub struct CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor {
+    pub date: String,
+    pub email: String,
+    pub name: String,
 }
 
-impl CreateDeploymentResponseVariant1ManualProvisioning {
-    pub fn new(state: CreateDeploymentResponseVariant1ManualProvisioningStateEnum) -> Self {
+impl CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor {
+    pub fn new(date: String, email: String, name: String) -> Self {
+        Self { date, email, name }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter {
+    pub date: String,
+    pub email: String,
+    pub name: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter {
+    pub fn new(date: String, email: String, name: String) -> Self {
+        Self { date, email, name }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadata {
+    pub author: CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor,
+    pub committer: CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter,
+    pub message: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadata {
+    pub fn new(
+        author: CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor,
+        committer: CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter,
+        message: String,
+    ) -> Self {
         Self {
-            completed_at: None,
-            state,
+            author,
+            committer,
+            message,
         }
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1MicrofrontendsVariant0 {
-    /// The project name of the default app of this deployment's microfrontends group.
-    #[serde(rename = "defaultAppProjectName")]
-    pub default_app_project_name: String,
-    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI.
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-    /// The group of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
-    #[serde(rename = "groupIds")]
-    pub group_ids: Vec<String>,
-    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
-    pub is_default_app: Option<bool>,
-}
-
-impl CreateDeploymentResponseVariant1MicrofrontendsVariant0 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "groupIds",
-            self.group_ids.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        default_app_project_name: String,
-        group_ids: Vec<String>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            default_app_project_name,
-            default_route: None,
-            group_ids,
-            is_default_app: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. \- `success` \- The config was uploaded successfully, either when the deployment was created or during the build. \- `waiting_on_build` \- The config could not be uploaded during deployment create, will be attempted again during the build. \- `no_config` \- No config was found. Only set once the build has not found the config in any of the deployment's files. \- `undefined` \- Legacy deployments, or there was an error uploading the config during deployment create.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum {
+pub enum CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum {
     #[default]
-    NoConfig,
-    Success,
-    WaitingOnBuild,
+    Vercel,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum {
+impl CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::NoConfig => "no_config",
-            Self::Success => "success",
-            Self::WaitingOnBuild => "waiting_on_build",
+            Self::Vercel => "vercel",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum
-{
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -339,158 +116,93 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum
-{
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "no_config" => Self::NoConfig,
-            "success" => Self::Success,
-            "waiting_on_build" => Self::WaitingOnBuild,
+            "vercel" => Self::Vercel,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum
-{
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1MicrofrontendsVariant1 {
-    /// The project name of the default app of this deployment's microfrontends group.
-    #[serde(rename = "defaultAppProjectName")]
-    pub default_app_project_name: String,
-    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI.
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-    /// The group of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
-    #[serde(rename = "groupIds")]
-    pub group_ids: Vec<String>,
-    #[serde(rename = "isDefaultApp")]
-    pub is_default_app: bool,
-    /// The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. \- `success` \- The config was uploaded successfully, either when the deployment was created or during the build. \- `waiting_on_build` \- The config could not be uploaded during deployment create, will be attempted again during the build. \- `no_config` \- No config was found. Only set once the build has not found the config in any of the deployment's files. \- `undefined` \- Legacy deployments, or there was an error uploading the config during deployment create.
+pub struct CreateDeploymentResponseVariant1GitSourceVariant9 {
+    #[serde(rename = "commitMetadata", skip_serializing_if = "Option::is_none")]
+    pub commit_metadata: Option<CreateDeploymentResponseVariant1GitSourceVariant9CommitMetadata>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub org: Option<String>,
     #[serde(
-        rename = "mfeConfigUploadState",
-        skip_serializing_if = "Option::is_none"
+        rename = "prId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub mfe_config_upload_state:
-        Option<CreateDeploymentResponseVariant1MicrofrontendsVariant1MfeConfigUploadStateEnum>,
+    pub pr_id: Option<Option<f64>>,
+    #[serde(
+        rename = "ref",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub ref_: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    #[serde(rename = "repoPushedAt", skip_serializing_if = "Option::is_none")]
+    pub repo_pushed_at: Option<f64>,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum,
 }
 
-impl CreateDeploymentResponseVariant1MicrofrontendsVariant1 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "groupIds",
-            self.group_ids.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
+impl CreateDeploymentResponseVariant1GitSourceVariant9 {
     pub fn new(
-        default_app_project_name: String,
-        group_ids: Vec<String>,
-        is_default_app: bool,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            default_app_project_name,
-            default_route: None,
-            group_ids,
-            is_default_app,
-            mfe_config_upload_state: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+        repo_id: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant9TypeEnum,
+    ) -> Self {
+        Self {
+            commit_metadata: None,
+            org: None,
+            pr_id: None,
+            ref_: None,
+            repo: None,
+            repo_id,
+            repo_pushed_at: None,
+            sha,
+            type_,
+        }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1Microfrontends {
-    Object(Box<CreateDeploymentResponseVariant1MicrofrontendsVariant0>),
-    Object2(Box<CreateDeploymentResponseVariant1MicrofrontendsVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1Microfrontends {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateDeploymentResponseVariant1MicrofrontendsVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateDeploymentResponseVariant1MicrofrontendsVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateDeploymentResponseVariant1Microfrontends branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// If set it overrides the `projectSettings.nodeVersion` for this deployment.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1NodeVersionEnum {
+pub enum CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum {
     #[default]
-    _10X,
-    _12X,
-    _14X,
-    _16X,
-    _18X,
-    _20X,
-    _22X,
-    _24X,
-    _26X,
-    _810X,
+    CursorOrigin,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1NodeVersionEnum {
+impl CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_10X => "10.x",
-            Self::_12X => "12.x",
-            Self::_14X => "14.x",
-            Self::_16X => "16.x",
-            Self::_18X => "18.x",
-            Self::_20X => "20.x",
-            Self::_22X => "22.x",
-            Self::_24X => "24.x",
-            Self::_26X => "26.x",
-            Self::_810X => "8.10.x",
+            Self::CursorOrigin => "cursor-origin",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateDeploymentResponseVariant1NodeVersionEnum {
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -499,24 +211,313 @@ impl serde::Serialize for CreateDeploymentResponseVariant1NodeVersionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1NodeVersionEnum {
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
-            "8.10.x" => Self::_810X,
+            "cursor-origin" => Self::CursorOrigin,
             _ => Self::Unknown(value),
         })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant10 {
+    /// Owner (namespace) slug.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub owner: Option<String>,
+    #[serde(
+        rename = "prId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub pr_id: Option<Option<f64>>,
+    #[serde(
+        rename = "ref",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub ref_: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    /// Origin repository id.
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sha: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant10 {
+    pub fn new(
+        repo_id: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant10TypeEnum,
+    ) -> Self {
+        Self {
+            owner: None,
+            pr_id: None,
+            ref_: None,
+            repo: None,
+            repo_id,
+            sha: None,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum {
+    #[default]
+    Custom,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Custom => "custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "custom" => Self::Custom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Allows custom git sources (local folder mounted to the container) in test mode
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant11 {
+    #[serde(rename = "gitUrl")]
+    pub git_url: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant11 {
+    pub fn new(
+        git_url: String,
+        ref_: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant11TypeEnum,
+    ) -> Self {
+        Self {
+            git_url,
+            ref_,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum {
+    #[default]
+    Github,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Github => "github",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "github" => Self::Github,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant12 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub org: Option<String>,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId")]
+    pub repo_id: f64,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant12 {
+    pub fn new(
+        ref_: String,
+        repo_id: f64,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant12TypeEnum,
+    ) -> Self {
+        Self {
+            org: None,
+            ref_,
+            repo: None,
+            repo_id,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum {
+    #[default]
+    GithubCustomHost,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::GithubCustomHost => "github-custom-host",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "github-custom-host" => Self::GithubCustomHost,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant13 {
+    pub host: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub org: Option<String>,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId")]
+    pub repo_id: f64,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant13 {
+    pub fn new(
+        host: String,
+        ref_: String,
+        repo_id: f64,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant13TypeEnum,
+    ) -> Self {
+        Self {
+            host,
+            org: None,
+            ref_,
+            repo: None,
+            repo_id,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum {
+    #[default]
+    GithubLimited,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::GithubLimited => "github-limited",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }

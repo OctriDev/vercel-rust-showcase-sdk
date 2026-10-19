@@ -3,334 +3,299 @@
 
 use super::*;
 
-impl AcceptProjectTransferRequestResponse {
+impl RemoveProjectEnvResponseVariant0Item {
     pub fn new(
-        partner_calls: Vec<AcceptProjectTransferRequestResponsePartnerCallsItem>,
-        project_name: String,
-        resource_transfer_errors: Vec<serde_json::Value>,
-        transferred_store_ids: Vec<String>,
+        key: String,
+        type_: RemoveProjectEnvResponseVariant0ItemTypeEnum,
+        value: String,
     ) -> Self {
         Self {
-            partner_calls,
-            project_name,
-            resource_transfer_errors,
-            transferred_store_ids,
-        }
-    }
-}
-
-/// Optional instructions for revoking and regenerating a automation bypass
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassRevoke {
-    /// Automation bypass to revoked
-    pub secret: String,
-    /// Whether or not a new automation bypass should be created after the provided secret is revoked
-    pub regenerate: bool,
-}
-
-impl UpdateProjectProtectionBypassRevoke {
-    pub fn new(secret: String, regenerate: bool) -> Self {
-        Self { secret, regenerate }
-    }
-}
-
-/// Generate a new secret. If neither generate or revoke are provided, a new random secret will be generated.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassGenerate {
-    /// Optional value of the secret to generate, don't send it for oauth2 tokens
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret: Option<String>,
-    /// Note to be displayed in the UI for this bypass
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-}
-
-impl UpdateProjectProtectionBypassGenerate {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.secret.as_ref() {
-            crate::validation::validate_pattern("secret", value, "^[a-zA-Z0-9]{32}$")?;
-        }
-        if let Some(value) = self.note.as_ref() {
-            crate::validation::validate_length(
-                "note",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(100),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            secret: None,
-            note: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Update an existing bypass
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassUpdate {
-    /// Automation bypass to updated
-    pub secret: String,
-    /// Whether or not this bypass is set as the VERCEL_AUTOMATION_BYPASS_SECRET environment variable on deployments
-    #[serde(rename = "isEnvVar", skip_serializing_if = "Option::is_none")]
-    pub is_env_var: Option<bool>,
-    /// Note to be displayed in the UI for this bypass
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-}
-
-impl UpdateProjectProtectionBypassUpdate {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.note.as_ref() {
-            crate::validation::validate_length(
-                "note",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(100),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(secret: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            secret,
-            is_env_var: None,
-            note: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum {
-    #[serde(rename = "integration-automation-bypass")]
-    #[default]
-    IntegrationAutomationBypass,
-}
-
-impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::IntegrationAutomationBypass => "integration-automation-bypass",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum::IntegrationAutomationBypass => f.write_str("integration-automation-bypass"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0 {
-    #[serde(rename = "configurationId")]
-    pub configuration_id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    pub scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum,
-}
-
-impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0 {
-    pub fn new(
-        configuration_id: String,
-        created_at: f64,
-        created_by: String,
-        integration_id: String,
-        scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum,
-    ) -> Self {
-        Self {
-            configuration_id,
-            created_at,
-            created_by,
-            integration_id,
-            scope,
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum {
-    #[serde(rename = "automation-bypass")]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum {
+    #[serde(rename = "redis-url")]
     #[default]
-    AutomationBypass,
+    RedisUrl,
 }
 
-impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum {
+impl RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AutomationBypass => "automation-bypass",
+            Self::RedisUrl => "redis-url",
         }
     }
 }
 
-impl std::fmt::Display
-    for UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum
-{
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum::AutomationBypass => f.write_str("automation-bypass"),
+            RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum::RedisUrl => {
+                f.write_str("redis-url")
+            }
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1 {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    /// When there was only one bypass, it was automatically set as an env var on deployments. With multiple bypasses, there is always one bypass that is selected as the default, and gets set as an env var on deployments. As this is a new field, undefined means that the bypass is the env var. If there are any automation bypasses, exactly one must be the env var.
-    #[serde(rename = "isEnvVar", skip_serializing_if = "Option::is_none")]
-    pub is_env_var: Option<bool>,
-    /// Optional note about the bypass to be displayed in the UI
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-    pub scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum,
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant0 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum,
 }
 
-impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1 {
+impl RemoveProjectEnvResponseVariant1ContentHintVariant0 {
     pub fn new(
-        created_at: f64,
-        created_by: String,
-        scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum,
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant0TypeEnum,
     ) -> Self {
-        Self {
-            created_at,
-            created_by,
-            is_env_var: None,
-            note: None,
-            scope,
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum {
+    #[serde(rename = "redis-rest-api-url")]
+    #[default]
+    RedisRestApiUrl,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiUrl => "redis-rest-api-url",
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectProtectionBypassResponseProtectionBypassValue {
-    IntegrationAutomationBypass(
-        Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>,
-    ),
-    AutomationBypass(Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectProtectionBypassResponseProtectionBypassValue {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::IntegrationAutomationBypass(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum::RedisRestApiUrl => {
+                f.write_str("redis-rest-api-url")
             }
-            lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AutomationBypass(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectProtectionBypassResponseProtectionBypassValue branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectProtectionBypassResponse {
-    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
-    pub protection_bypass: Option<
-        std::collections::HashMap<
-            String,
-            UpdateProjectProtectionBypassResponseProtectionBypassValue,
-        >,
-    >,
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant1 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum,
 }
 
-impl UpdateProjectProtectionBypassResponse {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            protection_bypass: None,
-        }
+impl RemoveProjectEnvResponseVariant1ContentHintVariant1 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant1TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum {
+    #[serde(rename = "redis-rest-api-token")]
     #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
-    Unknown(String),
+    RedisRestApiToken,
 }
 
-impl UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+impl RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::A => "A",
-            Self::Cname => "CNAME",
-            Self::Dns01 => "dns-01",
-            Self::Http => "http",
-            Self::Unknown(value) => value.as_str(),
+            Self::RedisRestApiToken => "redis-rest-api-token",
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "A" => Self::A,
-            "CNAME" => Self::Cname,
-            "dns-01" => Self::Dns01,
-            "http" => Self::Http,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum::RedisRestApiToken => {
+                f.write_str("redis-rest-api-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant2 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant2 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant2TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
+    #[serde(rename = "redis-rest-api-read-only-token")]
+    #[default]
+    RedisRestApiReadOnlyToken,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => f.write_str("redis-rest-api-read-only-token"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant3 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant3 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    #[serde(rename = "blob-read-write-token")]
+    #[default]
+    BlobReadWriteToken,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobReadWriteToken => "blob-read-write-token",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum::BlobReadWriteToken => {
+                f.write_str("blob-read-write-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant4 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant4 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    #[serde(rename = "blob-store-id")]
+    #[default]
+    BlobStoreId,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobStoreId => "blob-store-id",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum::BlobStoreId => {
+                f.write_str("blob-store-id")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant1ContentHintVariant5 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant5 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
+    #[serde(rename = "blob-webhook-public-key")]
+    #[default]
+    BlobWebhookPublicKey,
+}
+
+impl RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobWebhookPublicKey => "blob-webhook-public-key",
+        }
     }
 }

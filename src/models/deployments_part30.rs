@@ -3,46 +3,67 @@
 
 // deployments domain models (part 30)
 
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+impl CreateDeploymentResponseVariant1AliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AliasWarning {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<String>,
+    pub code: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link: Option<String>,
+    pub message: String,
+}
+
+impl CreateDeploymentResponseVariant1AliasWarning {
+    pub fn new(code: String, message: String) -> Self {
         Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
+            action: None,
+            code,
+            link: None,
+            message,
         }
     }
 }
 
-/// The type of environment (production, preview, or development)
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AtprotoVariant0 {
+    pub enabled: bool,
+}
+
+impl CreateDeploymentResponseVariant1AtprotoVariant0 {
+    pub fn new(enabled: bool) -> Self {
+        Self { enabled }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
+pub enum CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum {
     #[default]
-    Development,
-    Preview,
-    Production,
+    Account,
+    Commit,
+    Identity,
+    Sync,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
+impl CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::Account => "account",
+            Self::Commit => "commit",
+            Self::Identity => "identity",
+            Self::Sync => "sync",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
+impl serde::Serialize for CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -52,7 +73,7 @@ impl serde::Serialize for CreateDeploymentResponseVariant1CustomEnvironmentVaria
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum
+    for CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -60,101 +81,76 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "account" => Self::Account,
+            "commit" => Self::Commit,
+            "identity" => Self::Identity,
+            "sync" => Self::Sync,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
+impl std::fmt::Display
+    for CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// If the deployment was created using a Custom Environment, then this property contains information regarding the environment used.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CustomEnvironmentVariant0 {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher:
-        Option<CreateDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
-    #[serde(
-        rename = "currentDeploymentAliases",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
+pub struct CreateDeploymentResponseVariant1AtprotoVariant1Subscription {
+    pub collections: Vec<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// List of domains associated with this environment
+    pub dids: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<CreateDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
-    pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
-    #[serde(rename = "type")]
-    pub type_: CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum,
-    /// Timestamp when the environment was last updated
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+    pub kinds:
+        Option<Vec<CreateDeploymentResponseVariant1AtprotoVariant1SubscriptionKindsItemEnum>>,
+    pub path: String,
 }
 
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant0 {
-    pub fn new(
-        created_at: f64,
-        id: String,
-        slug: String,
-        type_: CreateDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum,
-        updated_at: f64,
-    ) -> Self {
+impl CreateDeploymentResponseVariant1AtprotoVariant1Subscription {
+    pub fn new(collections: Vec<String>, path: String) -> Self {
         Self {
-            branch_matcher: None,
-            created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
-            id,
-            slug,
-            type_,
-            updated_at,
+            collections,
+            dids: None,
+            kinds: None,
+            path,
         }
     }
 }
 
-/// If the deployment was created using a Custom Environment, then this property contains information regarding the environment used.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1CustomEnvironmentVariant1 {
-    pub id: String,
+pub struct CreateDeploymentResponseVariant1AtprotoVariant1 {
+    pub enabled: bool,
+    pub subscription: CreateDeploymentResponseVariant1AtprotoVariant1Subscription,
 }
 
-impl CreateDeploymentResponseVariant1CustomEnvironmentVariant1 {
-    pub fn new(id: String) -> Self {
-        Self { id }
+impl CreateDeploymentResponseVariant1AtprotoVariant1 {
+    pub fn new(
+        enabled: bool,
+        subscription: CreateDeploymentResponseVariant1AtprotoVariant1Subscription,
+    ) -> Self {
+        Self {
+            enabled,
+            subscription,
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1CustomEnvironment {
-    Object(Box<CreateDeploymentResponseVariant1CustomEnvironmentVariant0>),
-    Object2(Box<CreateDeploymentResponseVariant1CustomEnvironmentVariant1>),
+pub enum CreateDeploymentResponseVariant1Atproto {
+    Object(Box<CreateDeploymentResponseVariant1AtprotoVariant0>),
+    Object2(Box<CreateDeploymentResponseVariant1AtprotoVariant1>),
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1CustomEnvironment {
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1Atproto {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
         if let Ok(branch) = serde_json::from_value::<
-            Box<CreateDeploymentResponseVariant1CustomEnvironmentVariant0>,
+            Box<CreateDeploymentResponseVariant1AtprotoVariant0>,
         >(value.clone())
         {
             let candidate = Self::Object(branch);
@@ -164,7 +160,7 @@ impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1CustomEnvi
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<CreateDeploymentResponseVariant1CustomEnvironmentVariant1>,
+            Box<CreateDeploymentResponseVariant1AtprotoVariant1>,
         >(value.clone())
         {
             let candidate = Self::Object2(branch);
@@ -175,167 +171,218 @@ impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1CustomEnvi
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no CreateDeploymentResponseVariant1CustomEnvironment branch accepts this payload",
+                "no CreateDeploymentResponseVariant1Atproto branch accepts this payload",
             )
         })
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Duration {
-    /// Unix timestamp in milliseconds when the build container exited.
-    #[serde(rename = "endTime", skip_serializing_if = "Option::is_none")]
-    pub end_time: Option<f64>,
-    /// Build-container exit Unix timestamp in milliseconds, capped at 45 minutes after `startTime`.
-    #[serde(rename = "endTimeCapped", skip_serializing_if = "Option::is_none")]
-    pub end_time_capped: Option<f64>,
-    /// Unix timestamp in milliseconds when the deployment entered BUILDING.
-    #[serde(rename = "startTime", skip_serializing_if = "Option::is_none")]
-    pub start_time: Option<f64>,
-    /// Billable build-container duration in milliseconds, capped at 45 minutes, rounded up to a whole minute, with a one-minute minimum.
-    #[serde(rename = "timeForBilling", skip_serializing_if = "Option::is_none")]
-    pub time_for_billing: Option<f64>,
-    /// Milliseconds from entering BUILDING until the build container exited, without the billing cap.
-    #[serde(
-        rename = "timeToContainerExit",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub time_to_container_exit: Option<f64>,
-    /// Build-container duration in milliseconds, capped at 45 minutes and without billing rounding.
-    #[serde(
-        rename = "timeToContainerExitCapped",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub time_to_container_exit_capped: Option<f64>,
-    /// Milliseconds from entering BUILDING until the deployment reached its current ready state.
-    #[serde(rename = "timeToReady", skip_serializing_if = "Option::is_none")]
-    pub time_to_ready: Option<f64>,
+impl ::std::convert::From<Box<CreateDeploymentResponseVariant1AtprotoVariant0>>
+    for CreateDeploymentResponseVariant1Atproto
+{
+    fn from(value: Box<CreateDeploymentResponseVariant1AtprotoVariant0>) -> Self {
+        Self::Object(value)
+    }
 }
 
-impl CreateDeploymentResponseVariant1Duration {
+impl ::std::convert::From<Box<CreateDeploymentResponseVariant1AtprotoVariant1>>
+    for CreateDeploymentResponseVariant1Atproto
+{
+    fn from(value: Box<CreateDeploymentResponseVariant1AtprotoVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+/// Commit metadata from the git commit author
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AttributionCommitMeta {
+    /// Email from git commit author
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    /// Whether the commit was signed/verified (GitHub only, others return undefined)
+    #[serde(rename = "isVerified", skip_serializing_if = "Option::is_none")]
+    pub is_verified: Option<bool>,
+    /// Name from git commit author
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+
+impl CreateDeploymentResponseVariant1AttributionCommitMeta {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            end_time: None,
-            end_time_capped: None,
-            start_time: None,
-            time_for_billing: None,
-            time_to_container_exit: None,
-            time_to_container_exit_capped: None,
-            time_to_ready: None,
+            email: None,
+            is_verified: None,
+            name: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValueOptionsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub value: Option<FlagJSONValue>,
-}
-
-impl CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValueOptionsItem {
-    pub fn new(value: Option<FlagJSONValue>) -> Self {
-        Self { label: None, value }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub options:
-        Option<Vec<CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValueOptionsItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
-}
-
-impl CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            description: None,
-            options: None,
-            url: None,
-        }
-    }
-}
-
-/// Flags defined in the Build Output API, used by this deployment. Primarily used by the Toolbar to know about the used flags.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1FlagsVariant0 {
-    pub definitions: std::collections::HashMap<
-        String,
-        CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValue,
-    >,
-}
-
-impl CreateDeploymentResponseVariant1FlagsVariant0 {
-    pub fn new(
-        definitions: std::collections::HashMap<
-            String,
-            CreateDeploymentResponseVariant1FlagsVariant0DefinitionsValue,
-        >,
-    ) -> Self {
-        Self { definitions }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1Flags {
-    Object(Box<CreateDeploymentResponseVariant1FlagsVariant0>),
-    ValueArray(Vec<serde_json::Value>),
+pub enum CreateDeploymentResponseVariant1AttributionGitUserId {
+    String(String),
+    Number(f64),
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1Flags {
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1AttributionGitUserId {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateDeploymentResponseVariant1FlagsVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<Vec<serde_json::Value>>(value.clone()) {
-            let candidate = Self::ValueArray(branch);
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateDeploymentResponseVariant1Flags branch accepts this payload",
-            )
-        })
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1AttributionGitUserId branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for CreateDeploymentResponseVariant1AttributionGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateDeploymentResponseVariant1AttributionGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+/// Git provider user associated with the commit author email (only set if resolved)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AttributionGitUser {
+    pub id: CreateDeploymentResponseVariant1AttributionGitUserId,
+    /// Git provider username/login
+    pub login: String,
+    /// The git provider (github, gitlab, bitbucket)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub provider: Option<String>,
+    /// User type
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
+}
+
+impl CreateDeploymentResponseVariant1AttributionGitUser {
+    pub fn new(id: CreateDeploymentResponseVariant1AttributionGitUserId, login: String) -> Self {
+        Self {
+            id,
+            login,
+            provider: None,
+            type_: None,
+        }
+    }
+}
+
+/// Vercel user linked to the git provider account (only set if resolved)
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1AttributionVercelUser {
+    /// Vercel user ID
+    pub id: String,
+    /// Team roles at time of deployment
+    #[serde(rename = "teamRoles", skip_serializing_if = "Option::is_none")]
+    pub team_roles: Option<Vec<String>>,
+    /// Vercel username
+    pub username: String,
+}
+
+impl CreateDeploymentResponseVariant1AttributionVercelUser {
+    pub fn new(id: String, username: String) -> Self {
+        Self {
+            id,
+            team_roles: None,
+            username,
+        }
+    }
+}
+
+/// Attribution metadata for the deployment, linking commit author to git and Vercel users. Only populated when the `enable-deployment-attribution` flag is enabled.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1Attribution {
+    /// Commit metadata from the git commit author
+    #[serde(rename = "commitMeta", skip_serializing_if = "Option::is_none")]
+    pub commit_meta: Option<CreateDeploymentResponseVariant1AttributionCommitMeta>,
+    /// Git provider user associated with the commit author email (only set if resolved)
+    #[serde(rename = "gitUser", skip_serializing_if = "Option::is_none")]
+    pub git_user: Option<CreateDeploymentResponseVariant1AttributionGitUser>,
+    /// Vercel user linked to the git provider account (only set if resolved)
+    #[serde(rename = "vercelUser", skip_serializing_if = "Option::is_none")]
+    pub vercel_user: Option<CreateDeploymentResponseVariant1AttributionVercelUser>,
+}
+
+impl CreateDeploymentResponseVariant1Attribution {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            commit_meta: None,
+            git_user: None,
+            vercel_user: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1Build {
+    pub env: Vec<String>,
+}
+
+impl CreateDeploymentResponseVariant1Build {
+    pub fn new(env: Vec<String>) -> Self {
+        Self { env }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1BuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub config: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl CreateDeploymentResponseVariant1BuildsItem {
+    pub fn new(use_: String) -> Self {
+        Self {
+            config: None,
+            src: None,
+            use_,
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum {
+pub enum CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     #[default]
-    Strict,
+    Failed,
+    Pending,
+    Succeeded,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum {
+impl CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Strict => "strict",
+            Self::Failed => "failed",
+            Self::Pending => "pending",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum {
+impl serde::Serialize for CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -345,7 +392,7 @@ impl serde::Serialize for CreateDeploymentResponseVariant1FunctionsValueAffinity
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum
+    for CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -353,172 +400,114 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "strict" => Self::Strict,
+            "failed" => Self::Failed,
+            "pending" => Self::Pending,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum {
+impl std::fmt::Display for CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1FunctionsValueAffinity {
-    pub mode: CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum,
+pub struct CreateDeploymentResponseVariant1ChecksDeploymentalias {
+    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
+    pub completed_at: Option<f64>,
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
+    pub state: CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum,
 }
 
-impl CreateDeploymentResponseVariant1FunctionsValueAffinity {
-    pub fn new(mode: CreateDeploymentResponseVariant1FunctionsValueAffinityModeEnum) -> Self {
-        Self { mode }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1FunctionsValueArchitectureEnum {
-    #[default]
-    Arm64,
-    X8664,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1FunctionsValueArchitectureEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Arm64 => "arm64",
-            Self::X8664 => "x86_64",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1FunctionsValueArchitectureEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1FunctionsValueArchitectureEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "arm64" => Self::Arm64,
-            "x86_64" => Self::X8664,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1FunctionsValueArchitectureEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Event type \- must be "queue/v1beta" (REQUIRED)
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum {
-    #[serde(rename = "queue/v1beta")]
-    #[default]
-    QueueV1beta,
-}
-
-impl CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::QueueV1beta => "queue/v1beta",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum::QueueV1beta => f.write_str("queue/v1beta"),
-        }
-    }
-}
-
-/// Queue trigger input event for v1beta (from vercel.json config). Requires explicit consumer name.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0 {
-    /// Name of the consumer group for this trigger (REQUIRED)
-    pub consumer: String,
-    /// Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
-    #[serde(
-        rename = "initialDelaySeconds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub initial_delay_seconds: Option<f64>,
-    /// Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
-    pub max_concurrency: Option<f64>,
-    /// Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "maxDeliveries", skip_serializing_if = "Option::is_none")]
-    pub max_deliveries: Option<f64>,
-    /// Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "retryAfterSeconds", skip_serializing_if = "Option::is_none")]
-    pub retry_after_seconds: Option<f64>,
-    /// Name of the queue topic to consume from (REQUIRED)
-    pub topic: String,
-    /// Event type \- must be "queue/v1beta" (REQUIRED)
-    #[serde(rename = "type")]
-    pub type_:
-        CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum,
-}
-
-impl CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0 {
+impl CreateDeploymentResponseVariant1ChecksDeploymentalias {
     pub fn new(
-        consumer: String,
-        topic: String,
-        type_: CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum,
+        started_at: f64,
+        state: CreateDeploymentResponseVariant1ChecksDeploymentaliasStateEnum,
     ) -> Self {
         Self {
-            consumer,
-            initial_delay_seconds: None,
-            max_concurrency: None,
-            max_deliveries: None,
-            retry_after_seconds: None,
-            topic,
-            type_,
+            completed_at: None,
+            started_at,
+            state,
         }
     }
 }
 
-/// Event type \- must be "queue/v2beta" (REQUIRED)
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum {
-    #[serde(rename = "queue/v2beta")]
-    #[default]
-    QueueV2beta,
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1Checks {
+    /// Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
+    #[serde(rename = "deployment-alias")]
+    pub deployment_alias: CreateDeploymentResponseVariant1ChecksDeploymentalias,
 }
 
-impl CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum {
+impl CreateDeploymentResponseVariant1Checks {
+    pub fn new(deployment_alias: CreateDeploymentResponseVariant1ChecksDeploymentalias) -> Self {
+        Self { deployment_alias }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1ChecksConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1ChecksConclusionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::QueueV2beta => "queue/v2beta",
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateDeploymentResponseVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum::QueueV2beta => f.write_str("queue/v2beta"),
-        }
+impl serde::Serialize for CreateDeploymentResponseVariant1ChecksConclusionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1ChecksConclusionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1ChecksConclusionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1ChecksStateEnum {
+    #[default]
+    Completed,
+    Registered,
+    Running,
+    Unknown(String),
 }

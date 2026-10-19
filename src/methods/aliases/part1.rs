@@ -325,28 +325,38 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-/// A list of the aliases assigned to the deployment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListAliasesForDeploymentResponseAliasesItem {
-    /// The alias name, it could be a `.vercel.app` subdomain or a custom domain
-    pub alias: String,
-    /// The date when the alias was created
-    pub created: String,
-    /// The protection bypass for the alias
-    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
-    pub protection_bypass: Option<
-        std::collections::HashMap<
-            String,
-            ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue,
-        >,
-    >,
-    /// Target destination domain for redirect when the alias is a redirect
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    /// The unique identifier of the alias
-    pub uid: String,
+impl
+    ::std::convert::From<
+        Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant0>,
+    > for ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue
+{
+    fn from(
+        value: Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant0>,
+    ) -> Self {
+        Self::ShareableLink(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant1>,
+    > for ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue
+{
+    fn from(
+        value: Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant1>,
+    ) -> Self {
+        Self::User(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant2>,
+    > for ListAliasesForDeploymentResponseAliasesItemProtectionBypassValue
+{
+    fn from(
+        value: Box<ListAliasesForDeploymentResponseAliasesItemProtectionBypassValueVariant2>,
+    ) -> Self {
+        Self::AliasProtectionOverride(value)
+    }
 }

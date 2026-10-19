@@ -3,6 +3,152 @@
 
 // user domain models (part 53)
 
+impl UserEventPayloadVariant170 {
+    pub fn new(
+        key: String,
+        organization_id: String,
+        provider: String,
+        repository: String,
+        visibility: UserEventPayloadVariant170VisibilityEnum,
+    ) -> Self {
+        Self {
+            changed_fields: None,
+            key,
+            organization_id,
+            provider,
+            repository,
+            visibility,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum {
+    #[serde(rename = "user")]
+    #[default]
+    User,
+}
+
+impl UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::User => "user",
+        }
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum::User => {
+                f.write_str("user")
+            }
+        }
+    }
+}
+
+/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant171LastEditedByPrincipalVariant0 {
+    /// Optional `string` value serialized in the `avatar` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub avatar: Option<String>,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Optional `string` value serialized in the `name` wire field.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub name: Option<Option<String>>,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum,
+    /// Required `string` value serialized in the `username` wire field.
+    pub username: String,
+}
+
+impl UserEventPayloadVariant171LastEditedByPrincipalVariant0 {
+    pub fn new(
+        id: String,
+        type_: UserEventPayloadVariant171LastEditedByPrincipalVariant0TypeEnum,
+        username: String,
+    ) -> Self {
+        Self {
+            avatar: None,
+            id,
+            name: None,
+            type_,
+            username,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum {
+    #[serde(rename = "app")]
+    #[default]
+    App,
+}
+
+impl UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::App => "app",
+        }
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum::App => {
+                f.write_str("app")
+            }
+        }
+    }
+}
+
+/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant171LastEditedByPrincipalVariant1 {
+    /// Optional `string` value serialized in the `avatar` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub avatar: Option<String>,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Required `string` value serialized in the `name` wire field.
+    pub name: String,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum,
+}
+
+impl UserEventPayloadVariant171LastEditedByPrincipalVariant1 {
+    pub fn new(
+        id: String,
+        name: String,
+        type_: UserEventPayloadVariant171LastEditedByPrincipalVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            avatar: None,
+            id,
+            name,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UserEventPayloadVariant171LastEditedByPrincipal {
+    User(Box<UserEventPayloadVariant171LastEditedByPrincipalVariant0>),
+    App(Box<UserEventPayloadVariant171LastEditedByPrincipalVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant171LastEditedByPrincipal {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -32,6 +178,22 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant171LastEditedByPrin
                 "no UserEventPayloadVariant171LastEditedByPrincipal branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant171LastEditedByPrincipalVariant0>>
+    for UserEventPayloadVariant171LastEditedByPrincipal
+{
+    fn from(value: Box<UserEventPayloadVariant171LastEditedByPrincipalVariant0>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant171LastEditedByPrincipalVariant1>>
+    for UserEventPayloadVariant171LastEditedByPrincipal
+{
+    fn from(value: Box<UserEventPayloadVariant171LastEditedByPrincipalVariant1>) -> Self {
+        Self::App(value)
     }
 }
 
@@ -379,155 +541,4 @@ pub enum UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnu
     #[serde(rename = "user")]
     #[default]
     User,
-}
-
-impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::User => "user",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum::User => {
-                f.write_str("user")
-            }
-        }
-    }
-}
-
-/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0 {
-    /// Optional `string` value serialized in the `avatar` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `name` wire field.
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub name: Option<Option<String>>,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum,
-    /// Required `string` value serialized in the `username` wire field.
-    pub username: String,
-}
-
-impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0 {
-    pub fn new(
-        id: String,
-        type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum,
-        username: String,
-    ) -> Self {
-        Self {
-            avatar: None,
-            id,
-            name: None,
-            type_,
-            username,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum {
-    #[serde(rename = "app")]
-    #[default]
-    App,
-}
-
-impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::App => "app",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum::App => {
-                f.write_str("app")
-            }
-        }
-    }
-}
-
-/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1 {
-    /// Optional `string` value serialized in the `avatar` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Required `string` value serialized in the `name` wire field.
-    pub name: String,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum,
-}
-
-impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1 {
-    pub fn new(
-        id: String,
-        name: String,
-        type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            avatar: None,
-            id,
-            name,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal {
-    User(Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>),
-    App(Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::User(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::App(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal branch accepts this payload"))
-    }
 }

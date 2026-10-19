@@ -514,6 +514,18 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
     }
 }
 
+impl ::std::convert::From<Vec<String>> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateLogHeadersVariant1Enum> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateLogHeaders {
+    fn from(value: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateRateLimitActionEnum
 {
@@ -534,14 +546,5 @@ impl CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant
             Self::RateLimit => "rate_limit",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateRateLimitActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
     }
 }

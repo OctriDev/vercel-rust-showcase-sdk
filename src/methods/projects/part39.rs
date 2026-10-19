@@ -3,6 +3,108 @@
 
 use super::*;
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemReadySubstateEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemReadySubstateEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemReadySubstateEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItem {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -221,104 +323,6 @@ impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemLinkVariant0T
         match self {
             ListProjectsResponseVariant1ProjectsItemLinkVariant0TypeEnum::Github => {
                 f.write_str("github")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemLinkVariant0 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<ListProjectsResponseVariant1ProjectsItemLinkVariant0DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    pub org: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
-    pub repo_id: Option<f64>,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
-    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
-    pub repo_owner_id: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant1ProjectsItemLinkVariant0TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemLinkVariant0 {
-    pub fn new(
-        deploy_hooks: Vec<ListProjectsResponseVariant1ProjectsItemLinkVariant0DeployHooksItem>,
-        git_credential_id: String,
-        org: String,
-        production_branch: String,
-        type_: ListProjectsResponseVariant1ProjectsItemLinkVariant0TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemLinkVariant1DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemLinkVariant1DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant1ProjectsItemLinkVariant1TypeEnum {
-    #[serde(rename = "github-limited")]
-    #[default]
-    GithubLimited,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemLinkVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::GithubLimited => "github-limited",
-        }
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemLinkVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant1ProjectsItemLinkVariant1TypeEnum::GithubLimited => {
-                f.write_str("github-limited")
             }
         }
     }

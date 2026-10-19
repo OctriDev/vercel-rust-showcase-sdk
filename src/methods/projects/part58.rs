@@ -2,312 +2,342 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::Pagination;
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2Pagination {
-    Object(Box<ListProjectsResponseVariant2PaginationVariant0>),
-    Pagination(Box<Pagination>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2Pagination {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2PaginationVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<Pagination>>(value.clone()) {
-            let candidate = Self::Pagination(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListProjectsResponseVariant2Pagination branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
-    #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::A => "A",
-            Self::Cname => "CNAME",
-            Self::Dns01 => "dns-01",
-            Self::Http => "http",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "A" => Self::A,
-            "CNAME" => Self::Cname,
-            "dns-01" => Self::Dns01,
-            "http" => Self::Http,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned branch accepts this payload"))
-    }
-}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasError {
-    pub code: String,
-    pub message: String,
+pub struct ListProjectsResponseVariant1ProjectsItemWebAnalytics {
+    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
+    pub canceled_at: Option<f64>,
+    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
+    pub disabled_at: Option<f64>,
+    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
+    pub enabled_at: Option<f64>,
+    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
+    pub has_data: Option<bool>,
+    pub id: String,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBuildsItem {
-    pub fn new(use_: String) -> Self {
+impl ListProjectsResponseVariant1ProjectsItemWebAnalytics {
+    pub fn new(id: String) -> Self {
         Self {
-            dest: None,
-            src: None,
-            use_,
+            canceled_at: None,
+            disabled_at: None,
+            enabled_at: None,
+            has_data: None,
+            id,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItem {
+    #[serde(rename = "accountId")]
+    pub account_id: String,
+    pub alias: Vec<ListProjectsResponseVariant1ProjectsItemAliasItem>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub analytics: Option<ListProjectsResponseVariant1ProjectsItemAnalytics>,
+    #[serde(
+        rename = "appliedCve55182Migration",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub applied_cve55182_migration: Option<bool>,
+    #[serde(
+        rename = "autoAssignCustomDomains",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_assign_custom_domains: Option<bool>,
+    #[serde(
+        rename = "autoAssignCustomDomainsUpdatedBy",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_assign_custom_domains_updated_by: Option<String>,
+    #[serde(
+        rename = "autoExposeSystemEnvs",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_expose_system_envs: Option<bool>,
+    #[serde(
+        rename = "buildCommand",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub build_command: Option<Option<String>>,
+    #[serde(
+        rename = "commandForIgnoringBuildStep",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub command_for_ignoring_build_step: Option<Option<String>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub creator: Option<ListProjectsResponseVariant1ProjectsItemCreator>,
+    #[serde(
+        rename = "customerSupportCodeVisibility",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub customer_support_code_visibility: Option<bool>,
+    /// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
+    #[serde(rename = "deploymentExpiration")]
+    pub deployment_expiration: ListProjectsResponseVariant1ProjectsItemDeploymentExpiration,
+    #[serde(
+        rename = "devCommand",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub dev_command: Option<Option<String>>,
+    #[serde(rename = "directoryListing")]
+    pub directory_listing: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<Vec<ListProjectsResponseVariant1ProjectsItemEnvItem>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub framework: Option<Option<ListProjectsResponseVariant1ProjectsItemFrameworkEnum>>,
+    #[serde(rename = "gitComments", skip_serializing_if = "Option::is_none")]
+    pub git_comments: Option<ListProjectsResponseVariant1ProjectsItemGitComments>,
+    #[serde(rename = "gitForkProtection", skip_serializing_if = "Option::is_none")]
+    pub git_fork_protection: Option<bool>,
+    #[serde(rename = "gitProviderOptions", skip_serializing_if = "Option::is_none")]
+    pub git_provider_options: Option<ListProjectsResponseVariant1ProjectsItemGitProviderOptions>,
+    #[serde(rename = "hasActiveBranches", skip_serializing_if = "Option::is_none")]
+    pub has_active_branches: Option<bool>,
+    pub id: String,
+    #[serde(
+        rename = "installCommand",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub install_command: Option<Option<String>>,
+    #[serde(rename = "internalRoutes", skip_serializing_if = "Option::is_none")]
+    pub internal_routes: Option<Vec<ListProjectsResponseVariant1ProjectsItemInternalRoutesItem>>,
+    #[serde(rename = "ipBuckets", skip_serializing_if = "Option::is_none")]
+    pub ip_buckets: Option<Vec<ListProjectsResponseVariant1ProjectsItemIpBucketsItem>>,
+    #[serde(rename = "latestDeployments", skip_serializing_if = "Option::is_none")]
+    pub latest_deployments:
+        Option<Vec<ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link: Option<ListProjectsResponseVariant1ProjectsItemLink>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub live: Option<bool>,
+    pub name: String,
+    #[serde(rename = "nodeVersion")]
+    pub node_version: ListProjectsResponseVariant1ProjectsItemNodeVersionEnum,
+    #[serde(rename = "oidcTokenConfig", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_config: Option<ListProjectsResponseVariant1ProjectsItemOidcTokenConfig>,
+    #[serde(
+        rename = "outputDirectory",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub output_directory: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub passport: Option<Option<ListProjectsResponseVariant1ProjectsItemPassport>>,
+    #[serde(
+        rename = "passwordProtection",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub password_protection: Option<Option<serde_json::Value>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paused: Option<bool>,
+    #[serde(rename = "resourceConfig")]
+    pub resource_config: ListProjectsResponseVariant1ProjectsItemResourceConfig,
+    /// Project-level rolling release configuration that defines how deployments should be gradually rolled out
+    #[serde(
+        rename = "rollingRelease",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rolling_release: Option<Option<ListProjectsResponseVariant1ProjectsItemRollingRelease>>,
+    #[serde(
+        rename = "rootDirectory",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub root_directory: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub security: Option<ListProjectsResponseVariant1ProjectsItemSecurity>,
+    #[serde(rename = "serverlessFunctionRegion")]
+    pub serverless_function_region: String,
+    #[serde(
+        rename = "serverlessFunctionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub serverless_function_zero_config_failover: Option<bool>,
+    #[serde(
+        rename = "skipGitConnectDuringLink",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skip_git_connect_during_link: Option<bool>,
+    #[serde(
+        rename = "sourceFilesOutsideRootDirectory",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_files_outside_root_directory: Option<bool>,
+    #[serde(rename = "speedInsights", skip_serializing_if = "Option::is_none")]
+    pub speed_insights: Option<ListProjectsResponseVariant1ProjectsItemSpeedInsights>,
+    #[serde(
+        rename = "ssoProtection",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub sso_protection: Option<Option<ListProjectsResponseVariant1ProjectsItemSsoProtection>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub targets: Option<
+        std::collections::HashMap<
+            String,
+            Option<ListProjectsResponseVariant1ProjectsItemTargetsValue>,
+        >,
+    >,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tier: Option<ListProjectsResponseVariant1ProjectsItemTierEnum>,
+    #[serde(
+        rename = "transferCompletedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub transfer_completed_at: Option<f64>,
+    #[serde(
+        rename = "transferredFromAccountId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub transferred_from_account_id: Option<String>,
+    #[serde(rename = "transferStartedAt", skip_serializing_if = "Option::is_none")]
+    pub transfer_started_at: Option<f64>,
+    #[serde(
+        rename = "transferToAccountId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub transfer_to_account_id: Option<String>,
+    #[serde(
+        rename = "trustedSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub trusted_sources: Option<Option<ListProjectsResponseVariant1ProjectsItemTrustedSources>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
+    pub web_analytics: Option<ListProjectsResponseVariant1ProjectsItemWebAnalytics>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
+impl ListProjectsResponseVariant1ProjectsItem {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        account_id: String,
+        alias: Vec<ListProjectsResponseVariant1ProjectsItemAliasItem>,
+        deployment_expiration: ListProjectsResponseVariant1ProjectsItemDeploymentExpiration,
+        directory_listing: bool,
+        id: String,
+        name: String,
+        node_version: ListProjectsResponseVariant1ProjectsItemNodeVersionEnum,
+        resource_config: ListProjectsResponseVariant1ProjectsItemResourceConfig,
+        serverless_function_region: String,
+    ) -> Self {
+        Self {
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            created_at: None,
+            creator: None,
+            customer_support_code_visibility: None,
+            deployment_expiration,
+            dev_command: None,
+            directory_listing,
+            env: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            id,
+            install_command: None,
+            internal_routes: None,
+            ip_buckets: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            output_directory: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            resource_config,
+            rolling_release: None,
+            root_directory: None,
+            security: None,
+            serverless_function_region,
+            serverless_function_zero_config_failover: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            targets: None,
+            tier: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_sources: None,
+            updated_at: None,
+            web_analytics: None,
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1 {
+    pub pagination: ListProjectsResponseVariant1Pagination,
+    pub projects: Vec<ListProjectsResponseVariant1ProjectsItem>,
 }
 
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
+impl ListProjectsResponseVariant1 {
+    pub fn new(
+        pagination: ListProjectsResponseVariant1Pagination,
+        projects: Vec<ListProjectsResponseVariant1ProjectsItem>,
+    ) -> Self {
+        Self {
+            pagination,
+            projects,
         }
+    }
+}
+
+/// This object contains information related to the pagination of the current request using continuation tokens. Since CosmosDB doesn't support going to previous pages, only count and next are provided.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2PaginationVariant0 {
+    /// Amount of items in the current page.
+    pub count: f64,
+    /// Continuation token that must be used to request the next page. Base32 encoded for safe URL transmission.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub next: Option<String>,
+}
+
+impl ListProjectsResponseVariant2PaginationVariant0 {
+    pub fn new(count: f64, next: Option<String>) -> Self {
+        Self { count, next }
     }
 }

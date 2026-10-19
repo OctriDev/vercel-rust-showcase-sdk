@@ -3,26 +3,85 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateMicrofrontendsResponseSecurityLogHeaders {
-    StringArray(Vec<String>),
-    Literal(UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum),
+impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityLogHeaders {
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateMicrofrontendsResponseEnvItemTarget {
+    Variant0ItemEnumArray(Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>),
+    Literal(UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTarget {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
+        if let Ok(branch) = serde_json::from_value::<
+            Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>,
+        >(value.clone())
+        {
+            let candidate = Self::Variant0ItemEnumArray(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum,
+            UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum,
         >(value.clone())
         {
             let candidate = Self::Literal(branch);
@@ -33,33 +92,53 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityLogHea
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no UpdateMicrofrontendsResponseSecurityLogHeaders branch accepts this payload",
+                "no UpdateMicrofrontendsResponseEnvItemTarget branch accepts this payload",
             )
         })
     }
 }
 
+impl ::std::convert::From<Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>>
+    for UpdateMicrofrontendsResponseEnvItemTarget
+{
+    fn from(value: Vec<UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum>
+    for UpdateMicrofrontendsResponseEnvItemTarget
+{
+    fn from(value: UpdateMicrofrontendsResponseEnvItemTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+pub enum UpdateMicrofrontendsResponseEnvItemTypeEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Encrypted,
+    Plain,
+    Secret,
+    Sensitive,
+    System,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+impl UpdateMicrofrontendsResponseEnvItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Secret => "secret",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -68,66 +147,49 @@ impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesAiBots
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "secret" => Self::Secret,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRulesAiBots {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum>,
-    pub active: bool,
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesAiBots {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
+/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+pub enum UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Config,
+    Secret,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+impl UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Config => "config",
+            Self::Secret => "secret",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -136,170 +198,22 @@ impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesBotFil
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "config" => Self::Config,
+            "secret" => Self::Secret,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemVisibilityEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum>,
-    pub active: bool,
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRulesOwasp {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum>,
-    pub active: bool,
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesOwasp {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum>,
-    pub active: bool,
 }

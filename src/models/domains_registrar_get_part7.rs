@@ -3,6 +3,311 @@
 
 // domains_registrar_get domain models (part 7)
 
+impl<'de> serde::Deserialize<'de>
+    for GetOrderResponseDomainsItemVariant2ErrorVariant9DetailsInvalidFieldEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "firstName" => Self::Firstname,
+            "lastName" => Self::Lastname,
+            "email" => Self::Email,
+            "phone" => Self::Phone,
+            "address1" => Self::Address1,
+            "address2" => Self::Address2,
+            "city" => Self::City,
+            "state" => Self::State,
+            "zip" => Self::Zip,
+            "country" => Self::Country,
+            "companyName" => Self::Companyname,
+            "fax" => Self::Fax,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetOrderResponseDomainsItemVariant2ErrorVariant9DetailsInvalidFieldEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseDomainsItemVariant2ErrorVariant9Details {
+    #[serde(rename = "invalidField", skip_serializing_if = "Option::is_none")]
+    pub invalid_field:
+        Option<GetOrderResponseDomainsItemVariant2ErrorVariant9DetailsInvalidFieldEnum>,
+}
+
+impl GetOrderResponseDomainsItemVariant2ErrorVariant9Details {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            invalid_field: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseDomainsItemVariant2ErrorVariant9 {
+    pub code: GetOrderResponseDomainsItemVariant2ErrorVariant9CodeEnum,
+    pub details: GetOrderResponseDomainsItemVariant2ErrorVariant9Details,
+}
+
+impl GetOrderResponseDomainsItemVariant2ErrorVariant9 {
+    pub fn new(
+        code: GetOrderResponseDomainsItemVariant2ErrorVariant9CodeEnum,
+        details: GetOrderResponseDomainsItemVariant2ErrorVariant9Details,
+    ) -> Self {
+        Self { code, details }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseDomainsItemVariant2ErrorVariant10 {
+    pub code: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<serde_json::Value>,
+}
+
+impl GetOrderResponseDomainsItemVariant2ErrorVariant10 {
+    pub fn new(code: String) -> Self {
+        Self {
+            code,
+            details: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetOrderResponseDomainsItemVariant2Error {
+    UnsupportedLanguageCode(Box<GetOrderResponseDomainsItemVariant2ErrorVariant0>),
+    IncorrectLanguageCode(Box<GetOrderResponseDomainsItemVariant2ErrorVariant1>),
+    ClientTransferProhibited(Box<GetOrderResponseDomainsItemVariant2ErrorVariant2>),
+    IncorrectAuthCode(Box<GetOrderResponseDomainsItemVariant2ErrorVariant3>),
+    ClaimsNoticeRequired(Box<GetOrderResponseDomainsItemVariant2ErrorVariant4>),
+    CannotTransferInUntil(Box<GetOrderResponseDomainsItemVariant2ErrorVariant5>),
+    AccountTransferRequired(Box<GetOrderResponseDomainsItemVariant2ErrorVariant6>),
+    PriceChange(Box<GetOrderResponseDomainsItemVariant2ErrorVariant7>),
+    UnavailableLegal(Box<GetOrderResponseDomainsItemVariant2ErrorVariant8>),
+    InvalidContact(Box<GetOrderResponseDomainsItemVariant2ErrorVariant9>),
+    Object(Box<GetOrderResponseDomainsItemVariant2ErrorVariant10>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetOrderResponseDomainsItemVariant2Error {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::UnsupportedLanguageCode(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::IncorrectLanguageCode(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::ClientTransferProhibited(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::IncorrectAuthCode(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::ClaimsNoticeRequired(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant5>,
+        >(value.clone())
+        {
+            let candidate = Self::CannotTransferInUntil(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant6>,
+        >(value.clone())
+        {
+            let candidate = Self::AccountTransferRequired(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant7>,
+        >(value.clone())
+        {
+            let candidate = Self::PriceChange(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant8>,
+        >(value.clone())
+        {
+            let candidate = Self::UnavailableLegal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant9>,
+        >(value.clone())
+        {
+            let candidate = Self::InvalidContact(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetOrderResponseDomainsItemVariant2ErrorVariant10>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetOrderResponseDomainsItemVariant2Error branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant0>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant0>) -> Self {
+        Self::UnsupportedLanguageCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant1>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant1>) -> Self {
+        Self::IncorrectLanguageCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant2>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant2>) -> Self {
+        Self::ClientTransferProhibited(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant3>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant3>) -> Self {
+        Self::IncorrectAuthCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant4>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant4>) -> Self {
+        Self::ClaimsNoticeRequired(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant5>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant5>) -> Self {
+        Self::CannotTransferInUntil(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant6>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant6>) -> Self {
+        Self::AccountTransferRequired(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant7>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant7>) -> Self {
+        Self::PriceChange(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant8>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant8>) -> Self {
+        Self::UnavailableLegal(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant9>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant9>) -> Self {
+        Self::InvalidContact(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant2ErrorVariant10>>
+    for GetOrderResponseDomainsItemVariant2Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant2ErrorVariant10>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct GetOrderResponseDomainsItemVariant2 {
     #[serde(rename = "purchaseType")]
@@ -253,243 +558,4 @@ impl GetOrderResponseErrorVariant2CodeEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for GetOrderResponseErrorVariant2CodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant2CodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "price-mismatch" => Self::PriceMismatch,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseErrorVariant2CodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant2Details {
-    #[serde(rename = "expectedPrice")]
-    pub expected_price: f64,
-    #[serde(rename = "actualPrice", skip_serializing_if = "Option::is_none")]
-    pub actual_price: Option<f64>,
-}
-
-impl GetOrderResponseErrorVariant2Details {
-    pub fn new(expected_price: f64) -> Self {
-        Self {
-            expected_price,
-            actual_price: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant2 {
-    pub code: GetOrderResponseErrorVariant2CodeEnum,
-    pub details: GetOrderResponseErrorVariant2Details,
-}
-
-impl GetOrderResponseErrorVariant2 {
-    pub fn new(
-        code: GetOrderResponseErrorVariant2CodeEnum,
-        details: GetOrderResponseErrorVariant2Details,
-    ) -> Self {
-        Self { code, details }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetOrderResponseErrorVariant3CodeEnum {
-    #[default]
-    UnexpectedError,
-    Unknown(String),
-}
-
-impl GetOrderResponseErrorVariant3CodeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::UnexpectedError => "unexpected-error",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetOrderResponseErrorVariant3CodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant3CodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "unexpected-error" => Self::UnexpectedError,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseErrorVariant3CodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant3 {
-    pub code: GetOrderResponseErrorVariant3CodeEnum,
-}
-
-impl GetOrderResponseErrorVariant3 {
-    pub fn new(code: GetOrderResponseErrorVariant3CodeEnum) -> Self {
-        Self { code }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetOrderResponseErrorVariant4CodeEnum {
-    #[default]
-    ClaimsRequired,
-    Unknown(String),
-}
-
-impl GetOrderResponseErrorVariant4CodeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ClaimsRequired => "claims-required",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetOrderResponseErrorVariant4CodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant4CodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "claims-required" => Self::ClaimsRequired,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseErrorVariant4CodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant4Details {
-    pub message: String,
-    #[serde(rename = "domainNames")]
-    pub domain_names: Vec<String>,
-}
-
-impl GetOrderResponseErrorVariant4Details {
-    pub fn new(message: String, domain_names: Vec<String>) -> Self {
-        Self {
-            message,
-            domain_names,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant4 {
-    pub code: GetOrderResponseErrorVariant4CodeEnum,
-    pub details: GetOrderResponseErrorVariant4Details,
-}
-
-impl GetOrderResponseErrorVariant4 {
-    pub fn new(
-        code: GetOrderResponseErrorVariant4CodeEnum,
-        details: GetOrderResponseErrorVariant4Details,
-    ) -> Self {
-        Self { code, details }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetOrderResponseErrorVariant5CodeEnum {
-    #[default]
-    DomainMismatch,
-    Unknown(String),
-}
-
-impl GetOrderResponseErrorVariant5CodeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::DomainMismatch => "domain-mismatch",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetOrderResponseErrorVariant5CodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant5CodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "domain-mismatch" => Self::DomainMismatch,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseErrorVariant5CodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseErrorVariant5 {
-    pub code: GetOrderResponseErrorVariant5CodeEnum,
 }

@@ -3,6 +3,21 @@
 
 // projects_list domain models (part 2)
 
+impl std::fmt::Display for ListProjectsResponseItemCreatorVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseItemCreatorVariant1TypeEnum::App => f.write_str("app"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseItemCreatorVariant1 {
+    pub app: ListProjectsResponseItemCreatorVariant1App,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseItemCreatorVariant1TypeEnum,
+}
+
 impl ListProjectsResponseItemCreatorVariant1 {
     pub fn new(
         app: ListProjectsResponseItemCreatorVariant1App,
@@ -485,20 +500,4 @@ pub struct ListProjectsResponseItemEnvItemContentHintVariant7 {
     pub store_id: String,
     #[serde(rename = "type")]
     pub type_: ListProjectsResponseItemEnvItemContentHintVariant7TypeEnum,
-}
-
-impl ListProjectsResponseItemEnvItemContentHintVariant7 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseItemEnvItemContentHintVariant7TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseItemEnvItemContentHintVariant8TypeEnum {
-    #[serde(rename = "postgres-url-non-pooling")]
-    #[default]
-    PostgresUrlNonPooling,
 }

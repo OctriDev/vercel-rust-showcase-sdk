@@ -3,6 +3,22 @@
 
 // projects_delete domain models (part 2)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub target: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
+}
+
+impl DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub fn new(
+        target: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
+        type_: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
+    ) -> Self {
+        Self { target, type_ }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum
 {
@@ -485,61 +501,34 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue {
     String(String),
     Number(f64),
     Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseDismissedToastsItemValueVariant2 {
-    #[serde(rename = "currentValue")]
-    pub current_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue,
-    #[serde(rename = "previousValue")]
-    pub previous_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue,
-}
-
-impl DeleteProjectAvatarResponseDismissedToastsItemValueVariant2 {
-    pub fn new(
-        current_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue,
-        previous_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue,
-    ) -> Self {
-        Self {
-            current_value,
-            previous_value,
-        }
-    }
 }

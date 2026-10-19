@@ -3,6 +3,34 @@
 
 use super::*;
 
+impl std::fmt::Display for GetDeploymentsResponseDeploymentsItemCreatorTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Metadata information of the deployment creator.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentsResponseDeploymentsItemCreator {
+    /// The email address of the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    /// The GitHub login of the user.
+    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
+    pub github_login: Option<String>,
+    /// The GitLab login of the user.
+    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
+    pub gitlab_login: Option<String>,
+    /// Principal type of the deployment creator. Defaults to `"user"` if absent (legacy deployments created before principal attribution was recorded).
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<GetDeploymentsResponseDeploymentsItemCreatorTypeEnum>,
+    /// Stable creator id across principal types. This may be a user ID, an app ID, an integration configuration ID, or `system`.
+    pub uid: String,
+    /// The username of the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
 impl GetDeploymentsResponseDeploymentsItemCreator {
     pub fn new(uid: String) -> Self {
         Self {
@@ -254,19 +282,4 @@ pub struct GetDeploymentsResponseDeploymentsItemPlatform {
     pub origin: GetDeploymentsResponseDeploymentsItemPlatformOrigin,
     /// The external platform that created the deployment (e.g. its display name).
     pub source: GetDeploymentsResponseDeploymentsItemPlatformSource,
-}
-
-impl GetDeploymentsResponseDeploymentsItemPlatform {
-    pub fn new(
-        creator: GetDeploymentsResponseDeploymentsItemPlatformCreator,
-        origin: GetDeploymentsResponseDeploymentsItemPlatformOrigin,
-        source: GetDeploymentsResponseDeploymentsItemPlatformSource,
-    ) -> Self {
-        Self {
-            creator,
-            meta: None,
-            origin,
-            source,
-        }
-    }
 }

@@ -3,64 +3,7 @@
 
 use super::*;
 
-impl CreateIntegrationStoreDirectResponseStoreProduct {
-    pub fn new(
-        integration: CreateIntegrationStoreDirectResponseStoreProductIntegration,
-        integration_configuration_id: String,
-        supported_protocols: Vec<
-            CreateIntegrationStoreDirectResponseStoreProductSupportedProtocolsItemEnum,
-        >,
-    ) -> Self {
-        Self {
-            agent_skills: None,
-            capabilities: None,
-            disable_resource_renaming: None,
-            icon_url: None,
-            id: None,
-            metadata_schema: None,
-            name: None,
-            project_connection_scopes: None,
-            resource_links: None,
-            resource_title: None,
-            short_description: None,
-            show_sso_link_on_project_connection: None,
-            slug: None,
-            tags: None,
-            repl: None,
-            guides: None,
-            integration,
-            integration_configuration_id,
-            log_drain_status: None,
-            primary_protocol: None,
-            supported_protocols,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum
-{
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum
-{
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -69,160 +12,132 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum
-{
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "create" => Self::Create,
+            "update" => Self::Update,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum
-{
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItem {
-    pub target: CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum,
-    pub url: String,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden
+{
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant0>),
+    Bool(bool),
+    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum),
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItem {
-    pub fn new(
-        target: CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItemTargetEnum,
-        url: String,
-    ) -> Self {
-        Self { target, url }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthentication {
-    #[serde(rename = "appUrls", skip_serializing_if = "Option::is_none")]
-    pub app_urls: Option<
-        Vec<CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthenticationAppUrlsItem>,
-    >,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthentication {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { app_urls: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProtocolSettingsExperimentation {
-    #[serde(rename = "edgeConfigId", skip_serializing_if = "Option::is_none")]
-    pub edge_config_id: Option<String>,
-    #[serde(
-        rename = "edgeConfigSyncingEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub edge_config_syncing_enabled: Option<bool>,
-    #[serde(rename = "edgeConfigTokenId", skip_serializing_if = "Option::is_none")]
-    pub edge_config_token_id: Option<String>,
-    #[serde(rename = "globalConfigId", skip_serializing_if = "Option::is_none")]
-    pub global_config_id: Option<String>,
-    #[serde(
-        rename = "globalConfigSyncingEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub global_config_syncing_enabled: Option<bool>,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProtocolSettingsExperimentation {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            edge_config_id: None,
-            edge_config_syncing_enabled: None,
-            edge_config_token_id: None,
-            global_config_id: None,
-            global_config_syncing_enabled: None,
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant0>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum>(value.clone()) {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant0>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0HiddenVariant2Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProtocolSettings {
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub authentication:
-        Option<CreateIntegrationStoreDirectResponseStoreProtocolSettingsAuthentication>,
+    pub description: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub experimentation:
-        Option<CreateIntegrationStoreDirectResponseStoreProtocolSettingsExperimentation>,
+    pub disabled: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Disabled>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hidden: Option<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0Hidden>,
+    pub label: String,
+    pub value: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProtocolSettings {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            authentication: None,
-            experimentation: None,
-        }
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0 {
+    pub fn new(label: String, value: String) -> Self {
+        Self { description: None, disabled: None, hidden: None, label, value }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreSecretsItem {
-    #[serde(
-        rename = "frameworkPublishable",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub framework_publishable: Option<bool>,
-    pub length: f64,
-    pub name: String,
-    #[serde(rename = "nonSensitive", skip_serializing_if = "Option::is_none")]
-    pub non_sensitive: Option<bool>,
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0
+{
+    pub expr: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreSecretsItem {
-    pub fn new(length: f64, name: String) -> Self {
-        Self {
-            framework_publishable: None,
-            length,
-            name,
-            non_sensitive: None,
-        }
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
     }
 }
 
-/// The deployment targets that this resource is available for.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreTargetsItemEnum {
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum
+{
     #[default]
-    Development,
-    Preview,
-    Production,
+    Create,
+    Update,
     Unknown(String),
 }
 
-impl CreateIntegrationStoreDirectResponseStoreTargetsItemEnum {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::Create => "create",
+            Self::Update => "update",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreTargetsItemEnum {
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -231,101 +146,138 @@ impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreTargetsItemEn
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreTargetsItemEnum {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "create" => Self::Create,
+            "update" => Self::Update,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreTargetsItemEnum {
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled
+{
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0>),
+    Bool(bool),
+    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum>(value.clone()) {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2DisabledVariant2Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStore {
-    #[serde(rename = "projectFilter", skip_serializing_if = "Option::is_none")]
-    pub project_filter: Option<CreateIntegrationStoreDirectResponseStoreProjectFilter>,
-    #[serde(rename = "projectsMetadata")]
-    pub projects_metadata: Vec<CreateIntegrationStoreDirectResponseStoreProjectsMetadataItem>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub status: Option<CreateIntegrationStoreDirectResponseStoreStatusEnum>,
-    #[serde(
-        rename = "totalConnectedProjects",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub total_connected_projects: Option<f64>,
-    #[serde(rename = "usageQuotaExceeded")]
-    pub usage_quota_exceeded: bool,
-    #[serde(rename = "billingPlan", skip_serializing_if = "Option::is_none")]
-    pub billing_plan: Option<CreateIntegrationStoreDirectResponseStoreBillingPlan>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub capabilities: Option<CreateIntegrationStoreDirectResponseStoreCapabilities>,
-    #[serde(
-        rename = "directPartnerConsoleUrl",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub direct_partner_console_url: Option<String>,
-    #[serde(rename = "externalResourceId")]
-    pub external_resource_id: String,
-    #[serde(
-        rename = "externalResourceStatus",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub external_resource_status:
-        Option<Option<CreateIntegrationStoreDirectResponseStoreExternalResourceStatusEnum>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<
-        std::collections::HashMap<String, CreateIntegrationStoreDirectResponseStoreMetadataValue>,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub notification: Option<CreateIntegrationStoreDirectResponseStoreNotification>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ownership: Option<CreateIntegrationStoreDirectResponseStoreOwnershipEnum>,
-    /// The ID of the parent resource. Used to establish a parent-child relationship between resources, such as sandbox resources linking to their owner account resource.
-    #[serde(rename = "parentId", skip_serializing_if = "Option::is_none")]
-    pub parent_id: Option<String>,
-    pub product: CreateIntegrationStoreDirectResponseStoreProduct,
-    #[serde(rename = "protocolSettings", skip_serializing_if = "Option::is_none")]
-    pub protocol_settings: Option<CreateIntegrationStoreDirectResponseStoreProtocolSettings>,
-    /// The timestamp when secret rotation was completed.
-    #[serde(
-        rename = "secretRotationCompletedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub secret_rotation_completed_at: Option<f64>,
-    /// The timestamp when secret rotation was requested.
-    #[serde(
-        rename = "secretRotationRequestedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub secret_rotation_requested_at: Option<f64>,
-    /// The ID of the user/team who requested the secret rotation.
-    #[serde(
-        rename = "secretRotationRequestedBy",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub secret_rotation_requested_by: Option<String>,
-    /// The reason for the secret rotation request.
-    #[serde(
-        rename = "secretRotationRequestedReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub secret_rotation_requested_reason: Option<String>,
-    pub secrets: Vec<CreateIntegrationStoreDirectResponseStoreSecretsItem>,
-    /// The deployment targets that this resource is available for.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub targets: Option<Vec<CreateIntegrationStoreDirectResponseStoreTargetsItemEnum>>,
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0
+{
+    pub expr: String,
+}
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum
+{
+    #[default]
+    Create,
+    Update,
+    Unknown(String),
+}
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Create => "create",
+            Self::Update => "update",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "create" => Self::Create,
+            "update" => Self::Update,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }

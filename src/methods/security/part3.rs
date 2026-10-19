@@ -3,6 +3,23 @@
 
 use super::*;
 
+impl GetSecurityFirewallConfigResponseActiveCrsJava {
+    pub fn new(
+        action: GetSecurityFirewallConfigResponseActiveCrsJavaActionEnum,
+        active: bool,
+    ) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseActiveCrsLfiActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
 impl GetSecurityFirewallConfigResponseActiveCrsLfiActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -258,34 +275,5 @@ impl GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
             Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

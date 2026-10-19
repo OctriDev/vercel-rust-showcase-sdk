@@ -3,6 +3,46 @@
 
 use super::*;
 
+impl serde::Serialize for UpdateTeamsDefaultPassportDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateTeamsDefaultPassportDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateTeamsDefaultPassportDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Default Passport configuration for new projects.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateTeamsDefaultPassport {
+    #[serde(rename = "connectorId")]
+    pub connector_id: String,
+    #[serde(rename = "deploymentType", skip_serializing_if = "Option::is_none")]
+    pub deployment_type: Option<UpdateTeamsDefaultPassportDeploymentTypeEnum>,
+}
+
 impl UpdateTeamsDefaultPassport {
     pub fn new(connector_id: String) -> Self {
         Self {
@@ -245,21 +285,4 @@ pub enum UpdateTeamsDefaultExpirationSettingsExpirationErroredEnum {
     _1d,
     Unlimited,
     Unknown(String),
-}
-
-impl UpdateTeamsDefaultExpirationSettingsExpirationErroredEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::_1y => "1y",
-            Self::_6m => "6m",
-            Self::_3m => "3m",
-            Self::_2m => "2m",
-            Self::_1m => "1m",
-            Self::_2w => "2w",
-            Self::_1w => "1w",
-            Self::_1d => "1d",
-            Self::Unlimited => "unlimited",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

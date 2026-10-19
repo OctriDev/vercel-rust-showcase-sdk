@@ -3,144 +3,94 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesTrafficSources {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRuleset {
+pub struct ListProjectsResponseVariant2ProjectsItemRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action:
-        Option<ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRulesetActionEnum>,
-    pub active: bool,
+    pub gate: Option<ListProjectsResponseVariant2ProjectsItemRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages:
+        Option<Option<Vec<ListProjectsResponseVariant2ProjectsItemRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
+impl ListProjectsResponseVariant2ProjectsItemRollingRelease {
+    pub fn new(target: String) -> Self {
         Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemSecurityManagedRules {
-    pub ai_bots: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesAiBots,
-    pub bot_filter: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesBotFilter,
-    pub owasp: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesOwasp,
-    pub traffic_sources: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesTrafficSources,
-    pub vercel_ruleset: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRuleset,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemSecurityManagedRules {
-    pub fn new(
-        ai_bots: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesAiBots,
-        bot_filter: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesBotFilter,
-        owasp: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesOwasp,
-        traffic_sources: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesTrafficSources,
-        vercel_ruleset: ListProjectsResponseVariant2ProjectsItemSecurityManagedRulesVercelRuleset,
-    ) -> Self {
-        Self {
-            ai_bots,
-            bot_filter,
-            owasp,
-            traffic_sources,
-            vercel_ruleset,
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueActionEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
     #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueActionEnum {
+impl ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueActionEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -150,7 +100,7 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSecurityRulese
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueActionEnum
+    for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -158,32 +108,161 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueActionEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum {
+pub enum ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+    #[default]
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions:
+        Option<Vec<ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemSandbox {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            failover_regions: None,
+            region: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
     #[default]
     Unknown2,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum {
+impl ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Unknown2 => "*",
@@ -192,9 +271,7 @@ impl ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVari
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -204,7 +281,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum
+    for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -218,105 +295,8 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeaders
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueLogHeaders branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum {
-    #[default]
-    FixedWindow,
-    TokenBucket,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FixedWindow => "fixed_window",
-            Self::TokenBucket => "token_bucket",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimit {
-    pub algo: ListProjectsResponseVariant2ProjectsItemSecurityRulesetsValueRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
 }

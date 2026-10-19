@@ -3,6 +3,56 @@
 
 use super::*;
 
+impl GetDeploymentsResponseDeploymentsItemAttributionGitUser {
+    pub fn new(
+        id: GetDeploymentsResponseDeploymentsItemAttributionGitUserId,
+        login: String,
+    ) -> Self {
+        Self {
+            id,
+            login,
+            provider: None,
+            type_: None,
+        }
+    }
+}
+
+/// Vercel user linked to the git provider account (only set if resolved)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentsResponseDeploymentsItemAttributionVercelUser {
+    /// Vercel user ID
+    pub id: String,
+    /// Team roles at time of deployment
+    #[serde(rename = "teamRoles", skip_serializing_if = "Option::is_none")]
+    pub team_roles: Option<Vec<String>>,
+    /// Vercel username
+    pub username: String,
+}
+
+impl GetDeploymentsResponseDeploymentsItemAttributionVercelUser {
+    pub fn new(id: String, username: String) -> Self {
+        Self {
+            id,
+            team_roles: None,
+            username,
+        }
+    }
+}
+
+/// Commit attribution metadata
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentsResponseDeploymentsItemAttribution {
+    /// Commit metadata from the git commit author
+    #[serde(rename = "commitMeta", skip_serializing_if = "Option::is_none")]
+    pub commit_meta: Option<GetDeploymentsResponseDeploymentsItemAttributionCommitMeta>,
+    /// Git provider user associated with the commit author email (only set if resolved)
+    #[serde(rename = "gitUser", skip_serializing_if = "Option::is_none")]
+    pub git_user: Option<GetDeploymentsResponseDeploymentsItemAttributionGitUser>,
+    /// Vercel user linked to the git provider account (only set if resolved)
+    #[serde(rename = "vercelUser", skip_serializing_if = "Option::is_none")]
+    pub vercel_user: Option<GetDeploymentsResponseDeploymentsItemAttributionVercelUser>,
+}
+
 impl GetDeploymentsResponseDeploymentsItemAttribution {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
@@ -256,32 +306,4 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentsResponseDeploymentsItemCreat
             _ => Self::Unknown(value),
         })
     }
-}
-
-impl std::fmt::Display for GetDeploymentsResponseDeploymentsItemCreatorTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Metadata information of the deployment creator.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentsResponseDeploymentsItemCreator {
-    /// The email address of the user.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>,
-    /// The GitHub login of the user.
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    /// The GitLab login of the user.
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    /// Principal type of the deployment creator. Defaults to `"user"` if absent (legacy deployments created before principal attribution was recorded).
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<GetDeploymentsResponseDeploymentsItemCreatorTypeEnum>,
-    /// Stable creator id across principal types. This may be a user ID, an app ID, an integration configuration ID, or `system`.
-    pub uid: String,
-    /// The username of the user.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
 }

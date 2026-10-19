@@ -2,8 +2,12 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    AddRouteResponseRouteRouteDestination, AddRouteResponseRouteRouteHasItem,
+    AddRouteResponseRouteRouteMissingItem, AddRouteResponseRouteRouteTransformsItem,
+};
 
-impl serde::Serialize for EditRouteRouteRouteTransformsItemTypeEnum {
+impl serde::Serialize for AddRouteResponseRouteRouteMitigateActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,240 +16,7 @@ impl serde::Serialize for EditRouteRouteRouteTransformsItemTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for EditRouteRouteRouteTransformsItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "request.headers" => Self::RequestHeaders,
-            "request.query" => Self::RequestQuery,
-            "response.headers" => Self::ResponseHeaders,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for EditRouteRouteRouteTransformsItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditRouteRouteRouteTransformsItemOpEnum {
-    #[default]
-    Append,
-    Set,
-    Delete,
-    Unknown(String),
-}
-
-impl EditRouteRouteRouteTransformsItemOpEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Append => "append",
-            Self::Set => "set",
-            Self::Delete => "delete",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for EditRouteRouteRouteTransformsItemOpEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for EditRouteRouteRouteTransformsItemOpEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "append" => Self::Append,
-            "set" => Self::Set,
-            "delete" => Self::Delete,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for EditRouteRouteRouteTransformsItemOpEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRouteRouteRouteTransformsItem {
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<EditRouteRouteRouteTransformsItemTypeEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub op: Option<EditRouteRouteRouteTransformsItemOpEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<serde_json::Value>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub args: Option<serde_json::Value>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<Vec<String>>,
-}
-
-impl EditRouteRouteRouteTransformsItem {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            type_: None,
-            op: None,
-            target: None,
-            args: None,
-            env: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRouteRouteRoute {
-    pub src: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub headers: Option<serde_json::Value>,
-    #[serde(rename = "caseSensitive", skip_serializing_if = "Option::is_none")]
-    pub case_sensitive: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub status: Option<i64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub has: Option<Vec<EditRouteRouteRouteHasItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub missing: Option<Vec<EditRouteRouteRouteMissingItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub transforms: Option<Vec<EditRouteRouteRouteTransformsItem>>,
-    #[serde(
-        rename = "respectOriginCacheControl",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub respect_origin_cache_control: Option<bool>,
-}
-
-impl EditRouteRouteRoute {
-    pub fn new(src: String) -> Self {
-        Self {
-            src,
-            dest: None,
-            headers: None,
-            case_sensitive: None,
-            status: None,
-            has: None,
-            missing: None,
-            transforms: None,
-            respect_origin_cache_control: None,
-        }
-    }
-}
-
-/// The full route object to replace the existing route with
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRouteRoute {
-    pub name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// Pattern syntax type. If not provided, inferred from pattern.
-    #[serde(rename = "srcSyntax", skip_serializing_if = "Option::is_none")]
-    pub src_syntax: Option<EditRouteRouteSrcSyntaxEnum>,
-    pub route: EditRouteRouteRoute,
-}
-
-impl EditRouteRoute {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "name",
-            &self.name,
-            crate::validation::LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-        if let Some(value) = self.description.as_ref() {
-            crate::validation::validate_length(
-                "description",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(1024),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(name: String, route: EditRouteRouteRoute) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            name,
-            description: None,
-            enabled: None,
-            src_syntax: None,
-            route,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRouteResponseRouteRouteLocale {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub cookie: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub redirect: Option<std::collections::HashMap<String, String>>,
-}
-
-impl EditRouteResponseRouteRouteLocale {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            cookie: None,
-            redirect: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditRouteResponseRouteRouteMitigateActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Unknown(String),
-}
-
-impl EditRouteResponseRouteRouteMitigateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for EditRouteResponseRouteRouteMitigateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for EditRouteResponseRouteRouteMitigateActionEnum {
+impl<'de> serde::Deserialize<'de> for AddRouteResponseRouteRouteMitigateActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -259,19 +30,258 @@ impl<'de> serde::Deserialize<'de> for EditRouteResponseRouteRouteMitigateActionE
     }
 }
 
-impl std::fmt::Display for EditRouteResponseRouteRouteMitigateActionEnum {
+impl std::fmt::Display for AddRouteResponseRouteRouteMitigateActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRouteResponseRouteRouteMitigate {
-    pub action: EditRouteResponseRouteRouteMitigateActionEnum,
+pub struct AddRouteResponseRouteRouteMitigate {
+    pub action: AddRouteResponseRouteRouteMitigateActionEnum,
 }
 
-impl EditRouteResponseRouteRouteMitigate {
-    pub fn new(action: EditRouteResponseRouteRouteMitigateActionEnum) -> Self {
+impl AddRouteResponseRouteRouteMitigate {
+    pub fn new(action: AddRouteResponseRouteRouteMitigateActionEnum) -> Self {
         Self { action }
+    }
+}
+
+/// The route definition from @vercel/routing-utils.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AddRouteResponseRouteRoute {
+    #[serde(rename = "caseSensitive", skip_serializing_if = "Option::is_none")]
+    pub case_sensitive: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub check: Option<bool>,
+    #[serde(rename = "continue", skip_serializing_if = "Option::is_none")]
+    pub continue_: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    /// Typed representation of the `AddRouteResponseRouteRouteDestination` API schema.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub destination: Option<AddRouteResponseRouteRouteDestination>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has: Option<Vec<AddRouteResponseRouteRouteHasItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<std::collections::HashMap<String, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub important: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub locale: Option<AddRouteResponseRouteRouteLocale>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub methods: Option<Vec<String>>,
+    /// A middleware index in the `middleware` key under the build result
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub middleware: Option<f64>,
+    /// A middleware key within the `output` key under the build result. Overrides a `middleware` definition.
+    #[serde(rename = "middlewarePath", skip_serializing_if = "Option::is_none")]
+    pub middleware_path: Option<String>,
+    /// The original middleware matchers.
+    #[serde(rename = "middlewareRawSrc", skip_serializing_if = "Option::is_none")]
+    pub middleware_raw_src: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub missing: Option<Vec<AddRouteResponseRouteRouteMissingItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mitigate: Option<AddRouteResponseRouteRouteMitigate>,
+    #[serde(rename = "override", skip_serializing_if = "Option::is_none")]
+    pub override_: Option<bool>,
+    #[serde(
+        rename = "respectOriginCacheControl",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub respect_origin_cache_control: Option<bool>,
+    /// Aliases for `src`, `dest`, and `status`. These provide consistency with the `rewrites`, `redirects`, and `headers` fields which use `source`, `destination`, and `statusCode`. During normalization, the string forms are converted to their canonical forms (`src`, `dest`, `status`) and stripped from the route object. `destination` may also be a service-targeted object, in which case routing is delegated into the named service's internal route table and the object is preserved as-is (not folded into `dest`).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    pub src: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<f64>,
+    #[serde(rename = "statusCode", skip_serializing_if = "Option::is_none")]
+    pub status_code: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub transforms: Option<Vec<AddRouteResponseRouteRouteTransformsItem>>,
+}
+
+impl AddRouteResponseRouteRoute {
+    pub fn new(src: String) -> Self {
+        Self {
+            case_sensitive: None,
+            check: None,
+            continue_: None,
+            dest: None,
+            destination: None,
+            env: None,
+            has: None,
+            headers: None,
+            important: None,
+            locale: None,
+            methods: None,
+            middleware: None,
+            middleware_path: None,
+            middleware_raw_src: None,
+            missing: None,
+            mitigate: None,
+            override_: None,
+            respect_origin_cache_control: None,
+            source: None,
+            src,
+            status: None,
+            status_code: None,
+            transforms: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum AddRouteResponseRouteRouteTypeEnum {
+    #[default]
+    Redirect,
+    Rewrite,
+    SetStatus,
+    Transform,
+    Unknown(String),
+}
+
+impl AddRouteResponseRouteRouteTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Redirect => "redirect",
+            Self::Rewrite => "rewrite",
+            Self::SetStatus => "set_status",
+            Self::Transform => "transform",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for AddRouteResponseRouteRouteTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for AddRouteResponseRouteRouteTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "redirect" => Self::Redirect,
+            "rewrite" => Self::Rewrite,
+            "set_status" => Self::SetStatus,
+            "transform" => Self::Transform,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for AddRouteResponseRouteRouteTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The syntax type of the source pattern. Determines how the pattern is compiled to regex.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum AddRouteResponseRouteSrcSyntaxEnum {
+    #[default]
+    Equals,
+    PathToRegexp,
+    Regex,
+    Unknown(String),
+}
+
+impl AddRouteResponseRouteSrcSyntaxEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Equals => "equals",
+            Self::PathToRegexp => "path-to-regexp",
+            Self::Regex => "regex",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for AddRouteResponseRouteSrcSyntaxEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for AddRouteResponseRouteSrcSyntaxEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "equals" => Self::Equals,
+            "path-to-regexp" => Self::PathToRegexp,
+            "regex" => Self::Regex,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for AddRouteResponseRouteSrcSyntaxEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AddRouteResponseRoute {
+    /// Optional description of what the routing rule does.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Whether the routing rule is enabled. Defaults to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    /// Unique identifier for the routing rule.
+    pub id: String,
+    /// Human-readable name for the routing rule.
+    pub name: String,
+    /// Original destination provided by user.
+    #[serde(rename = "rawDest", skip_serializing_if = "Option::is_none")]
+    pub raw_dest: Option<String>,
+    /// Original source pattern provided by user (path-to-regexp or regex). Used to display the user's input in API responses.
+    #[serde(rename = "rawSrc", skip_serializing_if = "Option::is_none")]
+    pub raw_src: Option<String>,
+    /// The route definition from @vercel/routing-utils.
+    pub route: AddRouteResponseRouteRoute,
+    #[serde(rename = "routeType", skip_serializing_if = "Option::is_none")]
+    pub route_type: Option<AddRouteResponseRouteRouteTypeEnum>,
+    /// The syntax type of the source pattern. Determines how the pattern is compiled to regex.
+    #[serde(rename = "srcSyntax", skip_serializing_if = "Option::is_none")]
+    pub src_syntax: Option<AddRouteResponseRouteSrcSyntaxEnum>,
+    /// Whether this route is new and not yet published to production. Set to true only when a route is first created via add-route. Cleared (set to false) when a version is promoted to production.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub staged: Option<bool>,
+}
+
+impl AddRouteResponseRoute {
+    pub fn new(id: String, name: String, route: AddRouteResponseRouteRoute) -> Self {
+        Self {
+            description: None,
+            enabled: None,
+            id,
+            name,
+            raw_dest: None,
+            raw_src: None,
+            route,
+            route_type: None,
+            src_syntax: None,
+            staged: None,
+        }
     }
 }

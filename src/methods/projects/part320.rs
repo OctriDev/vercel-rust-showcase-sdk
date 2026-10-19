@@ -2,71 +2,30 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+    UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+    UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem,
+    UpdateMicrofrontendsResponseDismissedToastsItemValue,
+};
 
-impl UpdateMicrofrontendsResponseRollingRelease {
-    pub fn new(target: String) -> Self {
-        Self {
-            canary_response_header: None,
-            gate: None,
-            stages: None,
-            target,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
-    #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
+impl UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Cli => "cli",
+            Self::DeployHook => "deploy-hook",
+            Self::Git => "git",
+            Self::Integration => "integration",
+            Self::RestApi => "rest-api",
+            Self::V0 => "v0",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
+impl serde::Serialize
+    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -75,96 +34,139 @@ impl serde::Serialize for UpdateMicrofrontendsResponseSandboxFailoverRegionsItem
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "cli" => Self::Cli,
+            "deploy-hook" => Self::DeployHook,
+            "git" => Self::Git,
+            "integration" => Self::Integration,
+            "rest-api" => Self::RestApi,
+            "v0" => Self::V0,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
+impl std::fmt::Display
+    for UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+    pub sources:
+        Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+}
+
+impl UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<
+            UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum,
+        >,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+    pub sources: Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+}
+
+impl UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseDeploymentPolicy {
+    #[serde(
+        rename = "deploymentSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deployment_sources:
+        Option<Option<Vec<UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItem>>>,
+    #[serde(
+        rename = "gitSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_sources:
+        Option<Option<Vec<UpdateMicrofrontendsResponseDeploymentPolicyGitSourcesItem>>>,
+}
+
+impl UpdateMicrofrontendsResponseDeploymentPolicy {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployment_sources: None,
+            git_sources: None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSandboxRegionEnum {
+pub enum UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Accept,
+    Cancel,
+    Delete,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseSandboxRegionEnum {
+impl UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Accept => "accept",
+            Self::Cancel => "cancel",
+            Self::Delete => "delete",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseSandboxRegionEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -173,78 +175,71 @@ impl serde::Serialize for UpdateMicrofrontendsResponseSandboxRegionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSandboxRegionEnum {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "accept" => Self::Accept,
+            "cancel" => Self::Cancel,
+            "delete" => Self::Delete,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseSandboxRegionEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseDismissedToastsItemActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSandbox {
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions: Option<Vec<UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<UpdateMicrofrontendsResponseSandboxRegionEnum>,
+pub struct UpdateMicrofrontendsResponseDismissedToastsItem {
+    pub action: UpdateMicrofrontendsResponseDismissedToastsItemActionEnum,
+    #[serde(rename = "dismissedAt")]
+    pub dismissed_at: f64,
+    pub key: String,
+    /// Typed representation of the `UpdateMicrofrontendsResponseDismissedToastsItemValue` API schema.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub value: Option<UpdateMicrofrontendsResponseDismissedToastsItemValue>,
 }
 
-impl UpdateMicrofrontendsResponseSandbox {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl UpdateMicrofrontendsResponseDismissedToastsItem {
+    pub fn new(
+        action: UpdateMicrofrontendsResponseDismissedToastsItemActionEnum,
+        dismissed_at: f64,
+        key: String,
+        value: Option<UpdateMicrofrontendsResponseDismissedToastsItemValue>,
+    ) -> Self {
         Self {
-            failover_regions: None,
-            region: None,
+            action,
+            dismissed_at,
+            key,
+            value,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
+pub enum UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
     #[default]
-    Unknown2,
+    FlagsSecret,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
+impl UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::FlagsSecret => "flags-secret",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
+impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -253,21 +248,89 @@ impl serde::Serialize for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "flags-secret" => Self::FlagsSecret,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
+    }
+}
+
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseEnvItemInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum,
+}
+
+impl UpdateMicrofrontendsResponseEnvItemInternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: UpdateMicrofrontendsResponseEnvItemInternalContentHintTypeEnum,
+    ) -> Self {
+        Self {
+            encrypted_value,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseEnvItemTargetVariant0ItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
     }
 }

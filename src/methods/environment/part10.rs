@@ -3,6 +3,133 @@
 
 use super::*;
 
+impl CreateCustomEnvironmentResponse {
+    pub fn new(
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: CreateCustomEnvironmentResponseTypeEnum,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
+            type_,
+            updated_at,
+        }
+    }
+}
+
+/// The maximum number of custom environments allowed either by the team's plan type or a custom override.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListEnvironmentCustomResponseAccountLimit {
+    pub total: f64,
+}
+
+impl ListEnvironmentCustomResponseAccountLimit {
+    pub fn new(total: f64) -> Self {
+        Self { total }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Configuration for matching git branches to this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListEnvironmentCustomResponseEnvironmentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum,
+}
+
+impl ListEnvironmentCustomResponseEnvironmentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: ListEnvironmentCustomResponseEnvironmentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListEnvironmentCustomResponseEnvironmentsItemDomainsItemVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl ListEnvironmentCustomResponseEnvironmentsItemDomainsItemVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            reason,
+            type_,
+            value,
+        }
+    }
+}
+
 /// List of domains associated with this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListEnvironmentCustomResponseEnvironmentsItemDomainsItem {
@@ -179,104 +306,4 @@ pub struct ListEnvironmentCustomResponse {
     #[serde(rename = "accountLimit")]
     pub account_limit: ListEnvironmentCustomResponseAccountLimit,
     pub environments: Vec<ListEnvironmentCustomResponseEnvironmentsItem>,
-}
-
-impl ListEnvironmentCustomResponse {
-    pub fn new(
-        account_limit: ListEnvironmentCustomResponseAccountLimit,
-        environments: Vec<ListEnvironmentCustomResponseEnvironmentsItem>,
-    ) -> Self {
-        Self {
-            account_limit,
-            environments,
-        }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetCustomEnvironmentResponseBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl GetCustomEnvironmentResponseBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Configuration for matching git branches to this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetCustomEnvironmentResponseBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: GetCustomEnvironmentResponseBranchMatcherTypeEnum,
-}
-
-impl GetCustomEnvironmentResponseBranchMatcher {
-    pub fn new(pattern: String, type_: GetCustomEnvironmentResponseBranchMatcherTypeEnum) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetCustomEnvironmentResponseDomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl GetCustomEnvironmentResponseDomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
-    }
 }

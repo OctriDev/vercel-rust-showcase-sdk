@@ -387,6 +387,20 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2OptionsEffectiveDateVariant1Enum> for BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2OptionsEffectiveDate {
+    fn from(value: BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2OptionsEffectiveDateVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value>
+    for BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2OptionsEffectiveDate
+{
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 /// The prices to replace in the subscription
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2OptionsReplacePricesItem {
@@ -512,29 +526,4 @@ impl BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2 {
             type_,
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant3Options {
-    /// The price intervals to add to the subscription
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub add: Option<Vec<serde_json::Value>>,
-    /// The adjustment intervals to add to the subscription
-    #[serde(rename = "addAdjustments", skip_serializing_if = "Option::is_none")]
-    pub add_adjustments: Option<Vec<serde_json::Value>>,
-    /// Whether to allow invoice credit or void
-    #[serde(
-        rename = "allowInvoiceCreditOrVoid",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub allow_invoice_credit_or_void: Option<bool>,
-    /// The price intervals to edit on the subscription
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub edit: Option<Vec<serde_json::Value>>,
-    /// The adjustment intervals to edit on the subscription
-    #[serde(rename = "editAdjustments", skip_serializing_if = "Option::is_none")]
-    pub edit_adjustments: Option<Vec<serde_json::Value>>,
-    /// The ID of the Orb subscription to modify price intervals for
-    #[serde(rename = "orbSubscriptionId")]
-    pub orb_subscription_id: String,
 }

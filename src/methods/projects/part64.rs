@@ -3,46 +3,129 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
-        }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant3 {
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant3 {
+    pub fn new(type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum) -> Self {
+        Self { type_ }
     }
 }
 
-/// The type of environment (production, preview, or development)
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreator {
+    User(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>),
+    App(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>),
+    Integration(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>),
+    System(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCreator {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::User(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::App(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::Integration(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::System(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no ListProjectsResponseVariant2ProjectsItemCreator branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>>
+    for ListProjectsResponseVariant2ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>>
+    for ListProjectsResponseVariant2ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>>
+    for ListProjectsResponseVariant2ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>>
+    for ListProjectsResponseVariant2ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>) -> Self {
+        Self::System(value)
+    }
+}
+
+/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
     #[default]
-    Development,
-    Preview,
-    Production,
+    Api,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::Api => "api",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -52,7 +135,7 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemCustomEnvironm
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -60,139 +143,107 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "api" => Self::Api,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Internal representation of a custom environment with all required properties
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItem {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher:
-        Option<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
-    #[serde(
-        rename = "currentDeploymentAliases",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
+pub struct ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem {
+    /// A human-readable description of what this cron job does.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// List of domains associated with this environment
+    /// The hostname that should be used.
+    pub host: String,
+    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
+    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
+    pub host_inferred: Option<bool>,
+    /// The path that should be called for the cronjob.
+    pub path: String,
+    /// The cron expression.
+    pub schedule: String,
+    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains:
-        Option<Vec<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
-    pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum,
-    /// Timestamp when the environment was last updated
+    pub source: Option<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem {
+    pub fn new(host: String, path: String, schedule: String) -> Self {
+        Self {
+            description: None,
+            host,
+            host_inferred: None,
+            path,
+            schedule,
+            source: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCrons {
+    pub definitions: Vec<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem>,
+    /// The ID of the Deployment from which the definitions originated.
+    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
+    pub deployment_id: Option<String>,
+    /// The time the feature was disabled for this project.
+    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
+    pub disabled_at: Option<f64>,
+    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
     #[serde(rename = "updatedAt")]
     pub updated_at: f64,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItem {
+impl ListProjectsResponseVariant2ProjectsItemCrons {
     pub fn new(
-        created_at: f64,
-        id: String,
-        slug: String,
-        type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemTypeEnum,
+        definitions: Vec<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem>,
+        deployment_id: Option<String>,
+        disabled_at: Option<f64>,
+        enabled_at: f64,
         updated_at: f64,
     ) -> Self {
         Self {
-            branch_matcher: None,
-            created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
-            id,
-            slug,
-            type_,
+            definitions,
+            deployment_id,
+            disabled_at,
+            enabled_at,
             updated_at,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDataCache {
-    #[serde(
-        rename = "storageSizeBytes",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub storage_size_bytes: Option<Option<f64>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub unlimited: Option<bool>,
-    #[serde(rename = "userDisabled")]
-    pub user_disabled: bool,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDataCache {
-    pub fn new(user_disabled: bool) -> Self {
-        Self {
-            storage_size_bytes: None,
-            unlimited: None,
-            user_disabled,
-        }
-    }
-}
-
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
-{
+pub enum ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum {
     #[default]
-    BasicFloor,
-    BuildTimeoutFailure,
-    EnospcFailure,
-    EnterpriseFloor,
-    HighPeakDisk,
-    HighPeakMemory,
-    LongBuildDuration,
-    OomFailure,
-    ShortBuildDuration,
-    SustainedHighCpu,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum {
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::BasicFloor => "basic-floor",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::OomFailure => "oom-failure",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::SustainedHighCpu => "sustained-high-cpu",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -203,7 +254,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -211,103 +262,59 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "basic-floor" => Self::BasicFloor,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "long-build-duration" => Self::LongBuildDuration,
-            "oom-failure" => Self::OomFailure,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum
+    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    #[default]
-    Downgrade,
-    Upgrade,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Downgrade => "downgrade",
-            Self::Upgrade => "upgrade",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "downgrade" => Self::Downgrade,
-            "upgrade" => Self::Upgrade,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Configuration for matching git branches to this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransition {
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-    pub at: f64,
-    pub direction: ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransition {
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher {
     pub fn new(
-        algorithm_version: String,
-        at: f64,
-        direction: ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+        pattern: String,
+        type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum,
     ) -> Self {
-        Self {
-            algorithm_version,
-            at,
-            direction,
-        }
+        Self { pattern, type_ }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum {
-    #[default]
-    Elastic,
-    Fixed,
-    Unknown(String),
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem
+{
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            reason,
+            type_,
+            value,
+        }
+    }
 }

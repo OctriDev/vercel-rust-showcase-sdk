@@ -3,6 +3,20 @@
 
 // teams domain models (part 8)
 
+impl std::fmt::Display for TeamDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum TeamDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+    #[serde(rename = "system")]
+    #[default]
+    System,
+}
+
 impl TeamDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -411,6 +425,18 @@ impl<'de> serde::Deserialize<'de> for TeamLimitedMembershipJoinedFromGitUserId {
     }
 }
 
+impl ::std::convert::From<String> for TeamLimitedMembershipJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for TeamLimitedMembershipJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 /// Required enumerated value serialized in the `origin` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum TeamLimitedMembershipJoinedFromOriginEnum {
@@ -470,42 +496,5 @@ impl serde::Serialize for TeamLimitedMembershipJoinedFromOriginEnum {
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for TeamLimitedMembershipJoinedFromOriginEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "account-update" => Self::AccountUpdate,
-            "bitbucket" => Self::Bitbucket,
-            "dsync" => Self::Dsync,
-            "feedback" => Self::Feedback,
-            "github" => Self::Github,
-            "gitlab" => Self::Gitlab,
-            "import" => Self::Import,
-            "link" => Self::Link,
-            "mail" => Self::Mail,
-            "nsnb-auto-approve" => Self::NsnbAutoApprove,
-            "nsnb-hobby-upgrade" => Self::NsnbHobbyUpgrade,
-            "nsnb-invite" => Self::NsnbInvite,
-            "nsnb-redeploy" => Self::NsnbRedeploy,
-            "nsnb-redeploy-attribution-card" => Self::NsnbRedeployAttributionCard,
-            "nsnb-request-access" => Self::NsnbRequestAccess,
-            "nsnb-viewer-upgrade" => Self::NsnbViewerUpgrade,
-            "organization-teams" => Self::OrganizationTeams,
-            "saml" => Self::Saml,
-            "teams" => Self::Teams,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for TeamLimitedMembershipJoinedFromOriginEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

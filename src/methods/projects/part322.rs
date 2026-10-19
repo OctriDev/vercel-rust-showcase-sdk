@@ -2,304 +2,304 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
+use crate::types::UpdateMicrofrontendsResponseEnvItemContentHint;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset {
+pub struct UpdateMicrofrontendsResponseEnvItem {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum>,
-    pub active: bool,
+    pub comment: Option<String>,
+    #[serde(
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    /// Typed representation of the `UpdateMicrofrontendsResponseEnvItemContentHint` API schema.
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<UpdateMicrofrontendsResponseEnvItemContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub custom_environment_ids: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint:
+        Option<Option<UpdateMicrofrontendsResponseEnvItemInternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<UpdateMicrofrontendsResponseEnvItemTarget>,
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseEnvItemTypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<UpdateMicrofrontendsResponseEnvItemVisibilityEnum>,
+    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
+    pub vsm_value: Option<String>,
 }
 
-impl UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityManagedRules {
-    pub ai_bots: UpdateMicrofrontendsResponseSecurityManagedRulesAiBots,
-    pub bot_filter: UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter,
-    pub owasp: UpdateMicrofrontendsResponseSecurityManagedRulesOwasp,
-    pub traffic_sources: UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources,
-    pub vercel_ruleset: UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset,
-}
-
-impl UpdateMicrofrontendsResponseSecurityManagedRules {
+impl UpdateMicrofrontendsResponseEnvItem {
     pub fn new(
-        ai_bots: UpdateMicrofrontendsResponseSecurityManagedRulesAiBots,
-        bot_filter: UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter,
-        owasp: UpdateMicrofrontendsResponseSecurityManagedRulesOwasp,
-        traffic_sources: UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources,
-        vercel_ruleset: UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset,
+        key: String,
+        type_: UpdateMicrofrontendsResponseEnvItemTypeEnum,
+        value: String,
     ) -> Self {
         Self {
-            ai_bots,
-            bot_filter,
-            owasp,
-            traffic_sources,
-            vercel_ruleset,
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+            vsm_value: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
-    #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    #[default]
-    Unknown2,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Unknown2 => "*",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "*" => Self::Unknown2,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    #[default]
-    FixedWindow,
-    TokenBucket,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FixedWindow => "fixed_window",
-            Self::TokenBucket => "token_bucket",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimit {
-    pub algo: UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
+pub struct UpdateMicrofrontendsResponseFeatures {
+    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
+    pub web_analytics: Option<bool>,
+}
+
+impl UpdateMicrofrontendsResponseFeatures {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            web_analytics: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseFrameworkEnum {
+    #[default]
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseFrameworkEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }

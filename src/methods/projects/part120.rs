@@ -2,305 +2,299 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-
-impl CreateProjectResponseLatestDeploymentsItemBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl CreateProjectResponseLatestDeploymentsItemChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemChecksStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
+use crate::types::CreateProjectResponseEnvItemContentHint;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseLatestDeploymentsItemCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct CreateProjectResponseEnvItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    #[serde(
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    /// Typed representation of the `CreateProjectResponseEnvItemContentHint` API schema.
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<CreateProjectResponseEnvItemContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub custom_environment_ids: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint: Option<Option<CreateProjectResponseEnvItemInternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<CreateProjectResponseEnvItemTarget>,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemTypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<CreateProjectResponseEnvItemVisibilityEnum>,
+    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
+    pub vsm_value: Option<String>,
 }
 
-impl CreateProjectResponseLatestDeploymentsItemCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
+impl CreateProjectResponseEnvItem {
+    pub fn new(key: String, type_: CreateProjectResponseEnvItemTypeEnum, value: String) -> Self {
         Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+            vsm_value: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseLatestDeploymentsItemOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
+pub struct CreateProjectResponseFeatures {
+    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
+    pub web_analytics: Option<bool>,
 }
 
-impl CreateProjectResponseLatestDeploymentsItemOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
-    ) -> Self {
+impl CreateProjectResponseFeatures {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            web_analytics: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemPlanEnum {
+pub enum CreateProjectResponseFrameworkEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
     Unknown(String),
 }
 
-impl CreateProjectResponseLatestDeploymentsItemPlanEnum {
+impl CreateProjectResponseFrameworkEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemPlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl CreateProjectResponseLatestDeploymentsItemReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemReadyStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

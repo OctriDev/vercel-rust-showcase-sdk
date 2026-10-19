@@ -3,7 +3,40 @@
 
 use super::*;
 
-impl serde::Serialize for AddRouteRouteRouteTransformsItemOpEnum {
+impl StageRoutesRoutesItemRouteHasItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            type_: None,
+            key: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum StageRoutesRoutesItemRouteMissingItemTypeEnum {
+    #[default]
+    Host,
+    Header,
+    Cookie,
+    Query,
+    Unknown(String),
+}
+
+impl StageRoutesRoutesItemRouteMissingItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Host => "host",
+            Self::Header => "header",
+            Self::Cookie => "cookie",
+            Self::Query => "query",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for StageRoutesRoutesItemRouteMissingItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,7 +45,129 @@ impl serde::Serialize for AddRouteRouteRouteTransformsItemOpEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for AddRouteRouteRouteTransformsItemOpEnum {
+impl<'de> serde::Deserialize<'de> for StageRoutesRoutesItemRouteMissingItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "host" => Self::Host,
+            "header" => Self::Header,
+            "cookie" => Self::Cookie,
+            "query" => Self::Query,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for StageRoutesRoutesItemRouteMissingItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct StageRoutesRoutesItemRouteMissingItem {
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<StageRoutesRoutesItemRouteMissingItemTypeEnum>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+
+impl StageRoutesRoutesItemRouteMissingItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            type_: None,
+            key: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum StageRoutesRoutesItemRouteTransformsItemTypeEnum {
+    #[default]
+    RequestHeaders,
+    RequestQuery,
+    ResponseHeaders,
+    Unknown(String),
+}
+
+impl StageRoutesRoutesItemRouteTransformsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RequestHeaders => "request.headers",
+            Self::RequestQuery => "request.query",
+            Self::ResponseHeaders => "response.headers",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for StageRoutesRoutesItemRouteTransformsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for StageRoutesRoutesItemRouteTransformsItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "request.headers" => Self::RequestHeaders,
+            "request.query" => Self::RequestQuery,
+            "response.headers" => Self::ResponseHeaders,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for StageRoutesRoutesItemRouteTransformsItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum StageRoutesRoutesItemRouteTransformsItemOpEnum {
+    #[default]
+    Append,
+    Set,
+    Delete,
+    Unknown(String),
+}
+
+impl StageRoutesRoutesItemRouteTransformsItemOpEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Append => "append",
+            Self::Set => "set",
+            Self::Delete => "delete",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for StageRoutesRoutesItemRouteTransformsItemOpEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for StageRoutesRoutesItemRouteTransformsItemOpEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -27,18 +182,18 @@ impl<'de> serde::Deserialize<'de> for AddRouteRouteRouteTransformsItemOpEnum {
     }
 }
 
-impl std::fmt::Display for AddRouteRouteRouteTransformsItemOpEnum {
+impl std::fmt::Display for StageRoutesRoutesItemRouteTransformsItemOpEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRouteRouteRouteTransformsItem {
+pub struct StageRoutesRoutesItemRouteTransformsItem {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<AddRouteRouteRouteTransformsItemTypeEnum>,
+    pub type_: Option<StageRoutesRoutesItemRouteTransformsItemTypeEnum>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub op: Option<AddRouteRouteRouteTransformsItemOpEnum>,
+    pub op: Option<StageRoutesRoutesItemRouteTransformsItemOpEnum>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target: Option<serde_json::Value>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -47,7 +202,7 @@ pub struct AddRouteRouteRouteTransformsItem {
     pub env: Option<Vec<String>>,
 }
 
-impl AddRouteRouteRouteTransformsItem {
+impl StageRoutesRoutesItemRouteTransformsItem {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
@@ -61,7 +216,7 @@ impl AddRouteRouteRouteTransformsItem {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRouteRouteRoute {
+pub struct StageRoutesRoutesItemRoute {
     pub src: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dest: Option<String>,
@@ -72,11 +227,11 @@ pub struct AddRouteRouteRoute {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub has: Option<Vec<AddRouteRouteRouteHasItem>>,
+    pub has: Option<Vec<StageRoutesRoutesItemRouteHasItem>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub missing: Option<Vec<AddRouteRouteRouteMissingItem>>,
+    pub missing: Option<Vec<StageRoutesRoutesItemRouteMissingItem>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub transforms: Option<Vec<AddRouteRouteRouteTransformsItem>>,
+    pub transforms: Option<Vec<StageRoutesRoutesItemRouteTransformsItem>>,
     #[serde(
         rename = "respectOriginCacheControl",
         skip_serializing_if = "Option::is_none"
@@ -84,7 +239,7 @@ pub struct AddRouteRouteRoute {
     pub respect_origin_cache_control: Option<bool>,
 }
 
-impl AddRouteRouteRoute {
+impl StageRoutesRoutesItemRoute {
     pub fn new(src: String) -> Self {
         Self {
             src,
@@ -101,20 +256,26 @@ impl AddRouteRouteRoute {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRouteRoute {
+pub struct StageRoutesRoutesItem {
+    pub id: String,
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// Pattern syntax type. If not provided, inferred from pattern.
-    #[serde(rename = "srcSyntax", skip_serializing_if = "Option::is_none")]
-    pub src_syntax: Option<AddRouteRouteSrcSyntaxEnum>,
-    pub route: AddRouteRouteRoute,
+    pub route: StageRoutesRoutesItemRoute,
 }
 
-impl AddRouteRoute {
+impl StageRoutesRoutesItem {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_length(
+            "id",
+            &self.id,
+            crate::validation::LengthOpts {
+                max: Some(256),
+                ..Default::default()
+            },
+        )?;
         crate::validation::validate_length(
             "name",
             &self.name,
@@ -136,166 +297,19 @@ impl AddRouteRoute {
         Ok(())
     }
 
-    pub fn new(name: String, route: AddRouteRouteRoute) -> Result<Self, crate::errors::SdkError> {
+    pub fn new(
+        id: String,
+        name: String,
+        route: StageRoutesRoutesItemRoute,
+    ) -> Result<Self, crate::errors::SdkError> {
         let value = Self {
+            id,
             name,
             description: None,
             enabled: None,
-            src_syntax: None,
             route,
         };
         value.validate_constraints()?;
         Ok(value)
-    }
-}
-
-/// "after"/"before" require referenceId.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum AddRoutePositionPlacementEnum {
-    #[default]
-    Start,
-    End,
-    After,
-    Before,
-    Unknown(String),
-}
-
-impl AddRoutePositionPlacementEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Start => "start",
-            Self::End => "end",
-            Self::After => "after",
-            Self::Before => "before",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for AddRoutePositionPlacementEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for AddRoutePositionPlacementEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "start" => Self::Start,
-            "end" => Self::End,
-            "after" => Self::After,
-            "before" => Self::Before,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for AddRoutePositionPlacementEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Controls where the route is inserted. Defaults to "end" if omitted.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRoutePosition {
-    /// "after"/"before" require referenceId.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub placement: Option<AddRoutePositionPlacementEnum>,
-    /// Route ID to insert after/before. Required for "after"/"before".
-    #[serde(rename = "referenceId", skip_serializing_if = "Option::is_none")]
-    pub reference_id: Option<String>,
-}
-
-impl AddRoutePosition {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            placement: None,
-            reference_id: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRouteResponseRouteRouteLocale {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub cookie: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub redirect: Option<std::collections::HashMap<String, String>>,
-}
-
-impl AddRouteResponseRouteRouteLocale {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            cookie: None,
-            redirect: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum AddRouteResponseRouteRouteMitigateActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Unknown(String),
-}
-
-impl AddRouteResponseRouteRouteMitigateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for AddRouteResponseRouteRouteMitigateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for AddRouteResponseRouteRouteMitigateActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for AddRouteResponseRouteRouteMitigateActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AddRouteResponseRouteRouteMitigate {
-    pub action: AddRouteResponseRouteRouteMitigateActionEnum,
-}
-
-impl AddRouteResponseRouteRouteMitigate {
-    pub fn new(action: AddRouteResponseRouteRouteMitigateActionEnum) -> Self {
-        Self { action }
     }
 }

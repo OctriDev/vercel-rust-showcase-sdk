@@ -8,6 +8,161 @@ use crate::errors::{SdkError, SdkNetworkError};
 use crate::validation::{validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts};
 
 #[derive(Debug, Clone, Default)]
+pub struct ListDrivesParams {
+    pub project_id: Option<String>,
+    pub limit: Option<f64>,
+    pub cursor: Option<String>,
+    pub sort_by: Option<ListDrivesEnum>,
+    pub name_prefix: Option<String>,
+    pub sort_order: Option<ListDrivesEnum8d16c3eb>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
+/// Lists drives associated with a project in a paginated response. Use `projectId` to select the project unless the request uses a Vercel OIDC token scoped to one, and use `namePrefix` to filter by name when sorting by name. Continue through the results with the pagination cursor returned in the response.
+///
+/// Retrieves a paginated list of drives belonging to a specific project.
+///
+/// # Arguments
+///
+/// * `project_id` - The project ID or name associated with the drives. Required
+///   unless using a Vercel OIDC token scoped to a project.
+/// * `limit` - Maximum number of drives to return in the response. Used for
+///   pagination.
+/// * `cursor` - Opaque pagination cursor from a previous response.
+/// * `sort_by` - Field to sort drives by.
+/// * `name_prefix` - Filter drives whose name starts with this prefix. Only
+///   valid when sortBy=name.
+/// * `sort_order` - Sort direction for results.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn list_drives(
+    config: &ClientConfig,
+    params: ListDrivesParams,
+    options: Option<&RequestOptions>,
+) -> Result<ListDrivesResponse, SdkError> {
+    let ListDrivesParams {
+        project_id,
+        limit,
+        cursor,
+        sort_by,
+        name_prefix,
+        sort_order,
+        team_id,
+        slug,
+    } = params;
+    if let Some(ref limit_v) = limit {
+        validate_range(
+            "limit",
+            *limit_v,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(50_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(8);
+    if let Some(ref v) = project_id {
+        __query.push(("projectId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = cursor {
+        __query.push(("cursor", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = sort_by {
+        __query.push(("sortBy", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = name_prefix {
+        __query.push(("namePrefix", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = sort_order {
+        __query.push(("sortOrder", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<ListDrivesResponse>(
+        "GET",
+        "/v2/sandboxes/drives",
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_drives",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Retrieves a drive by its name or ID within a project. Supply `projectId` unless the request uses a Vercel OIDC token scoped to a project. The drive name or ID must use only letters, digits, hyphens, or underscores and be no longer than 64 characters.
+///
+/// Gets an existing drive by project and name or drive ID. Returns 404 if doesn't exist.
+///
+/// # Arguments
+///
+/// * `name_or_id` - The drive name or ID.
+/// * `project_id` - The project ID or name associated with the drive. Required
+///   unless using a Vercel OIDC token scoped to a project.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn get_drive(
+    config: &ClientConfig,
+    name_or_id: String,
+    project_id: Option<String>,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<GetDriveResponse, SdkError> {
+    validate_length(
+        "nameOrId",
+        &name_or_id,
+        LengthOpts {
+            max: Some(64),
+            ..Default::default()
+        },
+    )?;
+    validate_pattern("nameOrId", &name_or_id, "^[a-zA-Z0-9_-]+$")?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
+    if let Some(ref v) = project_id {
+        __query.push(("projectId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<GetDriveResponse>(
+        "GET",
+        &format!(
+            "/v2/sandboxes/drives/{}",
+            crate::client::encode_path_segment(&name_or_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_drive",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct GetOrCreateDriveParams {
     pub name: String,
     pub team_id: Option<String>,
@@ -368,118 +523,6 @@ pub fn list_session_snapshots(
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "list_session_snapshots",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves details for a specific sandbox snapshot, including its creation time, size, expiration, and source session. Use `snapshotId` to identify the snapshot whose details you need. The response contains the snapshot object.
-///
-/// Retrieves detailed information about a specific snapshot, including its creation time, size, expiration date, and the source session it was created from.
-///
-/// # Arguments
-///
-/// * `snapshot_id` - The unique identifier of the snapshot to retrieve.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_session_snapshot(
-    config: &ClientConfig,
-    snapshot_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetSessionSnapshotResponse, SdkError> {
-    validate_length(
-        "snapshotId",
-        &snapshot_id,
-        LengthOpts {
-            max: Some(33),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern(
-        "snapshotId",
-        &snapshot_id,
-        "^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$",
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetSessionSnapshotResponse>(
-        "GET",
-        &format!(
-            "/v2/sandboxes/snapshots/{}",
-            crate::client::encode_path_segment(&snapshot_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_session_snapshot",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Deletes a sandbox snapshot and frees its associated storage. Use `snapshotId` to select the snapshot to remove; a deleted snapshot cannot be used to create new sessions. <Callout type="warning"\>Deletion is permanent and cannot be undone.</Callout\>
-///
-/// Permanently deletes a snapshot and frees its associated storage. This action cannot be undone. After deletion, the snapshot can no longer be used to create new sessions.
-///
-/// # Arguments
-///
-/// * `snapshot_id` - The unique identifier of the snapshot to delete.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_session_snapshot(
-    config: &ClientConfig,
-    snapshot_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<DeleteSessionSnapshotResponse, SdkError> {
-    validate_length(
-        "snapshotId",
-        &snapshot_id,
-        LengthOpts {
-            max: Some(33),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern(
-        "snapshotId",
-        &snapshot_id,
-        "^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$",
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<DeleteSessionSnapshotResponse>(
-        "DELETE",
-        &format!(
-            "/v2/sandboxes/snapshots/{}",
-            crate::client::encode_path_segment(&snapshot_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "delete_session_snapshot",
             options,
             ..Default::default()
         },

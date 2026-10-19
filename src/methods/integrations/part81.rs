@@ -2,31 +2,54 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9 {
+    pub fn new(
+        type_: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum,
+        ui_control: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum,
+        ui_options: Vec<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UioptionsItem>,
+    ) -> Self {
+        Self {
+            default: None,
+            description: None,
+            max_length: None,
+            min_length: None,
+            pattern: None,
+            type_,
+            ui_control,
+            ui_description: None,
+            ui_disabled: None,
+            ui_formatted_value: None,
+            ui_hidden: None,
+            ui_label: None,
+            ui_options,
+            ui_paid_only: None,
+            ui_placeholder: None,
+            ui_read_only: None,
+        }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetConfigurationsEnum528534bd {
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10TypeEnum
+{
     #[default]
-    External,
-    Marketplace,
-    Provisioning,
+    String,
     Unknown(String),
 }
 
-impl GetConfigurationsEnum528534bd {
+impl
+    CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10TypeEnum
+{
     pub fn as_str(&self) -> &str {
         match self {
-            Self::External => "external",
-            Self::Marketplace => "marketplace",
-            Self::Provisioning => "provisioning",
+            Self::String => "string",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetConfigurationsEnum528534bd {
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -35,62 +58,43 @@ impl serde::Serialize for GetConfigurationsEnum528534bd {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetConfigurationsEnum528534bd {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "external" => Self::External,
-            "marketplace" => Self::Marketplace,
-            "provisioning" => Self::Provisioning,
+            "string" => Self::String,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetConfigurationsEnum528534bd {
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectSourceEnum {
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UicontrolEnum
+{
     #[default]
-    Backoffice,
-    Cli,
-    DeployButton,
-    External,
-    ImportRecommendedIntegrations,
-    Marketplace,
-    Oauth,
-    Organization,
-    ResourceClaims,
-    V0,
+    Domain,
     Unknown(String),
 }
 
-impl CreateIntegrationStoreDirectSourceEnum {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UicontrolEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Backoffice => "backoffice",
-            Self::Cli => "cli",
-            Self::DeployButton => "deploy-button",
-            Self::External => "external",
-            Self::ImportRecommendedIntegrations => "import-recommended-integrations",
-            Self::Marketplace => "marketplace",
-            Self::Oauth => "oauth",
-            Self::Organization => "organization",
-            Self::ResourceClaims => "resource-claims",
-            Self::V0 => "v0",
+            Self::Domain => "domain",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateIntegrationStoreDirectSourceEnum {
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UicontrolEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -99,311 +103,191 @@ impl serde::Serialize for CreateIntegrationStoreDirectSourceEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectSourceEnum {
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UicontrolEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "backoffice" => Self::Backoffice,
-            "cli" => Self::Cli,
-            "deploy-button" => Self::DeployButton,
-            "external" => Self::External,
-            "import-recommended-integrations" => Self::ImportRecommendedIntegrations,
-            "marketplace" => Self::Marketplace,
-            "oauth" => Self::Oauth,
-            "organization" => Self::Organization,
-            "resource-claims" => Self::ResourceClaims,
-            "v0" => Self::V0,
+            "domain" => Self::Domain,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateIntegrationStoreDirectSourceEnum {
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UicontrolEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Lists Git namespaces for a supported provider. Use `provider` to select a provider, or omit it to let the API infer the provider from the authenticated user; provide `host` when using a custom Git host. Set `viewerMetadata` to include viewer information for each namespace.
-///
-/// Lists git namespaces for a supported provider. Supported providers are `github`, `gitlab` and `bitbucket`. If the provider is not provided, it will try to obtain it from the user that authenticated the request.
-///
-/// # Arguments
-///
-/// * `host` - The custom Git host if using a custom Git provider, like GitHub
-///   Enterprise Server
-/// * `viewer_metadata` - When true, includes the viewer object for each
-///   namespace.
-pub fn git_namespaces(
-    config: &ClientConfig,
-    host: Option<String>,
-    provider: Option<GitNamespacesEnum>,
-    viewer_metadata: Option<bool>,
-    options: Option<&RequestOptions>,
-) -> Result<Vec<GitNamespacesResponseItem>, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = host {
-        __query.push(("host", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = provider {
-        __query.push(("provider", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = viewer_metadata {
-        __query.push(("viewerMetadata", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<Vec<GitNamespacesResponseItem>>(
-        "GET",
-        "/v1/integrations/git-namespaces",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "git_namespaces",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1
+{
+    pub expr: String,
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct SearchRepoParams {
-    pub query: Option<String>,
-    pub namespace_id: Option<Option<SearchRepo>>,
-    pub provider: Option<SearchRepoEnum>,
-    pub installation_id: Option<String>,
-    pub host: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
+    }
 }
 
-/// Searches for Git repositories linked to a namespace for a supported provider. Use `namespaceId` and `provider` to narrow the search, or omit them to let the API infer values from the authenticated user; `query` can filter the repositories. Supply `host` when using a custom Git host.
-///
-/// Lists git repositories linked to a namespace `id` for a supported provider. A specific namespace `id` can be obtained via the `git-namespaces` endpoint. Supported providers are `github`, `gitlab` and `bitbucket`. If the provider or namespace is not provided, it will try to obtain it from the user that authenticated the request.
-///
-/// # Arguments
-///
-/// * `host` - The custom Git host if using a custom Git provider, like GitHub
-///   Enterprise Server
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn search_repo(
-    config: &ClientConfig,
-    params: SearchRepoParams,
-    options: Option<&RequestOptions>,
-) -> Result<SearchRepoResponse, SdkError> {
-    let SearchRepoParams {
-        query,
-        namespace_id,
-        provider,
-        installation_id,
-        host,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(7);
-    if let Some(ref v) = query {
-        __query.push(("query", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = namespace_id {
-        __query.push(("namespaceId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = provider {
-        __query.push(("provider", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = installation_id {
-        __query.push(("installationId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = host {
-        __query.push(("host", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<SearchRepoResponse>(
-        "GET",
-        "/v1/integrations/search-repo",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "search_repo",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidescription
+{
+    String(String),
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1>),
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct GetBillingPlansParams {
-    pub integration_id_or_slug: String,
-    pub product_id_or_slug: String,
-    pub integration_configuration_id: Option<String>,
-    pub metadata: Option<String>,
-    pub source: Option<GetBillingPlansEnum>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidescription {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidescription branch accepts this payload"))
+    }
 }
 
-/// Lists billing plans for an integration and product. Use `integrationIdOrSlug` and `productIdOrSlug` to identify them, and use `source` to filter by the source of the request. You can also provide `integrationConfigurationId` or `metadata` to scope the plan lookup.
-///
-/// Get a list of billing plans for an integration and product.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_billing_plans(
-    config: &ClientConfig,
-    params: GetBillingPlansParams,
-    options: Option<&RequestOptions>,
-) -> Result<GetBillingPlansResponse, SdkError> {
-    let GetBillingPlansParams {
-        integration_id_or_slug,
-        product_id_or_slug,
-        integration_configuration_id,
-        metadata,
-        source,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    if let Some(ref v) = integration_configuration_id {
-        __query.push(("integrationConfigurationId", crate::client::query_value(v)));
+impl ::std::convert::From<String> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidescription {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
-    if let Some(ref v) = metadata {
-        __query.push(("metadata", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = source {
-        __query.push(("source", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetBillingPlansResponse>(
-        "GET",
-        &format!(
-            "/v1/integrations/integration/{}/products/{}/plans",
-            crate::client::encode_path_segment(&integration_id_or_slug),
-            crate::client::encode_path_segment(&product_id_or_slug)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_billing_plans",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct ConnectIntegrationResourceToProjectParams {
-    pub integration_configuration_id: String,
-    pub resource_id: String,
-    pub project_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub env_var_environments:
-        Option<Vec<ConnectIntegrationResourceToProjectEnvVarEnvironmentsItem>>,
-    pub make_env_vars_sensitive: Option<bool>,
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidescription {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidescriptionVariant1>) -> Self {
+        Self::Object(value)
+    }
 }
 
-/// Connects a provisioned integration resource to a project. Supply `projectId` in the request body to establish the connection, and optionally choose which environments receive environment variables or mark those variables as sensitive. Use this operation for a resource that has already been provisioned through an integration.
-///
-/// Connects an integration resource to a Vercel project. This endpoint establishes a connection between a provisioned integration resource (from storage APIs like `POST /v1/storage/stores/integration/direct`) and a specific Vercel project.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn connect_integration_resource_to_project(
-    config: &ClientConfig,
-    params: ConnectIntegrationResourceToProjectParams,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let ConnectIntegrationResourceToProjectParams {
-        integration_configuration_id,
-        resource_id,
-        project_id,
-        team_id,
-        slug,
-        env_var_environments,
-        make_env_vars_sensitive,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0
+{
+    pub expr: String,
+}
 
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "projectId".to_string(),
-        serde_json::to_value(project_id).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = env_var_environments {
-        __body_map.insert(
-            "envVarEnvironments".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
     }
-    if let Some(ref value) = make_env_vars_sensitive {
-        __body_map.insert(
-            "makeEnvVarsSensitive".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
+}
 
-    Ok(sdk_request::<serde_json::Value>(
-        "POST",
-        &format!(
-            "/v1/integrations/installations/{}/resources/{}/connections",
-            crate::client::encode_path_segment(&integration_configuration_id),
-            crate::client::encode_path_segment(&resource_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "connect_integration_resource_to_project",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum
+{
+    #[default]
+    Create,
+    Update,
+    Unknown(String),
+}
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Create => "create",
+            Self::Update => "update",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "create" => Self::Create,
+            "update" => Self::Update,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled
+{
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0>),
+    Bool(bool),
+    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum>(value.clone()) {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10Uidisabled {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant10UidisabledVariant2Enum) -> Self {
+        Self::Literal(value)
+    }
 }

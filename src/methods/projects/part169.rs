@@ -3,309 +3,279 @@
 
 use super::*;
 
-impl GetProjectsResponseTargetsValue {
-    #[allow(clippy::too_many_arguments)]
+impl serde::Serialize for GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseSecurityRulesetsValueRateLimit {
+    pub algo: GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
+}
+
+impl GetProjectsResponseSecurityRulesetsValueRateLimit {
     pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<GetProjectsResponseTargetsValueCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: GetProjectsResponseTargetsValuePlanEnum,
-        private: bool,
-        ready_state: GetProjectsResponseTargetsValueReadyStateEnum,
-        type_: GetProjectsResponseTargetsValueTypeEnum,
-        url: String,
+        algo: GetProjectsResponseSecurityRulesetsValueRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
     ) -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+            algo,
+            keys,
+            limit,
+            window,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTierEnum {
-    #[default]
-    Priority,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTierEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Priority => "priority",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTierEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTierEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "priority" => Self::Priority,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTierEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTracingSamplingRulesItemDestinationEnum {
-    #[default]
-    External,
-    Internal,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTracingSamplingRulesItemDestinationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::External => "external",
-            Self::Internal => "internal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTracingSamplingRulesItemDestinationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTracingSamplingRulesItemDestinationEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "external" => Self::External,
-            "internal" => Self::Internal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTracingSamplingRulesItemDestinationEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTracingSamplingRulesItemEnvEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl GetProjectsResponseTracingSamplingRulesItemEnvEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseTracingSamplingRulesItemEnvEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseTracingSamplingRulesItemEnvEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseTracingSamplingRulesItemEnvEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseTracingSamplingRulesItem {
-    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub destination: Option<GetProjectsResponseTracingSamplingRulesItemDestinationEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<GetProjectsResponseTracingSamplingRulesItemEnvEnum>,
-    pub rate: f64,
-    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
-    pub request_path: Option<String>,
+pub struct GetProjectsResponseSecurityRulesetsValueRedirect {
+    pub location: String,
+    pub permanent: bool,
 }
 
-impl GetProjectsResponseTracingSamplingRulesItem {
-    pub fn new(rate: f64) -> Self {
+impl GetProjectsResponseSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
         Self {
-            destination: None,
-            env: None,
-            rate,
-            request_path: None,
+            location,
+            permanent,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseTracing {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<String>,
-    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
-    pub ignore_paths: Option<Vec<String>>,
-    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
-    pub sampling_rules: Option<Vec<GetProjectsResponseTracingSamplingRulesItem>>,
+pub struct GetProjectsResponseSecurityRulesetsValue {
+    pub action: GetProjectsResponseSecurityRulesetsValueActionEnum,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<GetProjectsResponseSecurityRulesetsValueLogHeaders>,
+    #[serde(
+        rename = "rateLimit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rate_limit: Option<Option<GetProjectsResponseSecurityRulesetsValueRateLimit>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<GetProjectsResponseSecurityRulesetsValueRedirect>>,
 }
 
-impl GetProjectsResponseTracing {
+impl GetProjectsResponseSecurityRulesetsValue {
+    pub fn new(action: GetProjectsResponseSecurityRulesetsValueActionEnum) -> Self {
+        Self {
+            action,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
+            rate_limit: None,
+            redirect: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseSecurity {
+    #[serde(
+        rename = "attackModeActiveUntil",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub attack_mode_active_until: Option<Option<f64>>,
+    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
+    pub attack_mode_enabled: Option<bool>,
+    #[serde(
+        rename = "attackModeUpdatedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub attack_mode_updated_at: Option<f64>,
+    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
+    pub bot_id_enabled: Option<bool>,
+    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
+    pub firewall_bypass_ips: Option<Vec<String>>,
+    #[serde(
+        rename = "firewallConfigVersion",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_config_version: Option<f64>,
+    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
+    pub firewall_enabled: Option<bool>,
+    #[serde(
+        rename = "firewallSeawallEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_seawall_enabled: Option<bool>,
+    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub firewall_updated_at: Option<f64>,
+    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja3_enabled: Option<bool>,
+    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja4_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<GetProjectsResponseSecurityLogHeaders>,
+    #[serde(
+        rename = "managedRules",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub managed_rules: Option<Option<GetProjectsResponseSecurityManagedRules>>,
+    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
+    #[serde(
+        rename = "pageIntegrityEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_integrity_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rulesets:
+        Option<std::collections::HashMap<String, GetProjectsResponseSecurityRulesetsValue>>,
+}
+
+impl GetProjectsResponseSecurity {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            domains: None,
-            ignore_paths: None,
-            sampling_rules: None,
+            attack_mode_active_until: None,
+            attack_mode_enabled: None,
+            attack_mode_updated_at: None,
+            bot_id_enabled: None,
+            firewall_bypass_ips: None,
+            firewall_config_version: None,
+            firewall_enabled: None,
+            firewall_seawall_enabled: None,
+            firewall_updated_at: None,
+            ja3_enabled: None,
+            ja4_enabled: None,
+            log_headers: None,
+            managed_rules: None,
+            page_integrity_enabled: None,
+            rulesets: None,
         }
     }
 }
 
+/// Framework slug, when the service has one (omitted otherwise).
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+pub enum GetProjectsResponseServicesItemFrameworkEnum {
     #[default]
-    AllCustom,
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
     Unknown(String),
-}
-
-impl GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
 }

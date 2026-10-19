@@ -3,7 +3,70 @@
 
 use super::*;
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTracingSamplingRulesItem {
+    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub destination:
+        Option<GetMicrofrontendsInGroupResponseProjectsItemTracingSamplingRulesItemDestinationEnum>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<GetMicrofrontendsInGroupResponseProjectsItemTracingSamplingRulesItemEnvEnum>,
+    pub rate: f64,
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTracingSamplingRulesItem {
+    pub fn new(rate: f64) -> Self {
+        Self {
+            destination: None,
+            env: None,
+            rate,
+            request_path: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTracing {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<String>,
+    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
+    pub ignore_paths: Option<Vec<String>>,
+    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
+    pub sampling_rules:
+        Option<Vec<GetMicrofrontendsInGroupResponseProjectsItemTracingSamplingRulesItem>>,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTracing {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            domains: None,
+            ignore_paths: None,
+            sampling_rules: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,7 +75,7 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSou
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -25,7 +88,7 @@ impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsIt
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -33,16 +96,14 @@ impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSo
 
 /// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum>,
+    pub preset: Option<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
     /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
     pub slugs: Vec<String>,
 }
 
-impl
-    GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0
-{
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
     pub fn new(slugs: Vec<String>) -> Self {
         Self {
             preset: None,
@@ -52,14 +113,14 @@ impl
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
 {
     #[default]
     AllCustom,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::AllCustom => "all-custom",
@@ -68,7 +129,7 @@ impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCust
     }
 }
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -77,7 +138,7 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSou
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -90,7 +151,7 @@ impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsIt
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -98,18 +159,16 @@ impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSo
 
 /// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub preset: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
+    pub preset: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
     /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slugs: Option<Vec<String>>,
 }
 
-impl
-    GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1
-{
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
     pub fn new(
-        preset: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+        preset: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
     ) -> Self {
         Self {
             preset,
@@ -120,127 +179,86 @@ impl
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemTo {
-    AllCustom(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
-    AllCustom2(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1>),
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo {
+    AllCustom(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>),
+    AllCustom2(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemTo
+    for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0>>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>>(value.clone()) {
             let candidate = Self::AllCustom(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant1>>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>>(value.clone()) {
             let candidate = Self::AllCustom2(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
     }
 }
 
-/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItem {
-    pub from:
-        GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFrom,
-    pub to:
-        GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemTo,
+impl ::std::convert::From<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo {
+    fn from(value: Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>) -> Self {
+        Self::AllCustom(value)
+    }
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItem {
-    pub fn new(
-        from: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFrom,
-        to: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemTo,
-    ) -> Self {
-        Self { from, to }
+impl ::std::convert::From<Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo {
+    fn from(value: Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>) -> Self {
+        Self::AllCustom2(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValue {
-    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
-    pub custom_allow: Option<
-        Vec<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItem>,
-    >,
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItem {
+    pub to: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo,
+    pub claims: std::collections::HashMap<String, Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItem {
+    pub fn new(
+        to: GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItemTo,
+        claims: std::collections::HashMap<String, Vec<String>>,
+    ) -> Self {
         Self {
-            custom_allow: None,
+            to,
+            claims,
             label: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSources {
-    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
-    #[serde(
-        rename = "enableVercelCiSameRepository",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_vercel_ci_same_repository: Option<bool>,
-    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
-    pub oidc_providers: Option<
-        std::collections::HashMap<
-            String,
-            Vec<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesOidcProvidersValueItem>,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub projects: Option<
-        std::collections::HashMap<
-            String,
-            GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValue,
-        >,
-    >,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSources {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enable_vercel_ci_same_repository: None,
-            oidc_providers: None,
-            projects: None,
-        }
-    }
-}
-
-/// Billing mode. Always 'flat' for flat-rate projects.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
     #[default]
-    Flat,
+    AllCustom,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Flat => "flat",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum {
+impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -249,84 +267,44 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemUsageStatu
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum
-{
+impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "flat" => Self::Flat,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum {
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The source envs on the trusted project that are allowed to access `to`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemUsageStatus {
-    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
-    #[serde(
-        rename = "bypassThrottleUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bypass_throttle_until: Option<f64>,
-    /// Timestamp until which the project has exceeded its CDN allowance.
-    #[serde(
-        rename = "exceededAllowanceUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub exceeded_allowance_until: Option<f64>,
-    /// Billing mode. Always 'flat' for flat-rate projects.
-    pub kind: GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum,
-    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
-    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
-    pub team_throttled: Option<bool>,
-    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub throttled: Option<bool>,
+    pub preset: Option<GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemUsageStatus {
-    pub fn new(kind: GetMicrofrontendsInGroupResponseProjectsItemUsageStatusKindEnum) -> Self {
-        Self {
-            bypass_throttle_until: None,
-            exceeded_allowance_until: None,
-            kind,
-            team_throttled: None,
-            throttled: None,
-        }
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self { preset: None, slugs }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemWebAnalytics {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemWebAnalytics {
-    pub fn new(id: String) -> Self {
-        Self {
-            canceled_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
-        }
-    }
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    #[default]
+    AllCustom,
+    Unknown(String),
 }

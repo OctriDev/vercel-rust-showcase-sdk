@@ -3,6 +3,38 @@
 
 use super::*;
 
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
+    #[serde(rename = "github")]
+    #[default]
+    Github,
+}
+
+impl UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Github => "github",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum::Github => {
+                f.write_str("github")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateVercelCiRepositorySettingsResponseProviderVariant3Enum {
+    #[serde(rename = "gitlab")]
+    #[default]
+    Gitlab,
+}
+
 impl UpdateVercelCiRepositorySettingsResponseProviderVariant3Enum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -115,6 +147,46 @@ impl<'de> serde::Deserialize<'de> for UpdateVercelCiRepositorySettingsResponsePr
                 "no UpdateVercelCiRepositorySettingsResponseProvider branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Box<UpdateVercelCiRepositorySettingsResponseProviderVariant0Enum>>
+    for UpdateVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<UpdateVercelCiRepositorySettingsResponseProviderVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateVercelCiRepositorySettingsResponseProviderVariant1Enum>>
+    for UpdateVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<UpdateVercelCiRepositorySettingsResponseProviderVariant1Enum>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum>>
+    for UpdateVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateVercelCiRepositorySettingsResponseProviderVariant3Enum>>
+    for UpdateVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<UpdateVercelCiRepositorySettingsResponseProviderVariant3Enum>) -> Self {
+        Self::Object4(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateVercelCiRepositorySettingsResponseProviderVariant4Enum>>
+    for UpdateVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<UpdateVercelCiRepositorySettingsResponseProviderVariant4Enum>) -> Self {
+        Self::Object5(value)
     }
 }
 
@@ -242,54 +314,6 @@ impl ListVercelCiInvocationsItemEnum146c1f41 {
             Self::Succeeded => "succeeded",
             Self::Failed => "failed",
             Self::Skipped => "skipped",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListVercelCiInvocationsItemEnum146c1f41 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListVercelCiInvocationsItemEnum146c1f41 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "succeeded" => Self::Succeeded,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListVercelCiInvocationsItemEnum146c1f41 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListVercelCiInvocationsItemEnumead06394 {
-    #[default]
-    VercelCi,
-    VercelNativeChecks,
-    Unknown(String),
-}
-
-impl ListVercelCiInvocationsItemEnumead06394 {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelCi => "vercel-ci",
-            Self::VercelNativeChecks => "vercel-native-checks",
             Self::Unknown(value) => value.as_str(),
         }
     }

@@ -3,6 +3,18 @@
 
 use super::*;
 
+impl GetTeamMembersResponseMembersItemProjectsItemRoleEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Admin => "ADMIN",
+            Self::ProjectDeveloper => "PROJECT_DEVELOPER",
+            Self::ProjectGuest => "PROJECT_GUEST",
+            Self::ProjectViewer => "PROJECT_VIEWER",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for GetTeamMembersResponseMembersItemProjectsItemRoleEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -298,11 +310,5 @@ impl<'de> serde::Deserialize<'de> for InviteUserToTeamItemRoleEnum {
             "CONTRIBUTOR" => Self::Contributor,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for InviteUserToTeamItemRoleEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

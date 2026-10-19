@@ -3,6 +3,37 @@
 
 use super::*;
 
+impl serde::Serialize for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "ADMIN" => Self::Admin,
+            "PROJECT_DEVELOPER" => Self::ProjectDeveloper,
+            "PROJECT_GUEST" => Self::ProjectGuest,
+            "PROJECT_VIEWER" => Self::ProjectViewer,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListAccessGroupProjectsResponseProjectsItemRoleEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListAccessGroupProjectsResponseProjectsItem {
     #[serde(rename = "createdAt")]
@@ -286,41 +317,4 @@ pub enum UpdateAccessGroupProjectResponseRoleEnum {
     ProjectGuest,
     ProjectViewer,
     Unknown(String),
-}
-
-impl UpdateAccessGroupProjectResponseRoleEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Admin => "ADMIN",
-            Self::ProjectDeveloper => "PROJECT_DEVELOPER",
-            Self::ProjectGuest => "PROJECT_GUEST",
-            Self::ProjectViewer => "PROJECT_VIEWER",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateAccessGroupProjectResponseRoleEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateAccessGroupProjectResponseRoleEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "ADMIN" => Self::Admin,
-            "PROJECT_DEVELOPER" => Self::ProjectDeveloper,
-            "PROJECT_GUEST" => Self::ProjectGuest,
-            "PROJECT_VIEWER" => Self::ProjectViewer,
-            _ => Self::Unknown(value),
-        })
-    }
 }

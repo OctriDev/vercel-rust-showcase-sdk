@@ -3,48 +3,20 @@
 
 use super::*;
 
-impl serde::Serialize for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flags-secret" => Self::FlagsSecret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 /// Similar to `contentHints`, but should not be exposed to the user.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant2InternalContentHint {
+pub struct CreateProjectEnvResponseCreatedVariant1ItemInternalContentHint {
     /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
     #[serde(rename = "encryptedValue")]
     pub encrypted_value: String,
     #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum,
+    pub type_: CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum,
 }
 
-impl RemoveProjectEnvResponseVariant2InternalContentHint {
+impl CreateProjectEnvResponseCreatedVariant1ItemInternalContentHint {
     pub fn new(
         encrypted_value: String,
-        type_: RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum,
+        type_: CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum,
     ) -> Self {
         Self {
             encrypted_value,
@@ -54,57 +26,7 @@ impl RemoveProjectEnvResponseVariant2InternalContentHint {
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+pub enum CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
     #[default]
     Production,
     Preview,
@@ -112,7 +34,7 @@ pub enum RemoveProjectEnvResponseVariant2TargetVariant1Enum {
     Unknown(String),
 }
 
-impl RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+impl CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Production => "production",
@@ -123,7 +45,7 @@ impl RemoveProjectEnvResponseVariant2TargetVariant1Enum {
     }
 }
 
-impl serde::Serialize for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -132,7 +54,9 @@ impl serde::Serialize for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -147,7 +71,7 @@ impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TargetVari
     }
 }
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -155,27 +79,24 @@ impl std::fmt::Display for RemoveProjectEnvResponseVariant2TargetVariant1Enum {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum RemoveProjectEnvResponseVariant2Target {
-    Variant0ItemEnumArray(Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>),
-    Literal(RemoveProjectEnvResponseVariant2TargetVariant1Enum),
+pub enum CreateProjectEnvResponseCreatedVariant1ItemTarget {
+    StringArray(Vec<String>),
+    Literal(CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum),
 }
 
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2Target {
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant1ItemTarget {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<RemoveProjectEnvResponseVariant2TargetVariant0ItemEnum>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemEnumArray(branch);
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            RemoveProjectEnvResponseVariant2TargetVariant1Enum,
+            CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum,
         >(value.clone())
         {
             let candidate = Self::Literal(branch);
@@ -186,14 +107,28 @@ impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2Target {
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no RemoveProjectEnvResponseVariant2Target branch accepts this payload",
+                "no CreateProjectEnvResponseCreatedVariant1ItemTarget branch accepts this payload",
             )
         })
     }
 }
 
+impl ::std::convert::From<Vec<String>> for CreateProjectEnvResponseCreatedVariant1ItemTarget {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum>
+    for CreateProjectEnvResponseCreatedVariant1ItemTarget
+{
+    fn from(value: CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum RemoveProjectEnvResponseVariant2TypeEnum {
+pub enum CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
     #[default]
     Encrypted,
     Plain,
@@ -203,7 +138,7 @@ pub enum RemoveProjectEnvResponseVariant2TypeEnum {
     Unknown(String),
 }
 
-impl RemoveProjectEnvResponseVariant2TypeEnum {
+impl CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Encrypted => "encrypted",
@@ -216,7 +151,7 @@ impl RemoveProjectEnvResponseVariant2TypeEnum {
     }
 }
 
-impl serde::Serialize for RemoveProjectEnvResponseVariant2TypeEnum {
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -225,7 +160,7 @@ impl serde::Serialize for RemoveProjectEnvResponseVariant2TypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TypeEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -242,7 +177,7 @@ impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2TypeEnum {
     }
 }
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2TypeEnum {
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -250,14 +185,14 @@ impl std::fmt::Display for RemoveProjectEnvResponseVariant2TypeEnum {
 
 /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum RemoveProjectEnvResponseVariant2VisibilityEnum {
+pub enum CreateProjectEnvResponseCreatedVariant1ItemVisibilityEnum {
     #[default]
     Config,
     Secret,
     Unknown(String),
 }
 
-impl RemoveProjectEnvResponseVariant2VisibilityEnum {
+impl CreateProjectEnvResponseCreatedVariant1ItemVisibilityEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Config => "config",
@@ -267,7 +202,7 @@ impl RemoveProjectEnvResponseVariant2VisibilityEnum {
     }
 }
 
-impl serde::Serialize for RemoveProjectEnvResponseVariant2VisibilityEnum {
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemVisibilityEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -276,7 +211,7 @@ impl serde::Serialize for RemoveProjectEnvResponseVariant2VisibilityEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2VisibilityEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant1ItemVisibilityEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -290,7 +225,7 @@ impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2Visibility
     }
 }
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2VisibilityEnum {
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemVisibilityEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

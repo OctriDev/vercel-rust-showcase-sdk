@@ -3,130 +3,365 @@
 
 use super::*;
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemPassportDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemPassportDeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemPassportDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemPassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: ListProjectsResponseVariant2ProjectsItemPassportDeploymentTypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemPassport {
+impl ListProjectsResponseVariant2ProjectsItemLinkVariant7 {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        connector_id: String,
-        deployment_type: ListProjectsResponseVariant2ProjectsItemPassportDeploymentTypeEnum,
+        deploy_hooks: Vec<ListProjectsResponseVariant2ProjectsItemLinkVariant7DeployHooksItem>,
+        git_credential_id: String,
+        owner: String,
+        owner_id: String,
+        production_branch: String,
+        repo: String,
+        repo_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemLinkVariant7TypeEnum,
     ) -> Self {
         Self {
-            connector_id,
-            deployment_type,
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            owner,
+            owner_id,
+            production_branch,
+            repo,
+            repo_id,
+            sourceless: None,
+            type_,
+            updated_at: None,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemLink {
+    Github(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>),
+    GithubLimited(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>),
+    GithubCustomHost(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>),
+    Gitlab(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>),
+    Bitbucket(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>),
+    Vercel(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>),
+    V0(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>),
+    CursorOrigin(Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemLink {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Github(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::GithubLimited(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::GithubCustomHost(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::Gitlab(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::Bitbucket(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>,
+        >(value.clone())
+        {
+            let candidate = Self::Vercel(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>,
+        >(value.clone())
+        {
+            let candidate = Self::V0(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>,
+        >(value.clone())
+        {
+            let candidate = Self::CursorOrigin(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no ListProjectsResponseVariant2ProjectsItemLink branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>>
+    for ListProjectsResponseVariant2ProjectsItemLink
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant0>) -> Self {
+        Self::Github(value)
     }
 }
 
-/// Password protection settings returned without the secret password hash.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemPasswordProtection {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type:
-        ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum,
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant1>) -> Self {
+        Self::GithubLimited(value)
+    }
 }
 
-impl ListProjectsResponseVariant2ProjectsItemPasswordProtection {
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant2>) -> Self {
+        Self::GithubCustomHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant3>) -> Self {
+        Self::Gitlab(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant4>) -> Self {
+        Self::Bitbucket(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant5>) -> Self {
+        Self::Vercel(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant6>) -> Self {
+        Self::V0(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>>
+    for ListProjectsResponseVariant2ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemLinkVariant7>) -> Self {
+        Self::CursorOrigin(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant0 {
+    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`
+    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
+    pub default_route: Option<String>,
+    /// Whether microfrontends are enabled for this project.
+    pub enabled: bool,
+    /// Whether the project was part of the legacy limits for hobby and pro-trial before billing was added. This field is only set when the team is upgraded to a paid plan and we are backfilling the subscription status. We cap the subscription to 2 projects and set this field for the 3rd project. When this field is set, the project is not charged for and we do not call any billing APIs for this project.
+    #[serde(
+        rename = "freeProjectForLegacyLimits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub free_project_for_legacy_limits: Option<bool>,
+    /// The group IDs of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
+    #[serde(rename = "groupIds")]
+    pub group_ids: Vec<String>,
+    #[serde(rename = "isDefaultApp")]
+    pub is_default_app: bool,
+    /// Timestamp when the microfrontends settings were last updated.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant0 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "groupIds",
+            self.group_ids.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(1),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
     pub fn new(
-        deployment_type: ListProjectsResponseVariant2ProjectsItemPasswordProtectionDeploymentTypeEnum,
-    ) -> Self {
-        Self { deployment_type }
+        enabled: bool,
+        group_ids: Vec<String>,
+        is_default_app: bool,
+        updated_at: f64,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            default_route: None,
+            enabled,
+            free_project_for_legacy_limits: None,
+            group_ids,
+            is_default_app,
+            updated_at,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant1 {
+    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`
+    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
+    pub default_route: Option<String>,
+    /// Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
+    #[serde(
+        rename = "doNotRouteWithMicrofrontendsRouting",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub do_not_route_with_microfrontends_routing: Option<bool>,
+    /// Whether microfrontends are enabled for this project.
+    pub enabled: bool,
+    /// Whether the project was part of the legacy limits for hobby and pro-trial before billing was added. This field is only set when the team is upgraded to a paid plan and we are backfilling the subscription status. We cap the subscription to 2 projects and set this field for the 3rd project. When this field is set, the project is not charged for and we do not call any billing APIs for this project.
+    #[serde(
+        rename = "freeProjectForLegacyLimits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub free_project_for_legacy_limits: Option<bool>,
+    /// The group IDs of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
+    #[serde(rename = "groupIds")]
+    pub group_ids: Vec<String>,
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
+    /// Whether observability data should be routed to this microfrontend project or a root project.
+    #[serde(
+        rename = "routeObservabilityToThisProject",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub route_observability_to_this_project: Option<bool>,
+    /// Timestamp when the microfrontends settings were last updated.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant1 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "groupIds",
+            self.group_ids.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(1),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        enabled: bool,
+        group_ids: Vec<String>,
+        updated_at: f64,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            default_route: None,
+            do_not_route_with_microfrontends_routing: None,
+            enabled,
+            free_project_for_legacy_limits: None,
+            group_ids,
+            is_default_app: None,
+            route_observability_to_this_project: None,
+            updated_at,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant2 {
+    pub enabled: bool,
+    #[serde(
+        rename = "freeProjectForLegacyLimits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub free_project_for_legacy_limits: Option<bool>,
+    #[serde(rename = "groupIds")]
+    pub group_ids: Vec<serde_json::Value>,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemMicrofrontendsVariant2 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "groupIds",
+            self.group_ids.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(0),
+                max: Some(0),
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        enabled: bool,
+        group_ids: Vec<serde_json::Value>,
+        updated_at: f64,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            enabled,
+            free_project_for_legacy_limits: None,
+            group_ids,
+            updated_at,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }

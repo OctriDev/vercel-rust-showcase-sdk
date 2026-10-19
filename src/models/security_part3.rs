@@ -3,6 +3,15 @@
 
 // security domain models (part 3)
 
+impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateRateLimitActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ActionMitigateRateLimitActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -439,6 +448,24 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
     }
 }
 
+impl ::std::convert::From<String> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemValue {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -450,25 +477,4 @@ pub struct CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemV
     pub type_: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemTypeEnum,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemValue>,
-}
-
-impl CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem {
-    pub fn new(op: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum, type_: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemTypeEnum) -> Self {
-        Self { key: None, neg: None, op, type_, value: None }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItem {
-    pub conditions: Vec<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem>,
-}
-
-impl
-    CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItem
-{
-    pub fn new(
-        conditions: Vec<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem>,
-    ) -> Self {
-        Self { conditions }
-    }
 }

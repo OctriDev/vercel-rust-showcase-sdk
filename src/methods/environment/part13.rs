@@ -2,9 +2,108 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
+
+impl UpdateCustomEnvironmentResponse {
+    pub fn new(
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: UpdateCustomEnvironmentResponseTypeEnum,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
+            type_,
+            updated_at,
+        }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum RemoveCustomEnvironmentResponseBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl RemoveCustomEnvironmentResponseBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for RemoveCustomEnvironmentResponseBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for RemoveCustomEnvironmentResponseBranchMatcherTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for RemoveCustomEnvironmentResponseBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Configuration for matching git branches to this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveCustomEnvironmentResponseBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: RemoveCustomEnvironmentResponseBranchMatcherTypeEnum,
+}
+
+impl RemoveCustomEnvironmentResponseBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: RemoveCustomEnvironmentResponseBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveCustomEnvironmentResponseDomainsItemVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
 
 impl RemoveCustomEnvironmentResponseDomainsItemVerificationItem {
     pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
@@ -203,136 +302,4 @@ impl CreateSharedEnvVariableTypeEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for CreateSharedEnvVariableTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateSharedEnvVariableTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "sensitive" => Self::Sensitive,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateSharedEnvVariableTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct CreateSharedEnvVariableParams {
-    pub evs: Vec<CreateSharedEnvVariableEvsItem>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub type_: Option<CreateSharedEnvVariableTypeEnum>,
-    pub target: Option<Vec<CreateSharedEnvVariableTargetItemEnum>>,
-    pub project_id: Option<Vec<String>>,
-}
-
-/// Creates one or more shared environment variables for a team. Provide between 1 and 50 entries in `evs`, each with a `key` and `value`, and specify at least one target or custom-environment scope. A 201 response reports which entries were created and which failed.
-///
-/// Creates shared environment variable(s) for a team.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `type_` - The type of environment variable
-/// * `target` - The target environment of the Shared Environment Variable
-/// * `project_id` - Associate a Shared Environment Variable to projects.
-pub fn create_shared_env_variable(
-    config: &ClientConfig,
-    params: CreateSharedEnvVariableParams,
-    options: Option<&RequestOptions>,
-) -> Result<CreateSharedEnvVariableResponse, SdkError> {
-    let CreateSharedEnvVariableParams {
-        evs,
-        team_id,
-        slug,
-        type_,
-        target,
-        project_id,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "evs".to_string(),
-        serde_json::to_value(evs).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = type_ {
-        __body_map.insert(
-            "type".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = target {
-        __body_map.insert(
-            "target".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = project_id {
-        __body_map.insert(
-            "projectId".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateSharedEnvVariableResponse>(
-        "POST",
-        "/v1/env",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_shared_env_variable",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }

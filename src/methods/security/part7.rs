@@ -3,6 +3,41 @@
 
 use super::*;
 
+impl GetSecurityFirewallConfigResponseActiveManagedRules {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            ai_bots: None,
+            bot_protection: None,
+            owasp: None,
+            traffic_sources: None,
+            vercel_ruleset: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
+    #[default]
+    Eq,
+    Ex,
+    Gt,
+    Gte,
+    Inc,
+    List,
+    Lt,
+    Lte,
+    Neq,
+    Nex,
+    Ninc,
+    Pre,
+    Re,
+    Sub,
+    Suf,
+    Unknown(String),
+}
+
 impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -250,58 +285,8 @@ impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseActiveRul
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub neg: Option<bool>,
-    pub op: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
-    #[serde(rename = "type")]
-    pub type_: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemValue>,
-}
-
-impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem {
-    pub fn new(
-        op: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
-        type_: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
-    ) -> Self {
-        Self {
-            key: None,
-            neg: None,
-            op,
-            type_,
-            value: None,
-        }
+impl ::std::convert::From<String> for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItem {
-    pub conditions: Vec<
-        GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem,
-    >,
-}
-
-impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItem {
-    pub fn new(
-        conditions: Vec<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem>,
-    ) -> Self {
-        Self { conditions }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum {
-    #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
-    Unknown(String),
 }

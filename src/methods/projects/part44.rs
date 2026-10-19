@@ -3,6 +3,164 @@
 
 use super::*;
 
+impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction: ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransition {
+    pub fn new(
+        algorithm_version: String,
+        at: f64,
+        direction: ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    ) -> Self {
+        Self {
+            algorithm_version,
+            at,
+            direction,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum {
+    #[default]
+    Elastic,
+    Fixed,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize
     for ListProjectsResponseVariant1ProjectsItemResourceConfigBuildQueueConfigurationEnum
 {
@@ -160,186 +318,4 @@ impl<'de> serde::Deserialize<'de>
             _ => Self::Unknown(value),
         })
     }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachineLabelEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachine {
-    pub cores: f64,
-    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-    pub label: ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachineLabelEnum,
-    pub memory: f64,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachine {
-    pub fn new(
-        cores: f64,
-        label: ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
-    ) -> Self {
-        Self {
-            cores,
-            label,
-            memory,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemResourceConfig {
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<ListProjectsResponseVariant1ProjectsItemResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine:
-        Option<ListProjectsResponseVariant1ProjectsItemResourceConfigElasticBuildMachine>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
-        Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
-        }
-    }
-}
-
-/// What to do when the gate trips: pause the rollout, or roll it back.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemRollingReleaseGateActionEnum {
-    #[default]
-    Pause,
-    Rollback,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemRollingReleaseGateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Pause => "pause",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemRollingReleaseGateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemRollingReleaseGateActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "pause" => Self::Pause,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemRollingReleaseGateActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The metric this check evaluates.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemRollingReleaseGateChecksItemTypeEnum {
-    #[default]
-    ErrorRate5xx,
-    Unknown(String),
 }

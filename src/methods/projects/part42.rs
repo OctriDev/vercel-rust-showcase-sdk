@@ -3,6 +3,106 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant1ProjectsItemLinkVariant6 {
+    pub fn new(
+        deploy_hooks: Vec<ListProjectsResponseVariant1ProjectsItemLinkVariant6DeployHooksItem>,
+        git_credential_id: String,
+        org: String,
+        production_branch: String,
+        repo: String,
+        repo_id: String,
+        type_: ListProjectsResponseVariant1ProjectsItemLinkVariant6TypeEnum,
+    ) -> Self {
+        Self {
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            org,
+            production_branch,
+            repo,
+            repo_id,
+            sourceless: None,
+            type_,
+            updated_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemLinkVariant7DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemLinkVariant7DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant1ProjectsItemLinkVariant7TypeEnum {
+    #[serde(rename = "cursor-origin")]
+    #[default]
+    CursorOrigin,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemLinkVariant7TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::CursorOrigin => "cursor-origin",
+        }
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemLinkVariant7TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant1ProjectsItemLinkVariant7TypeEnum::CursorOrigin => {
+                f.write_str("cursor-origin")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemLinkVariant7 {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(rename = "deployHooks")]
+    pub deploy_hooks: Vec<ListProjectsResponseVariant1ProjectsItemLinkVariant7DeployHooksItem>,
+    #[serde(rename = "gitCredentialId")]
+    pub git_credential_id: String,
+    /// Owner (namespace) slug, e.g. `acme`.
+    pub owner: String,
+    /// Origin namespace id (`ns_…`) of the owner.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    #[serde(rename = "productionBranch")]
+    pub production_branch: String,
+    pub repo: String,
+    /// Origin repository id.
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sourceless: Option<bool>,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant1ProjectsItemLinkVariant7TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemLinkVariant7 {
     #[allow(clippy::too_many_arguments)]
     pub fn new(
@@ -136,6 +236,70 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemLi
     }
 }
 
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant0>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant0>) -> Self {
+        Self::Github(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant1>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant1>) -> Self {
+        Self::GithubLimited(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant2>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant2>) -> Self {
+        Self::GithubCustomHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant3>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant3>) -> Self {
+        Self::Gitlab(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant4>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant4>) -> Self {
+        Self::Bitbucket(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant5>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant5>) -> Self {
+        Self::Vercel(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant6>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant6>) -> Self {
+        Self::V0(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemLinkVariant7>>
+    for ListProjectsResponseVariant1ProjectsItemLink
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemLinkVariant7>) -> Self {
+        Self::CursorOrigin(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListProjectsResponseVariant1ProjectsItemNodeVersionEnum {
     #[default]
@@ -167,167 +331,5 @@ impl ListProjectsResponseVariant1ProjectsItemNodeVersionEnum {
             Self::_810X => "8.10.x",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemNodeVersionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemNodeVersionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
-            "8.10.x" => Self::_810X,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemNodeVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum {
-    #[default]
-    Global,
-    Team,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Global => "global",
-            Self::Team => "team",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "global" => Self::Global,
-            "team" => Self::Team,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<ListProjectsResponseVariant1ProjectsItemOidcTokenConfigIssuerModeEnum>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemOidcTokenConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enabled: None,
-            issuer_mode: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemPassportDeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemPassportDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemPassportDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemPassportDeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemPassportDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

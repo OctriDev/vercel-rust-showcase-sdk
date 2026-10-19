@@ -3,6 +3,104 @@
 
 use super::*;
 
+impl std::fmt::Display for GetConfigurationsResponseVariant0ItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The list of configurations for the authenticated user
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetConfigurationsResponseVariant0Item {
+    /// Historical parent installation from which acceptedPolicies were inherited. This is immutable provenance, not current authorization or relationship truth.
+    #[serde(
+        rename = "acceptedPoliciesInheritedFromInstallationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub accepted_policies_inherited_from_installation_id: Option<String>,
+    /// A timestamp that tells you when the configuration was installed successfully
+    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
+    pub completed_at: Option<f64>,
+    /// A timestamp that tells you when the configuration was created
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    /// Record when the customer initited deletion, independent of whether `deleteRequestedAt` gets set.
+    #[serde(
+        rename = "customerDeleteRequestedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub customer_delete_requested_at: Option<Option<f64>>,
+    /// A timestamp that tells you when the configuration was deleted.
+    #[serde(
+        rename = "deletedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deleted_at: Option<Option<f64>>,
+    /// A timestamp that tells you when the configuration deletion has been started for cases when the deletion needs to be settled/approved by partners, such as when marketplace invoices have been paid.
+    #[serde(
+        rename = "deleteRequestedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub delete_requested_at: Option<Option<f64>>,
+    /// A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
+    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
+    pub disabled_at: Option<f64>,
+    #[serde(rename = "disabledReason", skip_serializing_if = "Option::is_none")]
+    pub disabled_reason: Option<GetConfigurationsResponseVariant0ItemDisabledReasonEnum>,
+    /// An external identifier defined by the integration vendor.
+    #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
+    pub external_id: Option<String>,
+    /// The unique identifier of the configuration
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// Defines the installation type. \- 'external' integrations are installed via the existing integrations flow \- 'marketplace' integrations are natively installed: \- when accepting the TOS of a partner during the store creation process \- if undefined, assume 'external'
+    #[serde(rename = "installationType", skip_serializing_if = "Option::is_none")]
+    pub installation_type: Option<GetConfigurationsResponseVariant0ItemInstallationTypeEnum>,
+    /// The unique identifier of the app the configuration was created for
+    #[serde(rename = "integrationId", skip_serializing_if = "Option::is_none")]
+    pub integration_id: Option<String>,
+    /// The user or team ID that owns the configuration
+    #[serde(rename = "ownerId", skip_serializing_if = "Option::is_none")]
+    pub owner_id: Option<String>,
+    /// When a configuration is limited to access certain projects, this will contain each of the project ID it is allowed to access. If it is not defined, the configuration has full access.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub projects: Option<Vec<String>>,
+    /// The resources that are allowed to be accessed by the configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scopes: Option<Vec<String>>,
+    /// The slug of the integration the configuration is created for.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    /// Source defines where the configuration was installed from. It is used to analyze user engagement for integration installations in product metrics.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<GetConfigurationsResponseVariant0ItemSourceEnum>,
+    /// The configuration status. Optional. If not defined, assume 'ready'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<GetConfigurationsResponseVariant0ItemStatusEnum>,
+    /// When the configuration was created for a team, this will show the ID of the team.
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<GetConfigurationsResponseVariant0ItemTypeEnum>,
+    /// A timestamp that tells you when the configuration was updated.
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// The ID of the user that created the configuration.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+}
+
 impl GetConfigurationsResponseVariant0Item {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
@@ -172,127 +270,4 @@ pub enum GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum {
     TagWebAutomation,
     TagWorkflow,
     Unknown(String),
-}
-
-impl GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::TagAgents => "tag_agents",
-            Self::TagAi => "tag_ai",
-            Self::TagAnalytics => "tag_analytics",
-            Self::TagAuthentication => "tag_authentication",
-            Self::TagCms => "tag_cms",
-            Self::TagCodeRepository => "tag_code_repository",
-            Self::TagCodeReview => "tag_code_review",
-            Self::TagCodeSecurity => "tag_code_security",
-            Self::TagCodeTesting => "tag_code_testing",
-            Self::TagCommerce => "tag_commerce",
-            Self::TagDatabases => "tag_databases",
-            Self::TagDevTools => "tag_dev_tools",
-            Self::TagExperimentation => "tag_experimentation",
-            Self::TagFlags => "tag_flags",
-            Self::TagLogging => "tag_logging",
-            Self::TagMessaging => "tag_messaging",
-            Self::TagMonitoring => "tag_monitoring",
-            Self::TagObservability => "tag_observability",
-            Self::TagPayments => "tag_payments",
-            Self::TagPerformance => "tag_performance",
-            Self::TagProductivity => "tag_productivity",
-            Self::TagSearching => "tag_searching",
-            Self::TagSecurity => "tag_security",
-            Self::TagSupportAgent => "tag_support_agent",
-            Self::TagTesting => "tag_testing",
-            Self::TagVideo => "tag_video",
-            Self::TagWebAutomation => "tag_web_automation",
-            Self::TagWorkflow => "tag_workflow",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "tag_agents" => Self::TagAgents,
-            "tag_ai" => Self::TagAi,
-            "tag_analytics" => Self::TagAnalytics,
-            "tag_authentication" => Self::TagAuthentication,
-            "tag_cms" => Self::TagCms,
-            "tag_code_repository" => Self::TagCodeRepository,
-            "tag_code_review" => Self::TagCodeReview,
-            "tag_code_security" => Self::TagCodeSecurity,
-            "tag_code_testing" => Self::TagCodeTesting,
-            "tag_commerce" => Self::TagCommerce,
-            "tag_databases" => Self::TagDatabases,
-            "tag_dev_tools" => Self::TagDevTools,
-            "tag_experimentation" => Self::TagExperimentation,
-            "tag_flags" => Self::TagFlags,
-            "tag_logging" => Self::TagLogging,
-            "tag_messaging" => Self::TagMessaging,
-            "tag_monitoring" => Self::TagMonitoring,
-            "tag_observability" => Self::TagObservability,
-            "tag_payments" => Self::TagPayments,
-            "tag_performance" => Self::TagPerformance,
-            "tag_productivity" => Self::TagProductivity,
-            "tag_searching" => Self::TagSearching,
-            "tag_security" => Self::TagSecurity,
-            "tag_support_agent" => Self::TagSupportAgent,
-            "tag_testing" => Self::TagTesting,
-            "tag_video" => Self::TagVideo,
-            "tag_web_automation" => Self::TagWebAutomation,
-            "tag_workflow" => Self::TagWorkflow,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetConfigurationsResponseVariant1ItemIntegration {
-    #[serde(
-        rename = "assignedBetaLabelAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub assigned_beta_label_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub flags: Option<Vec<String>>,
-    pub icon: String,
-    #[serde(rename = "isLegacy")]
-    pub is_legacy: bool,
-    pub name: String,
-    #[serde(rename = "tagIds", skip_serializing_if = "Option::is_none")]
-    pub tag_ids: Option<Vec<GetConfigurationsResponseVariant1ItemIntegrationTagIdsItemEnum>>,
-}
-
-impl GetConfigurationsResponseVariant1ItemIntegration {
-    pub fn new(icon: String, is_legacy: bool, name: String) -> Self {
-        Self {
-            assigned_beta_label_at: None,
-            flags: None,
-            icon,
-            is_legacy,
-            name,
-            tag_ids: None,
-        }
-    }
 }

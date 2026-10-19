@@ -3,70 +3,7 @@
 
 use super::*;
 
-impl UploadProjectAvatarResponseRollingRelease {
-    pub fn new(target: String) -> Self {
-        Self {
-            canary_response_header: None,
-            gate: None,
-            stages: None,
-            target,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
-    #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -75,96 +12,56 @@ impl serde::Serialize for UploadProjectAvatarResponseSandboxFailoverRegionsItemE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "enterprise" => Self::Enterprise,
+            "hobby" => Self::Hobby,
+            "pro" => Self::Pro,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSandboxRegionEnum {
+pub enum UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseSandboxRegionEnum {
+impl UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseSandboxRegionEnum {
+impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -173,78 +70,54 @@ impl serde::Serialize for UploadProjectAvatarResponseSandboxRegionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSandboxRegionEnum {
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseSandboxRegionEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseSandbox {
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions: Option<Vec<UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<UploadProjectAvatarResponseSandboxRegionEnum>,
-}
-
-impl UploadProjectAvatarResponseSandbox {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            failover_regions: None,
-            region: None,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+pub enum UploadProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     #[default]
-    Unknown2,
+    Promoted,
+    Rolling,
+    Staged,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+impl UploadProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -253,20 +126,68 @@ impl serde::Serialize for UploadProjectAvatarResponseSecurityLogHeadersVariant1E
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
+impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseLatestDeploymentsItemTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseLatestDeploymentsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseLatestDeploymentsItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

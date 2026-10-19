@@ -3,137 +3,25 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateProjectTracingSamplingRulesItemDestinationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectTracingSamplingRulesItemDestinationEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "internal" => Self::Internal,
-            "external" => Self::External,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectTracingSamplingRulesItemDestinationEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTracingSamplingRulesItem {
-    /// Sampling rate from 0 to 1
-    pub rate: f64,
-    /// Environment to apply sampling to
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<UpdateProjectTracingSamplingRulesItemEnvEnum>,
-    /// Request path prefix to apply the sampling rule to
-    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
-    pub request_path: Option<String>,
-    /// Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub destination: Option<UpdateProjectTracingSamplingRulesItemDestinationEnum>,
-}
-
-impl UpdateProjectTracingSamplingRulesItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_range(
-            "rate",
-            self.rate,
-            crate::validation::RangeOpts {
-                min: Some(0_f64),
-                max: Some(1_f64),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(rate: f64) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            rate,
-            env: None,
-            request_path: None,
-            destination: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Tracing configuration for this project
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTracing {
-    /// Comma-separated list of drain endpoint domains
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<String>,
-    /// Paths to ignore for tracing
-    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
-    pub ignore_paths: Option<Vec<String>>,
-    /// Sampling rules for trace collection
-    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
-    pub sampling_rules: Option<Vec<UpdateProjectTracingSamplingRulesItem>>,
-}
-
-impl UpdateProjectTracing {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.sampling_rules.as_ref() {
-            crate::validation::validate_items(
-                "samplingRules",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    max: Some(10),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            domains: None,
-            ignore_paths: None,
-            sampling_rules: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectOidcTokenConfigIssuerModeEnum {
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     #[default]
-    Team,
-    Global,
+    AllCustom,
     Unknown(String),
 }
 
-impl UpdateProjectOidcTokenConfigIssuerModeEnum {
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Team => "team",
-            Self::Global => "global",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectOidcTokenConfigIssuerModeEnum {
+impl serde::Serialize
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -142,71 +30,263 @@ impl serde::Serialize for UpdateProjectOidcTokenConfigIssuerModeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectOidcTokenConfigIssuerModeEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "team" => Self::Team,
-            "global" => Self::Global,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectOidcTokenConfigIssuerModeEnum {
+impl std::fmt::Display
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// OpenID Connect JSON Web Token generation configuration.
+/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
+pub struct GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<UpdateProjectOidcTokenConfigIssuerModeEnum>,
+    pub preset:
+        Option<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
 }
 
-impl UpdateProjectOidcTokenConfig {
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The target envs on the current project that may be accessed.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub preset: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub fn new(
+        preset: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    ) -> Self {
+        Self {
+            preset,
+            slugs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo {
+    AllCustom(Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
+    AllCustom2(Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    > for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    > for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
+/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub from: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+    pub to: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub fn new(
+        from: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+        to: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+    ) -> Self {
+        Self { from, to }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSourcesProjectsValue {
+    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
+    pub custom_allow: Option<Vec<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            enabled: None,
-            issuer_mode: None,
+            custom_allow: None,
+            label: None,
         }
     }
 }
 
-/// Specify if the password will apply to every Deployment Target or just Preview
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSources {
+    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+    #[serde(
+        rename = "enableVercelCiSameRepository",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_vercel_ci_same_repository: Option<bool>,
+    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
+    pub oidc_providers: Option<
+        std::collections::HashMap<
+            String,
+            Vec<GetProjectsResponseTrustedSourcesOidcProvidersValueItem>,
+        >,
+    >,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub projects:
+        Option<std::collections::HashMap<String, GetProjectsResponseTrustedSourcesProjectsValue>>,
+}
+
+impl GetProjectsResponseTrustedSources {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            enable_vercel_ci_same_repository: None,
+            oidc_providers: None,
+            projects: None,
+        }
+    }
+}
+
+/// Billing mode. Always 'flat' for flat-rate projects.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectPasswordProtectionDeploymentTypeEnum {
+pub enum GetProjectsResponseUsageStatusKindEnum {
     #[default]
-    All,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    AllExceptCustomDomains,
+    Flat,
     Unknown(String),
 }
 
-impl UpdateProjectPasswordProtectionDeploymentTypeEnum {
+impl GetProjectsResponseUsageStatusKindEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Flat => "flat",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectPasswordProtectionDeploymentTypeEnum {
+impl serde::Serialize for GetProjectsResponseUsageStatusKindEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -215,88 +295,45 @@ impl serde::Serialize for UpdateProjectPasswordProtectionDeploymentTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectPasswordProtectionDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseUsageStatusKindEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "flat" => Self::Flat,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectPasswordProtectionDeploymentTypeEnum {
+impl std::fmt::Display for GetProjectsResponseUsageStatusKindEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Allows to protect project deployments with a password
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectPasswordProtection {
-    /// Specify if the password will apply to every Deployment Target or just Preview
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: UpdateProjectPasswordProtectionDeploymentTypeEnum,
-    /// The password that will be used to protect Project Deployments
+pub struct GetProjectsResponseUsageStatus {
+    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
     #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
+        rename = "bypassThrottleUntil",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub password: Option<Option<String>>,
-}
-
-impl UpdateProjectPasswordProtection {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(Some(value)) = self.password.as_ref() {
-            crate::validation::validate_length(
-                "password",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(72),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(
-        deployment_type: UpdateProjectPasswordProtectionDeploymentTypeEnum,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            deployment_type,
-            password: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectPassportDeploymentTypeEnum {
-    #[default]
-    All,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    AllExceptCustomDomains,
-    Unknown(String),
-}
-
-impl UpdateProjectPassportDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
+    pub bypass_throttle_until: Option<f64>,
+    /// Timestamp until which the project has exceeded its CDN allowance.
+    #[serde(
+        rename = "exceededAllowanceUntil",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub exceeded_allowance_until: Option<f64>,
+    /// Billing mode. Always 'flat' for flat-rate projects.
+    pub kind: GetProjectsResponseUsageStatusKindEnum,
+    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
+    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
+    pub team_throttled: Option<bool>,
+    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub throttled: Option<bool>,
 }

@@ -3,6 +3,74 @@
 
 use super::*;
 
+impl ::std::convert::From<f64> for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemValue {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    pub op: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+    #[serde(rename = "type")]
+    pub type_: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemValue>,
+}
+
+impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    pub fn new(
+        op: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+        type_: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+    ) -> Self {
+        Self {
+            key: None,
+            neg: None,
+            op,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItem {
+    pub conditions: Vec<
+        GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem,
+    >,
+}
+
+impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItem {
+    pub fn new(
+        conditions: Vec<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem>,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
+}
+
 impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -136,6 +204,20 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Vec<String>>
+    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum> for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders {
+    fn from(value: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum
 {
@@ -211,87 +293,6 @@ impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRa
             Self::FixedWindow => "fixed_window",
             Self::TokenBucket => "token_bucket",
             Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub action: Option<Option<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum>>,
-    pub algo: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
-}
-
-impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
-    pub fn new(
-        algo: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
-        keys: Vec<String>,
-        limit: f64,
-        window: f64,
-    ) -> Self {
-        Self {
-            action: None,
-            algo,
-            keys,
-            limit,
-            window,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRedirect {
-    pub location: String,
-    pub permanent: bool,
-}
-
-impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRedirect {
-    pub fn new(location: String, permanent: bool) -> Self {
-        Self {
-            location,
-            permanent,
         }
     }
 }

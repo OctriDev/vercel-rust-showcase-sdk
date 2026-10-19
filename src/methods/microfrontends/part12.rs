@@ -213,6 +213,22 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<f64>
+    for GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemAliasAssigned
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemAliasAssigned
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemAliasError {
     pub code: String,
@@ -299,14 +315,4 @@ impl GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemBranchMatc
     ) -> Self {
         Self { pattern, type_ }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemLatestDeploymentsItemBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
 }

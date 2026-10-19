@@ -3,165 +3,55 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateMicrofrontendsResponseFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseFrameworkEnum {
+impl std::fmt::Display for EditProjectEnvResponseInternalContentHintTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Similar to `contentHints`, but should not be exposed to the user.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseGitComments {
-    /// Whether the Vercel bot should comment on commits
-    #[serde(rename = "onCommit")]
-    pub on_commit: bool,
-    /// Whether the Vercel bot should comment on PRs
-    #[serde(rename = "onPullRequest")]
-    pub on_pull_request: bool,
+pub struct EditProjectEnvResponseInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: EditProjectEnvResponseInternalContentHintTypeEnum,
 }
 
-impl UpdateMicrofrontendsResponseGitComments {
-    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
+impl EditProjectEnvResponseInternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: EditProjectEnvResponseInternalContentHintTypeEnum,
+    ) -> Self {
         Self {
-            on_commit,
-            on_pull_request,
+            encrypted_value,
+            type_,
         }
     }
 }
 
-/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    /// Whether consolidated commit status is enabled.
-    pub enabled: bool,
-    /// Whether to propagate individual deployment failures to the consolidated status.
-    #[serde(rename = "propagateFailures")]
-    pub propagate_failures: bool,
-}
-
-impl UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
-        Self {
-            enabled,
-            propagate_failures,
-        }
-    }
-}
-
-/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+pub enum EditProjectEnvResponseTargetVariant0ItemEnum {
     #[default]
-    Disabled,
-    Enabled,
+    Development,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+impl EditProjectEnvResponseTargetVariant0ItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+impl serde::Serialize for EditProjectEnvResponseTargetVariant0ItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -170,130 +60,229 @@ impl serde::Serialize for UpdateMicrofrontendsResponseGitProviderOptionsCreateDe
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum
-{
+impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTargetVariant0ItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum {
+impl std::fmt::Display for EditProjectEnvResponseTargetVariant0ItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseGitProviderOptions {
-    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-    #[serde(
-        rename = "consolidatedGitCommitStatus",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub consolidated_git_commit_status:
-        Option<UpdateMicrofrontendsResponseGitProviderOptionsConsolidatedGitCommitStatus>,
-    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-    #[serde(rename = "createDeployments")]
-    pub create_deployments: UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum,
-    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
-    #[serde(
-        rename = "disableRepositoryDispatchEvents",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub disable_repository_dispatch_events: Option<bool>,
-    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
-    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
-    pub git_commit_status: Option<bool>,
-    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
-    #[serde(
-        rename = "requireVerifiedCommits",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub require_verified_commits: Option<bool>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum EditProjectEnvResponseTargetVariant1Enum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseGitProviderOptions {
-    pub fn new(
-        create_deployments: UpdateMicrofrontendsResponseGitProviderOptionsCreateDeploymentsEnum,
-    ) -> Self {
-        Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+impl EditProjectEnvResponseTargetVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
+impl serde::Serialize for EditProjectEnvResponseTargetVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl UpdateMicrofrontendsResponseIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
-        Self {
-            bucket,
-            default: None,
-            support_until: None,
+impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTargetVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for EditProjectEnvResponseTargetVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum EditProjectEnvResponseTarget {
+    Variant0ItemEnumArray(Vec<EditProjectEnvResponseTargetVariant0ItemEnum>),
+    Literal(EditProjectEnvResponseTargetVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTarget {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Vec<EditProjectEnvResponseTargetVariant0ItemEnum>,
+        >(value.clone())
+        {
+            let candidate = Self::Variant0ItemEnumArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<EditProjectEnvResponseTargetVariant1Enum>(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no EditProjectEnvResponseTarget branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<EditProjectEnvResponseTargetVariant0ItemEnum>>
+    for EditProjectEnvResponseTarget
+{
+    fn from(value: Vec<EditProjectEnvResponseTargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<EditProjectEnvResponseTargetVariant1Enum>
+    for EditProjectEnvResponseTarget
+{
+    fn from(value: EditProjectEnvResponseTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum EditProjectEnvResponseTypeEnum {
+    #[default]
+    Encrypted,
+    Plain,
+    Secret,
+    Sensitive,
+    System,
+    Unknown(String),
+}
+
+impl EditProjectEnvResponseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Secret => "secret",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseJobsFlagdefinitionspresent {
-    pub targets: Vec<String>,
-}
-
-impl UpdateMicrofrontendsResponseJobsFlagdefinitionspresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl serde::Serialize for EditProjectEnvResponseTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseJobsLint {
-    pub targets: Vec<String>,
-}
-
-impl UpdateMicrofrontendsResponseJobsLint {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "secret" => Self::Secret,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
+            _ => Self::Unknown(value),
+        })
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseJobsMfeconfigpresent {
-    pub targets: Vec<String>,
-}
-
-impl UpdateMicrofrontendsResponseJobsMfeconfigpresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl std::fmt::Display for EditProjectEnvResponseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseJobsTypecheck {
-    pub targets: Vec<String>,
+/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum EditProjectEnvResponseVisibilityEnum {
+    #[default]
+    Config,
+    Secret,
+    Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl EditProjectEnvResponseVisibilityEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Config => "config",
+            Self::Secret => "secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for EditProjectEnvResponseVisibilityEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseVisibilityEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "config" => Self::Config,
+            "secret" => Self::Secret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for EditProjectEnvResponseVisibilityEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

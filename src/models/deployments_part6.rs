@@ -3,6 +3,61 @@
 
 // deployments domain models (part 6)
 
+impl serde::Serialize for CancelDeploymentResponseGitSourceVariant15TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant15TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "gitlab" => Self::Gitlab,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CancelDeploymentResponseGitSourceVariant15TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseGitSourceVariant15 {
+    #[serde(rename = "projectId")]
+    pub project_id: f64,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CancelDeploymentResponseGitSourceVariant15TypeEnum,
+}
+
+impl CancelDeploymentResponseGitSourceVariant15 {
+    pub fn new(
+        project_id: f64,
+        ref_: String,
+        sha: String,
+        type_: CancelDeploymentResponseGitSourceVariant15TypeEnum,
+    ) -> Self {
+        Self {
+            project_id,
+            ref_,
+            sha,
+            type_,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CancelDeploymentResponseGitSourceVariant16TypeEnum {
     #[default]
@@ -494,78 +549,5 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSource {
                 "no CancelDeploymentResponseGitSource branch accepts this payload",
             )
         })
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseMicrofrontendsVariant0 {
-    /// The project name of the default app of this deployment's microfrontends group.
-    #[serde(rename = "defaultAppProjectName")]
-    pub default_app_project_name: String,
-    /// A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI.
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-    /// The group of microfrontends that this project belongs to. Each microfrontend project must belong to a microfrontends group that is the set of microfrontends that are used together.
-    #[serde(rename = "groupIds")]
-    pub group_ids: Vec<String>,
-    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
-    pub is_default_app: Option<bool>,
-}
-
-impl CancelDeploymentResponseMicrofrontendsVariant0 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "groupIds",
-            self.group_ids.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        default_app_project_name: String,
-        group_ids: Vec<String>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            default_app_project_name,
-            default_route: None,
-            group_ids,
-            is_default_app: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// The result of the microfrontends config upload during deployment creation / build. Only set for default app deployments. The config upload is attempted during deployment create, and then again during the build. If the config is not in the root directory, or the deployment is prebuilt, the config cannot be uploaded during deployment create. The upload during deployment build finds the config even if it's not in the root directory, as it has access to all files. Uploading the config during create is ideal, as then all child deployments are guaranteed to have access to the default app deployment config even if the default app has not yet started building. If the config is not uploaded, the child app will show as building until the config has been uploaded during the default app build. \- `success` \- The config was uploaded successfully, either when the deployment was created or during the build. \- `waiting_on_build` \- The config could not be uploaded during deployment create, will be attempted again during the build. \- `no_config` \- No config was found. Only set once the build has not found the config in any of the deployment's files. \- `undefined` \- Legacy deployments, or there was an error uploading the config during deployment create.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CancelDeploymentResponseMicrofrontendsVariant1MfeConfigUploadStateEnum {
-    #[default]
-    NoConfig,
-    Success,
-    WaitingOnBuild,
-    Unknown(String),
-}
-
-impl CancelDeploymentResponseMicrofrontendsVariant1MfeConfigUploadStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::NoConfig => "no_config",
-            Self::Success => "success",
-            Self::WaitingOnBuild => "waiting_on_build",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseMicrofrontendsVariant1MfeConfigUploadStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
     }
 }

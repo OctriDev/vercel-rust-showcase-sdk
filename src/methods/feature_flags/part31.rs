@@ -2,64 +2,284 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    CreateFlagSegmentResponseDataRulesItemConditionsItemLhs,
+    CreateFlagSegmentResponseDataRulesItemConditionsItemRhs,
+    CreateFlagSegmentResponseDataRulesItemOutcome, Segment,
+};
 
-impl GetSdkKeysResponseDataItem {
-    #[allow(clippy::too_many_arguments)]
+impl serde::Serialize for CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "!contains" => Self::Contains,
+            "!endsWith" => Self::Endswith,
+            "!eq" => Self::Eq,
+            "!ex" => Self::Ex,
+            "!oneOf" => Self::Oneof,
+            "!regex" => Self::Regex,
+            "!startsWith" => Self::Startswith,
+            "after" => Self::After,
+            "before" => Self::Before,
+            "contains" => Self::Contains2,
+            "containsAllOf" => Self::Containsallof,
+            "containsAnyOf" => Self::Containsanyof,
+            "containsNoneOf" => Self::Containsnoneof,
+            "endsWith" => Self::Endswith2,
+            "eq" => Self::Eq2,
+            "ex" => Self::Ex2,
+            "gt" => Self::Gt,
+            "gte" => Self::Gte,
+            "lt" => Self::Lt,
+            "lte" => Self::Lte,
+            "oneOf" => Self::Oneof2,
+            "regex" => Self::Regex2,
+            "startsWith" => Self::Startswith2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagSegmentResponseDataRulesItemConditionsItemCmpOptions {
+    #[serde(rename = "ignoreCase", skip_serializing_if = "Option::is_none")]
+    pub ignore_case: Option<bool>,
+}
+
+impl CreateFlagSegmentResponseDataRulesItemConditionsItemCmpOptions {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { ignore_case: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagSegmentResponseDataRulesItemConditionsItem {
+    pub cmp: CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum,
+    #[serde(rename = "cmpOptions", skip_serializing_if = "Option::is_none")]
+    pub cmp_options: Option<CreateFlagSegmentResponseDataRulesItemConditionsItemCmpOptions>,
+    /// Typed representation of the `CreateFlagSegmentResponseDataRulesItemConditionsItemLhs` API schema.
+    pub lhs: CreateFlagSegmentResponseDataRulesItemConditionsItemLhs,
+    /// Typed representation of the `CreateFlagSegmentResponseDataRulesItemConditionsItemRhs` API schema.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rhs: Option<CreateFlagSegmentResponseDataRulesItemConditionsItemRhs>,
+}
+
+impl CreateFlagSegmentResponseDataRulesItemConditionsItem {
     pub fn new(
-        created_at: f64,
-        created_by: String,
-        environment: String,
-        hash_key: String,
-        partial_key_value: String,
-        project_id: String,
-        type_: GetSdkKeysResponseDataItemTypeEnum,
-        updated_at: f64,
+        cmp: CreateFlagSegmentResponseDataRulesItemConditionsItemCmpEnum,
+        lhs: CreateFlagSegmentResponseDataRulesItemConditionsItemLhs,
     ) -> Self {
         Self {
-            created_at,
-            created_by,
-            deleted_at: None,
-            environment,
-            hash_key,
-            label: None,
-            partial_key_value,
-            project_id,
-            type_,
-            updated_at,
+            cmp,
+            cmp_options: None,
+            lhs,
+            rhs: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSdkKeysResponse {
-    pub data: Vec<GetSdkKeysResponseDataItem>,
+pub struct CreateFlagSegmentResponseDataRulesItem {
+    pub conditions: Vec<CreateFlagSegmentResponseDataRulesItemConditionsItem>,
+    pub id: String,
+    /// Typed representation of the `CreateFlagSegmentResponseDataRulesItemOutcome` API schema.
+    pub outcome: CreateFlagSegmentResponseDataRulesItemOutcome,
 }
 
-impl GetSdkKeysResponse {
-    pub fn new(data: Vec<GetSdkKeysResponseDataItem>) -> Self {
+impl CreateFlagSegmentResponseDataRulesItem {
+    pub fn new(
+        conditions: Vec<CreateFlagSegmentResponseDataRulesItemConditionsItem>,
+        id: String,
+        outcome: CreateFlagSegmentResponseDataRulesItemOutcome,
+    ) -> Self {
+        Self {
+            conditions,
+            id,
+            outcome,
+        }
+    }
+}
+
+pub type CreateFlagSegmentResponseDataExclude = std::collections::HashMap<
+    String,
+    std::collections::HashMap<String, Vec<CreateFlagSegmentResponseDataExcludeValueValueItem>>,
+>;
+
+pub type CreateFlagSegmentResponseDataInclude = std::collections::HashMap<
+    String,
+    std::collections::HashMap<String, Vec<CreateFlagSegmentResponseDataIncludeValueValueItem>>,
+>;
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagSegmentResponseData {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude: Option<CreateFlagSegmentResponseDataExclude>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub include: Option<CreateFlagSegmentResponseDataInclude>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rules: Option<Vec<CreateFlagSegmentResponseDataRulesItem>>,
+}
+
+impl CreateFlagSegmentResponseData {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exclude: None,
+            include: None,
+            rules: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateFlagSegmentResponseTypeNameEnum {
+    #[default]
+    Segment,
+    Unknown(String),
+}
+
+impl CreateFlagSegmentResponseTypeNameEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Segment => "segment",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateFlagSegmentResponseTypeNameEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagSegmentResponseTypeNameEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "segment" => Self::Segment,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagSegmentResponseTypeNameEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagSegmentResponse {
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
+    pub data: CreateFlagSegmentResponseData,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    pub hint: String,
+    pub id: String,
+    pub label: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    pub slug: String,
+    #[serde(rename = "typeName")]
+    pub type_name: CreateFlagSegmentResponseTypeNameEnum,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+    #[serde(rename = "usedByFlags", skip_serializing_if = "Option::is_none")]
+    pub used_by_flags: Option<Vec<String>>,
+    #[serde(rename = "usedBySegments", skip_serializing_if = "Option::is_none")]
+    pub used_by_segments: Option<Vec<String>>,
+}
+
+impl CreateFlagSegmentResponse {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        data: CreateFlagSegmentResponseData,
+        hint: String,
+        id: String,
+        label: String,
+        project_id: String,
+        slug: String,
+        type_name: CreateFlagSegmentResponseTypeNameEnum,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            created_at,
+            created_by: None,
+            data,
+            description: None,
+            hint,
+            id,
+            label,
+            project_id,
+            slug,
+            type_name,
+            updated_at,
+            used_by_flags: None,
+            used_by_segments: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListFlagSegmentsResponse {
+    pub data: Vec<Segment>,
+}
+
+impl ListFlagSegmentsResponse {
+    pub fn new(data: Vec<Segment>) -> Self {
         Self { data }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListFlagsV2Enum {
+pub enum UpdateFlagSegmentOperationsItemActionEnum {
     #[default]
-    Active,
-    Archived,
+    Add,
+    Remove,
     Unknown(String),
 }
 
-impl ListFlagsV2Enum {
+impl UpdateFlagSegmentOperationsItemActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
+            Self::Add => "add",
+            Self::Remove => "remove",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListFlagsV2Enum {
+impl serde::Serialize for UpdateFlagSegmentOperationsItemActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -68,224 +288,30 @@ impl serde::Serialize for ListFlagsV2Enum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListFlagsV2Enum {
+impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentOperationsItemActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
+            "add" => Self::Add,
+            "remove" => Self::Remove,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListFlagsV2Enum {
+impl std::fmt::Display for UpdateFlagSegmentOperationsItemActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListFlagsEnum {
+pub enum UpdateFlagSegmentOperationsItemFieldEnum {
     #[default]
-    Active,
-    Archived,
-    Unknown(String),
-}
-
-impl ListFlagsEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListFlagsEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListFlagsEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListFlagsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagKindEnum {
-    #[default]
-    Boolean,
-    Json,
-    Number,
-    String,
-    Unknown(String),
-}
-
-impl CreateFlagKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Boolean => "boolean",
-            Self::Json => "json",
-            Self::Number => "number",
-            Self::String => "string",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagKindEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "boolean" => Self::Boolean,
-            "json" => Self::Json,
-            "number" => Self::Number,
-            "string" => Self::String,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagKindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagStateEnum {
-    #[default]
-    Active,
-    Archived,
-    Unknown(String),
-}
-
-impl CreateFlagStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFlagStateEnum {
-    #[default]
-    Active,
-    Archived,
-    Unknown(String),
-}
-
-impl UpdateFlagStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFlagStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFlagStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFlagStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListTeamFlagsV2Enum {
-    #[default]
-    Active,
-    Archived,
+    Include,
+    Exclude,
     Unknown(String),
 }

@@ -2,476 +2,270 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_range, RangeOpts};
 
-#[derive(Debug, Clone, Default)]
-pub struct RequestRollbackParams {
-    pub project_id: String,
-    pub deployment_id: String,
-    pub description: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseTargetsValueReadyStateEnum {
+    #[default]
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
+    Unknown(String),
 }
 
-/// Requests a rollback that points production traffic to a previous production deployment. Use `projectId` to identify the project and `deploymentId` to select the deployment to roll back to; optionally provide `description` to record the reason. A successful response confirms that the rollback request was created.
-///
-/// Allows users to rollback to a deployment.
-///
-/// # Arguments
-///
-/// * `deployment_id` - The ID of the deployment to rollback \*to\*
-/// * `description` - The reason for the rollback
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn request_rollback(
-    config: &ClientConfig,
-    params: RequestRollbackParams,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let RequestRollbackParams {
-        project_id,
-        deployment_id,
-        description,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = description {
-        __query.push(("description", crate::client::query_value(v)));
+impl UpdateMicrofrontendsResponseTargetsValueReadyStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/rollback/{}",
-            crate::client::encode_path_segment(&project_id),
-            crate::client::encode_path_segment(&deployment_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "request_rollback",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Updates the reason recorded for a project rollback without changing its status. Supply the `description` field in the request body and identify the project and deployment in the path. The request body is optional.
-///
-/// Updates the reason for a rollback, without changing the rollback status itself.
-///
-/// # Arguments
-///
-/// * `description` - The reason for the rollback
-pub fn update_projects_rollback_description(
-    config: &ClientConfig,
-    project_id: String,
-    deployment_id: String,
-    description: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = description {
-        __body_map.insert(
-            "description".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
+impl serde::Serialize for UpdateMicrofrontendsResponseTargetsValueReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<serde_json::Value>(
-        "PATCH",
-        &format!(
-            "/v1/projects/{}/rollback/{}/update-description",
-            crate::client::encode_path_segment(&project_id),
-            crate::client::encode_path_segment(&deployment_id)
-        ),
-        config,
-        RequestOpts {
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "update_projects_rollback_description",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct UpdateMicrofrontendsParams {
-    pub project_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub microfrontends_group_id: Option<String>,
-    pub enabled: Option<bool>,
-    pub is_default_app: Option<bool>,
-    pub default_route: Option<String>,
-    pub route_observability_to_this_project: Option<bool>,
-    pub do_not_route_with_microfrontends_routing: Option<bool>,
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseTargetsValueReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
 }
 
-/// Updates the microfrontends settings for a project. Use the optional fields to change the project's group, enablement, default application, route, or observability routing configuration. The two routing options can only be set for child applications.
-///
-/// Update the microfrontends settings for a project.
-///
-/// # Arguments
-///
-/// * `project_id` - The unique project identifier
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `microfrontends_group_id` - The unique group identifier to add this
-///   microfrontend to
-/// * `enabled` - Enable or disable microfrontends for the project
-/// * `is_default_app` - Whether the application is the default application for
-///   the microfrontends group
-/// * `default_route` - The default route used for screenshots and preview links
-///   for the project
-/// * `route_observability_to_this_project` - Whether observability data should
-///   be routed to this project or a root project. Can only be set for child
-///   applications.
-/// * `do_not_route_with_microfrontends_routing` - Whether domains in this
-///   project should route as a microfrontend. Can only be set for child
-///   applications.
-pub fn update_microfrontends(
-    config: &ClientConfig,
-    params: UpdateMicrofrontendsParams,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateMicrofrontendsResponse, SdkError> {
-    let UpdateMicrofrontendsParams {
-        project_id,
-        team_id,
-        slug,
-        microfrontends_group_id,
-        enabled,
-        is_default_app,
-        default_route,
-        route_observability_to_this_project,
-        do_not_route_with_microfrontends_routing,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl std::fmt::Display for UpdateMicrofrontendsResponseTargetsValueReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = microfrontends_group_id {
-        __body_map.insert(
-            "microfrontendsGroupId".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = enabled {
-        __body_map.insert(
-            "enabled".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = is_default_app {
-        __body_map.insert(
-            "isDefaultApp".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = default_route {
-        __body_map.insert(
-            "defaultRoute".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = route_observability_to_this_project {
-        __body_map.insert(
-            "routeObservabilityToThisProject".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = do_not_route_with_microfrontends_routing {
-        __body_map.insert(
-            "doNotRouteWithMicrofrontendsRouting".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<UpdateMicrofrontendsResponse>(
-        "PATCH",
-        &format!(
-            "/v1/projects/{}/microfrontends",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_microfrontends",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Triggers a production promotion for a deployment in a project. Identify the project and deployment in the path, and use `teamId` or `slug` to select the team context when needed. Promotion does not rebuild the deployment; use the deployment creation operation when a rebuild is required.
-///
-/// Allows users to promote a deployment to production. Note: This does NOT rebuild the deployment. If you need that, then call create-deployments endpoint.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn request_promote(
-    config: &ClientConfig,
-    project_id: String,
-    deployment_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "POST",
-        &format!(
-            "/v10/projects/{}/promote/{}",
-            crate::client::encode_path_segment(&project_id),
-            crate::client::encode_path_segment(&deployment_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "request_promote",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct ListPromoteAliasesParams {
-    pub project_id: String,
-    pub limit: Option<f64>,
-    pub since: Option<f64>,
-    pub until: Option<f64>,
-    pub failed_only: Option<bool>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+impl UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }
 
-/// Lists aliases associated with the latest promotion request for a project and their mapping status. Use `since` and `until` to filter by creation time, and `failedOnly` to limit results to aliases that failed to map to the requested deployment. Use `limit` to cap the number of aliases returned.
-///
-/// Get a list of aliases related to the last promote request with their mapping status
-///
-/// # Arguments
-///
-/// * `limit` - Maximum number of aliases to list from a request (max 100).
-/// * `since` - Get aliases created after this epoch timestamp.
-/// * `until` - Get aliases created before this epoch timestamp.
-/// * `failed_only` - Filter results down to aliases that failed to map to the
-///   requested deployment
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_promote_aliases(
-    config: &ClientConfig,
-    params: ListPromoteAliasesParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListPromoteAliasesResponse, SdkError> {
-    let ListPromoteAliasesParams {
-        project_id,
-        limit,
-        since,
-        until,
-        failed_only,
-        team_id,
-        slug,
-    } = params;
-    if let Some(ref limit_v) = limit {
-        validate_range(
-            "limit",
-            *limit_v,
-            RangeOpts {
-                max: Some(100_f64),
-                ..Default::default()
-            },
-        )?;
+impl serde::Serialize for UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(6);
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = until {
-        __query.push(("until", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = failed_only {
-        __query.push(("failedOnly", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListPromoteAliasesResponse>(
-        "GET",
-        &format!(
-            "/v1/projects/{}/promote/aliases",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_promote_aliases",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Pauses a project identified by its project ID. Use `teamId` or `slug` to select the team context when needed. When the project disables automatic assignment of custom production domains, pausing also blocks its active production deployment.
-///
-/// Pause a project by passing its project `id` in the URL. If the project does not exist given the id then the request will fail with 400 status code. If the project disables auto assigning custom production domains and blocks the active Production Deployment then the request will return with 200 status code.
-///
-/// # Arguments
-///
-/// * `project_id` - The unique project identifier
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn pause_project(
-    config: &ClientConfig,
-    project_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/pause",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "pause_project",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Unpauses a project identified by its project ID. Use `teamId` or `slug` to select the team context when needed. When the project enables automatic assignment of custom production domains, unpausing also unblocks its active production deployment.
-///
-/// Unpause a project by passing its project `id` in the URL. If the project does not exist given the id then the request will fail with 400 status code. If the project enables auto assigning custom production domains and unblocks the active Production Deployment then the request will return with 200 status code.
-///
-/// # Arguments
-///
-/// * `project_id` - The unique project identifier
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn unpause_project(
-    config: &ClientConfig,
-    project_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl std::fmt::Display for UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+}
 
-    Ok(sdk_request::<serde_json::Value>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/unpause",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "unpause_project",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseTargetsValueTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseTargetsValueTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseTargetsValueTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseTargetsValueTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseTargetsValueTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseTargetsValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned: Option<Option<UpdateMicrofrontendsResponseTargetsValueAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<UpdateMicrofrontendsResponseTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<UpdateMicrofrontendsResponseTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<UpdateMicrofrontendsResponseTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<UpdateMicrofrontendsResponseTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<UpdateMicrofrontendsResponseTargetsValueChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<UpdateMicrofrontendsResponseTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<UpdateMicrofrontendsResponseTargetsValueOidcTokenClaims>,
+    pub plan: UpdateMicrofrontendsResponseTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: UpdateMicrofrontendsResponseTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<UpdateMicrofrontendsResponseTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }

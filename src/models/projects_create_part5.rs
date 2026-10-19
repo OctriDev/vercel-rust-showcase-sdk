@@ -3,6 +3,65 @@
 
 // projects_create domain models (part 5)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseEnvItemContentHintVariant0 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemContentHintVariant0TypeEnum,
+}
+
+impl CreateProjectResponseEnvItemContentHintVariant0 {
+    pub fn new(
+        store_id: String,
+        type_: CreateProjectResponseEnvItemContentHintVariant0TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    #[serde(rename = "redis-rest-api-url")]
+    #[default]
+    RedisRestApiUrl,
+}
+
+impl CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiUrl => "redis-rest-api-url",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectResponseEnvItemContentHintVariant1TypeEnum::RedisRestApiUrl => {
+                f.write_str("redis-rest-api-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseEnvItemContentHintVariant1 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemContentHintVariant1TypeEnum,
+}
+
+impl CreateProjectResponseEnvItemContentHintVariant1 {
+    pub fn new(
+        store_id: String,
+        type_: CreateProjectResponseEnvItemContentHintVariant1TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum CreateProjectResponseEnvItemContentHintVariant2TypeEnum {
     #[serde(rename = "redis-rest-api-token")]
@@ -436,64 +495,4 @@ impl CreateProjectResponseEnvItemContentHintVariant12TypeEnum {
             Self::PostgresPassword => "postgres-password",
         }
     }
-}
-
-impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant12TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectResponseEnvItemContentHintVariant12TypeEnum::PostgresPassword => {
-                f.write_str("postgres-password")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseEnvItemContentHintVariant12 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseEnvItemContentHintVariant12TypeEnum,
-}
-
-impl CreateProjectResponseEnvItemContentHintVariant12 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectResponseEnvItemContentHintVariant12TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    #[serde(rename = "postgres-database")]
-    #[default]
-    PostgresDatabase,
-}
-
-impl CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresDatabase => "postgres-database",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectResponseEnvItemContentHintVariant13TypeEnum::PostgresDatabase => {
-                f.write_str("postgres-database")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseEnvItemContentHintVariant13 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseEnvItemContentHintVariant13TypeEnum,
 }

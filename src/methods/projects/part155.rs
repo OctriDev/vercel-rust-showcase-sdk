@@ -3,46 +3,89 @@
 
 use super::*;
 
-impl GetProjectsResponseOptionsAllowlistPathsItem {
-    pub fn new(value: String) -> Self {
-        Self { value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseOptionsAllowlist {
-    pub paths: Vec<GetProjectsResponseOptionsAllowlistPathsItem>,
-}
-
-impl GetProjectsResponseOptionsAllowlist {
-    pub fn new(paths: Vec<GetProjectsResponseOptionsAllowlistPathsItem>) -> Self {
-        Self { paths }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponsePassportDeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl GetProjectsResponsePassportDeploymentTypeEnum {
+impl GetProjectsResponseFrameworkEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponsePassportDeploymentTypeEnum {
+impl serde::Serialize for GetProjectsResponseFrameworkEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -51,71 +94,156 @@ impl serde::Serialize for GetProjectsResponsePassportDeploymentTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponsePassportDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseFrameworkEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponsePassportDeploymentTypeEnum {
+impl std::fmt::Display for GetProjectsResponseFrameworkEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponsePassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: GetProjectsResponsePassportDeploymentTypeEnum,
+pub struct GetProjectsResponseGitComments {
+    /// Whether the Vercel bot should comment on commits
+    #[serde(rename = "onCommit")]
+    pub on_commit: bool,
+    /// Whether the Vercel bot should comment on PRs
+    #[serde(rename = "onPullRequest")]
+    pub on_pull_request: bool,
 }
 
-impl GetProjectsResponsePassport {
-    pub fn new(
-        connector_id: String,
-        deployment_type: GetProjectsResponsePassportDeploymentTypeEnum,
-    ) -> Self {
+impl GetProjectsResponseGitComments {
+    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
         Self {
-            connector_id,
-            deployment_type,
+            on_commit,
+            on_pull_request,
         }
     }
 }
 
+/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    /// Whether consolidated commit status is enabled.
+    pub enabled: bool,
+    /// Whether to propagate individual deployment failures to the consolidated status.
+    #[serde(rename = "propagateFailures")]
+    pub propagate_failures: bool,
+}
+
+impl GetProjectsResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
+        Self {
+            enabled,
+            propagate_failures,
+        }
+    }
+}
+
+/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
+pub enum GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    Disabled,
+    Enabled,
     Unknown(String),
 }
 
-impl GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
+impl GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
+impl serde::Serialize for GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -124,37 +252,51 @@ impl serde::Serialize for GetProjectsResponsePasswordProtectionDeploymentTypeEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
+impl std::fmt::Display for GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Password protection settings returned without the secret password hash.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponsePasswordProtection {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: GetProjectsResponsePasswordProtectionDeploymentTypeEnum,
-}
-
-impl GetProjectsResponsePasswordProtection {
-    pub fn new(deployment_type: GetProjectsResponsePasswordProtectionDeploymentTypeEnum) -> Self {
-        Self { deployment_type }
-    }
+pub struct GetProjectsResponseGitProviderOptions {
+    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+    #[serde(
+        rename = "consolidatedGitCommitStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub consolidated_git_commit_status:
+        Option<GetProjectsResponseGitProviderOptionsConsolidatedGitCommitStatus>,
+    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+    #[serde(rename = "createDeployments")]
+    pub create_deployments: GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum,
+    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    #[serde(
+        rename = "disableRepositoryDispatchEvents",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_repository_dispatch_events: Option<bool>,
+    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
+    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
+    pub git_commit_status: Option<bool>,
+    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    #[serde(
+        rename = "requireVerifiedCommits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_verified_commits: Option<bool>,
 }

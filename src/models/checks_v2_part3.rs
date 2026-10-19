@@ -3,6 +3,24 @@
 
 // checks_v2 domain models (part 3)
 
+impl CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::VercelCiCheck => "vercel-ci-check",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de>
     for CreateDeploymentCheckRunResponseVariant0SourceVariant4SubKindEnum
 {
@@ -116,6 +134,46 @@ impl<'de> serde::Deserialize<'de> for CreateDeploymentCheckRunResponseVariant0So
                 "no CreateDeploymentCheckRunResponseVariant0Source branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentCheckRunResponseVariant0SourceVariant0>>
+    for CreateDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant0>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentCheckRunResponseVariant0SourceVariant1>>
+    for CreateDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant1>) -> Self {
+        Self::Webhook(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentCheckRunResponseVariant0SourceVariant2>>
+    for CreateDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant2>) -> Self {
+        Self::GitProvider(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentCheckRunResponseVariant0SourceVariant3>>
+    for CreateDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant3>) -> Self {
+        Self::VercelNativeCheck(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4>>
+    for CreateDeploymentCheckRunResponseVariant0Source
+{
+    fn from(value: Box<CreateDeploymentCheckRunResponseVariant0SourceVariant4>) -> Self {
+        Self::Api(value)
     }
 }
 
@@ -473,55 +531,5 @@ impl CreateDeploymentCheckRunResponseVariant1TaskSummary {
             succeeded,
             total,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateDeploymentCheckRunResponseVariant1SourceVariant0OriginEnum {
-    #[serde(rename = "config")]
-    #[default]
-    Config,
-}
-
-impl CreateDeploymentCheckRunResponseVariant1SourceVariant0OriginEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Config => "config",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentCheckRunResponseVariant1SourceVariant0OriginEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateDeploymentCheckRunResponseVariant1SourceVariant0OriginEnum::Config => {
-                f.write_str("config")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentCheckRunResponseVariant1SourceVariant0SubKindEnum {
-    #[default]
-    VercelCi,
-    Unknown(String),
-}
-
-impl CreateDeploymentCheckRunResponseVariant1SourceVariant0SubKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelCi => "vercel-ci",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentCheckRunResponseVariant1SourceVariant0SubKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
     }
 }

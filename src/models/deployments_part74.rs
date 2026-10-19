@@ -3,364 +3,433 @@
 
 // deployments domain models (part 74)
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1PlanEnum {
-    #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1PlanEnum {
+impl GetDeploymentResponseVariant1GitRepoVariant3TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
+            Self::Vercel => "vercel",
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1PlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1PlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1PlanEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1GitRepoVariant3TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+        match self {
+            GetDeploymentResponseVariant1GitRepoVariant3TypeEnum::Vercel => f.write_str("vercel"),
+        }
     }
 }
 
-/// The user on the external platform who triggered the deployment.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1PlatformCreator {
-    /// URL of the platform user's avatar image.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Display name of the platform user.
+pub struct GetDeploymentResponseVariant1GitRepoVariant3 {
+    #[serde(rename = "defaultBranch")]
+    pub default_branch: String,
     pub name: String,
-}
-
-impl GetDeploymentResponseVariant1PlatformCreator {
-    pub fn new(name: String) -> Self {
-        Self { avatar: None, name }
-    }
-}
-
-/// Whether the value is an opaque identifier or a URL.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1PlatformOriginTypeEnum {
-    #[default]
-    Id,
-    Url,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1PlatformOriginTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Id => "id",
-            Self::Url => "url",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "id" => Self::Id,
-            "url" => Self::Url,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Reference back to the entity on the platform that initiated the deployment.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1PlatformOrigin {
-    /// Whether the value is an opaque identifier or a URL.
+    pub org: String,
+    #[serde(rename = "ownerType")]
+    pub owner_type: GetDeploymentResponseVariant1GitRepoVariant3OwnerTypeEnum,
+    pub path: String,
+    pub private: bool,
+    pub repo: String,
     #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1PlatformOriginTypeEnum,
-    /// The identifier or URL pointing to the originating entity.
-    pub value: String,
+    pub type_: GetDeploymentResponseVariant1GitRepoVariant3TypeEnum,
 }
 
-impl GetDeploymentResponseVariant1PlatformOrigin {
-    pub fn new(type_: GetDeploymentResponseVariant1PlatformOriginTypeEnum, value: String) -> Self {
-        Self { type_, value }
-    }
-}
-
-/// The external platform that created the deployment (e.g. its display name).
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1PlatformSource {
-    /// Display name of the platform.
-    pub name: String,
-}
-
-impl GetDeploymentResponseVariant1PlatformSource {
-    pub fn new(name: String) -> Self {
-        Self { name }
-    }
-}
-
-/// Metadata about the source platform that triggered the deployment. Allows us to map a deployment back to a platform (e.g. the chat that created it)
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1Platform {
-    /// The user on the external platform who triggered the deployment.
-    pub creator: GetDeploymentResponseVariant1PlatformCreator,
-    /// Arbitrary key-value metadata provided by the platform.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    /// Reference back to the entity on the platform that initiated the deployment.
-    pub origin: GetDeploymentResponseVariant1PlatformOrigin,
-    /// The external platform that created the deployment (e.g. its display name).
-    pub source: GetDeploymentResponseVariant1PlatformSource,
-}
-
-impl GetDeploymentResponseVariant1Platform {
+impl GetDeploymentResponseVariant1GitRepoVariant3 {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        creator: GetDeploymentResponseVariant1PlatformCreator,
-        origin: GetDeploymentResponseVariant1PlatformOrigin,
-        source: GetDeploymentResponseVariant1PlatformSource,
+        default_branch: String,
+        name: String,
+        org: String,
+        owner_type: GetDeploymentResponseVariant1GitRepoVariant3OwnerTypeEnum,
+        path: String,
+        private: bool,
+        repo: String,
+        type_: GetDeploymentResponseVariant1GitRepoVariant3TypeEnum,
     ) -> Self {
         Self {
-            creator,
-            meta: None,
-            origin,
-            source,
+            default_branch,
+            name,
+            org,
+            owner_type,
+            path,
+            private,
+            repo,
+            type_,
         }
     }
 }
 
-/// The public project information associated with the deployment.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum {
+    #[default]
+    Team,
+    User,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Team => "team",
+            Self::User => "user",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "team" => Self::Team,
+            "user" => Self::User,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetDeploymentResponseVariant1GitRepoVariant4TypeEnum {
+    #[serde(rename = "cursor-origin")]
+    #[default]
+    CursorOrigin,
+}
+
+impl GetDeploymentResponseVariant1GitRepoVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::CursorOrigin => "cursor-origin",
+        }
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1GitRepoVariant4TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetDeploymentResponseVariant1GitRepoVariant4TypeEnum::CursorOrigin => {
+                f.write_str("cursor-origin")
+            }
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1Project {
+pub struct GetDeploymentResponseVariant1GitRepoVariant4 {
+    #[serde(rename = "defaultBranch")]
+    pub default_branch: String,
+    pub name: String,
+    /// Owner (namespace) slug.
+    pub owner: String,
+    #[serde(rename = "ownerType")]
+    pub owner_type: GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum,
+    pub path: String,
+    pub private: bool,
+    pub repo: String,
+    /// Origin repository id.
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetDeploymentResponseVariant1GitRepoVariant4TypeEnum,
+}
+
+impl GetDeploymentResponseVariant1GitRepoVariant4 {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        default_branch: String,
+        name: String,
+        owner: String,
+        owner_type: GetDeploymentResponseVariant1GitRepoVariant4OwnerTypeEnum,
+        path: String,
+        private: bool,
+        repo: String,
+        repo_id: String,
+        type_: GetDeploymentResponseVariant1GitRepoVariant4TypeEnum,
+    ) -> Self {
+        Self {
+            default_branch,
+            name,
+            owner,
+            owner_type,
+            path,
+            private,
+            repo,
+            repo_id,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetDeploymentResponseVariant1GitRepo {
+    Gitlab(Box<GetDeploymentResponseVariant1GitRepoVariant0>),
+    Github(Box<GetDeploymentResponseVariant1GitRepoVariant1>),
+    Bitbucket(Box<GetDeploymentResponseVariant1GitRepoVariant2>),
+    Vercel(Box<GetDeploymentResponseVariant1GitRepoVariant3>),
+    CursorOrigin(Box<GetDeploymentResponseVariant1GitRepoVariant4>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitRepo {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetDeploymentResponseVariant1GitRepoVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Gitlab(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetDeploymentResponseVariant1GitRepoVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Github(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetDeploymentResponseVariant1GitRepoVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::Bitbucket(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetDeploymentResponseVariant1GitRepoVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::Vercel(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetDeploymentResponseVariant1GitRepoVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::CursorOrigin(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetDeploymentResponseVariant1GitRepo branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentResponseVariant1GitRepoVariant0>>
+    for GetDeploymentResponseVariant1GitRepo
+{
+    fn from(value: Box<GetDeploymentResponseVariant1GitRepoVariant0>) -> Self {
+        Self::Gitlab(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentResponseVariant1GitRepoVariant1>>
+    for GetDeploymentResponseVariant1GitRepo
+{
+    fn from(value: Box<GetDeploymentResponseVariant1GitRepoVariant1>) -> Self {
+        Self::Github(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentResponseVariant1GitRepoVariant2>>
+    for GetDeploymentResponseVariant1GitRepo
+{
+    fn from(value: Box<GetDeploymentResponseVariant1GitRepoVariant2>) -> Self {
+        Self::Bitbucket(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentResponseVariant1GitRepoVariant3>>
+    for GetDeploymentResponseVariant1GitRepo
+{
+    fn from(value: Box<GetDeploymentResponseVariant1GitRepoVariant3>) -> Self {
+        Self::Vercel(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetDeploymentResponseVariant1GitRepoVariant4>>
+    for GetDeploymentResponseVariant1GitRepo
+{
+    fn from(value: Box<GetDeploymentResponseVariant1GitRepoVariant4>) -> Self {
+        Self::CursorOrigin(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetDeploymentResponseVariant1GitSourceVariant0RepoId {
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant0RepoId {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetDeploymentResponseVariant1GitSourceVariant0RepoId branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for GetDeploymentResponseVariant1GitSourceVariant0RepoId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetDeploymentResponseVariant1GitSourceVariant0RepoId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1GitSourceVariant0TypeEnum {
+    #[default]
+    Github,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1GitSourceVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Github => "github",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant0TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant0TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "github" => Self::Github,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentResponseVariant1GitSourceVariant0 {
     #[serde(
+        rename = "prId",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub framework: Option<Option<String>>,
-    pub id: String,
-    pub name: String,
+    pub pr_id: Option<Option<f64>>,
+    #[serde(
+        rename = "ref",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub ref_: Option<Option<String>>,
+    #[serde(rename = "repoId")]
+    pub repo_id: GetDeploymentResponseVariant1GitSourceVariant0RepoId,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sha: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: GetDeploymentResponseVariant1GitSourceVariant0TypeEnum,
 }
 
-impl GetDeploymentResponseVariant1Project {
-    pub fn new(id: String, name: String) -> Self {
+impl GetDeploymentResponseVariant1GitSourceVariant0 {
+    pub fn new(
+        repo_id: GetDeploymentResponseVariant1GitSourceVariant0RepoId,
+        type_: GetDeploymentResponseVariant1GitSourceVariant0TypeEnum,
+    ) -> Self {
         Self {
-            framework: None,
-            id,
-            name,
+            pr_id: None,
+            ref_: None,
+            repo_id,
+            sha: None,
+            type_,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+pub enum GetDeploymentResponseVariant1GitSourceVariant1TypeEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    Github,
     Unknown(String),
 }
 
-impl GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl GetDeploymentResponseVariant1GitSourceVariant1TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
+            Self::Github => "github",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant1TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -369,110 +438,110 @@ impl serde::Serialize for GetDeploymentResponseVariant1ProjectSettingsFrameworkE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant1TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
+            "github" => Self::Github,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant1TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentResponseVariant1GitSourceVariant1 {
+    pub org: String,
+    #[serde(
+        rename = "prId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub pr_id: Option<Option<f64>>,
+    #[serde(
+        rename = "ref",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub ref_: Option<Option<String>>,
+    pub repo: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sha: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: GetDeploymentResponseVariant1GitSourceVariant1TypeEnum,
+}
+
+impl GetDeploymentResponseVariant1GitSourceVariant1 {
+    pub fn new(
+        org: String,
+        repo: String,
+        type_: GetDeploymentResponseVariant1GitSourceVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            org,
+            pr_id: None,
+            ref_: None,
+            repo,
+            sha: None,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetDeploymentResponseVariant1GitSourceVariant2RepoId {
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant2RepoId {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetDeploymentResponseVariant1GitSourceVariant2RepoId branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for GetDeploymentResponseVariant1GitSourceVariant2RepoId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetDeploymentResponseVariant1GitSourceVariant2RepoId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
+pub enum GetDeploymentResponseVariant1GitSourceVariant2TypeEnum {
     #[default]
-    _10X,
-    _12X,
-    _14X,
-    _16X,
-    _18X,
-    _20X,
-    _22X,
-    _24X,
-    _26X,
-    _810X,
+    GithubCustomHost,
     Unknown(String),
 }

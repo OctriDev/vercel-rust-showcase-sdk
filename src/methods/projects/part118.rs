@@ -2,166 +2,30 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    CreateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+    CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+    CreateProjectResponseDeploymentPolicyGitSourcesItemSourcesItem,
+    CreateProjectResponseDismissedToastsItemValue,
+};
 
-impl serde::Serialize for CreateProjectResponseFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseFrameworkEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseGitComments {
-    /// Whether the Vercel bot should comment on commits
-    #[serde(rename = "onCommit")]
-    pub on_commit: bool,
-    /// Whether the Vercel bot should comment on PRs
-    #[serde(rename = "onPullRequest")]
-    pub on_pull_request: bool,
-}
-
-impl CreateProjectResponseGitComments {
-    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
-        Self {
-            on_commit,
-            on_pull_request,
-        }
-    }
-}
-
-/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    /// Whether consolidated commit status is enabled.
-    pub enabled: bool,
-    /// Whether to propagate individual deployment failures to the consolidated status.
-    #[serde(rename = "propagateFailures")]
-    pub propagate_failures: bool,
-}
-
-impl CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
-        Self {
-            enabled,
-            propagate_failures,
-        }
-    }
-}
-
-/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
-    #[default]
-    Disabled,
-    Enabled,
-    Unknown(String),
-}
-
-impl CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+impl CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
+            Self::Cli => "cli",
+            Self::DeployHook => "deploy-hook",
+            Self::Git => "git",
+            Self::Integration => "integration",
+            Self::RestApi => "rest-api",
+            Self::V0 => "v0",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+impl serde::Serialize
+    for CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -170,128 +34,294 @@ impl serde::Serialize for CreateProjectResponseGitProviderOptionsCreateDeploymen
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
+            "cli" => Self::Cli,
+            "deploy-hook" => Self::DeployHook,
+            "git" => Self::Git,
+            "integration" => Self::Integration,
+            "rest-api" => Self::RestApi,
+            "v0" => Self::V0,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+impl std::fmt::Display
+    for CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseDeploymentPolicyDeploymentSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<CreateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+    pub sources: Vec<CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+}
+
+impl CreateProjectResponseDeploymentPolicyDeploymentSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            CreateProjectResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseDeploymentPolicyGitSourcesItem {
+    pub enabled: bool,
+    pub environments: Vec<CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+    pub sources: Vec<CreateProjectResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+}
+
+impl CreateProjectResponseDeploymentPolicyGitSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+        sources: Vec<CreateProjectResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseDeploymentPolicy {
+    #[serde(
+        rename = "deploymentSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deployment_sources:
+        Option<Option<Vec<CreateProjectResponseDeploymentPolicyDeploymentSourcesItem>>>,
+    #[serde(
+        rename = "gitSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_sources: Option<Option<Vec<CreateProjectResponseDeploymentPolicyGitSourcesItem>>>,
+}
+
+impl CreateProjectResponseDeploymentPolicy {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployment_sources: None,
+            git_sources: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseDismissedToastsItemActionEnum {
+    #[default]
+    Accept,
+    Cancel,
+    Delete,
+    Unknown(String),
+}
+
+impl CreateProjectResponseDismissedToastsItemActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Accept => "accept",
+            Self::Cancel => "cancel",
+            Self::Delete => "delete",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseDismissedToastsItemActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseDismissedToastsItemActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "accept" => Self::Accept,
+            "cancel" => Self::Cancel,
+            "delete" => Self::Delete,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseDismissedToastsItemActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseGitProviderOptions {
-    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-    #[serde(
-        rename = "consolidatedGitCommitStatus",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub consolidated_git_commit_status:
-        Option<CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus>,
-    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-    #[serde(rename = "createDeployments")]
-    pub create_deployments: CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
-    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
-    #[serde(
-        rename = "disableRepositoryDispatchEvents",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub disable_repository_dispatch_events: Option<bool>,
-    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
-    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
-    pub git_commit_status: Option<bool>,
-    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
-    #[serde(
-        rename = "requireVerifiedCommits",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub require_verified_commits: Option<bool>,
+pub struct CreateProjectResponseDismissedToastsItem {
+    pub action: CreateProjectResponseDismissedToastsItemActionEnum,
+    #[serde(rename = "dismissedAt")]
+    pub dismissed_at: f64,
+    pub key: String,
+    /// Typed representation of the `CreateProjectResponseDismissedToastsItemValue` API schema.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub value: Option<CreateProjectResponseDismissedToastsItemValue>,
 }
 
-impl CreateProjectResponseGitProviderOptions {
+impl CreateProjectResponseDismissedToastsItem {
     pub fn new(
-        create_deployments: CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
+        action: CreateProjectResponseDismissedToastsItemActionEnum,
+        dismissed_at: f64,
+        key: String,
+        value: Option<CreateProjectResponseDismissedToastsItemValue>,
     ) -> Self {
         Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+            action,
+            dismissed_at,
+            key,
+            value,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseEnvItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
 }
 
-impl CreateProjectResponseIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
+impl CreateProjectResponseEnvItemInternalContentHintTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FlagsSecret => "flags-secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseEnvItemInternalContentHintTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseEnvItemInternalContentHintTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseEnvItemInternalContentHintTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseEnvItemInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemInternalContentHintTypeEnum,
+}
+
+impl CreateProjectResponseEnvItemInternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: CreateProjectResponseEnvItemInternalContentHintTypeEnum,
+    ) -> Self {
         Self {
-            bucket,
-            default: None,
-            support_until: None,
+            encrypted_value,
+            type_,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseJobsFlagdefinitionspresent {
-    pub targets: Vec<String>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseEnvItemTargetVariant0ItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
 }
 
-impl CreateProjectResponseJobsFlagdefinitionspresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl CreateProjectResponseEnvItemTargetVariant0ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseJobsLint {
-    pub targets: Vec<String>,
-}
-
-impl CreateProjectResponseJobsLint {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl serde::Serialize for CreateProjectResponseEnvItemTargetVariant0ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseJobsMfeconfigpresent {
-    pub targets: Vec<String>,
-}
-
-impl CreateProjectResponseJobsMfeconfigpresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseJobsTypecheck {
-    pub targets: Vec<String>,
-}
-
-impl CreateProjectResponseJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseEnvItemTargetVariant0ItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
     }
 }

@@ -140,6 +140,26 @@ impl<'de> serde::Deserialize<'de> for GetStorageStoresByIdResponseStoreProjectFi
     }
 }
 
+impl
+    ::std::convert::From<
+        Vec<GetStorageStoresByIdResponseStoreProjectFilterGitProvidersVariant0ItemEnum>,
+    > for GetStorageStoresByIdResponseStoreProjectFilterGitProviders
+{
+    fn from(
+        value: Vec<GetStorageStoresByIdResponseStoreProjectFilterGitProvidersVariant0ItemEnum>,
+    ) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<GetStorageStoresByIdResponseStoreProjectFilterGitProvidersVariant1Enum>
+    for GetStorageStoresByIdResponseStoreProjectFilterGitProviders
+{
+    fn from(value: GetStorageStoresByIdResponseStoreProjectFilterGitProvidersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetStorageStoresByIdResponseStoreProjectFilterGit {
     #[serde(skip_serializing_if = "Option::is_none")]

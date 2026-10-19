@@ -3,6 +3,107 @@
 
 use super::*;
 
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemSetupConclusionResultVariant2Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemSetupConclusionResult
+{
+    fn from(
+        value: Box<ListVercelCiInvocationsResponseInvocationsItemSetupConclusionResultVariant2Enum>,
+    ) -> Self {
+        Self::Object3(value)
+    }
+}
+
+/// The terminal setup result. Omitted while invocation setup is still running.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiInvocationsResponseInvocationsItemSetupConclusion {
+    pub result: ListVercelCiInvocationsResponseInvocationsItemSetupConclusionResult,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemSetupConclusion {
+    pub fn new(
+        result: ListVercelCiInvocationsResponseInvocationsItemSetupConclusionResult,
+    ) -> Self {
+        Self { result }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum {
+    #[serde(rename = "succeeded")]
+    #[default]
+    Succeeded,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Succeeded => "succeeded",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum::Succeeded => f.write_str("succeeded"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum {
+    #[serde(rename = "failed")]
+    #[default]
+    Failed,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Failed => "failed",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum::Failed => f.write_str("failed"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum {
+    #[serde(rename = "skipped")]
+    #[default]
+    Skipped,
+}
+
+impl ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Skipped => "skipped",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum::Skipped => f.write_str("skipped"),
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum ListVercelCiInvocationsResponseInvocationsItemRunConclusionResult {
@@ -48,6 +149,42 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListVercelCiInvocationsResponseInvocationsItemRunConclusionResult branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResult
+{
+    fn from(
+        value: Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant0Enum>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResult
+{
+    fn from(
+        value: Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant1Enum>,
+    ) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum>,
+    > for ListVercelCiInvocationsResponseInvocationsItemRunConclusionResult
+{
+    fn from(
+        value: Box<ListVercelCiInvocationsResponseInvocationsItemRunConclusionResultVariant2Enum>,
+    ) -> Self {
+        Self::Object3(value)
     }
 }
 
@@ -184,105 +321,4 @@ impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusV
             }
         }
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
-    #[serde(rename = "sandbox_named")]
-    #[default]
-    SandboxNamed,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SandboxNamed => "sandbox_named",
-        }
-    }
-}
-
-impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemStatusVariant5Enum::SandboxNamed => {
-                f.write_str("sandbox_named")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
-    #[serde(rename = "jobs_on_hive_clone_dispatched")]
-    #[default]
-    JobsOnHiveCloneDispatched,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveCloneDispatched => "jobs_on_hive_clone_dispatched",
-        }
-    }
-}
-
-impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemStatusVariant6Enum::JobsOnHiveCloneDispatched => f.write_str("jobs_on_hive_clone_dispatched"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
-    #[serde(rename = "jobs_on_hive_dispatched")]
-    #[default]
-    JobsOnHiveDispatched,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveDispatched => "jobs_on_hive_dispatched",
-        }
-    }
-}
-
-impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemStatusVariant7Enum::JobsOnHiveDispatched => f.write_str("jobs_on_hive_dispatched"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
-    #[serde(rename = "jobs_on_hive_completed")]
-    #[default]
-    JobsOnHiveCompleted,
-}
-
-impl ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::JobsOnHiveCompleted => "jobs_on_hive_completed",
-        }
-    }
-}
-
-impl std::fmt::Display for ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListVercelCiInvocationsResponseInvocationsItemStatusVariant8Enum::JobsOnHiveCompleted => f.write_str("jobs_on_hive_completed"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListVercelCiInvocationsResponseInvocationsItemStatusVariant9Enum {
-    #[serde(rename = "jobs_on_hive_failed")]
-    #[default]
-    JobsOnHiveFailed,
 }
