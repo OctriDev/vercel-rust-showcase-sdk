@@ -11,6 +11,117 @@ use crate::validation::{
 };
 
 #[derive(Debug, Clone, Default)]
+pub struct ListNamedSandboxesParams {
+    pub project: Option<String>,
+    pub limit: Option<f64>,
+    pub sort_by: Option<ListNamedSandboxesEnum>,
+    pub name_prefix: Option<String>,
+    pub cursor: Option<String>,
+    pub sort_order: Option<ListNamedSandboxesEnum82d0ae37>,
+    pub status: Option<ListNamedSandboxesEnumc5c9c3b8>,
+    pub tags: Option<ListNamedSandboxes>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
+/// Lists named sandboxes for a project in a paginated response. Filter by name prefix, status, or tag, and choose a sort field and direction; `namePrefix` is only valid with `sortBy=name`, while `status` is only valid with `sortBy=createdAt`. Continue through results using the pagination cursor returned in the response.
+///
+/// Retrieves a paginated list of named sandboxes belonging to a specific project. Results can be sorted by creation time or name, and optionally filtered by name prefix or status.
+///
+/// # Arguments
+///
+/// * `project` - The unique identifier or name of the project to list named
+///   sandboxes for.
+/// * `limit` - Maximum number of named sandboxes to return in the response.
+///   Used for pagination.
+/// * `sort_by` - Field to sort by.
+/// * `name_prefix` - Filter named sandboxes whose name starts with this prefix.
+///   Only valid when sortBy=name.
+/// * `cursor` - Opaque pagination cursor from a previous response.
+/// * `sort_order` - Sort direction. Defaults to desc.
+/// * `status` - Filter named sandboxes by status. Only valid when sortBy is
+///   createdAt.
+/// * `tags` - Filter sandboxes by tag. Format: \"key:value\". Only one tag
+///   filter is supported at a time.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn list_named_sandboxes(
+    config: &ClientConfig,
+    params: ListNamedSandboxesParams,
+    options: Option<&RequestOptions>,
+) -> Result<ListNamedSandboxesResponse, SdkError> {
+    let ListNamedSandboxesParams {
+        project,
+        limit,
+        sort_by,
+        name_prefix,
+        cursor,
+        sort_order,
+        status,
+        tags,
+        team_id,
+        slug,
+    } = params;
+    if let Some(ref limit_v) = limit {
+        validate_range(
+            "limit",
+            *limit_v,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(50_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(10);
+    if let Some(ref v) = project {
+        __query.push(("project", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = sort_by {
+        __query.push(("sortBy", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = name_prefix {
+        __query.push(("namePrefix", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = cursor {
+        __query.push(("cursor", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = sort_order {
+        __query.push(("sortOrder", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = status {
+        __query.push(("status", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = tags {
+        __query.push(("tags", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<ListNamedSandboxesResponse>(
+        "GET",
+        "/v2/sandboxes",
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_named_sandboxes",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct CreateSandboxesV2Params {
     pub team_id: Option<String>,
     pub slug: Option<String>,
@@ -398,161 +509,6 @@ pub fn create_sandboxes_v2(
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "create_sandboxes_v2",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct ListDrivesParams {
-    pub project_id: Option<String>,
-    pub limit: Option<f64>,
-    pub cursor: Option<String>,
-    pub sort_by: Option<ListDrivesEnum>,
-    pub name_prefix: Option<String>,
-    pub sort_order: Option<ListDrivesEnum8d16c3eb>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Lists drives associated with a project in a paginated response. Use `projectId` to select the project unless the request uses a Vercel OIDC token scoped to one, and use `namePrefix` to filter by name when sorting by name. Continue through the results with the pagination cursor returned in the response.
-///
-/// Retrieves a paginated list of drives belonging to a specific project.
-///
-/// # Arguments
-///
-/// * `project_id` - The project ID or name associated with the drives. Required
-///   unless using a Vercel OIDC token scoped to a project.
-/// * `limit` - Maximum number of drives to return in the response. Used for
-///   pagination.
-/// * `cursor` - Opaque pagination cursor from a previous response.
-/// * `sort_by` - Field to sort drives by.
-/// * `name_prefix` - Filter drives whose name starts with this prefix. Only
-///   valid when sortBy=name.
-/// * `sort_order` - Sort direction for results.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_drives(
-    config: &ClientConfig,
-    params: ListDrivesParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListDrivesResponse, SdkError> {
-    let ListDrivesParams {
-        project_id,
-        limit,
-        cursor,
-        sort_by,
-        name_prefix,
-        sort_order,
-        team_id,
-        slug,
-    } = params;
-    if let Some(ref limit_v) = limit {
-        validate_range(
-            "limit",
-            *limit_v,
-            RangeOpts {
-                min: Some(1_f64),
-                max: Some(50_f64),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(8);
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = cursor {
-        __query.push(("cursor", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = sort_by {
-        __query.push(("sortBy", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = name_prefix {
-        __query.push(("namePrefix", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = sort_order {
-        __query.push(("sortOrder", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListDrivesResponse>(
-        "GET",
-        "/v2/sandboxes/drives",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_drives",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves a drive by its name or ID within a project. Supply `projectId` unless the request uses a Vercel OIDC token scoped to a project. The drive name or ID must use only letters, digits, hyphens, or underscores and be no longer than 64 characters.
-///
-/// Gets an existing drive by project and name or drive ID. Returns 404 if doesn't exist.
-///
-/// # Arguments
-///
-/// * `name_or_id` - The drive name or ID.
-/// * `project_id` - The project ID or name associated with the drive. Required
-///   unless using a Vercel OIDC token scoped to a project.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_drive(
-    config: &ClientConfig,
-    name_or_id: String,
-    project_id: Option<String>,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetDriveResponse, SdkError> {
-    validate_length(
-        "nameOrId",
-        &name_or_id,
-        LengthOpts {
-            max: Some(64),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern("nameOrId", &name_or_id, "^[a-zA-Z0-9_-]+$")?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetDriveResponse>(
-        "GET",
-        &format!(
-            "/v2/sandboxes/drives/{}",
-            crate::client::encode_path_segment(&name_or_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_drive",
             options,
             ..Default::default()
         },

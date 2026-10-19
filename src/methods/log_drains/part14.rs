@@ -3,6 +3,142 @@
 
 use super::*;
 
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0 {
+    pub fn new(
+        kind: ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0KindEnum,
+    ) -> Self {
+        Self {
+            default_for: None,
+            kind,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum {
+    #[serde(rename = "integration")]
+    #[default]
+    Integration,
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+        }
+    }
+}
+
+impl std::fmt::Display for ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum::Integration => {
+                f.write_str("integration")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1 {
+    #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
+    pub external_resource_id: Option<String>,
+    #[serde(rename = "integrationConfigurationId")]
+    pub integration_configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    pub kind: ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum,
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1 {
+    pub fn new(
+        integration_configuration_id: String,
+        integration_id: String,
+        kind: ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1KindEnum,
+    ) -> Self {
+        Self {
+            external_resource_id: None,
+            integration_configuration_id,
+            integration_id,
+            kind,
+            resource_id: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemSource {
+    SelfServed(Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0>),
+    Integration(Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListLogDrainsResponseVariant1DrainsVariant1ItemSource {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::SelfServed(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Integration(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListLogDrainsResponseVariant1DrainsVariant1ItemSource branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0>>
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemSource
+{
+    fn from(value: Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant0>) -> Self {
+        Self::SelfServed(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1>>
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemSource
+{
+    fn from(value: Box<ListLogDrainsResponseVariant1DrainsVariant1ItemSourceVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemStatusEnum {
+    #[default]
+    Disabled,
+    Enabled,
+    Errored,
+    Unknown(String),
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemStatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
+            Self::Errored => "errored",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ListLogDrainsResponseVariant1DrainsVariant1ItemStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -175,120 +311,4 @@ pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0
             ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0LogSourcesItemEnum,
         >,
     >,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Log {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            legacy_exclude_cached_static_asset_logs: None,
-            sources: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Project {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ids: Option<Vec<String>>,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Project {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { ids: None }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum {
-    #[serde(rename = "basic")]
-    #[default]
-    Basic,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Basic => "basic",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum::Basic => f.write_str("basic"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment:
-        Option<ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Deployment>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub log: Option<ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Log>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project:
-        Option<ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0Project>,
-    #[serde(rename = "type")]
-    pub type_: ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0 {
-    pub fn new(
-        type_: ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant0TypeEnum,
-    ) -> Self {
-        Self {
-            deployment: None,
-            log: None,
-            project: None,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum {
-    #[serde(rename = "odata")]
-    #[default]
-    Odata,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Odata => "odata",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum::Odata => f.write_str("odata"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1 {
-    pub text: String,
-    #[serde(rename = "type")]
-    pub type_: ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1 {
-    pub fn new(
-        text: String,
-        type_: ListLogDrainsResponseVariant1DrainsVariant1ItemFilterV2FilterVariant1TypeEnum,
-    ) -> Self {
-        Self { text, type_ }
-    }
 }

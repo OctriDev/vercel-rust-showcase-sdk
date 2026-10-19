@@ -2,397 +2,282 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{
-    UploadProjectAvatarResponseCreator, UploadProjectAvatarResponseExpiration,
-    UploadProjectAvatarResponseInternalRoutesItem, UploadProjectAvatarResponseLink,
-    UploadProjectAvatarResponseMicrofrontends, UploadProjectAvatarResponseTrustedIps,
-};
+
+impl serde::Serialize for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponse {
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    pub alias: Vec<UploadProjectAvatarResponseAliasItem>,
+pub struct UploadProjectAvatarResponseSecurityRulesetsValueRateLimit {
+    pub algo: UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
+}
+
+impl UploadProjectAvatarResponseSecurityRulesetsValueRateLimit {
+    pub fn new(
+        algo: UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
+    ) -> Self {
+        Self {
+            algo,
+            keys,
+            limit,
+            window,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseSecurityRulesetsValueRedirect {
+    pub location: String,
+    pub permanent: bool,
+}
+
+impl UploadProjectAvatarResponseSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
+        Self {
+            location,
+            permanent,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseSecurityRulesetsValue {
+    pub action: UploadProjectAvatarResponseSecurityRulesetsValueActionEnum,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<UploadProjectAvatarResponseSecurityRulesetsValueLogHeaders>,
+    #[serde(
+        rename = "rateLimit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rate_limit: Option<Option<UploadProjectAvatarResponseSecurityRulesetsValueRateLimit>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<UploadProjectAvatarResponseSecurityRulesetsValueRedirect>>,
+}
+
+impl UploadProjectAvatarResponseSecurityRulesetsValue {
+    pub fn new(action: UploadProjectAvatarResponseSecurityRulesetsValueActionEnum) -> Self {
+        Self {
+            action,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
+            rate_limit: None,
+            redirect: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseSecurity {
+    #[serde(
+        rename = "attackModeActiveUntil",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub attack_mode_active_until: Option<Option<f64>>,
+    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
+    pub attack_mode_enabled: Option<bool>,
+    #[serde(
+        rename = "attackModeUpdatedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub attack_mode_updated_at: Option<f64>,
+    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
+    pub bot_id_enabled: Option<bool>,
+    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
+    pub firewall_bypass_ips: Option<Vec<String>>,
+    #[serde(
+        rename = "firewallConfigVersion",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_config_version: Option<f64>,
+    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
+    pub firewall_enabled: Option<bool>,
+    #[serde(
+        rename = "firewallSeawallEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_seawall_enabled: Option<bool>,
+    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub firewall_updated_at: Option<f64>,
+    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja3_enabled: Option<bool>,
+    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja4_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub analytics: Option<UploadProjectAvatarResponseAnalytics>,
+    pub log_headers: Option<UploadProjectAvatarResponseSecurityLogHeaders>,
     #[serde(
-        rename = "appliedCve55182Migration",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub applied_cve55182_migration: Option<bool>,
-    #[serde(
-        rename = "autoAssignCustomDomains",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_assign_custom_domains: Option<bool>,
-    #[serde(
-        rename = "autoAssignCustomDomainsUpdatedBy",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_assign_custom_domains_updated_by: Option<String>,
-    #[serde(
-        rename = "autoExposeSystemEnvs",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_expose_system_envs: Option<bool>,
-    #[serde(
+        rename = "managedRules",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub avatar: Option<Option<String>>,
+    pub managed_rules: Option<Option<UploadProjectAvatarResponseSecurityManagedRules>>,
+    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
     #[serde(
-        rename = "avatarDarkMode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
+        rename = "pageIntegrityEnabled",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub avatar_dark_mode: Option<Option<String>>,
+    pub page_integrity_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub blobs: Option<UploadProjectAvatarResponseBlobs>,
-    #[serde(
-        rename = "buildCommand",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub build_command: Option<Option<String>>,
-    #[serde(
-        rename = "commandForIgnoringBuildStep",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub command_for_ignoring_build_step: Option<Option<String>>,
-    #[serde(
-        rename = "concurrencyBucketName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub concurrency_bucket_name: Option<String>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub connect_configuration_id: Option<Option<String>>,
-    #[serde(
-        rename = "connectConfigurations",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub connect_configurations:
-        Option<Option<Vec<UploadProjectAvatarResponseConnectConfigurationsItem>>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    /// Typed representation of the `UploadProjectAvatarResponseCreator` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub creator: Option<UploadProjectAvatarResponseCreator>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub crons: Option<UploadProjectAvatarResponseCrons>,
-    #[serde(rename = "customEnvironments", skip_serializing_if = "Option::is_none")]
-    pub custom_environments: Option<Vec<UploadProjectAvatarResponseCustomEnvironmentsItem>>,
-    #[serde(
-        rename = "customerSupportCodeVisibility",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub customer_support_code_visibility: Option<bool>,
-    #[serde(rename = "dataCache", skip_serializing_if = "Option::is_none")]
-    pub data_cache: Option<UploadProjectAvatarResponseDataCache>,
-    #[serde(rename = "defaultResourceConfig")]
-    pub default_resource_config: UploadProjectAvatarResponseDefaultResourceConfig,
-    /// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
-    #[serde(rename = "deploymentExpiration")]
-    pub deployment_expiration: UploadProjectAvatarResponseDeploymentExpiration,
-    /// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
-    #[serde(
-        rename = "deploymentPolicy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub deployment_policy: Option<Option<UploadProjectAvatarResponseDeploymentPolicy>>,
-    #[serde(
-        rename = "devCommand",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub dev_command: Option<Option<String>>,
-    #[serde(rename = "directoryListing")]
-    pub directory_listing: bool,
-    #[serde(rename = "dismissedToasts", skip_serializing_if = "Option::is_none")]
-    pub dismissed_toasts: Option<Vec<UploadProjectAvatarResponseDismissedToastsItem>>,
-    #[serde(
-        rename = "enableAffectedProjectsDeployments",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_affected_projects_deployments: Option<bool>,
-    #[serde(
-        rename = "enableExternalRewriteCaching",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_external_rewrite_caching: Option<bool>,
-    #[serde(
-        rename = "enablePreviewFeedback",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub enable_preview_feedback: Option<Option<bool>>,
-    #[serde(
-        rename = "enableProductionFeedback",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub enable_production_feedback: Option<Option<bool>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<Vec<UploadProjectAvatarResponseEnvItem>>,
-    /// Typed representation of the `UploadProjectAvatarResponseExpiration` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiration: Option<UploadProjectAvatarResponseExpiration>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub features: Option<UploadProjectAvatarResponseFeatures>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub framework: Option<Option<UploadProjectAvatarResponseFrameworkEnum>>,
-    #[serde(rename = "gitComments", skip_serializing_if = "Option::is_none")]
-    pub git_comments: Option<UploadProjectAvatarResponseGitComments>,
-    #[serde(rename = "gitForkProtection", skip_serializing_if = "Option::is_none")]
-    pub git_fork_protection: Option<bool>,
-    #[serde(rename = "gitLFS", skip_serializing_if = "Option::is_none")]
-    pub git_lfs: Option<bool>,
-    #[serde(rename = "gitProviderOptions", skip_serializing_if = "Option::is_none")]
-    pub git_provider_options: Option<UploadProjectAvatarResponseGitProviderOptions>,
-    #[serde(rename = "hasActiveBranches", skip_serializing_if = "Option::is_none")]
-    pub has_active_branches: Option<bool>,
-    #[serde(rename = "hasDeployments", skip_serializing_if = "Option::is_none")]
-    pub has_deployments: Option<bool>,
-    pub id: String,
-    #[serde(
-        rename = "installCommand",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub install_command: Option<Option<String>>,
-    #[serde(rename = "internalRoutes", skip_serializing_if = "Option::is_none")]
-    pub internal_routes: Option<Vec<UploadProjectAvatarResponseInternalRoutesItem>>,
-    #[serde(rename = "ipBuckets", skip_serializing_if = "Option::is_none")]
-    pub ip_buckets: Option<Vec<UploadProjectAvatarResponseIpBucketsItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub jobs: Option<UploadProjectAvatarResponseJobs>,
-    #[serde(
-        rename = "lastAliasRequest",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub last_alias_request: Option<Option<UploadProjectAvatarResponseLastAliasRequest>>,
-    #[serde(
-        rename = "lastRollbackTarget",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub last_rollback_target: Option<Option<serde_json::Value>>,
-    #[serde(rename = "latestDeployments", skip_serializing_if = "Option::is_none")]
-    pub latest_deployments: Option<Vec<UploadProjectAvatarResponseLatestDeploymentsItem>>,
-    /// Typed representation of the `UploadProjectAvatarResponseLink` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub link: Option<UploadProjectAvatarResponseLink>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub live: Option<bool>,
-    /// Typed representation of the `UploadProjectAvatarResponseMicrofrontends` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub microfrontends: Option<UploadProjectAvatarResponseMicrofrontends>,
-    pub name: String,
-    #[serde(rename = "nodeVersion")]
-    pub node_version: UploadProjectAvatarResponseNodeVersionEnum,
-    #[serde(rename = "oidcTokenConfig", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_config: Option<UploadProjectAvatarResponseOidcTokenConfig>,
-    #[serde(
-        rename = "optionsAllowlist",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub options_allowlist: Option<Option<UploadProjectAvatarResponseOptionsAllowlist>>,
-    #[serde(
-        rename = "outputDirectory",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub output_directory: Option<Option<String>>,
-    #[serde(
-        rename = "passiveConnectConfigurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub passive_connect_configuration_id: Option<Option<String>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub passport: Option<Option<UploadProjectAvatarResponsePassport>>,
-    /// Password protection settings returned without the secret password hash.
-    #[serde(
-        rename = "passwordProtection",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub password_protection: Option<Option<UploadProjectAvatarResponsePasswordProtection>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub paused: Option<bool>,
-    /// Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<UploadProjectAvatarResponsePermissions>,
-    #[serde(
-        rename = "productionDeploymentsFastLane",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub production_deployments_fast_lane: Option<bool>,
-    #[serde(
-        rename = "protectedSourcemaps",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub protected_sourcemaps: Option<bool>,
-    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
-    pub protection_bypass:
-        Option<std::collections::HashMap<String, UploadProjectAvatarResponseProtectionBypassValue>>,
-    #[serde(rename = "protectionConfig", skip_serializing_if = "Option::is_none")]
-    pub protection_config: Option<UploadProjectAvatarResponseProtectionConfig>,
-    #[serde(rename = "resourceConfig")]
-    pub resource_config: UploadProjectAvatarResponseResourceConfig,
-    /// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
-    #[serde(
-        rename = "rollbackDescription",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub rollback_description: Option<UploadProjectAvatarResponseRollbackDescription>,
-    /// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-    #[serde(
-        rename = "rollingRelease",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rolling_release: Option<Option<UploadProjectAvatarResponseRollingRelease>>,
-    #[serde(
-        rename = "rootDirectory",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub root_directory: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sandbox: Option<UploadProjectAvatarResponseSandbox>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub security: Option<UploadProjectAvatarResponseSecurity>,
-    #[serde(
-        rename = "serverlessFunctionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub serverless_function_zero_config_failover: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub services: Option<Vec<UploadProjectAvatarResponseServicesItem>>,
-    #[serde(
-        rename = "skewProtectionAllowedDomains",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_allowed_domains: Option<Vec<String>>,
-    #[serde(
-        rename = "skewProtectionBoundaryAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_boundary_at: Option<f64>,
-    #[serde(
-        rename = "skewProtectionMaxAge",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_max_age: Option<f64>,
-    #[serde(
-        rename = "skipGitConnectDuringLink",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skip_git_connect_during_link: Option<bool>,
-    #[serde(
-        rename = "sourceFilesOutsideRootDirectory",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_files_outside_root_directory: Option<bool>,
-    #[serde(rename = "speedInsights", skip_serializing_if = "Option::is_none")]
-    pub speed_insights: Option<UploadProjectAvatarResponseSpeedInsights>,
-    #[serde(
-        rename = "ssoProtection",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub sso_protection: Option<Option<UploadProjectAvatarResponseSsoProtection>>,
-    #[serde(rename = "staticIps", skip_serializing_if = "Option::is_none")]
-    pub static_ips: Option<UploadProjectAvatarResponseStaticIps>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub targets:
-        Option<std::collections::HashMap<String, Option<UploadProjectAvatarResponseTargetsValue>>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tier: Option<UploadProjectAvatarResponseTierEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<UploadProjectAvatarResponseTracing>,
-    #[serde(
-        rename = "transferCompletedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transfer_completed_at: Option<f64>,
-    #[serde(
-        rename = "transferredFromAccountId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transferred_from_account_id: Option<String>,
-    #[serde(rename = "transferStartedAt", skip_serializing_if = "Option::is_none")]
-    pub transfer_started_at: Option<f64>,
-    #[serde(
-        rename = "transferToAccountId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transfer_to_account_id: Option<String>,
-    /// Typed representation of the `UploadProjectAvatarResponseTrustedIps` API schema.
-    #[serde(
-        rename = "trustedIps",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub trusted_ips: Option<Option<UploadProjectAvatarResponseTrustedIps>>,
-    #[serde(
-        rename = "trustedSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub trusted_sources: Option<Option<UploadProjectAvatarResponseTrustedSources>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(rename = "usageStatus", skip_serializing_if = "Option::is_none")]
-    pub usage_status: Option<UploadProjectAvatarResponseUsageStatus>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub v0: Option<bool>,
-    #[serde(rename = "v0Created", skip_serializing_if = "Option::is_none")]
-    pub v0_created: Option<bool>,
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<UploadProjectAvatarResponseWebAnalytics>,
+    pub rulesets:
+        Option<std::collections::HashMap<String, UploadProjectAvatarResponseSecurityRulesetsValue>>,
+}
+
+impl UploadProjectAvatarResponseSecurity {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            attack_mode_active_until: None,
+            attack_mode_enabled: None,
+            attack_mode_updated_at: None,
+            bot_id_enabled: None,
+            firewall_bypass_ips: None,
+            firewall_config_version: None,
+            firewall_enabled: None,
+            firewall_seawall_enabled: None,
+            firewall_updated_at: None,
+            ja3_enabled: None,
+            ja4_enabled: None,
+            log_headers: None,
+            managed_rules: None,
+            page_integrity_enabled: None,
+            rulesets: None,
+        }
+    }
+}
+
+/// Framework slug, when the service has one (omitted otherwise).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseServicesItemFrameworkEnum {
+    #[default]
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
+    Unknown(String),
 }

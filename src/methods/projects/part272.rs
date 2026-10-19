@@ -3,126 +3,48 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponseTargetsValue {
-    #[allow(clippy::too_many_arguments)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        DeleteProjectAvatarResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl DeleteProjectAvatarResponseResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<DeleteProjectAvatarResponseTargetsValueCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: DeleteProjectAvatarResponseTargetsValuePlanEnum,
-        private: bool,
-        ready_state: DeleteProjectAvatarResponseTargetsValueReadyStateEnum,
-        type_: DeleteProjectAvatarResponseTargetsValueTypeEnum,
-        url: String,
+        algorithm_version: String,
+        at: f64,
+        direction: DeleteProjectAvatarResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseTierEnum {
+pub enum DeleteProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Priority,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseTierEnum {
+impl DeleteProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Priority => "priority",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseTierEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTierEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "priority" => Self::Priority,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseTierEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
-    #[default]
-    External,
-    Internal,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::External => "external",
-            Self::Internal => "internal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -132,7 +54,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemDes
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum
+    for DeleteProjectAvatarResponseResourceConfigBuildMachineSelectionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -140,38 +62,42 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "external" => Self::External,
-            "internal" => Self::Internal,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseResourceConfigBuildMachineSelectionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+pub enum DeleteProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
     #[default]
-    Preview,
-    Production,
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl DeleteProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -180,89 +106,117 @@ impl serde::Serialize for DeleteProjectAvatarResponseTracingSamplingRulesItemEnv
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseResourceConfigBuildMachineTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseResourceConfigBuildMachineTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTracingSamplingRulesItem {
-    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+pub struct DeleteProjectAvatarResponseResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub destination: Option<DeleteProjectAvatarResponseTracingSamplingRulesItemDestinationEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<DeleteProjectAvatarResponseTracingSamplingRulesItemEnvEnum>,
-    pub rate: f64,
-    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
-    pub request_path: Option<String>,
+    pub configuration: Option<DeleteProjectAvatarResponseResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl DeleteProjectAvatarResponseTracingSamplingRulesItem {
-    pub fn new(rate: f64) -> Self {
-        Self {
-            destination: None,
-            env: None,
-            rate,
-            request_path: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTracing {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<String>,
-    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
-    pub ignore_paths: Option<Vec<String>>,
-    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
-    pub sampling_rules: Option<Vec<DeleteProjectAvatarResponseTracingSamplingRulesItem>>,
-}
-
-impl DeleteProjectAvatarResponseTracing {
+impl DeleteProjectAvatarResponseResourceConfigBuildQueue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            domains: None,
-            ignore_paths: None,
-            sampling_rules: None,
+            configuration: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+pub enum DeleteProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     #[default]
-    AllCustom,
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+impl DeleteProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl serde::Serialize for DeleteProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -272,7 +226,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+    for DeleteProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -280,35 +234,70 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl std::fmt::Display for DeleteProjectAvatarResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset:
-        Option<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
+impl DeleteProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

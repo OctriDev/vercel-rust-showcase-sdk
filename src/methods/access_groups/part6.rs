@@ -8,6 +8,122 @@ use crate::errors::{SdkError, SdkNetworkError};
 use crate::validation::{validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts};
 
 #[derive(Debug, Clone, Default)]
+pub struct ListAccessGroupsParams {
+    pub project_id: Option<String>,
+    pub search: Option<String>,
+    pub members_limit: Option<i64>,
+    pub projects_limit: Option<i64>,
+    pub limit: Option<i64>,
+    pub next: Option<String>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
+/// Lists access groups, with optional filters for project and group name. Use `membersLimit` and `projectsLimit` to control how many associated members and projects are included, and `next` to continue through paginated results.
+///
+/// List access groups
+///
+/// # Arguments
+///
+/// * `project_id` - Filter access groups by project.
+/// * `search` - Search for access groups by name.
+/// * `members_limit` - Number of members to include in the response.
+/// * `projects_limit` - Number of projects to include in the response.
+/// * `limit` - Limit how many access group should be returned.
+/// * `next` - Continuation cursor to retrieve the next page of results.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn list_access_groups(
+    config: &ClientConfig,
+    params: ListAccessGroupsParams,
+    options: Option<&RequestOptions>,
+) -> Result<ListAccessGroupsResponse, SdkError> {
+    let ListAccessGroupsParams {
+        project_id,
+        search,
+        members_limit,
+        projects_limit,
+        limit,
+        next,
+        team_id,
+        slug,
+    } = params;
+    if let Some(ref members_limit_v) = members_limit {
+        validate_range(
+            "membersLimit",
+            *members_limit_v as f64,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(100_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref projects_limit_v) = projects_limit {
+        validate_range(
+            "projectsLimit",
+            *projects_limit_v as f64,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(100_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref limit_v) = limit {
+        validate_range(
+            "limit",
+            *limit_v as f64,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(100_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(8);
+    if let Some(ref v) = project_id {
+        __query.push(("projectId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = search {
+        __query.push(("search", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = members_limit {
+        __query.push(("membersLimit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = projects_limit {
+        __query.push(("projectsLimit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = next {
+        __query.push(("next", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<ListAccessGroupsResponse>(
+        "GET",
+        "/v1/access-groups",
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_access_groups",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct CreateAccessGroupParams {
     pub name: String,
     pub team_id: Option<String>,

@@ -3,3955 +3,501 @@
 
 // user domain models (part 109)
 
-impl<'de> serde::Deserialize<'de> for UserEventPayload {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<serde_json::Value>(value.clone()) {
-            let candidate = Self::Value(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant1>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant2>>(value.clone()) {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant3>>(value.clone()) {
-            let candidate = Self::Object3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant4>>(value.clone()) {
-            let candidate = Self::Object4(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant5>>(value.clone()) {
-            let candidate = Self::Read(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant6>>(value.clone()) {
-            let candidate = Self::Object5(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant7>>(value.clone()) {
-            let candidate = Self::Object6(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant8>>(value.clone()) {
-            let candidate = Self::Object7(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant9>>(value.clone()) {
-            let candidate = Self::Object8(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant10>>(value.clone())
-        {
-            let candidate = Self::Object9(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant11>>(value.clone())
-        {
-            let candidate = Self::Object10(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant12>>(value.clone())
-        {
-            let candidate = Self::Object11(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant13>>(value.clone())
-        {
-            let candidate = Self::Object12(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant14>>(value.clone())
-        {
-            let candidate = Self::Object13(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant15>>(value.clone())
-        {
-            let candidate = Self::Object14(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant16>>(value.clone())
-        {
-            let candidate = Self::Object15(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant17>>(value.clone())
-        {
-            let candidate = Self::Admin(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant18>>(value.clone())
-        {
-            let candidate = Self::Object16(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant19>>(value.clone())
-        {
-            let candidate = Self::Object17(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant20>>(value.clone())
-        {
-            let candidate = Self::Object18(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant21>>(value.clone())
-        {
-            let candidate = Self::Object19(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant22>>(value.clone())
-        {
-            let candidate = Self::Object20(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant23>>(value.clone())
-        {
-            let candidate = Self::Object21(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant24>>(value.clone())
-        {
-            let candidate = Self::Object22(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant25>>(value.clone())
-        {
-            let candidate = Self::Object23(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant26>>(value.clone())
-        {
-            let candidate = Self::Object24(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant27>>(value.clone())
-        {
-            let candidate = Self::Object25(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant28>>(value.clone())
-        {
-            let candidate = Self::Object26(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant29>>(value.clone())
-        {
-            let candidate = Self::Object27(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant30>>(value.clone())
-        {
-            let candidate = Self::Object28(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant31>>(value.clone())
-        {
-            let candidate = Self::Object29(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant32>>(value.clone())
-        {
-            let candidate = Self::Object30(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant33>>(value.clone())
-        {
-            let candidate = Self::Object31(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant34>>(value.clone())
-        {
-            let candidate = Self::Object32(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant35>>(value.clone())
-        {
-            let candidate = Self::Object33(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant36>>(value.clone())
-        {
-            let candidate = Self::Object34(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant37>>(value.clone())
-        {
-            let candidate = Self::Object35(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant38>>(value.clone())
-        {
-            let candidate = Self::Object36(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant39>>(value.clone())
-        {
-            let candidate = Self::Object37(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant40>>(value.clone())
-        {
-            let candidate = Self::Object38(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant41>>(value.clone())
-        {
-            let candidate = Self::Object39(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant42>>(value.clone())
-        {
-            let candidate = Self::Object40(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant43>>(value.clone())
-        {
-            let candidate = Self::Object41(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant44>>(value.clone())
-        {
-            let candidate = Self::Object42(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant45>>(value.clone())
-        {
-            let candidate = Self::Object43(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant46>>(value.clone())
-        {
-            let candidate = Self::Object44(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant47>>(value.clone())
-        {
-            let candidate = Self::Object45(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant48>>(value.clone())
-        {
-            let candidate = Self::Object46(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant49>>(value.clone())
-        {
-            let candidate = Self::Object47(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant50>>(value.clone())
-        {
-            let candidate = Self::Object48(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant51>>(value.clone())
-        {
-            let candidate = Self::Object49(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant52>>(value.clone())
-        {
-            let candidate = Self::Object50(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant53>>(value.clone())
-        {
-            let candidate = Self::Object51(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant54>>(value.clone())
-        {
-            let candidate = Self::Object52(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant55>>(value.clone())
-        {
-            let candidate = Self::Object53(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant56>>(value.clone())
-        {
-            let candidate = Self::Object54(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant57>>(value.clone())
-        {
-            let candidate = Self::Object55(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant58>>(value.clone())
-        {
-            let candidate = Self::Object56(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant59>>(value.clone())
-        {
-            let candidate = Self::Object57(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant60>>(value.clone())
-        {
-            let candidate = Self::Object58(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant61>>(value.clone())
-        {
-            let candidate = Self::Object59(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant62>>(value.clone())
-        {
-            let candidate = Self::Object60(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant63>>(value.clone())
-        {
-            let candidate = Self::Object61(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant64>>(value.clone())
-        {
-            let candidate = Self::Object62(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant65>>(value.clone())
-        {
-            let candidate = Self::Object63(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant66>>(value.clone())
-        {
-            let candidate = Self::Object64(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant67>>(value.clone())
-        {
-            let candidate = Self::Object65(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant68>>(value.clone())
-        {
-            let candidate = Self::Object66(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant69>>(value.clone())
-        {
-            let candidate = Self::Object67(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant70>>(value.clone())
-        {
-            let candidate = Self::Object68(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant71>>(value.clone())
-        {
-            let candidate = Self::Object69(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant72>>(value.clone())
-        {
-            let candidate = Self::Object70(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant73>>(value.clone())
-        {
-            let candidate = Self::Object71(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant74>>(value.clone())
-        {
-            let candidate = Self::Object72(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant75>>(value.clone())
-        {
-            let candidate = Self::Object73(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant76>>(value.clone())
-        {
-            let candidate = Self::Object74(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant77>>(value.clone())
-        {
-            let candidate = Self::Object75(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant78>>(value.clone())
-        {
-            let candidate = Self::Object76(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant79>>(value.clone())
-        {
-            let candidate = Self::CancelPlan(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant80>>(value.clone())
-        {
-            let candidate = Self::ResumePlan(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant81>>(value.clone())
-        {
-            let candidate = Self::Mutate(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant82>>(value.clone())
-        {
-            let candidate = Self::Object77(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant83>>(value.clone())
-        {
-            let candidate = Self::Object78(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant84>>(value.clone())
-        {
-            let candidate = Self::Object79(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant85>>(value.clone())
-        {
-            let candidate = Self::Object80(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant86>>(value.clone())
-        {
-            let candidate = Self::Object81(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant87>>(value.clone())
-        {
-            let candidate = Self::Object82(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant88>>(value.clone())
-        {
-            let candidate = Self::Object83(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant89>>(value.clone())
-        {
-            let candidate = Self::Object84(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant90>>(value.clone())
-        {
-            let candidate = Self::Object85(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant91>>(value.clone())
-        {
-            let candidate = Self::Object86(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant92>>(value.clone())
-        {
-            let candidate = Self::Object87(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant93>>(value.clone())
-        {
-            let candidate = Self::Object88(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant94>>(value.clone())
-        {
-            let candidate = Self::Object89(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant95>>(value.clone())
-        {
-            let candidate = Self::Object90(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant96>>(value.clone())
-        {
-            let candidate = Self::Object91(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant97>>(value.clone())
-        {
-            let candidate = Self::Object92(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant98>>(value.clone())
-        {
-            let candidate = Self::Object93(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant99>>(value.clone())
-        {
-            let candidate = Self::Object94(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant100>>(value.clone())
-        {
-            let candidate = Self::Object95(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant101>>(value.clone())
-        {
-            let candidate = Self::Object96(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant102>>(value.clone())
-        {
-            let candidate = Self::Object97(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant103>>(value.clone())
-        {
-            let candidate = Self::Object98(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant104>>(value.clone())
-        {
-            let candidate = Self::Object99(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant105>>(value.clone())
-        {
-            let candidate = Self::Object100(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant106>>(value.clone())
-        {
-            let candidate = Self::Object101(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant107>>(value.clone())
-        {
-            let candidate = Self::Object102(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant108>>(value.clone())
-        {
-            let candidate = Self::Object103(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant109>>(value.clone())
-        {
-            let candidate = Self::Object104(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant110>>(value.clone())
-        {
-            let candidate = Self::Object105(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant111>>(value.clone())
-        {
-            let candidate = Self::Object106(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant112>>(value.clone())
-        {
-            let candidate = Self::Object107(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant113>>(value.clone())
-        {
-            let candidate = Self::Team(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant114>>(value.clone())
-        {
-            let candidate = Self::Object108(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant115>>(value.clone())
-        {
-            let candidate = Self::Object109(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant116>>(value.clone())
-        {
-            let candidate = Self::Object110(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant117>>(value.clone())
-        {
-            let candidate = Self::Object111(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<DeploymentCheckUpdatedPayload>>(value.clone())
-        {
-            let candidate = Self::DeploymentCheckUpdatedPayload(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant119>>(value.clone())
-        {
-            let candidate = Self::ExternalToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant120>>(value.clone())
-        {
-            let candidate = Self::Object112(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant121>>(value.clone())
-        {
-            let candidate = Self::Object113(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant122>>(value.clone())
-        {
-            let candidate = Self::IpAllowList(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant123>>(value.clone())
-        {
-            let candidate = Self::Object114(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant124>>(value.clone())
-        {
-            let candidate = Self::Object115(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant125>>(value.clone())
-        {
-            let candidate = Self::Organization(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant126>>(value.clone())
-        {
-            let candidate = Self::Object116(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant127>>(value.clone())
-        {
-            let candidate = Self::Object117(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant128>>(value.clone())
-        {
-            let candidate = Self::Object118(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant129>>(value.clone())
-        {
-            let candidate = Self::Object119(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant130>>(value.clone())
-        {
-            let candidate = Self::Object120(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant131>>(value.clone())
-        {
-            let candidate = Self::Object121(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant132>>(value.clone())
-        {
-            let candidate = Self::Object122(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant133>>(value.clone())
-        {
-            let candidate = Self::Object123(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant134>>(value.clone())
-        {
-            let candidate = Self::Object124(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant135>>(value.clone())
-        {
-            let candidate = Self::Object125(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant136>>(value.clone())
-        {
-            let candidate = Self::Object126(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant137>>(value.clone())
-        {
-            let candidate = Self::Object127(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant138>>(value.clone())
-        {
-            let candidate = Self::Object128(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant139>>(value.clone())
-        {
-            let candidate = Self::Object129(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant140>>(value.clone())
-        {
-            let candidate = Self::Object130(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant141>>(value.clone())
-        {
-            let candidate = Self::Object131(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant142>>(value.clone())
-        {
-            let candidate = Self::Object132(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant143>>(value.clone())
-        {
-            let candidate = Self::Object133(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant144>>(value.clone())
-        {
-            let candidate = Self::Object134(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant145>>(value.clone())
-        {
-            let candidate = Self::Object135(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant146>>(value.clone())
-        {
-            let candidate = Self::Object136(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant147>>(value.clone())
-        {
-            let candidate = Self::Object137(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant148>>(value.clone())
-        {
-            let candidate = Self::Object138(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant149>>(value.clone())
-        {
-            let candidate = Self::Object139(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant150>>(value.clone())
-        {
-            let candidate = Self::Object140(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant151>>(value.clone())
-        {
-            let candidate = Self::Object141(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant152>>(value.clone())
-        {
-            let candidate = Self::Object142(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant153>>(value.clone())
-        {
-            let candidate = Self::Object143(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant154>>(value.clone())
-        {
-            let candidate = Self::Object144(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant155>>(value.clone())
-        {
-            let candidate = Self::Object145(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant156>>(value.clone())
-        {
-            let candidate = Self::Object146(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant157>>(value.clone())
-        {
-            let candidate = Self::Object147(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant158>>(value.clone())
-        {
-            let candidate = Self::Object148(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant159>>(value.clone())
-        {
-            let candidate = Self::Object149(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant160>>(value.clone())
-        {
-            let candidate = Self::Object150(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant161>>(value.clone())
-        {
-            let candidate = Self::Object151(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant162>>(value.clone())
-        {
-            let candidate = Self::Object152(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant163>>(value.clone())
-        {
-            let candidate = Self::Object153(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant164>>(value.clone())
-        {
-            let candidate = Self::Object154(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant165>>(value.clone())
-        {
-            let candidate = Self::Object155(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant166>>(value.clone())
-        {
-            let candidate = Self::Object156(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant167>>(value.clone())
-        {
-            let candidate = Self::Object157(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant168>>(value.clone())
-        {
-            let candidate = Self::Object158(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant169>>(value.clone())
-        {
-            let candidate = Self::Object159(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant170>>(value.clone())
-        {
-            let candidate = Self::Object160(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant171>>(value.clone())
-        {
-            let candidate = Self::Object161(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant172>>(value.clone())
-        {
-            let candidate = Self::Object162(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant173>>(value.clone())
-        {
-            let candidate = Self::Object163(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant174>>(value.clone())
-        {
-            let candidate = Self::Object164(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant175>>(value.clone())
-        {
-            let candidate = Self::Object165(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant176>>(value.clone())
-        {
-            let candidate = Self::Object166(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant177>>(value.clone())
-        {
-            let candidate = Self::Object167(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant178>>(value.clone())
-        {
-            let candidate = Self::Object168(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant179>>(value.clone())
-        {
-            let candidate = Self::Object169(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant180>>(value.clone())
-        {
-            let candidate = Self::Object170(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant181>>(value.clone())
-        {
-            let candidate = Self::Object171(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant182>>(value.clone())
-        {
-            let candidate = Self::Object172(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant183>>(value.clone())
-        {
-            let candidate = Self::Object173(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant184>>(value.clone())
-        {
-            let candidate = Self::Object174(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant185>>(value.clone())
-        {
-            let candidate = Self::Object175(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant186>>(value.clone())
-        {
-            let candidate = Self::Object176(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant187>>(value.clone())
-        {
-            let candidate = Self::Object177(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant188>>(value.clone())
-        {
-            let candidate = Self::Object178(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant189>>(value.clone())
-        {
-            let candidate = Self::Object179(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant190>>(value.clone())
-        {
-            let candidate = Self::Object180(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant191>>(value.clone())
-        {
-            let candidate = Self::Object181(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant192>>(value.clone())
-        {
-            let candidate = Self::Object182(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant193>>(value.clone())
-        {
-            let candidate = Self::Object183(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant194>>(value.clone())
-        {
-            let candidate = Self::Object184(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant195>>(value.clone())
-        {
-            let candidate = Self::Object185(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant196>>(value.clone())
-        {
-            let candidate = Self::Object186(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant197>>(value.clone())
-        {
-            let candidate = Self::RawCommands(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant198>>(value.clone())
-        {
-            let candidate = Self::ListKeys(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant199>>(value.clone())
-        {
-            let candidate = Self::GetKeysMetadata(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant200>>(value.clone())
-        {
-            let candidate = Self::GetKeyData(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant201>>(value.clone())
-        {
-            let candidate = Self::Object187(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant202>>(value.clone())
-        {
-            let candidate = Self::Object188(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant203>>(value.clone())
-        {
-            let candidate = Self::Object189(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant204>>(value.clone())
-        {
-            let candidate = Self::Object190(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant205>>(value.clone())
-        {
-            let candidate = Self::Object191(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant206>>(value.clone())
-        {
-            let candidate = Self::Object192(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant207>>(value.clone())
-        {
-            let candidate = Self::Object193(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant208>>(value.clone())
-        {
-            let candidate = Self::Object194(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant209>>(value.clone())
-        {
-            let candidate = Self::Object195(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant210>>(value.clone())
-        {
-            let candidate = Self::Object196(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant211>>(value.clone())
-        {
-            let candidate = Self::Object197(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant212>>(value.clone())
-        {
-            let candidate = Self::Object198(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant213>>(value.clone())
-        {
-            let candidate = Self::Object199(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant214>>(value.clone())
-        {
-            let candidate = Self::Object200(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant215>>(value.clone())
-        {
-            let candidate = Self::Object201(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant216>>(value.clone())
-        {
-            let candidate = Self::Object202(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant217>>(value.clone())
-        {
-            let candidate = Self::Object203(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant218>>(value.clone())
-        {
-            let candidate = Self::Object204(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant219>>(value.clone())
-        {
-            let candidate = Self::Object205(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant220>>(value.clone())
-        {
-            let candidate = Self::Object206(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant221>>(value.clone())
-        {
-            let candidate = Self::Object207(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant222>>(value.clone())
-        {
-            let candidate = Self::Object208(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant223>>(value.clone())
-        {
-            let candidate = Self::Object209(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant224>>(value.clone())
-        {
-            let candidate = Self::Object210(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant225>>(value.clone())
-        {
-            let candidate = Self::Object211(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant226>>(value.clone())
-        {
-            let candidate = Self::Object212(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant227>>(value.clone())
-        {
-            let candidate = Self::Object213(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant228>>(value.clone())
-        {
-            let candidate = Self::Object214(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant229>>(value.clone())
-        {
-            let candidate = Self::Object215(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant230>>(value.clone())
-        {
-            let candidate = Self::Object216(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant231>>(value.clone())
-        {
-            let candidate = Self::Object217(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant232>>(value.clone())
-        {
-            let candidate = Self::Object218(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant233>>(value.clone())
-        {
-            let candidate = Self::Object219(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant234>>(value.clone())
-        {
-            let candidate = Self::Object220(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant235>>(value.clone())
-        {
-            let candidate = Self::Object221(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant236>>(value.clone())
-        {
-            let candidate = Self::Object222(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant237>>(value.clone())
-        {
-            let candidate = Self::Object223(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant238>>(value.clone())
-        {
-            let candidate = Self::Object224(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant239>>(value.clone())
-        {
-            let candidate = Self::Object225(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant240>>(value.clone())
-        {
-            let candidate = Self::Object226(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant241>>(value.clone())
-        {
-            let candidate = Self::Object227(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant242>>(value.clone())
-        {
-            let candidate = Self::Object228(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant243>>(value.clone())
-        {
-            let candidate = Self::Script(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant244>>(value.clone())
-        {
-            let candidate = Self::Header(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant245>>(value.clone())
-        {
-            let candidate = Self::ConnectSrc(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant246>>(value.clone())
-        {
-            let candidate = Self::Object229(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant247>>(value.clone())
-        {
-            let candidate = Self::Object230(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant248>>(value.clone())
-        {
-            let candidate = Self::Object231(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant249>>(value.clone())
-        {
-            let candidate = Self::Object232(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant250>>(value.clone())
-        {
-            let candidate = Self::Object233(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant251>>(value.clone())
-        {
-            let candidate = Self::Object234(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant252>>(value.clone())
-        {
-            let candidate = Self::Object235(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant253>>(value.clone())
-        {
-            let candidate = Self::Admin2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant254>>(value.clone())
-        {
-            let candidate = Self::Object236(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant255>>(value.clone())
-        {
-            let candidate = Self::Object237(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant256>>(value.clone())
-        {
-            let candidate = Self::Admin3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant257>>(value.clone())
-        {
-            let candidate = Self::Network(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant258>>(value.clone())
-        {
-            let candidate = Self::Project(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant259>>(value.clone())
-        {
-            let candidate = Self::Project2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant260>>(value.clone())
-        {
-            let candidate = Self::Network2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant261>>(value.clone())
-        {
-            let candidate = Self::Project3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant262>>(value.clone())
-        {
-            let candidate = Self::Project4(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant263>>(value.clone())
-        {
-            let candidate = Self::Object238(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant264>>(value.clone())
-        {
-            let candidate = Self::Object239(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant265>>(value.clone())
-        {
-            let candidate = Self::Object240(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant266>>(value.clone())
-        {
-            let candidate = Self::Object241(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant267>>(value.clone())
-        {
-            let candidate = Self::Object242(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant268>>(value.clone())
-        {
-            let candidate = Self::Object243(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant269>>(value.clone())
-        {
-            let candidate = Self::Object244(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant270>>(value.clone())
-        {
-            let candidate = Self::Object245(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant271>>(value.clone())
-        {
-            let candidate = Self::Object246(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant272>>(value.clone())
-        {
-            let candidate = Self::Object247(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant273>>(value.clone())
-        {
-            let candidate = Self::Object248(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant274>>(value.clone())
-        {
-            let candidate = Self::Object249(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant275>>(value.clone())
-        {
-            let candidate = Self::Object250(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant276>>(value.clone())
-        {
-            let candidate = Self::Object251(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant277>>(value.clone())
-        {
-            let candidate = Self::Object252(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant278>>(value.clone())
-        {
-            let candidate = Self::Object253(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant279>>(value.clone())
-        {
-            let candidate = Self::Object254(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant280>>(value.clone())
-        {
-            let candidate = Self::Object255(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant281>>(value.clone())
-        {
-            let candidate = Self::Object256(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant282>>(value.clone())
-        {
-            let candidate = Self::Object257(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant283>>(value.clone())
-        {
-            let candidate = Self::Object258(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant284>>(value.clone())
-        {
-            let candidate = Self::Object259(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant285>>(value.clone())
-        {
-            let candidate = Self::Object260(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant286>>(value.clone())
-        {
-            let candidate = Self::Object261(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant287>>(value.clone())
-        {
-            let candidate = Self::Object262(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant288>>(value.clone())
-        {
-            let candidate = Self::Object263(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant289>>(value.clone())
-        {
-            let candidate = Self::Object264(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant290>>(value.clone())
-        {
-            let candidate = Self::Object265(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant291>>(value.clone())
-        {
-            let candidate = Self::Object266(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant292>>(value.clone())
-        {
-            let candidate = Self::Object267(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant293>>(value.clone())
-        {
-            let candidate = Self::Object268(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant294>>(value.clone())
-        {
-            let candidate = Self::Object269(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant295>>(value.clone())
-        {
-            let candidate = Self::Object270(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant296>>(value.clone())
-        {
-            let candidate = Self::Object271(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant297>>(value.clone())
-        {
-            let candidate = Self::Object272(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant298>>(value.clone())
-        {
-            let candidate = Self::Object273(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant299>>(value.clone())
-        {
-            let candidate = Self::Object274(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant300>>(value.clone())
-        {
-            let candidate = Self::Object275(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant301>>(value.clone())
-        {
-            let candidate = Self::Object276(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant302>>(value.clone())
-        {
-            let candidate = Self::Object277(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant303>>(value.clone())
-        {
-            let candidate = Self::Object278(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant304>>(value.clone())
-        {
-            let candidate = Self::Object279(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant305>>(value.clone())
-        {
-            let candidate = Self::Object280(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant306>>(value.clone())
-        {
-            let candidate = Self::Object281(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant307>>(value.clone())
-        {
-            let candidate = Self::Object282(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant308>>(value.clone())
-        {
-            let candidate = Self::Object283(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant309>>(value.clone())
-        {
-            let candidate = Self::Object284(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant310>>(value.clone())
-        {
-            let candidate = Self::Object285(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant311>>(value.clone())
-        {
-            let candidate = Self::Object286(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant312>>(value.clone())
-        {
-            let candidate = Self::Object287(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant313>>(value.clone())
-        {
-            let candidate = Self::Object288(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant314>>(value.clone())
-        {
-            let candidate = Self::Object289(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant315>>(value.clone())
-        {
-            let candidate = Self::Object290(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant316>>(value.clone())
-        {
-            let candidate = Self::Object291(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant317>>(value.clone())
-        {
-            let candidate = Self::Object292(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant318>>(value.clone())
-        {
-            let candidate = Self::Object293(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant319>>(value.clone())
-        {
-            let candidate = Self::Object294(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant320>>(value.clone())
-        {
-            let candidate = Self::Object295(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant321>>(value.clone())
-        {
-            let candidate = Self::Object296(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant322>>(value.clone())
-        {
-            let candidate = Self::Object297(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant323>>(value.clone())
-        {
-            let candidate = Self::Object298(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant324>>(value.clone())
-        {
-            let candidate = Self::Object299(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant325>>(value.clone())
-        {
-            let candidate = Self::Object300(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant326>>(value.clone())
-        {
-            let candidate = Self::Object301(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant327>>(value.clone())
-        {
-            let candidate = Self::Object302(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant328>>(value.clone())
-        {
-            let candidate = Self::Object303(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant329>>(value.clone())
-        {
-            let candidate = Self::Object304(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant330>>(value.clone())
-        {
-            let candidate = Self::Object305(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant331>>(value.clone())
-        {
-            let candidate = Self::Object306(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant332>>(value.clone())
-        {
-            let candidate = Self::Object307(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant333>>(value.clone())
-        {
-            let candidate = Self::Object308(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant334>>(value.clone())
-        {
-            let candidate = Self::Object309(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant335>>(value.clone())
-        {
-            let candidate = Self::Object310(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant336>>(value.clone())
-        {
-            let candidate = Self::Object311(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant337>>(value.clone())
-        {
-            let candidate = Self::Object312(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant338>>(value.clone())
-        {
-            let candidate = Self::Object313(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant339>>(value.clone())
-        {
-            let candidate = Self::Object314(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant340>>(value.clone())
-        {
-            let candidate = Self::Object315(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant341>>(value.clone())
-        {
-            let candidate = Self::Object316(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant342>>(value.clone())
-        {
-            let candidate = Self::Object317(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant343>>(value.clone())
-        {
-            let candidate = Self::Object318(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant344>>(value.clone())
-        {
-            let candidate = Self::Object319(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant345>>(value.clone())
-        {
-            let candidate = Self::Object320(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant346>>(value.clone())
-        {
-            let candidate = Self::Object321(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant347>>(value.clone())
-        {
-            let candidate = Self::Object322(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant348>>(value.clone())
-        {
-            let candidate = Self::Object323(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant349>>(value.clone())
-        {
-            let candidate = Self::Object324(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant350>>(value.clone())
-        {
-            let candidate = Self::Object325(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant351>>(value.clone())
-        {
-            let candidate = Self::Object326(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant352>>(value.clone())
-        {
-            let candidate = Self::Object327(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant353>>(value.clone())
-        {
-            let candidate = Self::Object328(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant354>>(value.clone())
-        {
-            let candidate = Self::Object329(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant355>>(value.clone())
-        {
-            let candidate = Self::Admin4(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant356>>(value.clone())
-        {
-            let candidate = Self::Admin5(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant357>>(value.clone())
-        {
-            let candidate = Self::Admin6(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant358>>(value.clone())
-        {
-            let candidate = Self::Admin7(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant359>>(value.clone())
-        {
-            let candidate = Self::Object330(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant360>>(value.clone())
-        {
-            let candidate = Self::Object331(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant361>>(value.clone())
-        {
-            let candidate = Self::Object332(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant362>>(value.clone())
-        {
-            let candidate = Self::Object333(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant363>>(value.clone())
-        {
-            let candidate = Self::Object334(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant364>>(value.clone())
-        {
-            let candidate = Self::Object335(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant365>>(value.clone())
-        {
-            let candidate = Self::Object336(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant366>>(value.clone())
-        {
-            let candidate = Self::Admin8(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant367>>(value.clone())
-        {
-            let candidate = Self::Object337(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant368>>(value.clone())
-        {
-            let candidate = Self::Object338(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant369>>(value.clone())
-        {
-            let candidate = Self::Object339(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant370>>(value.clone())
-        {
-            let candidate = Self::Object340(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant371>>(value.clone())
-        {
-            let candidate = Self::Object341(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant372>>(value.clone())
-        {
-            let candidate = Self::Object342(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant373>>(value.clone())
-        {
-            let candidate = Self::Object343(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant374>>(value.clone())
-        {
-            let candidate = Self::Object344(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant375>>(value.clone())
-        {
-            let candidate = Self::Object345(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant376>>(value.clone())
-        {
-            let candidate = Self::Object346(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant377>>(value.clone())
-        {
-            let candidate = Self::Object347(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant378>>(value.clone())
-        {
-            let candidate = Self::Object348(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant379>>(value.clone())
-        {
-            let candidate = Self::Object349(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant380>>(value.clone())
-        {
-            let candidate = Self::Object350(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant381>>(value.clone())
-        {
-            let candidate = Self::Object351(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant382>>(value.clone())
-        {
-            let candidate = Self::Object352(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant383>>(value.clone())
-        {
-            let candidate = Self::Object353(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant384>>(value.clone())
-        {
-            let candidate = Self::Object354(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant385>>(value.clone())
-        {
-            let candidate = Self::Object355(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant386>>(value.clone())
-        {
-            let candidate = Self::Object356(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant387>>(value.clone())
-        {
-            let candidate = Self::Object357(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant388>>(value.clone())
-        {
-            let candidate = Self::Object358(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant389>>(value.clone())
-        {
-            let candidate = Self::Object359(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant390>>(value.clone())
-        {
-            let candidate = Self::Object360(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant391>>(value.clone())
-        {
-            let candidate = Self::Object361(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant392>>(value.clone())
-        {
-            let candidate = Self::Object362(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant393>>(value.clone())
-        {
-            let candidate = Self::Object363(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant394>>(value.clone())
-        {
-            let candidate = Self::Object364(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant395>>(value.clone())
-        {
-            let candidate = Self::Object365(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant396>>(value.clone())
-        {
-            let candidate = Self::Object366(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant397>>(value.clone())
-        {
-            let candidate = Self::Object367(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant398>>(value.clone())
-        {
-            let candidate = Self::Object368(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant399>>(value.clone())
-        {
-            let candidate = Self::Organization2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant400>>(value.clone())
-        {
-            let candidate = Self::Object369(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant401>>(value.clone())
-        {
-            let candidate = Self::Object370(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant402>>(value.clone())
-        {
-            let candidate = Self::Object371(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant403>>(value.clone())
-        {
-            let candidate = Self::Object372(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant404>>(value.clone())
-        {
-            let candidate = Self::Object373(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant405>>(value.clone())
-        {
-            let candidate = Self::Object374(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant406>>(value.clone())
-        {
-            let candidate = Self::Object375(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant407>>(value.clone())
-        {
-            let candidate = Self::Object376(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant408>>(value.clone())
-        {
-            let candidate = Self::Object377(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant409>>(value.clone())
-        {
-            let candidate = Self::Object378(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant410>>(value.clone())
-        {
-            let candidate = Self::Object379(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant411>>(value.clone())
-        {
-            let candidate = Self::Object380(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant412>>(value.clone())
-        {
-            let candidate = Self::Object381(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant413>>(value.clone())
-        {
-            let candidate = Self::Object382(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant414>>(value.clone())
-        {
-            let candidate = Self::Object383(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant415>>(value.clone())
-        {
-            let candidate = Self::Object384(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant416>>(value.clone())
-        {
-            let candidate = Self::Object385(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant417>>(value.clone())
-        {
-            let candidate = Self::Object386(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant418>>(value.clone())
-        {
-            let candidate = Self::Object387(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant419>>(value.clone())
-        {
-            let candidate = Self::Object388(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant420>>(value.clone())
-        {
-            let candidate = Self::Object389(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant421>>(value.clone())
-        {
-            let candidate = Self::Object390(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant422>>(value.clone())
-        {
-            let candidate = Self::Object391(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant423>>(value.clone())
-        {
-            let candidate = Self::Object392(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant424>>(value.clone())
-        {
-            let candidate = Self::Admin9(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant425>>(value.clone())
-        {
-            let candidate = Self::Object393(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant426>>(value.clone())
-        {
-            let candidate = Self::Object394(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant427>>(value.clone())
-        {
-            let candidate = Self::Object395(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant428>>(value.clone())
-        {
-            let candidate = Self::Object396(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant429>>(value.clone())
-        {
-            let candidate = Self::Object397(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant430>>(value.clone())
-        {
-            let candidate = Self::Object398(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant431>>(value.clone())
-        {
-            let candidate = Self::Object399(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant432>>(value.clone())
-        {
-            let candidate = Self::Object400(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant433>>(value.clone())
-        {
-            let candidate = Self::Object401(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant434>>(value.clone())
-        {
-            let candidate = Self::Object402(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant435>>(value.clone())
-        {
-            let candidate = Self::Object403(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant436>>(value.clone())
-        {
-            let candidate = Self::Object404(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant437>>(value.clone())
-        {
-            let candidate = Self::Admin10(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant438>>(value.clone())
-        {
-            let candidate = Self::Object405(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant439>>(value.clone())
-        {
-            let candidate = Self::LimitsExceeded(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant440>>(value.clone())
-        {
-            let candidate = Self::Object406(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant441>>(value.clone())
-        {
-            let candidate = Self::Object407(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant442>>(value.clone())
-        {
-            let candidate = Self::Object408(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant443>>(value.clone())
-        {
-            let candidate = Self::Object409(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant444>>(value.clone())
-        {
-            let candidate = Self::Object410(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant445>>(value.clone())
-        {
-            let candidate = Self::Admin11(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant446>>(value.clone())
-        {
-            let candidate = Self::Object411(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant447>>(value.clone())
-        {
-            let candidate = Self::Object412(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant448>>(value.clone())
-        {
-            let candidate = Self::Object413(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant449>>(value.clone())
-        {
-            let candidate = Self::Admin12(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant450>>(value.clone())
-        {
-            let candidate = Self::Admin13(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant451>>(value.clone())
-        {
-            let candidate = Self::Admin14(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant452>>(value.clone())
-        {
-            let candidate = Self::Admin15(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant453>>(value.clone())
-        {
-            let candidate = Self::Object414(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant454>>(value.clone())
-        {
-            let candidate = Self::Object415(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant455>>(value.clone())
-        {
-            let candidate = Self::Object416(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant456>>(value.clone())
-        {
-            let candidate = Self::Object417(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant457>>(value.clone())
-        {
-            let candidate = Self::Object418(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant458>>(value.clone())
-        {
-            let candidate = Self::Object419(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant459>>(value.clone())
-        {
-            let candidate = Self::Object420(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant460>>(value.clone())
-        {
-            let candidate = Self::Object421(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant461>>(value.clone())
-        {
-            let candidate = Self::Object422(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant462>>(value.clone())
-        {
-            let candidate = Self::Google(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant463>>(value.clone())
-        {
-            let candidate = Self::Object423(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant464>>(value.clone())
-        {
-            let candidate = Self::Admin16(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant465>>(value.clone())
-        {
-            let candidate = Self::Admin17(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant466>>(value.clone())
-        {
-            let candidate = Self::Object424(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant467>>(value.clone())
-        {
-            let candidate = Self::Object425(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant468>>(value.clone())
-        {
-            let candidate = Self::Object426(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant469>>(value.clone())
-        {
-            let candidate = Self::Object427(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant470>>(value.clone())
-        {
-            let candidate = Self::Object428(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant471>>(value.clone())
-        {
-            let candidate = Self::Object429(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant472>>(value.clone())
-        {
-            let candidate = Self::Object430(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant473>>(value.clone())
-        {
-            let candidate = Self::Object431(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant474>>(value.clone())
-        {
-            let candidate = Self::Object432(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant475>>(value.clone())
-        {
-            let candidate = Self::Object433(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant476>>(value.clone())
-        {
-            let candidate = Self::Object434(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant477>>(value.clone())
-        {
-            let candidate = Self::Object435(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant478>>(value.clone())
-        {
-            let candidate = Self::Object436(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant479>>(value.clone())
-        {
-            let candidate = Self::Object437(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant480>>(value.clone())
-        {
-            let candidate = Self::Object438(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant481>>(value.clone())
-        {
-            let candidate = Self::Object439(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant482>>(value.clone())
-        {
-            let candidate = Self::Object440(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant483>>(value.clone())
-        {
-            let candidate = Self::Object441(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant484>>(value.clone())
-        {
-            let candidate = Self::Object442(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant485>>(value.clone())
-        {
-            let candidate = Self::Object443(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant486>>(value.clone())
-        {
-            let candidate = Self::Object444(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant487>>(value.clone())
-        {
-            let candidate = Self::Vcr(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant488>>(value.clone())
-        {
-            let candidate = Self::Object445(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant489>>(value.clone())
-        {
-            let candidate = Self::Object446(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant490>>(value.clone())
-        {
-            let candidate = Self::Object447(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant491>>(value.clone())
-        {
-            let candidate = Self::V0(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant492>>(value.clone())
-        {
-            let candidate = Self::Logout(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<UserEventPayloadVariant493>>(value.clone())
-        {
-            let candidate = Self::Object448(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no UserEventPayload branch accepts this payload")
-        })
-    }
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UserEventPayload {
+    Value(serde_json::Value),
+    Object(Box<UserEventPayloadVariant1>),
+    Object2(Box<UserEventPayloadVariant2>),
+    Object3(Box<UserEventPayloadVariant3>),
+    Object4(Box<UserEventPayloadVariant4>),
+    Read(Box<UserEventPayloadVariant5>),
+    Object5(Box<UserEventPayloadVariant6>),
+    Object6(Box<UserEventPayloadVariant7>),
+    Object7(Box<UserEventPayloadVariant8>),
+    Object8(Box<UserEventPayloadVariant9>),
+    Object9(Box<UserEventPayloadVariant10>),
+    Object10(Box<UserEventPayloadVariant11>),
+    Object11(Box<UserEventPayloadVariant12>),
+    Object12(Box<UserEventPayloadVariant13>),
+    Object13(Box<UserEventPayloadVariant14>),
+    Object14(Box<UserEventPayloadVariant15>),
+    Object15(Box<UserEventPayloadVariant16>),
+    Admin(Box<UserEventPayloadVariant17>),
+    Object16(Box<UserEventPayloadVariant18>),
+    Object17(Box<UserEventPayloadVariant19>),
+    Object18(Box<UserEventPayloadVariant20>),
+    Object19(Box<UserEventPayloadVariant21>),
+    Object20(Box<UserEventPayloadVariant22>),
+    Object21(Box<UserEventPayloadVariant23>),
+    Object22(Box<UserEventPayloadVariant24>),
+    Object23(Box<UserEventPayloadVariant25>),
+    Object24(Box<UserEventPayloadVariant26>),
+    Object25(Box<UserEventPayloadVariant27>),
+    Object26(Box<UserEventPayloadVariant28>),
+    Object27(Box<UserEventPayloadVariant29>),
+    Object28(Box<UserEventPayloadVariant30>),
+    Object29(Box<UserEventPayloadVariant31>),
+    Object30(Box<UserEventPayloadVariant32>),
+    Object31(Box<UserEventPayloadVariant33>),
+    Object32(Box<UserEventPayloadVariant34>),
+    Object33(Box<UserEventPayloadVariant35>),
+    Object34(Box<UserEventPayloadVariant36>),
+    Object35(Box<UserEventPayloadVariant37>),
+    Object36(Box<UserEventPayloadVariant38>),
+    Object37(Box<UserEventPayloadVariant39>),
+    Object38(Box<UserEventPayloadVariant40>),
+    Object39(Box<UserEventPayloadVariant41>),
+    Object40(Box<UserEventPayloadVariant42>),
+    Object41(Box<UserEventPayloadVariant43>),
+    Object42(Box<UserEventPayloadVariant44>),
+    Object43(Box<UserEventPayloadVariant45>),
+    Object44(Box<UserEventPayloadVariant46>),
+    Object45(Box<UserEventPayloadVariant47>),
+    Object46(Box<UserEventPayloadVariant48>),
+    Object47(Box<UserEventPayloadVariant49>),
+    Object48(Box<UserEventPayloadVariant50>),
+    Object49(Box<UserEventPayloadVariant51>),
+    Object50(Box<UserEventPayloadVariant52>),
+    Object51(Box<UserEventPayloadVariant53>),
+    Object52(Box<UserEventPayloadVariant54>),
+    Object53(Box<UserEventPayloadVariant55>),
+    Object54(Box<UserEventPayloadVariant56>),
+    Object55(Box<UserEventPayloadVariant57>),
+    Object56(Box<UserEventPayloadVariant58>),
+    Object57(Box<UserEventPayloadVariant59>),
+    Object58(Box<UserEventPayloadVariant60>),
+    Object59(Box<UserEventPayloadVariant61>),
+    Object60(Box<UserEventPayloadVariant62>),
+    Object61(Box<UserEventPayloadVariant63>),
+    Object62(Box<UserEventPayloadVariant64>),
+    Object63(Box<UserEventPayloadVariant65>),
+    Object64(Box<UserEventPayloadVariant66>),
+    Object65(Box<UserEventPayloadVariant67>),
+    Object66(Box<UserEventPayloadVariant68>),
+    Object67(Box<UserEventPayloadVariant69>),
+    Object68(Box<UserEventPayloadVariant70>),
+    Object69(Box<UserEventPayloadVariant71>),
+    Object70(Box<UserEventPayloadVariant72>),
+    Object71(Box<UserEventPayloadVariant73>),
+    Object72(Box<UserEventPayloadVariant74>),
+    Object73(Box<UserEventPayloadVariant75>),
+    Object74(Box<UserEventPayloadVariant76>),
+    Object75(Box<UserEventPayloadVariant77>),
+    Object76(Box<UserEventPayloadVariant78>),
+    CancelPlan(Box<UserEventPayloadVariant79>),
+    ResumePlan(Box<UserEventPayloadVariant80>),
+    Mutate(Box<UserEventPayloadVariant81>),
+    Object77(Box<UserEventPayloadVariant82>),
+    Object78(Box<UserEventPayloadVariant83>),
+    Object79(Box<UserEventPayloadVariant84>),
+    Object80(Box<UserEventPayloadVariant85>),
+    Object81(Box<UserEventPayloadVariant86>),
+    Object82(Box<UserEventPayloadVariant87>),
+    Object83(Box<UserEventPayloadVariant88>),
+    Object84(Box<UserEventPayloadVariant89>),
+    Object85(Box<UserEventPayloadVariant90>),
+    Object86(Box<UserEventPayloadVariant91>),
+    Object87(Box<UserEventPayloadVariant92>),
+    Object88(Box<UserEventPayloadVariant93>),
+    Object89(Box<UserEventPayloadVariant94>),
+    Object90(Box<UserEventPayloadVariant95>),
+    Object91(Box<UserEventPayloadVariant96>),
+    Object92(Box<UserEventPayloadVariant97>),
+    Object93(Box<UserEventPayloadVariant98>),
+    Object94(Box<UserEventPayloadVariant99>),
+    Object95(Box<UserEventPayloadVariant100>),
+    Object96(Box<UserEventPayloadVariant101>),
+    Object97(Box<UserEventPayloadVariant102>),
+    Object98(Box<UserEventPayloadVariant103>),
+    Object99(Box<UserEventPayloadVariant104>),
+    Object100(Box<UserEventPayloadVariant105>),
+    Object101(Box<UserEventPayloadVariant106>),
+    Object102(Box<UserEventPayloadVariant107>),
+    Object103(Box<UserEventPayloadVariant108>),
+    Object104(Box<UserEventPayloadVariant109>),
+    Object105(Box<UserEventPayloadVariant110>),
+    Object106(Box<UserEventPayloadVariant111>),
+    Object107(Box<UserEventPayloadVariant112>),
+    Team(Box<UserEventPayloadVariant113>),
+    Object108(Box<UserEventPayloadVariant114>),
+    Object109(Box<UserEventPayloadVariant115>),
+    Object110(Box<UserEventPayloadVariant116>),
+    Object111(Box<UserEventPayloadVariant117>),
+    DeploymentCheckUpdatedPayload(Box<DeploymentCheckUpdatedPayload>),
+    ExternalToken(Box<UserEventPayloadVariant119>),
+    Object112(Box<UserEventPayloadVariant120>),
+    Object113(Box<UserEventPayloadVariant121>),
+    IpAllowList(Box<UserEventPayloadVariant122>),
+    Object114(Box<UserEventPayloadVariant123>),
+    Object115(Box<UserEventPayloadVariant124>),
+    Organization(Box<UserEventPayloadVariant125>),
+    Object116(Box<UserEventPayloadVariant126>),
+    Object117(Box<UserEventPayloadVariant127>),
+    Object118(Box<UserEventPayloadVariant128>),
+    Object119(Box<UserEventPayloadVariant129>),
+    Object120(Box<UserEventPayloadVariant130>),
+    Object121(Box<UserEventPayloadVariant131>),
+    Object122(Box<UserEventPayloadVariant132>),
+    Object123(Box<UserEventPayloadVariant133>),
+    Object124(Box<UserEventPayloadVariant134>),
+    Object125(Box<UserEventPayloadVariant135>),
+    Object126(Box<UserEventPayloadVariant136>),
+    Object127(Box<UserEventPayloadVariant137>),
+    Object128(Box<UserEventPayloadVariant138>),
+    Object129(Box<UserEventPayloadVariant139>),
+    Object130(Box<UserEventPayloadVariant140>),
+    Object131(Box<UserEventPayloadVariant141>),
+    Object132(Box<UserEventPayloadVariant142>),
+    Object133(Box<UserEventPayloadVariant143>),
+    Object134(Box<UserEventPayloadVariant144>),
+    Object135(Box<UserEventPayloadVariant145>),
+    Object136(Box<UserEventPayloadVariant146>),
+    Object137(Box<UserEventPayloadVariant147>),
+    Object138(Box<UserEventPayloadVariant148>),
+    Object139(Box<UserEventPayloadVariant149>),
+    Object140(Box<UserEventPayloadVariant150>),
+    Object141(Box<UserEventPayloadVariant151>),
+    Object142(Box<UserEventPayloadVariant152>),
+    Object143(Box<UserEventPayloadVariant153>),
+    Object144(Box<UserEventPayloadVariant154>),
+    Object145(Box<UserEventPayloadVariant155>),
+    Object146(Box<UserEventPayloadVariant156>),
+    Object147(Box<UserEventPayloadVariant157>),
+    Object148(Box<UserEventPayloadVariant158>),
+    Object149(Box<UserEventPayloadVariant159>),
+    Object150(Box<UserEventPayloadVariant160>),
+    Object151(Box<UserEventPayloadVariant161>),
+    Object152(Box<UserEventPayloadVariant162>),
+    Object153(Box<UserEventPayloadVariant163>),
+    Object154(Box<UserEventPayloadVariant164>),
+    Object155(Box<UserEventPayloadVariant165>),
+    Object156(Box<UserEventPayloadVariant166>),
+    Object157(Box<UserEventPayloadVariant167>),
+    Object158(Box<UserEventPayloadVariant168>),
+    Object159(Box<UserEventPayloadVariant169>),
+    Object160(Box<UserEventPayloadVariant170>),
+    Object161(Box<UserEventPayloadVariant171>),
+    Object162(Box<UserEventPayloadVariant172>),
+    Object163(Box<UserEventPayloadVariant173>),
+    Object164(Box<UserEventPayloadVariant174>),
+    Object165(Box<UserEventPayloadVariant175>),
+    Object166(Box<UserEventPayloadVariant176>),
+    Object167(Box<UserEventPayloadVariant177>),
+    Object168(Box<UserEventPayloadVariant178>),
+    Object169(Box<UserEventPayloadVariant179>),
+    Object170(Box<UserEventPayloadVariant180>),
+    Object171(Box<UserEventPayloadVariant181>),
+    Object172(Box<UserEventPayloadVariant182>),
+    Object173(Box<UserEventPayloadVariant183>),
+    Object174(Box<UserEventPayloadVariant184>),
+    Object175(Box<UserEventPayloadVariant185>),
+    Object176(Box<UserEventPayloadVariant186>),
+    Object177(Box<UserEventPayloadVariant187>),
+    Object178(Box<UserEventPayloadVariant188>),
+    Object179(Box<UserEventPayloadVariant189>),
+    Object180(Box<UserEventPayloadVariant190>),
+    Object181(Box<UserEventPayloadVariant191>),
+    Object182(Box<UserEventPayloadVariant192>),
+    Object183(Box<UserEventPayloadVariant193>),
+    Object184(Box<UserEventPayloadVariant194>),
+    Object185(Box<UserEventPayloadVariant195>),
+    Object186(Box<UserEventPayloadVariant196>),
+    RawCommands(Box<UserEventPayloadVariant197>),
+    ListKeys(Box<UserEventPayloadVariant198>),
+    GetKeysMetadata(Box<UserEventPayloadVariant199>),
+    GetKeyData(Box<UserEventPayloadVariant200>),
+    Object187(Box<UserEventPayloadVariant201>),
+    Object188(Box<UserEventPayloadVariant202>),
+    Object189(Box<UserEventPayloadVariant203>),
+    Object190(Box<UserEventPayloadVariant204>),
+    Object191(Box<UserEventPayloadVariant205>),
+    Object192(Box<UserEventPayloadVariant206>),
+    Object193(Box<UserEventPayloadVariant207>),
+    Object194(Box<UserEventPayloadVariant208>),
+    Object195(Box<UserEventPayloadVariant209>),
+    Object196(Box<UserEventPayloadVariant210>),
+    Object197(Box<UserEventPayloadVariant211>),
+    Object198(Box<UserEventPayloadVariant212>),
+    Object199(Box<UserEventPayloadVariant213>),
+    Object200(Box<UserEventPayloadVariant214>),
+    Object201(Box<UserEventPayloadVariant215>),
+    Object202(Box<UserEventPayloadVariant216>),
+    Object203(Box<UserEventPayloadVariant217>),
+    Object204(Box<UserEventPayloadVariant218>),
+    Object205(Box<UserEventPayloadVariant219>),
+    Object206(Box<UserEventPayloadVariant220>),
+    Object207(Box<UserEventPayloadVariant221>),
+    Object208(Box<UserEventPayloadVariant222>),
+    Object209(Box<UserEventPayloadVariant223>),
+    Object210(Box<UserEventPayloadVariant224>),
+    Object211(Box<UserEventPayloadVariant225>),
+    Object212(Box<UserEventPayloadVariant226>),
+    Object213(Box<UserEventPayloadVariant227>),
+    Object214(Box<UserEventPayloadVariant228>),
+    Object215(Box<UserEventPayloadVariant229>),
+    Object216(Box<UserEventPayloadVariant230>),
+    Object217(Box<UserEventPayloadVariant231>),
+    Object218(Box<UserEventPayloadVariant232>),
+    Object219(Box<UserEventPayloadVariant233>),
+    Object220(Box<UserEventPayloadVariant234>),
+    Object221(Box<UserEventPayloadVariant235>),
+    Object222(Box<UserEventPayloadVariant236>),
+    Object223(Box<UserEventPayloadVariant237>),
+    Object224(Box<UserEventPayloadVariant238>),
+    Object225(Box<UserEventPayloadVariant239>),
+    Object226(Box<UserEventPayloadVariant240>),
+    Object227(Box<UserEventPayloadVariant241>),
+    Object228(Box<UserEventPayloadVariant242>),
+    Script(Box<UserEventPayloadVariant243>),
+    Header(Box<UserEventPayloadVariant244>),
+    ConnectSrc(Box<UserEventPayloadVariant245>),
+    Object229(Box<UserEventPayloadVariant246>),
+    Object230(Box<UserEventPayloadVariant247>),
+    Object231(Box<UserEventPayloadVariant248>),
+    Object232(Box<UserEventPayloadVariant249>),
+    Object233(Box<UserEventPayloadVariant250>),
+    Object234(Box<UserEventPayloadVariant251>),
+    Object235(Box<UserEventPayloadVariant252>),
+    Admin2(Box<UserEventPayloadVariant253>),
+    Object236(Box<UserEventPayloadVariant254>),
+    Object237(Box<UserEventPayloadVariant255>),
+    Admin3(Box<UserEventPayloadVariant256>),
+    Network(Box<UserEventPayloadVariant257>),
+    Project(Box<UserEventPayloadVariant258>),
+    Project2(Box<UserEventPayloadVariant259>),
+    Network2(Box<UserEventPayloadVariant260>),
+    Project3(Box<UserEventPayloadVariant261>),
+    Project4(Box<UserEventPayloadVariant262>),
+    Object238(Box<UserEventPayloadVariant263>),
+    Object239(Box<UserEventPayloadVariant264>),
+    Object240(Box<UserEventPayloadVariant265>),
+    Object241(Box<UserEventPayloadVariant266>),
+    Object242(Box<UserEventPayloadVariant267>),
+    Object243(Box<UserEventPayloadVariant268>),
+    Object244(Box<UserEventPayloadVariant269>),
+    Object245(Box<UserEventPayloadVariant270>),
+    Object246(Box<UserEventPayloadVariant271>),
+    Object247(Box<UserEventPayloadVariant272>),
+    Object248(Box<UserEventPayloadVariant273>),
+    Object249(Box<UserEventPayloadVariant274>),
+    Object250(Box<UserEventPayloadVariant275>),
+    Object251(Box<UserEventPayloadVariant276>),
+    Object252(Box<UserEventPayloadVariant277>),
+    Object253(Box<UserEventPayloadVariant278>),
+    Object254(Box<UserEventPayloadVariant279>),
+    Object255(Box<UserEventPayloadVariant280>),
+    Object256(Box<UserEventPayloadVariant281>),
+    Object257(Box<UserEventPayloadVariant282>),
+    Object258(Box<UserEventPayloadVariant283>),
+    Object259(Box<UserEventPayloadVariant284>),
+    Object260(Box<UserEventPayloadVariant285>),
+    Object261(Box<UserEventPayloadVariant286>),
+    Object262(Box<UserEventPayloadVariant287>),
+    Object263(Box<UserEventPayloadVariant288>),
+    Object264(Box<UserEventPayloadVariant289>),
+    Object265(Box<UserEventPayloadVariant290>),
+    Object266(Box<UserEventPayloadVariant291>),
+    Object267(Box<UserEventPayloadVariant292>),
+    Object268(Box<UserEventPayloadVariant293>),
+    Object269(Box<UserEventPayloadVariant294>),
+    Object270(Box<UserEventPayloadVariant295>),
+    Object271(Box<UserEventPayloadVariant296>),
+    Object272(Box<UserEventPayloadVariant297>),
+    Object273(Box<UserEventPayloadVariant298>),
+    Object274(Box<UserEventPayloadVariant299>),
+    Object275(Box<UserEventPayloadVariant300>),
+    Object276(Box<UserEventPayloadVariant301>),
+    Object277(Box<UserEventPayloadVariant302>),
+    Object278(Box<UserEventPayloadVariant303>),
+    Object279(Box<UserEventPayloadVariant304>),
+    Object280(Box<UserEventPayloadVariant305>),
+    Object281(Box<UserEventPayloadVariant306>),
+    Object282(Box<UserEventPayloadVariant307>),
+    Object283(Box<UserEventPayloadVariant308>),
+    Object284(Box<UserEventPayloadVariant309>),
+    Object285(Box<UserEventPayloadVariant310>),
+    Object286(Box<UserEventPayloadVariant311>),
+    Object287(Box<UserEventPayloadVariant312>),
+    Object288(Box<UserEventPayloadVariant313>),
+    Object289(Box<UserEventPayloadVariant314>),
+    Object290(Box<UserEventPayloadVariant315>),
+    Object291(Box<UserEventPayloadVariant316>),
+    Object292(Box<UserEventPayloadVariant317>),
+    Object293(Box<UserEventPayloadVariant318>),
+    Object294(Box<UserEventPayloadVariant319>),
+    Object295(Box<UserEventPayloadVariant320>),
+    Object296(Box<UserEventPayloadVariant321>),
+    Object297(Box<UserEventPayloadVariant322>),
+    Object298(Box<UserEventPayloadVariant323>),
+    Object299(Box<UserEventPayloadVariant324>),
+    Object300(Box<UserEventPayloadVariant325>),
+    Object301(Box<UserEventPayloadVariant326>),
+    Object302(Box<UserEventPayloadVariant327>),
+    Object303(Box<UserEventPayloadVariant328>),
+    Object304(Box<UserEventPayloadVariant329>),
+    Object305(Box<UserEventPayloadVariant330>),
+    Object306(Box<UserEventPayloadVariant331>),
+    Object307(Box<UserEventPayloadVariant332>),
+    Object308(Box<UserEventPayloadVariant333>),
+    Object309(Box<UserEventPayloadVariant334>),
+    Object310(Box<UserEventPayloadVariant335>),
+    Object311(Box<UserEventPayloadVariant336>),
+    Object312(Box<UserEventPayloadVariant337>),
+    Object313(Box<UserEventPayloadVariant338>),
+    Object314(Box<UserEventPayloadVariant339>),
+    Object315(Box<UserEventPayloadVariant340>),
+    Object316(Box<UserEventPayloadVariant341>),
+    Object317(Box<UserEventPayloadVariant342>),
+    Object318(Box<UserEventPayloadVariant343>),
+    Object319(Box<UserEventPayloadVariant344>),
+    Object320(Box<UserEventPayloadVariant345>),
+    Object321(Box<UserEventPayloadVariant346>),
+    Object322(Box<UserEventPayloadVariant347>),
+    Object323(Box<UserEventPayloadVariant348>),
+    Object324(Box<UserEventPayloadVariant349>),
+    Object325(Box<UserEventPayloadVariant350>),
+    Object326(Box<UserEventPayloadVariant351>),
+    Object327(Box<UserEventPayloadVariant352>),
+    Object328(Box<UserEventPayloadVariant353>),
+    Object329(Box<UserEventPayloadVariant354>),
+    Admin4(Box<UserEventPayloadVariant355>),
+    Admin5(Box<UserEventPayloadVariant356>),
+    Admin6(Box<UserEventPayloadVariant357>),
+    Admin7(Box<UserEventPayloadVariant358>),
+    Object330(Box<UserEventPayloadVariant359>),
+    Object331(Box<UserEventPayloadVariant360>),
+    Object332(Box<UserEventPayloadVariant361>),
+    Object333(Box<UserEventPayloadVariant362>),
+    Object334(Box<UserEventPayloadVariant363>),
+    Object335(Box<UserEventPayloadVariant364>),
+    Object336(Box<UserEventPayloadVariant365>),
+    Admin8(Box<UserEventPayloadVariant366>),
+    Object337(Box<UserEventPayloadVariant367>),
+    Object338(Box<UserEventPayloadVariant368>),
+    Object339(Box<UserEventPayloadVariant369>),
+    Object340(Box<UserEventPayloadVariant370>),
+    Object341(Box<UserEventPayloadVariant371>),
+    Object342(Box<UserEventPayloadVariant372>),
+    Object343(Box<UserEventPayloadVariant373>),
+    Object344(Box<UserEventPayloadVariant374>),
+    Object345(Box<UserEventPayloadVariant375>),
+    Object346(Box<UserEventPayloadVariant376>),
+    Object347(Box<UserEventPayloadVariant377>),
+    Object348(Box<UserEventPayloadVariant378>),
+    Object349(Box<UserEventPayloadVariant379>),
+    Object350(Box<UserEventPayloadVariant380>),
+    Object351(Box<UserEventPayloadVariant381>),
+    Object352(Box<UserEventPayloadVariant382>),
+    Object353(Box<UserEventPayloadVariant383>),
+    Object354(Box<UserEventPayloadVariant384>),
+    Object355(Box<UserEventPayloadVariant385>),
+    Object356(Box<UserEventPayloadVariant386>),
+    Object357(Box<UserEventPayloadVariant387>),
+    Object358(Box<UserEventPayloadVariant388>),
+    Object359(Box<UserEventPayloadVariant389>),
+    Object360(Box<UserEventPayloadVariant390>),
+    Object361(Box<UserEventPayloadVariant391>),
+    Object362(Box<UserEventPayloadVariant392>),
+    Object363(Box<UserEventPayloadVariant393>),
+    Object364(Box<UserEventPayloadVariant394>),
+    Object365(Box<UserEventPayloadVariant395>),
+    Object366(Box<UserEventPayloadVariant396>),
+    Object367(Box<UserEventPayloadVariant397>),
+    Object368(Box<UserEventPayloadVariant398>),
+    Organization2(Box<UserEventPayloadVariant399>),
+    Object369(Box<UserEventPayloadVariant400>),
+    Object370(Box<UserEventPayloadVariant401>),
+    Object371(Box<UserEventPayloadVariant402>),
+    Object372(Box<UserEventPayloadVariant403>),
+    Object373(Box<UserEventPayloadVariant404>),
+    Object374(Box<UserEventPayloadVariant405>),
+    Object375(Box<UserEventPayloadVariant406>),
+    Object376(Box<UserEventPayloadVariant407>),
+    Object377(Box<UserEventPayloadVariant408>),
+    Object378(Box<UserEventPayloadVariant409>),
+    Object379(Box<UserEventPayloadVariant410>),
+    Object380(Box<UserEventPayloadVariant411>),
+    Object381(Box<UserEventPayloadVariant412>),
+    Object382(Box<UserEventPayloadVariant413>),
+    Object383(Box<UserEventPayloadVariant414>),
+    Object384(Box<UserEventPayloadVariant415>),
+    Object385(Box<UserEventPayloadVariant416>),
+    Object386(Box<UserEventPayloadVariant417>),
+    Object387(Box<UserEventPayloadVariant418>),
+    Object388(Box<UserEventPayloadVariant419>),
+    Object389(Box<UserEventPayloadVariant420>),
+    Object390(Box<UserEventPayloadVariant421>),
+    Object391(Box<UserEventPayloadVariant422>),
+    Object392(Box<UserEventPayloadVariant423>),
+    Admin9(Box<UserEventPayloadVariant424>),
+    Object393(Box<UserEventPayloadVariant425>),
+    Object394(Box<UserEventPayloadVariant426>),
+    Object395(Box<UserEventPayloadVariant427>),
+    Object396(Box<UserEventPayloadVariant428>),
+    Object397(Box<UserEventPayloadVariant429>),
+    Object398(Box<UserEventPayloadVariant430>),
+    Object399(Box<UserEventPayloadVariant431>),
+    Object400(Box<UserEventPayloadVariant432>),
+    Object401(Box<UserEventPayloadVariant433>),
+    Object402(Box<UserEventPayloadVariant434>),
+    Object403(Box<UserEventPayloadVariant435>),
+    Object404(Box<UserEventPayloadVariant436>),
+    Admin10(Box<UserEventPayloadVariant437>),
+    Object405(Box<UserEventPayloadVariant438>),
+    LimitsExceeded(Box<UserEventPayloadVariant439>),
+    Object406(Box<UserEventPayloadVariant440>),
+    Object407(Box<UserEventPayloadVariant441>),
+    Object408(Box<UserEventPayloadVariant442>),
+    Object409(Box<UserEventPayloadVariant443>),
+    Object410(Box<UserEventPayloadVariant444>),
+    Admin11(Box<UserEventPayloadVariant445>),
+    Object411(Box<UserEventPayloadVariant446>),
+    Object412(Box<UserEventPayloadVariant447>),
+    Object413(Box<UserEventPayloadVariant448>),
+    Admin12(Box<UserEventPayloadVariant449>),
+    Admin13(Box<UserEventPayloadVariant450>),
+    Admin14(Box<UserEventPayloadVariant451>),
+    Admin15(Box<UserEventPayloadVariant452>),
+    Object414(Box<UserEventPayloadVariant453>),
+    Object415(Box<UserEventPayloadVariant454>),
+    Object416(Box<UserEventPayloadVariant455>),
+    Object417(Box<UserEventPayloadVariant456>),
+    Object418(Box<UserEventPayloadVariant457>),
+    Object419(Box<UserEventPayloadVariant458>),
+    Object420(Box<UserEventPayloadVariant459>),
+    Object421(Box<UserEventPayloadVariant460>),
+    Object422(Box<UserEventPayloadVariant461>),
+    Google(Box<UserEventPayloadVariant462>),
+    Object423(Box<UserEventPayloadVariant463>),
+    Admin16(Box<UserEventPayloadVariant464>),
+    Admin17(Box<UserEventPayloadVariant465>),
+    Object424(Box<UserEventPayloadVariant466>),
+    Object425(Box<UserEventPayloadVariant467>),
+    Object426(Box<UserEventPayloadVariant468>),
+    Object427(Box<UserEventPayloadVariant469>),
+    Object428(Box<UserEventPayloadVariant470>),
+    Object429(Box<UserEventPayloadVariant471>),
+    Object430(Box<UserEventPayloadVariant472>),
+    Object431(Box<UserEventPayloadVariant473>),
+    Object432(Box<UserEventPayloadVariant474>),
+    Object433(Box<UserEventPayloadVariant475>),
+    Object434(Box<UserEventPayloadVariant476>),
+    Object435(Box<UserEventPayloadVariant477>),
+    Object436(Box<UserEventPayloadVariant478>),
+    Object437(Box<UserEventPayloadVariant479>),
+    Object438(Box<UserEventPayloadVariant480>),
+    Object439(Box<UserEventPayloadVariant481>),
+    Object440(Box<UserEventPayloadVariant482>),
+    Object441(Box<UserEventPayloadVariant483>),
+    Object442(Box<UserEventPayloadVariant484>),
+    Object443(Box<UserEventPayloadVariant485>),
+    Object444(Box<UserEventPayloadVariant486>),
+    Vcr(Box<UserEventPayloadVariant487>),
+    Object445(Box<UserEventPayloadVariant488>),
+    Object446(Box<UserEventPayloadVariant489>),
+    Object447(Box<UserEventPayloadVariant490>),
+    V0(Box<UserEventPayloadVariant491>),
+    Logout(Box<UserEventPayloadVariant492>),
+    Object448(Box<UserEventPayloadVariant493>),
 }

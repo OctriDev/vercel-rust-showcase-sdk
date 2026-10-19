@@ -2,207 +2,49 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::Pagination;
-
-impl UpdateMicrofrontendsResponse {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        account_id: String,
-        alias: Vec<UpdateMicrofrontendsResponseAliasItem>,
-        default_resource_config: UpdateMicrofrontendsResponseDefaultResourceConfig,
-        deployment_expiration: UpdateMicrofrontendsResponseDeploymentExpiration,
-        directory_listing: bool,
-        id: String,
-        name: String,
-        node_version: UpdateMicrofrontendsResponseNodeVersionEnum,
-        resource_config: UpdateMicrofrontendsResponseResourceConfig,
-    ) -> Self {
-        Self {
-            account_id,
-            alias,
-            analytics: None,
-            applied_cve55182_migration: None,
-            auto_assign_custom_domains: None,
-            auto_assign_custom_domains_updated_by: None,
-            auto_expose_system_envs: None,
-            avatar: None,
-            avatar_dark_mode: None,
-            blobs: None,
-            build_command: None,
-            command_for_ignoring_build_step: None,
-            concurrency_bucket_name: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            connect_configurations: None,
-            created_at: None,
-            creator: None,
-            crons: None,
-            custom_environments: None,
-            customer_support_code_visibility: None,
-            data_cache: None,
-            default_resource_config,
-            deployment_expiration,
-            deployment_policy: None,
-            dev_command: None,
-            directory_listing,
-            dismissed_toasts: None,
-            enable_affected_projects_deployments: None,
-            enable_external_rewrite_caching: None,
-            enable_preview_feedback: None,
-            enable_production_feedback: None,
-            env: None,
-            expiration: None,
-            features: None,
-            framework: None,
-            git_comments: None,
-            git_fork_protection: None,
-            git_lfs: None,
-            git_provider_options: None,
-            has_active_branches: None,
-            has_deployments: None,
-            id,
-            install_command: None,
-            internal_routes: None,
-            ip_buckets: None,
-            jobs: None,
-            last_alias_request: None,
-            last_rollback_target: None,
-            latest_deployments: None,
-            link: None,
-            live: None,
-            microfrontends: None,
-            name,
-            node_version,
-            oidc_token_config: None,
-            options_allowlist: None,
-            output_directory: None,
-            passive_connect_configuration_id: None,
-            passport: None,
-            password_protection: None,
-            paused: None,
-            permissions: None,
-            production_deployments_fast_lane: None,
-            protected_sourcemaps: None,
-            protection_bypass: None,
-            protection_config: None,
-            resource_config,
-            rollback_description: None,
-            rolling_release: None,
-            root_directory: None,
-            sandbox: None,
-            security: None,
-            serverless_function_zero_config_failover: None,
-            services: None,
-            skew_protection_allowed_domains: None,
-            skew_protection_boundary_at: None,
-            skew_protection_max_age: None,
-            skip_git_connect_during_link: None,
-            source_files_outside_root_directory: None,
-            speed_insights: None,
-            sso_protection: None,
-            static_ips: None,
-            targets: None,
-            tier: None,
-            tracing: None,
-            transfer_completed_at: None,
-            transferred_from_account_id: None,
-            transfer_started_at: None,
-            transfer_to_account_id: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            updated_at: None,
-            usage_status: None,
-            v0: None,
-            v0_created: None,
-            web_analytics: None,
-        }
-    }
-}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListPromoteAliasesResponseVariant1AliasesItem {
-    pub alias: String,
-    pub id: String,
-    pub status: String,
+pub struct UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
 }
 
-impl ListPromoteAliasesResponseVariant1AliasesItem {
-    pub fn new(alias: String, id: String, status: String) -> Self {
-        Self { alias, id, status }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListPromoteAliasesResponseVariant1 {
-    pub aliases: Vec<ListPromoteAliasesResponseVariant1AliasesItem>,
-    /// This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.
-    pub pagination: Pagination,
-}
-
-impl ListPromoteAliasesResponseVariant1 {
+impl UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        aliases: Vec<ListPromoteAliasesResponseVariant1AliasesItem>,
-        pagination: Pagination,
+        algorithm_version: String,
+        at: f64,
+        direction: UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
         Self {
-            aliases,
-            pagination,
+            algorithm_version,
+            at,
+            direction,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListPromoteAliasesResponse {
-    Object(Box<ListPromoteAliasesResponseVariant1>),
-    Value(serde_json::Value),
-}
-
-impl<'de> serde::Deserialize<'de> for ListPromoteAliasesResponse {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<ListPromoteAliasesResponseVariant1>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<serde_json::Value>(value.clone()) {
-            let candidate = Self::Value(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no ListPromoteAliasesResponse branch accepts this payload")
-        })
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsEnum98724903 {
+pub enum UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum {
     #[default]
-    _0,
-    _1,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl ListProjectsEnum98724903 {
+impl UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_0 => "0",
-            Self::_1 => "1",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsEnum98724903 {
+impl serde::Serialize for UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -211,45 +53,51 @@ impl serde::Serialize for ListProjectsEnum98724903 {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsEnum98724903 {
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "0" => Self::_0,
-            "1" => Self::_1,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsEnum98724903 {
+impl std::fmt::Display for UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsEnum {
+pub enum UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum {
     #[default]
-    _0,
-    _1,
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl ListProjectsEnum {
+impl UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_0 => "0",
-            Self::_1 => "1",
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -258,40 +106,199 @@ impl serde::Serialize for ListProjectsEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "0" => Self::_0,
-            "1" => Self::_1,
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsEnum316aaec8 {
+pub enum UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum {
     #[default]
-    _0,
-    _1,
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
     Unknown(String),
 }
 
-impl ListProjectsEnum316aaec8 {
+impl UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_0 => "0",
-            Self::_1 => "1",
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseResourceConfigBuildQueue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configuration:
+        Option<UpdateMicrofrontendsResponseResourceConfigBuildQueueConfigurationEnum>,
+}
+
+impl UpdateMicrofrontendsResponseResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            configuration: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

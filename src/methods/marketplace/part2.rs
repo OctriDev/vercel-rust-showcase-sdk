@@ -65,6 +65,38 @@ impl<'de> serde::Deserialize<'de> for GetIntegrationResourcesResponseResourcesIt
     }
 }
 
+impl ::std::convert::From<String> for GetIntegrationResourcesResponseResourcesItemMetadataValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetIntegrationResourcesResponseResourcesItemMetadataValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetIntegrationResourcesResponseResourcesItemMetadataValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<f64>> for GetIntegrationResourcesResponseResourcesItemMetadataValue {
+    fn from(value: Vec<f64>) -> Self {
+        Self::NumberArray(value)
+    }
+}
+
+impl ::std::convert::From<bool> for GetIntegrationResourcesResponseResourcesItemMetadataValue {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetIntegrationResourcesResponseResourcesItemNotificationLevelEnum {
     #[default]
@@ -275,35 +307,6 @@ impl GetIntegrationResourcesResponseResourcesItemProtocolSettings {
         Self {
             authentication: None,
             experimentation: None,
-        }
-    }
-}
-
-/// The current status of the resource
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetIntegrationResourcesResponseResourcesItemStatusEnum {
-    #[default]
-    Error,
-    Onboarding,
-    Pending,
-    Ready,
-    Resumed,
-    Suspended,
-    Uninstalled,
-    Unknown(String),
-}
-
-impl GetIntegrationResourcesResponseResourcesItemStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Error => "error",
-            Self::Onboarding => "onboarding",
-            Self::Pending => "pending",
-            Self::Ready => "ready",
-            Self::Resumed => "resumed",
-            Self::Suspended => "suspended",
-            Self::Uninstalled => "uninstalled",
-            Self::Unknown(value) => value.as_str(),
         }
     }
 }

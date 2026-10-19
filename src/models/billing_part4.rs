@@ -3,6 +3,70 @@
 
 // billing domain models (part 4)
 
+impl<'de> serde::Deserialize<'de> for BuyCreditsResponseVariant1PurchaseIntentStatusEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "failed" => Self::Failed,
+            "pending" => Self::Pending,
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for BuyCreditsResponseVariant1PurchaseIntentStatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The created purchase intent
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct BuyCreditsResponseVariant1PurchaseIntent {
+    pub configuration: BuyCreditsResponseVariant1PurchaseIntentConfiguration,
+    /// The datetime when the Purchase Intent was created.
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
+    /// The currency for the purchase intent
+    pub currency: BuyCreditsResponseVariant1PurchaseIntentCurrencyEnum,
+    /// The dispute details, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dispute: Option<BuyCreditsResponseVariant1PurchaseIntentDispute>,
+    /// The unique ID of a Purchase Intent. Uses the format `pur_\*`
+    pub id: String,
+    /// The line items that make up the Purchase Intent.
+    #[serde(rename = "lineItems", skip_serializing_if = "Option::is_none")]
+    pub line_items: Option<Vec<BuyCreditsResponseVariant1PurchaseIntentLineItemsItem>>,
+    /// Optional metadata associated with the purchase intent
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
+    /// The ID of the owner of the Purchase Intent.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    pub provider: BuyCreditsResponseVariant1PurchaseIntentProvider,
+    /// The amount of the purchase intent that has been refunded
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refund: Option<String>,
+    /// The URL to redirect to after the purchase is complete
+    #[serde(rename = "returnUrl", skip_serializing_if = "Option::is_none")]
+    pub return_url: Option<String>,
+    /// The status of the Purchase Intent.
+    pub status: BuyCreditsResponseVariant1PurchaseIntentStatusEnum,
+    /// The subtotal of the Purchase Intent.
+    pub subtotal: String,
+    /// The tax due on the Purchase Intent.
+    pub tax: String,
+    /// The total balance due on the Purchase Intent.
+    pub total: String,
+    /// The datetime when the Purchase Intent was last updated.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
+}
+
 impl BuyCreditsResponseVariant1PurchaseIntent {
     #[allow(clippy::too_many_arguments)]
     pub fn new(
@@ -460,71 +524,4 @@ impl std::fmt::Display for BuyCreditsResponseVariant2OrbSubscriptionIntentConfig
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-/// The source used as the authoritative price for this intent.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
-{
-    #[default]
-    Copper,
-    Orb,
-    Unknown(String),
-}
-
-impl BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Copper => "copper",
-            Self::Orb => "orb",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "copper" => Self::Copper,
-            "orb" => Self::Orb,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The canonical reference-product billing period at intent creation. Omitted for historical intents.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputReferenceBillingPeriod
-{
-    /// The exclusive end of the reference billing period.
-    #[serde(rename = "endDate")]
-    pub end_date: String,
-    /// The inclusive start of the reference billing period.
-    #[serde(rename = "startDate")]
-    pub start_date: String,
 }

@@ -3,63 +3,34 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum DeleteProjectAvatarResponseSecurityLogHeaders {
-    StringArray(Vec<String>),
-    Literal(DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityLogHeaders {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no DeleteProjectAvatarResponseSecurityLogHeaders branch accepts this payload",
-            )
-        })
+impl DeleteProjectAvatarResponseLatestDeploymentsItemAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
     }
 }
 
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -69,7 +40,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesAiBotsA
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum
+    for DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -77,57 +48,81 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRulesAiBots {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum>,
-    pub active: bool,
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum,
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesAiBots {
-    pub fn new(active: bool) -> Self {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: DeleteProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItemBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl DeleteProjectAvatarResponseLatestDeploymentsItemBuildsItem {
+    pub fn new(use_: String) -> Self {
         Self {
-            action: None,
-            active,
+            dest: None,
+            src: None,
+            use_,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -137,7 +132,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesBotFilt
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum
+    for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -145,159 +140,164 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+    #[default]
+    Completed,
+    Registered,
+    Running,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Completed => "completed",
+            Self::Registered => "registered",
+            Self::Running => "running",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "completed" => Self::Completed,
+            "registered" => Self::Registered,
+            "running" => Self::Running,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRulesBotFilter {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum>,
-    pub active: bool,
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItemCreator {
+    pub email: String,
+    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
+    pub github_login: Option<String>,
+    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
+    pub gitlab_login: Option<String>,
+    pub uid: String,
+    pub username: String,
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesBotFilter {
-    pub fn new(active: bool) -> Self {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemCreator {
+    pub fn new(email: String, uid: String, username: String) -> Self {
         Self {
-            action: None,
-            active,
+            email,
+            github_login: None,
+            gitlab_login: None,
+            uid,
+            username,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRulesOwasp {
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
+    pub aud: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesOwaspActionEnum>,
-    pub active: bool,
+    pub custom_environment_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deployment_id: Option<String>,
+    pub environment: String,
+    pub iss: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mfe_group_ids: Option<Vec<String>>,
+    pub owner: String,
+    pub owner_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub plan: Option<String>,
+    pub project: String,
+    pub project_id: String,
+    pub scope: String,
+    pub sub: String,
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesOwasp {
-    pub fn new(active: bool) -> Self {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        aud: String,
+        environment: String,
+        iss: String,
+        owner: String,
+        owner_id: String,
+        project: String,
+        project_id: String,
+        scope: String,
+        sub: String,
+    ) -> Self {
         Self {
-            action: None,
-            active,
+            aud,
+            custom_environment_id: None,
+            deployment_id: None,
+            environment,
+            iss,
+            mfe_group_ids: None,
+            owner,
+            owner_id,
+            plan: None,
+            project,
+            project_id,
+            scope,
+            sub,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    Enterprise,
+    Hobby,
+    Pro,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+impl DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::Enterprise => "enterprise",
+            Self::Hobby => "hobby",
+            Self::Pro => "pro",
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSecurityManagedRulesTrafficSources {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<DeleteProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum>,
-    pub active: bool,
 }

@@ -5,20 +5,18 @@ use super::*;
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uihidden
+pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden
 {
-    Object(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UihiddenVariant0>),
+    Object(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0>),
     Bool(bool),
-    Literal(GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UihiddenVariant2Enum),
+    Literal(GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum),
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uihidden
-{
+impl<'de> serde::Deserialize<'de> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UihiddenVariant0>>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0>>(value.clone()) {
             let candidate = Self::Object(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
@@ -32,31 +30,122 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UihiddenVariant2Enum>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum>(value.clone()) {
             let candidate = Self::Literal(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uihidden branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0>> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden {
+    fn from(value: Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden {
+    fn from(value: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2HiddenVariant2Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant0
+pub struct GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub disabled: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Disabled>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hidden: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2Hidden>,
+    pub value: String,
+}
+
+impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2 {
+    pub fn new(value: String) -> Self {
+        Self { description: None, disabled: None, hidden: None, value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem
+{
+    Object(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0>),
+    String(String),
+    Object2(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2>>(value.clone()) {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0>> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem {
+    fn from(value: Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2>> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem {
+    fn from(value: Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItemVariant2>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0
 {
     pub expr: String,
 }
 
-impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant0 {
+impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0 {
     pub fn new(expr: String) -> Self {
         Self { expr }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum
+pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum
 {
     #[default]
     Create,
@@ -64,7 +153,7 @@ pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesVal
     Unknown(String),
 }
 
-impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum {
+impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Create => "create",
@@ -74,7 +163,7 @@ impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVa
     }
 }
 
-impl serde::Serialize for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum {
+impl serde::Serialize for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -83,7 +172,7 @@ impl serde::Serialize for GetConfigurationProductsResponseProductsItemMetadataSc
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum {
+impl<'de> serde::Deserialize<'de> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -97,7 +186,7 @@ impl<'de> serde::Deserialize<'de> for GetConfigurationProductsResponseProductsIt
     }
 }
 
-impl std::fmt::Display for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum {
+impl std::fmt::Display for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -105,20 +194,20 @@ impl std::fmt::Display for GetConfigurationProductsResponseProductsItemMetadataS
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uireadonly
+pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly
 {
-    Object(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant0>),
+    Object(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0>),
     Bool(bool),
-    Literal(GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum),
+    Literal(GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uireadonly
+    for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant0>>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0>>(value.clone()) {
             let candidate = Self::Object(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
@@ -132,214 +221,69 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UireadonlyVariant2Enum>(value.clone()) {
+        if let Ok(branch) = serde_json::from_value::<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum>(value.clone()) {
             let candidate = Self::Literal(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uireadonly branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0>> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly {
+    fn from(value: Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum> for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly {
+    fn from(value: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UireadonlyVariant2Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11 {
+pub struct GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "git:providers", skip_serializing_if = "Option::is_none")]
-    pub git_providers: Option<Vec<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11GitprovidersItemEnum>>,
+    #[serde(rename = "maxLength", skip_serializing_if = "Option::is_none")]
+    pub max_length: Option<f64>,
+    #[serde(rename = "minLength", skip_serializing_if = "Option::is_none")]
+    pub min_length: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pattern: Option<String>,
     #[serde(rename = "type")]
-    pub type_: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11TypeEnum,
+    pub type_: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9TypeEnum,
     #[serde(rename = "ui:control")]
-    pub ui_control: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UicontrolEnum,
+    pub ui_control: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UicontrolEnum,
     #[serde(rename = "ui:description", skip_serializing_if = "Option::is_none")]
-    pub ui_description: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uidescription>,
+    pub ui_description: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uidescription>,
     #[serde(rename = "ui:disabled", skip_serializing_if = "Option::is_none")]
-    pub ui_disabled: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uidisabled>,
+    pub ui_disabled: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uidisabled>,
     #[serde(rename = "ui:formatted-value", skip_serializing_if = "Option::is_none")]
-    pub ui_formatted_value: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uiformattedvalue>,
+    pub ui_formatted_value: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uiformattedvalue>,
     #[serde(rename = "ui:hidden", skip_serializing_if = "Option::is_none")]
-    pub ui_hidden: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uihidden>,
+    pub ui_hidden: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uihidden>,
     #[serde(rename = "ui:label", skip_serializing_if = "Option::is_none")]
     pub ui_label: Option<String>,
+    #[serde(rename = "ui:options")]
+    pub ui_options: Vec<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9UioptionsItem>,
     #[serde(rename = "ui:paid-only", skip_serializing_if = "Option::is_none")]
     pub ui_paid_only: Option<bool>,
     #[serde(rename = "ui:placeholder", skip_serializing_if = "Option::is_none")]
     pub ui_placeholder: Option<String>,
     #[serde(rename = "ui:read-only", skip_serializing_if = "Option::is_none")]
-    pub ui_read_only: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11Uireadonly>,
-}
-
-impl GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11 {
-    pub fn new(
-        type_: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11TypeEnum,
-        ui_control: GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11UicontrolEnum,
-    ) -> Self {
-        Self {
-            description: None,
-            git_providers: None,
-            type_,
-            ui_control,
-            ui_description: None,
-            ui_disabled: None,
-            ui_formatted_value: None,
-            ui_hidden: None,
-            ui_label: None,
-            ui_paid_only: None,
-            ui_placeholder: None,
-            ui_read_only: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValue {
-    String(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant0>),
-    Number(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant1>),
-    Boolean(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant2>),
-    Array(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant3>),
-    String2(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant4>),
-    String3(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant5>),
-    Array2(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant6>),
-    String4(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant7>),
-    Array3(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant8>),
-    String5(Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9>),
-    String6(
-        Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant10>,
-    ),
-    String7(
-        Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::Boolean(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::Array(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant4>,
-        >(value.clone())
-        {
-            let candidate = Self::String2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant5>,
-        >(value.clone())
-        {
-            let candidate = Self::String3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant6>,
-        >(value.clone())
-        {
-            let candidate = Self::Array2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant7>,
-        >(value.clone())
-        {
-            let candidate = Self::String4(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant8>,
-        >(value.clone())
-        {
-            let candidate = Self::Array3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9>,
-        >(value.clone())
-        {
-            let candidate = Self::String5(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant10>,
-        >(value.clone())
-        {
-            let candidate = Self::String6(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant11>,
-        >(value.clone())
-        {
-            let candidate = Self::String7(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValue branch accepts this payload"))
-    }
+    pub ui_read_only: Option<GetConfigurationProductsResponseProductsItemMetadataSchemaPropertiesValueVariant9Uireadonly>,
 }

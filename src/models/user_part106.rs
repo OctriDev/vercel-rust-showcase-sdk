@@ -3,31 +3,8 @@
 
 // user domain models (part 106)
 
-impl UserEventPayloadVariant492GeolocationMostSpecificSubdivision {
-    pub fn new(names: UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames) -> Self {
-        Self { names }
-    }
-}
-
-/// Optional object value serialized in the `geolocation` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492Geolocation {
-    /// Optional object value serialized in the `city` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub city: Option<UserEventPayloadVariant492GeolocationCity>,
-    /// Required object value serialized in the `country` wire field.
-    pub country: UserEventPayloadVariant492GeolocationCountry,
-    /// Optional object value serialized in the `most_specific_subdivision` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub most_specific_subdivision:
-        Option<UserEventPayloadVariant492GeolocationMostSpecificSubdivision>,
-    /// Optional `string` value serialized in the `regionName` wire field.
-    #[serde(rename = "regionName", skip_serializing_if = "Option::is_none")]
-    pub region_name: Option<String>,
-}
-
-impl UserEventPayloadVariant492Geolocation {
-    pub fn new(country: UserEventPayloadVariant492GeolocationCountry) -> Self {
+impl UserEventPayloadVariant491Geolocation {
+    pub fn new(country: UserEventPayloadVariant491GeolocationCountry) -> Self {
         Self {
             city: None,
             country,
@@ -37,57 +14,9 @@ impl UserEventPayloadVariant492Geolocation {
     }
 }
 
-/// Optional enumerated value serialized in the `logoutSource` wire field.
+/// How the token was issued. Always `'manual'` for explicit PAT creation.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant492LogoutSourceEnum {
-    #[default]
-    V0,
-    Vercel,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant492LogoutSourceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::V0 => "v0",
-            Self::Vercel => "vercel",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant492LogoutSourceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492LogoutSourceEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "v0" => Self::V0,
-            "vercel" => Self::Vercel,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant492LogoutSourceEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Optional enumerated value serialized in the `origin` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant492OriginEnum {
+pub enum UserEventPayloadVariant491OriginEnum {
     #[default]
     App,
     Apple,
@@ -109,7 +38,7 @@ pub enum UserEventPayloadVariant492OriginEnum {
     Unknown(String),
 }
 
-impl UserEventPayloadVariant492OriginEnum {
+impl UserEventPayloadVariant491OriginEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::App => "app",
@@ -134,7 +63,7 @@ impl UserEventPayloadVariant492OriginEnum {
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant492OriginEnum {
+impl serde::Serialize for UserEventPayloadVariant491OriginEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -143,7 +72,7 @@ impl serde::Serialize for UserEventPayloadVariant492OriginEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492OriginEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491OriginEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -172,30 +101,32 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492OriginEnum {
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant492OriginEnum {
+impl std::fmt::Display for UserEventPayloadVariant491OriginEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Optional enumerated value serialized in the `reason` wire field.
+/// Present when `scope` is `'project'`.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant492ReasonEnum {
+pub enum UserEventPayloadVariant491ProjectScopeEnum {
     #[default]
-    Logout,
+    Account,
+    ProjectOnly,
     Unknown(String),
 }
 
-impl UserEventPayloadVariant492ReasonEnum {
+impl UserEventPayloadVariant491ProjectScopeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Logout => "logout",
+            Self::Account => "account",
+            Self::ProjectOnly => "project-only",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant492ReasonEnum {
+impl serde::Serialize for UserEventPayloadVariant491ProjectScopeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -204,28 +135,29 @@ impl serde::Serialize for UserEventPayloadVariant492ReasonEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492ReasonEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491ProjectScopeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "logout" => Self::Logout,
+            "account" => Self::Account,
+            "project-only" => Self::ProjectOnly,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant492ReasonEnum {
+impl std::fmt::Display for UserEventPayloadVariant491ProjectScopeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Optional enumerated value serialized in the `scope` wire field.
+/// Scope of the token: \- `'user'`: full-account token (not tied to any team). \- `'team'`: scoped to a single team. \- `'project'`: scoped to a single project within a team.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant492ScopeEnum {
+pub enum UserEventPayloadVariant491ScopeEnum {
     #[default]
     Project,
     Team,
@@ -233,7 +165,7 @@ pub enum UserEventPayloadVariant492ScopeEnum {
     Unknown(String),
 }
 
-impl UserEventPayloadVariant492ScopeEnum {
+impl UserEventPayloadVariant491ScopeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Project => "project",
@@ -244,7 +176,7 @@ impl UserEventPayloadVariant492ScopeEnum {
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant492ScopeEnum {
+impl serde::Serialize for UserEventPayloadVariant491ScopeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -253,7 +185,7 @@ impl serde::Serialize for UserEventPayloadVariant492ScopeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492ScopeEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491ScopeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -268,7 +200,7 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492ScopeEnum {
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant492ScopeEnum {
+impl std::fmt::Display for UserEventPayloadVariant491ScopeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -276,13 +208,13 @@ impl std::fmt::Display for UserEventPayloadVariant492ScopeEnum {
 
 /// Optional enumerated value serialized in the `source` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant492SourceEnum {
+pub enum UserEventPayloadVariant491SourceEnum {
     #[default]
     V0,
     Unknown(String),
 }
 
-impl UserEventPayloadVariant492SourceEnum {
+impl UserEventPayloadVariant491SourceEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::V0 => "v0",
@@ -291,7 +223,7 @@ impl UserEventPayloadVariant492SourceEnum {
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant492SourceEnum {
+impl serde::Serialize for UserEventPayloadVariant491SourceEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -300,7 +232,7 @@ impl serde::Serialize for UserEventPayloadVariant492SourceEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492SourceEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491SourceEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -313,7 +245,52 @@ impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant492SourceEnum {
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant492SourceEnum {
+impl std::fmt::Display for UserEventPayloadVariant491SourceEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The token prefix used when showing a safe checksum-style fingerprint.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant491TokenPrefixEnum {
+    #[default]
+    Vcp,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant491TokenPrefixEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Vcp => "vcp_",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant491TokenPrefixEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491TokenPrefixEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "vcp_" => Self::Vcp,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant491TokenPrefixEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -321,26 +298,29 @@ impl std::fmt::Display for UserEventPayloadVariant492SourceEnum {
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492 {
-    /// The token's public ID.
-    #[serde(rename = "actorTokenId")]
-    pub actor_token_id: String,
+pub struct UserEventPayloadVariant491 {
     /// Optional `string` value serialized in the `createdByParentTeamId` wire field.
     #[serde(
         rename = "createdByParentTeamId",
         skip_serializing_if = "Option::is_none"
     )]
     pub created_by_parent_team_id: Option<String>,
-    /// Optional enumerated value serialized in the `expired` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expired: Option<bool>,
+    /// Unix epoch milliseconds. Absent when the token never expires.
+    #[serde(rename = "expiresAt", skip_serializing_if = "Option::is_none")]
+    pub expires_at: Option<f64>,
     /// Optional object value serialized in the `geolocation` wire field.
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub geolocation: Option<Option<UserEventPayloadVariant492Geolocation>>,
+    pub geolocation: Option<Option<UserEventPayloadVariant491Geolocation>>,
+    /// Whether the token was issued with RFC 9396 authorization details.
+    #[serde(
+        rename = "hasAuthorizationDetails",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub has_authorization_details: Option<bool>,
     /// Optional `string` value serialized in the `ip` wire field.
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -348,76 +328,78 @@ pub struct UserEventPayloadVariant492 {
         with = "crate::client::double_option"
     )]
     pub ip: Option<Option<String>>,
-    /// Optional enumerated value serialized in the `leaked` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub leaked: Option<bool>,
-    /// Optional enumerated value serialized in the `logoutSource` wire field.
-    #[serde(rename = "logoutSource", skip_serializing_if = "Option::is_none")]
-    pub logout_source: Option<UserEventPayloadVariant492LogoutSourceEnum>,
-    /// Optional enumerated value serialized in the `origin` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub origin: Option<UserEventPayloadVariant492OriginEnum>,
-    /// Optional enumerated value serialized in the `reason` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reason: Option<UserEventPayloadVariant492ReasonEnum>,
+    /// How the token was issued. Always `'manual'` for explicit PAT creation.
+    pub origin: UserEventPayloadVariant491OriginEnum,
+    /// Present when `scope` is `'project'`.
+    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    /// Present when `scope` is `'project'`.
+    #[serde(rename = "projectName", skip_serializing_if = "Option::is_none")]
+    pub project_name: Option<String>,
+    /// Present when `scope` is `'project'`.
+    #[serde(rename = "projectScope", skip_serializing_if = "Option::is_none")]
+    pub project_scope: Option<UserEventPayloadVariant491ProjectScopeEnum>,
     /// Optional `string` value serialized in the `reqId` wire field.
     #[serde(rename = "reqId", skip_serializing_if = "Option::is_none")]
     pub req_id: Option<String>,
     /// Optional `string` value serialized in the `reqUrl` wire field.
     #[serde(rename = "reqUrl", skip_serializing_if = "Option::is_none")]
     pub req_url: Option<String>,
-    /// Optional enumerated value serialized in the `revoked` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub revoked: Option<bool>,
-    /// Optional enumerated value serialized in the `scope` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope: Option<UserEventPayloadVariant492ScopeEnum>,
+    /// Scope of the token: \- `'user'`: full-account token (not tied to any team). \- `'team'`: scoped to a single team. \- `'project'`: scoped to a single project within a team.
+    pub scope: UserEventPayloadVariant491ScopeEnum,
     /// Optional enumerated value serialized in the `source` wire field.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<UserEventPayloadVariant492SourceEnum>,
-    /// Optional `string` value serialized in the `teamId` wire field.
+    pub source: Option<UserEventPayloadVariant491SourceEnum>,
+    /// Present when `scope` is `'team'` or `'project'`.
     #[serde(rename = "teamId", skip_serializing_if = "Option::is_none")]
     pub team_id: Option<String>,
-    /// Required `string` value serialized in the `tokenId` wire field.
+    /// Present when `scope` is `'team'` or `'project'`.
+    #[serde(rename = "teamSlug", skip_serializing_if = "Option::is_none")]
+    pub team_slug: Option<String>,
+    /// The token's public ID.
     #[serde(rename = "tokenId")]
     pub token_id: String,
-    /// Required `string` value serialized in the `tokenName` wire field.
+    /// User-supplied name of the token.
     #[serde(rename = "tokenName")]
     pub token_name: String,
-    /// Required `string` value serialized in the `tokenType` wire field.
-    #[serde(rename = "tokenType")]
-    pub token_type: String,
+    /// The token prefix used when showing a safe checksum-style fingerprint.
+    #[serde(rename = "tokenPrefix", skip_serializing_if = "Option::is_none")]
+    pub token_prefix: Option<UserEventPayloadVariant491TokenPrefixEnum>,
+    /// The token checksum suffix.
+    #[serde(rename = "tokenSuffix", skip_serializing_if = "Option::is_none")]
+    pub token_suffix: Option<String>,
     /// Optional `string` value serialized in the `userAgent` wire field.
     #[serde(rename = "userAgent", skip_serializing_if = "Option::is_none")]
     pub user_agent: Option<String>,
 }
 
-impl UserEventPayloadVariant492 {
+impl UserEventPayloadVariant491 {
     pub fn new(
-        actor_token_id: String,
+        origin: UserEventPayloadVariant491OriginEnum,
+        scope: UserEventPayloadVariant491ScopeEnum,
         token_id: String,
         token_name: String,
-        token_type: String,
     ) -> Self {
         Self {
-            actor_token_id,
             created_by_parent_team_id: None,
-            expired: None,
+            expires_at: None,
             geolocation: None,
+            has_authorization_details: None,
             ip: None,
-            leaked: None,
-            logout_source: None,
-            origin: None,
-            reason: None,
+            origin,
+            project_id: None,
+            project_name: None,
+            project_scope: None,
             req_id: None,
             req_url: None,
-            revoked: None,
-            scope: None,
+            scope,
             source: None,
             team_id: None,
+            team_slug: None,
             token_id,
             token_name,
-            token_type,
+            token_prefix: None,
+            token_suffix: None,
             user_agent: None,
         }
     }
@@ -425,12 +407,12 @@ impl UserEventPayloadVariant492 {
 
 /// Required object value serialized in the `names` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant493GeolocationCityNames {
+pub struct UserEventPayloadVariant492GeolocationCityNames {
     /// Required `string` value serialized in the `en` wire field.
     pub en: String,
 }
 
-impl UserEventPayloadVariant493GeolocationCityNames {
+impl UserEventPayloadVariant492GeolocationCityNames {
     pub fn new(en: String) -> Self {
         Self { en }
     }
@@ -438,25 +420,25 @@ impl UserEventPayloadVariant493GeolocationCityNames {
 
 /// Optional object value serialized in the `city` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant493GeolocationCity {
+pub struct UserEventPayloadVariant492GeolocationCity {
     /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant493GeolocationCityNames,
+    pub names: UserEventPayloadVariant492GeolocationCityNames,
 }
 
-impl UserEventPayloadVariant493GeolocationCity {
-    pub fn new(names: UserEventPayloadVariant493GeolocationCityNames) -> Self {
+impl UserEventPayloadVariant492GeolocationCity {
+    pub fn new(names: UserEventPayloadVariant492GeolocationCityNames) -> Self {
         Self { names }
     }
 }
 
 /// Required object value serialized in the `names` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant493GeolocationCountryNames {
+pub struct UserEventPayloadVariant492GeolocationCountryNames {
     /// Required `string` value serialized in the `en` wire field.
     pub en: String,
 }
 
-impl UserEventPayloadVariant493GeolocationCountryNames {
+impl UserEventPayloadVariant492GeolocationCountryNames {
     pub fn new(en: String) -> Self {
         Self { en }
     }
@@ -464,13 +446,33 @@ impl UserEventPayloadVariant493GeolocationCountryNames {
 
 /// Required object value serialized in the `country` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant493GeolocationCountry {
+pub struct UserEventPayloadVariant492GeolocationCountry {
     /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant493GeolocationCountryNames,
+    pub names: UserEventPayloadVariant492GeolocationCountryNames,
 }
 
-impl UserEventPayloadVariant493GeolocationCountry {
-    pub fn new(names: UserEventPayloadVariant493GeolocationCountryNames) -> Self {
+impl UserEventPayloadVariant492GeolocationCountry {
+    pub fn new(names: UserEventPayloadVariant492GeolocationCountryNames) -> Self {
         Self { names }
     }
+}
+
+/// Required object value serialized in the `names` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames {
+    /// Required `string` value serialized in the `en` wire field.
+    pub en: String,
+}
+
+impl UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames {
+    pub fn new(en: String) -> Self {
+        Self { en }
+    }
+}
+
+/// Optional object value serialized in the `most_specific_subdivision` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant492GeolocationMostSpecificSubdivision {
+    /// Required object value serialized in the `names` wire field.
+    pub names: UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames,
 }

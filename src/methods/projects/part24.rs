@@ -337,12 +337,16 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1Pagination {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemAliasItemConfiguredByEnum {
-    #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
-    Unknown(String),
+impl ::std::convert::From<Box<ListProjectsResponseVariant1PaginationVariant0>>
+    for ListProjectsResponseVariant1Pagination
+{
+    fn from(value: Box<ListProjectsResponseVariant1PaginationVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<Pagination>> for ListProjectsResponseVariant1Pagination {
+    fn from(value: Box<Pagination>) -> Self {
+        Self::Pagination(value)
+    }
 }

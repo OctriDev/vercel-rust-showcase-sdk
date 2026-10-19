@@ -3,166 +3,79 @@
 
 use super::*;
 
-impl CreateProjectResponse {
+impl CreateProjectResponseTargetsValue {
     #[allow(clippy::too_many_arguments)]
     pub fn new(
-        account_id: String,
-        alias: Vec<CreateProjectResponseAliasItem>,
-        default_resource_config: CreateProjectResponseDefaultResourceConfig,
-        deployment_expiration: CreateProjectResponseDeploymentExpiration,
-        directory_listing: bool,
+        created_at: f64,
+        created_in: String,
+        creator: Option<CreateProjectResponseTargetsValueCreator>,
+        deployment_hostname: String,
         id: String,
         name: String,
-        node_version: CreateProjectResponseNodeVersionEnum,
-        resource_config: CreateProjectResponseResourceConfig,
+        plan: CreateProjectResponseTargetsValuePlanEnum,
+        private: bool,
+        ready_state: CreateProjectResponseTargetsValueReadyStateEnum,
+        type_: CreateProjectResponseTargetsValueTypeEnum,
+        url: String,
     ) -> Self {
         Self {
-            account_id,
-            alias,
-            analytics: None,
-            applied_cve55182_migration: None,
-            auto_assign_custom_domains: None,
-            auto_assign_custom_domains_updated_by: None,
-            auto_expose_system_envs: None,
-            avatar: None,
-            avatar_dark_mode: None,
-            blobs: None,
-            build_command: None,
-            command_for_ignoring_build_step: None,
-            concurrency_bucket_name: None,
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
             connect_builds_enabled: None,
             connect_configuration_id: None,
-            connect_configurations: None,
-            created_at: None,
-            creator: None,
-            crons: None,
-            custom_environments: None,
-            customer_support_code_visibility: None,
-            data_cache: None,
-            default_resource_config,
-            deployment_expiration,
-            deployment_policy: None,
-            dev_command: None,
-            directory_listing,
-            dismissed_toasts: None,
-            enable_affected_projects_deployments: None,
-            enable_external_rewrite_caching: None,
-            enable_preview_feedback: None,
-            enable_production_feedback: None,
-            env: None,
-            expiration: None,
-            features: None,
-            framework: None,
-            git_comments: None,
-            git_fork_protection: None,
-            git_lfs: None,
-            git_provider_options: None,
-            has_active_branches: None,
-            has_deployments: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
             id,
-            install_command: None,
-            internal_routes: None,
-            ip_buckets: None,
-            jobs: None,
-            last_alias_request: None,
-            last_rollback_target: None,
-            latest_deployments: None,
-            link: None,
-            live: None,
-            microfrontends: None,
+            meta: None,
+            monorepo_manager: None,
             name,
-            node_version,
-            oidc_token_config: None,
-            options_allowlist: None,
-            output_directory: None,
-            passive_connect_configuration_id: None,
-            passport: None,
-            password_protection: None,
-            paused: None,
-            permissions: None,
-            production_deployments_fast_lane: None,
-            protected_sourcemaps: None,
-            protection_bypass: None,
-            protection_config: None,
-            resource_config,
-            rollback_description: None,
-            rolling_release: None,
-            root_directory: None,
-            sandbox: None,
-            security: None,
-            serverless_function_zero_config_failover: None,
-            services: None,
-            skew_protection_allowed_domains: None,
-            skew_protection_boundary_at: None,
-            skew_protection_max_age: None,
-            skip_git_connect_during_link: None,
-            source_files_outside_root_directory: None,
-            speed_insights: None,
-            sso_protection: None,
-            static_ips: None,
-            targets: None,
-            tier: None,
-            tracing: None,
-            transfer_completed_at: None,
-            transferred_from_account_id: None,
-            transfer_started_at: None,
-            transfer_to_account_id: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            updated_at: None,
-            usage_status: None,
-            v0: None,
-            v0_created: None,
-            web_analytics: None,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectTokenResponse {
-    pub token: String,
-}
-
-impl GetProjectTokenResponse {
-    pub fn new(token: String) -> Self {
-        Self { token }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateTraceSessionResponse {
-    pub token: String,
-}
-
-impl CreateTraceSessionResponse {
-    pub fn new(token: String) -> Self {
-        Self { token }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseAliasItemConfiguredByEnum {
+pub enum CreateProjectResponseTierEnum {
     #[default]
-    A,
-    Cname,
-    Dns01,
-    Http,
+    Priority,
     Unknown(String),
 }
 
-impl GetProjectsResponseAliasItemConfiguredByEnum {
+impl CreateProjectResponseTierEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::A => "A",
-            Self::Cname => "CNAME",
-            Self::Dns01 => "dns-01",
-            Self::Http => "http",
+            Self::Priority => "priority",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseAliasItemConfiguredByEnum {
+impl serde::Serialize for CreateProjectResponseTierEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -171,91 +84,45 @@ impl serde::Serialize for GetProjectsResponseAliasItemConfiguredByEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemConfiguredByEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTierEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "A" => Self::A,
-            "CNAME" => Self::Cname,
-            "dns-01" => Self::Dns01,
-            "http" => Self::Http,
+            "priority" => Self::Priority,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseAliasItemConfiguredByEnum {
+impl std::fmt::Display for CreateProjectResponseTierEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseAliasItemDeploymentAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentAliasAssigned {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseAliasItemDeploymentAliasError {
-    pub code: String,
-    pub message: String,
-}
-
-impl GetProjectsResponseAliasItemDeploymentAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
+/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
+pub enum CreateProjectResponseTracingSamplingRulesItemDestinationEnum {
     #[default]
-    Endswith,
-    Equals,
-    Startswith,
+    External,
+    Internal,
     Unknown(String),
 }
 
-impl GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl CreateProjectResponseTracingSamplingRulesItemDestinationEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::External => "external",
+            Self::Internal => "internal",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl serde::Serialize for CreateProjectResponseTracingSamplingRulesItemDestinationEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -264,32 +131,182 @@ impl serde::Serialize for GetProjectsResponseAliasItemDeploymentBranchMatcherTyp
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTracingSamplingRulesItemDestinationEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "external" => Self::External,
+            "internal" => Self::Internal,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
+impl std::fmt::Display for CreateProjectResponseTracingSamplingRulesItemDestinationEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseTracingSamplingRulesItemEnvEnum {
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl CreateProjectResponseTracingSamplingRulesItemEnvEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseTracingSamplingRulesItemEnvEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTracingSamplingRulesItemEnvEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseTracingSamplingRulesItemEnvEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseAliasItemDeploymentBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum,
+pub struct CreateProjectResponseTracingSamplingRulesItem {
+    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub destination: Option<CreateProjectResponseTracingSamplingRulesItemDestinationEnum>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<CreateProjectResponseTracingSamplingRulesItemEnvEnum>,
+    pub rate: f64,
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
+}
+
+impl CreateProjectResponseTracingSamplingRulesItem {
+    pub fn new(rate: f64) -> Self {
+        Self {
+            destination: None,
+            env: None,
+            rate,
+            request_path: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseTracing {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<String>,
+    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
+    pub ignore_paths: Option<Vec<String>>,
+    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
+    pub sampling_rules: Option<Vec<CreateProjectResponseTracingSamplingRulesItem>>,
+}
+
+impl CreateProjectResponseTracing {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            domains: None,
+            ignore_paths: None,
+            sampling_rules: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The target envs on the current project that may be accessed.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset:
+        Option<CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
+}
+
+impl CreateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
+        }
+    }
 }

@@ -3,6 +3,123 @@
 
 use super::*;
 
+impl GetIntegrationResourceResponseStatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Error => "error",
+            Self::Onboarding => "onboarding",
+            Self::Pending => "pending",
+            Self::Ready => "ready",
+            Self::Resumed => "resumed",
+            Self::Suspended => "suspended",
+            Self::Uninstalled => "uninstalled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetIntegrationResourceResponseStatusEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetIntegrationResourceResponseStatusEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "error" => Self::Error,
+            "onboarding" => Self::Onboarding,
+            "pending" => Self::Pending,
+            "ready" => Self::Ready,
+            "resumed" => Self::Resumed,
+            "suspended" => Self::Suspended,
+            "uninstalled" => Self::Uninstalled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetIntegrationResourceResponseStatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetIntegrationResourceResponse {
+    /// The ID of the billing plan the resource is subscribed to, if applicable
+    #[serde(rename = "billingPlanId", skip_serializing_if = "Option::is_none")]
+    pub billing_plan_id: Option<String>,
+    /// The roles and claim rules Vercel resolves into the resource tokens it mints for this resource
+    #[serde(rename = "customClaims", skip_serializing_if = "Option::is_none")]
+    pub custom_claims: Option<GetIntegrationResourceResponseCustomClaims>,
+    /// The ID provided by the 3rd party provider for the given resource
+    pub id: String,
+    /// The ID assigned by Vercel for the given resource
+    #[serde(rename = "internalId")]
+    pub internal_id: String,
+    /// The configured metadata for the resource as defined by its product's Metadata Schema
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata:
+        Option<std::collections::HashMap<String, GetIntegrationResourceResponseMetadataValue>>,
+    /// The name of the resource as it is recorded in Vercel
+    pub name: String,
+    /// The notification, if set, displayed to the user when viewing the resource in Vercel
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub notification: Option<GetIntegrationResourceResponseNotification>,
+    /// The ID of the product the resource is derived from
+    #[serde(rename = "productId")]
+    pub product_id: String,
+    /// Any settings provided for the resource to support its product's protocols
+    #[serde(rename = "protocolSettings", skip_serializing_if = "Option::is_none")]
+    pub protocol_settings: Option<GetIntegrationResourceResponseProtocolSettings>,
+    /// The current status of the resource
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<GetIntegrationResourceResponseStatusEnum>,
+}
+
+impl GetIntegrationResourceResponse {
+    pub fn new(id: String, internal_id: String, name: String, product_id: String) -> Self {
+        Self {
+            billing_plan_id: None,
+            custom_claims: None,
+            id,
+            internal_id,
+            metadata: None,
+            name,
+            notification: None,
+            product_id,
+            protocol_settings: None,
+            status: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ImportResourceBillingPlanTypeEnum {
+    #[default]
+    Prepayment,
+    Subscription,
+    Unknown(String),
+}
+
+impl ImportResourceBillingPlanTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Prepayment => "prepayment",
+            Self::Subscription => "subscription",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ImportResourceBillingPlanTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -158,124 +275,4 @@ pub struct ImportResourceNotification {
     pub message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub href: Option<String>,
-}
-
-impl ImportResourceNotification {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.href.as_ref() {
-            crate::validation::validate_pattern("href", value, "^https?://|^sso:")?;
-            crate::validation::validate_uri("href", value)?;
-        }
-        Ok(())
-    }
-
-    pub fn new(
-        level: ImportResourceNotificationLevelEnum,
-        title: String,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            level,
-            title,
-            message: None,
-            href: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ImportResourceSecretsItemEnvironmentOverrides {
-    /// Value used for development environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub development: Option<String>,
-    /// Value used for preview environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preview: Option<String>,
-    /// Value used for production environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub production: Option<String>,
-}
-
-impl ImportResourceSecretsItemEnvironmentOverrides {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            development: None,
-            preview: None,
-            production: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ImportResourceSecretsItem {
-    pub name: String,
-    pub value: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub prefix: Option<String>,
-    /// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-    #[serde(
-        rename = "environmentOverrides",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub environment_overrides: Option<ImportResourceSecretsItemEnvironmentOverrides>,
-}
-
-impl ImportResourceSecretsItem {
-    pub fn new(name: String, value: String) -> Self {
-        Self {
-            name,
-            value,
-            prefix: None,
-            environment_overrides: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ImportResourceCustomClaimsClaimRulesItemWhen {
-    /// Applies only when the token is minted for one of these roles.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<Vec<String>>,
-    /// Applies only when the token is minted for one of these environments: `production`, `preview`, `development`, or a custom environment slug. A custom environment also matches `preview`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub environment: Option<Vec<String>>,
-}
-
-impl ImportResourceCustomClaimsClaimRulesItemWhen {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.role.as_ref() {
-            crate::validation::validate_items(
-                "role",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    max: Some(32),
-                },
-            )?;
-        }
-        if let Some(value) = self.environment.as_ref() {
-            crate::validation::validate_items(
-                "environment",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    max: Some(32),
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            role: None,
-            environment: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
 }

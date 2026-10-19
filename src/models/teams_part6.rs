@@ -3,6 +3,32 @@
 
 // teams domain models (part 6)
 
+impl TeamSamlDirectory {
+    pub fn new(connected_at: f64, state: String, type_: String) -> Self {
+        Self {
+            connected_at,
+            last_received_webhook_event: None,
+            last_synced_at: None,
+            state,
+            sync_state: None,
+            type_,
+        }
+    }
+}
+
+/// When "Directory Sync" is configured, this object contains a mapping of which Directory Group (by ID) should be assigned to which Vercel Team roles and permissions, or an access group. Bare team roles are deprecated in favor of DirectorySyncRolesMapping.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct TeamSamlRolesValueVariant0 {
+    #[serde(rename = "accessGroupId")]
+    pub access_group_id: String,
+}
+
+impl TeamSamlRolesValueVariant0 {
+    pub fn new(access_group_id: String) -> Self {
+        Self { access_group_id }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum TeamSamlRolesValueVariant1TeamPermissionsItemEnum {
     #[default]
@@ -291,6 +317,24 @@ impl<'de> serde::Deserialize<'de> for TeamSamlRolesValue {
     }
 }
 
+impl ::std::convert::From<Box<TeamSamlRolesValueVariant0>> for TeamSamlRolesValue {
+    fn from(value: Box<TeamSamlRolesValueVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<TeamSamlRolesValueVariant1>> for TeamSamlRolesValue {
+    fn from(value: Box<TeamSamlRolesValueVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<TeamSamlRolesValueVariant2Enum> for TeamSamlRolesValue {
+    fn from(value: TeamSamlRolesValueVariant2Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 /// When "Single Sign-On (SAML)" is configured, this object contains information regarding the configuration of the Identity Provider (IdP).
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct TeamSaml {
@@ -422,25 +466,6 @@ pub struct TeamStrictPasswordProtectionSettings {
 }
 
 impl TeamStrictPasswordProtectionSettings {
-    pub fn new(enabled: bool, updated_at: f64) -> Self {
-        Self {
-            enabled,
-            updated_at,
-        }
-    }
-}
-
-/// When enabled, creating shareable links requires Owner role.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct TeamStrictShareableLinks {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required `number` value serialized in the `updatedAt` wire field.
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl TeamStrictShareableLinks {
     pub fn new(enabled: bool, updated_at: f64) -> Self {
         Self {
             enabled,

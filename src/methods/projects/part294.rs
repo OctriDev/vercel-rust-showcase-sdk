@@ -3,354 +3,293 @@
 
 use super::*;
 
-impl RemoveProjectEnvResponseVariant2ContentHintVariant14TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
-        }
+impl ::std::convert::From<Vec<CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum>>
+    for CreateProjectEnvResponseCreatedVariant0Target
+{
+    fn from(value: Vec<CreateProjectEnvResponseCreatedVariant0TargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
     }
 }
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant14TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant2ContentHintVariant14TypeEnum::PostgresUrlNoSsl => {
-                f.write_str("postgres-url-no-ssl")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant2ContentHintVariant14 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant14TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant2ContentHintVariant14 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant2ContentHintVariant14TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum {
-    #[serde(rename = "integration-store-secret")]
-    #[default]
-    IntegrationStoreSecret,
-}
-
-impl RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::IntegrationStoreSecret => "integration-store-secret",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum::IntegrationStoreSecret => f.write_str("integration-store-secret"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant2ContentHintVariant15 {
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    #[serde(rename = "integrationProductId")]
-    pub integration_product_id: String,
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant2ContentHintVariant15 {
-    pub fn new(
-        integration_configuration_id: String,
-        integration_id: String,
-        integration_product_id: String,
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant2ContentHintVariant15TypeEnum,
-    ) -> Self {
-        Self {
-            integration_configuration_id,
-            integration_id,
-            integration_product_id,
-            store_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum {
-    #[serde(rename = "flags-connection-string")]
-    #[default]
-    FlagsConnectionString,
-}
-
-impl RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FlagsConnectionString => "flags-connection-string",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum::FlagsConnectionString => {
-                f.write_str("flags-connection-string")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant2ContentHintVariant16 {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant2ContentHintVariant16 {
-    pub fn new(
-        project_id: String,
-        type_: RemoveProjectEnvResponseVariant2ContentHintVariant16TypeEnum,
-    ) -> Self {
-        Self { project_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum RemoveProjectEnvResponseVariant2ContentHint {
-    RedisUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>),
-    RedisRestApiUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>),
-    RedisRestApiToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>),
-    RedisRestApiReadOnlyToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>),
-    BlobReadWriteToken(Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>),
-    BlobStoreId(Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>),
-    BlobWebhookPublicKey(Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>),
-    PostgresUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>),
-    PostgresUrlNonPooling(Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>),
-    PostgresPrismaUrl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>),
-    PostgresUser(Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>),
-    PostgresHost(Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>),
-    PostgresPassword(Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>),
-    PostgresDatabase(Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>),
-    PostgresUrlNoSsl(Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>),
-    IntegrationStoreSecret(Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>),
-    FlagsConnectionString(Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>),
-}
-
-impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant2ContentHint {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiReadOnlyToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant4>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobReadWriteToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant5>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobStoreId(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant6>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobWebhookPublicKey(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant7>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant8>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrlNonPooling(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant9>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresPrismaUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant10>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUser(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant11>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresHost(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant12>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresPassword(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant13>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresDatabase(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant14>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrlNoSsl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant15>,
-        >(value.clone())
-        {
-            let candidate = Self::IntegrationStoreSecret(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<RemoveProjectEnvResponseVariant2ContentHintVariant16>,
-        >(value.clone())
-        {
-            let candidate = Self::FlagsConnectionString(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no RemoveProjectEnvResponseVariant2ContentHint branch accepts this payload",
-            )
-        })
+impl ::std::convert::From<CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum>
+    for CreateProjectEnvResponseCreatedVariant0Target
+{
+    fn from(value: CreateProjectEnvResponseCreatedVariant0TargetVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
+pub enum CreateProjectEnvResponseCreatedVariant0TypeEnum {
+    #[default]
+    Encrypted,
+    Plain,
+    Secret,
+    Sensitive,
+    System,
+    Unknown(String),
+}
+
+impl CreateProjectEnvResponseCreatedVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Secret => "secret",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "secret" => Self::Secret,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
+    #[default]
+    Config,
+    Secret,
+    Unknown(String),
+}
+
+impl CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Config => "config",
+            Self::Secret => "secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "config" => Self::Config,
+            "secret" => Self::Secret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0VisibilityEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectEnvResponseCreatedVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    #[serde(
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<CreateProjectEnvResponseCreatedVariant0ContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub custom_environment_ids: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint:
+        Option<Option<CreateProjectEnvResponseCreatedVariant0InternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<CreateProjectEnvResponseCreatedVariant0Target>,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectEnvResponseCreatedVariant0TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<CreateProjectEnvResponseCreatedVariant0VisibilityEnum>,
+    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
+    pub vsm_value: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub system: Option<bool>,
+}
+
+impl CreateProjectEnvResponseCreatedVariant0 {
+    pub fn new(
+        key: String,
+        type_: CreateProjectEnvResponseCreatedVariant0TypeEnum,
+        value: String,
+    ) -> Self {
+        Self {
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+            vsm_value: None,
+            system: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
     #[default]
     FlagsSecret,
     Unknown(String),
 }
 
-impl RemoveProjectEnvResponseVariant2InternalContentHintTypeEnum {
+impl CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::FlagsSecret => "flags-secret",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

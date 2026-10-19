@@ -69,6 +69,22 @@ impl<'de> serde::Deserialize<'de> for CreateProjectResponseCreatorVariant0Via {
     }
 }
 
+impl ::std::convert::From<Box<CreateProjectResponseCreatorVariant0ViaVariant0>>
+    for CreateProjectResponseCreatorVariant0Via
+{
+    fn from(value: Box<CreateProjectResponseCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateProjectResponseCreatorVariant0ViaVariant1>>
+    for CreateProjectResponseCreatorVariant0Via
+{
+    fn from(value: Box<CreateProjectResponseCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateProjectResponseCreatorVariant0User {
     pub id: String,
@@ -508,21 +524,5 @@ impl serde::Serialize
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
     }
 }

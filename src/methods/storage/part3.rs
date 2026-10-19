@@ -192,6 +192,28 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Vec<CreateStorageStoresBlobResponseStoreProjectFilterGitProvidersVariant0ItemEnum>,
+    > for CreateStorageStoresBlobResponseStoreProjectFilterGitProviders
+{
+    fn from(
+        value: Vec<CreateStorageStoresBlobResponseStoreProjectFilterGitProvidersVariant0ItemEnum>,
+    ) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateStorageStoresBlobResponseStoreProjectFilterGitProvidersVariant1Enum>
+    for CreateStorageStoresBlobResponseStoreProjectFilterGitProviders
+{
+    fn from(
+        value: CreateStorageStoresBlobResponseStoreProjectFilterGitProvidersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CreateStorageStoresBlobResponseStoreProjectFilterGit {
     #[serde(skip_serializing_if = "Option::is_none")]

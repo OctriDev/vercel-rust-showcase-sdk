@@ -104,6 +104,30 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for GetSecurityFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetSecurityFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetSecurityFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetSecurityFirewallConfigResponseActiveConditionsItemConditionGroupItemConditionsItem {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -292,21 +316,4 @@ impl std::fmt::Display for GetSecurityFirewallConfigResponseActiveCrsJavaActionE
 pub struct GetSecurityFirewallConfigResponseActiveCrsJava {
     pub action: GetSecurityFirewallConfigResponseActiveCrsJavaActionEnum,
     pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseActiveCrsJava {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseActiveCrsJavaActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseActiveCrsLfiActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
 }

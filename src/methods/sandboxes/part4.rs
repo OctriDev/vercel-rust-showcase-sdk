@@ -4,6 +4,41 @@
 use super::*;
 use crate::types::SessionCommand;
 
+impl serde::Serialize for RunSessionCommandResponseVariant0DataCodeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for RunSessionCommandResponseVariant0DataCodeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "sandbox_stream_closed" => Self::SandboxStreamClosed,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for RunSessionCommandResponseVariant0DataCodeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum RunSessionCommandResponseVariant0DataMessageEnum {
+    #[default]
+    SandboxStreamWasClosedAndIsNotAcceptingCommands,
+    Unknown(String),
+}
+
 impl RunSessionCommandResponseVariant0DataMessageEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -218,86 +253,5 @@ pub struct RunSessionCommandResponseVariant3 {
 impl RunSessionCommandResponseVariant3 {
     pub fn new(data: String, stream: String) -> Self {
         Self { data, stream }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum RunSessionCommandResponse26a0914c {
-    RunSessionCommandResponseVariant0(Box<RunSessionCommandResponseVariant0>),
-    RunSessionCommandResponseVariant1(Box<RunSessionCommandResponseVariant1>),
-    RunSessionCommandResponseVariant2(Box<RunSessionCommandResponseVariant2>),
-    RunSessionCommandResponseVariant3(Box<RunSessionCommandResponseVariant3>),
-}
-
-impl<'de> serde::Deserialize<'de> for RunSessionCommandResponse26a0914c {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<RunSessionCommandResponseVariant0>>(value.clone())
-        {
-            let candidate = Self::RunSessionCommandResponseVariant0(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<RunSessionCommandResponseVariant1>>(value.clone())
-        {
-            let candidate = Self::RunSessionCommandResponseVariant1(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<RunSessionCommandResponseVariant2>>(value.clone())
-        {
-            let candidate = Self::RunSessionCommandResponseVariant2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<RunSessionCommandResponseVariant3>>(value.clone())
-        {
-            let candidate = Self::RunSessionCommandResponseVariant3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no RunSessionCommandResponse26a0914c branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSessionCommandResponse {
-    /// This object represents a command run in a Vercel Sandbox session (v2 API).
-    pub command: SessionCommand,
-}
-
-impl GetSessionCommandResponse {
-    pub fn new(command: SessionCommand) -> Self {
-        Self { command }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct KillSessionCommandResponse {
-    /// This object represents a command run in a Vercel Sandbox session (v2 API).
-    pub command: SessionCommand,
-}
-
-impl KillSessionCommandResponse {
-    pub fn new(command: SessionCommand) -> Self {
-        Self { command }
     }
 }

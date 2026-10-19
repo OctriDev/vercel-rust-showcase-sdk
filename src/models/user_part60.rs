@@ -5,6 +5,255 @@
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant202 {
+    /// Required `string` value serialized in the `algorithm` wire field.
+    pub algorithm: String,
+    /// Required `string` value serialized in the `issuerId` wire field.
+    #[serde(rename = "issuerId")]
+    pub issuer_id: String,
+    /// Required `string` value serialized in the `issuerName` wire field.
+    #[serde(rename = "issuerName")]
+    pub issuer_name: String,
+    /// Optional `string` value serialized in the `managedBy` wire field.
+    #[serde(rename = "managedBy", skip_serializing_if = "Option::is_none")]
+    pub managed_by: Option<String>,
+    /// Required `string` value serialized in the `origin` wire field.
+    pub origin: String,
+}
+
+impl UserEventPayloadVariant202 {
+    pub fn new(algorithm: String, issuer_id: String, issuer_name: String, origin: String) -> Self {
+        Self {
+            algorithm,
+            issuer_id,
+            issuer_name,
+            managed_by: None,
+            origin,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant203 {
+    /// Required `string` value serialized in the `issuerId` wire field.
+    #[serde(rename = "issuerId")]
+    pub issuer_id: String,
+    /// Required `string` value serialized in the `issuerName` wire field.
+    #[serde(rename = "issuerName")]
+    pub issuer_name: String,
+    /// Optional `string` value serialized in the `managedBy` wire field.
+    #[serde(rename = "managedBy", skip_serializing_if = "Option::is_none")]
+    pub managed_by: Option<String>,
+}
+
+impl UserEventPayloadVariant203 {
+    pub fn new(issuer_id: String, issuer_name: String) -> Self {
+        Self {
+            issuer_id,
+            issuer_name,
+            managed_by: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant204 {
+    /// Required `string` value serialized in the `issuerId` wire field.
+    #[serde(rename = "issuerId")]
+    pub issuer_id: String,
+    /// Required `string` value serialized in the `issuerName` wire field.
+    #[serde(rename = "issuerName")]
+    pub issuer_name: String,
+    /// Optional `string` value serialized in the `keyId` wire field.
+    #[serde(rename = "keyId", skip_serializing_if = "Option::is_none")]
+    pub key_id: Option<String>,
+}
+
+impl UserEventPayloadVariant204 {
+    pub fn new(issuer_id: String, issuer_name: String) -> Self {
+        Self {
+            issuer_id,
+            issuer_name,
+            key_id: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant205 {
+    /// Optional `string` value serialized in the `clientId` wire field.
+    #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    /// Optional array value serialized in the `environments` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub environments: Option<Vec<String>>,
+    /// Required `string` value serialized in the `issuerId` wire field.
+    #[serde(rename = "issuerId")]
+    pub issuer_id: String,
+    /// Required `string` value serialized in the `issuerName` wire field.
+    #[serde(rename = "issuerName")]
+    pub issuer_name: String,
+    /// Required `string` value serialized in the `kind` wire field.
+    pub kind: String,
+    /// Optional `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+}
+
+impl UserEventPayloadVariant205 {
+    pub fn new(issuer_id: String, issuer_name: String, kind: String) -> Self {
+        Self {
+            client_id: None,
+            environments: None,
+            issuer_id,
+            issuer_name,
+            kind,
+            project_id: None,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant206 {
+    /// Required `string` value serialized in the `issuerId` wire field.
+    #[serde(rename = "issuerId")]
+    pub issuer_id: String,
+    /// Required `string` value serialized in the `issuerName` wire field.
+    #[serde(rename = "issuerName")]
+    pub issuer_name: String,
+    /// Required `string` value serialized in the `kind` wire field.
+    pub kind: String,
+    /// Required `string` value serialized in the `policyKey` wire field.
+    #[serde(rename = "policyKey")]
+    pub policy_key: String,
+}
+
+impl UserEventPayloadVariant206 {
+    pub fn new(issuer_id: String, issuer_name: String, kind: String, policy_key: String) -> Self {
+        Self {
+            issuer_id,
+            issuer_name,
+            kind,
+            policy_key,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant207 {
+    /// Optional `string` value serialized in the `integrationName` wire field.
+    #[serde(rename = "integrationName", skip_serializing_if = "Option::is_none")]
+    pub integration_name: Option<String>,
+    /// Required `string` value serialized in the `logDrainUrl` wire field.
+    #[serde(rename = "logDrainUrl", deserialize_with = "Option::deserialize")]
+    pub log_drain_url: Option<String>,
+}
+
+impl UserEventPayloadVariant207 {
+    pub fn new(log_drain_url: Option<String>) -> Self {
+        Self {
+            integration_name: None,
+            log_drain_url,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant208 {
+    /// Optional `string` value serialized in the `integrationName` wire field.
+    #[serde(rename = "integrationName", skip_serializing_if = "Option::is_none")]
+    pub integration_name: Option<String>,
+    /// Required `string` value serialized in the `logDrainUrl` wire field.
+    #[serde(rename = "logDrainUrl")]
+    pub log_drain_url: String,
+}
+
+impl UserEventPayloadVariant208 {
+    pub fn new(log_drain_url: String) -> Self {
+        Self {
+            integration_name: None,
+            log_drain_url,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `provider` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant209ProviderEnum {
+    #[default]
+    Apple,
+    Bitbucket,
+    Chatgpt,
+    Github,
+    GithubCustomHost,
+    GithubLimited,
+    Gitlab,
+    Google,
+    Saml,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant209ProviderEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Apple => "apple",
+            Self::Bitbucket => "bitbucket",
+            Self::Chatgpt => "chatgpt",
+            Self::Github => "github",
+            Self::GithubCustomHost => "github-custom-host",
+            Self::GithubLimited => "github-limited",
+            Self::Gitlab => "gitlab",
+            Self::Google => "google",
+            Self::Saml => "saml",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant209ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant209ProviderEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "apple" => Self::Apple,
+            "bitbucket" => Self::Bitbucket,
+            "chatgpt" => Self::Chatgpt,
+            "github" => Self::Github,
+            "github-custom-host" => Self::GithubCustomHost,
+            "github-limited" => Self::GithubLimited,
+            "gitlab" => Self::Gitlab,
+            "google" => Self::Google,
+            "saml" => Self::Saml,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant209ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UserEventPayloadVariant209 {
     /// Required `string` value serialized in the `login` wire field.
     pub login: String,
@@ -234,270 +483,4 @@ pub enum UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum {
     Saml,
     Webauthn,
     Unknown(String),
-}
-
-impl UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Apple => "apple",
-            Self::Bitbucket => "bitbucket",
-            Self::Chatgpt => "chatgpt",
-            Self::Email => "email",
-            Self::EmuRecovery => "emu-recovery",
-            Self::Github => "github",
-            Self::Gitlab => "gitlab",
-            Self::Google => "google",
-            Self::Invite => "invite",
-            Self::MagicLink => "magic-link",
-            Self::Otp => "otp",
-            Self::OtpLink => "otp-link",
-            Self::Saml => "saml",
-            Self::Webauthn => "webauthn",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "apple" => Self::Apple,
-            "bitbucket" => Self::Bitbucket,
-            "chatgpt" => Self::Chatgpt,
-            "email" => Self::Email,
-            "emu-recovery" => Self::EmuRecovery,
-            "github" => Self::Github,
-            "gitlab" => Self::Gitlab,
-            "google" => Self::Google,
-            "invite" => Self::Invite,
-            "magic-link" => Self::MagicLink,
-            "otp" => Self::Otp,
-            "otp-link" => Self::OtpLink,
-            "saml" => Self::Saml,
-            "webauthn" => Self::Webauthn,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `factors[]` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant211FactorsVariant1ItemVariant0 {
-    /// Optional enumerated value serialized in the `legacy` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub legacy: Option<bool>,
-    /// Required enumerated value serialized in the `origin` wire field.
-    pub origin: UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum,
-    /// Optional `string` value serialized in the `ssoType` wire field.
-    #[serde(rename = "ssoType", skip_serializing_if = "Option::is_none")]
-    pub sso_type: Option<String>,
-    /// Optional `string` value serialized in the `teamId` wire field.
-    #[serde(rename = "teamId", skip_serializing_if = "Option::is_none")]
-    pub team_id: Option<String>,
-    /// Optional `string` value serialized in the `username` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-}
-
-impl UserEventPayloadVariant211FactorsVariant1ItemVariant0 {
-    pub fn new(origin: UserEventPayloadVariant211FactorsVariant1ItemVariant0OriginEnum) -> Self {
-        Self {
-            legacy: None,
-            origin,
-            sso_type: None,
-            team_id: None,
-            username: None,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `origin` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum {
-    #[default]
-    RecoveryCode,
-    Totp,
-    Webauthn,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RecoveryCode => "recovery-code",
-            Self::Totp => "totp",
-            Self::Webauthn => "webauthn",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "recovery-code" => Self::RecoveryCode,
-            "totp" => Self::Totp,
-            "webauthn" => Self::Webauthn,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `factors[]` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant211FactorsVariant1ItemVariant1 {
-    /// Required enumerated value serialized in the `origin` wire field.
-    pub origin: UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum,
-}
-
-impl UserEventPayloadVariant211FactorsVariant1ItemVariant1 {
-    pub fn new(origin: UserEventPayloadVariant211FactorsVariant1ItemVariant1OriginEnum) -> Self {
-        Self { origin }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UserEventPayloadVariant211FactorsVariant1Item {
-    Object(Box<UserEventPayloadVariant211FactorsVariant1ItemVariant0>),
-    Object2(Box<UserEventPayloadVariant211FactorsVariant1ItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant211FactorsVariant1Item {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant211FactorsVariant1ItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant211FactorsVariant1ItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UserEventPayloadVariant211FactorsVariant1Item branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UserEventPayloadVariant211Factors {
-    Variant0ItemArray(Vec<UserEventPayloadVariant211FactorsVariant0Item>),
-    Variant1ItemArray(Vec<UserEventPayloadVariant211FactorsVariant1Item>),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant211Factors {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<UserEventPayloadVariant211FactorsVariant0Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<UserEventPayloadVariant211FactorsVariant1Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant1ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UserEventPayloadVariant211Factors branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// Required object value serialized in the `names` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant211GeolocationCityNames {
-    /// Required `string` value serialized in the `en` wire field.
-    pub en: String,
-}
-
-impl UserEventPayloadVariant211GeolocationCityNames {
-    pub fn new(en: String) -> Self {
-        Self { en }
-    }
-}
-
-/// Optional object value serialized in the `city` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant211GeolocationCity {
-    /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant211GeolocationCityNames,
-}
-
-impl UserEventPayloadVariant211GeolocationCity {
-    pub fn new(names: UserEventPayloadVariant211GeolocationCityNames) -> Self {
-        Self { names }
-    }
 }

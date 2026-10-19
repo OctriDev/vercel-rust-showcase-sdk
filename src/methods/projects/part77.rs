@@ -3,252 +3,36 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemJobs {
-    #[serde(
-        rename = "flag-definitions-present",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub flag_definitions_present:
-        Option<ListProjectsResponseVariant2ProjectsItemJobsFlagdefinitionspresent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lint: Option<ListProjectsResponseVariant2ProjectsItemJobsLint>,
-    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
-    pub mfe_config_present: Option<ListProjectsResponseVariant2ProjectsItemJobsMfeconfigpresent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub typecheck: Option<ListProjectsResponseVariant2ProjectsItemJobsTypecheck>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemJobs {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl ListProjectsResponseVariant2ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus {
+    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
         Self {
-            flag_definitions_present: None,
-            lint: None,
-            mfe_config_present: None,
-            typecheck: None,
+            enabled,
+            propagate_failures,
         }
     }
 }
 
+/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
     #[default]
-    Failed,
-    InProgress,
-    Pending,
-    Skipped,
-    Succeeded,
+    Disabled,
+    Enabled,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum {
+impl ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Failed => "failed",
-            Self::InProgress => "in-progress",
-            Self::Pending => "pending",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "in-progress" => Self::InProgress,
-            "pending" => Self::Pending,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
-    #[default]
-    Promote,
-    Rollback,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promote => "promote",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "promote" => Self::Promote,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLastAliasRequest {
-    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
-    pub from_deployment_id: Option<String>,
-    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
-    #[serde(
-        rename = "fromRollingReleaseId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub from_rolling_release_id: Option<String>,
-    #[serde(rename = "jobStatus")]
-    pub job_status: ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum,
-    #[serde(rename = "requestedAt")]
-    pub requested_at: f64,
-    #[serde(rename = "toDeploymentId")]
-    pub to_deployment_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLastAliasRequest {
-    pub fn new(
-        from_deployment_id: Option<String>,
-        job_status: ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum,
-        requested_at: f64,
-        to_deployment_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum,
-    ) -> Self {
-        Self {
-            from_deployment_id,
-            from_rolling_release_id: None,
-            job_status,
-            requested_at,
-            to_deployment_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasError {
-    pub code: String,
-    pub message: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -259,7 +43,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -267,16 +51,15 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -284,19 +67,276 @@ impl std::fmt::Display
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum,
+pub struct ListProjectsResponseVariant2ProjectsItemGitProviderOptions {
+    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+    #[serde(
+        rename = "consolidatedGitCommitStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub consolidated_git_commit_status: Option<
+        ListProjectsResponseVariant2ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus,
+    >,
+    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+    #[serde(rename = "createDeployments")]
+    pub create_deployments:
+        ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
+    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    #[serde(
+        rename = "disableRepositoryDispatchEvents",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_repository_dispatch_events: Option<bool>,
+    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
+    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
+    pub git_commit_status: Option<bool>,
+    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    #[serde(
+        rename = "requireVerifiedCommits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_verified_commits: Option<bool>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcher {
+impl ListProjectsResponseVariant2ProjectsItemGitProviderOptions {
     pub fn new(
-        pattern: String,
-        type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum,
+        create_deployments: ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
     ) -> Self {
-        Self { pattern, type_ }
+        Self {
+            consolidated_git_commit_status: None,
+            create_deployments,
+            disable_repository_dispatch_events: None,
+            git_commit_status: None,
+            require_verified_commits: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiry: Option<f64>,
+    pub src: String,
+    pub status: f64,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant0 {
+    pub fn new(src: String, status: f64) -> Self {
+        Self {
+            expiry: None,
+            src,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    #[default]
+    XVercelIpCountry,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::XVercelIpCountry => "x-vercel-ip-country",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "x-vercel-ip-country" => Self::XVercelIpCountry,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    #[serde(rename = "header")]
+    #[default]
+    Header,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Header => "header",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum::Header => f.write_str("header"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0Value {
+    pub eq: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0Value {
+    pub fn new(eq: String) -> Self {
+        Self { eq }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0 {
+    pub key:
+        ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+    #[serde(rename = "type")]
+    pub type_:
+        ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+    pub value:
+        ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0Value,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0 {
+    pub fn new(
+        key: ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+        value: ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0Value,
+    ) -> Self {
+        Self { key, type_, value }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    #[serde(rename = "host")]
+    #[default]
+    Host,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Host => "host",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum::Host => f.write_str("host"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1Value {
+    pub eq: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1Value {
+    pub fn new(eq: String) -> Self {
+        Self { eq }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1 {
+    #[serde(rename = "type")]
+    pub type_:
+        ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum,
+    pub value:
+        ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1Value,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1 {
+    pub fn new(
+        type_: ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1TypeEnum,
+        value: ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1Value,
+    ) -> Self {
+        Self { type_, value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItem {
+    Header(Box<ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0>),
+    Host(Box<ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItem
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Header(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Host(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItem branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0>,
+    > for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItem
+{
+    fn from(
+        value: Box<
+            ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0,
+        >,
+    ) -> Self {
+        Self::Header(value)
     }
 }

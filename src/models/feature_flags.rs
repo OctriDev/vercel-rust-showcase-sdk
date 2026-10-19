@@ -192,6 +192,30 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItemVariant0>,
+    > for CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItem
+{
+    fn from(
+        value: Box<CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItemVariant0>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItemVariant1>,
+    > for CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItem
+{
+    fn from(
+        value: Box<CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0ItemsItemVariant1>,
+    ) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateFlagSegmentRequestDataRulesItemConditionsItemRhsVariant0 {
     #[serde(rename = "type")]

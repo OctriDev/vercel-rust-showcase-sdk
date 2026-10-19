@@ -3,80 +3,25 @@
 
 use super::*;
 
-impl UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::OomFailure => "oom-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::BasicFloor => "basic-floor",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::SustainedHighCpu => "sustained-high-cpu",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "oom-failure" => Self::OomFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "basic-floor" => Self::BasicFloor,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "long-build-duration" => Self::LongBuildDuration,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+pub enum GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     #[default]
-    Upgrade,
-    Downgrade,
+    AllCustom,
     Unknown(String),
 }
 
-impl UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+impl GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Upgrade => "upgrade",
-            Self::Downgrade => "downgrade",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+impl serde::Serialize
+    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -86,7 +31,7 @@ impl serde::Serialize for UpdateProjectResourceConfigBuildMachineElasticTransiti
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum
+    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -94,191 +39,131 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "upgrade" => Self::Upgrade,
-            "downgrade" => Self::Downgrade,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+impl std::fmt::Display
+    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResourceConfigBuildMachineElasticTransition {
-    pub at: f64,
-    pub direction: UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
+pub struct GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
+    pub preset: GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
 }
 
-impl UpdateProjectResourceConfigBuildMachineElasticTransition {
+impl GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
     pub fn new(
-        at: f64,
-        direction: UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
-        algorithm_version: String,
+        preset: GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
     ) -> Self {
         Self {
-            at,
-            direction,
-            algorithm_version,
+            preset,
+            slugs: None,
         }
     }
 }
 
-/// Specifies resource override configuration for the project
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo {
+    AllCustom(Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0>),
+    AllCustom2(Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0>>
+    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(value: Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant0>) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1>>
+    for GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(value: Box<GetProjectsResponseTrustedSourcesOidcProvidersValueItemToVariant1>) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResourceConfig {
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<serde_json::Value>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection: Option<UpdateProjectResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<UpdateProjectResourceConfigBuildQueue>,
+pub struct GetProjectsResponseTrustedSourcesOidcProvidersValueItem {
+    pub to: GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo,
+    pub claims: std::collections::HashMap<String, Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    /// The regions to deploy Vercel Functions to for this project
-    #[serde(
-        rename = "functionDefaultRegions",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_regions: Option<Vec<String>>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum>,
-    /// Specifies whether Zero Config Failover is enabled for this project.
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<UpdateProjectResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<UpdateProjectResourceConfigBuildMachineElasticTransition>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
+    pub label: Option<String>,
 }
 
-impl UpdateProjectResourceConfig {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.function_default_regions.as_ref() {
-            crate::validation::validate_items(
-                "functionDefaultRegions",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    ..Default::default()
-                },
-            )?;
+impl GetProjectsResponseTrustedSourcesOidcProvidersValueItem {
+    pub fn new(
+        to: GetProjectsResponseTrustedSourcesOidcProvidersValueItemTo,
+        claims: std::collections::HashMap<String, Vec<String>>,
+    ) -> Self {
+        Self {
+            to,
+            claims,
+            label: None,
         }
-        if let Some(value) = self.function_default_timeout.as_ref() {
-            crate::validation::validate_range(
-                "functionDefaultTimeout",
-                *value,
-                crate::validation::RangeOpts {
-                    min: Some(1_f64),
-                    max: Some(900_f64),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            build_machine_type: None,
-            build_machine_selection: None,
-            build_queue: None,
-            fluid: None,
-            function_default_regions: None,
-            function_default_timeout: None,
-            function_default_memory_type: None,
-            function_zero_config_failover: None,
-            elastic_concurrency_enabled: None,
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            is_nsnb_disabled: None,
-            enable_functions_beta: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
     }
 }
 
-/// Manage Static IPs for this project
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectStaticIps {
-    /// Opt-in to Static IPs for this project
-    pub enabled: bool,
-}
-
-impl UpdateProjectStaticIps {
-    pub fn new(enabled: bool) -> Self {
-        Self { enabled }
-    }
-}
-
-/// Environment to apply sampling to
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectTracingSamplingRulesItemEnvEnum {
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     #[default]
-    Production,
-    Preview,
+    AllCustom,
     Unknown(String),
 }
 
-impl UpdateProjectTracingSamplingRulesItemEnvEnum {
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectTracingSamplingRulesItemEnvEnum {
+impl serde::Serialize
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -287,41 +172,175 @@ impl serde::Serialize for UpdateProjectTracingSamplingRulesItemEnvEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectTracingSamplingRulesItemEnvEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectTracingSamplingRulesItemEnvEnum {
+impl std::fmt::Display
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.
+/// The source envs on the trusted project that are allowed to access `to`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset:
+        Option<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectTracingSamplingRulesItemDestinationEnum {
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
     #[default]
-    Internal,
-    External,
+    AllCustom,
     Unknown(String),
 }
 
-impl UpdateProjectTracingSamplingRulesItemDestinationEnum {
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Internal => "internal",
-            Self::External => "external",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The source envs on the trusted project that are allowed to access `to`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
+    pub preset: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+}
+
+impl GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
+    pub fn new(
+        preset: GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
+    ) -> Self {
+        Self {
+            preset,
+            slugs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom {
+    AllCustom(Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>),
+    AllCustom2(Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+    > for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+    > for GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<GetProjectsResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
     }
 }

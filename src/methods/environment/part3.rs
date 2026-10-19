@@ -2,7 +2,30 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::ListSharedEnvVariableResponseDataItemLastEditedByPrincipal;
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateSharedEnvVariableResponseFailedItemError {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<String>,
+    pub code: String,
+    #[serde(rename = "envVarId", skip_serializing_if = "Option::is_none")]
+    pub env_var_id: Option<String>,
+    #[serde(rename = "envVarKey", skip_serializing_if = "Option::is_none")]
+    pub env_var_key: Option<String>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link: Option<String>,
+    pub message: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<CreateSharedEnvVariableResponseFailedItemErrorTarget>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<CreateSharedEnvVariableResponseFailedItemErrorValue>,
+}
 
 impl CreateSharedEnvVariableResponseFailedItemError {
     pub fn new(code: String, message: String) -> Self {
@@ -198,99 +221,4 @@ impl std::fmt::Display for ListSharedEnvVariableResponseDataItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListSharedEnvVariableResponseDataItem {
-    /// whether or not this env varible applies to custom environments
-    #[serde(
-        rename = "applyToAllCustomEnvironments",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub apply_to_all_custom_environments: Option<bool>,
-    /// A user provided comment that describes what this Shared Env Var is for.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    /// The date when the Shared Env Var was created.
-    pub created: String,
-    /// Timestamp for when the Shared Env Var was created.
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    /// The unique identifier of the user who created the Shared Env Var.
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    /// The custom environment IDs that this Shared Env Var is scoped to.
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    /// whether or not this env variable is decrypted
-    pub decrypted: bool,
-    /// Timestamp for when the Shared Env Var was (soft) deleted.
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    /// The unique identifier of the user who deleted the Shared Env Var.
-    #[serde(
-        rename = "deletedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub deleted_by: Option<Option<String>>,
-    /// The unique identifier of the Shared Env Var.
-    pub id: String,
-    /// The name of the Shared Env Var.
-    pub key: String,
-    /// The last editor full name or username.
-    #[serde(
-        rename = "lastEditedByDisplayName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_edited_by_display_name: Option<String>,
-    /// Typed representation of the `ListSharedEnvVariableResponseDataItemLastEditedByPrincipal` API schema.
-    #[serde(
-        rename = "lastEditedByPrincipal",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_edited_by_principal:
-        Option<ListSharedEnvVariableResponseDataItemLastEditedByPrincipal>,
-    /// The unique identifier of the owner (team) the Shared Env Var was created for.
-    #[serde(
-        rename = "ownerId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub owner_id: Option<Option<String>>,
-    /// The unique identifiers of the projects which the Shared Env Var is linked to.
-    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<Vec<String>>,
-    #[serde(rename = "securityIssues")]
-    pub security_issues: Vec<ListSharedEnvVariableResponseDataItemSecurityIssuesItemEnum>,
-    /// environments this env variable targets
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<Vec<ListSharedEnvVariableResponseDataItemTargetItemEnum>>,
-    /// The type of this cosmos doc instance, if blank, assume secret.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<ListSharedEnvVariableResponseDataItemTypeEnum>,
-    /// Timestamp for when the Shared Env Var was last updated.
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// The unique identifier of the user who last updated the Shared Env Var.
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    /// The value of the Shared Env Var.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
 }

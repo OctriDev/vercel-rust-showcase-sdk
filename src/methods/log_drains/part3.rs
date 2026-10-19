@@ -281,6 +281,26 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0Secret
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0SecretVariant1>,
+    > for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0Secret
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0SecretVariant1>,
+    ) -> Self {
+        Self::INTEGRATIONSECRET(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0TypeEnum {
     #[serde(rename = "http")]
@@ -304,18 +324,4 @@ impl std::fmt::Display for ListLogDrainsResponseVariant1DrainsVariant0ItemDelive
             }
         }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub compression:
-        Option<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0CompressionEnum>,
-    pub encoding: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0EncodingEnum,
-    pub endpoint: String,
-    pub headers: std::collections::HashMap<String, String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret: Option<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0Secret>,
-    #[serde(rename = "type")]
-    pub type_: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0TypeEnum,
 }

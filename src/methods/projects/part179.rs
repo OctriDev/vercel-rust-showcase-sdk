@@ -3,347 +3,281 @@
 
 use super::*;
 
-/// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum>,
-}
-
-impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.slugs.as_ref() {
-            crate::validation::validate_items(
-                "slugs",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    max: Some(10),
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            slugs: None,
-            preset: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSourcesProjectsValueCustomAllowItem {
-    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
-    pub to: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo,
-    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
-    pub from: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom,
-}
-
-impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItem {
+impl GetProjectsResponse {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        to: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo,
-        from: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom,
+        account_id: String,
+        alias: Vec<GetProjectsResponseAliasItem>,
+        default_resource_config: GetProjectsResponseDefaultResourceConfig,
+        deployment_expiration: GetProjectsResponseDeploymentExpiration,
+        directory_listing: bool,
+        id: String,
+        name: String,
+        node_version: GetProjectsResponseNodeVersionEnum,
+        resource_config: GetProjectsResponseResourceConfig,
     ) -> Self {
-        Self { to, from }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSourcesProjectsValue {
-    /// The label or description of the trusted source
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    /// Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.
-    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
-    pub custom_allow: Option<Vec<UpdateProjectTrustedSourcesProjectsValueCustomAllowItem>>,
-}
-
-impl UpdateProjectTrustedSourcesProjectsValue {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.label.as_ref() {
-            crate::validation::validate_length(
-                "label",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(100),
-                    ..Default::default()
-                },
-            )?;
-        }
-        if let Some(value) = self.custom_allow.as_ref() {
-            crate::validation::validate_items(
-                "customAllow",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(0),
-                    max: Some(20),
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            label: None,
-            custom_allow: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSourcesOidcProvidersValueItemTo {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum>,
-}
-
-impl UpdateProjectTrustedSourcesOidcProvidersValueItemTo {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.slugs.as_ref() {
-            crate::validation::validate_items(
-                "slugs",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    min: Some(1),
-                    max: Some(10),
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            slugs: None,
-            preset: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSourcesOidcProvidersValueItem {
-    /// The label or description of the trusted source
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
-    pub to: UpdateProjectTrustedSourcesOidcProvidersValueItemTo,
-    pub claims: std::collections::HashMap<String, Vec<String>>,
-}
-
-impl UpdateProjectTrustedSourcesOidcProvidersValueItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.label.as_ref() {
-            crate::validation::validate_length(
-                "label",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(100),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(
-        to: UpdateProjectTrustedSourcesOidcProvidersValueItemTo,
-        claims: std::collections::HashMap<String, Vec<String>>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            label: None,
-            to,
-            claims,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Deployment Protection Trusted Sources
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectTrustedSources {
-    /// Allow same-team Vercel CI access to preview and production deployments built from the same repository as the CI run. The deployment source repository, not the current project repository link, is authoritative. Defaults to enabled when not stored. Omitting this field preserves its stored value, including when trustedSources is cleared. Set true explicitly to re-enable.
-    #[serde(
-        rename = "enableVercelCiSameRepository",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_vercel_ci_same_repository: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub projects:
-        Option<std::collections::HashMap<String, UpdateProjectTrustedSourcesProjectsValue>>,
-    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
-    pub oidc_providers: Option<
-        std::collections::HashMap<String, Vec<UpdateProjectTrustedSourcesOidcProvidersValueItem>>,
-    >,
-}
-
-impl UpdateProjectTrustedSources {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
         Self {
-            enable_vercel_ci_same_repository: None,
-            projects: None,
-            oidc_providers: None,
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            avatar: None,
+            avatar_dark_mode: None,
+            blobs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            concurrency_bucket_name: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            connect_configurations: None,
+            created_at: None,
+            creator: None,
+            crons: None,
+            custom_environments: None,
+            customer_support_code_visibility: None,
+            data_cache: None,
+            default_resource_config,
+            deployment_expiration,
+            deployment_policy: None,
+            dev_command: None,
+            directory_listing,
+            dismissed_toasts: None,
+            enable_affected_projects_deployments: None,
+            enable_external_rewrite_caching: None,
+            enable_preview_feedback: None,
+            enable_production_feedback: None,
+            env: None,
+            expiration: None,
+            features: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_lfs: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            has_deployments: None,
+            id,
+            install_command: None,
+            integrations: None,
+            internal_routes: None,
+            ip_buckets: None,
+            jobs: None,
+            last_alias_request: None,
+            last_rollback_target: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            microfrontends: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            options_allowlist: None,
+            output_directory: None,
+            passive_connect_configuration_id: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            permissions: None,
+            production_deployments_fast_lane: None,
+            protected_sourcemaps: None,
+            protection_bypass: None,
+            protection_config: None,
+            resource_config,
+            rollback_description: None,
+            rolling_release: None,
+            root_directory: None,
+            sandbox: None,
+            security: None,
+            serverless_function_zero_config_failover: None,
+            services: None,
+            skew_protection_allowed_domains: None,
+            skew_protection_boundary_at: None,
+            skew_protection_max_age: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            static_ips: None,
+            targets: None,
+            tier: None,
+            tracing: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_ips: None,
+            trusted_sources: None,
+            updated_at: None,
+            usage_status: None,
+            v0: None,
+            v0_created: None,
+            web_analytics: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectOptionsAllowlistPathsItem {
-    /// The regex path that should not be protected by Deployment Protection
-    pub value: String,
-}
-
-impl UpdateProjectOptionsAllowlistPathsItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_pattern("value", &self.value, "^/.*")?;
-        Ok(())
-    }
-
-    pub fn new(value: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { value };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Specify a list of paths that should not be protected by Deployment Protection to enable Cors preflight requests
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectOptionsAllowlist {
-    pub paths: Vec<UpdateProjectOptionsAllowlistPathsItem>,
-}
-
-impl UpdateProjectOptionsAllowlist {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "paths",
-            self.paths.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                max: Some(5),
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        paths: Vec<UpdateProjectOptionsAllowlistPathsItem>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { paths };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed
+/// The framework that is being used for this project. When `null` is used no framework is selected
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectDismissedToastsItemActionEnum {
+pub enum UpdateProjectFrameworkEnum {
     #[default]
-    Cancel,
-    Accept,
-    Delete,
+    Container,
+    Blitzjs,
+    Nextjs,
+    Gatsby,
+    Remix,
+    ReactRouter,
+    Astro,
+    Hexo,
+    Eleventy,
+    Docusaurus2,
+    Docusaurus,
+    Preact,
+    Solidstart1,
+    Solidstart,
+    Dojo,
+    Ember,
+    Vue,
+    Scully,
+    IonicAngular,
+    Angular,
+    Polymer,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    IonicReact,
+    CreateReactApp,
+    Gridsome,
+    Umijs,
+    Sapper,
+    Saber,
+    Stencil,
+    Nuxtjs,
+    Redwoodjs,
+    Hugo,
+    Jekyll,
+    Brunch,
+    Middleman,
+    Zola,
+    Hydrogen,
+    Vite,
+    TanstackStart,
+    TanstackStartLovable,
+    Vitepress,
+    Vuepress,
+    Parcel,
+    Fastapi,
+    Flask,
+    Fasthtml,
+    Django,
+    Ash,
+    FactoryEve,
+    Eve,
+    Sanity,
+    SanityV2,
+    Storybook,
+    Nitro,
+    Hono,
+    Express,
+    H3,
+    Koa,
+    Nestjs,
+    Elysia,
+    Fastify,
+    Xmcp,
+    Python,
+    Ruby,
+    Rust,
+    Axum,
+    ActixWeb,
+    Bun,
+    Node,
+    Go,
+    Services,
+    Mastra,
     Unknown(String),
 }
 
-impl UpdateProjectDismissedToastsItemActionEnum {
+impl UpdateProjectFrameworkEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Cancel => "cancel",
-            Self::Accept => "accept",
-            Self::Delete => "delete",
+            Self::Container => "container",
+            Self::Blitzjs => "blitzjs",
+            Self::Nextjs => "nextjs",
+            Self::Gatsby => "gatsby",
+            Self::Remix => "remix",
+            Self::ReactRouter => "react-router",
+            Self::Astro => "astro",
+            Self::Hexo => "hexo",
+            Self::Eleventy => "eleventy",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Docusaurus => "docusaurus",
+            Self::Preact => "preact",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Solidstart => "solidstart",
+            Self::Dojo => "dojo",
+            Self::Ember => "ember",
+            Self::Vue => "vue",
+            Self::Scully => "scully",
+            Self::IonicAngular => "ionic-angular",
+            Self::Angular => "angular",
+            Self::Polymer => "polymer",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::IonicReact => "ionic-react",
+            Self::CreateReactApp => "create-react-app",
+            Self::Gridsome => "gridsome",
+            Self::Umijs => "umijs",
+            Self::Sapper => "sapper",
+            Self::Saber => "saber",
+            Self::Stencil => "stencil",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Hugo => "hugo",
+            Self::Jekyll => "jekyll",
+            Self::Brunch => "brunch",
+            Self::Middleman => "middleman",
+            Self::Zola => "zola",
+            Self::Hydrogen => "hydrogen",
+            Self::Vite => "vite",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Vitepress => "vitepress",
+            Self::Vuepress => "vuepress",
+            Self::Parcel => "parcel",
+            Self::Fastapi => "fastapi",
+            Self::Flask => "flask",
+            Self::Fasthtml => "fasthtml",
+            Self::Django => "django",
+            Self::Ash => "ash",
+            Self::FactoryEve => "factory-eve",
+            Self::Eve => "eve",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Storybook => "storybook",
+            Self::Nitro => "nitro",
+            Self::Hono => "hono",
+            Self::Express => "express",
+            Self::H3 => "h3",
+            Self::Koa => "koa",
+            Self::Nestjs => "nestjs",
+            Self::Elysia => "elysia",
+            Self::Fastify => "fastify",
+            Self::Xmcp => "xmcp",
+            Self::Python => "python",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Axum => "axum",
+            Self::ActixWeb => "actix-web",
+            Self::Bun => "bun",
+            Self::Node => "node",
+            Self::Go => "go",
+            Self::Services => "services",
+            Self::Mastra => "mastra",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for UpdateProjectDismissedToastsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectDismissedToastsItemActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "cancel" => Self::Cancel,
-            "accept" => Self::Accept,
-            "delete" => Self::Delete,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectDismissedToastsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

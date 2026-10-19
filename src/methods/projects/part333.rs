@@ -3,54 +3,167 @@
 
 use super::*;
 
-impl serde::Serialize for ListProjectsEnum316aaec8 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine {
+    pub cores: f64,
+    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+    pub label: UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum,
+    pub memory: f64,
+}
+
+impl UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine {
+    pub fn new(
+        cores: f64,
+        label: UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum,
+        memory: f64,
+    ) -> Self {
+        Self {
+            cores,
+            label,
+            memory,
+        }
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsEnum316aaec8 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "0" => Self::_0,
-            "1" => Self::_1,
-            _ => Self::Unknown(value),
-        })
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseResourceConfig {
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason:
+        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticReasonEnum>,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition:
+        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransition>,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection:
+        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum>,
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type: Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<UpdateMicrofrontendsResponseResourceConfigBuildQueue>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type:
+        Option<UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum>,
+    #[serde(rename = "functionDefaultRegions")]
+    pub function_default_regions: Vec<String>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+    #[serde(
+        rename = "elasticBuildMachine",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_build_machine:
+        Option<UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine>,
+}
+
+impl UpdateMicrofrontendsResponseResourceConfig {
+    pub fn new(function_default_regions: Vec<String>) -> Self {
+        Self {
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            build_machine_selection: None,
+            build_machine_type: None,
+            build_queue: None,
+            elastic_concurrency_enabled: None,
+            enable_functions_beta: None,
+            fluid: None,
+            function_default_memory_type: None,
+            function_default_regions,
+            function_default_timeout: None,
+            function_zero_config_failover: None,
+            is_nsnb_disabled: None,
+            elastic_build_machine: None,
+        }
     }
 }
 
-impl std::fmt::Display for ListProjectsEnum316aaec8 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseRollbackDescription {
+    /// Timestamp of when the rollback was requested.
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
+    pub description: String,
+    /// The user who rolled back the project.
+    #[serde(rename = "userId")]
+    pub user_id: String,
+    /// The username of the user who rolled back the project.
+    pub username: String,
+}
+
+impl UpdateMicrofrontendsResponseRollbackDescription {
+    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
+        Self {
+            created_at,
+            description,
+            user_id,
+            username,
+        }
     }
 }
 
+/// What to do when the gate trips: pause the rollout, or roll it back.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsEnum45942550 {
+pub enum UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
     #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
+    Pause,
+    Rollback,
     Unknown(String),
 }
 
-impl ListProjectsEnum45942550 {
+impl UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Pause => "pause",
+            Self::Rollback => "rollback",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsEnum45942550 {
+impl serde::Serialize for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -59,59 +172,44 @@ impl serde::Serialize for ListProjectsEnum45942550 {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsEnum45942550 {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            "pause" => Self::Pause,
+            "rollback" => Self::Rollback,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsEnum45942550 {
+impl std::fmt::Display for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The metric this check evaluates.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectNodeVersionEnum {
+pub enum UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
     #[default]
-    _10X,
-    _12X,
-    _14X,
-    _16X,
-    _18X,
-    _20X,
-    _22X,
-    _24X,
-    _26X,
+    ErrorRate5xx,
     Unknown(String),
 }
 
-impl UpdateProjectNodeVersionEnum {
+impl UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_10X => "10.x",
-            Self::_12X => "12.x",
-            Self::_14X => "14.x",
-            Self::_16X => "16.x",
-            Self::_18X => "18.x",
-            Self::_20X => "20.x",
-            Self::_22X => "22.x",
-            Self::_24X => "24.x",
-            Self::_26X => "26.x",
+            Self::ErrorRate5xx => "error-rate-5xx",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectNodeVersionEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -120,164 +218,124 @@ impl serde::Serialize for UpdateProjectNodeVersionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectNodeVersionEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
+            "error-rate-5xx" => Self::ErrorRate5xx,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectNodeVersionEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsDomainsEnum {
-    #[default]
-    False,
-    True,
-    Unknown(String),
+/// The checks to evaluate. An empty array means nothing is evaluated.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseRollingReleaseGateChecksItem {
+    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
+    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
+    pub exclude_paths: Option<Vec<String>>,
+    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
+    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
+    pub exclude_status_codes: Option<Vec<f64>>,
+    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+    #[serde(
+        rename = "ingestWatermarkSeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ingest_watermark_seconds: Option<f64>,
+    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
+    pub significance_level: Option<f64>,
+    /// The metric this check evaluates.
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum,
 }
 
-impl ListProjectsDomainsEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::False => "false",
-            Self::True => "true",
-            Self::Unknown(value) => value.as_str(),
+impl UpdateMicrofrontendsResponseRollingReleaseGateChecksItem {
+    pub fn new(type_: UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum) -> Self {
+        Self {
+            exclude_paths: None,
+            exclude_status_codes: None,
+            ingest_watermark_seconds: None,
+            significance_level: None,
+            type_,
         }
     }
 }
 
-impl serde::Serialize for ListProjectsDomainsEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseRollingReleaseGate {
+    /// What to do when the gate trips: pause the rollout, or roll it back.
+    pub action: UpdateMicrofrontendsResponseRollingReleaseGateActionEnum,
+    /// The checks to evaluate. An empty array means nothing is evaluated.
+    pub checks: Vec<UpdateMicrofrontendsResponseRollingReleaseGateChecksItem>,
+    /// When true, a tripped gate is only reported — {@link action} is not taken.
+    #[serde(rename = "dryRun")]
+    pub dry_run: bool,
+    /// Whether automated gating is enabled for this project's rollouts.
+    pub enabled: bool,
+    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
+    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
+    pub failure_threshold: Option<f64>,
+    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
+    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
+    pub window_size: Option<f64>,
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsDomainsEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "false" => Self::False,
-            "true" => Self::True,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsDomainsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsDomainsEnumb689097b {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl ListProjectsDomainsEnumb689097b {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
+impl UpdateMicrofrontendsResponseRollingReleaseGate {
+    pub fn new(
+        action: UpdateMicrofrontendsResponseRollingReleaseGateActionEnum,
+        checks: Vec<UpdateMicrofrontendsResponseRollingReleaseGateChecksItem>,
+        dry_run: bool,
+        enabled: bool,
+    ) -> Self {
+        Self {
+            action,
+            checks,
+            dry_run,
+            enabled,
+            failure_threshold: None,
+            window_size: None,
         }
     }
 }
 
-impl serde::Serialize for ListProjectsDomainsEnumb689097b {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseRollingReleaseStagesItem {
+    /// Duration in minutes for automatic advancement to the next stage
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub duration: Option<f64>,
+    /// Whether to linearly shift traffic over the duration of this stage
+    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
+    pub linear_shift: Option<bool>,
+    /// Whether or not this stage requires manual approval to proceed
+    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
+    pub require_approval: Option<bool>,
+    /// The percentage of traffic to serve to the canary deployment (0-100)
+    #[serde(rename = "targetPercentage")]
+    pub target_percentage: f64,
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsDomainsEnumb689097b {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsDomainsEnumb689097b {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsDomainsEnum70f457a0 {
-    #[default]
-    False,
-    True,
-    Unknown(String),
-}
-
-impl ListProjectsDomainsEnum70f457a0 {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::False => "false",
-            Self::True => "true",
-            Self::Unknown(value) => value.as_str(),
+impl UpdateMicrofrontendsResponseRollingReleaseStagesItem {
+    pub fn new(target_percentage: f64) -> Self {
+        Self {
+            duration: None,
+            linear_shift: None,
+            require_approval: None,
+            target_percentage,
         }
-    }
-}
-
-impl serde::Serialize for ListProjectsDomainsEnum70f457a0 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsDomainsEnum70f457a0 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "false" => Self::False,
-            "true" => Self::True,
-            _ => Self::Unknown(value),
-        })
     }
 }

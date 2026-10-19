@@ -200,6 +200,18 @@ impl<'de> serde::Deserialize<'de> for TeamDisableHardAutoBlocks {
     }
 }
 
+impl ::std::convert::From<f64> for TeamDisableHardAutoBlocks {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for TeamDisableHardAutoBlocks {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 /// Require production secrets to use a different value than preview or development.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum TeamDisjunctiveProductionSecretPolicyEnum {
@@ -456,11 +468,4 @@ impl TeamMembershipEntitlementsItem {
     pub fn new(entitlement: String) -> Self {
         Self { entitlement }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum TeamMembershipJoinedFromGitUserId {
-    String(String),
-    Number(f64),
 }

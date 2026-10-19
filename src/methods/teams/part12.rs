@@ -5,8 +5,53 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{InvitedTeamMember, Team};
+use crate::types::InvitedTeamMember;
 use crate::validation::{validate_range, RangeOpts};
+
+impl GetTeamMembersEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Billing => "BILLING",
+            Self::Contributor => "CONTRIBUTOR",
+            Self::Developer => "DEVELOPER",
+            Self::Member => "MEMBER",
+            Self::Owner => "OWNER",
+            Self::Security => "SECURITY",
+            Self::Viewer => "VIEWER",
+            Self::ViewerForPlus => "VIEWER_FOR_PLUS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetTeamMembersEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetTeamMembersEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BILLING" => Self::Billing,
+            "CONTRIBUTOR" => Self::Contributor,
+            "DEVELOPER" => Self::Developer,
+            "MEMBER" => Self::Member,
+            "OWNER" => Self::Owner,
+            "SECURITY" => Self::Security,
+            "VIEWER" => Self::Viewer,
+            "VIEWER_FOR_PLUS" => Self::ViewerForPlus,
+            _ => Self::Unknown(value),
+        })
+    }
+}
 
 impl std::fmt::Display for GetTeamMembersEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -469,39 +514,6 @@ pub fn remove_team_member(
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "remove_team_member",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves information about the specified team, including its billing plan, creation details, and team configuration. Use the team identifier to select the team; you can also supply its slug as request context.
-///
-/// Get information for the Team specified by the `teamId` parameter.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-pub fn get_teams(
-    config: &ClientConfig,
-    team_id: String,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<Team, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<Team>(
-        "GET",
-        &format!("/v2/teams/{}", crate::client::encode_path_segment(&team_id)),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_teams",
             options,
             ..Default::default()
         },

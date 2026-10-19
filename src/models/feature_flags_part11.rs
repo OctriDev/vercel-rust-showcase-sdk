@@ -3,6 +3,358 @@
 
 // feature_flags domain models (part 11)
 
+impl<'de> serde::Deserialize<'de>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::Regex(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant2>,
+    > for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs
+{
+    fn from(
+        value: Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant2>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant3>,
+    > for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs
+{
+    fn from(
+        value: Box<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhsVariant3>,
+    ) -> Self {
+        Self::Regex(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItem {
+    pub cmp: UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemCmpEnum,
+    #[serde(rename = "cmpOptions", skip_serializing_if = "Option::is_none")]
+    pub cmp_options: Option<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemCmpOptions>,
+    pub lhs: UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemLhs,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rhs: Option<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemRhs>,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItem {
+    pub fn new(
+        cmp: UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemCmpEnum,
+        lhs: UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItemLhs,
+    ) -> Self {
+        Self {
+            cmp,
+            cmp_options: None,
+            lhs,
+            rhs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum {
+    #[serde(rename = "all")]
+    #[default]
+    All,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum::All => {
+                f.write_str("all")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0 {
+    #[serde(rename = "type")]
+    pub type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0 {
+    pub fn new(
+        type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0TypeEnum,
+    ) -> Self {
+        Self { type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum {
+    #[default]
+    Entity,
+    Unknown(String),
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Entity => "entity",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "entity" => Self::Entity,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1Base {
+    pub attribute: String,
+    pub kind: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1Base {
+    pub fn new(
+        attribute: String,
+        kind: String,
+        type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1BaseTypeEnum,
+    ) -> Self {
+        Self {
+            attribute,
+            kind,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum {
+    #[serde(rename = "split")]
+    #[default]
+    Split,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Split => "split",
+        }
+    }
+}
+
+impl std::fmt::Display for UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum::Split => {
+                f.write_str("split")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1 {
+    pub base: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1Base,
+    #[serde(rename = "passPromille")]
+    pub pass_promille: f64,
+    #[serde(rename = "type")]
+    pub type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1 {
+    pub fn new(
+        base: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1Base,
+        pass_promille: f64,
+        type_: UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            base,
+            pass_promille,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFlagSegmentResponseVariant0DataRulesItemOutcome {
+    All(Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0>),
+    Split(Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentResponseVariant0DataRulesItemOutcome {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::All(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Split(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFlagSegmentResponseVariant0DataRulesItemOutcome branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0>>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemOutcome
+{
+    fn from(value: Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant0>) -> Self {
+        Self::All(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1>>
+    for UpdateFlagSegmentResponseVariant0DataRulesItemOutcome
+{
+    fn from(value: Box<UpdateFlagSegmentResponseVariant0DataRulesItemOutcomeVariant1>) -> Self {
+        Self::Split(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFlagSegmentResponseVariant0DataRulesItem {
+    pub conditions: Vec<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItem>,
+    pub id: String,
+    pub outcome: UpdateFlagSegmentResponseVariant0DataRulesItemOutcome,
+}
+
+impl UpdateFlagSegmentResponseVariant0DataRulesItem {
+    pub fn new(
+        conditions: Vec<UpdateFlagSegmentResponseVariant0DataRulesItemConditionsItem>,
+        id: String,
+        outcome: UpdateFlagSegmentResponseVariant0DataRulesItemOutcome,
+    ) -> Self {
+        Self {
+            conditions,
+            id,
+            outcome,
+        }
+    }
+}
+
 pub type UpdateFlagSegmentResponseVariant0DataExclude = std::collections::HashMap<
     String,
     std::collections::HashMap<

@@ -2,94 +2,8 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::GetFirewallConfigResponseRulesItem;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponse {
-    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
-    pub bot_id_enabled: Option<bool>,
-    pub changes: Vec<serde_json::Value>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub conditions: Option<Vec<GetFirewallConfigResponseConditionsItem>>,
-    /// Custom Ruleset
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub crs: Option<GetFirewallConfigResponseCrs>,
-    #[serde(rename = "firewallEnabled")]
-    pub firewall_enabled: bool,
-    pub id: String,
-    pub ips: Vec<GetFirewallConfigResponseIpsItem>,
-    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<GetFirewallConfigResponseLogHeaders>,
-    #[serde(rename = "managedRules", skip_serializing_if = "Option::is_none")]
-    pub managed_rules: Option<GetFirewallConfigResponseManagedRules>,
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    #[serde(rename = "projectKey")]
-    pub project_key: String,
-    pub rules: Vec<GetFirewallConfigResponseRulesItem>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rulesets: Option<GetFirewallConfigResponseRulesets>,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
-    pub version: f64,
-}
-
-impl GetFirewallConfigResponse {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        changes: Vec<serde_json::Value>,
-        firewall_enabled: bool,
-        id: String,
-        ips: Vec<GetFirewallConfigResponseIpsItem>,
-        owner_id: String,
-        project_key: String,
-        rules: Vec<GetFirewallConfigResponseRulesItem>,
-        updated_at: String,
-        version: f64,
-    ) -> Self {
-        Self {
-            bot_id_enabled: None,
-            changes,
-            conditions: None,
-            crs: None,
-            firewall_enabled,
-            id,
-            ips,
-            log_headers: None,
-            managed_rules: None,
-            owner_id,
-            project_key,
-            rules,
-            rulesets: None,
-            updated_at,
-            version,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemOpEnum
-{
-    #[default]
-    Eq,
-    Ex,
-    Gt,
-    Gte,
-    Inc,
-    List,
-    Lt,
-    Lte,
-    Neq,
-    Nex,
-    Ninc,
-    Pre,
-    Re,
-    Sub,
-    Suf,
-    Unknown(String),
-}
-
-impl CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemOpEnum {
+impl GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Eq => "eq",
@@ -112,7 +26,9 @@ impl CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemCo
     }
 }
 
-impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemOpEnum {
+impl serde::Serialize
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -121,7 +37,9 @@ impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateRes
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemOpEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -148,15 +66,16 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
     }
 }
 
-impl std::fmt::Display for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemOpEnum {
+impl std::fmt::Display
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemTypeEnum
-{
+pub enum GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
     #[default]
     BotCategory,
     BotName,
@@ -195,7 +114,7 @@ pub enum CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsIt
     Unknown(String),
 }
 
-impl CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemTypeEnum {
+impl GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::BotCategory => "bot_category",
@@ -237,7 +156,9 @@ impl CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemCo
     }
 }
 
-impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemTypeEnum {
+impl serde::Serialize
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -246,7 +167,9 @@ impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateRes
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemTypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -292,8 +215,109 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
     }
 }
 
-impl std::fmt::Display for CreateSecurityFirewallConfigByConfigVersionActivateResponseConditionsItemConditionGroupItemConditionsItemTypeEnum {
+impl std::fmt::Display
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue {
+    String(String),
+    Number(f64),
+    StringArray(Vec<String>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    pub op: GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+    #[serde(rename = "type")]
+    pub type_:
+        GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value:
+        Option<GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemValue>,
+}
+
+impl GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItem {
+    pub fn new(
+        op: GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum,
+        type_: GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum,
+    ) -> Self {
+        Self {
+            key: None,
+            neg: None,
+            op,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItem {
+    pub conditions:
+        Vec<GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItem>,
 }

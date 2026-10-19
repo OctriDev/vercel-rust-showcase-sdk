@@ -3,6 +3,245 @@
 
 // domains_registrar_get domain models (part 8)
 
+impl serde::Serialize for GetOrderResponseErrorVariant2CodeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant2CodeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "price-mismatch" => Self::PriceMismatch,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetOrderResponseErrorVariant2CodeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant2Details {
+    #[serde(rename = "expectedPrice")]
+    pub expected_price: f64,
+    #[serde(rename = "actualPrice", skip_serializing_if = "Option::is_none")]
+    pub actual_price: Option<f64>,
+}
+
+impl GetOrderResponseErrorVariant2Details {
+    pub fn new(expected_price: f64) -> Self {
+        Self {
+            expected_price,
+            actual_price: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant2 {
+    pub code: GetOrderResponseErrorVariant2CodeEnum,
+    pub details: GetOrderResponseErrorVariant2Details,
+}
+
+impl GetOrderResponseErrorVariant2 {
+    pub fn new(
+        code: GetOrderResponseErrorVariant2CodeEnum,
+        details: GetOrderResponseErrorVariant2Details,
+    ) -> Self {
+        Self { code, details }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetOrderResponseErrorVariant3CodeEnum {
+    #[default]
+    UnexpectedError,
+    Unknown(String),
+}
+
+impl GetOrderResponseErrorVariant3CodeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::UnexpectedError => "unexpected-error",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetOrderResponseErrorVariant3CodeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant3CodeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "unexpected-error" => Self::UnexpectedError,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetOrderResponseErrorVariant3CodeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant3 {
+    pub code: GetOrderResponseErrorVariant3CodeEnum,
+}
+
+impl GetOrderResponseErrorVariant3 {
+    pub fn new(code: GetOrderResponseErrorVariant3CodeEnum) -> Self {
+        Self { code }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetOrderResponseErrorVariant4CodeEnum {
+    #[default]
+    ClaimsRequired,
+    Unknown(String),
+}
+
+impl GetOrderResponseErrorVariant4CodeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ClaimsRequired => "claims-required",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetOrderResponseErrorVariant4CodeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant4CodeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "claims-required" => Self::ClaimsRequired,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetOrderResponseErrorVariant4CodeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant4Details {
+    pub message: String,
+    #[serde(rename = "domainNames")]
+    pub domain_names: Vec<String>,
+}
+
+impl GetOrderResponseErrorVariant4Details {
+    pub fn new(message: String, domain_names: Vec<String>) -> Self {
+        Self {
+            message,
+            domain_names,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant4 {
+    pub code: GetOrderResponseErrorVariant4CodeEnum,
+    pub details: GetOrderResponseErrorVariant4Details,
+}
+
+impl GetOrderResponseErrorVariant4 {
+    pub fn new(
+        code: GetOrderResponseErrorVariant4CodeEnum,
+        details: GetOrderResponseErrorVariant4Details,
+    ) -> Self {
+        Self { code, details }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetOrderResponseErrorVariant5CodeEnum {
+    #[default]
+    DomainMismatch,
+    Unknown(String),
+}
+
+impl GetOrderResponseErrorVariant5CodeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::DomainMismatch => "domain-mismatch",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetOrderResponseErrorVariant5CodeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetOrderResponseErrorVariant5CodeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "domain-mismatch" => Self::DomainMismatch,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetOrderResponseErrorVariant5CodeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetOrderResponseErrorVariant5 {
+    pub code: GetOrderResponseErrorVariant5CodeEnum,
+}
+
 impl GetOrderResponseErrorVariant5 {
     pub fn new(code: GetOrderResponseErrorVariant5CodeEnum) -> Self {
         Self { code }

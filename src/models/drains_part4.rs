@@ -3,6 +3,33 @@
 
 // drains domain models (part 4)
 
+impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0DeliveryVariant3EncodingEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "json" => Self::Json,
+            "ndjson" => Self::Ndjson,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDrainResponseVariant0DeliveryVariant3EncodingEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDrainResponseVariant0DeliveryVariant3FileStructureEnum {
+    #[default]
+    Hive,
+    Unknown(String),
+}
+
 impl CreateDrainResponseVariant0DeliveryVariant3FileStructureEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -375,6 +402,46 @@ impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0Delivery {
     }
 }
 
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant0>>
+    for CreateDrainResponseVariant0Delivery
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant0>) -> Self {
+        Self::Http(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant1>>
+    for CreateDrainResponseVariant0Delivery
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant1>) -> Self {
+        Self::Otlphttp(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant2>>
+    for CreateDrainResponseVariant0Delivery
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant2>) -> Self {
+        Self::Clickhouse(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant3>>
+    for CreateDrainResponseVariant0Delivery
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant3>) -> Self {
+        Self::S3(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant4>>
+    for CreateDrainResponseVariant0Delivery
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant4>) -> Self {
+        Self::Internal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateDrainResponseVariant0DisabledReasonEnum {
     #[default]
@@ -428,68 +495,5 @@ impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0DisabledReasonE
 impl std::fmt::Display for CreateDrainResponseVariant0DisabledReasonEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDrainResponseVariant0SamplingItemEnvEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl CreateDrainResponseVariant0SamplingItemEnvEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDrainResponseVariant0SamplingItemEnvEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0SamplingItemEnvEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDrainResponseVariant0SamplingItemEnvEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDrainResponseVariant0SamplingItemTypeEnum {
-    #[default]
-    HeadSampling,
-    Unknown(String),
-}
-
-impl CreateDrainResponseVariant0SamplingItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::HeadSampling => "head_sampling",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

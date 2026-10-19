@@ -4,79 +4,47 @@
 use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::SdkError;
-use crate::validation::{validate_items, validate_length, LengthOpts};
+use crate::errors::{SdkError, SdkNetworkError};
+use crate::validation::{validate_items, validate_length, validate_range, LengthOpts, RangeOpts};
 
-#[derive(Debug, Clone, Default)]
-pub struct SearchVercelCiLogsParams {
-    pub invocation: Vec<String>,
-    pub search: String,
-    pub level: Option<Vec<SearchVercelCiLogsItemEnum>>,
+#[derive(Debug, Clone)]
+pub struct UpdateVercelCiRepositorySettingsParams {
+    pub provider: UpdateVercelCiRepositorySettingsEnum,
+    pub organization_id: String,
+    pub repository: String,
+    pub ci_enabled: bool,
     pub team_id: Option<String>,
     pub slug: Option<String>,
 }
 
-/// Searches task logs across multiple invocation attempts and returns only invocations and tasks with matching lines. Supply up to 50 unique invocation attempts in `invocation` and a search string in `search`; matching is case-insensitive. When more than 1,000 lines match, the response keeps the newest lines.
+/// Updates the Vercel CI enabled state for a connected repository. Identify the repository with `provider`, `organizationId`, and `repository`, then set `ciEnabled` in the request body. Use `teamId` or `slug` to perform the request on behalf of a team.
 ///
-/// Searches the task logs of up to 50 invocation attempts at once, for example the most recent runs of a branch from `GET /v2/vercel-ci/invocations`. Only invocations and tasks with matching lines are returned. When more than 1000 lines match, the newest are kept.
+/// Update Repository Settings
 ///
 /// # Arguments
 ///
-/// * `invocation` - Invocation attempts to search, as
-///   \"<invocationId\>:<attempt\>\" (at most 50).
-/// * `search` - Only return log lines containing this text, ignoring case.
-/// * `level` - Only return log lines with one of these levels.
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn search_vercel_ci_logs(
+pub fn update_vercel_ci_repository_settings(
     config: &ClientConfig,
-    params: SearchVercelCiLogsParams,
+    params: UpdateVercelCiRepositorySettingsParams,
     options: Option<&RequestOptions>,
-) -> Result<SearchVercelCiLogsResponse, SdkError> {
-    let SearchVercelCiLogsParams {
-        invocation,
-        search,
-        level,
+) -> Result<UpdateVercelCiRepositorySettingsResponse, SdkError> {
+    let UpdateVercelCiRepositorySettingsParams {
+        provider,
+        organization_id,
+        repository,
+        ci_enabled,
         team_id,
         slug,
     } = params;
-    validate_items(
-        "invocation",
-        &invocation,
-        LengthOpts {
-            min: Some(1),
-            max: Some(50),
-        },
-    )?;
-    validate_length(
-        "search",
-        &search,
-        LengthOpts {
-            max: Some(256),
-            ..Default::default()
-        },
-    )?;
-    if let Some(ref level_v) = level {
-        validate_items(
-            "level",
-            level_v,
-            LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-    }
-
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    for item in &invocation {
-        __query.push(("invocation", crate::client::query_value(item)));
-    }
-    __query.extend([("search", crate::client::query_value(&search))]);
-    if let Some(ref vec) = level {
-        for item in vec {
-            __query.push(("level", crate::client::query_value(item)));
-        }
-    }
+    __query.extend([("provider", crate::client::query_value(&provider))]);
+    __query.extend([(
+        "organizationId",
+        crate::client::query_value(&organization_id),
+    )]);
+    __query.extend([("repository", crate::client::query_value(&repository))]);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
@@ -84,14 +52,27 @@ pub fn search_vercel_ci_logs(
         __query.push(("slug", crate::client::query_value(v)));
     }
 
-    Ok(sdk_request::<SearchVercelCiLogsResponse>(
-        "GET",
-        "/v1/vercel-ci/log-search",
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "ciEnabled".to_string(),
+        serde_json::to_value(ci_enabled).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<UpdateVercelCiRepositorySettingsResponse>(
+        "PATCH",
+        "/v1/vercel-ci/repository-settings",
         config,
         RequestOpts {
             query: &__query,
+            body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "search_vercel_ci_logs",
+            operation_id: "update_vercel_ci_repository_settings",
             options,
             ..Default::default()
         },
@@ -100,47 +81,85 @@ pub fn search_vercel_ci_logs(
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct GetVercelCiJobRunLogsParams {
-    pub invocation_id: String,
-    pub attempt: String,
-    pub job_definition_id: String,
-    pub run_attempt: String,
-    pub follow: Option<i64>,
-    pub since: Option<f64>,
-    pub level: Option<Vec<GetVercelCiJobRunLogsItemEnum>>,
+pub struct ListVercelCiInvocationsParams {
+    pub provider: Option<ListVercelCiInvocationsEnum>,
+    pub repository: Option<String>,
+    pub branch_name: Option<String>,
+    pub snapshot: Option<String>,
+    pub status: Option<Vec<ListVercelCiInvocationsItemEnum>>,
+    pub conclusion: Option<Vec<ListVercelCiInvocationsItemEnum146c1f41>>,
+    pub source: Option<Vec<ListVercelCiInvocationsItemEnumead06394>>,
+    pub author_git_hub_id: Option<String>,
+    pub author: Option<String>,
+    pub created_after: Option<f64>,
+    pub created_before: Option<f64>,
+    pub limit: Option<f64>,
+    pub cursor: Option<String>,
     pub team_id: Option<String>,
     pub slug: Option<String>,
 }
 
-/// Retrieves log lines for a specific job run attempt. Use `level` to filter the returned lines, or provide `since` to retrieve lines from a specified point. Set `follow` to 1 to request ongoing log output.
+/// Lists Vercel CI invocations for a team, with optional filters for repository, branch, commit, status, conclusion, source, author, and creation time. Use `cursor` to continue from a previous response and `limit` to set the page size. The response includes invocation records, repository details, and pagination metadata.
 ///
-/// Get Job Run Logs
+/// List Invocations
 ///
 /// # Arguments
 ///
-/// * `level` - Only return log lines with one of these levels.
+/// * `provider` - Repository provider (e.g., \"github\").
+/// * `repository` - Repository slug (e.g., \"vercel/next.js\").
+/// * `branch_name` - Branch name (e.g., \"main\").
+/// * `snapshot` - Snapshot/commit hash.
+/// * `author` - GitHub author login.
+/// * `limit` - Number of results per page (default: 20, max: 100).
+/// * `cursor` - Pagination cursor from a previous response.
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_vercel_ci_job_run_logs(
+pub fn list_vercel_ci_invocations(
     config: &ClientConfig,
-    params: GetVercelCiJobRunLogsParams,
+    params: ListVercelCiInvocationsParams,
     options: Option<&RequestOptions>,
-) -> Result<GetVercelCiJobRunLogsResponse, SdkError> {
-    let GetVercelCiJobRunLogsParams {
-        invocation_id,
-        attempt,
-        job_definition_id,
-        run_attempt,
-        follow,
-        since,
-        level,
+) -> Result<ListVercelCiInvocationsResponse, SdkError> {
+    let ListVercelCiInvocationsParams {
+        provider,
+        repository,
+        branch_name,
+        snapshot,
+        status,
+        conclusion,
+        source,
+        author_git_hub_id,
+        author,
+        created_after,
+        created_before,
+        limit,
+        cursor,
         team_id,
         slug,
     } = params;
-    if let Some(ref level_v) = level {
+    if let Some(ref status_v) = status {
         validate_items(
-            "level",
-            level_v,
+            "status",
+            status_v,
+            LengthOpts {
+                min: Some(1),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref conclusion_v) = conclusion {
+        validate_items(
+            "conclusion",
+            conclusion_v,
+            LengthOpts {
+                min: Some(1),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref source_v) = source {
+        validate_items(
+            "source",
+            source_v,
             LengthOpts {
                 min: Some(1),
                 ..Default::default()
@@ -148,17 +167,51 @@ pub fn get_vercel_ci_job_run_logs(
         )?;
     }
 
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    if let Some(ref v) = follow {
-        __query.push(("follow", crate::client::query_value(v)));
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(15);
+    if let Some(ref v) = provider {
+        __query.push(("provider", crate::client::query_value(v)));
     }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
+    if let Some(ref v) = repository {
+        __query.push(("repository", crate::client::query_value(v)));
     }
-    if let Some(ref vec) = level {
+    if let Some(ref v) = branch_name {
+        __query.push(("branchName", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = snapshot {
+        __query.push(("snapshot", crate::client::query_value(v)));
+    }
+    if let Some(ref vec) = status {
         for item in vec {
-            __query.push(("level", crate::client::query_value(item)));
+            __query.push(("status", crate::client::query_value(item)));
         }
+    }
+    if let Some(ref vec) = conclusion {
+        for item in vec {
+            __query.push(("conclusion", crate::client::query_value(item)));
+        }
+    }
+    if let Some(ref vec) = source {
+        for item in vec {
+            __query.push(("source", crate::client::query_value(item)));
+        }
+    }
+    if let Some(ref v) = author_git_hub_id {
+        __query.push(("authorGitHubId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = author {
+        __query.push(("author", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = created_after {
+        __query.push(("createdAfter", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = created_before {
+        __query.push(("createdBefore", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = cursor {
+        __query.push(("cursor", crate::client::query_value(v)));
     }
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -167,20 +220,200 @@ pub fn get_vercel_ci_job_run_logs(
         __query.push(("slug", crate::client::query_value(v)));
     }
 
-    Ok(sdk_request::<GetVercelCiJobRunLogsResponse>(
+    Ok(sdk_request::<ListVercelCiInvocationsResponse>(
+        "GET",
+        "/v2/vercel-ci/invocations",
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_vercel_ci_invocations",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Lists Vercel CI branch suggestions for a team. Use `query` to filter the suggestions and `limit` to control how many results are returned. The response contains branch names and their counts.
+///
+/// List branches
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn list_vercel_ci_branches(
+    config: &ClientConfig,
+    query: Option<String>,
+    limit: Option<f64>,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<ListVercelCiBranchesResponse, SdkError> {
+    if let Some(ref query_v) = query {
+        validate_length(
+            "query",
+            query_v,
+            LengthOpts {
+                max: Some(100),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref limit_v) = limit {
+        validate_range(
+            "limit",
+            *limit_v,
+            RangeOpts {
+                min: Some(1_f64),
+                max: Some(50_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
+    if let Some(ref v) = query {
+        __query.push(("query", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<ListVercelCiBranchesResponse>(
+        "GET",
+        "/v2/vercel-ci/branches",
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_vercel_ci_branches",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Starts an asynchronous Vercel CI task analysis for a repository. Supply the repository `owner` and `repo` in the request body, and use `teamId` or `slug` to perform the request on behalf of a team. A 202 response confirms acceptance and provides an `analysisId` to check the analysis status.
+///
+/// Create task analysis
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn create_vercel_ci_task_analysis(
+    config: &ClientConfig,
+    owner: String,
+    repo: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<CreateVercelCiTaskAnalysisResponse, SdkError> {
+    validate_length(
+        "owner",
+        &owner,
+        LengthOpts {
+            max: Some(100),
+            ..Default::default()
+        },
+    )?;
+    validate_length(
+        "repo",
+        &repo,
+        LengthOpts {
+            max: Some(100),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "owner".to_string(),
+        serde_json::to_value(owner).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "repo".to_string(),
+        serde_json::to_value(repo).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<CreateVercelCiTaskAnalysisResponse>(
+        "POST",
+        "/v1/vercel-ci/task-analyses",
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "create_vercel_ci_task_analysis",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Retrieves the current status of a Vercel CI task analysis. Use `analysisId` to identify the analysis and optionally pass `teamId` or `slug` to make the request on behalf of a team. The response includes a failure reason when one is available.
+///
+/// Get task analysis
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn get_vercel_ci_task_analysis(
+    config: &ClientConfig,
+    analysis_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<GetVercelCiTaskAnalysisResponse, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<GetVercelCiTaskAnalysisResponse>(
         "GET",
         &format!(
-            "/v1/vercel-ci/invocations/{}/attempts/{}/job-definitions/{}/runs/{}/logs",
-            crate::client::encode_path_segment(&invocation_id),
-            crate::client::encode_path_segment(&attempt),
-            crate::client::encode_path_segment(&job_definition_id),
-            crate::client::encode_path_segment(&run_attempt)
+            "/v1/vercel-ci/task-analyses/{}",
+            crate::client::encode_path_segment(&analysis_id)
         ),
         config,
         RequestOpts {
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_vercel_ci_job_run_logs",
+            operation_id: "get_vercel_ci_task_analysis",
             options,
             ..Default::default()
         },
@@ -188,72 +421,107 @@ pub fn get_vercel_ci_job_run_logs(
     .data)
 }
 
+/// Creates a GitHub pull request that adds Vercel CI tags for tasks discovered in a completed analysis. Identify the analysis with `analysisId` and provide the tasks and configuration paths in the request body. The response includes the pull request URL and the names of changed tasks.
+///
+/// Create task configuration pull request
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn create_vercel_ci_task_configuration_pull_request(
+    config: &ClientConfig,
+    analysis_id: String,
+    tasks: Vec<CreateVercelCiTaskConfigurationPullRequestTasksItem>,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<CreateVercelCiTaskConfigurationPullRequestResponse, SdkError> {
+    validate_items(
+        "tasks",
+        &tasks,
+        LengthOpts {
+            min: Some(1),
+            max: Some(100),
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "tasks".to_string(),
+        serde_json::to_value(tasks).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(
+        sdk_request::<CreateVercelCiTaskConfigurationPullRequestResponse>(
+            "POST",
+            &format!(
+                "/v1/vercel-ci/task-analyses/{}/pull-request",
+                crate::client::encode_path_segment(&analysis_id)
+            ),
+            config,
+            RequestOpts {
+                query: &__query,
+                body: Some(__body),
+                decoder: crate::client::ResponseDecoder::Json,
+                operation_id: "create_vercel_ci_task_configuration_pull_request",
+                options,
+                ..Default::default()
+            },
+        )?
+        .data,
+    )
+}
+
 #[derive(Debug, Clone, Default)]
-pub struct GetVercelCiTaskRunLogsParams {
-    pub invocation_id: String,
-    pub attempt: String,
-    pub job_definition_id: String,
-    pub run_attempt: String,
-    pub task_definition_id: String,
-    pub task_run_attempt: String,
-    pub follow: Option<i64>,
-    pub since: Option<f64>,
-    pub level: Option<Vec<GetVercelCiTaskRunLogsItemEnum>>,
+pub struct ListVercelCiTaskAnalysisTasksParams {
+    pub analysis_id: String,
+    pub cursor: Option<String>,
+    pub limit: Option<String>,
     pub team_id: Option<String>,
     pub slug: Option<String>,
 }
 
-/// Retrieves log lines for a specific task run attempt. Use `level` to filter the returned lines, or provide `since` to retrieve lines from a specified point. Set `follow` to 1 to stream newline-delimited JSON log lines until the task run finishes or the stream reaches its maximum duration.
+/// Lists tasks discovered by a completed Vercel CI task analysis. Identify the analysis with `analysisId`, and use `cursor` and `limit` to retrieve task results in pages. Each task includes its configuration path and recommendation reasons.
 ///
-/// Get Task Run Logs With `follow=1` the response is a newline-delimited JSON stream of log lines that ends once the task run has finished and its logs are flushed, or when the stream reaches its maximum duration.
+/// List task analysis tasks
 ///
 /// # Arguments
 ///
-/// * `follow` - When 1, stream log lines as newline-delimited JSON until the
-///   task run finishes.
-/// * `level` - Only return log lines with one of these levels.
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_vercel_ci_task_run_logs(
+pub fn list_vercel_ci_task_analysis_tasks(
     config: &ClientConfig,
-    params: GetVercelCiTaskRunLogsParams,
+    params: ListVercelCiTaskAnalysisTasksParams,
     options: Option<&RequestOptions>,
-) -> Result<GetVercelCiTaskRunLogsResponse, SdkError> {
-    let GetVercelCiTaskRunLogsParams {
-        invocation_id,
-        attempt,
-        job_definition_id,
-        run_attempt,
-        task_definition_id,
-        task_run_attempt,
-        follow,
-        since,
-        level,
+) -> Result<ListVercelCiTaskAnalysisTasksResponse, SdkError> {
+    let ListVercelCiTaskAnalysisTasksParams {
+        analysis_id,
+        cursor,
+        limit,
         team_id,
         slug,
     } = params;
-    if let Some(ref level_v) = level {
-        validate_items(
-            "level",
-            level_v,
-            LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
+    if let Some(ref v) = cursor {
+        __query.push(("cursor", crate::client::query_value(v)));
     }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    if let Some(ref v) = follow {
-        __query.push(("follow", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
-    }
-    if let Some(ref vec) = level {
-        for item in vec {
-            __query.push(("level", crate::client::query_value(item)));
-        }
+    if let Some(ref v) = limit {
+        __query.push(("limit", crate::client::query_value(v)));
     }
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -262,5 +530,20 @@ pub fn get_vercel_ci_task_run_logs(
         __query.push(("slug", crate::client::query_value(v)));
     }
 
-    Ok(sdk_request::<GetVercelCiTaskRunLogsResponse>("GET", &format!("/v1/vercel-ci/invocations/{}/attempts/{}/job-definitions/{}/runs/{}/task-definitions/{}/runs/{}/logs", crate::client::encode_path_segment(&invocation_id), crate::client::encode_path_segment(&attempt), crate::client::encode_path_segment(&job_definition_id), crate::client::encode_path_segment(&run_attempt), crate::client::encode_path_segment(&task_definition_id), crate::client::encode_path_segment(&task_run_attempt)), config, RequestOpts { query: &__query, decoder: crate::client::ResponseDecoder::Json, operation_id: "get_vercel_ci_task_run_logs", options, ..Default::default() })?.data)
+    Ok(sdk_request::<ListVercelCiTaskAnalysisTasksResponse>(
+        "GET",
+        &format!(
+            "/v1/vercel-ci/task-analyses/{}/tasks",
+            crate::client::encode_path_segment(&analysis_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "list_vercel_ci_task_analysis_tasks",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
 }

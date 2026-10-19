@@ -3,6 +3,55 @@
 
 use super::*;
 
+impl serde::Serialize
+    for GetSecurityFirewallConfigResponseActiveManagedRulesBotProtectionActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseActiveManagedRulesBotProtectionActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetSecurityFirewallConfigResponseActiveManagedRulesBotProtectionActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseActiveManagedRulesBotProtection {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<GetSecurityFirewallConfigResponseActiveManagedRulesBotProtectionActionEnum>,
+    pub active: bool,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<String>,
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
 impl GetSecurityFirewallConfigResponseActiveManagedRulesBotProtection {
     pub fn new(active: bool) -> Self {
         Self {
@@ -266,39 +315,4 @@ pub struct GetSecurityFirewallConfigResponseActiveManagedRules {
     pub traffic_sources: Option<GetSecurityFirewallConfigResponseActiveManagedRulesTrafficSources>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vercel_ruleset: Option<GetSecurityFirewallConfigResponseActiveManagedRulesVercelRuleset>,
-}
-
-impl GetSecurityFirewallConfigResponseActiveManagedRules {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            ai_bots: None,
-            bot_protection: None,
-            owasp: None,
-            traffic_sources: None,
-            vercel_ruleset: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
-{
-    #[default]
-    Eq,
-    Ex,
-    Gt,
-    Gte,
-    Inc,
-    List,
-    Lt,
-    Lte,
-    Neq,
-    Nex,
-    Ninc,
-    Pre,
-    Re,
-    Sub,
-    Suf,
-    Unknown(String),
 }

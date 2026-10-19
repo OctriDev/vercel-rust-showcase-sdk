@@ -3,296 +3,282 @@
 
 use super::*;
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum::BlobReadWriteToken => {
-                f.write_str("blob-read-write-token")
-            }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AddProjectDomainResponse {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verification: Option<Vec<AddProjectDomainResponseVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
+}
+
+impl AddProjectDomainResponse {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
+        }
+    }
+}
+
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct MoveProjectDomainResponseVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl MoveProjectDomainResponseVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            reason,
+            type_,
+            value,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant4 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
+pub struct MoveProjectDomainResponse {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verification: Option<Vec<MoveProjectDomainResponseVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
 }
 
-impl RemoveProjectEnvResponseVariant1ContentHintVariant4 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    #[serde(rename = "blob-store-id")]
-    #[default]
-    BlobStoreId,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobStoreId => "blob-store-id",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum::BlobStoreId => {
-                f.write_str("blob-store-id")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant5 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant5 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
-    #[serde(rename = "blob-webhook-public-key")]
-    #[default]
-    BlobWebhookPublicKey,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobWebhookPublicKey => "blob-webhook-public-key",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum::BlobWebhookPublicKey => {
-                f.write_str("blob-webhook-public-key")
-            }
+impl MoveProjectDomainResponse {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant6 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum,
+pub struct VerifyProjectDomainResponse {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
 }
 
-impl RemoveProjectEnvResponseVariant1ContentHintVariant6 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant6TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum {
-    #[serde(rename = "postgres-url")]
-    #[default]
-    PostgresUrl,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrl => "postgres-url",
+impl VerifyProjectDomainResponse {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verified,
         }
     }
 }
 
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum {
+/// The type of environment variable
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvVariant0TypeEnum {
+    #[default]
+    System,
+    Encrypted,
+    Plain,
+    Sensitive,
+    Unknown(String),
+}
+
+impl CreateProjectEnvVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Sensitive => "sensitive",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvVariant0TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvVariant0TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "system" => Self::System,
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "sensitive" => Self::Sensitive,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectEnvVariant0TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum::PostgresUrl => {
-                f.write_str("postgres-url")
-            }
-        }
+        f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant7 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant7 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant7TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum {
-    #[serde(rename = "postgres-url-non-pooling")]
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvVariant0TargetItemEnum {
     #[default]
-    PostgresUrlNonPooling,
+    Production,
+    Preview,
+    Development,
+    Unknown(String),
 }
 
-impl RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum {
+impl CreateProjectEnvVariant0TargetItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::PostgresUrlNonPooling => "postgres-url-non-pooling",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum::PostgresUrlNonPooling => {
-                f.write_str("postgres-url-non-pooling")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant8 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant8 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant8TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum {
-    #[serde(rename = "postgres-prisma-url")]
-    #[default]
-    PostgresPrismaUrl,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPrismaUrl => "postgres-prisma-url",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum::PostgresPrismaUrl => {
-                f.write_str("postgres-prisma-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant9 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant9 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant9TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum {
-    #[serde(rename = "postgres-user")]
-    #[default]
-    PostgresUser,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUser => "postgres-user",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum::PostgresUser => {
-                f.write_str("postgres-user")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseVariant1ContentHintVariant10 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant10 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseVariant1ContentHintVariant10TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseVariant1ContentHintVariant11TypeEnum {
-    #[serde(rename = "postgres-host")]
-    #[default]
-    PostgresHost,
-}
-
-impl RemoveProjectEnvResponseVariant1ContentHintVariant11TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresHost => "postgres-host",
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }

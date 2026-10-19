@@ -3,79 +3,93 @@
 
 use super::*;
 
-impl UploadProjectAvatarResponseTargetsValue {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<UploadProjectAvatarResponseTargetsValueCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: UploadProjectAvatarResponseTargetsValuePlanEnum,
-        private: bool,
-        ready_state: UploadProjectAvatarResponseTargetsValueReadyStateEnum,
-        type_: UploadProjectAvatarResponseTargetsValueTypeEnum,
-        url: String,
-    ) -> Self {
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gate: Option<UploadProjectAvatarResponseRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages: Option<Option<Vec<UploadProjectAvatarResponseRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
+}
+
+impl UploadProjectAvatarResponseRollingRelease {
+    pub fn new(target: String) -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTierEnum {
+pub enum UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     #[default]
-    Priority,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTierEnum {
+impl UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Priority => "priority",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseTierEnum {
+impl serde::Serialize for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -84,94 +98,96 @@ impl serde::Serialize for UploadProjectAvatarResponseTierEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTierEnum {
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "priority" => Self::Priority,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseTierEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
-    #[default]
-    External,
-    Internal,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::External => "external",
-            Self::Internal => "internal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "external" => Self::External,
-            "internal" => Self::Internal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+pub enum UploadProjectAvatarResponseSandboxRegionEnum {
     #[default]
-    Preview,
-    Production,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl UploadProjectAvatarResponseSandboxRegionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl serde::Serialize for UploadProjectAvatarResponseSandboxRegionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -180,89 +196,78 @@ impl serde::Serialize for UploadProjectAvatarResponseTracingSamplingRulesItemEnv
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSandboxRegionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseSandboxRegionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTracingSamplingRulesItem {
-    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+pub struct UploadProjectAvatarResponseSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions: Option<Vec<UploadProjectAvatarResponseSandboxFailoverRegionsItemEnum>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub destination: Option<UploadProjectAvatarResponseTracingSamplingRulesItemDestinationEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<UploadProjectAvatarResponseTracingSamplingRulesItemEnvEnum>,
-    pub rate: f64,
-    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
-    pub request_path: Option<String>,
+    pub region: Option<UploadProjectAvatarResponseSandboxRegionEnum>,
 }
 
-impl UploadProjectAvatarResponseTracingSamplingRulesItem {
-    pub fn new(rate: f64) -> Self {
-        Self {
-            destination: None,
-            env: None,
-            rate,
-            request_path: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTracing {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<String>,
-    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
-    pub ignore_paths: Option<Vec<String>>,
-    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
-    pub sampling_rules: Option<Vec<UploadProjectAvatarResponseTracingSamplingRulesItem>>,
-}
-
-impl UploadProjectAvatarResponseTracing {
+impl UploadProjectAvatarResponseSandbox {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            domains: None,
-            ignore_paths: None,
-            sampling_rules: None,
+            failover_regions: None,
+            region: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+pub enum UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
     #[default]
-    AllCustom,
+    Unknown2,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+impl UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Unknown2 => "*",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl serde::Serialize for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -271,44 +276,21 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "*" => Self::Unknown2,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl std::fmt::Display for UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset:
-        Option<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
     }
 }

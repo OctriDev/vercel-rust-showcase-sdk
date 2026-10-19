@@ -117,6 +117,20 @@ impl<'de> serde::Deserialize<'de> for RegistrantFieldVariant0RequiredWhen {
     }
 }
 
+impl ::std::convert::From<String> for RegistrantFieldVariant0RequiredWhen {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<RegistrantFieldVariant0RequiredWhenVariant1>>
+    for RegistrantFieldVariant0RequiredWhen
+{
+    fn from(value: Box<RegistrantFieldVariant0RequiredWhenVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum RegistrantFieldVariant0TypeEnum {
     #[serde(rename = "string")]
@@ -238,6 +252,20 @@ impl<'de> serde::Deserialize<'de> for RegistrantFieldVariant1RequiredWhen {
                 "no RegistrantFieldVariant1RequiredWhen branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for RegistrantFieldVariant1RequiredWhen {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<RegistrantFieldVariant1RequiredWhenVariant1>>
+    for RegistrantFieldVariant1RequiredWhen
+{
+    fn from(value: Box<RegistrantFieldVariant1RequiredWhenVariant1>) -> Self {
+        Self::Object(value)
     }
 }
 
@@ -365,6 +393,20 @@ impl<'de> serde::Deserialize<'de> for RegistrantFieldVariant2RequiredWhen {
     }
 }
 
+impl ::std::convert::From<String> for RegistrantFieldVariant2RequiredWhen {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<RegistrantFieldVariant2RequiredWhenVariant1>>
+    for RegistrantFieldVariant2RequiredWhen
+{
+    fn from(value: Box<RegistrantFieldVariant2RequiredWhenVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum RegistrantFieldVariant2TypeEnum {
     #[serde(rename = "acknowledgement")]
@@ -468,6 +510,20 @@ impl<'de> serde::Deserialize<'de> for RegistrantFieldVariant3RequiredWhen {
     }
 }
 
+impl ::std::convert::From<String> for RegistrantFieldVariant3RequiredWhen {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<RegistrantFieldVariant3RequiredWhenVariant1>>
+    for RegistrantFieldVariant3RequiredWhen
+{
+    fn from(value: Box<RegistrantFieldVariant3RequiredWhenVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum RegistrantFieldVariant3TypeEnum {
     #[serde(rename = "notice")]
@@ -489,44 +545,4 @@ impl std::fmt::Display for RegistrantFieldVariant3TypeEnum {
             RegistrantFieldVariant3TypeEnum::Notice => f.write_str("notice"),
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RegistrantFieldVariant3 {
-    pub description: String,
-    pub required: bool,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub validation: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub required_when: Option<RegistrantFieldVariant3RequiredWhen>,
-    #[serde(rename = "type")]
-    pub type_: RegistrantFieldVariant3TypeEnum,
-}
-
-impl RegistrantFieldVariant3 {
-    pub fn new(
-        description: String,
-        required: bool,
-        type_: RegistrantFieldVariant3TypeEnum,
-    ) -> Self {
-        Self {
-            description,
-            required,
-            label: None,
-            validation: None,
-            required_when: None,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum RegistrantField {
-    String(Box<RegistrantFieldVariant0>),
-    Enum(Box<RegistrantFieldVariant1>),
-    Acknowledgement(Box<RegistrantFieldVariant2>),
-    Notice(Box<RegistrantFieldVariant3>),
 }

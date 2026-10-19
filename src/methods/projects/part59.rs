@@ -2,9 +2,195 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::Pagination;
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2Pagination {
+    Object(Box<ListProjectsResponseVariant2PaginationVariant0>),
+    Pagination(Box<Pagination>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2Pagination {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2PaginationVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<Pagination>>(value.clone()) {
+            let candidate = Self::Pagination(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no ListProjectsResponseVariant2Pagination branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2PaginationVariant0>>
+    for ListProjectsResponseVariant2Pagination
+{
+    fn from(value: Box<ListProjectsResponseVariant2PaginationVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<Pagination>> for ListProjectsResponseVariant2Pagination {
+    fn from(value: Box<Pagination>) -> Self {
+        Self::Pagination(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
+    #[default]
+    A,
+    Cname,
+    Dns01,
+    Http,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::A => "A",
+            Self::Cname => "CNAME",
+            Self::Dns01 => "dns-01",
+            Self::Http => "http",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "A" => Self::A,
+            "CNAME" => Self::Cname,
+            "dns-01" => Self::Dns01,
+            "http" => Self::Http,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64>
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasAssigned
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
 
 impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksStateEnum
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -15,7 +201,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksStateEnum
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -23,16 +209,16 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksStateEnum
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -40,162 +226,67 @@ impl std::fmt::Display
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcher {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        pattern: String,
+        type_: ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBranchMatcherTypeEnum,
     ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentBuildsItem {
+    pub fn new(use_: String) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            dest: None,
+            src: None,
+            use_,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentPlanEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentPlanEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentPlanEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
     Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
+    Failed,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadyStateEnum {
+impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadyStateEnum
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -206,7 +297,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadyStateEnum
+    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentChecksConclusionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -214,94 +305,11 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadyStateEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadySubstateEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadySubstateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentReadySubstateEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemAliasItemDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

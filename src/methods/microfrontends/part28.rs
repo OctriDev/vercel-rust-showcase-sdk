@@ -3,92 +3,98 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
+impl GetMicrofrontendsInGroupResponseProjectsItemStaticIps {
+    pub fn new(builds: bool, enabled: bool, regions: Vec<String>) -> Self {
+        Self {
+            builds,
+            enabled,
+            regions,
         }
     }
 }
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned {
+    Number(f64),
+    Bool(bool),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned
 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned branch accepts this payload"))
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<f64>
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
+impl ::std::convert::From<bool>
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum {
     #[default]
-    Promoted,
-    Rolling,
-    Staged,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -99,7 +105,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -107,16 +113,113 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBuildsItem {
+    pub fn new(use_: String) -> Self {
+        Self {
+            dest: None,
+            src: None,
+            use_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
+    Unknown(String),
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -124,22 +227,26 @@ impl std::fmt::Display
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum {
     #[default]
-    Lambdas,
+    Completed,
+    Registered,
+    Running,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Lambdas => "LAMBDAS",
+            Self::Completed => "completed",
+            Self::Registered => "registered",
+            Self::Running => "running",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum {
+impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -149,7 +256,7 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemTargetsVal
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -157,132 +264,39 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
+            "completed" => Self::Completed,
+            "registered" => Self::Registered,
+            "running" => Self::Running,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum {
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTargetsValue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
-    #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned:
-        Option<Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error:
-        Option<Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueOidcTokenClaims>,
-    pub plan: GetMicrofrontendsInGroupResponseProjectsItemTargetsValuePlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemTargetsValueReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: GetMicrofrontendsInGroupResponseProjectsItemTargetsValueTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTargetsValueCreator {
+    pub email: String,
+    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
+    pub github_login: Option<String>,
+    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
+    pub gitlab_login: Option<String>,
+    pub uid: String,
+    pub username: String,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTargetsValueCreator {
+    pub fn new(email: String, uid: String, username: String) -> Self {
+        Self {
+            email,
+            github_login: None,
+            gitlab_login: None,
+            uid,
+            username,
+        }
+    }
 }

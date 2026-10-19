@@ -3,154 +3,77 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub preset: UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub fn new(
-        preset: UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo {
-    AllCustom(Box<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>),
-    AllCustom2(Box<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>),
+pub enum UploadProjectAvatarResponseSecurityLogHeaders {
+    StringArray(Vec<String>),
+    Literal(UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum),
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo
-{
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSecurityLogHeaders {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
+            UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum,
         >(value.clone())
         {
-            let candidate = Self::AllCustom2(branch);
+            let candidate = Self::Literal(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no UploadProjectAvatarResponseSecurityLogHeaders branch accepts this payload",
+            )
+        })
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItem {
-    pub to: UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo,
-    pub claims: std::collections::HashMap<String, Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
+impl ::std::convert::From<Vec<String>> for UploadProjectAvatarResponseSecurityLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItem {
-    pub fn new(
-        to: UploadProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo,
-        claims: std::collections::HashMap<String, Vec<String>>,
-    ) -> Self {
-        Self {
-            to,
-            claims,
-            label: None,
-        }
+impl ::std::convert::From<UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum>
+    for UploadProjectAvatarResponseSecurityLogHeaders
+{
+    fn from(value: UploadProjectAvatarResponseSecurityLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
+pub enum UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
     #[default]
-    AllCustom,
+    Challenge,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
+impl UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
+impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -160,7 +83,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+    for UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -168,60 +91,57 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
+impl std::fmt::Display for UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The source envs on the trusted project that are allowed to access `to`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+pub struct UploadProjectAvatarResponseSecurityManagedRulesAiBots {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<
-        UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum,
-    >,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
+    pub action: Option<UploadProjectAvatarResponseSecurityManagedRulesAiBotsActionEnum>,
+    pub active: bool,
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
+impl UploadProjectAvatarResponseSecurityManagedRulesAiBots {
+    pub fn new(active: bool) -> Self {
         Self {
-            preset: None,
-            slugs,
+            action: None,
+            active,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
+pub enum UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
     #[default]
-    AllCustom,
+    Challenge,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
+impl UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
+impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -231,7 +151,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+    for UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -239,94 +159,146 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
+impl std::fmt::Display for UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The source envs on the trusted project that are allowed to access `to`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
-    pub preset:
-        UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+pub struct UploadProjectAvatarResponseSecurityManagedRulesBotFilter {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
+    pub action: Option<UploadProjectAvatarResponseSecurityManagedRulesBotFilterActionEnum>,
+    pub active: bool,
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
-    pub fn new(
-        preset: UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    ) -> Self {
+impl UploadProjectAvatarResponseSecurityManagedRulesBotFilter {
+    pub fn new(active: bool) -> Self {
         Self {
-            preset,
-            slugs: None,
+            action: None,
+            active,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom {
-    AllCustom(
-        Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
-    ),
-    AllCustom2(
-        Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+pub enum UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
     #[default]
-    AllCustom,
+    Challenge,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+impl UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseSecurityManagedRulesOwasp {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UploadProjectAvatarResponseSecurityManagedRulesOwaspActionEnum>,
+    pub active: bool,
+}
+
+impl UploadProjectAvatarResponseSecurityManagedRulesOwasp {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseSecurityManagedRulesTrafficSourcesActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
     }
 }

@@ -3,288 +3,298 @@
 
 use super::*;
 
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant7TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrl => "postgres-url",
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTargetsValueBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseTargetsValueBranchMatcherTypeEnum,
+}
+
+impl DeleteProjectAvatarResponseTargetsValueBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: DeleteProjectAvatarResponseTargetsValueBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTargetsValueBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl DeleteProjectAvatarResponseTargetsValueBuildsItem {
+    pub fn new(use_: String) -> Self {
+        Self {
+            dest: None,
+            src: None,
+            use_,
         }
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant7TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum {
+    pub fn as_str(&self) -> &str {
         match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant7TypeEnum::PostgresUrl => {
-                f.write_str("postgres-url")
-            }
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTargetsValueChecksStateEnum {
+    #[default]
+    Completed,
+    Registered,
+    Running,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseTargetsValueChecksStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Completed => "completed",
+            Self::Registered => "registered",
+            Self::Running => "running",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueChecksStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueChecksStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "completed" => Self::Completed,
+            "registered" => Self::Registered,
+            "running" => Self::Running,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueChecksStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTargetsValueCreator {
+    pub email: String,
+    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
+    pub github_login: Option<String>,
+    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
+    pub gitlab_login: Option<String>,
+    pub uid: String,
+    pub username: String,
+}
+
+impl DeleteProjectAvatarResponseTargetsValueCreator {
+    pub fn new(email: String, uid: String, username: String) -> Self {
+        Self {
+            email,
+            github_login: None,
+            gitlab_login: None,
+            uid,
+            username,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant7 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant7TypeEnum,
+pub struct DeleteProjectAvatarResponseTargetsValueOidcTokenClaims {
+    pub aud: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_environment_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deployment_id: Option<String>,
+    pub environment: String,
+    pub iss: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mfe_group_ids: Option<Vec<String>>,
+    pub owner: String,
+    pub owner_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub plan: Option<String>,
+    pub project: String,
+    pub project_id: String,
+    pub scope: String,
+    pub sub: String,
 }
 
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant7 {
+impl DeleteProjectAvatarResponseTargetsValueOidcTokenClaims {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant7TypeEnum,
+        aud: String,
+        environment: String,
+        iss: String,
+        owner: String,
+        owner_id: String,
+        project: String,
+        project_id: String,
+        scope: String,
+        sub: String,
     ) -> Self {
-        Self { store_id, type_ }
+        Self {
+            aud,
+            custom_environment_id: None,
+            deployment_id: None,
+            environment,
+            iss,
+            mfe_group_ids: None,
+            owner,
+            owner_id,
+            plan: None,
+            project,
+            project_id,
+            scope,
+            sub,
+        }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum {
-    #[serde(rename = "postgres-url-non-pooling")]
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTargetsValuePlanEnum {
     #[default]
-    PostgresUrlNonPooling,
+    Enterprise,
+    Hobby,
+    Pro,
+    Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum {
+impl DeleteProjectAvatarResponseTargetsValuePlanEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::PostgresUrlNonPooling => "postgres-url-non-pooling",
+            Self::Enterprise => "enterprise",
+            Self::Hobby => "hobby",
+            Self::Pro => "pro",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValuePlanEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValuePlanEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enterprise" => Self::Enterprise,
+            "hobby" => Self::Hobby,
+            "pro" => Self::Pro,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValuePlanEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum::PostgresUrlNonPooling => f.write_str("postgres-url-non-pooling"),
-        }
+        f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant8 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant8 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant8TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum {
-    #[serde(rename = "postgres-prisma-url")]
-    #[default]
-    PostgresPrismaUrl,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPrismaUrl => "postgres-prisma-url",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum::PostgresPrismaUrl => f.write_str("postgres-prisma-url"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant9 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant9 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant9TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum {
-    #[serde(rename = "postgres-user")]
-    #[default]
-    PostgresUser,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUser => "postgres-user",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum::PostgresUser => {
-                f.write_str("postgres-user")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant10 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant10 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant10TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum {
-    #[serde(rename = "postgres-host")]
-    #[default]
-    PostgresHost,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresHost => "postgres-host",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum::PostgresHost => {
-                f.write_str("postgres-host")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant11 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant11 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant11TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum {
-    #[serde(rename = "postgres-password")]
-    #[default]
-    PostgresPassword,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPassword => "postgres-password",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum::PostgresPassword => f.write_str("postgres-password"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant12 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant12 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant12TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum {
-    #[serde(rename = "postgres-database")]
-    #[default]
-    PostgresDatabase,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresDatabase => "postgres-database",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum::PostgresDatabase => f.write_str("postgres-database"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant13 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant13 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant13TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum {
-    #[serde(rename = "postgres-url-no-ssl")]
-    #[default]
-    PostgresUrlNoSsl,
 }

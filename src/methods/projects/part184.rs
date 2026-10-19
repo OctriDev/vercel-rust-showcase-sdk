@@ -3,94 +3,203 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCronsDefinitionsItem {
-    /// A human-readable description of what this cron job does.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// The hostname that should be used.
-    pub host: String,
-    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
-    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
-    pub host_inferred: Option<bool>,
-    /// The path that should be called for the cronjob.
-    pub path: String,
-    /// The cron expression.
-    pub schedule: String,
-    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<UpdateProjectResponseCronsDefinitionsItemSourceEnum>,
-}
-
-impl UpdateProjectResponseCronsDefinitionsItem {
-    pub fn new(host: String, path: String, schedule: String) -> Self {
-        Self {
-            description: None,
-            host,
-            host_inferred: None,
-            path,
-            schedule,
-            source: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCrons {
-    pub definitions: Vec<UpdateProjectResponseCronsDefinitionsItem>,
-    /// The ID of the Deployment from which the definitions originated.
-    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
-    pub deployment_id: Option<String>,
-    /// The time the feature was disabled for this project.
-    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
-    pub disabled_at: Option<f64>,
-    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl UpdateProjectResponseCrons {
-    pub fn new(
-        definitions: Vec<UpdateProjectResponseCronsDefinitionsItem>,
-        deployment_id: Option<String>,
-        disabled_at: Option<f64>,
-        enabled_at: f64,
-        updated_at: f64,
-    ) -> Self {
-        Self {
-            definitions,
-            deployment_id,
-            disabled_at,
-            enabled_at,
-            updated_at,
-        }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl UpdateProjectSsoProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl serde::Serialize for UpdateProjectSsoProtectionDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectSsoProtectionDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectSsoProtectionDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Ensures visitors to your Preview Deployments are logged into Vercel and have a minimum of Viewer access on your team
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectSsoProtection {
+    /// Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateProjectSsoProtectionDeploymentTypeEnum,
+}
+
+impl UpdateProjectSsoProtection {
+    pub fn new(deployment_type: UpdateProjectSsoProtectionDeploymentTypeEnum) -> Self {
+        Self { deployment_type }
+    }
+}
+
+/// Specify if the Trusted IPs will apply to every Deployment Target or just Preview
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectTrustedIpsDeploymentTypeEnum {
+    #[default]
+    All,
+    Preview,
+    Production,
+    ProdDeploymentUrlsAndAllPreviews,
+    AllExceptCustomDomains,
+    Unknown(String),
+}
+
+impl UpdateProjectTrustedIpsDeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectTrustedIpsDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectTrustedIpsDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectTrustedIpsDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedIpsAddressesItem {
+    /// The IP addresses that are allowlisted. Supports IPv4 addresses and CIDR notations. IPv6 is not supported
+    pub value: String,
+    /// An optional note explaining what the IP address or subnet is used for
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+}
+
+impl UpdateProjectTrustedIpsAddressesItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.note.as_ref() {
+            crate::validation::validate_length(
+                "note",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(20),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn new(value: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { value, note: None };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Restricts access to deployments based on the incoming request IP address
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedIps {
+    /// Specify if the Trusted IPs will apply to every Deployment Target or just Preview
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateProjectTrustedIpsDeploymentTypeEnum,
+    pub addresses: Vec<UpdateProjectTrustedIpsAddressesItem>,
+}
+
+impl UpdateProjectTrustedIps {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "addresses",
+            self.addresses.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(1),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        deployment_type: UpdateProjectTrustedIpsDeploymentTypeEnum,
+        addresses: Vec<UpdateProjectTrustedIpsAddressesItem>,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            deployment_type,
+            addresses,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum {
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -100,7 +209,7 @@ impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemBranchMatch
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum
+    for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -108,147 +217,70 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl std::fmt::Display for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Configuration for matching git branches to this environment
+/// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCustomEnvironmentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-}
-
-impl UpdateProjectResponseCustomEnvironmentsItemBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: UpdateProjectResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
-    }
-}
-
-/// List of domains associated with this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCustomEnvironmentsItemDomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+pub struct UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification:
-        Option<Vec<UpdateProjectResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
+    pub slugs: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset: Option<UpdateProjectTrustedSourcesProjectsValueCustomAllowItemToPresetEnum>,
 }
 
-impl UpdateProjectResponseCustomEnvironmentsItemDomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
+impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.slugs.as_ref() {
+            crate::validation::validate_items(
+                "slugs",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(1),
+                    max: Some(10),
+                },
+            )?;
         }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            slugs: None,
+            preset: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
-/// The type of environment (production, preview, or development)
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+pub enum UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum {
     #[default]
-    Development,
-    Preview,
-    Production,
+    AllCustom,
     Unknown(String),
 }
 
-impl UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+impl serde::Serialize for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -257,56 +289,23 @@ impl serde::Serialize for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseCustomEnvironmentsItemTypeEnum {
+impl std::fmt::Display for UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-/// Internal representation of a custom environment with all required properties
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseCustomEnvironmentsItem {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<UpdateProjectResponseCustomEnvironmentsItemBranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
-    #[serde(
-        rename = "currentDeploymentAliases",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// List of domains associated with this environment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<UpdateProjectResponseCustomEnvironmentsItemDomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
-    pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseCustomEnvironmentsItemTypeEnum,
-    /// Timestamp when the environment was last updated
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
 }

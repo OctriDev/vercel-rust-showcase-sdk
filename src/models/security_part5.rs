@@ -3,6 +3,39 @@
 
 // security domain models (part 5)
 
+impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemOpEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "eq" => Self::Eq,
+            "ex" => Self::Ex,
+            "gt" => Self::Gt,
+            "gte" => Self::Gte,
+            "inc" => Self::Inc,
+            "list" => Self::List,
+            "lt" => Self::Lt,
+            "lte" => Self::Lte,
+            "neq" => Self::Neq,
+            "nex" => Self::Nex,
+            "ninc" => Self::Ninc,
+            "pre" => Self::Pre,
+            "re" => Self::Re,
+            "sub" => Self::Sub,
+            "suf" => Self::Suf,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemOpEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemTypeEnum
 {
@@ -182,6 +215,24 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemValue {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
     }
 }
 
@@ -420,55 +471,4 @@ pub enum GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum {
     TrustedSource,
     UserAgent,
     Unknown(String),
-}
-
-impl GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BotCategory => "bot_category",
-            Self::BotName => "bot_name",
-            Self::BotProtection => "bot_protection",
-            Self::BotStatus => "bot_status",
-            Self::Cookie => "cookie",
-            Self::DomainEnvironment => "domain_environment",
-            Self::Environment => "environment",
-            Self::GeoAsNumber => "geo_as_number",
-            Self::GeoCity => "geo_city",
-            Self::GeoContinent => "geo_continent",
-            Self::GeoCountry => "geo_country",
-            Self::GeoCountryRegion => "geo_country_region",
-            Self::Header => "header",
-            Self::Host => "host",
-            Self::IpAddress => "ip_address",
-            Self::Ja3Digest => "ja3_digest",
-            Self::Ja4Digest => "ja4_digest",
-            Self::Method => "method",
-            Self::Path => "path",
-            Self::Protocol => "protocol",
-            Self::Query => "query",
-            Self::RateLimitApiId => "rate_limit_api_id",
-            Self::RawPath => "raw_path",
-            Self::Region => "region",
-            Self::ResponseCode => "response_code",
-            Self::Route => "route",
-            Self::Ruleset => "ruleset",
-            Self::Scheme => "scheme",
-            Self::ServerAction => "server_action",
-            Self::SharedCondition => "shared_condition",
-            Self::TargetPath => "target_path",
-            Self::TrafficSource => "traffic_source",
-            Self::TrustedSource => "trusted_source",
-            Self::UserAgent => "user_agent",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
 }

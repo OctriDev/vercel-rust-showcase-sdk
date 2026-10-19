@@ -3,6 +3,78 @@
 
 // domains_registrar_get domain models (part 3)
 
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant2>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant2>) -> Self {
+        Self::ClientTransferProhibited(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant3>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant3>) -> Self {
+        Self::IncorrectAuthCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant4>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant4>) -> Self {
+        Self::ClaimsNoticeRequired(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant5>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant5>) -> Self {
+        Self::CannotTransferInUntil(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant6>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant6>) -> Self {
+        Self::AccountTransferRequired(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant7>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant7>) -> Self {
+        Self::PriceChange(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant8>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant8>) -> Self {
+        Self::UnavailableLegal(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant9>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant9>) -> Self {
+        Self::InvalidContact(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant10>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant10>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct GetOrderResponseDomainsItemVariant0 {
     #[serde(rename = "purchaseType")]
@@ -423,61 +495,6 @@ impl<'de> serde::Deserialize<'de> for GetOrderResponseDomainsItemVariant1ErrorVa
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
             "claims-notice-required" => Self::ClaimsNoticeRequired,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseDomainsItemVariant1ErrorVariant4CodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponseDomainsItemVariant1ErrorVariant4 {
-    pub code: GetOrderResponseDomainsItemVariant1ErrorVariant4CodeEnum,
-}
-
-impl GetOrderResponseDomainsItemVariant1ErrorVariant4 {
-    pub fn new(code: GetOrderResponseDomainsItemVariant1ErrorVariant4CodeEnum) -> Self {
-        Self { code }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetOrderResponseDomainsItemVariant1ErrorVariant5CodeEnum {
-    #[default]
-    CannotTransferInUntil,
-    Unknown(String),
-}
-
-impl GetOrderResponseDomainsItemVariant1ErrorVariant5CodeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::CannotTransferInUntil => "cannot-transfer-in-until",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetOrderResponseDomainsItemVariant1ErrorVariant5CodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseDomainsItemVariant1ErrorVariant5CodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "cannot-transfer-in-until" => Self::CannotTransferInUntil,
             _ => Self::Unknown(value),
         })
     }

@@ -3,31 +3,93 @@
 
 use super::*;
 
-impl std::fmt::Display for ListProjectsDomainsEnum70f457a0 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseRollingRelease {
+    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    #[serde(
+        rename = "canaryResponseHeader",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub canary_response_header: Option<bool>,
+    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gate: Option<UpdateMicrofrontendsResponseRollingReleaseGate>,
+    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub stages: Option<Option<Vec<UpdateMicrofrontendsResponseRollingReleaseStagesItem>>>,
+    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
+    pub target: String,
+}
+
+impl UpdateMicrofrontendsResponseRollingRelease {
+    pub fn new(target: String) -> Self {
+        Self {
+            canary_response_header: None,
+            gate: None,
+            stages: None,
+            target,
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsDomainsEnum32180855 {
+pub enum UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
     #[default]
-    False,
-    True,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl ListProjectsDomainsEnum32180855 {
+impl UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::False => "false",
-            Self::True => "true",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsDomainsEnum32180855 {
+impl serde::Serialize for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -36,45 +98,96 @@ impl serde::Serialize for ListProjectsDomainsEnum32180855 {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsDomainsEnum32180855 {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "false" => Self::False,
-            "true" => Self::True,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsDomainsEnum32180855 {
+impl std::fmt::Display for UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsDomainsEnumb6eeff4f {
+pub enum UpdateMicrofrontendsResponseSandboxRegionEnum {
     #[default]
-    Asc,
-    Desc,
+    Arn1,
+    Bom1,
+    Cdg1,
+    Cle1,
+    Cpt1,
+    Dub1,
+    Fra1,
+    Gru1,
+    Hkg1,
+    Hnd1,
+    Iad1,
+    Icn1,
+    Kix1,
+    Lhr1,
+    Pdx1,
+    Sfo1,
+    Sin1,
+    Syd1,
+    Yul1,
     Unknown(String),
 }
 
-impl ListProjectsDomainsEnumb6eeff4f {
+impl UpdateMicrofrontendsResponseSandboxRegionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Asc => "ASC",
-            Self::Desc => "DESC",
+            Self::Arn1 => "arn1",
+            Self::Bom1 => "bom1",
+            Self::Cdg1 => "cdg1",
+            Self::Cle1 => "cle1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Fra1 => "fra1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Hnd1 => "hnd1",
+            Self::Iad1 => "iad1",
+            Self::Icn1 => "icn1",
+            Self::Kix1 => "kix1",
+            Self::Lhr1 => "lhr1",
+            Self::Pdx1 => "pdx1",
+            Self::Sfo1 => "sfo1",
+            Self::Sin1 => "sin1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsDomainsEnumb6eeff4f {
+impl serde::Serialize for UpdateMicrofrontendsResponseSandboxRegionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -83,45 +196,78 @@ impl serde::Serialize for ListProjectsDomainsEnumb6eeff4f {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsDomainsEnumb6eeff4f {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSandboxRegionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "ASC" => Self::Asc,
-            "DESC" => Self::Desc,
+            "arn1" => Self::Arn1,
+            "bom1" => Self::Bom1,
+            "cdg1" => Self::Cdg1,
+            "cle1" => Self::Cle1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "fra1" => Self::Fra1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "hnd1" => Self::Hnd1,
+            "iad1" => Self::Iad1,
+            "icn1" => Self::Icn1,
+            "kix1" => Self::Kix1,
+            "lhr1" => Self::Lhr1,
+            "pdx1" => Self::Pdx1,
+            "sfo1" => Self::Sfo1,
+            "sin1" => Self::Sin1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsDomainsEnumb6eeff4f {
+impl std::fmt::Display for UpdateMicrofrontendsResponseSandboxRegionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSandbox {
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions: Option<Vec<UpdateMicrofrontendsResponseSandboxFailoverRegionsItemEnum>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<UpdateMicrofrontendsResponseSandboxRegionEnum>,
+}
+
+impl UpdateMicrofrontendsResponseSandbox {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            failover_regions: None,
+            region: None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum FilterProjectEnvsEnum {
+pub enum UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
     #[default]
-    False,
-    True,
+    Unknown2,
     Unknown(String),
 }
 
-impl FilterProjectEnvsEnum {
+impl UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::False => "false",
-            Self::True => "true",
+            Self::Unknown2 => "*",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for FilterProjectEnvsEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -130,74 +276,20 @@ impl serde::Serialize for FilterProjectEnvsEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for FilterProjectEnvsEnum {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "false" => Self::False,
-            "true" => Self::True,
+            "*" => Self::Unknown2,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for FilterProjectEnvsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditProjectEnvTypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl EditProjectEnvTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for EditProjectEnvTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for EditProjectEnvTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for EditProjectEnvTypeEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

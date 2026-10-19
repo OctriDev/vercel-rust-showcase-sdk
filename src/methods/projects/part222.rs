@@ -3,165 +3,17 @@
 
 use super::*;
 
-impl serde::Serialize for UploadProjectAvatarResponseFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseFrameworkEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseGitComments {
-    /// Whether the Vercel bot should comment on commits
-    #[serde(rename = "onCommit")]
-    pub on_commit: bool,
-    /// Whether the Vercel bot should comment on PRs
-    #[serde(rename = "onPullRequest")]
-    pub on_pull_request: bool,
-}
-
-impl UploadProjectAvatarResponseGitComments {
-    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
-        Self {
-            on_commit,
-            on_pull_request,
-        }
-    }
-}
-
-/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    /// Whether consolidated commit status is enabled.
-    pub enabled: bool,
-    /// Whether to propagate individual deployment failures to the consolidated status.
-    #[serde(rename = "propagateFailures")]
-    pub propagate_failures: bool,
-}
-
-impl UploadProjectAvatarResponseGitProviderOptionsConsolidatedGitCommitStatus {
-    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
-        Self {
-            enabled,
-            propagate_failures,
-        }
-    }
-}
-
-/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum {
-    #[default]
-    Disabled,
-    Enabled,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum {
+impl UploadProjectAvatarResponseAliasItemEnvironmentEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum {
+impl serde::Serialize for UploadProjectAvatarResponseAliasItemEnvironmentEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -170,130 +22,270 @@ impl serde::Serialize for UploadProjectAvatarResponseGitProviderOptionsCreateDep
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum
-{
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseAliasItemEnvironmentEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseAliasItemEnvironmentEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseAliasItemTargetEnum {
+    #[default]
+    Preview,
+    Production,
+    Staging,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseAliasItemTargetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "PREVIEW",
+            Self::Production => "PRODUCTION",
+            Self::Staging => "STAGING",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseAliasItemTargetEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseAliasItemTargetEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PREVIEW" => Self::Preview,
+            "PRODUCTION" => Self::Production,
+            "STAGING" => Self::Staging,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseAliasItemTargetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseGitProviderOptions {
-    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+pub struct UploadProjectAvatarResponseAliasItem {
     #[serde(
-        rename = "consolidatedGitCommitStatus",
-        skip_serializing_if = "Option::is_none"
+        rename = "configuredBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub consolidated_git_commit_status:
-        Option<UploadProjectAvatarResponseGitProviderOptionsConsolidatedGitCommitStatus>,
-    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-    #[serde(rename = "createDeployments")]
-    pub create_deployments: UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum,
-    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    pub configured_by: Option<Option<UploadProjectAvatarResponseAliasItemConfiguredByEnum>>,
     #[serde(
-        rename = "disableRepositoryDispatchEvents",
-        skip_serializing_if = "Option::is_none"
+        rename = "configuredChangedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub disable_repository_dispatch_events: Option<bool>,
-    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
-    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
-    pub git_commit_status: Option<bool>,
-    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    pub configured_changed_at: Option<Option<f64>>,
     #[serde(
-        rename = "requireVerifiedCommits",
-        skip_serializing_if = "Option::is_none"
+        rename = "createdAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub require_verified_commits: Option<bool>,
+    pub created_at: Option<Option<f64>>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub deployment: Option<UploadProjectAvatarResponseAliasItemDeployment>,
+    pub domain: String,
+    pub environment: UploadProjectAvatarResponseAliasItemEnvironmentEnum,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    pub target: UploadProjectAvatarResponseAliasItemTargetEnum,
 }
 
-impl UploadProjectAvatarResponseGitProviderOptions {
+impl UploadProjectAvatarResponseAliasItem {
     pub fn new(
-        create_deployments: UploadProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum,
+        deployment: Option<UploadProjectAvatarResponseAliasItemDeployment>,
+        domain: String,
+        environment: UploadProjectAvatarResponseAliasItemEnvironmentEnum,
+        target: UploadProjectAvatarResponseAliasItemTargetEnum,
     ) -> Self {
         Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+            configured_by: None,
+            configured_changed_at: None,
+            created_at: None,
+            deployment,
+            domain,
+            environment,
+            git_branch: None,
+            redirect: None,
+            redirect_status_code: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
+pub struct UploadProjectAvatarResponseAnalytics {
+    #[serde(
+        rename = "canceledAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub canceled_at: Option<Option<f64>>,
+    #[serde(rename = "disabledAt")]
+    pub disabled_at: f64,
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+    #[serde(
+        rename = "sampleRatePercent",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub sample_rate_percent: Option<Option<f64>>,
+    #[serde(
+        rename = "spendLimitInDollars",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub spend_limit_in_dollars: Option<Option<f64>>,
 }
 
-impl UploadProjectAvatarResponseIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
+impl UploadProjectAvatarResponseAnalytics {
+    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
         Self {
-            bucket,
-            default: None,
-            support_until: None,
+            canceled_at: None,
+            disabled_at,
+            enabled_at,
+            id,
+            paid_at: None,
+            sample_rate_percent: None,
+            spend_limit_in_dollars: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseJobsFlagdefinitionspresent {
-    pub targets: Vec<String>,
+pub struct UploadProjectAvatarResponseBlobs {
+    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
 }
 
-impl UploadProjectAvatarResponseJobsFlagdefinitionspresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl UploadProjectAvatarResponseBlobs {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            is_default_app: None,
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseJobsLint {
-    pub targets: Vec<String>,
+pub struct UploadProjectAvatarResponseConnectConfigurationsItemAws {
+    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
+    pub security_group_id: Option<String>,
+    #[serde(rename = "subnetIds")]
+    pub subnet_ids: Vec<String>,
 }
 
-impl UploadProjectAvatarResponseJobsLint {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl UploadProjectAvatarResponseConnectConfigurationsItemAws {
+    pub fn new(subnet_ids: Vec<String>) -> Self {
+        Self {
+            security_group_id: None,
+            subnet_ids,
+        }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseJobsMfeconfigpresent {
-    pub targets: Vec<String>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseConnectConfigurationsItemEnvId {
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
 }
 
-impl UploadProjectAvatarResponseJobsMfeconfigpresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl UploadProjectAvatarResponseConnectConfigurationsItemEnvId {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseJobsTypecheck {
-    pub targets: Vec<String>,
+impl serde::Serialize for UploadProjectAvatarResponseConnectConfigurationsItemEnvId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl UploadProjectAvatarResponseJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseConnectConfigurationsItemEnvId {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseConnectConfigurationsItemEnvId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

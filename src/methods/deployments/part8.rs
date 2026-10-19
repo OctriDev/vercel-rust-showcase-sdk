@@ -3,6 +3,86 @@
 
 use super::*;
 
+impl serde::Serialize for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "max" => Self::Max,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseFunctionsValueMaxDuration {
+    Number(f64),
+    Max(CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseFunctionsValueMaxDuration {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Max(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CancelDeploymentResponseFunctionsValueMaxDuration branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<f64> for CancelDeploymentResponseFunctionsValueMaxDuration {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum>
+    for CancelDeploymentResponseFunctionsValueMaxDuration
+{
+    fn from(value: CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum) -> Self {
+        Self::Max(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CancelDeploymentResponseFunctionsValue {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -220,86 +300,5 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseImagesRemotePatter
 impl std::fmt::Display for CancelDeploymentResponseImagesRemotePatternsItemProtocolEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseImagesRemotePatternsItem {
-    /// Can be literal or wildcard. Single `\*` matches a single subdomain. Double `\*\*` matches any number of subdomains.
-    pub hostname: String,
-    /// Can be literal or wildcard. Single `\*` matches a single path segment. Double `\*\*` matches any number of path segments.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pathname: Option<String>,
-    /// Can be literal port such as `8080` or empty string meaning no port.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: Option<String>,
-    /// Must be `http` or `https`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub protocol: Option<CancelDeploymentResponseImagesRemotePatternsItemProtocolEnum>,
-    /// Can be literal query string such as `?v=1` or empty string meaning no query string.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub search: Option<String>,
-}
-
-impl CancelDeploymentResponseImagesRemotePatternsItem {
-    pub fn new(hostname: String) -> Self {
-        Self {
-            hostname,
-            pathname: None,
-            port: None,
-            protocol: None,
-            search: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseImages {
-    #[serde(
-        rename = "contentDispositionType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub content_disposition_type: Option<CancelDeploymentResponseImagesContentDispositionTypeEnum>,
-    #[serde(
-        rename = "contentSecurityPolicy",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub content_security_policy: Option<String>,
-    #[serde(
-        rename = "dangerouslyAllowSVG",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub dangerously_allow_svg: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub formats: Option<Vec<CancelDeploymentResponseImagesFormatsItemEnum>>,
-    #[serde(rename = "localPatterns", skip_serializing_if = "Option::is_none")]
-    pub local_patterns: Option<Vec<CancelDeploymentResponseImagesLocalPatternsItem>>,
-    #[serde(rename = "minimumCacheTTL", skip_serializing_if = "Option::is_none")]
-    pub minimum_cache_ttl: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub qualities: Option<Vec<f64>>,
-    #[serde(rename = "remotePatterns", skip_serializing_if = "Option::is_none")]
-    pub remote_patterns: Option<Vec<CancelDeploymentResponseImagesRemotePatternsItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sizes: Option<Vec<f64>>,
-}
-
-impl CancelDeploymentResponseImages {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            content_disposition_type: None,
-            content_security_policy: None,
-            dangerously_allow_svg: None,
-            domains: None,
-            formats: None,
-            local_patterns: None,
-            minimum_cache_ttl: None,
-            qualities: None,
-            remote_patterns: None,
-            sizes: None,
-        }
     }
 }

@@ -3,25 +3,7 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
+impl serde::Serialize for UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -30,295 +12,270 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
+impl std::fmt::Display for UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub preset: UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
+pub struct UpdateProjectResponseSecurityRulesetsValueRateLimit {
+    pub algo: UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
 }
 
-impl UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
+impl UpdateProjectResponseSecurityRulesetsValueRateLimit {
     pub fn new(
-        preset: UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
+        algo: UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
     ) -> Self {
         Self {
-            preset,
-            slugs: None,
+            algo,
+            keys,
+            limit,
+            window,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseTrustedSourcesOidcProvidersValueItemTo {
-    AllCustom(Box<UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0>),
-    AllCustom2(Box<UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemTo {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesOidcProvidersValueItem {
-    pub to: UpdateProjectResponseTrustedSourcesOidcProvidersValueItemTo,
-    pub claims: std::collections::HashMap<String, Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
+pub struct UpdateProjectResponseSecurityRulesetsValueRedirect {
+    pub location: String,
+    pub permanent: bool,
 }
 
-impl UpdateProjectResponseTrustedSourcesOidcProvidersValueItem {
-    pub fn new(
-        to: UpdateProjectResponseTrustedSourcesOidcProvidersValueItemTo,
-        claims: std::collections::HashMap<String, Vec<String>>,
-    ) -> Self {
+impl UpdateProjectResponseSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
         Self {
-            to,
-            claims,
-            label: None,
+            location,
+            permanent,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The source envs on the trusted project that are allowed to access `to`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<
-        UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum,
-    >,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
+pub struct UpdateProjectResponseSecurityRulesetsValue {
+    pub action: UpdateProjectResponseSecurityRulesetsValueActionEnum,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<UpdateProjectResponseSecurityRulesetsValueLogHeaders>,
+    #[serde(
+        rename = "rateLimit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rate_limit: Option<Option<UpdateProjectResponseSecurityRulesetsValueRateLimit>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<UpdateProjectResponseSecurityRulesetsValueRedirect>>,
 }
 
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
+impl UpdateProjectResponseSecurityRulesetsValue {
+    pub fn new(action: UpdateProjectResponseSecurityRulesetsValueActionEnum) -> Self {
         Self {
-            preset: None,
-            slugs,
+            action,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
+            rate_limit: None,
+            redirect: None,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The source envs on the trusted project that are allowed to access `to`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
-    pub preset:
-        UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+pub struct UpdateProjectResponseSecurity {
+    #[serde(
+        rename = "attackModeActiveUntil",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub attack_mode_active_until: Option<Option<f64>>,
+    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
+    pub attack_mode_enabled: Option<bool>,
+    #[serde(
+        rename = "attackModeUpdatedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub attack_mode_updated_at: Option<f64>,
+    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
+    pub bot_id_enabled: Option<bool>,
+    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
+    pub firewall_bypass_ips: Option<Vec<String>>,
+    #[serde(
+        rename = "firewallConfigVersion",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_config_version: Option<f64>,
+    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
+    pub firewall_enabled: Option<bool>,
+    #[serde(
+        rename = "firewallSeawallEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_seawall_enabled: Option<bool>,
+    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub firewall_updated_at: Option<f64>,
+    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja3_enabled: Option<bool>,
+    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja4_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
+    pub log_headers: Option<UpdateProjectResponseSecurityLogHeaders>,
+    #[serde(
+        rename = "managedRules",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub managed_rules: Option<Option<UpdateProjectResponseSecurityManagedRules>>,
+    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
+    #[serde(
+        rename = "pageIntegrityEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_integrity_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rulesets:
+        Option<std::collections::HashMap<String, UpdateProjectResponseSecurityRulesetsValue>>,
 }
 
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
-    pub fn new(
-        preset: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    ) -> Self {
+impl UpdateProjectResponseSecurity {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            preset,
-            slugs: None,
+            attack_mode_active_until: None,
+            attack_mode_enabled: None,
+            attack_mode_updated_at: None,
+            bot_id_enabled: None,
+            firewall_bypass_ips: None,
+            firewall_config_version: None,
+            firewall_enabled: None,
+            firewall_seawall_enabled: None,
+            firewall_updated_at: None,
+            ja3_enabled: None,
+            ja4_enabled: None,
+            log_headers: None,
+            managed_rules: None,
+            page_integrity_enabled: None,
+            rulesets: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom {
-    AllCustom(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>),
-    AllCustom2(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom branch accepts this payload"))
-    }
-}
-
+/// Framework slug, when the service has one (omitted otherwise).
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+pub enum UpdateProjectResponseServicesItemFrameworkEnum {
     #[default]
-    AllCustom,
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
     Unknown(String),
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

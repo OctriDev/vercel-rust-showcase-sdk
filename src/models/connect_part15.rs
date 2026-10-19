@@ -3,6 +3,25 @@
 
 // connect domain models (part 15)
 
+impl ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Global => "global",
+            Self::Message => "message",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de>
     for ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum
 {
@@ -529,25 +548,4 @@ pub struct ConnectConnectorUpdatedByVariant1 {
     /// Principal kind.
     #[serde(rename = "type")]
     pub type_: ConnectConnectorUpdatedByVariant1TypeEnum,
-}
-
-impl ConnectConnectorUpdatedByVariant1 {
-    pub fn new(
-        environment: ConnectConnectorUpdatedByVariant1Environment,
-        id: String,
-        type_: ConnectConnectorUpdatedByVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            environment,
-            id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ConnectConnectorUpdatedBy {
-    User(Box<ConnectConnectorUpdatedByVariant0>),
-    Project(Box<ConnectConnectorUpdatedByVariant1>),
 }

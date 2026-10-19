@@ -3,6 +3,280 @@
 
 use super::*;
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemTargetsValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned:
+        Option<Option<ListProjectsResponseVariant1ProjectsItemTargetsValueAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<ListProjectsResponseVariant1ProjectsItemTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<ListProjectsResponseVariant1ProjectsItemTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<ListProjectsResponseVariant1ProjectsItemTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion:
+        Option<ListProjectsResponseVariant1ProjectsItemTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<ListProjectsResponseVariant1ProjectsItemTargetsValueChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<ListProjectsResponseVariant1ProjectsItemTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims:
+        Option<ListProjectsResponseVariant1ProjectsItemTargetsValueOidcTokenClaims>,
+    pub plan: ListProjectsResponseVariant1ProjectsItemTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: ListProjectsResponseVariant1ProjectsItemTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate:
+        Option<ListProjectsResponseVariant1ProjectsItemTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemTargetsValue {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        created_in: String,
+        creator: Option<ListProjectsResponseVariant1ProjectsItemTargetsValueCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: ListProjectsResponseVariant1ProjectsItemTargetsValuePlanEnum,
+        private: bool,
+        ready_state: ListProjectsResponseVariant1ProjectsItemTargetsValueReadyStateEnum,
+        type_: ListProjectsResponseVariant1ProjectsItemTargetsValueTypeEnum,
+        url: String,
+    ) -> Self {
+        Self {
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemTierEnum {
+    #[default]
+    Priority,
+    Unknown(String),
+}
+
 impl ListProjectsResponseVariant1ProjectsItemTierEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -37,275 +311,5 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemTi
 impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTierEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl
-    ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl
-    ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub preset: ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub fn new(
-        preset: ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemTo {
-    AllCustom(
-        Box<ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>,
-    ),
-    AllCustom2(
-        Box<ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemTo
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>>(value.clone()) {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>>(value.clone()) {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItem {
-    pub to: ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemTo,
-    pub claims: std::collections::HashMap<String, Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItem {
-    pub fn new(
-        to: ListProjectsResponseVariant1ProjectsItemTrustedSourcesOidcProvidersValueItemTo,
-        claims: std::collections::HashMap<String, Vec<String>>,
-    ) -> Self {
-        Self {
-            to,
-            claims,
-            label: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The source envs on the trusted project that are allowed to access `to`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl
-    ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0
-{
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

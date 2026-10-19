@@ -5,7 +5,138 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_length, LengthOpts};
+
+impl serde::Serialize for CreateSharedEnvVariableTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateSharedEnvVariableTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "encrypted" => Self::Encrypted,
+            "sensitive" => Self::Sensitive,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateSharedEnvVariableTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct CreateSharedEnvVariableParams {
+    pub evs: Vec<CreateSharedEnvVariableEvsItem>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub type_: Option<CreateSharedEnvVariableTypeEnum>,
+    pub target: Option<Vec<CreateSharedEnvVariableTargetItemEnum>>,
+    pub project_id: Option<Vec<String>>,
+}
+
+/// Creates one or more shared environment variables for a team. Provide between 1 and 50 entries in `evs`, each with a `key` and `value`, and specify at least one target or custom-environment scope. A 201 response reports which entries were created and which failed.
+///
+/// Creates shared environment variable(s) for a team.
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `type_` - The type of environment variable
+/// * `target` - The target environment of the Shared Environment Variable
+/// * `project_id` - Associate a Shared Environment Variable to projects.
+pub fn create_shared_env_variable(
+    config: &ClientConfig,
+    params: CreateSharedEnvVariableParams,
+    options: Option<&RequestOptions>,
+) -> Result<CreateSharedEnvVariableResponse, SdkError> {
+    let CreateSharedEnvVariableParams {
+        evs,
+        team_id,
+        slug,
+        type_,
+        target,
+        project_id,
+    } = params;
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "evs".to_string(),
+        serde_json::to_value(evs).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = type_ {
+        __body_map.insert(
+            "type".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = target {
+        __body_map.insert(
+            "target".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = project_id {
+        __body_map.insert(
+            "projectId".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<CreateSharedEnvVariableResponse>(
+        "POST",
+        "/v1/env",
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "create_shared_env_variable",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct ListSharedEnvVariableParams {
@@ -278,234 +409,6 @@ pub fn unlink_shared_env_variable(
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "unlink_shared_env_variable",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct CreateCustomEnvironmentParams {
-    pub id_or_name: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub slug_2: Option<String>,
-    pub description: Option<String>,
-    pub branch_matcher: Option<CreateCustomEnvironmentBranchMatcher>,
-    pub copy_env_vars_from: Option<String>,
-}
-
-/// Creates a custom environment for a project. Provide a `slug` and, if needed, a `description`, branch-matching configuration, or source for copied environment variables. The environment cannot be named Production or Preview.
-///
-/// Creates a custom environment for the current project. Cannot be named 'Production' or 'Preview'.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `slug_2` - The slug of the custom environment to create.
-/// * `description` - Description of the custom environment. This is optional.
-/// * `branch_matcher` - How we want to determine a matching branch. This is
-///   optional.
-/// * `copy_env_vars_from` - Where to copy environment variables from. This is
-///   optional.
-pub fn create_custom_environment(
-    config: &ClientConfig,
-    params: CreateCustomEnvironmentParams,
-    options: Option<&RequestOptions>,
-) -> Result<CreateCustomEnvironmentResponse, SdkError> {
-    let CreateCustomEnvironmentParams {
-        id_or_name,
-        team_id,
-        slug,
-        slug_2,
-        description,
-        branch_matcher,
-        copy_env_vars_from,
-    } = params;
-    if let Some(ref slug_2_v) = slug_2 {
-        validate_length(
-            "slug",
-            slug_2_v,
-            LengthOpts {
-                max: Some(32),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref description_v) = description {
-        validate_length(
-            "description",
-            description_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = slug_2 {
-        __body_map.insert(
-            "slug".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = description {
-        __body_map.insert(
-            "description".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = branch_matcher {
-        __body_map.insert(
-            "branchMatcher".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = copy_env_vars_from {
-        __body_map.insert(
-            "copyEnvVarsFrom".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateCustomEnvironmentResponse>(
-        "POST",
-        &format!(
-            "/v9/projects/{}/custom-environments",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_custom_environment",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists custom environments configured for a project. Use `gitBranch` to filter the results to environments associated with a specific Git branch.
-///
-/// Retrieve custom environments for the project. Must not be named 'Production' or 'Preview'.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `git_branch` - Fetch custom environments for a specific git branch
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_environment_custom(
-    config: &ClientConfig,
-    id_or_name: String,
-    git_branch: Option<String>,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ListEnvironmentCustomResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = git_branch {
-        __query.push(("gitBranch", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListEnvironmentCustomResponse>(
-        "GET",
-        &format!(
-            "/v9/projects/{}/custom-environments",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_environment_custom",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves a custom environment from a project by its identifier or slug. Use the project identifier or name together with `environmentSlugOrId` to select the environment.
-///
-/// Retrieve a custom environment for the project. Must not be named 'Production' or 'Preview'.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `environment_slug_or_id` - The unique custom environment identifier within
-///   the project
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_custom_environment(
-    config: &ClientConfig,
-    id_or_name: String,
-    environment_slug_or_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetCustomEnvironmentResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetCustomEnvironmentResponse>(
-        "GET",
-        &format!(
-            "/v9/projects/{}/custom-environments/{}",
-            crate::client::encode_path_segment(&id_or_name),
-            crate::client::encode_path_segment(&environment_slug_or_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_custom_environment",
             options,
             ..Default::default()
         },

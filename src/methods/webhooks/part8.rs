@@ -232,3 +232,15 @@ impl<'de> serde::Deserialize<'de> for GetWebhooksResponse {
         })
     }
 }
+
+impl ::std::convert::From<Vec<GetWebhooksResponseVariant0Item>> for GetWebhooksResponse {
+    fn from(value: Vec<GetWebhooksResponseVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<GetWebhooksResponseVariant1Item>> for GetWebhooksResponse {
+    fn from(value: Vec<GetWebhooksResponseVariant1Item>) -> Self {
+        Self::Variant1ItemArray(value)
+    }
+}

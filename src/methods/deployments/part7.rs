@@ -3,6 +3,29 @@
 
 use super::*;
 
+impl serde::Serialize for CancelDeploymentResponseFunctionsValueArchitectureEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseFunctionsValueArchitectureEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "arm64" => Self::Arm64,
+            "x86_64" => Self::X8664,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display for CancelDeploymentResponseFunctionsValueArchitectureEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -236,6 +259,42 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant0>,
+    > for CancelDeploymentResponseFunctionsValueExperimentalTriggersItem
+{
+    fn from(
+        value: Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant0>,
+    ) -> Self {
+        Self::QueueV1beta(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant1>,
+    > for CancelDeploymentResponseFunctionsValueExperimentalTriggersItem
+{
+    fn from(
+        value: Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant1>,
+    ) -> Self {
+        Self::QueueV2beta(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant2>,
+    > for CancelDeploymentResponseFunctionsValueExperimentalTriggersItem
+{
+    fn from(
+        value: Box<CancelDeploymentResponseFunctionsValueExperimentalTriggersItemVariant2>,
+    ) -> Self {
+        Self::ScheduleV1beta(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
     #[default]
@@ -249,71 +308,5 @@ impl CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
             Self::Max => "max",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "max" => Self::Max,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseFunctionsValueMaxDuration {
-    Number(f64),
-    Max(CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseFunctionsValueMaxDuration {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            CancelDeploymentResponseFunctionsValueMaxDurationVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Max(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CancelDeploymentResponseFunctionsValueMaxDuration branch accepts this payload",
-            )
-        })
     }
 }

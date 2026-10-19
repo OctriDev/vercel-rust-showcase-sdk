@@ -3,6 +3,158 @@
 
 use super::*;
 
+impl ::std::convert::From<String>
+    for GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    pub op: GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemOpEnum,
+    #[serde(rename = "type")]
+    pub type_: GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemTypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemValue>,
+}
+
+impl GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItem {
+    pub fn new(
+        op: GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemOpEnum,
+        type_: GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItemTypeEnum,
+    ) -> Self {
+        Self {
+            key: None,
+            neg: None,
+            op,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItem {
+    pub conditions:
+        Vec<GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItem>,
+}
+
+impl GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItem {
+    pub fn new(
+        conditions: Vec<
+            GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItemConditionsItem,
+        >,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftConditionsItem {
+    pub active: bool,
+    #[serde(rename = "conditionGroup")]
+    pub condition_group:
+        Vec<GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItem>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    pub id: String,
+    pub name: String,
+}
+
+impl GetSecurityFirewallConfigResponseDraftConditionsItem {
+    pub fn new(
+        active: bool,
+        condition_group: Vec<
+            GetSecurityFirewallConfigResponseDraftConditionsItemConditionGroupItem,
+        >,
+        id: String,
+        name: String,
+    ) -> Self {
+        Self {
+            active,
+            condition_group,
+            description: None,
+            id,
+            name,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSecurityFirewallConfigResponseDraftCrsGenActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetSecurityFirewallConfigResponseDraftCrsGenActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSecurityFirewallConfigResponseDraftCrsGenActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftCrsGenActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftCrsGenActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseDraftCrsGen {
+    pub action: GetSecurityFirewallConfigResponseDraftCrsGenActionEnum,
+    pub active: bool,
+}
+
 impl GetSecurityFirewallConfigResponseDraftCrsGen {
     pub fn new(
         action: GetSecurityFirewallConfigResponseDraftCrsGenActionEnum,
@@ -145,130 +297,6 @@ pub enum GetSecurityFirewallConfigResponseDraftCrsMaActionEnum {
 }
 
 impl GetSecurityFirewallConfigResponseDraftCrsMaActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseDraftCrsMaActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftCrsMaActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftCrsMaActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseDraftCrsMa {
-    pub action: GetSecurityFirewallConfigResponseDraftCrsMaActionEnum,
-    pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseDraftCrsMa {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseDraftCrsMaActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseDraftCrsPhp {
-    pub action: GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum,
-    pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseDraftCrsPhp {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseDraftCrsPhpActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseDraftCrsRceActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseDraftCrsRceActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Deny => "deny",

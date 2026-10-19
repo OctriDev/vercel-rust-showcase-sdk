@@ -3,343 +3,299 @@
 
 use super::*;
 
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<
-        UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum,
-    >,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub preset:
-        UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub fn new(
-        preset: UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemTo {
-    AllCustom(
-        Box<UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
-    ),
-    AllCustom2(
-        Box<UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemTo
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
-    }
-}
-
-/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub from: UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-    pub to: UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-}
-
-impl UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub fn new(
-        from: UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-        to: UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-    ) -> Self {
-        Self { from, to }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseTrustedSourcesProjectsValue {
-    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
-    pub custom_allow:
-        Option<Vec<UpdateMicrofrontendsResponseTrustedSourcesProjectsValueCustomAllowItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-}
-
-impl UpdateMicrofrontendsResponseTrustedSourcesProjectsValue {
+impl UpdateMicrofrontendsResponsePermissions {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            custom_allow: None,
-            label: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseTrustedSources {
-    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
-    #[serde(
-        rename = "enableVercelCiSameRepository",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_vercel_ci_same_repository: Option<bool>,
-    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
-    pub oidc_providers: Option<
-        std::collections::HashMap<
-            String,
-            Vec<UpdateMicrofrontendsResponseTrustedSourcesOidcProvidersValueItem>,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub projects: Option<
-        std::collections::HashMap<String, UpdateMicrofrontendsResponseTrustedSourcesProjectsValue>,
-    >,
-}
-
-impl UpdateMicrofrontendsResponseTrustedSources {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enable_vercel_ci_same_repository: None,
-            oidc_providers: None,
-            projects: None,
-        }
-    }
-}
-
-/// Billing mode. Always 'flat' for flat-rate projects.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseUsageStatusKindEnum {
-    #[default]
-    Flat,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseUsageStatusKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Flat => "flat",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseUsageStatusKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseUsageStatusKindEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flat" => Self::Flat,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseUsageStatusKindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseUsageStatus {
-    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
-    #[serde(
-        rename = "bypassThrottleUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bypass_throttle_until: Option<f64>,
-    /// Timestamp until which the project has exceeded its CDN allowance.
-    #[serde(
-        rename = "exceededAllowanceUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub exceeded_allowance_until: Option<f64>,
-    /// Billing mode. Always 'flat' for flat-rate projects.
-    pub kind: UpdateMicrofrontendsResponseUsageStatusKindEnum,
-    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
-    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
-    pub team_throttled: Option<bool>,
-    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub throttled: Option<bool>,
-}
-
-impl UpdateMicrofrontendsResponseUsageStatus {
-    pub fn new(kind: UpdateMicrofrontendsResponseUsageStatusKindEnum) -> Self {
-        Self {
-            bypass_throttle_until: None,
-            exceeded_allowance_until: None,
-            kind,
-            team_throttled: None,
-            throttled: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseWebAnalytics {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-}
-
-impl UpdateMicrofrontendsResponseWebAnalytics {
-    pub fn new(id: String) -> Self {
-        Self {
-            canceled_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
+            access_group: None,
+            agent: None,
+            ai_gateway_api_key: None,
+            ai_gateway_api_key_bypass_all: None,
+            ai_gateway_api_key_owned_by_self: None,
+            ai_gateway_api_key_spend_attribution: None,
+            ai_gateway_api_key_zdr_exemption: None,
+            ai_gateway_budget: None,
+            ai_gateway_credits: None,
+            ai_gateway_guardrails: None,
+            ai_gateway_private_models: None,
+            ai_gateway_rules: None,
+            ai_gateway_settings: None,
+            ai_gateway_transcripts: None,
+            ai_gateway_transcripts_settings: None,
+            ai_gateway_usage: None,
+            ai_gateway_virtual_model_configs: None,
+            alert_rules: None,
+            alerts: None,
+            alias_global: None,
+            alias_project: None,
+            alias_protection_bypass: None,
+            analytics: None,
+            analytics_sampling: None,
+            analytics_usage: None,
+            api_key: None,
+            api_key_ai_gateway: None,
+            api_key_owned_by_self: None,
+            audit_log: None,
+            automation: None,
+            billing_address: None,
+            billing_information: None,
+            billing_invoice: None,
+            billing_invoice_email_recipient: None,
+            billing_invoice_language: None,
+            billing_plan: None,
+            billing_purchase_order: None,
+            billing_refund: None,
+            billing_tax_id: None,
+            blob: None,
+            blob_store_token_set: None,
+            budget: None,
+            build_machine: None,
+            build_machine_default: None,
+            bulk_redirects: None,
+            cache_artifact: None,
+            cache_artifact_usage_event: None,
+            ci_invocations: None,
+            ci_logs: None,
+            code_checks: None,
+            code_owners: None,
+            concurrent_builds: None,
+            connect: None,
+            connect_configuration: None,
+            connect_configuration_link: None,
+            connect_logs: None,
+            connex_client: None,
+            connex_client_project: None,
+            connex_contact: None,
+            connex_installation: None,
+            connex_token: None,
+            cursor_origin_installation: None,
+            data_cache_billing_settings: None,
+            data_cache_namespace: None,
+            default_deployment_protection: None,
+            deployment: None,
+            deployment_build_logs: None,
+            deployment_check: None,
+            deployment_check_preview: None,
+            deployment_check_re_run_from_production_branch: None,
+            deployment_policy: None,
+            deployment_preview: None,
+            deployment_private: None,
+            deployment_production_git: None,
+            deployment_promote: None,
+            deployment_protection_exception: None,
+            deployment_rollback: None,
+            deployment_v0: None,
+            domain: None,
+            domain_accept_delegation: None,
+            domain_auth_codes: None,
+            domain_certificate: None,
+            domain_check_config: None,
+            domain_move: None,
+            domain_purchase: None,
+            domain_record: None,
+            domain_transfer_in: None,
+            drain: None,
+            edge_cache_namespace: None,
+            edge_config: None,
+            edge_config_item: None,
+            edge_config_schema: None,
+            edge_config_token: None,
+            endpoint_verification: None,
+            environments: None,
+            event: None,
+            file_upload: None,
+            flags_explorer_subscription: None,
+            git_credential_grant: None,
+            git_repository: None,
+            image_optimization_new_price: None,
+            integration: None,
+            integration_account: None,
+            integration_configuration: None,
+            integration_configuration_projects: None,
+            integration_configuration_role: None,
+            integration_configuration_transfer: None,
+            integration_deployment_action: None,
+            integration_event: None,
+            integration_log: None,
+            integration_pull_request: None,
+            integration_resource: None,
+            integration_resource_data: None,
+            integration_resource_repl_command: None,
+            integration_resource_secrets: None,
+            integration_sso_session: None,
+            integration_store_token_set: None,
+            integration_strict: None,
+            integration_vercel_configuration_override: None,
+            ip_blocking: None,
+            job: None,
+            job_global: None,
+            kms_issuer: None,
+            kms_project_grant: None,
+            log_drain: None,
+            logs: None,
+            logs_preset: None,
+            marketplace_billing_data: None,
+            marketplace_experimentation_edge_config_data: None,
+            marketplace_experimentation_item: None,
+            marketplace_flex_commit: None,
+            marketplace_installation_member: None,
+            marketplace_invoice: None,
+            marketplace_settings: None,
+            messageboard: None,
+            messageboard_space: None,
+            messageboard_task: None,
+            monitoring: None,
+            monitoring_alert: None,
+            monitoring_chart: None,
+            monitoring_query: None,
+            monitoring_settings: None,
+            notification_customer_budget: None,
+            notification_deployment_failed: None,
+            notification_domain_configuration: None,
+            notification_domain_expire: None,
+            notification_domain_moved: None,
+            notification_domain_purchase: None,
+            notification_domain_renewal: None,
+            notification_domain_transfer: None,
+            notification_domain_unverified: None,
+            notification_monitoring_alert: None,
+            notification_payment_failed: None,
+            notification_preferences: None,
+            notification_statement_of_reasons: None,
+            notification_usage_alert: None,
+            oauth2_application: None,
+            oauth2_connection: None,
+            observability_configuration: None,
+            observability_data: None,
+            observability_funnel: None,
+            observability_notebook: None,
+            oidc_federation_policy: None,
+            on_demand_build: None,
+            on_demand_concurrency: None,
+            open_telemetry_endpoint: None,
+            options_allowlist: None,
+            organization: None,
+            organization_domain: None,
+            organization_team: None,
+            own_event: None,
+            page_integrity: None,
+            password_protection: None,
+            password_protection_invoice_item: None,
+            payment_method: None,
+            permissions: None,
+            postgres: None,
+            postgres_store_token_set: None,
+            preview_deployment_suffix: None,
+            private_cloud_account: None,
+            private_link_endpoint: None,
+            production_alias_protection_bypass: None,
+            production_shareable_link: None,
+            project: None,
+            project_access_group: None,
+            project_analytics_sampling: None,
+            project_analytics_usage: None,
+            project_check: None,
+            project_check_run: None,
+            project_deployment_expiration: None,
+            project_deployment_hook: None,
+            project_deployment_protection_strict: None,
+            project_domain: None,
+            project_domain_check_config: None,
+            project_domain_move: None,
+            project_domain_verify: None,
+            project_env_vars: None,
+            project_env_vars_production: None,
+            project_env_vars_unowned_by_integration: None,
+            project_event: None,
+            project_flags: None,
+            project_flags_production: None,
+            project_flags_sdk_key: None,
+            project_from_v0: None,
+            project_id: None,
+            project_integration_configuration: None,
+            project_link: None,
+            project_member: None,
+            project_monitoring: None,
+            project_oidc_token: None,
+            project_permissions: None,
+            project_production_branch: None,
+            project_protection_bypass: None,
+            project_rolling_release: None,
+            project_routes: None,
+            project_setting: None,
+            project_support_case: None,
+            project_support_case_comment: None,
+            project_tier: None,
+            project_transfer: None,
+            project_transfer_in: None,
+            project_transfer_out: None,
+            project_transfer_request: None,
+            project_usage: None,
+            pro_trial_onboarding: None,
+            rate_limit: None,
+            redis: None,
+            redis_store_token_set: None,
+            remote_caching: None,
+            repository: None,
+            saml_config: None,
+            schedule: None,
+            seawall_config: None,
+            secret: None,
+            security_config: None,
+            security_plus_configuration: None,
+            sensitive_environment_variable_policy: None,
+            setting: None,
+            shareable_link: None,
+            shareable_link_strict: None,
+            shared_env_var_connection: None,
+            shared_env_vars: None,
+            shared_env_vars_production: None,
+            skew_protection: None,
+            space: None,
+            space_run: None,
+            store_is_locked: None,
+            store_token_set_sensitive: None,
+            store_transfer: None,
+            support_case: None,
+            support_case_comment: None,
+            team: None,
+            team_access_request: None,
+            team_fellow_membership: None,
+            team_git_exclusivity: None,
+            team_invite: None,
+            team_invite_code: None,
+            team_invite_link: None,
+            team_join: None,
+            team_member_mfa_status: None,
+            team_microfrontends: None,
+            team_own_membership: None,
+            team_own_membership_disconnect_saml: None,
+            team_sudo: None,
+            team_token_invalidation: None,
+            token: None,
+            toolbar_comment: None,
+            trusted_ips: None,
+            trusted_sources: None,
+            usage: None,
+            usage_cycle: None,
+            user: None,
+            user_connection: None,
+            user_mfa_configuration: None,
+            user_preference: None,
+            user_sudo: None,
+            v0_chat: None,
+            vcr_repository: None,
+            vercel_app_installation: None,
+            vercel_app_installation_request: None,
+            vercel_auth: None,
+            vercel_run: None,
+            vpc_peering_connection: None,
+            web_analytics: None,
+            web_analytics_plan: None,
+            web_authn: None,
+            webhook: None,
+            webhook_event: None,
+            workflow_run_data: None,
         }
     }
 }

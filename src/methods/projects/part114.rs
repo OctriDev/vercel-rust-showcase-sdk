@@ -3,337 +3,286 @@
 
 use super::*;
 
-impl CreateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
-            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
-            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseDefaultResourceConfigBuildQueue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub configuration:
-        Option<CreateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum>,
+pub struct CreateProjectResponseAliasItem {
+    #[serde(
+        rename = "configuredBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_by: Option<Option<CreateProjectResponseAliasItemConfiguredByEnum>>,
+    #[serde(
+        rename = "configuredChangedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_changed_at: Option<Option<f64>>,
+    #[serde(
+        rename = "createdAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_at: Option<Option<f64>>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub deployment: Option<CreateProjectResponseAliasItemDeployment>,
+    pub domain: String,
+    pub environment: CreateProjectResponseAliasItemEnvironmentEnum,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    pub target: CreateProjectResponseAliasItemTargetEnum,
 }
 
-impl CreateProjectResponseDefaultResourceConfigBuildQueue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            configuration: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    #[default]
-    Performance,
-    PerformanceXl,
-    Standard,
-    StandardLegacy,
-    Unknown(String),
-}
-
-impl CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Performance => "performance",
-            Self::PerformanceXl => "performance_xl",
-            Self::Standard => "standard",
-            Self::StandardLegacy => "standard_legacy",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "performance" => Self::Performance,
-            "performance_xl" => Self::PerformanceXl,
-            "standard" => Self::Standard,
-            "standard_legacy" => Self::StandardLegacy,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    #[default]
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseDefaultResourceConfigElasticBuildMachine {
-    pub cores: f64,
-    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-    pub label: CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
-    pub memory: f64,
-}
-
-impl CreateProjectResponseDefaultResourceConfigElasticBuildMachine {
+impl CreateProjectResponseAliasItem {
     pub fn new(
-        cores: f64,
-        label: CreateProjectResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
+        deployment: Option<CreateProjectResponseAliasItemDeployment>,
+        domain: String,
+        environment: CreateProjectResponseAliasItemEnvironmentEnum,
+        target: CreateProjectResponseAliasItemTargetEnum,
     ) -> Self {
         Self {
-            cores,
-            label,
-            memory,
+            configured_by: None,
+            configured_changed_at: None,
+            created_at: None,
+            deployment,
+            domain,
+            environment,
+            git_branch: None,
+            redirect: None,
+            redirect_status_code: None,
+            target,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseDefaultResourceConfig {
+pub struct CreateProjectResponseAnalytics {
     #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
+        rename = "canceledAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub build_machine_elastic_last_updated: Option<f64>,
+    pub canceled_at: Option<Option<f64>>,
+    #[serde(rename = "disabledAt")]
+    pub disabled_at: f64,
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
     #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
+        rename = "sampleRatePercent",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub build_machine_elastic_reason:
-        Option<CreateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
+    pub sample_rate_percent: Option<Option<f64>>,
     #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
+        rename = "spendLimitInDollars",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub build_machine_elastic_transition:
-        Option<CreateProjectResponseDefaultResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<CreateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<CreateProjectResponseDefaultResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<CreateProjectResponseDefaultResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<CreateProjectResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine:
-        Option<CreateProjectResponseDefaultResourceConfigElasticBuildMachine>,
+    pub spend_limit_in_dollars: Option<Option<f64>>,
 }
 
-impl CreateProjectResponseDefaultResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
+impl CreateProjectResponseAnalytics {
+    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
         Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
+            canceled_at: None,
+            disabled_at,
+            enabled_at,
+            id,
+            paid_at: None,
+            sample_rate_percent: None,
+            spend_limit_in_dollars: None,
         }
     }
 }
 
-/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseDeploymentExpiration {
-    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
-    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
-    pub deployments_to_keep: Option<f64>,
-    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
-    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
-    pub expiration_days: Option<f64>,
-    /// Number of days to keep canceled deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysCanceled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_canceled: Option<f64>,
-    /// Number of days to keep errored deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysErrored",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_errored: Option<f64>,
-    /// Number of days to keep production deployments before soft deletion.
-    #[serde(
-        rename = "expirationDaysProduction",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expiration_days_production: Option<f64>,
+pub struct CreateProjectResponseBlobs {
+    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
 }
 
-impl CreateProjectResponseDeploymentExpiration {
+impl CreateProjectResponseBlobs {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            deployments_to_keep: None,
-            expiration_days: None,
-            expiration_days_canceled: None,
-            expiration_days_errored: None,
-            expiration_days_production: None,
+            is_default_app: None,
         }
     }
 }
 
-/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseConnectConfigurationsItemAws {
+    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
+    pub security_group_id: Option<String>,
+    #[serde(rename = "subnetIds")]
+    pub subnet_ids: Vec<String>,
+}
+
+impl CreateProjectResponseConnectConfigurationsItemAws {
+    pub fn new(subnet_ids: Vec<String>) -> Self {
+        Self {
+            security_group_id: None,
+            subnet_ids,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
+pub enum CreateProjectResponseConnectConfigurationsItemEnvId {
     #[default]
-    Cli,
-    DeployHook,
-    Git,
-    Integration,
-    RestApi,
-    V0,
+    Preview,
+    Production,
     Unknown(String),
+}
+
+impl CreateProjectResponseConnectConfigurationsItemEnvId {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseConnectConfigurationsItemEnvId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseConnectConfigurationsItemEnvId {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseConnectConfigurationsItemEnvId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseConnectConfigurationsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aws: Option<CreateProjectResponseConnectConfigurationsItemAws>,
+    #[serde(rename = "buildsEnabled")]
+    pub builds_enabled: bool,
+    #[serde(rename = "connectConfigurationId")]
+    pub connect_configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dc: Option<String>,
+    #[serde(rename = "envId")]
+    pub env_id: CreateProjectResponseConnectConfigurationsItemEnvId,
+    pub passive: bool,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl CreateProjectResponseConnectConfigurationsItem {
+    pub fn new(
+        builds_enabled: bool,
+        connect_configuration_id: String,
+        created_at: f64,
+        env_id: CreateProjectResponseConnectConfigurationsItemEnvId,
+        passive: bool,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            aws: None,
+            builds_enabled,
+            connect_configuration_id,
+            created_at,
+            dc: None,
+            env_id,
+            passive,
+            updated_at,
+        }
+    }
+}
+
+/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseCronsDefinitionsItemSourceEnum {
+    #[default]
+    Api,
+    Unknown(String),
+}
+
+impl CreateProjectResponseCronsDefinitionsItemSourceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Api => "api",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "api" => Self::Api,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }

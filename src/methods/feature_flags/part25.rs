@@ -3,169 +3,60 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListFlagVersionsResponseVersionsItem {
-    #[serde(rename = "changedEnvironments")]
-    pub changed_environments: Vec<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<String>,
-    #[serde(rename = "flagId")]
-    pub flag_id: String,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
-    pub revision: f64,
-    pub data: ListFlagVersionsResponseVersionsItemData,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<ListFlagVersionsResponseVersionsItemMetadata>,
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Variant => "variant",
+        }
+    }
 }
 
-impl ListFlagVersionsResponseVersionsItem {
-    pub fn new(
-        changed_environments: Vec<String>,
-        created_at: f64,
-        flag_id: String,
-        id: String,
-        revision: f64,
-        data: ListFlagVersionsResponseVersionsItemData,
-    ) -> Self {
-        Self {
-            changed_environments,
-            created_at,
-            created_by: None,
-            flag_id,
-            id,
-            message: None,
-            revision,
-            data,
-            metadata: None,
+impl std::fmt::Display
+    for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0TypeEnum::Variant => f.write_str("variant"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListFlagVersionsResponse {
-    pub pagination: serde_json::Value,
-    pub versions: Vec<ListFlagVersionsResponseVersionsItem>,
-}
-
-impl ListFlagVersionsResponse {
-    pub fn new(
-        pagination: serde_json::Value,
-        versions: Vec<ListFlagVersionsResponseVersionsItem>,
-    ) -> Self {
-        Self {
-            pagination,
-            versions,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFlagSettingsResponseEntitiesItemAttributesItemLabelsItem {
-    pub label: String,
-    pub value: String,
-}
-
-impl GetFlagSettingsResponseEntitiesItemAttributesItemLabelsItem {
-    pub fn new(label: String, value: String) -> Self {
-        Self { label, value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFlagSettingsResponseEntitiesItemAttributesItem {
-    pub key: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub labels: Option<Vec<GetFlagSettingsResponseEntitiesItemAttributesItemLabelsItem>>,
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0 {
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_:
+        ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0TypeEnum,
+    #[serde(rename = "variantId")]
+    pub variant_id: String,
 }
 
-impl GetFlagSettingsResponseEntitiesItemAttributesItem {
-    pub fn new(key: String, type_: String) -> Self {
-        Self {
-            key,
-            labels: None,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFlagSettingsResponseEntitiesItem {
-    pub attributes: Vec<GetFlagSettingsResponseEntitiesItemAttributesItem>,
-    pub kind: String,
-    pub label: String,
-}
-
-impl GetFlagSettingsResponseEntitiesItem {
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0 {
     pub fn new(
-        attributes: Vec<GetFlagSettingsResponseEntitiesItemAttributesItem>,
-        kind: String,
-        label: String,
+        type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant0TypeEnum,
+        variant_id: String,
     ) -> Self {
-        Self {
-            attributes,
-            kind,
-            label,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFlagSettingsResponseMetadata {
-    #[serde(rename = "activeFlagCount")]
-    pub active_flag_count: f64,
-    #[serde(rename = "archivedFlagCount")]
-    pub archived_flag_count: f64,
-    #[serde(rename = "configUpdatedAt", skip_serializing_if = "Option::is_none")]
-    pub config_updated_at: Option<f64>,
-    #[serde(rename = "packRevision", skip_serializing_if = "Option::is_none")]
-    pub pack_revision: Option<f64>,
-    #[serde(rename = "packSizeInBytes")]
-    pub pack_size_in_bytes: f64,
-    #[serde(rename = "segmentCount")]
-    pub segment_count: f64,
-}
-
-impl GetFlagSettingsResponseMetadata {
-    pub fn new(
-        active_flag_count: f64,
-        archived_flag_count: f64,
-        pack_size_in_bytes: f64,
-        segment_count: f64,
-    ) -> Self {
-        Self {
-            active_flag_count,
-            archived_flag_count,
-            config_updated_at: None,
-            pack_revision: None,
-            pack_size_in_bytes,
-            segment_count,
-        }
+        Self { type_, variant_id }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFlagSettingsResponseTypeNameEnum {
+pub enum ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum
+{
     #[default]
-    Settings,
+    Entity,
     Unknown(String),
 }
 
-impl GetFlagSettingsResponseTypeNameEnum {
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Settings => "settings",
+            Self::Entity => "entity",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetFlagSettingsResponseTypeNameEnum {
+impl serde::Serialize for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -174,210 +65,263 @@ impl serde::Serialize for GetFlagSettingsResponseTypeNameEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetFlagSettingsResponseTypeNameEnum {
+impl<'de> serde::Deserialize<'de> for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "settings" => Self::Settings,
+            "entity" => Self::Entity,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetFlagSettingsResponseTypeNameEnum {
+impl std::fmt::Display for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFlagSettingsResponse {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub enabled: bool,
-    pub entities: Vec<GetFlagSettingsResponseEntitiesItem>,
-    pub environments: Vec<String>,
-    pub metadata: GetFlagSettingsResponseMetadata,
-    #[serde(rename = "ownerId", skip_serializing_if = "Option::is_none")]
-    pub owner_id: Option<String>,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "typeName")]
-    pub type_name: GetFlagSettingsResponseTypeNameEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1Base {
+    pub attribute: String,
+    pub kind: String,
+    #[serde(rename = "type")]
+    pub type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
 }
 
-impl GetFlagSettingsResponse {
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1Base {
     pub fn new(
-        enabled: bool,
-        entities: Vec<GetFlagSettingsResponseEntitiesItem>,
-        environments: Vec<String>,
-        metadata: GetFlagSettingsResponseMetadata,
-        project_id: String,
-        type_name: GetFlagSettingsResponseTypeNameEnum,
+        attribute: String,
+        kind: String,
+        type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
     ) -> Self {
         Self {
-            created_at: None,
-            enabled,
-            entities,
-            environments,
-            metadata,
-            owner_id: None,
-            project_id,
-            type_name,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSettingsEntitiesItemAttributesItemLabelsItem {
-    pub label: String,
-    pub value: String,
-}
-
-impl UpdateFlagSettingsEntitiesItemAttributesItemLabelsItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "label",
-            &self.label,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_length(
-            "value",
-            &self.value,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(label: String, value: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { label, value };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSettingsEntitiesItemAttributesItem {
-    pub key: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub labels: Option<Vec<UpdateFlagSettingsEntitiesItemAttributesItemLabelsItem>>,
-}
-
-impl UpdateFlagSettingsEntitiesItemAttributesItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "key",
-            &self.key,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_length(
-            "type",
-            &self.type_,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        if let Some(value) = self.labels.as_ref() {
-            crate::validation::validate_items(
-                "labels",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    max: Some(256),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    pub fn new(key: String, type_: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            key,
-            type_,
-            labels: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSettingsEntitiesItem {
-    pub kind: String,
-    pub label: String,
-    pub attributes: Vec<UpdateFlagSettingsEntitiesItemAttributesItem>,
-}
-
-impl UpdateFlagSettingsEntitiesItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "kind",
-            &self.kind,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_length(
-            "label",
-            &self.label,
-            crate::validation::LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_items(
-            "attributes",
-            self.attributes.as_slice(),
-            crate::validation::LengthOpts {
-                max: Some(32),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        kind: String,
-        label: String,
-        attributes: Vec<UpdateFlagSettingsEntitiesItemAttributesItem>,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
+            attribute,
             kind,
-            label,
-            attributes,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
+    #[serde(rename = "split")]
+    #[default]
+    Split,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Split => "split",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum::Split => f.write_str("split"),
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSettingsResponseEntitiesItemAttributesItemLabelsItem {
-    pub label: String,
-    pub value: String,
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1 {
+    pub base: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1Base,
+    #[serde(rename = "defaultVariantId")]
+    pub default_variant_id: String,
+    #[serde(rename = "type")]
+    pub type_:
+        ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
+    pub weights: std::collections::HashMap<String, f64>,
 }
 
-impl UpdateFlagSettingsResponseEntitiesItemAttributesItemLabelsItem {
-    pub fn new(label: String, value: String) -> Self {
-        Self { label, value }
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1 {
+    pub fn new(
+        base: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1Base,
+        default_variant_id: String,
+        type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
+        weights: std::collections::HashMap<String, f64>,
+    ) -> Self {
+        Self {
+            base,
+            default_variant_id,
+            type_,
+            weights,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum
+{
+    #[default]
+    Entity,
+    Unknown(String),
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Entity => "entity",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "entity" => Self::Entity,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2Base {
+    pub attribute: String,
+    pub kind: String,
+    #[serde(rename = "type")]
+    pub type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2Base {
+    pub fn new(
+        attribute: String,
+        kind: String,
+        type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum,
+    ) -> Self {
+        Self {
+            attribute,
+            kind,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2SlotsItem
+{
+    #[serde(rename = "durationMs")]
+    pub duration_ms: f64,
+    pub promille: f64,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2SlotsItem {
+    pub fn new(duration_ms: f64, promille: f64) -> Self {
+        Self {
+            duration_ms,
+            promille,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum {
+    #[serde(rename = "rollout")]
+    #[default]
+    Rollout,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Rollout => "rollout",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum::Rollout => f.write_str("rollout"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2 {
+    pub base: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2Base,
+    #[serde(rename = "defaultVariantId")]
+    pub default_variant_id: String,
+    #[serde(rename = "finalPromille", skip_serializing_if = "Option::is_none")]
+    pub final_promille: Option<f64>,
+    #[serde(rename = "rollFromVariantId")]
+    pub roll_from_variant_id: String,
+    #[serde(rename = "rollToVariantId")]
+    pub roll_to_variant_id: String,
+    pub slots: Vec<
+        ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2SlotsItem,
+    >,
+    #[serde(rename = "startTimestamp")]
+    pub start_timestamp: f64,
+    #[serde(rename = "type")]
+    pub type_:
+        ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2 {
+    pub fn new(
+        base: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2Base,
+        default_variant_id: String,
+        roll_from_variant_id: String,
+        roll_to_variant_id: String,
+        slots: Vec<ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2SlotsItem>,
+        start_timestamp: f64,
+        type_: ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant2TypeEnum,
+    ) -> Self {
+        Self {
+            base,
+            default_variant_id,
+            final_promille: None,
+            roll_from_variant_id,
+            roll_to_variant_id,
+            slots,
+            start_timestamp,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant3TypeEnum {
+    #[serde(rename = "experiment")]
+    #[default]
+    Experiment,
+}
+
+impl ListFlagVersionsResponseVersionsItemDataEnvironmentsValueRulesItemOutcomeVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Experiment => "experiment",
+        }
     }
 }

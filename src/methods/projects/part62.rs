@@ -3,161 +3,275 @@
 
 use super::*;
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum::App => {
-                f.write_str("app")
-            }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemAliasItem {
+    #[serde(
+        rename = "configuredBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_by:
+        Option<Option<ListProjectsResponseVariant2ProjectsItemAliasItemConfiguredByEnum>>,
+    #[serde(
+        rename = "configuredChangedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_changed_at: Option<Option<f64>>,
+    #[serde(
+        rename = "createdAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_at: Option<Option<f64>>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub deployment: Option<ListProjectsResponseVariant2ProjectsItemAliasItemDeployment>,
+    pub domain: String,
+    pub environment: ListProjectsResponseVariant2ProjectsItemAliasItemEnvironmentEnum,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    pub target: ListProjectsResponseVariant2ProjectsItemAliasItemTargetEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemAliasItem {
+    pub fn new(
+        deployment: Option<ListProjectsResponseVariant2ProjectsItemAliasItemDeployment>,
+        domain: String,
+        environment: ListProjectsResponseVariant2ProjectsItemAliasItemEnvironmentEnum,
+        target: ListProjectsResponseVariant2ProjectsItemAliasItemTargetEnum,
+    ) -> Self {
+        Self {
+            configured_by: None,
+            configured_changed_at: None,
+            created_at: None,
+            deployment,
+            domain,
+            environment,
+            git_branch: None,
+            redirect: None,
+            redirect_status_code: None,
+            target,
         }
     }
 }
 
-/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0 {
-    pub app: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum,
+pub struct ListProjectsResponseVariant2ProjectsItemAnalytics {
+    #[serde(
+        rename = "canceledAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub canceled_at: Option<Option<f64>>,
+    #[serde(rename = "disabledAt")]
+    pub disabled_at: f64,
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+    #[serde(
+        rename = "sampleRatePercent",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub sample_rate_percent: Option<Option<f64>>,
+    #[serde(
+        rename = "spendLimitInDollars",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub spend_limit_in_dollars: Option<Option<f64>>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0 {
-    pub fn new(
-        app: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App,
-        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum,
-    ) -> Self {
-        Self { app, type_ }
+impl ListProjectsResponseVariant2ProjectsItemAnalytics {
+    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
+        Self {
+            canceled_at: None,
+            disabled_at,
+            enabled_at,
+            id,
+            paid_at: None,
+            sample_rate_percent: None,
+            spend_limit_in_dollars: None,
+        }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration {
-    #[serde(rename = "configurationId")]
-    pub configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
+pub struct ListProjectsResponseVariant2ProjectsItemBlobs {
+    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration {
-    pub fn new(configuration_id: String, integration_id: String) -> Self {
+impl ListProjectsResponseVariant2ProjectsItemBlobs {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            configuration_id,
-            integration_id,
+            is_default_app: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemAws {
+    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
+    pub security_group_id: Option<String>,
+    #[serde(rename = "subnetIds")]
+    pub subnet_ids: Vec<String>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemAws {
+    pub fn new(subnet_ids: Vec<String>) -> Self {
+        Self {
+            security_group_id: None,
+            subnet_ids,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId {
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aws: Option<ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemAws>,
+    #[serde(rename = "buildsEnabled")]
+    pub builds_enabled: bool,
+    #[serde(rename = "connectConfigurationId")]
+    pub connect_configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dc: Option<String>,
+    #[serde(rename = "envId")]
+    pub env_id: ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId,
+    pub passive: bool,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItem {
+    pub fn new(
+        builds_enabled: bool,
+        connect_configuration_id: String,
+        created_at: f64,
+        env_id: ListProjectsResponseVariant2ProjectsItemConnectConfigurationsItemEnvId,
+        passive: bool,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            aws: None,
+            builds_enabled,
+            connect_configuration_id,
+            created_at,
+            dc: None,
+            env_id,
+            passive,
+            updated_at,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum {
-    #[serde(rename = "integration")]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum {
+    #[serde(rename = "user")]
     #[default]
-    Integration,
+    User,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Integration => "integration",
+            Self::User => "user",
         }
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum::Integration => f.write_str("integration"),
-        }
-    }
-}
-
-/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1 {
-    pub integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1 {
-    pub fn new(
-        integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration,
-        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum,
-    ) -> Self {
-        Self { integration, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via {
-    App(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>),
-    Integration(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::App(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum::User => {
+                f.write_str("user")
             }
-            lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Integration(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0User {
-    pub id: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0User {
-    pub fn new(id: String) -> Self {
-        Self { id }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0 {
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub via: Option<ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via>,
-    pub user: ListProjectsResponseVariant2ProjectsItemCreatorVariant0User,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0 {
-    pub fn new(
-        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum,
-        via: Option<ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via>,
-        user: ListProjectsResponseVariant2ProjectsItemCreatorVariant0User,
-    ) -> Self {
-        Self { type_, via, user }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App {
     /// The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
     #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
     pub client_id: Option<String>,
@@ -165,7 +279,7 @@ pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
     pub id: String,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App {
     pub fn new(id: String) -> Self {
         Self {
             client_id: None,
@@ -175,137 +289,16 @@ impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum {
     #[serde(rename = "app")]
     #[default]
     App,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::App => "app",
         }
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum::App => {
-                f.write_str("app")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant1 {
-    pub app: ListProjectsResponseVariant2ProjectsItemCreatorVariant1App,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1 {
-    pub fn new(
-        app: ListProjectsResponseVariant2ProjectsItemCreatorVariant1App,
-        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum,
-    ) -> Self {
-        Self { app, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration {
-    #[serde(rename = "configurationId")]
-    pub configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration {
-    pub fn new(configuration_id: String, integration_id: String) -> Self {
-        Self {
-            configuration_id,
-            integration_id,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
-    #[serde(rename = "integration")]
-    #[default]
-    Integration,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Integration => "integration",
-        }
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum::Integration => {
-                f.write_str("integration")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant2 {
-    pub integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2 {
-    pub fn new(
-        integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration,
-        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum,
-    ) -> Self {
-        Self { integration, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
-    #[serde(rename = "system")]
-    #[default]
-    System,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::System => "system",
-        }
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum::System => {
-                f.write_str("system")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant3 {
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCreatorVariant3 {
-    pub fn new(type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum) -> Self {
-        Self { type_ }
     }
 }

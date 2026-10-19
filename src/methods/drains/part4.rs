@@ -77,6 +77,18 @@ impl<'de> serde::Deserialize<'de> for GetDrainsResponseDrains {
     }
 }
 
+impl ::std::convert::From<Vec<GetDrainsResponseDrainsVariant0Item>> for GetDrainsResponseDrains {
+    fn from(value: Vec<GetDrainsResponseDrainsVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<GetDrainsResponseDrainsVariant1Item>> for GetDrainsResponseDrains {
+    fn from(value: Vec<GetDrainsResponseDrainsVariant1Item>) -> Self {
+        Self::Variant1ItemArray(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetDrainsResponse {
     pub drains: GetDrainsResponseDrains,
@@ -258,6 +270,18 @@ impl<'de> serde::Deserialize<'de> for TestDrainResponse {
     }
 }
 
+impl ::std::convert::From<Box<TestDrainResponseVariant1>> for TestDrainResponse {
+    fn from(value: Box<TestDrainResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for TestDrainResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CreateDrainProjectsEnum {
     #[default]
@@ -274,41 +298,4 @@ impl CreateDrainProjectsEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for CreateDrainProjectsEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDrainProjectsEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "some" => Self::Some,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDrainProjectsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDrainProjectsEnum {
-    #[default]
-    All,
-    Some,
-    Unknown(String),
 }

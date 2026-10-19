@@ -3,12 +3,147 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant5ValueConditionGroupItem {
-    pub conditions: Vec<UpdateFirewallConfigVariant5ValueConditionGroupItemConditionsItem>,
+impl serde::Serialize for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemOpEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl UpdateFirewallConfigVariant5ValueConditionGroupItem {
+impl<'de> serde::Deserialize<'de>
+    for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemOpEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "re" => Self::Re,
+            "eq" => Self::Eq,
+            "neq" => Self::Neq,
+            "ex" => Self::Ex,
+            "nex" => Self::Nex,
+            "inc" => Self::Inc,
+            "ninc" => Self::Ninc,
+            "pre" => Self::Pre,
+            "suf" => Self::Suf,
+            "sub" => Self::Sub,
+            "gt" => Self::Gt,
+            "gte" => Self::Gte,
+            "lt" => Self::Lt,
+            "lte" => Self::Lte,
+            "list" => Self::List,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemOpEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue {
+    String(String),
+    StringArray(Vec<String>),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItem {
+    #[serde(rename = "type")]
+    pub type_: UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemTypeEnum,
+    pub op: UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemOpEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemValue>,
+}
+
+impl UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItem {
+    pub fn new(
+        type_: UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemTypeEnum,
+        op: UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItemOpEnum,
+    ) -> Self {
+        Self {
+            type_,
+            op,
+            neg: None,
+            key: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant4ValueConditionGroupItem {
+    pub conditions: Vec<UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItem>,
+}
+
+impl UpdateFirewallConfigVariant4ValueConditionGroupItem {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         crate::validation::validate_items(
             "conditions",
@@ -22,7 +157,7 @@ impl UpdateFirewallConfigVariant5ValueConditionGroupItem {
     }
 
     pub fn new(
-        conditions: Vec<UpdateFirewallConfigVariant5ValueConditionGroupItemConditionsItem>,
+        conditions: Vec<UpdateFirewallConfigVariant4ValueConditionGroupItemConditionsItem>,
     ) -> Result<Self, crate::errors::SdkError> {
         let value = Self { conditions };
         value.validate_constraints()?;
@@ -32,12 +167,12 @@ impl UpdateFirewallConfigVariant5ValueConditionGroupItem {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum UpdateFirewallConfigVariant5ValueValidationErrors {
+pub enum UpdateFirewallConfigVariant4ValueValidationErrors {
     StringArray(Vec<String>),
     String(String),
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant5ValueValidationErrors {
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant4ValueValidationErrors {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
@@ -57,27 +192,39 @@ impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant5ValueValidatio
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no UpdateFirewallConfigVariant5ValueValidationErrors branch accepts this payload",
+                "no UpdateFirewallConfigVariant4ValueValidationErrors branch accepts this payload",
             )
         })
     }
 }
 
+impl ::std::convert::From<Vec<String>> for UpdateFirewallConfigVariant4ValueValidationErrors {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant4ValueValidationErrors {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant5Value {
+pub struct UpdateFirewallConfigVariant4Value {
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     pub active: bool,
     #[serde(rename = "conditionGroup")]
-    pub condition_group: Vec<UpdateFirewallConfigVariant5ValueConditionGroupItem>,
+    pub condition_group: Vec<UpdateFirewallConfigVariant4ValueConditionGroupItem>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub valid: Option<bool>,
     #[serde(rename = "validationErrors", skip_serializing_if = "Option::is_none")]
-    pub validation_errors: Option<UpdateFirewallConfigVariant5ValueValidationErrors>,
+    pub validation_errors: Option<UpdateFirewallConfigVariant4ValueValidationErrors>,
 }
 
-impl UpdateFirewallConfigVariant5Value {
+impl UpdateFirewallConfigVariant4Value {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         crate::validation::validate_length(
             "name",
@@ -111,7 +258,7 @@ impl UpdateFirewallConfigVariant5Value {
     pub fn new(
         name: String,
         active: bool,
-        condition_group: Vec<UpdateFirewallConfigVariant5ValueConditionGroupItem>,
+        condition_group: Vec<UpdateFirewallConfigVariant4ValueConditionGroupItem>,
     ) -> Result<Self, crate::errors::SdkError> {
         let value = Self {
             name,
@@ -126,112 +273,45 @@ impl UpdateFirewallConfigVariant5Value {
     }
 }
 
-/// Update a named condition
+/// Add a named condition
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant5 {
-    pub action: UpdateFirewallConfigVariant5ActionEnum,
-    pub id: String,
-    pub value: UpdateFirewallConfigVariant5Value,
+pub struct UpdateFirewallConfigVariant4 {
+    pub action: UpdateFirewallConfigVariant4ActionEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    pub value: UpdateFirewallConfigVariant4Value,
 }
 
-impl UpdateFirewallConfigVariant5 {
+impl UpdateFirewallConfigVariant4 {
     pub fn new(
-        action: UpdateFirewallConfigVariant5ActionEnum,
-        id: String,
-        value: UpdateFirewallConfigVariant5Value,
-    ) -> Self {
-        Self { action, id, value }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant6ActionEnum {
-    #[default]
-    CrsDisable,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant6ActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::CrsDisable => "crs.disable",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant6ActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant6ActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "crs.disable" => Self::CrsDisable,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant6ActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Remove a named condition
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant6 {
-    pub action: UpdateFirewallConfigVariant6ActionEnum,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub id: Option<serde_json::Value>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub value: Option<Option<serde_json::Value>>,
-}
-
-impl UpdateFirewallConfigVariant6 {
-    pub fn new(
-        action: UpdateFirewallConfigVariant6ActionEnum,
-        id: Option<serde_json::Value>,
+        action: UpdateFirewallConfigVariant4ActionEnum,
+        value: UpdateFirewallConfigVariant4Value,
     ) -> Self {
         Self {
             action,
-            id,
-            value: None,
+            id: None,
+            value,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant7ActionEnum {
+pub enum UpdateFirewallConfigVariant5ActionEnum {
     #[default]
-    IpInsert,
+    CrsUpdate,
     Unknown(String),
 }
 
-impl UpdateFirewallConfigVariant7ActionEnum {
+impl UpdateFirewallConfigVariant5ActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::IpInsert => "ip.insert",
+            Self::CrsUpdate => "crs.update",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateFirewallConfigVariant7ActionEnum {
+impl serde::Serialize for UpdateFirewallConfigVariant5ActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -240,85 +320,21 @@ impl serde::Serialize for UpdateFirewallConfigVariant7ActionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant7ActionEnum {
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant5ActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "ip.insert" => Self::IpInsert,
+            "crs.update" => Self::CrsUpdate,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateFirewallConfigVariant7ActionEnum {
+impl std::fmt::Display for UpdateFirewallConfigVariant5ActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant7ValueActionEnum {
-    #[default]
-    Deny,
-    Challenge,
-    Log,
-    Allow,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant7ValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Challenge => "challenge",
-            Self::Log => "log",
-            Self::Allow => "allow",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant7ValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant7ValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "challenge" => Self::Challenge,
-            "log" => Self::Log,
-            "allow" => Self::Allow,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant7ValueActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant7Value {
-    pub action: UpdateFirewallConfigVariant7ValueActionEnum,
-}
-
-impl UpdateFirewallConfigVariant7Value {
-    pub fn new(action: UpdateFirewallConfigVariant7ValueActionEnum) -> Self {
-        Self { action }
     }
 }

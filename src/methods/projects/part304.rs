@@ -3,94 +3,7 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCronsDefinitionsItem {
-    /// A human-readable description of what this cron job does.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// The hostname that should be used.
-    pub host: String,
-    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
-    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
-    pub host_inferred: Option<bool>,
-    /// The path that should be called for the cronjob.
-    pub path: String,
-    /// The cron expression.
-    pub schedule: String,
-    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum>,
-}
-
-impl UpdateMicrofrontendsResponseCronsDefinitionsItem {
-    pub fn new(host: String, path: String, schedule: String) -> Self {
-        Self {
-            description: None,
-            host,
-            host_inferred: None,
-            path,
-            schedule,
-            source: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCrons {
-    pub definitions: Vec<UpdateMicrofrontendsResponseCronsDefinitionsItem>,
-    /// The ID of the Deployment from which the definitions originated.
-    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
-    pub deployment_id: Option<String>,
-    /// The time the feature was disabled for this project.
-    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
-    pub disabled_at: Option<f64>,
-    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl UpdateMicrofrontendsResponseCrons {
-    pub fn new(
-        definitions: Vec<UpdateMicrofrontendsResponseCronsDefinitionsItem>,
-        deployment_id: Option<String>,
-        disabled_at: Option<f64>,
-        enabled_at: f64,
-        updated_at: f64,
-    ) -> Self {
-        Self {
-            definitions,
-            deployment_id,
-            disabled_at,
-            enabled_at,
-            updated_at,
-        }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl serde::Serialize for RemoveProjectEnvResponseVariant1VisibilityEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -99,214 +12,292 @@ impl serde::Serialize for UpdateMicrofrontendsResponseCustomEnvironmentsItemBran
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum
-{
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant1VisibilityEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "config" => Self::Config,
+            "secret" => Self::Secret,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl std::fmt::Display for RemoveProjectEnvResponseVariant1VisibilityEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Configuration for matching git branches to this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-}
-
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
-    }
-}
-
-/// List of domains associated with this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
+pub struct RemoveProjectEnvResponseVariant1 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    #[serde(
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<RemoveProjectEnvResponseVariant1ContentHint>>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
     pub created_at: Option<f64>,
     #[serde(
-        rename = "customEnvironmentId",
+        rename = "createdBy",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub custom_environment_id: Option<Option<String>>,
+    pub created_by: Option<Option<String>>,
     #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification:
-        Option<Vec<UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
-}
-
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
-        }
-    }
-}
-
-/// The type of environment (production, preview, or development)
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Internal representation of a custom environment with all required properties
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseCustomEnvironmentsItem {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<UpdateMicrofrontendsResponseCustomEnvironmentsItemBranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
-    #[serde(
-        rename = "currentDeploymentAliases",
+        rename = "customEnvironmentIds",
         skip_serializing_if = "Option::is_none"
     )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
+    pub custom_environment_ids: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// List of domains associated with this environment
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<UpdateMicrofrontendsResponseCustomEnvironmentsItemDomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
-    pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint: Option<Option<RemoveProjectEnvResponseVariant1InternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub system: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<RemoveProjectEnvResponseVariant1Target>,
     #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseCustomEnvironmentsItemTypeEnum,
-    /// Timestamp when the environment was last updated
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+    pub type_: RemoveProjectEnvResponseVariant1TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<RemoveProjectEnvResponseVariant1VisibilityEnum>,
+}
+
+impl RemoveProjectEnvResponseVariant1 {
+    pub fn new(
+        key: String,
+        type_: RemoveProjectEnvResponseVariant1TypeEnum,
+        value: String,
+    ) -> Self {
+        Self {
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            system: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum {
+    #[serde(rename = "redis-url")]
+    #[default]
+    RedisUrl,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisUrl => "redis-url",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum::RedisUrl => {
+                f.write_str("redis-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant0 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant0 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant0TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum {
+    #[serde(rename = "redis-rest-api-url")]
+    #[default]
+    RedisRestApiUrl,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiUrl => "redis-rest-api-url",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum::RedisRestApiUrl => {
+                f.write_str("redis-rest-api-url")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant1 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant1 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant1TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum {
+    #[serde(rename = "redis-rest-api-token")]
+    #[default]
+    RedisRestApiToken,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiToken => "redis-rest-api-token",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum::RedisRestApiToken => {
+                f.write_str("redis-rest-api-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant2ContentHintVariant2 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant2 {
+    pub fn new(
+        store_id: String,
+        type_: RemoveProjectEnvResponseVariant2ContentHintVariant2TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum {
+    #[serde(rename = "redis-rest-api-read-only-token")]
+    #[default]
+    RedisRestApiReadOnlyToken,
+}
+
+impl RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseVariant2ContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => f.write_str("redis-rest-api-read-only-token"),
+        }
+    }
 }

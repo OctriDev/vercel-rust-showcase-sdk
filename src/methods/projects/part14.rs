@@ -203,6 +203,26 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Vec<String>>
+    for ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigateLogHeadersVariant1Enum,
+    > for ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigateLogHeaders
+{
+    fn from(
+        value: ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigateLogHeadersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigate {
     pub action: ListProjectsResponseVariant0ItemSecurityFirewallRoutesItemMitigateActionEnum,

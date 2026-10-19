@@ -32,6 +32,18 @@ impl<'de> serde::Deserialize<'de> for GitNamespacesResponseItemId {
     }
 }
 
+impl ::std::convert::From<String> for GitNamespacesResponseItemId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GitNamespacesResponseItemId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GitNamespacesResponseItemViewerRole {
@@ -62,6 +74,18 @@ impl<'de> serde::Deserialize<'de> for GitNamespacesResponseItemViewerRole {
                 "no GitNamespacesResponseItemViewerRole branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for GitNamespacesResponseItemViewerRole {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GitNamespacesResponseItemViewerRole {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -149,6 +173,18 @@ impl<'de> serde::Deserialize<'de> for SearchRepo {
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no SearchRepo branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for SearchRepo {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for SearchRepo {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -253,43 +289,4 @@ pub enum SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
     Team,
     User,
     Unknown(String),
-}
-
-impl SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Team => "team",
-            Self::User => "user",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "team" => Self::Team,
-            "user" => Self::User,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

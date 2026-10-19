@@ -3,280 +3,302 @@
 
 use super::*;
 
-/// Specifies the default region and failover regions for sandboxes created in the project
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectSandbox {
-    /// The Vercel region sandboxes in this project are created in by default.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<CreateProjectSandboxRegionEnum>,
-    /// The regions sandboxes in this project fall back to when they cannot be created in `region`.
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions: Option<Vec<CreateProjectSandboxFailoverRegionsItemEnum>>,
+impl ListProjectsResponseVariant2ProjectsItem {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        account_id: String,
+        alias: Vec<ListProjectsResponseVariant2ProjectsItemAliasItem>,
+        default_resource_config: ListProjectsResponseVariant2ProjectsItemDefaultResourceConfig,
+        deployment_expiration: ListProjectsResponseVariant2ProjectsItemDeploymentExpiration,
+        directory_listing: bool,
+        id: String,
+        name: String,
+        node_version: ListProjectsResponseVariant2ProjectsItemNodeVersionEnum,
+        resource_config: ListProjectsResponseVariant2ProjectsItemResourceConfig,
+    ) -> Self {
+        Self {
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            avatar: None,
+            avatar_dark_mode: None,
+            blobs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            concurrency_bucket_name: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            connect_configurations: None,
+            created_at: None,
+            creator: None,
+            crons: None,
+            custom_environments: None,
+            customer_support_code_visibility: None,
+            data_cache: None,
+            default_resource_config,
+            deployment_expiration,
+            deployment_policy: None,
+            dev_command: None,
+            directory_listing,
+            dismissed_toasts: None,
+            enable_affected_projects_deployments: None,
+            enable_external_rewrite_caching: None,
+            enable_preview_feedback: None,
+            enable_production_feedback: None,
+            env: None,
+            expiration: None,
+            features: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_lfs: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            has_deployments: None,
+            id,
+            install_command: None,
+            internal_routes: None,
+            ip_buckets: None,
+            jobs: None,
+            last_alias_request: None,
+            last_rollback_target: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            microfrontends: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            options_allowlist: None,
+            output_directory: None,
+            passive_connect_configuration_id: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            permissions: None,
+            production_deployments_fast_lane: None,
+            protected_sourcemaps: None,
+            protection_bypass: None,
+            protection_config: None,
+            resource_config,
+            rollback_description: None,
+            rolling_release: None,
+            root_directory: None,
+            sandbox: None,
+            security: None,
+            serverless_function_zero_config_failover: None,
+            services: None,
+            skew_protection_allowed_domains: None,
+            skew_protection_boundary_at: None,
+            skew_protection_max_age: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            static_ips: None,
+            targets: None,
+            tier: None,
+            tracing: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_ips: None,
+            trusted_sources: None,
+            updated_at: None,
+            usage_status: None,
+            v0: None,
+            v0_created: None,
+            web_analytics: None,
+        }
+    }
 }
 
-impl CreateProjectSandbox {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.failover_regions.as_ref() {
-            crate::validation::validate_items(
-                "failoverRegions",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    max: Some(19),
-                    ..Default::default()
-                },
-            )?;
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2 {
+    pub pagination: ListProjectsResponseVariant2Pagination,
+    pub projects: Vec<ListProjectsResponseVariant2ProjectsItem>,
+}
+
+impl ListProjectsResponseVariant2 {
+    pub fn new(
+        pagination: ListProjectsResponseVariant2Pagination,
+        projects: Vec<ListProjectsResponseVariant2ProjectsItem>,
+    ) -> Self {
+        Self {
+            pagination,
+            projects,
         }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponse {
+    Variant0ItemArray(Vec<ListProjectsResponseVariant0Item>),
+    Object(Box<ListProjectsResponseVariant1>),
+    Object2(Box<ListProjectsResponseVariant2>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Vec<ListProjectsResponseVariant0Item>>(value.clone())
+        {
+            let candidate = Self::Variant0ItemArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<ListProjectsResponseVariant1>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<ListProjectsResponseVariant2>>(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no ListProjectsResponse branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<ListProjectsResponseVariant0Item>> for ListProjectsResponse {
+    fn from(value: Vec<ListProjectsResponseVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1>> for ListProjectsResponse {
+    fn from(value: Box<ListProjectsResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2>> for ListProjectsResponse {
+    fn from(value: Box<ListProjectsResponseVariant2>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponseTraceResourcesItem {
+    pub attributes: std::collections::HashMap<String, String>,
+    pub name: String,
+}
+
+impl GetProjectTraceResponseTraceResourcesItem {
+    pub fn new(attributes: std::collections::HashMap<String, String>, name: String) -> Self {
+        Self { attributes, name }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponseTraceSpansItemEventsItem {
+    pub attributes: std::collections::HashMap<String, serde_json::Value>,
+    pub name: String,
+    pub timestamp: Vec<f64>,
+}
+
+impl GetProjectTraceResponseTraceSpansItemEventsItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "timestamp",
+            self.timestamp.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(2),
+                max: Some(2),
+            },
+        )?;
         Ok(())
     }
 
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
+    pub fn new(
+        attributes: std::collections::HashMap<String, serde_json::Value>,
+        name: String,
+        timestamp: Vec<f64>,
+    ) -> Result<Self, crate::errors::SdkError> {
         let value = Self {
-            region: None,
-            failover_regions: None,
+            attributes,
+            name,
+            timestamp,
         };
         value.validate_constraints()?;
         Ok(value)
     }
 }
 
-/// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectOidcTokenConfigIssuerModeEnum {
-    #[default]
-    Team,
-    Global,
-    Unknown(String),
-}
-
-impl CreateProjectOidcTokenConfigIssuerModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Team => "team",
-            Self::Global => "global",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectOidcTokenConfigIssuerModeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectOidcTokenConfigIssuerModeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "team" => Self::Team,
-            "global" => Self::Global,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectOidcTokenConfigIssuerModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// OpenID Connect JSON Web Token generation configuration.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
+pub struct GetProjectTraceResponseTraceSpansItemLibrary {
+    pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// team: `https://oidc.vercel.com/[team_slug]` global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<CreateProjectOidcTokenConfigIssuerModeEnum>,
+    pub version: Option<String>,
 }
 
-impl CreateProjectOidcTokenConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl GetProjectTraceResponseTraceSpansItemLibrary {
+    pub fn new(name: String) -> Self {
         Self {
-            enabled: None,
-            issuer_mode: None,
+            name,
+            version: None,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigBuildMachineTypeEnum {
-    #[default]
-    Basic,
-    Enhanced,
-    Turbo,
-    Standard,
-    Elastic,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponseTraceSpansItemStatus {
+    pub code: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
-impl CreateProjectResourceConfigBuildMachineTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Basic => "basic",
-            Self::Enhanced => "enhanced",
-            Self::Turbo => "turbo",
-            Self::Standard => "standard",
-            Self::Elastic => "elastic",
-            Self::Unknown(value) => value.as_str(),
+impl GetProjectTraceResponseTraceSpansItemStatus {
+    pub fn new(code: f64) -> Self {
+        Self {
+            code,
+            message: None,
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResourceConfigBuildMachineTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResourceConfigBuildMachineTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "turbo" => Self::Turbo,
-            "standard" => Self::Standard,
-            "elastic" => Self::Elastic,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigBuildMachineTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
-    #[default]
-    StandardLegacy,
-    Standard,
-    Performance,
-    PerformanceXl,
-    Unknown(String),
-}
-
-impl CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::StandardLegacy => "standard_legacy",
-            Self::Standard => "standard",
-            Self::Performance => "performance",
-            Self::PerformanceXl => "performance_xl",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "standard_legacy" => Self::StandardLegacy,
-            "standard" => Self::Standard,
-            "performance" => Self::Performance,
-            "performance_xl" => Self::PerformanceXl,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigFunctionDefaultMemoryTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigBuildMachineSelectionEnum {
-    #[default]
-    Elastic,
-    Fixed,
-    Unknown(String),
-}
-
-impl CreateProjectResourceConfigBuildMachineSelectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResourceConfigBuildMachineSelectionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResourceConfigBuildMachineSelectionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "elastic" => Self::Elastic,
-            "fixed" => Self::Fixed,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResourceConfigBuildMachineSelectionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResourceConfigBuildMachineElasticReasonEnum {
-    #[default]
-    OomFailure,
-    EnospcFailure,
-    BuildTimeoutFailure,
-    BasicFloor,
-    HighPeakMemory,
-    SustainedHighCpu,
-    HighPeakDisk,
-    LongBuildDuration,
-    ShortBuildDuration,
-    EnterpriseFloor,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectTraceResponseTraceSpansItem {
+    pub attributes: std::collections::HashMap<String, serde_json::Value>,
+    pub duration: Vec<f64>,
+    #[serde(rename = "endTime")]
+    pub end_time: Vec<f64>,
+    pub events: Vec<GetProjectTraceResponseTraceSpansItemEventsItem>,
+    pub kind: f64,
+    pub library: GetProjectTraceResponseTraceSpansItemLibrary,
+    pub links: Vec<std::collections::HashMap<String, serde_json::Value>>,
+    pub name: String,
+    #[serde(rename = "parentSpanId", skip_serializing_if = "Option::is_none")]
+    pub parent_span_id: Option<String>,
+    pub resource: String,
+    #[serde(rename = "spanId")]
+    pub span_id: String,
+    #[serde(rename = "startTime")]
+    pub start_time: Vec<f64>,
+    pub status: GetProjectTraceResponseTraceSpansItemStatus,
+    #[serde(rename = "traceFlags")]
+    pub trace_flags: f64,
+    #[serde(rename = "traceState", skip_serializing_if = "Option::is_none")]
+    pub trace_state: Option<String>,
 }

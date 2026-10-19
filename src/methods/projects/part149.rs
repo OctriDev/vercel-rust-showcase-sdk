@@ -2,223 +2,313 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::GetProjectsResponseEnvItemContentHint;
 
-impl std::fmt::Display for GetProjectsResponseEnvItemVisibilityEnum {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseConnectConfigurationsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aws: Option<GetProjectsResponseConnectConfigurationsItemAws>,
+    #[serde(rename = "buildsEnabled")]
+    pub builds_enabled: bool,
+    #[serde(rename = "connectConfigurationId")]
+    pub connect_configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dc: Option<String>,
+    #[serde(rename = "envId")]
+    pub env_id: GetProjectsResponseConnectConfigurationsItemEnvId,
+    pub passive: bool,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl GetProjectsResponseConnectConfigurationsItem {
+    pub fn new(
+        builds_enabled: bool,
+        connect_configuration_id: String,
+        created_at: f64,
+        env_id: GetProjectsResponseConnectConfigurationsItemEnvId,
+        passive: bool,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            aws: None,
+            builds_enabled,
+            connect_configuration_id,
+            created_at,
+            dc: None,
+            env_id,
+            passive,
+            updated_at,
+        }
+    }
+}
+
+/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseCronsDefinitionsItemSourceEnum {
+    #[default]
+    Api,
+    Unknown(String),
+}
+
+impl GetProjectsResponseCronsDefinitionsItemSourceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Api => "api",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseCronsDefinitionsItemSourceEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseCronsDefinitionsItemSourceEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "api" => Self::Api,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseCronsDefinitionsItemSourceEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseEnvItem {
+pub struct GetProjectsResponseCronsDefinitionsItem {
+    /// A human-readable description of what this cron job does.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    /// Typed representation of the `GetProjectsResponseEnvItemContentHint` API schema.
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<GetProjectsResponseEnvItemContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
+    pub description: Option<String>,
+    /// The hostname that should be used.
+    pub host: String,
+    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
+    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
+    pub host_inferred: Option<bool>,
+    /// The path that should be called for the cronjob.
+    pub path: String,
+    /// The cron expression.
+    pub schedule: String,
+    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub decrypted: Option<bool>,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Similar to `contentHints`, but should not be exposed to the user.
-    #[serde(
-        rename = "internalContentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub internal_content_hint: Option<Option<GetProjectsResponseEnvItemInternalContentHint>>,
-    pub key: String,
-    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
-    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
-    pub legacy_value: Option<String>,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<GetProjectsResponseEnvItemTarget>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseEnvItemTypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<GetProjectsResponseEnvItemVisibilityEnum>,
-    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
-    pub vsm_value: Option<String>,
+    pub source: Option<GetProjectsResponseCronsDefinitionsItemSourceEnum>,
 }
 
-impl GetProjectsResponseEnvItem {
-    pub fn new(key: String, type_: GetProjectsResponseEnvItemTypeEnum, value: String) -> Self {
+impl GetProjectsResponseCronsDefinitionsItem {
+    pub fn new(host: String, path: String, schedule: String) -> Self {
         Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
-            created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            internal_content_hint: None,
-            key,
-            legacy_value: None,
-            sunset_secret_id: None,
-            target: None,
-            type_,
-            updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-            vsm_value: None,
+            description: None,
+            host,
+            host_inferred: None,
+            path,
+            schedule,
+            source: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseFeatures {
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<bool>,
+pub struct GetProjectsResponseCrons {
+    pub definitions: Vec<GetProjectsResponseCronsDefinitionsItem>,
+    /// The ID of the Deployment from which the definitions originated.
+    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
+    pub deployment_id: Option<String>,
+    /// The time the feature was disabled for this project.
+    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
+    pub disabled_at: Option<f64>,
+    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl GetProjectsResponseFeatures {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl GetProjectsResponseCrons {
+    pub fn new(
+        definitions: Vec<GetProjectsResponseCronsDefinitionsItem>,
+        deployment_id: Option<String>,
+        disabled_at: Option<f64>,
+        enabled_at: f64,
+        updated_at: f64,
+    ) -> Self {
         Self {
-            web_analytics: None,
+            definitions,
+            deployment_id,
+            disabled_at,
+            enabled_at,
+            updated_at,
         }
     }
 }
 
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseFrameworkEnum {
+pub enum GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
+}
+
+impl GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Configuration for matching git branches to this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseCustomEnvironmentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
+}
+
+impl GetProjectsResponseCustomEnvironmentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: GetProjectsResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl GetProjectsResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            reason,
+            type_,
+            value,
+        }
+    }
+}
+
+/// List of domains associated with this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseCustomEnvironmentsItemDomainsItem {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verification:
+        Option<Vec<GetProjectsResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
+}
+
+impl GetProjectsResponseCustomEnvironmentsItemDomainsItem {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
+        }
+    }
 }

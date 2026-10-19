@@ -3,31 +3,107 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemCreator {
-    User(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>),
-    App(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>),
-    Integration(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>),
-    System(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>),
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum::App => {
+                f.write_str("app")
+            }
+        }
+    }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCreator {
+/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0 {
+    pub app: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0 {
+    pub fn new(
+        app: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0App,
+        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0TypeEnum,
+    ) -> Self {
+        Self { app, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration {
+    #[serde(rename = "configurationId")]
+    pub configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration {
+    pub fn new(configuration_id: String, integration_id: String) -> Self {
+        Self {
+            configuration_id,
+            integration_id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum {
+    #[serde(rename = "integration")]
+    #[default]
+    Integration,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum::Integration => f.write_str("integration"),
+        }
+    }
+}
+
+/// Set when a Vercel App or Integration acts on behalf of a {@link User}. Captures user-consented OAuth delegation that the ACL layer may inspect to evaluate scope restrictions. This is NOT for impersonation or token-exchange provenance — those live on `auth.token`, not on the principal.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1 {
+    pub integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1 {
+    pub fn new(
+        integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1Integration,
+        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1TypeEnum,
+    ) -> Self {
+        Self { integration, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via {
+    App(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>),
+    Integration(Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
         if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::User(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant1>,
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>,
         >(value.clone())
         {
             let candidate = Self::App(branch);
@@ -37,7 +113,7 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCr
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant2>,
+            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>,
         >(value.clone())
         {
             let candidate = Self::Integration(branch);
@@ -46,277 +122,198 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemCr
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::System(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>>
+    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant0>,
+    ) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>>
+    for ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant2ProjectsItemCreatorVariant0ViaVariant1>,
+    ) -> Self {
+        Self::Integration(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0User {
+    pub id: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0User {
+    pub fn new(id: String) -> Self {
+        Self { id }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant0 {
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub via: Option<ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via>,
+    pub user: ListProjectsResponseVariant2ProjectsItemCreatorVariant0User,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant0 {
+    pub fn new(
+        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant0TypeEnum,
+        via: Option<ListProjectsResponseVariant2ProjectsItemCreatorVariant0Via>,
+        user: ListProjectsResponseVariant2ProjectsItemCreatorVariant0User,
+    ) -> Self {
+        Self { type_, via, user }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
+    /// The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+    #[serde(rename = "clientId", skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    /// The internal ID of the Vercel App backing this principal.
+    pub id: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1App {
+    pub fn new(id: String) -> Self {
+        Self {
+            client_id: None,
+            id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
+    #[serde(rename = "app")]
+    #[default]
+    App,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::App => "app",
+        }
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum::App => {
+                f.write_str("app")
             }
-            lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListProjectsResponseVariant2ProjectsItemCreator branch accepts this payload",
-            )
-        })
     }
 }
 
-/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
-    #[default]
-    Api,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant1 {
+    pub app: ListProjectsResponseVariant2ProjectsItemCreatorVariant1App,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant1 {
+    pub fn new(
+        app: ListProjectsResponseVariant2ProjectsItemCreatorVariant1App,
+        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant1TypeEnum,
+    ) -> Self {
+        Self { app, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration {
+    #[serde(rename = "configurationId")]
+    pub configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration {
+    pub fn new(configuration_id: String, integration_id: String) -> Self {
+        Self {
+            configuration_id,
+            integration_id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
+    #[serde(rename = "integration")]
+    #[default]
+    Integration,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Api => "api",
-            Self::Unknown(value) => value.as_str(),
+            Self::Integration => "integration",
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "api" => Self::Api,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem {
-    /// A human-readable description of what this cron job does.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// The hostname that should be used.
-    pub host: String,
-    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
-    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
-    pub host_inferred: Option<bool>,
-    /// The path that should be called for the cronjob.
-    pub path: String,
-    /// The cron expression.
-    pub schedule: String,
-    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItemSourceEnum>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem {
-    pub fn new(host: String, path: String, schedule: String) -> Self {
-        Self {
-            description: None,
-            host,
-            host_inferred: None,
-            path,
-            schedule,
-            source: None,
+        match self {
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum::Integration => {
+                f.write_str("integration")
+            }
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCrons {
-    pub definitions: Vec<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem>,
-    /// The ID of the Deployment from which the definitions originated.
-    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
-    pub deployment_id: Option<String>,
-    /// The time the feature was disabled for this project.
-    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
-    pub disabled_at: Option<f64>,
-    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+pub struct ListProjectsResponseVariant2ProjectsItemCreatorVariant2 {
+    pub integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCrons {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant2 {
     pub fn new(
-        definitions: Vec<ListProjectsResponseVariant2ProjectsItemCronsDefinitionsItem>,
-        deployment_id: Option<String>,
-        disabled_at: Option<f64>,
-        enabled_at: f64,
-        updated_at: f64,
+        integration: ListProjectsResponseVariant2ProjectsItemCreatorVariant2Integration,
+        type_: ListProjectsResponseVariant2ProjectsItemCreatorVariant2TypeEnum,
     ) -> Self {
-        Self {
-            definitions,
-            deployment_id,
-            disabled_at,
-            enabled_at,
-            updated_at,
-        }
+        Self { integration, type_ }
     }
 }
 
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
+    #[serde(rename = "system")]
     #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
+    System,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
+            Self::System => "system",
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Configuration for matching git branches to this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem
-{
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
+        match self {
+            ListProjectsResponseVariant2ProjectsItemCreatorVariant3TypeEnum::System => {
+                f.write_str("system")
+            }
         }
     }
-}
-
-/// List of domains associated with this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification: Option<Vec<ListProjectsResponseVariant2ProjectsItemCustomEnvironmentsItemDomainsItemVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
 }

@@ -3,6 +3,79 @@
 
 // microfrontends domain models (part 8)
 
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1 {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type:
+        GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1 {
+    pub fn new(
+        deployment_type: GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
+    ) -> Self {
+        Self { deployment_type }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedIps {
+    Object(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant0>),
+    Object2(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemTrustedIps {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;

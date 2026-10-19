@@ -2,233 +2,303 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::SdkError;
-use crate::validation::{validate_length, LengthOpts};
 
-#[derive(Debug, Clone, Default)]
-pub struct ListProjectsParams {
-    pub from: Option<String>,
-    pub since: Option<f64>,
-    pub until: Option<f64>,
-    pub git_fork_protection: Option<ListProjectsEnum98724903>,
-    pub limit: Option<String>,
-    pub search: Option<String>,
-    pub repo: Option<String>,
-    pub repo_id: Option<String>,
-    pub repo_url: Option<String>,
-    pub exclude_repos: Option<String>,
-    pub edge_config_id: Option<String>,
-    pub edge_config_token_id: Option<String>,
-    pub deprecated: Option<bool>,
-    pub elastic_concurrency_enabled: Option<ListProjectsEnum>,
-    pub static_ips_enabled: Option<ListProjectsEnum316aaec8>,
-    pub build_machine_types: Option<String>,
-    pub build_queue_configuration: Option<ListProjectsEnum45942550>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateMicrofrontendsResponseSecurityLogHeaders {
+    StringArray(Vec<String>),
+    Literal(UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum),
 }
 
-/// Lists projects belonging to the authenticated user or a team, with pagination and filters for project updates, repositories, configuration, and build settings. Use `from`, `since`, and `until` to filter by update time, or `search` to match project names. The `teamId` or `slug` query parameter scopes the request to a team.
-///
-/// Allows to retrieve the list of projects of the authenticated user or team. The list will be paginated and the provided query parameters allow filtering the returned projects.
-///
-/// # Arguments
-///
-/// * `from` - Query only projects updated after the given timestamp or
-///   continuation token.
-/// * `since` - Query only projects updated after this JavaScript timestamp.
-/// * `until` - Query only projects updated before this JavaScript timestamp.
-/// * `git_fork_protection` - Specifies whether PRs from Git forks should
-///   require a team member's authorization before it can be deployed
-/// * `limit` - Limit the number of projects returned
-/// * `search` - Search projects by the name field
-/// * `repo` - Filter results by repo. Also used for project count
-/// * `repo_id` - Filter results by Repository ID.
-/// * `repo_url` - Filter results by Repository URL.
-/// * `exclude_repos` - Filter results by excluding those projects that belong
-///   to a repo
-/// * `edge_config_id` - Filter results by connected Global Config ID
-/// * `edge_config_token_id` - Filter results by connected Global Config Token
-///   ID
-/// * `elastic_concurrency_enabled` - Filter results by projects with elastic
-///   concurrency enabled
-/// * `static_ips_enabled` - Filter results by projects with Static IPs enabled
-/// * `build_machine_types` - Filter results by effective build machine types.
-///   Accepts comma-separated values. Use \"elastic\" for projects with elastic
-///   selection and \"default\" for projects without a build machine type set.
-/// * `build_queue_configuration` - Filter results by build queue configuration.
-///   SKIP_NAMESPACE_QUEUE includes projects without a configuration set.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_projects(
-    config: &ClientConfig,
-    params: ListProjectsParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListProjectsResponse, SdkError> {
-    let ListProjectsParams {
-        from,
-        since,
-        until,
-        git_fork_protection,
-        limit,
-        search,
-        repo,
-        repo_id,
-        repo_url,
-        exclude_repos,
-        edge_config_id,
-        edge_config_token_id,
-        deprecated,
-        elastic_concurrency_enabled,
-        static_ips_enabled,
-        build_machine_types,
-        build_queue_configuration,
-        team_id,
-        slug,
-    } = params;
-    if let Some(ref search_v) = search {
-        validate_length(
-            "search",
-            search_v,
-            LengthOpts {
-                max: Some(100),
-                ..Default::default()
-            },
-        )?;
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no UpdateMicrofrontendsResponseSecurityLogHeaders branch accepts this payload",
+            )
+        })
     }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(19);
-    if let Some(ref v) = from {
-        __query.push(("from", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = since {
-        __query.push(("since", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = until {
-        __query.push(("until", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = git_fork_protection {
-        __query.push(("gitForkProtection", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = search {
-        __query.push(("search", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = repo {
-        __query.push(("repo", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = repo_id {
-        __query.push(("repoId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = repo_url {
-        __query.push(("repoUrl", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = exclude_repos {
-        __query.push(("excludeRepos", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = edge_config_id {
-        __query.push(("edgeConfigId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = edge_config_token_id {
-        __query.push(("edgeConfigTokenId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = deprecated {
-        __query.push(("deprecated", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = elastic_concurrency_enabled {
-        __query.push(("elasticConcurrencyEnabled", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = static_ips_enabled {
-        __query.push(("staticIpsEnabled", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = build_machine_types {
-        __query.push(("buildMachineTypes", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = build_queue_configuration {
-        __query.push(("buildQueueConfiguration", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListProjectsResponse>(
-        "GET",
-        "/v10/projects",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_projects",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Retrieves the OpenTelemetry trace associated with a Vercel CLI request. Provide the project identifier and request identifier to locate the trace. The response includes the trace spans and identifier, and may include resource data and a root span identifier.
-///
-/// Returns the OTEL trace for a given Vercel CLI request.
-///
-/// # Arguments
-///
-/// * `project_id` - The project ID
-/// * `request_id` - The Vercel CLI request ID associated with the trace
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_project_trace(
-    config: &ClientConfig,
-    project_id: String,
-    request_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetProjectTraceResponse, SdkError> {
-    validate_length(
-        "projectId",
-        &project_id,
-        LengthOpts {
-            max: Some(150),
-            ..Default::default()
-        },
-    )?;
-    validate_length(
-        "requestId",
-        &request_id,
-        LengthOpts {
-            max: Some(256),
-            ..Default::default()
-        },
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    __query.extend([("requestId", crate::client::query_value(&request_id))]);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl ::std::convert::From<Vec<String>> for UpdateMicrofrontendsResponseSecurityLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+}
 
-    Ok(sdk_request::<GetProjectTraceResponse>(
-        "GET",
-        "/v1/projects/traces",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_project_trace",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+impl ::std::convert::From<UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum>
+    for UpdateMicrofrontendsResponseSecurityLogHeaders
+{
+    fn from(value: UpdateMicrofrontendsResponseSecurityLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRulesAiBots {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesAiBotsActionEnum>,
+    pub active: bool,
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesAiBots {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesBotFilterActionEnum>,
+    pub active: bool,
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRulesOwasp {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesOwaspActionEnum>,
+    pub active: bool,
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesOwasp {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
 }

@@ -3,70 +3,49 @@
 
 use super::*;
 
-impl ListProjectsResponseVariant2ProjectsItemRollingRelease {
-    pub fn new(target: String) -> Self {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction: ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineElasticTransition {
+    pub fn new(
+        algorithm_version: String,
+        at: f64,
+        direction: ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    ) -> Self {
         Self {
-            canary_response_header: None,
-            gate: None,
-            stages: None,
-            target,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineSelectionEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -76,7 +55,7 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxFailove
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineSelectionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -84,89 +63,46 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum {
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineSelectionEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineTypeEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineTypeEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -175,79 +111,126 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSandboxRegionE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum {
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemSandbox {
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions:
-        Option<Vec<ListProjectsResponseVariant2ProjectsItemSandboxFailoverRegionsItemEnum>>,
+pub struct ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<ListProjectsResponseVariant2ProjectsItemSandboxRegionEnum>,
+    pub configuration:
+        Option<ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSandbox {
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigBuildQueue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            failover_regions: None,
-            region: None,
+            configuration: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
+pub enum ListProjectsResponseVariant2ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum {
     #[default]
-    Unknown2,
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -257,7 +240,7 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemSecurityLogHea
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -265,13 +248,75 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemSecurityLogHeadersVariant1Enum {
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

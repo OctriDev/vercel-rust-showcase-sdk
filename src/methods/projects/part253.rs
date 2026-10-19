@@ -2,304 +2,295 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::DeleteProjectAvatarResponseEnvItemContentHint;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseEnvItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    /// Typed representation of the `DeleteProjectAvatarResponseEnvItemContentHint` API schema.
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<DeleteProjectAvatarResponseEnvItemContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub decrypted: Option<bool>,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Similar to `contentHints`, but should not be exposed to the user.
-    #[serde(
-        rename = "internalContentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub internal_content_hint:
-        Option<Option<DeleteProjectAvatarResponseEnvItemInternalContentHint>>,
-    pub key: String,
-    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
-    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
-    pub legacy_value: Option<String>,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<DeleteProjectAvatarResponseEnvItemTarget>,
-    #[serde(rename = "type")]
-    pub type_: DeleteProjectAvatarResponseEnvItemTypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<DeleteProjectAvatarResponseEnvItemVisibilityEnum>,
-    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
-    pub vsm_value: Option<String>,
-}
-
-impl DeleteProjectAvatarResponseEnvItem {
+impl UploadProjectAvatarResponse {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        key: String,
-        type_: DeleteProjectAvatarResponseEnvItemTypeEnum,
-        value: String,
+        account_id: String,
+        alias: Vec<UploadProjectAvatarResponseAliasItem>,
+        default_resource_config: UploadProjectAvatarResponseDefaultResourceConfig,
+        deployment_expiration: UploadProjectAvatarResponseDeploymentExpiration,
+        directory_listing: bool,
+        id: String,
+        name: String,
+        node_version: UploadProjectAvatarResponseNodeVersionEnum,
+        resource_config: UploadProjectAvatarResponseResourceConfig,
     ) -> Self {
         Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            avatar: None,
+            avatar_dark_mode: None,
+            blobs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            concurrency_bucket_name: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            connect_configurations: None,
             created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            internal_content_hint: None,
-            key,
-            legacy_value: None,
-            sunset_secret_id: None,
-            target: None,
-            type_,
+            creator: None,
+            crons: None,
+            custom_environments: None,
+            customer_support_code_visibility: None,
+            data_cache: None,
+            default_resource_config,
+            deployment_expiration,
+            deployment_policy: None,
+            dev_command: None,
+            directory_listing,
+            dismissed_toasts: None,
+            enable_affected_projects_deployments: None,
+            enable_external_rewrite_caching: None,
+            enable_preview_feedback: None,
+            enable_production_feedback: None,
+            env: None,
+            expiration: None,
+            features: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_lfs: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            has_deployments: None,
+            id,
+            install_command: None,
+            internal_routes: None,
+            ip_buckets: None,
+            jobs: None,
+            last_alias_request: None,
+            last_rollback_target: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            microfrontends: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            options_allowlist: None,
+            output_directory: None,
+            passive_connect_configuration_id: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            permissions: None,
+            production_deployments_fast_lane: None,
+            protected_sourcemaps: None,
+            protection_bypass: None,
+            protection_config: None,
+            resource_config,
+            rollback_description: None,
+            rolling_release: None,
+            root_directory: None,
+            sandbox: None,
+            security: None,
+            serverless_function_zero_config_failover: None,
+            services: None,
+            skew_protection_allowed_domains: None,
+            skew_protection_boundary_at: None,
+            skew_protection_max_age: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            static_ips: None,
+            targets: None,
+            tier: None,
+            tracing: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_ips: None,
+            trusted_sources: None,
             updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-            vsm_value: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseFeatures {
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<bool>,
-}
-
-impl DeleteProjectAvatarResponseFeatures {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
+            usage_status: None,
+            v0: None,
+            v0_created: None,
             web_analytics: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseFrameworkEnum {
+pub enum DeleteProjectAvatarResponseAliasItemConfiguredByEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    A,
+    Cname,
+    Dns01,
+    Http,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseFrameworkEnum {
+impl DeleteProjectAvatarResponseAliasItemConfiguredByEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
+            Self::A => "A",
+            Self::Cname => "CNAME",
+            Self::Dns01 => "dns-01",
+            Self::Http => "http",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseAliasItemConfiguredByEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemConfiguredByEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "A" => Self::A,
+            "CNAME" => Self::Cname,
+            "dns-01" => Self::Dns01,
+            "http" => Self::Http,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemConfiguredByEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum DeleteProjectAvatarResponseAliasItemDeploymentAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemDeploymentAliasAssigned {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for DeleteProjectAvatarResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for DeleteProjectAvatarResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseAliasItemDeploymentAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl DeleteProjectAvatarResponseAliasItemDeploymentAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum,
+}
+
+impl DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: DeleteProjectAvatarResponseAliasItemDeploymentBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
     }
 }

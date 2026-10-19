@@ -4,220 +4,160 @@
 use super::*;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseJobs {
-    #[serde(
-        rename = "flag-definitions-present",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub flag_definitions_present: Option<UploadProjectAvatarResponseJobsFlagdefinitionspresent>,
+pub struct UploadProjectAvatarResponseConnectConfigurationsItem {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub lint: Option<UploadProjectAvatarResponseJobsLint>,
-    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
-    pub mfe_config_present: Option<UploadProjectAvatarResponseJobsMfeconfigpresent>,
+    pub aws: Option<UploadProjectAvatarResponseConnectConfigurationsItemAws>,
+    #[serde(rename = "buildsEnabled")]
+    pub builds_enabled: bool,
+    #[serde(rename = "connectConfigurationId")]
+    pub connect_configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub typecheck: Option<UploadProjectAvatarResponseJobsTypecheck>,
+    pub dc: Option<String>,
+    #[serde(rename = "envId")]
+    pub env_id: UploadProjectAvatarResponseConnectConfigurationsItemEnvId,
+    pub passive: bool,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl UploadProjectAvatarResponseJobs {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            flag_definitions_present: None,
-            lint: None,
-            mfe_config_present: None,
-            typecheck: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLastAliasRequestJobStatusEnum {
-    #[default]
-    Failed,
-    InProgress,
-    Pending,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseLastAliasRequestJobStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Failed => "failed",
-            Self::InProgress => "in-progress",
-            Self::Pending => "pending",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseLastAliasRequestJobStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseLastAliasRequestJobStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "in-progress" => Self::InProgress,
-            "pending" => Self::Pending,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseLastAliasRequestJobStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLastAliasRequestTypeEnum {
-    #[default]
-    Promote,
-    Rollback,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseLastAliasRequestTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promote => "promote",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseLastAliasRequestTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseLastAliasRequestTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "promote" => Self::Promote,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseLastAliasRequestTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLastAliasRequest {
-    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
-    pub from_deployment_id: Option<String>,
-    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
-    #[serde(
-        rename = "fromRollingReleaseId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub from_rolling_release_id: Option<String>,
-    #[serde(rename = "jobStatus")]
-    pub job_status: UploadProjectAvatarResponseLastAliasRequestJobStatusEnum,
-    #[serde(rename = "requestedAt")]
-    pub requested_at: f64,
-    #[serde(rename = "toDeploymentId")]
-    pub to_deployment_id: String,
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseLastAliasRequestTypeEnum,
-}
-
-impl UploadProjectAvatarResponseLastAliasRequest {
+impl UploadProjectAvatarResponseConnectConfigurationsItem {
     pub fn new(
-        from_deployment_id: Option<String>,
-        job_status: UploadProjectAvatarResponseLastAliasRequestJobStatusEnum,
-        requested_at: f64,
-        to_deployment_id: String,
-        type_: UploadProjectAvatarResponseLastAliasRequestTypeEnum,
+        builds_enabled: bool,
+        connect_configuration_id: String,
+        created_at: f64,
+        env_id: UploadProjectAvatarResponseConnectConfigurationsItemEnvId,
+        passive: bool,
+        updated_at: f64,
     ) -> Self {
         Self {
-            from_deployment_id,
-            from_rolling_release_id: None,
-            job_status,
-            requested_at,
-            to_deployment_id,
-            type_,
+            aws: None,
+            builds_enabled,
+            connect_configuration_id,
+            created_at,
+            dc: None,
+            env_id,
+            passive,
+            updated_at,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemAliasAssigned {
-    Number(f64),
-    Bool(bool),
+/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
+    #[default]
+    Api,
+    Unknown(String),
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseLatestDeploymentsItemAliasAssigned
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Api => "api",
+            Self::Unknown(value) => value.as_str(),
         }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "api" => Self::Api,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLatestDeploymentsItemAliasError {
-    pub code: String,
-    pub message: String,
+pub struct UploadProjectAvatarResponseCronsDefinitionsItem {
+    /// A human-readable description of what this cron job does.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// The hostname that should be used.
+    pub host: String,
+    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
+    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
+    pub host_inferred: Option<bool>,
+    /// The path that should be called for the cronjob.
+    pub path: String,
+    /// The cron expression.
+    pub schedule: String,
+    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum>,
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
+impl UploadProjectAvatarResponseCronsDefinitionsItem {
+    pub fn new(host: String, path: String, schedule: String) -> Self {
+        Self {
+            description: None,
+            host,
+            host_inferred: None,
+            path,
+            schedule,
+            source: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseCrons {
+    pub definitions: Vec<UploadProjectAvatarResponseCronsDefinitionsItem>,
+    /// The ID of the Deployment from which the definitions originated.
+    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
+    pub deployment_id: Option<String>,
+    /// The time the feature was disabled for this project.
+    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
+    pub disabled_at: Option<f64>,
+    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl UploadProjectAvatarResponseCrons {
+    pub fn new(
+        definitions: Vec<UploadProjectAvatarResponseCronsDefinitionsItem>,
+        deployment_id: Option<String>,
+        disabled_at: Option<f64>,
+        enabled_at: f64,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            definitions,
+            deployment_id,
+            disabled_at,
+            enabled_at,
+            updated_at,
+        }
     }
 }
 
 /// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+pub enum UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
     #[default]
     Endswith,
     Equals,
@@ -225,7 +165,7 @@ pub enum UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Endswith => "endsWith",
@@ -236,7 +176,7 @@ impl UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -246,7 +186,7 @@ impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemBranch
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum
+    for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -262,36 +202,113 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Configuration for matching git branches to this environment
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcher {
+pub struct UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcher {
     /// The pattern to match against branch names
     pub pattern: String,
     /// The type of matching to perform
     #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+    pub type_: UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcher {
+impl UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcher {
     pub fn new(
         pattern: String,
-        type_: UploadProjectAvatarResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+        type_: UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
     ) -> Self {
         Self { pattern, type_ }
     }
 }
 
+/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLatestDeploymentsItemBuildsItem {
+pub struct UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub domain: String,
+    pub reason: String,
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub value: String,
+}
+
+impl UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem {
+    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            reason,
+            type_,
+            value,
+        }
+    }
+}
+
+/// List of domains associated with this environment
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItem {
+    #[serde(rename = "apexName")]
+    pub apex_name: String,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "customEnvironmentId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub custom_environment_id: Option<Option<String>>,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
+    pub verification:
+        Option<Vec<UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
+    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
+    pub verified: bool,
+}
+
+impl UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItem {
+    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+        Self {
+            apex_name,
+            created_at: None,
+            custom_environment_id: None,
+            git_branch: None,
+            name,
+            project_id,
+            redirect: None,
+            redirect_status_code: None,
+            updated_at: None,
+            verification: None,
+            verified,
+        }
+    }
 }

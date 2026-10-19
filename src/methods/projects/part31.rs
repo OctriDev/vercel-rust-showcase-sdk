@@ -3,6 +3,48 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUrl => "postgres-url",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7TypeEnum::PostgresUrl => f.write_str("postgres-url"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7TypeEnum,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7 {
+    pub fn new(
+        store_id: String,
+        type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant8TypeEnum {
+    #[serde(rename = "postgres-url-non-pooling")]
+    #[default]
+    PostgresUrlNonPooling,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant8TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -253,46 +295,4 @@ pub enum ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14Type
     #[serde(rename = "postgres-url-no-ssl")]
     #[default]
     PostgresUrlNoSsl,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum::PostgresUrlNoSsl => f.write_str("postgres-url-no-ssl"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant15TypeEnum {
-    #[serde(rename = "integration-store-secret")]
-    #[default]
-    IntegrationStoreSecret,
 }

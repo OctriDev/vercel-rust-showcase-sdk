@@ -3,7 +3,79 @@
 
 use super::*;
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem
+{
+    System(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>),
+    Custom(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>>(value.clone()) {
+            let candidate = Self::System(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>>(value.clone()) {
+            let candidate = Self::Custom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>) -> Self {
+        Self::System(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>) -> Self {
+        Self::Custom(value)
+    }
+}
+
+/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
+    #[default]
+    Cli,
+    DeployHook,
+    Git,
+    Integration,
+    RestApi,
+    V0,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Cli => "cli",
+            Self::DeployHook => "deploy-hook",
+            Self::Git => "git",
+            Self::Integration => "integration",
+            Self::RestApi => "rest-api",
+            Self::V0 => "v0",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,97 +84,47 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPoli
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "gitlab" => Self::Gitlab,
+            "cli" => Self::Cli,
+            "deploy-hook" => Self::DeployHook,
+            "git" => Self::Git,
+            "integration" => Self::Integration,
+            "rest-api" => Self::RestApi,
+            "v0" => Self::V0,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Allowlist entry for GitLab, which uses nested groups rather than a flat org/repo. `namespace` is the full group path (e.g. `group` or `group/subgroup`); `project` is the leaf project name. Omit `project` to match any project under the namespace. Namespace is matched case-insensitively.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
-    pub namespace: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<String>,
-    pub provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
-    pub fn new(
-        namespace: String,
-        provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
-    ) -> Self {
-        Self {
-            namespace,
-            project: None,
-            provider,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem {
-    Object(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>),
-    Gitlab(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1>>(value.clone()) {
-            let candidate = Self::Gitlab(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem branch accepts this payload"))
-    }
-}
-
 /// `enabled: true` with empty `sources` is deny-all.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem {
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem {
     pub enabled: bool,
-    pub environments:
-        Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem>,
-    pub sources:
-        Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem>,
+    pub environments: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+    pub sources: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem {
     pub fn new(
         enabled: bool,
-        environments: Vec<
-            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem,
-        >,
-        sources: Vec<
-            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItem,
-        >,
+        environments: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+        sources: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
     ) -> Self {
         Self {
             enabled,
@@ -112,59 +134,26 @@ impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem {
     }
 }
 
-/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicy {
-    #[serde(
-        rename = "deploymentSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub deployment_sources: Option<
-        Option<Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem>>,
-    >,
-    #[serde(
-        rename = "gitSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_sources:
-        Option<Option<Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItem>>>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicy {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            deployment_sources: None,
-            git_sources: None,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+{
     #[default]
-    Accept,
-    Cancel,
-    Delete,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Accept => "accept",
-            Self::Cancel => "cancel",
-            Self::Delete => "delete",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -173,125 +162,153 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDismissedToast
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum
-{
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "accept" => Self::Accept,
-            "cancel" => Self::Cancel,
-            "delete" => Self::Delete,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemActionEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2CurrentValue {
-    String(String),
-    Number(f64),
-    Bool(bool),
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum
+{
+    #[serde(rename = "system")]
+    #[default]
+    System,
 }
 
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2CurrentValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
         }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2CurrentValue branch accepts this payload"))
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2PreviousValue {
-    String(String),
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2PreviousValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2 {
-    #[serde(rename = "currentValue")]
-    pub current_value:
-        ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2CurrentValue,
-    #[serde(rename = "previousValue")]
-    pub previous_value:
-        ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2PreviousValue,
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0 {
+    pub target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2 {
+impl
+    ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0
+{
     pub fn new(
-        current_value: ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2CurrentValue,
-        previous_value: ListProjectsResponseVariant2ProjectsItemDismissedToastsItemValueVariant2PreviousValue,
+        target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
+    ) -> Self {
+        Self { target, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum
+{
+    #[serde(rename = "custom")]
+    #[default]
+    Custom,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Custom => "custom",
+        }
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1 {
+    #[serde(rename = "environmentId")]
+    pub environment_id: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum,
+}
+
+impl
+    ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1
+{
+    pub fn new(
+        environment_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum,
     ) -> Self {
         Self {
-            current_value,
-            previous_value,
+            environment_id,
+            type_,
         }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem {
+    System(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>),
+    Custom(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>>(value.clone()) {
+            let candidate = Self::System(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>>(value.clone()) {
+            let candidate = Self::Custom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>) -> Self {
+        Self::System(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem {
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>) -> Self {
+        Self::Custom(value)
     }
 }

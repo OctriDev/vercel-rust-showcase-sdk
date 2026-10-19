@@ -3,6 +3,124 @@
 
 // checks_v2 domain models (part 11)
 
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum {
+    #[serde(rename = "invocation")]
+    #[default]
+    Invocation,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Invocation => "invocation",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum::Invocation => f.write_str("invocation"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0 {
+    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0 {
+    pub fn new(
+        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0KindEnum,
+    ) -> Self {
+        Self { kind }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum {
+    #[serde(rename = "deployment")]
+    #[default]
+    Deployment,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deployment => "deployment",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum::Deployment => f.write_str("deployment"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1 {
+    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1 {
+    pub fn new(
+        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1KindEnum,
+    ) -> Self {
+        Self { kind }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum {
+    #[serde(rename = "job")]
+    #[default]
+    Job,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Job => "job",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum::Job => {
+                f.write_str("job")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2 {
+    pub job: String,
+    pub kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum,
+}
+
+impl ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2 {
+    pub fn new(
+        job: String,
+        kind: ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2KindEnum,
+    ) -> Self {
+        Self { job, kind }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant3JobEnum {
     #[default]
@@ -162,6 +280,46 @@ impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant0Sourc
     }
 }
 
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0>>
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant0>,
+    ) -> Self {
+        Self::Invocation(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1>>
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant1>,
+    ) -> Self {
+        Self::Deployment(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2>>
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant2>,
+    ) -> Self {
+        Self::Job(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant3>>
+    for ListCheckRunsResponseRunsItemVariant0SourceVariant4Selection
+{
+    fn from(
+        value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4SelectionVariant3>,
+    ) -> Self {
+        Self::Turborepo(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListCheckRunsResponseRunsItemVariant0SourceVariant4SubKindEnum {
     #[default]
@@ -303,6 +461,46 @@ impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant0Sourc
     }
 }
 
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant0>>
+    for ListCheckRunsResponseRunsItemVariant0Source
+{
+    fn from(value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant0>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant1>>
+    for ListCheckRunsResponseRunsItemVariant0Source
+{
+    fn from(value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant1>) -> Self {
+        Self::Webhook(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant2>>
+    for ListCheckRunsResponseRunsItemVariant0Source
+{
+    fn from(value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant2>) -> Self {
+        Self::GitProvider(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant3>>
+    for ListCheckRunsResponseRunsItemVariant0Source
+{
+    fn from(value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant3>) -> Self {
+        Self::VercelNativeCheck(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4>>
+    for ListCheckRunsResponseRunsItemVariant0Source
+{
+    fn from(value: Box<ListCheckRunsResponseRunsItemVariant0SourceVariant4>) -> Self {
+        Self::Api(value)
+    }
+}
+
 /// Check run backed by a project-level `check` definition.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListCheckRunsResponseRunsItemVariant0 {
@@ -353,199 +551,4 @@ pub struct ListCheckRunsResponseRunsItemVariant0 {
     #[serde(rename = "checkId")]
     pub check_id: String,
     pub source: ListCheckRunsResponseRunsItemVariant0Source,
-}
-
-impl ListCheckRunsResponseRunsItemVariant0 {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        deployment_id: String,
-        id: String,
-        name: String,
-        owner_id: String,
-        status: ListCheckRunsResponseRunsItemVariant0StatusEnum,
-        timeout: f64,
-        updated_at: f64,
-        check_id: String,
-        source: ListCheckRunsResponseRunsItemVariant0Source,
-    ) -> Self {
-        Self {
-            blocks: None,
-            completed_at: None,
-            conclusion: None,
-            conclusion_text: None,
-            created_at,
-            deployment_id,
-            expectation_ref: None,
-            expectation_revision: None,
-            external_id: None,
-            external_url: None,
-            id,
-            name,
-            output: None,
-            owner_id,
-            project_id: None,
-            requires: None,
-            started_at: None,
-            status,
-            targets: None,
-            task_summary: None,
-            timeout,
-            updated_at,
-            check_id,
-            source,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListCheckRunsResponseRunsItemVariant1BlocksEnum {
-    #[default]
-    BuildStart,
-    DeploymentAlias,
-    DeploymentPromotion,
-    DeploymentStart,
-    None,
-    Unknown(String),
-}
-
-impl ListCheckRunsResponseRunsItemVariant1BlocksEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BuildStart => "build-start",
-            Self::DeploymentAlias => "deployment-alias",
-            Self::DeploymentPromotion => "deployment-promotion",
-            Self::DeploymentStart => "deployment-start",
-            Self::None => "none",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "build-start" => Self::BuildStart,
-            "deployment-alias" => Self::DeploymentAlias,
-            "deployment-promotion" => Self::DeploymentPromotion,
-            "deployment-start" => Self::DeploymentStart,
-            "none" => Self::None,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Neutral,
-    Skipped,
-    Succeeded,
-    Timeout,
-    Unknown(String),
-}
-
-impl ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Neutral => "neutral",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Timeout => "timeout",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "neutral" => Self::Neutral,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            "timeout" => Self::Timeout,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct ListCheckRunsResponseRunsItemVariant1ExpectationRef {
-    #[serde(rename = "invocationAttempt")]
-    pub invocation_attempt: f64,
-    #[serde(rename = "invocationId")]
-    pub invocation_id: String,
-    #[serde(rename = "jobDefinitionId")]
-    pub job_definition_id: String,
-    #[serde(rename = "jobRunAttempt")]
-    pub job_run_attempt: f64,
-}
-
-impl ListCheckRunsResponseRunsItemVariant1ExpectationRef {
-    pub fn new(
-        invocation_attempt: f64,
-        invocation_id: String,
-        job_definition_id: String,
-        job_run_attempt: f64,
-    ) -> Self {
-        Self {
-            invocation_attempt,
-            invocation_id,
-            job_definition_id,
-            job_run_attempt,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListCheckRunsResponseRunsItemVariant1RequiresEnum {
-    #[default]
-    BuildReady,
-    DeploymentUrl,
-    None,
-    Unknown(String),
 }

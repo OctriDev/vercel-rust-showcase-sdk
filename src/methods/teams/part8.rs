@@ -3,6 +3,53 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateTeamsSamlRolesValue {
+    Literal(UpdateTeamsSamlRolesValueVariant0Enum),
+    Object(Box<UpdateTeamsSamlRolesValueVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateTeamsSamlRolesValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<UpdateTeamsSamlRolesValueVariant0Enum>(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateTeamsSamlRolesValueVariant1>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no UpdateTeamsSamlRolesValue branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<UpdateTeamsSamlRolesValueVariant0Enum> for UpdateTeamsSamlRolesValue {
+    fn from(value: UpdateTeamsSamlRolesValueVariant0Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateTeamsSamlRolesValueVariant1>> for UpdateTeamsSamlRolesValue {
+    fn from(value: Box<UpdateTeamsSamlRolesValueVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateTeamsSaml {
     /// Require that members of the team use SAML Single Sign-On.
@@ -264,44 +311,4 @@ impl UpdateTeamsDefaultPassportDeploymentTypeEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for UpdateTeamsDefaultPassportDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateTeamsDefaultPassportDeploymentTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateTeamsDefaultPassportDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Default Passport configuration for new projects.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateTeamsDefaultPassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType", skip_serializing_if = "Option::is_none")]
-    pub deployment_type: Option<UpdateTeamsDefaultPassportDeploymentTypeEnum>,
 }

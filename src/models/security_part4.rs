@@ -3,6 +3,27 @@
 
 // security domain models (part 4)
 
+impl CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem {
+    pub fn new(op: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum, type_: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItemTypeEnum) -> Self {
+        Self { key: None, neg: None, op, type_, value: None }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItem {
+    pub conditions: Vec<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem>,
+}
+
+impl
+    CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItem
+{
+    pub fn new(
+        conditions: Vec<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0ConditionGroupItemConditionsItem>,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0 {
     pub action: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant0Action,
@@ -176,6 +197,18 @@ impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersio
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ActionMitigateLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ActionMitigateLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ActionMitigateLogHeadersVariant1Enum> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ActionMitigateLogHeaders {
+    fn from(value: CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ActionMitigateLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
@@ -429,38 +462,5 @@ impl serde::Serialize for CreateSecurityFirewallConfigByConfigVersionActivateRes
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemOpEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "eq" => Self::Eq,
-            "ex" => Self::Ex,
-            "gt" => Self::Gt,
-            "gte" => Self::Gte,
-            "inc" => Self::Inc,
-            "list" => Self::List,
-            "lt" => Self::Lt,
-            "lte" => Self::Lte,
-            "neq" => Self::Neq,
-            "nex" => Self::Nex,
-            "ninc" => Self::Ninc,
-            "pre" => Self::Pre,
-            "re" => Self::Re,
-            "sub" => Self::Sub,
-            "suf" => Self::Suf,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateSecurityFirewallConfigByConfigVersionActivateResponseRulesItemVariant1ConditionGroupItemConditionsItemOpEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

@@ -3,19 +3,30 @@
 
 use super::*;
 
+/// Local File Inclusion Attack \- Prevent unauthorized access to local files through web applications.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseCrsLfi {
+    pub action: GetFirewallConfigResponseCrsLfiActionEnum,
+    pub active: bool,
+}
+
+impl GetFirewallConfigResponseCrsLfi {
+    pub fn new(action: GetFirewallConfigResponseCrsLfiActionEnum, active: bool) -> Self {
+        Self { action, active }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
+pub enum GetFirewallConfigResponseCrsMaActionEnum {
     #[default]
-    Challenge,
     Deny,
     Log,
     Unknown(String),
 }
 
-impl GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
+impl GetFirewallConfigResponseCrsMaActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
             Self::Deny => "deny",
             Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
@@ -23,7 +34,7 @@ impl GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
     }
 }
 
-impl serde::Serialize for GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
+impl serde::Serialize for GetFirewallConfigResponseCrsMaActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -32,14 +43,13 @@ impl serde::Serialize for GetFirewallConfigResponseManagedRulesVercelRulesetActi
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
+impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsMaActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
             "deny" => Self::Deny,
             "log" => Self::Log,
             _ => Self::Unknown(value),
@@ -47,111 +57,44 @@ impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseManagedRulesVerce
     }
 }
 
-impl std::fmt::Display for GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum {
+impl std::fmt::Display for GetFirewallConfigResponseCrsMaActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Multipart Attack \- Block attempts to bypass security controls using multipart/form-data encoding.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseManagedRulesVercelRuleset {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<GetFirewallConfigResponseManagedRulesVercelRulesetActionEnum>,
+pub struct GetFirewallConfigResponseCrsMa {
+    pub action: GetFirewallConfigResponseCrsMaActionEnum,
     pub active: bool,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<String>,
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
 }
 
-impl GetFirewallConfigResponseManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-            updated_at: None,
-            user_id: None,
-            username: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseManagedRules {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ai_bots: Option<GetFirewallConfigResponseManagedRulesAiBots>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub bot_protection: Option<GetFirewallConfigResponseManagedRulesBotProtection>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub owasp: Option<GetFirewallConfigResponseManagedRulesOwasp>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub traffic_sources: Option<GetFirewallConfigResponseManagedRulesTrafficSources>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub vercel_ruleset: Option<GetFirewallConfigResponseManagedRulesVercelRuleset>,
-}
-
-impl GetFirewallConfigResponseManagedRules {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            ai_bots: None,
-            bot_protection: None,
-            owasp: None,
-            traffic_sources: None,
-            vercel_ruleset: None,
-        }
+impl GetFirewallConfigResponseCrsMa {
+    pub fn new(action: GetFirewallConfigResponseCrsMaActionEnum, active: bool) -> Self {
+        Self { action, active }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
+pub enum GetFirewallConfigResponseCrsPhpActionEnum {
     #[default]
-    Eq,
-    Ex,
-    Gt,
-    Gte,
-    Inc,
-    List,
-    Lt,
-    Lte,
-    Neq,
-    Nex,
-    Ninc,
-    Pre,
-    Re,
-    Sub,
-    Suf,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum {
+impl GetFirewallConfigResponseCrsPhpActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Eq => "eq",
-            Self::Ex => "ex",
-            Self::Gt => "gt",
-            Self::Gte => "gte",
-            Self::Inc => "inc",
-            Self::List => "list",
-            Self::Lt => "lt",
-            Self::Lte => "lte",
-            Self::Neq => "neq",
-            Self::Nex => "nex",
-            Self::Ninc => "ninc",
-            Self::Pre => "pre",
-            Self::Re => "re",
-            Self::Sub => "sub",
-            Self::Suf => "suf",
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
-{
+impl serde::Serialize for GetFirewallConfigResponseCrsPhpActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -160,120 +103,172 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
-{
+impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsPhpActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "eq" => Self::Eq,
-            "ex" => Self::Ex,
-            "gt" => Self::Gt,
-            "gte" => Self::Gte,
-            "inc" => Self::Inc,
-            "list" => Self::List,
-            "lt" => Self::Lt,
-            "lte" => Self::Lte,
-            "neq" => Self::Neq,
-            "nex" => Self::Nex,
-            "ninc" => Self::Ninc,
-            "pre" => Self::Pre,
-            "re" => Self::Re,
-            "sub" => Self::Sub,
-            "suf" => Self::Suf,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemOpEnum
-{
+impl std::fmt::Display for GetFirewallConfigResponseCrsPhpActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// PHP Attack \- Safeguard against vulnerability exploits in PHP-based applications.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseCrsPhp {
+    pub action: GetFirewallConfigResponseCrsPhpActionEnum,
+    pub active: bool,
+}
+
+impl GetFirewallConfigResponseCrsPhp {
+    pub fn new(action: GetFirewallConfigResponseCrsPhpActionEnum, active: bool) -> Self {
+        Self { action, active }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
+pub enum GetFirewallConfigResponseCrsRceActionEnum {
     #[default]
-    BotCategory,
-    BotName,
-    BotProtection,
-    BotStatus,
-    Cookie,
-    DomainEnvironment,
-    Environment,
-    GeoAsNumber,
-    GeoCity,
-    GeoContinent,
-    GeoCountry,
-    GeoCountryRegion,
-    Header,
-    Host,
-    IpAddress,
-    Ja3Digest,
-    Ja4Digest,
-    Method,
-    Path,
-    Protocol,
-    Query,
-    RateLimitApiId,
-    RawPath,
-    Region,
-    ResponseCode,
-    Route,
-    Ruleset,
-    Scheme,
-    ServerAction,
-    SharedCondition,
-    TargetPath,
-    TrafficSource,
-    TrustedSource,
-    UserAgent,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl GetFirewallConfigResponseRulesetsVariant0ItemConditionGroupItemConditionsItemTypeEnum {
+impl GetFirewallConfigResponseCrsRceActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::BotCategory => "bot_category",
-            Self::BotName => "bot_name",
-            Self::BotProtection => "bot_protection",
-            Self::BotStatus => "bot_status",
-            Self::Cookie => "cookie",
-            Self::DomainEnvironment => "domain_environment",
-            Self::Environment => "environment",
-            Self::GeoAsNumber => "geo_as_number",
-            Self::GeoCity => "geo_city",
-            Self::GeoContinent => "geo_continent",
-            Self::GeoCountry => "geo_country",
-            Self::GeoCountryRegion => "geo_country_region",
-            Self::Header => "header",
-            Self::Host => "host",
-            Self::IpAddress => "ip_address",
-            Self::Ja3Digest => "ja3_digest",
-            Self::Ja4Digest => "ja4_digest",
-            Self::Method => "method",
-            Self::Path => "path",
-            Self::Protocol => "protocol",
-            Self::Query => "query",
-            Self::RateLimitApiId => "rate_limit_api_id",
-            Self::RawPath => "raw_path",
-            Self::Region => "region",
-            Self::ResponseCode => "response_code",
-            Self::Route => "route",
-            Self::Ruleset => "ruleset",
-            Self::Scheme => "scheme",
-            Self::ServerAction => "server_action",
-            Self::SharedCondition => "shared_condition",
-            Self::TargetPath => "target_path",
-            Self::TrafficSource => "traffic_source",
-            Self::TrustedSource => "trusted_source",
-            Self::UserAgent => "user_agent",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetFirewallConfigResponseCrsRceActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsRceActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetFirewallConfigResponseCrsRceActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Remote Execution Attack \- Prevent unauthorized execution of remote scripts or commands.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseCrsRce {
+    pub action: GetFirewallConfigResponseCrsRceActionEnum,
+    pub active: bool,
+}
+
+impl GetFirewallConfigResponseCrsRce {
+    pub fn new(action: GetFirewallConfigResponseCrsRceActionEnum, active: bool) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetFirewallConfigResponseCrsRfiActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetFirewallConfigResponseCrsRfiActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetFirewallConfigResponseCrsRfiActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsRfiActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetFirewallConfigResponseCrsRfiActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Remote File Inclusion Attack \- Prohibit unauthorized upload or execution of remote files.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetFirewallConfigResponseCrsRfi {
+    pub action: GetFirewallConfigResponseCrsRfiActionEnum,
+    pub active: bool,
+}
+
+impl GetFirewallConfigResponseCrsRfi {
+    pub fn new(action: GetFirewallConfigResponseCrsRfiActionEnum, active: bool) -> Self {
+        Self { action, active }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetFirewallConfigResponseCrsSdActionEnum {
+    #[default]
+    Deny,
+    Log,
+    Unknown(String),
+}
+
+impl GetFirewallConfigResponseCrsSdActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
     }

@@ -4,6 +4,95 @@
 use super::*;
 use crate::types::Pagination;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListAliasesResponseAliasesItemProtectionBypassValue {
+    ShareableLink(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>),
+    User(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>),
+    AliasProtectionOverride(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>),
+    EmailInvite(Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListAliasesResponseAliasesItemProtectionBypassValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::ShareableLink(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::User(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::AliasProtectionOverride(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::EmailInvite(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListAliasesResponseAliasesItemProtectionBypassValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>>
+    for ListAliasesResponseAliasesItemProtectionBypassValue
+{
+    fn from(value: Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant0>) -> Self {
+        Self::ShareableLink(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>>
+    for ListAliasesResponseAliasesItemProtectionBypassValue
+{
+    fn from(value: Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant1>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>>
+    for ListAliasesResponseAliasesItemProtectionBypassValue
+{
+    fn from(value: Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant2>) -> Self {
+        Self::AliasProtectionOverride(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>>
+    for ListAliasesResponseAliasesItemProtectionBypassValue
+{
+    fn from(value: Box<ListAliasesResponseAliasesItemProtectionBypassValueVariant3>) -> Self {
+        Self::EmailInvite(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListAliasesResponseAliasesItem {
     /// The alias name, it could be a `.vercel.app` subdomain or a custom domain
@@ -239,93 +328,4 @@ impl GetAliasResponseMicrofrontendsApplicationsVariant2Item {
             project_id,
         }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetAliasResponseMicrofrontendsApplications {
-    Variant0ItemArray(Vec<GetAliasResponseMicrofrontendsApplicationsVariant0Item>),
-    Variant1ItemArray(Vec<GetAliasResponseMicrofrontendsApplicationsVariant1Item>),
-    Variant2ItemArray(Vec<GetAliasResponseMicrofrontendsApplicationsVariant2Item>),
-}
-
-impl<'de> serde::Deserialize<'de> for GetAliasResponseMicrofrontendsApplications {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<GetAliasResponseMicrofrontendsApplicationsVariant0Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<GetAliasResponseMicrofrontendsApplicationsVariant1Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant1ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<GetAliasResponseMicrofrontendsApplicationsVariant2Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant2ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetAliasResponseMicrofrontendsApplications branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetAliasResponseMicrofrontendsDefaultApp {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-}
-
-impl GetAliasResponseMicrofrontendsDefaultApp {
-    pub fn new(project_id: String) -> Self {
-        Self { project_id }
-    }
-}
-
-/// The microfrontends for the alias including the routing configuration
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetAliasResponseMicrofrontends {
-    pub applications: GetAliasResponseMicrofrontendsApplications,
-    #[serde(rename = "defaultApp")]
-    pub default_app: GetAliasResponseMicrofrontendsDefaultApp,
-}
-
-impl GetAliasResponseMicrofrontends {
-    pub fn new(
-        applications: GetAliasResponseMicrofrontendsApplications,
-        default_app: GetAliasResponseMicrofrontendsDefaultApp,
-    ) -> Self {
-        Self {
-            applications,
-            default_app,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetAliasResponseProtectionBypassValueVariant0ScopeEnum {
-    #[serde(rename = "shareable-link")]
-    #[default]
-    ShareableLink,
 }

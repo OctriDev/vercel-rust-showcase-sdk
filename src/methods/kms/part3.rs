@@ -157,6 +157,18 @@ impl<'de> serde::Deserialize<'de> for CreateKmsSigningKeyRevokePreviousAt {
     }
 }
 
+impl ::std::convert::From<String> for CreateKmsSigningKeyRevokePreviousAt {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateKmsSigningKeyRevokePreviousAt {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CreateKmsSigningKeyResponsePublicKey {
     #[serde(skip_serializing_if = "Option::is_none")]

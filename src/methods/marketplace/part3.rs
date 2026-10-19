@@ -3,6 +3,35 @@
 
 use super::*;
 
+/// The current status of the resource
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetIntegrationResourcesResponseResourcesItemStatusEnum {
+    #[default]
+    Error,
+    Onboarding,
+    Pending,
+    Ready,
+    Resumed,
+    Suspended,
+    Uninstalled,
+    Unknown(String),
+}
+
+impl GetIntegrationResourcesResponseResourcesItemStatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Error => "error",
+            Self::Onboarding => "onboarding",
+            Self::Pending => "pending",
+            Self::Ready => "ready",
+            Self::Resumed => "resumed",
+            Self::Suspended => "suspended",
+            Self::Uninstalled => "uninstalled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for GetIntegrationResourcesResponseResourcesItemStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -146,6 +175,38 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for GetIntegrationResourceResponseCustomClaimsClaimRulesItemClaimsValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetIntegrationResourceResponseCustomClaimsClaimRulesItemClaimsValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetIntegrationResourceResponseCustomClaimsClaimRulesItemClaimsValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for GetIntegrationResourceResponseCustomClaimsClaimRulesItemClaimsValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetIntegrationResourceResponseCustomClaimsClaimRulesItemWhen {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -204,106 +265,5 @@ impl GetIntegrationResourceResponseCustomClaims {
             default_role: None,
             roles: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetIntegrationResourceResponseMetadataValue {
-    String(String),
-    Number(f64),
-    StringArray(Vec<String>),
-    NumberArray(Vec<f64>),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de> for GetIntegrationResourceResponseMetadataValue {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<f64>>(value.clone()) {
-            let candidate = Self::NumberArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetIntegrationResourceResponseMetadataValue branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetIntegrationResourceResponseNotificationLevelEnum {
-    #[default]
-    Error,
-    Info,
-    Warn,
-    Unknown(String),
-}
-
-impl GetIntegrationResourceResponseNotificationLevelEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Error => "error",
-            Self::Info => "info",
-            Self::Warn => "warn",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetIntegrationResourceResponseNotificationLevelEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetIntegrationResourceResponseNotificationLevelEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error" => Self::Error,
-            "info" => Self::Info,
-            "warn" => Self::Warn,
-            _ => Self::Unknown(value),
-        })
     }
 }

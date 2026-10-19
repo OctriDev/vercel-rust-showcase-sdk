@@ -4,7 +4,7 @@
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{AuthToken, ExchangeSsoTokenResponse, ListAuthTokensResponse};
+use crate::types::{AuthToken, ExchangeSsoTokenResponse};
 
 /// The grant type, when using x-www-form-urlencoded content type
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
@@ -148,6 +148,18 @@ impl<'de> serde::Deserialize<'de> for ExchangeSsoToken {
         lossy.ok_or_else(|| {
             serde::de::Error::custom("no ExchangeSsoToken branch accepts this payload")
         })
+    }
+}
+
+impl ::std::convert::From<Box<ExchangeSsoTokenVariant0>> for ExchangeSsoToken {
+    fn from(value: Box<ExchangeSsoTokenVariant0>) -> Self {
+        Self::AuthorizationCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<ExchangeSsoTokenVariant1>> for ExchangeSsoToken {
+    fn from(value: Box<ExchangeSsoTokenVariant1>) -> Self {
+        Self::RefreshToken(value)
     }
 }
 
@@ -311,27 +323,6 @@ pub fn exchange_sso_token(
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "exchange_sso_token",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists authentication tokens for the authenticated user. The response includes token records and pagination metadata for reviewing the user's tokens.
-///
-/// Retrieve a list of the current User's authentication tokens.
-pub fn list_auth_tokens(
-    config: &ClientConfig,
-    options: Option<&RequestOptions>,
-) -> Result<ListAuthTokensResponse, SdkError> {
-    Ok(sdk_request::<ListAuthTokensResponse>(
-        "GET",
-        "/v6/user/tokens",
-        config,
-        RequestOpts {
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_auth_tokens",
             options,
             ..Default::default()
         },

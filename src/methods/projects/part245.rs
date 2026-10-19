@@ -2,28 +2,30 @@
 // This file is machine-generated from your OpenAPI spec.
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum {
+pub enum UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum {
+impl UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum {
+impl serde::Serialize
+    for UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -33,7 +35,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentChecksCo
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum
+    for UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -41,42 +43,46 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum {
+impl std::fmt::Display
+    for UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseAliasItemDeploymentChecksStateEnum {
+pub enum UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum {
     #[default]
-    Completed,
-    Registered,
-    Running,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseAliasItemDeploymentChecksStateEnum {
+impl UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentChecksStateEnum {
+impl serde::Serialize for UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -86,7 +92,7 @@ impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentChecksSt
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseAliasItemDeploymentChecksStateEnum
+    for UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -94,203 +100,195 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemDeploymentChecksStateEnum {
+impl std::fmt::Display
+    for UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum {
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseAliasItemDeploymentCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct UploadProjectAvatarResponseSsoProtection {
+    #[serde(
+        rename = "april2026SecurityIncidentMigrationAppliedFrom",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub april2026_security_incident_migration_applied_from: Option<Option<UploadProjectAvatarResponseSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum>>,
+    #[serde(
+        rename = "cve55182MigrationAppliedFrom",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub cve55182_migration_applied_from: Option<Option<UploadProjectAvatarResponseSsoProtectionCve55182MigrationAppliedFromEnum>>,
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum,
 }
 
-impl DeleteProjectAvatarResponseAliasItemDeploymentCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseAliasItemDeploymentOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl DeleteProjectAvatarResponseAliasItemDeploymentOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl UploadProjectAvatarResponseSsoProtection {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        deployment_type: UploadProjectAvatarResponseSsoProtectionDeploymentTypeEnum,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            april2026_security_incident_migration_applied_from: None,
+            cve55182_migration_applied_from: None,
+            deployment_type,
         }
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseStaticIps {
+    pub builds: bool,
+    pub enabled: bool,
+    pub regions: Vec<String>,
+}
+
+impl UploadProjectAvatarResponseStaticIps {
+    pub fn new(builds: bool, enabled: bool, regions: Vec<String>) -> Self {
+        Self {
+            builds,
+            enabled,
+            regions,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UploadProjectAvatarResponseTargetsValueAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTargetsValueAliasAssigned {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseTargetsValueAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for UploadProjectAvatarResponseTargetsValueAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for UploadProjectAvatarResponseTargetsValueAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseTargetsValueAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl UploadProjectAvatarResponseTargetsValueAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseAliasItemDeploymentPlanEnum {
+pub enum UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseAliasItemDeploymentPlanEnum {
+impl UploadProjectAvatarResponseTargetsValueBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemDeploymentPlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemDeploymentPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

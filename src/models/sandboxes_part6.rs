@@ -3,6 +3,19 @@
 
 // sandboxes domain models (part 6)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemTransformItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<std::collections::HashMap<String, String>>,
+}
+
+impl CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemTransformItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { headers: None }
+    }
+}
+
 /// Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItemResponse {
@@ -117,6 +130,30 @@ impl<'de> serde::Deserialize<'de> for CreateSandboxesV3RequestNetworkPolicyVaria
                 "no CreateSandboxesV3RequestNetworkPolicyVariant1Allow branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for CreateSandboxesV3RequestNetworkPolicyVariant1Allow {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    > for CreateSandboxesV3RequestNetworkPolicyVariant1Allow
+{
+    fn from(
+        value: std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesV3RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ) -> Self {
+        Self::Variant1ValueItemArrayMap(value)
     }
 }
 
@@ -534,36 +571,4 @@ impl CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchQuerySt
             value: None,
         }
     }
-}
-
-/// Matcher for the entry key (header name or query key).
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemKey {
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
-}
-
-impl CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemKey {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            exact: None,
-            starts_with: None,
-        }
-    }
-}
-
-/// Matcher for the entry value.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV4RequestNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue {
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
 }

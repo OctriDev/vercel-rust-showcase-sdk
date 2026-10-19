@@ -3,6 +3,18 @@
 
 // user domain models (part 2)
 
+impl ::std::convert::From<String> for AuthUserImportFlowGitNamespace {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for AuthUserImportFlowGitNamespace {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum AuthUserImportFlowGitNamespaceId {
@@ -33,6 +45,18 @@ impl<'de> serde::Deserialize<'de> for AuthUserImportFlowGitNamespaceId {
                 "no AuthUserImportFlowGitNamespaceId branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for AuthUserImportFlowGitNamespaceId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for AuthUserImportFlowGitNamespaceId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -125,6 +149,18 @@ impl<'de> serde::Deserialize<'de> for AuthUserPreferredScopesAndGitNamespacesIte
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no AuthUserPreferredScopesAndGitNamespacesItemGitNamespaceId branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for AuthUserPreferredScopesAndGitNamespacesItemGitNamespaceId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for AuthUserPreferredScopesAndGitNamespacesItemGitNamespaceId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -451,50 +487,4 @@ impl AuthUserResourceConfig {
             serverless_function_max_memory_size: None,
         }
     }
-}
-
-/// Optional enumerated value serialized in the `blockedDueToOverageType` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum AuthUserSoftBlockBlockedDueToOverageTypeEnum {
-    #[default]
-    Analyticsusage,
-    Artifacts,
-    Bandwidth,
-    Blobdatatransfer,
-    Blobtotaladvancedrequests,
-    Blobtotalavgsizeinbytes,
-    Blobtotalgetresponseobjectsizeinbytes,
-    Blobtotalsimplerequests,
-    Connectdatatransfer,
-    Datacacheread,
-    Datacachewrite,
-    Edgeconfigread,
-    Edgeconfigwrite,
-    Edgefunctionexecutionunits,
-    Edgemiddlewareinvocations,
-    Edgerequest,
-    Edgerequestadditionalcpuduration,
-    Elasticconcurrencybuildslots,
-    Fastdatatransfer,
-    Fastorigintransfer,
-    Fluidcpuduration,
-    Fluidduration,
-    Functionduration,
-    Functioninvocation,
-    Imageoptimizationcacheread,
-    Imageoptimizationcachewrite,
-    Imageoptimizationtransformation,
-    Logdrainsvolume,
-    Monitoringmetric,
-    Observabilityevent,
-    Ondemandconcurrencyminutes,
-    Runtimecacheread,
-    Runtimecachewrite,
-    Serverlessfunctionexecution,
-    Sourceimages,
-    Wafowaspexcessbytes,
-    Wafowasprequests,
-    Wafratelimitrequest,
-    Webanalyticsevent,
-    Unknown(String),
 }

@@ -3,70 +3,135 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponseRollingRelease {
-    pub fn new(target: String) -> Self {
+impl DeleteProjectAvatarResponseGitProviderOptions {
+    pub fn new(
+        create_deployments: DeleteProjectAvatarResponseGitProviderOptionsCreateDeploymentsEnum,
+    ) -> Self {
         Self {
-            canary_response_header: None,
-            gate: None,
-            stages: None,
-            target,
+            consolidated_git_commit_status: None,
+            create_deployments,
+            disable_repository_dispatch_events: None,
+            git_commit_status: None,
+            require_verified_commits: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseIpBucketsItem {
+    pub bucket: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default: Option<bool>,
+    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
+    pub support_until: Option<f64>,
+}
+
+impl DeleteProjectAvatarResponseIpBucketsItem {
+    pub fn new(bucket: String) -> Self {
+        Self {
+            bucket,
+            default: None,
+            support_until: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseJobsFlagdefinitionspresent {
+    pub targets: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseJobsFlagdefinitionspresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseJobsLint {
+    pub targets: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseJobsLint {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseJobsMfeconfigpresent {
+    pub targets: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseJobsMfeconfigpresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseJobsTypecheck {
+    pub targets: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseJobsTypecheck {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseJobs {
+    #[serde(
+        rename = "flag-definitions-present",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flag_definitions_present: Option<DeleteProjectAvatarResponseJobsFlagdefinitionspresent>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lint: Option<DeleteProjectAvatarResponseJobsLint>,
+    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
+    pub mfe_config_present: Option<DeleteProjectAvatarResponseJobsMfeconfigpresent>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub typecheck: Option<DeleteProjectAvatarResponseJobsTypecheck>,
+}
+
+impl DeleteProjectAvatarResponseJobs {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            flag_definitions_present: None,
+            lint: None,
+            mfe_config_present: None,
+            typecheck: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+pub enum DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Failed,
+    InProgress,
+    Pending,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Failed => "failed",
+            Self::InProgress => "in-progress",
+            Self::Pending => "pending",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -75,96 +140,48 @@ impl serde::Serialize for DeleteProjectAvatarResponseSandboxFailoverRegionsItemE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "failed" => Self::Failed,
+            "in-progress" => Self::InProgress,
+            "pending" => Self::Pending,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSandboxRegionEnum {
+pub enum DeleteProjectAvatarResponseLastAliasRequestTypeEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    Promote,
+    Rollback,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseSandboxRegionEnum {
+impl DeleteProjectAvatarResponseLastAliasRequestTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::Promote => "promote",
+            Self::Rollback => "rollback",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSandboxRegionEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseLastAliasRequestTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -173,101 +190,110 @@ impl serde::Serialize for DeleteProjectAvatarResponseSandboxRegionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSandboxRegionEnum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseLastAliasRequestTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "promote" => Self::Promote,
+            "rollback" => Self::Rollback,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSandboxRegionEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseLastAliasRequestTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseSandbox {
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions: Option<Vec<DeleteProjectAvatarResponseSandboxFailoverRegionsItemEnum>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<DeleteProjectAvatarResponseSandboxRegionEnum>,
+pub struct DeleteProjectAvatarResponseLastAliasRequest {
+    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
+    pub from_deployment_id: Option<String>,
+    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
+    #[serde(
+        rename = "fromRollingReleaseId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub from_rolling_release_id: Option<String>,
+    #[serde(rename = "jobStatus")]
+    pub job_status: DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum,
+    #[serde(rename = "requestedAt")]
+    pub requested_at: f64,
+    #[serde(rename = "toDeploymentId")]
+    pub to_deployment_id: String,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseLastAliasRequestTypeEnum,
 }
 
-impl DeleteProjectAvatarResponseSandbox {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl DeleteProjectAvatarResponseLastAliasRequest {
+    pub fn new(
+        from_deployment_id: Option<String>,
+        job_status: DeleteProjectAvatarResponseLastAliasRequestJobStatusEnum,
+        requested_at: f64,
+        to_deployment_id: String,
+        type_: DeleteProjectAvatarResponseLastAliasRequestTypeEnum,
+    ) -> Self {
         Self {
-            failover_regions: None,
-            region: None,
+            from_deployment_id,
+            from_rolling_release_id: None,
+            job_status,
+            requested_at,
+            to_deployment_id,
+            type_,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
-    #[default]
-    Unknown2,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned {
+    Number(f64),
+    Bool(bool),
 }
 
-impl DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Unknown2 => "*",
-            Self::Unknown(value) => value.as_str(),
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<f64> for DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "*" => Self::Unknown2,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<bool> for DeleteProjectAvatarResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseSecurityLogHeadersVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseLatestDeploymentsItemAliasError {
+    pub code: String,
+    pub message: String,
 }

@@ -3,6 +3,144 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateFlagEnvironmentsValueRulesItemConditionsItemRhs {
+    Object(Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant0>),
+    Object2(Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant1>),
+    String(String),
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateFlagEnvironmentsValueRulesItemConditionsItemRhs branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant0>>
+    for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant1>>
+    for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemConditionsItemRhsVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<String> for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateFlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueRulesItemConditionsItemCmpOptions {
+    #[serde(rename = "ignoreCase", skip_serializing_if = "Option::is_none")]
+    pub ignore_case: Option<bool>,
+}
+
+impl CreateFlagEnvironmentsValueRulesItemConditionsItemCmpOptions {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { ignore_case: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueRulesItemConditionsItem {
+    pub lhs: CreateFlagEnvironmentsValueRulesItemConditionsItemLhs,
+    pub cmp: CreateFlagEnvironmentsValueRulesItemConditionsItemCmpEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rhs: Option<CreateFlagEnvironmentsValueRulesItemConditionsItemRhs>,
+    #[serde(rename = "cmpOptions", skip_serializing_if = "Option::is_none")]
+    pub cmp_options: Option<CreateFlagEnvironmentsValueRulesItemConditionsItemCmpOptions>,
+}
+
+impl CreateFlagEnvironmentsValueRulesItemConditionsItem {
+    pub fn new(
+        lhs: CreateFlagEnvironmentsValueRulesItemConditionsItemLhs,
+        cmp: CreateFlagEnvironmentsValueRulesItemConditionsItemCmpEnum,
+    ) -> Self {
+        Self {
+            lhs,
+            cmp,
+            rhs: None,
+            cmp_options: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueRulesItemOutcomeVariant0 {
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    #[serde(rename = "variantId")]
+    pub variant_id: String,
+}
+
 impl CreateFlagEnvironmentsValueRulesItemOutcomeVariant0 {
     pub fn new(type_: serde_json::Value, variant_id: String) -> Self {
         Self { type_, variant_id }
@@ -180,196 +318,6 @@ impl CreateFlagEnvironmentsValueRulesItemOutcomeVariant2 {
             default_variant_id,
             slots,
             final_promille: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateFlagEnvironmentsValueRulesItemOutcome {
-    Object(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>),
-    Object2(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>),
-    Object3(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagEnvironmentsValueRulesItemOutcome {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::Object3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateFlagEnvironmentsValueRulesItemOutcome branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueRulesItem {
-    pub id: String,
-    pub conditions: Vec<CreateFlagEnvironmentsValueRulesItemConditionsItem>,
-    pub outcome: CreateFlagEnvironmentsValueRulesItemOutcome,
-}
-
-impl CreateFlagEnvironmentsValueRulesItem {
-    pub fn new(
-        id: String,
-        conditions: Vec<CreateFlagEnvironmentsValueRulesItemConditionsItem>,
-        outcome: CreateFlagEnvironmentsValueRulesItemOutcome,
-    ) -> Self {
-        Self {
-            id,
-            conditions,
-            outcome,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueFallthroughVariant0 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    #[serde(rename = "variantId")]
-    pub variant_id: String,
-}
-
-impl CreateFlagEnvironmentsValueFallthroughVariant0 {
-    pub fn new(type_: serde_json::Value, variant_id: String) -> Self {
-        Self { type_, variant_id }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueFallthroughVariant1Base {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    pub kind: String,
-    pub attribute: String,
-}
-
-impl CreateFlagEnvironmentsValueFallthroughVariant1Base {
-    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
-        Self {
-            type_,
-            kind,
-            attribute,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueFallthroughVariant1 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    pub base: CreateFlagEnvironmentsValueFallthroughVariant1Base,
-    /// The distribution for each variant
-    pub weights: std::collections::HashMap<String, f64>,
-    /// This variant will be used when the base attribute does not exist
-    #[serde(rename = "defaultVariantId")]
-    pub default_variant_id: String,
-}
-
-impl CreateFlagEnvironmentsValueFallthroughVariant1 {
-    pub fn new(
-        type_: serde_json::Value,
-        base: CreateFlagEnvironmentsValueFallthroughVariant1Base,
-        weights: std::collections::HashMap<String, f64>,
-        default_variant_id: String,
-    ) -> Self {
-        Self {
-            type_,
-            base,
-            weights,
-            default_variant_id,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueFallthroughVariant2Base {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    pub kind: String,
-    pub attribute: String,
-}
-
-impl CreateFlagEnvironmentsValueFallthroughVariant2Base {
-    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
-        Self {
-            type_,
-            kind,
-            attribute,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagEnvironmentsValueFallthroughVariant2SlotsItem {
-    /// Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
-    pub promille: f64,
-    /// How long this promille is served in ms before moving to the next slot.
-    #[serde(rename = "durationMs")]
-    pub duration_ms: f64,
-}
-
-impl CreateFlagEnvironmentsValueFallthroughVariant2SlotsItem {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_range(
-            "promille",
-            self.promille,
-            crate::validation::RangeOpts {
-                min: Some(0_f64),
-                max: Some(100000_f64),
-                ..Default::default()
-            },
-        )?;
-        crate::validation::validate_range(
-            "durationMs",
-            self.duration_ms,
-            crate::validation::RangeOpts {
-                min: Some(0_f64),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(promille: f64, duration_ms: f64) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            promille,
-            duration_ms,
         };
         value.validate_constraints()?;
         Ok(value)

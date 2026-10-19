@@ -6,6 +6,478 @@ use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
 use crate::types::{DomainName, GetDomainContactVerificationResponse, Nameserver, OrderId};
+use crate::validation::{validate_items, validate_range, LengthOpts, RangeOpts};
+
+#[derive(Debug, Clone)]
+pub struct BuySingleDomainParams {
+    pub domain: DomainName,
+    pub auto_renew: bool,
+    pub years: f64,
+    pub expected_price: f64,
+    pub contact_information: BuySingleDomainContactInformation,
+    pub team_id: Option<String>,
+    pub language_code: Option<String>,
+}
+
+/// Purchases a domain using the supplied registration term, renewal preference, expected price, and contact information. Provide `contactInformation` with the required registrant details and use the TLD contact schema to determine whether additional fields are needed. For a punycode domain, include `languageCode`.
+///
+/// Buy a domain
+///
+/// # Arguments
+///
+/// * `auto_renew` - Whether the domain should be auto-renewed before it
+///   expires. This can be configured later through the Vercel Dashboard or the
+///   [Update auto-renew for a
+///   domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registr
+///   ar/update-auto-renew-for-a-domain) endpoint.
+/// * `years` - The number of years to purchase the domain for.
+/// * `contact_information` - The contact information for the domain. Some TLDs
+///   require additional contact information. Use the [Get contact info
+///   schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registr
+///   ar/get-contact-info-schema) endpoint to retrieve the required fields.
+/// * `language_code` - The language code for the domain. For punycode domains,
+///   this must be provided. The list of supported language codes for a TLD can be
+///   retrieved from the [Get
+///   TLD](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/
+///   get-tld) endpoint.
+pub fn buy_single_domain(
+    config: &ClientConfig,
+    params: BuySingleDomainParams,
+    options: Option<&RequestOptions>,
+) -> Result<BuySingleDomainResponse, SdkError> {
+    let BuySingleDomainParams {
+        domain,
+        auto_renew,
+        years,
+        expected_price,
+        contact_information,
+        team_id,
+        language_code,
+    } = params;
+    validate_range(
+        "expectedPrice",
+        expected_price,
+        RangeOpts {
+            min: Some(0.01_f64),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "autoRenew".to_string(),
+        serde_json::to_value(auto_renew).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "years".to_string(),
+        serde_json::to_value(years).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "expectedPrice".to_string(),
+        serde_json::to_value(expected_price).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "contactInformation".to_string(),
+        serde_json::to_value(contact_information).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = language_code {
+        __body_map.insert(
+            "languageCode".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<BuySingleDomainResponse>(
+        "POST",
+        &format!(
+            "/v1/registrar/domains/{}/buy",
+            crate::client::encode_path_segment(&domain)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "buy_single_domain",
+            options,
+            errors: &[
+                ("401", "Unauthorized"),
+                ("429", "TooManyRequests"),
+                ("500", "InternalServerError"),
+            ],
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Purchases multiple domains in one order using shared contact information. Supply `domains` with each domain's renewal preference, term, and expected price, and provide the registrant details in `contactInformation`. Include `languageCode` for any punycode domain.
+///
+/// Buy multiple domains at once
+///
+/// # Arguments
+///
+/// * `contact_information` - The contact information for the domain. Some TLDs
+///   require additional contact information. Use the [Get contact info
+///   schema](https://vercel.com/docs/rest-api/reference/endpoints/domains-registr
+///   ar/get-contact-info-schema) endpoint to retrieve the required fields.
+pub fn buy_domains(
+    config: &ClientConfig,
+    domains: Vec<BuyDomainsDomainsItem>,
+    contact_information: BuyDomainsContactInformation,
+    team_id: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<BuyDomainsResponse, SdkError> {
+    validate_items(
+        "domains",
+        &domains,
+        LengthOpts {
+            min: Some(1),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "domains".to_string(),
+        serde_json::to_value(domains).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "contactInformation".to_string(),
+        serde_json::to_value(contact_information).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<BuyDomainsResponse>(
+        "POST",
+        "/v1/registrar/domains/buy",
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "buy_domains",
+            options,
+            errors: &[
+                ("401", "Unauthorized"),
+                ("429", "TooManyRequests"),
+                ("500", "InternalServerError"),
+            ],
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone)]
+pub struct TransferInDomainParams {
+    pub domain: DomainName,
+    pub auth_code: String,
+    pub auto_renew: bool,
+    pub years: f64,
+    pub expected_price: f64,
+    pub contact_information: TransferInDomainContactInformation,
+    pub team_id: Option<String>,
+}
+
+/// Transfers a domain to the account from another registrar. Provide the losing registrar's `authCode`, the transfer term in `years`, the `expectedPrice`, and registrant `contactInformation`; set `autoRenew` to control future renewals. A 200 response includes the transfer order's `orderId` and links for related actions.
+///
+/// Transfer a domain in from another registrar
+///
+/// # Arguments
+///
+/// * `auth_code` - The auth code for the domain. You must obtain this code from
+///   the losing registrar.
+/// * `auto_renew` - Whether the domain should be auto-renewed before it
+///   expires. This can be configured later through the Vercel Dashboard or the
+///   [Update auto-renew for a
+///   domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registr
+///   ar/update-auto-renew-for-a-domain) endpoint.
+/// * `years` - The number of years to renew the domain for once it is
+///   transferred in. This must be a valid number of transfer years for the TLD.
+pub fn transfer_in_domain(
+    config: &ClientConfig,
+    params: TransferInDomainParams,
+    options: Option<&RequestOptions>,
+) -> Result<TransferInDomainResponse, SdkError> {
+    let TransferInDomainParams {
+        domain,
+        auth_code,
+        auto_renew,
+        years,
+        expected_price,
+        contact_information,
+        team_id,
+    } = params;
+    validate_range(
+        "expectedPrice",
+        expected_price,
+        RangeOpts {
+            min: Some(0.01_f64),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "authCode".to_string(),
+        serde_json::to_value(auth_code).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "autoRenew".to_string(),
+        serde_json::to_value(auto_renew).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "years".to_string(),
+        serde_json::to_value(years).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "expectedPrice".to_string(),
+        serde_json::to_value(expected_price).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "contactInformation".to_string(),
+        serde_json::to_value(contact_information).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<TransferInDomainResponse>(
+        "POST",
+        &format!(
+            "/v1/registrar/domains/{}/transfer",
+            crate::client::encode_path_segment(&domain)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "transfer_in_domain",
+            options,
+            errors: &[
+                ("401", "Unauthorized"),
+                ("429", "TooManyRequests"),
+                ("500", "InternalServerError"),
+            ],
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Retrieves the transfer status for a domain. Use the status to check the progress or outcome of an incoming domain transfer. The response reports the transfer's current state.
+///
+/// Get the transfer status for a domain
+pub fn get_domain_transfer_in(
+    config: &ClientConfig,
+    domain: DomainName,
+    team_id: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<GetDomainTransferInResponse, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<GetDomainTransferInResponse>(
+        "GET",
+        &format!(
+            "/v1/registrar/domains/{}/transfer",
+            crate::client::encode_path_segment(&domain)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_domain_transfer_in",
+            options,
+            errors: &[
+                ("400", "HttpApiDecodeError"),
+                ("401", "Unauthorized"),
+                ("404", "NotFound"),
+                ("429", "TooManyRequests"),
+                ("500", "InternalServerError"),
+            ],
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct RenewDomainParams {
+    pub domain: DomainName,
+    pub years: f64,
+    pub expected_price: f64,
+    pub team_id: Option<String>,
+    pub contact_information: Option<RenewDomainContactInformation>,
+}
+
+/// Renews a domain registered with Vercel for the specified number of years. Provide `years` and `expectedPrice`, and include `contactInformation` when updating the registrant details as part of the renewal. A 200 response includes the renewal order's `orderId` and links for related actions.
+///
+/// Renew a domain
+///
+/// # Arguments
+///
+/// * `years` - The number of years to renew the domain for.
+pub fn renew_domain(
+    config: &ClientConfig,
+    params: RenewDomainParams,
+    options: Option<&RequestOptions>,
+) -> Result<RenewDomainResponse, SdkError> {
+    let RenewDomainParams {
+        domain,
+        years,
+        expected_price,
+        team_id,
+        contact_information,
+    } = params;
+    validate_range(
+        "expectedPrice",
+        expected_price,
+        RangeOpts {
+            min: Some(0.01_f64),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "years".to_string(),
+        serde_json::to_value(years).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "expectedPrice".to_string(),
+        serde_json::to_value(expected_price).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = contact_information {
+        __body_map.insert(
+            "contactInformation".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<RenewDomainResponse>(
+        "POST",
+        &format!(
+            "/v1/registrar/domains/{}/renew",
+            crate::client::encode_path_segment(&domain)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "renew_domain",
+            options,
+            errors: &[
+                ("401", "Unauthorized"),
+                ("404", "DomainNotFound"),
+                ("429", "TooManyRequests"),
+                ("500", "InternalServerError"),
+            ],
+            ..Default::default()
+        },
+    )?
+    .data)
+}
 
 /// Updates whether a domain is set to renew automatically. Set `autoRenew` to `true` or `false` to enable or disable automatic renewal for the specified domain. A 204 response confirms the setting was updated and contains no response body.
 ///

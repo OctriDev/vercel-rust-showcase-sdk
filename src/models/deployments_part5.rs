@@ -3,6 +3,58 @@
 
 // deployments domain models (part 5)
 
+impl CancelDeploymentResponseGitSourceVariant9CommitMetadata {
+    pub fn new(
+        author: CancelDeploymentResponseGitSourceVariant9CommitMetadataAuthor,
+        committer: CancelDeploymentResponseGitSourceVariant9CommitMetadataCommitter,
+        message: String,
+    ) -> Self {
+        Self {
+            author,
+            committer,
+            message,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseGitSourceVariant9TypeEnum {
+    #[default]
+    Vercel,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseGitSourceVariant9TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Vercel => "vercel",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CancelDeploymentResponseGitSourceVariant9TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant9TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "vercel" => Self::Vercel,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display for CancelDeploymentResponseGitSourceVariant9TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -466,61 +518,6 @@ impl CancelDeploymentResponseGitSourceVariant15TypeEnum {
         match self {
             Self::Gitlab => "gitlab",
             Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseGitSourceVariant15TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant15TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "gitlab" => Self::Gitlab,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CancelDeploymentResponseGitSourceVariant15TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseGitSourceVariant15 {
-    #[serde(rename = "projectId")]
-    pub project_id: f64,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub sha: String,
-    #[serde(rename = "type")]
-    pub type_: CancelDeploymentResponseGitSourceVariant15TypeEnum,
-}
-
-impl CancelDeploymentResponseGitSourceVariant15 {
-    pub fn new(
-        project_id: f64,
-        ref_: String,
-        sha: String,
-        type_: CancelDeploymentResponseGitSourceVariant15TypeEnum,
-    ) -> Self {
-        Self {
-            project_id,
-            ref_,
-            sha,
-            type_,
         }
     }
 }

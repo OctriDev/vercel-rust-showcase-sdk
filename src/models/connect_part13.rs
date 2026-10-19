@@ -3,6 +3,26 @@
 
 // connect domain models (part 13)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ConnectConnectorUpdateDataRequestVariant0ServerConfigJwksKeysItem {
+    /// JSON Web Key type.
+    pub kty: String,
+    /// JSON Web Key identifier.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub kid: Option<String>,
+    /// Intended key use: signing or encryption.
+    #[serde(rename = "use", skip_serializing_if = "Option::is_none")]
+    pub use_: Option<ConnectConnectorUpdateDataRequestVariant0ServerConfigJwksKeysItemUseEnum>,
+    /// Operations permitted for this key.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key_ops: Option<Vec<String>>,
+    /// Algorithm intended for this key.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alg: Option<String>,
+    #[serde(flatten)]
+    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
+}
+
 impl ConnectConnectorUpdateDataRequestVariant0ServerConfigJwksKeysItem {
     pub fn new(kty: String) -> Self {
         Self {
@@ -523,11 +543,4 @@ impl ConnectConnectorUpdateDataRequestVariant1ToAddItem {
         value.validate_constraints()?;
         Ok(value)
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt {
-    Integer(i64),
-    String(String),
 }

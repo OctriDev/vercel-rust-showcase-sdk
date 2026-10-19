@@ -2,670 +2,298 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_length, LengthOpts};
 
-#[derive(Debug, Clone, Default)]
-pub struct CreateProjectParams {
-    pub name: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub enable_preview_feedback: Option<Option<bool>>,
-    pub enable_production_feedback: Option<Option<bool>>,
-    pub preview_deployments_disabled: Option<Option<bool>>,
-    pub preview_deployment_suffix: Option<Option<String>>,
-    pub build_command: Option<Option<String>>,
-    pub command_for_ignoring_build_step: Option<Option<String>>,
-    pub dev_command: Option<Option<String>>,
-    pub environment_variables: Option<Vec<CreateProjectEnvironmentVariablesItem>>,
-    pub framework: Option<serde_json::Value>,
-    pub git_repository: Option<CreateProjectGitRepository>,
-    pub install_command: Option<Option<String>>,
-    pub skip_git_connect_during_link: Option<bool>,
-    pub sso_protection: Option<Option<CreateProjectSsoProtection>>,
-    pub sandbox: Option<CreateProjectSandbox>,
-    pub output_directory: Option<Option<String>>,
-    pub public_source: Option<Option<bool>>,
-    pub root_directory: Option<Option<String>>,
-    pub serverless_function_region: Option<Option<String>>,
-    pub serverless_function_zero_config_failover: Option<bool>,
-    pub oidc_token_config: Option<CreateProjectOidcTokenConfig>,
-    pub enable_affected_projects_deployments: Option<bool>,
-    pub resource_config: Option<CreateProjectResourceConfig>,
+impl std::fmt::Display
+    for UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-/// Creates a project with a required `name` and optional settings for its framework, build commands, environment variables, Git connection, and sandbox regions. Supply only the settings you want to configure; supported build and install commands can be detected automatically when set to `null`. A 200 response returns the created project object.
-///
-/// Allows to create a new project with the provided configuration. It only requires the project `name` but more configuration can be provided to override the defaults.
-///
-/// # Arguments
-///
-/// * `name` - The desired name for the project
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `enable_preview_feedback` - Opt-in to preview toolbar on the project level
-/// * `enable_production_feedback` - Opt-in to production toolbar on the project
-///   level
-/// * `preview_deployments_disabled` - Specifies whether preview deployments are
-///   disabled for this project.
-/// * `preview_deployment_suffix` - Custom domain suffix for preview
-///   deployments. Takes precedence over team-level suffix. Must be a domain owned
-///   by the team.
-/// * `build_command` - The build command for this project. When `null` is used
-///   this value will be automatically detected
-/// * `dev_command` - The dev command for this project. When `null` is used this
-///   value will be automatically detected
-/// * `environment_variables` - Collection of ENV Variables the Project will use
-/// * `framework` - The framework that is being used for this project. When
-///   `null` is used no framework is selected
-/// * `git_repository` - The Git Repository that will be connected to the
-///   project. When this is defined, any pushes to the specified connected Git
-///   Repository will be automatically deployed
-/// * `install_command` - The install command for this project. When `null` is
-///   used this value will be automatically detected
-/// * `skip_git_connect_during_link` - Opts-out of the message prompting a CLI
-///   user to connect a Git repository in `vercel link`.
-/// * `sso_protection` - The Vercel Auth setting for the project (historically
-///   named \"SSO Protection\")
-/// * `sandbox` - Specifies the default region and failover regions for
-///   sandboxes created in the project
-/// * `output_directory` - The output directory of the project. When `null` is
-///   used this value will be automatically detected
-/// * `public_source` - Deprecated. Accepted for backwards compatibility but
-///   ignored.
-/// * `root_directory` - The name of a directory or relative path to the source
-///   code of your project. When `null` is used it will default to the project
-///   root
-/// * `serverless_function_region` - The region to deploy Serverless Functions
-///   in this project
-/// * `serverless_function_zero_config_failover` - Specifies whether Zero Config
-///   Failover is enabled for this project.
-/// * `oidc_token_config` - OpenID Connect JSON Web Token generation
-///   configuration.
-/// * `enable_affected_projects_deployments` - Opt-in to skip deployments when
-///   there are no changes to the root directory and its dependencies
-/// * `resource_config` - Specifies resource override configuration for the
-///   project
-pub fn create_project(
-    config: &ClientConfig,
-    params: CreateProjectParams,
-    options: Option<&RequestOptions>,
-) -> Result<CreateProjectResponse, SdkError> {
-    let CreateProjectParams {
-        name,
-        team_id,
-        slug,
-        enable_preview_feedback,
-        enable_production_feedback,
-        preview_deployments_disabled,
-        preview_deployment_suffix,
-        build_command,
-        command_for_ignoring_build_step,
-        dev_command,
-        environment_variables,
-        framework,
-        git_repository,
-        install_command,
-        skip_git_connect_during_link,
-        sso_protection,
-        sandbox,
-        output_directory,
-        public_source,
-        root_directory,
-        serverless_function_region,
-        serverless_function_zero_config_failover,
-        oidc_token_config,
-        enable_affected_projects_deployments,
-        resource_config,
-    } = params;
-    validate_length(
-        "name",
-        &name,
-        LengthOpts {
-            max: Some(100),
-            ..Default::default()
-        },
-    )?;
-    if let Some(Some(ref preview_deployment_suffix_v)) = &preview_deployment_suffix {
-        validate_length(
-            "previewDeploymentSuffix",
-            preview_deployment_suffix_v,
-            LengthOpts {
-                max: Some(253),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref build_command_v)) = &build_command {
-        validate_length(
-            "buildCommand",
-            build_command_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref command_for_ignoring_build_step_v)) = &command_for_ignoring_build_step {
-        validate_length(
-            "commandForIgnoringBuildStep",
-            command_for_ignoring_build_step_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref dev_command_v)) = &dev_command {
-        validate_length(
-            "devCommand",
-            dev_command_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref install_command_v)) = &install_command {
-        validate_length(
-            "installCommand",
-            install_command_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref output_directory_v)) = &output_directory {
-        validate_length(
-            "outputDirectory",
-            output_directory_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref root_directory_v)) = &root_directory {
-        validate_length(
-            "rootDirectory",
-            root_directory_v,
-            LengthOpts {
-                max: Some(256),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(Some(ref serverless_function_region_v)) = &serverless_function_region {
-        validate_length(
-            "serverlessFunctionRegion",
-            serverless_function_region_v,
-            LengthOpts {
-                max: Some(4),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "name".to_string(),
-        serde_json::to_value(name).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = enable_preview_feedback {
-        __body_map.insert(
-            "enablePreviewFeedback".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = enable_production_feedback {
-        __body_map.insert(
-            "enableProductionFeedback".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = preview_deployments_disabled {
-        __body_map.insert(
-            "previewDeploymentsDisabled".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = preview_deployment_suffix {
-        __body_map.insert(
-            "previewDeploymentSuffix".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = build_command {
-        __body_map.insert(
-            "buildCommand".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = command_for_ignoring_build_step {
-        __body_map.insert(
-            "commandForIgnoringBuildStep".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = dev_command {
-        __body_map.insert(
-            "devCommand".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = environment_variables {
-        __body_map.insert(
-            "environmentVariables".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = framework {
-        __body_map.insert(
-            "framework".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = git_repository {
-        __body_map.insert(
-            "gitRepository".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = install_command {
-        __body_map.insert(
-            "installCommand".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = skip_git_connect_during_link {
-        __body_map.insert(
-            "skipGitConnectDuringLink".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = sso_protection {
-        __body_map.insert(
-            "ssoProtection".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = sandbox {
-        __body_map.insert(
-            "sandbox".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = output_directory {
-        __body_map.insert(
-            "outputDirectory".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = public_source {
-        __body_map.insert(
-            "publicSource".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = root_directory {
-        __body_map.insert(
-            "rootDirectory".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = serverless_function_region {
-        __body_map.insert(
-            "serverlessFunctionRegion".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = serverless_function_zero_config_failover {
-        __body_map.insert(
-            "serverlessFunctionZeroConfigFailover".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = oidc_token_config {
-        __body_map.insert(
-            "oidcTokenConfig".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = enable_affected_projects_deployments {
-        __body_map.insert(
-            "enableAffectedProjectsDeployments".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = resource_config {
-        __body_map.insert(
-            "resourceConfig".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateProjectResponse>(
-        "POST",
-        "/v11/projects",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_project",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSourcesActionEnum>,
+    pub active: bool,
 }
 
-/// Creates an OIDC token for a project identified by its ID or name. Provide the project identifier and optionally specify a `source` to identify what is calling the endpoint. The response contains the generated token.
-///
-/// Generates an OIDC token for the project and returns it.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The project ID or name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `source` - The source that is calling the endpoint.
-pub fn get_project_token(
-    config: &ClientConfig,
-    id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    source: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetProjectTokenResponse, SdkError> {
-    validate_length(
-        "idOrName",
-        &id_or_name,
-        LengthOpts {
-            max: Some(150),
-            ..Default::default()
-        },
-    )?;
-    if let Some(ref source_v) = source {
-        validate_length(
-            "source",
-            source_v,
-            LengthOpts {
-                max: Some(150),
-                ..Default::default()
-            },
-        )?;
+impl UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
     }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = source {
-        __body_map.insert(
-            "source".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<GetProjectTokenResponse>(
-        "POST",
-        &format!(
-            "/v1/projects/{}/token",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_project_token",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-/// Creates a short-lived HS256 JWT scoped to a deployment hostname. Supply the project identifier and deployment hostname in the request body to define the token scope. The Vercel CLI presents the token to the proxy with requests it wants traced.
-///
-/// Mints a short-lived HS256 JWT scoped to a deployment hostname. The Vercel CLI presents this JWT to the Vercel proxy on requests it wants traced.
-///
-/// # Arguments
-///
-/// * `project_id` - The project ID the deployment belongs to.
-/// * `hostname` - The deployment hostname to scope the trace session to.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn create_trace_session(
-    config: &ClientConfig,
-    project_id: String,
-    hostname: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<CreateTraceSessionResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "projectId".to_string(),
-        serde_json::to_value(project_id).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "hostname".to_string(),
-        serde_json::to_value(hostname).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateTraceSessionResponse>(
-        "POST",
-        "/v1/projects/traces/session",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_trace_session",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    #[default]
+    Challenge,
+    Deny,
+    Log,
+    Unknown(String),
 }
 
-/// Retrieves project information using the project's ID or name. Use the `teamId` or `slug` query parameter to make the request on behalf of a team.
-///
-/// Get the information for a specific project by passing either the project `id` or `name` in the URL.
-///
-/// # Arguments
-///
-/// * `id_or_name` - The unique project identifier or the project name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_projects(
-    config: &ClientConfig,
-    id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetProjectsResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
+impl UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+}
 
-    Ok(sdk_request::<GetProjectsResponse>(
-        "GET",
-        &format!(
-            "/v9/projects/{}",
-            crate::client::encode_path_segment(&id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_projects",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<UpdateMicrofrontendsResponseSecurityManagedRulesVercelRulesetActionEnum>,
+    pub active: bool,
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset {
+    pub fn new(active: bool) -> Self {
+        Self {
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseSecurityManagedRules {
+    pub ai_bots: UpdateMicrofrontendsResponseSecurityManagedRulesAiBots,
+    pub bot_filter: UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter,
+    pub owasp: UpdateMicrofrontendsResponseSecurityManagedRulesOwasp,
+    pub traffic_sources: UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources,
+    pub vercel_ruleset: UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset,
+}
+
+impl UpdateMicrofrontendsResponseSecurityManagedRules {
+    pub fn new(
+        ai_bots: UpdateMicrofrontendsResponseSecurityManagedRulesAiBots,
+        bot_filter: UpdateMicrofrontendsResponseSecurityManagedRulesBotFilter,
+        owasp: UpdateMicrofrontendsResponseSecurityManagedRulesOwasp,
+        traffic_sources: UpdateMicrofrontendsResponseSecurityManagedRulesTrafficSources,
+        vercel_ruleset: UpdateMicrofrontendsResponseSecurityManagedRulesVercelRuleset,
+    ) -> Self {
+        Self {
+            ai_bots,
+            bot_filter,
+            owasp,
+            traffic_sources,
+            vercel_ruleset,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Bypass => "bypass",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Redirect => "redirect",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "bypass" => Self::Bypass,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            "redirect" => Self::Redirect,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityRulesetsValueActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders {
+    StringArray(Vec<String>),
+    Literal(UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum>
+    for UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(
+        value: UpdateMicrofrontendsResponseSecurityRulesetsValueLogHeadersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    #[default]
+    FixedWindow,
+    TokenBucket,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }

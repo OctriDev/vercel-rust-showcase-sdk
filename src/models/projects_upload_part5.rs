@@ -3,6 +3,79 @@
 
 // projects_upload domain models (part 5)
 
+impl UploadProjectAvatarResponseExpirationVariant1 {
+    pub fn new(locked_at: f64, locked_by: String) -> Self {
+        Self {
+            locked_at,
+            locked_by,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UploadProjectAvatarResponseExpiration {
+    Object(Box<UploadProjectAvatarResponseExpirationVariant0>),
+    Object2(Box<UploadProjectAvatarResponseExpirationVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseExpiration {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UploadProjectAvatarResponseExpirationVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UploadProjectAvatarResponseExpirationVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no UploadProjectAvatarResponseExpiration branch accepts this payload",
+            )
+        })
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseInternalRoutesItemVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiry: Option<f64>,
+    pub src: String,
+    pub status: f64,
+}
+
+impl UploadProjectAvatarResponseInternalRoutesItemVariant0 {
+    pub fn new(src: String, status: f64) -> Self {
+        Self {
+            expiry: None,
+            src,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    #[default]
+    XVercelIpCountry,
+    Unknown(String),
+}
+
 impl UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -186,6 +259,26 @@ impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseInternalRoutesI
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseInternalRoutesItemVariant1HasItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant0>>
+    for UploadProjectAvatarResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(
+        value: Box<UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant0>,
+    ) -> Self {
+        Self::Header(value)
+    }
+}
+
+impl ::std::convert::From<Box<UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant1>>
+    for UploadProjectAvatarResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(
+        value: Box<UploadProjectAvatarResponseInternalRoutesItemVariant1HasItemVariant1>,
+    ) -> Self {
+        Self::Host(value)
     }
 }
 
@@ -450,84 +543,4 @@ impl std::fmt::Display for UploadProjectAvatarResponseLinkVariant1TypeEnum {
             }
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLinkVariant1 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<UploadProjectAvatarResponseLinkVariant1DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    pub org: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
-    pub repo_id: Option<f64>,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
-    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
-    pub repo_owner_id: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseLinkVariant1TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl UploadProjectAvatarResponseLinkVariant1 {
-    pub fn new(
-        deploy_hooks: Vec<UploadProjectAvatarResponseLinkVariant1DeployHooksItem>,
-        git_credential_id: String,
-        org: String,
-        production_branch: String,
-        type_: UploadProjectAvatarResponseLinkVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLinkVariant2DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl UploadProjectAvatarResponseLinkVariant2DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UploadProjectAvatarResponseLinkVariant2TypeEnum {
-    #[serde(rename = "github-custom-host")]
-    #[default]
-    GithubCustomHost,
 }

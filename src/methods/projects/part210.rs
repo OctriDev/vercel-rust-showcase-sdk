@@ -3,78 +3,89 @@
 
 use super::*;
 
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset:
-        Option<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
+impl UpdateProjectResponseServicesItemFrameworkEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl serde::Serialize for UpdateProjectResponseServicesItemFrameworkEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -83,170 +94,122 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseServicesItemFrameworkEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
-{
+impl std::fmt::Display for UpdateProjectResponseServicesItemFrameworkEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub preset: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
-    pub fn new(
-        preset: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo {
-    AllCustom(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
-    AllCustom2(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
-    }
-}
-
-/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub from: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-    pub to: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem {
-    pub fn new(
-        from: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
-        to: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo,
-    ) -> Self {
-        Self { from, to }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesProjectsValue {
-    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
-    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
-    pub custom_allow: Option<Vec<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-}
-
-impl UpdateProjectResponseTrustedSourcesProjectsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            custom_allow: None,
-            label: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSources {
-    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
-    #[serde(
-        rename = "enableVercelCiSameRepository",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_vercel_ci_same_repository: Option<bool>,
-    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
-    pub oidc_providers: Option<
-        std::collections::HashMap<
-            String,
-            Vec<UpdateProjectResponseTrustedSourcesOidcProvidersValueItem>,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub projects:
-        Option<std::collections::HashMap<String, UpdateProjectResponseTrustedSourcesProjectsValue>>,
-}
-
-impl UpdateProjectResponseTrustedSources {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enable_vercel_ci_same_repository: None,
-            oidc_providers: None,
-            projects: None,
-        }
-    }
-}
-
-/// Billing mode. Always 'flat' for flat-rate projects.
+/// Service kind (Service.type). Omitted for schemas that do not define one.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseUsageStatusKindEnum {
+pub enum UpdateProjectResponseServicesItemServiceTypeEnum {
     #[default]
-    Flat,
+    Cron,
+    Job,
+    Web,
+    Worker,
     Unknown(String),
 }
 
-impl UpdateProjectResponseUsageStatusKindEnum {
+impl UpdateProjectResponseServicesItemServiceTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Flat => "flat",
+            Self::Cron => "cron",
+            Self::Job => "job",
+            Self::Web => "web",
+            Self::Worker => "worker",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseUsageStatusKindEnum {
+impl serde::Serialize for UpdateProjectResponseServicesItemServiceTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -255,65 +218,62 @@ impl serde::Serialize for UpdateProjectResponseUsageStatusKindEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseUsageStatusKindEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseServicesItemServiceTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "flat" => Self::Flat,
+            "cron" => Self::Cron,
+            "job" => Self::Job,
+            "web" => Self::Web,
+            "worker" => Self::Worker,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseUsageStatusKindEnum {
+impl std::fmt::Display for UpdateProjectResponseServicesItemServiceTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseUsageStatus {
-    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
-    #[serde(
-        rename = "bypassThrottleUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bypass_throttle_until: Option<f64>,
-    /// Timestamp until which the project has exceeded its CDN allowance.
-    #[serde(
-        rename = "exceededAllowanceUntil",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub exceeded_allowance_until: Option<f64>,
-    /// Billing mode. Always 'flat' for flat-rate projects.
-    pub kind: UpdateProjectResponseUsageStatusKindEnum,
-    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
-    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
-    pub team_throttled: Option<bool>,
-    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+pub struct UpdateProjectResponseServicesItem {
+    /// Framework slug, when the service has one (omitted otherwise).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub throttled: Option<bool>,
+    pub framework: Option<UpdateProjectResponseServicesItemFrameworkEnum>,
+    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub runtime: Option<String>,
+    /// Service name from the deployment (Service.name).
+    #[serde(rename = "serviceName")]
+    pub service_name: String,
+    /// Service kind (Service.type). Omitted for schemas that do not define one.
+    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
+    pub service_type: Option<UpdateProjectResponseServicesItemServiceTypeEnum>,
 }
 
-impl UpdateProjectResponseUsageStatus {
-    pub fn new(kind: UpdateProjectResponseUsageStatusKindEnum) -> Self {
+impl UpdateProjectResponseServicesItem {
+    pub fn new(service_name: String) -> Self {
         Self {
-            bypass_throttle_until: None,
-            exceeded_allowance_until: None,
-            kind,
-            team_throttled: None,
-            throttled: None,
+            framework: None,
+            runtime: None,
+            service_name,
+            service_type: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseWebAnalytics {
+pub struct UpdateProjectResponseSpeedInsights {
     #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
     pub canceled_at: Option<f64>,
+    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
+    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
+    pub data_received_at: Option<f64>,
     #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
     pub disabled_at: Option<f64>,
     #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
@@ -321,16 +281,20 @@ pub struct UpdateProjectResponseWebAnalytics {
     #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
     pub has_data: Option<bool>,
     pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
 }
 
-impl UpdateProjectResponseWebAnalytics {
+impl UpdateProjectResponseSpeedInsights {
     pub fn new(id: String) -> Self {
         Self {
             canceled_at: None,
+            data_received_at: None,
             disabled_at: None,
             enabled_at: None,
             has_data: None,
             id,
+            paid_at: None,
         }
     }
 }

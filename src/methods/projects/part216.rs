@@ -3,131 +3,25 @@
 
 use super::*;
 
-impl UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Api => "api",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "api" => Self::Api,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseCronsDefinitionsItem {
-    /// A human-readable description of what this cron job does.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// The hostname that should be used.
-    pub host: String,
-    /// Whether the host was inferred from the production deployment URL rather than explicitly provided.
-    #[serde(rename = "hostInferred", skip_serializing_if = "Option::is_none")]
-    pub host_inferred: Option<bool>,
-    /// The path that should be called for the cronjob.
-    pub path: String,
-    /// The cron expression.
-    pub schedule: String,
-    /// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<UploadProjectAvatarResponseCronsDefinitionsItemSourceEnum>,
-}
-
-impl UploadProjectAvatarResponseCronsDefinitionsItem {
-    pub fn new(host: String, path: String, schedule: String) -> Self {
-        Self {
-            description: None,
-            host,
-            host_inferred: None,
-            path,
-            schedule,
-            source: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseCrons {
-    pub definitions: Vec<UploadProjectAvatarResponseCronsDefinitionsItem>,
-    /// The ID of the Deployment from which the definitions originated.
-    #[serde(rename = "deploymentId", deserialize_with = "Option::deserialize")]
-    pub deployment_id: Option<String>,
-    /// The time the feature was disabled for this project.
-    #[serde(rename = "disabledAt", deserialize_with = "Option::deserialize")]
-    pub disabled_at: Option<f64>,
-    /// The time the feature was enabled for this project. Note: It enables automatically with the first Deployment that outputs cronjobs.
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl UploadProjectAvatarResponseCrons {
-    pub fn new(
-        definitions: Vec<UploadProjectAvatarResponseCronsDefinitionsItem>,
-        deployment_id: Option<String>,
-        disabled_at: Option<f64>,
-        enabled_at: f64,
-        updated_at: f64,
-    ) -> Self {
-        Self {
-            definitions,
-            deployment_id,
-            disabled_at,
-            enabled_at,
-            updated_at,
-        }
-    }
-}
-
-/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     #[default]
-    Endswith,
-    Equals,
-    Startswith,
+    AllCustom,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl serde::Serialize
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -137,7 +31,7 @@ impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemBranc
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -145,147 +39,58 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum {
+impl std::fmt::Display
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Configuration for matching git branches to this environment
+/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-}
-
-impl UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
-    }
-}
-
-/// List of domains associated with this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "customEnvironmentId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub custom_environment_id: Option<Option<String>>,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
+pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification:
-        Option<Vec<UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItemVerificationItem>>,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
+    pub preset:
+        Option<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum>,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
 }
 
-impl UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
+impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
         Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
+            preset: None,
+            slugs,
         }
     }
 }
 
-/// The type of environment (production, preview, or development)
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
+pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
     #[default]
-    Development,
-    Preview,
-    Production,
+    AllCustom,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
+impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
+impl serde::Serialize
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -294,17 +99,241 @@ impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemTypeE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
+}
+
+impl std::fmt::Display
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The target envs on the current project that may be accessed.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub preset: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+}
+
+impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1 {
+    pub fn new(
+        preset: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1PresetEnum,
+    ) -> Self {
+        Self {
+            preset,
+            slugs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo {
+    AllCustom(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>),
+    AllCustom2(Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    > for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    > for UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo
+{
+    fn from(
+        value: Box<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemToVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
+/// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub from: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+    pub to: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+}
+
+impl UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem {
+    pub fn new(
+        from: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemFrom,
+        to: UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItemTo,
+    ) -> Self {
+        Self { from, to }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseTrustedSourcesProjectsValue {
+    /// Optional overrides for the default same-env-by-slug matching. Provide explicit rules to allow cross-env access or presets. An empty array denies all access and is only allowed for the current project.
+    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
+    pub custom_allow: Option<Vec<UpdateProjectResponseTrustedSourcesProjectsValueCustomAllowItem>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+}
+
+impl UpdateProjectResponseTrustedSourcesProjectsValue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            custom_allow: None,
+            label: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseTrustedSources {
+    /// Allow same-team Vercel CI access to preview and production deployments built from the CI run's repository, using the deployment source rather than the current project repository link. Defaults to enabled when not stored; omitted or null Trusted Sources updates preserve the stored value.
+    #[serde(
+        rename = "enableVercelCiSameRepository",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_vercel_ci_same_repository: Option<bool>,
+    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
+    pub oidc_providers: Option<
+        std::collections::HashMap<
+            String,
+            Vec<UpdateProjectResponseTrustedSourcesOidcProvidersValueItem>,
+        >,
+    >,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub projects:
+        Option<std::collections::HashMap<String, UpdateProjectResponseTrustedSourcesProjectsValue>>,
+}
+
+impl UpdateProjectResponseTrustedSources {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            enable_vercel_ci_same_repository: None,
+            oidc_providers: None,
+            projects: None,
+        }
+    }
+}
+
+/// Billing mode. Always 'flat' for flat-rate projects.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseUsageStatusKindEnum {
+    #[default]
+    Flat,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseUsageStatusKindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Flat => "flat",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseUsageStatusKindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseUsageStatusKindEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flat" => Self::Flat,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseUsageStatusKindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseUsageStatus {
+    /// Timestamp until which throttling is bypassed (project pays list rates for overage).
+    #[serde(
+        rename = "bypassThrottleUntil",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bypass_throttle_until: Option<f64>,
+    /// Timestamp until which the project has exceeded its CDN allowance.
+    #[serde(
+        rename = "exceededAllowanceUntil",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub exceeded_allowance_until: Option<f64>,
+    /// Billing mode. Always 'flat' for flat-rate projects.
+    pub kind: UpdateProjectResponseUsageStatusKindEnum,
+    /// Synced from `team.billing.usageStatus.throttled`. When `true`, the team has throttled all of its projects regardless of `throttled`. The effective throttle the CDN enforces is `throttled || teamThrottled`.
+    #[serde(rename = "teamThrottled", skip_serializing_if = "Option::is_none")]
+    pub team_throttled: Option<bool>,
+    /// Per-project throttle, set explicitly for this project (e.g. via the per-project Flat Rate CDN endpoint).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub throttled: Option<bool>,
 }

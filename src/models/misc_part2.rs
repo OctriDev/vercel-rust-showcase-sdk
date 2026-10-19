@@ -3,6 +3,46 @@
 
 // misc domain models (part 2)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct RegistrantFieldVariant3 {
+    pub description: String,
+    pub required: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validation: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub required_when: Option<RegistrantFieldVariant3RequiredWhen>,
+    #[serde(rename = "type")]
+    pub type_: RegistrantFieldVariant3TypeEnum,
+}
+
+impl RegistrantFieldVariant3 {
+    pub fn new(
+        description: String,
+        required: bool,
+        type_: RegistrantFieldVariant3TypeEnum,
+    ) -> Self {
+        Self {
+            description,
+            required,
+            label: None,
+            validation: None,
+            required_when: None,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum RegistrantField {
+    String(Box<RegistrantFieldVariant0>),
+    Enum(Box<RegistrantFieldVariant1>),
+    Acknowledgement(Box<RegistrantFieldVariant2>),
+    Notice(Box<RegistrantFieldVariant3>),
+}
+
 impl<'de> serde::Deserialize<'de> for RegistrantField {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;

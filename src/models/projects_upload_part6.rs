@@ -3,6 +3,86 @@
 
 // projects_upload domain models (part 6)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseLinkVariant1 {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(rename = "deployHooks")]
+    pub deploy_hooks: Vec<UploadProjectAvatarResponseLinkVariant1DeployHooksItem>,
+    #[serde(rename = "gitCredentialId")]
+    pub git_credential_id: String,
+    pub org: String,
+    #[serde(rename = "productionBranch")]
+    pub production_branch: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<f64>,
+    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
+    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
+    pub repo_owner_id: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sourceless: Option<bool>,
+    #[serde(rename = "type")]
+    pub type_: UploadProjectAvatarResponseLinkVariant1TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+}
+
+impl UploadProjectAvatarResponseLinkVariant1 {
+    pub fn new(
+        deploy_hooks: Vec<UploadProjectAvatarResponseLinkVariant1DeployHooksItem>,
+        git_credential_id: String,
+        org: String,
+        production_branch: String,
+        type_: UploadProjectAvatarResponseLinkVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            org,
+            production_branch,
+            repo: None,
+            repo_id: None,
+            repo_owner_id: None,
+            sourceless: None,
+            type_,
+            updated_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseLinkVariant2DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl UploadProjectAvatarResponseLinkVariant2DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UploadProjectAvatarResponseLinkVariant2TypeEnum {
+    #[serde(rename = "github-custom-host")]
+    #[default]
+    GithubCustomHost,
+}
+
 impl UploadProjectAvatarResponseLinkVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -466,79 +546,4 @@ impl UploadProjectAvatarResponseLinkVariant6 {
             updated_at: None,
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLinkVariant7DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl UploadProjectAvatarResponseLinkVariant7DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UploadProjectAvatarResponseLinkVariant7TypeEnum {
-    #[serde(rename = "cursor-origin")]
-    #[default]
-    CursorOrigin,
-}
-
-impl UploadProjectAvatarResponseLinkVariant7TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::CursorOrigin => "cursor-origin",
-        }
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseLinkVariant7TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UploadProjectAvatarResponseLinkVariant7TypeEnum::CursorOrigin => {
-                f.write_str("cursor-origin")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLinkVariant7 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<UploadProjectAvatarResponseLinkVariant7DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    /// Owner (namespace) slug, e.g. `acme`.
-    pub owner: String,
-    /// Origin namespace id (`ns_…`) of the owner.
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    pub repo: String,
-    /// Origin repository id.
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseLinkVariant7TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
 }

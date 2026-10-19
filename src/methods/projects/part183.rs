@@ -3,176 +3,7 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItem {
-    #[serde(
-        rename = "configuredBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configured_by: Option<Option<UpdateProjectResponseAliasItemConfiguredByEnum>>,
-    #[serde(
-        rename = "configuredChangedAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configured_changed_at: Option<Option<f64>>,
-    #[serde(
-        rename = "createdAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_at: Option<Option<f64>>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub deployment: Option<UpdateProjectResponseAliasItemDeployment>,
-    pub domain: String,
-    pub environment: UpdateProjectResponseAliasItemEnvironmentEnum,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    pub target: UpdateProjectResponseAliasItemTargetEnum,
-}
-
-impl UpdateProjectResponseAliasItem {
-    pub fn new(
-        deployment: Option<UpdateProjectResponseAliasItemDeployment>,
-        domain: String,
-        environment: UpdateProjectResponseAliasItemEnvironmentEnum,
-        target: UpdateProjectResponseAliasItemTargetEnum,
-    ) -> Self {
-        Self {
-            configured_by: None,
-            configured_changed_at: None,
-            created_at: None,
-            deployment,
-            domain,
-            environment,
-            git_branch: None,
-            redirect: None,
-            redirect_status_code: None,
-            target,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAnalytics {
-    #[serde(
-        rename = "canceledAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub canceled_at: Option<Option<f64>>,
-    #[serde(rename = "disabledAt")]
-    pub disabled_at: f64,
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
-    #[serde(
-        rename = "sampleRatePercent",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub sample_rate_percent: Option<Option<f64>>,
-    #[serde(
-        rename = "spendLimitInDollars",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub spend_limit_in_dollars: Option<Option<f64>>,
-}
-
-impl UpdateProjectResponseAnalytics {
-    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
-        Self {
-            canceled_at: None,
-            disabled_at,
-            enabled_at,
-            id,
-            paid_at: None,
-            sample_rate_percent: None,
-            spend_limit_in_dollars: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseBlobs {
-    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
-    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
-    pub is_default_app: Option<bool>,
-}
-
-impl UpdateProjectResponseBlobs {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            is_default_app: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseConnectConfigurationsItemAws {
-    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
-    pub security_group_id: Option<String>,
-    #[serde(rename = "subnetIds")]
-    pub subnet_ids: Vec<String>,
-}
-
-impl UpdateProjectResponseConnectConfigurationsItemAws {
-    pub fn new(subnet_ids: Vec<String>) -> Self {
-        Self {
-            security_group_id: None,
-            subnet_ids,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseConnectConfigurationsItemEnvId {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseConnectConfigurationsItemEnvId {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseConnectConfigurationsItemEnvId {
+impl serde::Serialize for UpdateProjectPassportDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -181,85 +12,100 @@ impl serde::Serialize for UpdateProjectResponseConnectConfigurationsItemEnvId {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseConnectConfigurationsItemEnvId {
+impl<'de> serde::Deserialize<'de> for UpdateProjectPassportDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
+            "all" => Self::All,
             "preview" => Self::Preview,
-            "production" => Self::Production,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseConnectConfigurationsItemEnvId {
+impl std::fmt::Display for UpdateProjectPassportDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Passport configuration for the project.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseConnectConfigurationsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub aws: Option<UpdateProjectResponseConnectConfigurationsItemAws>,
-    #[serde(rename = "buildsEnabled")]
-    pub builds_enabled: bool,
-    #[serde(rename = "connectConfigurationId")]
-    pub connect_configuration_id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dc: Option<String>,
-    #[serde(rename = "envId")]
-    pub env_id: UpdateProjectResponseConnectConfigurationsItemEnvId,
-    pub passive: bool,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+pub struct UpdateProjectPassport {
+    #[serde(rename = "connectorId")]
+    pub connector_id: String,
+    #[serde(rename = "deploymentType", skip_serializing_if = "Option::is_none")]
+    pub deployment_type: Option<UpdateProjectPassportDeploymentTypeEnum>,
 }
 
-impl UpdateProjectResponseConnectConfigurationsItem {
-    pub fn new(
-        builds_enabled: bool,
-        connect_configuration_id: String,
-        created_at: f64,
-        env_id: UpdateProjectResponseConnectConfigurationsItemEnvId,
-        passive: bool,
-        updated_at: f64,
-    ) -> Self {
+impl UpdateProjectPassport {
+    pub fn new(connector_id: String) -> Self {
         Self {
-            aws: None,
-            builds_enabled,
-            connect_configuration_id,
-            created_at,
-            dc: None,
-            env_id,
-            passive,
-            updated_at,
+            connector_id,
+            deployment_type: None,
         }
     }
 }
 
-/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+/// The Vercel region sandboxes in this project are created in by default.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseCronsDefinitionsItemSourceEnum {
+pub enum UpdateProjectSandboxRegionEnum {
     #[default]
-    Api,
+    Iad1,
+    Sfo1,
+    Cle1,
+    Cdg1,
+    Fra1,
+    Arn1,
+    Sin1,
+    Pdx1,
+    Lhr1,
+    Icn1,
+    Bom1,
+    Cpt1,
+    Dub1,
+    Gru1,
+    Hkg1,
+    Syd1,
+    Yul1,
+    Hnd1,
+    Kix1,
     Unknown(String),
 }
 
-impl UpdateProjectResponseCronsDefinitionsItemSourceEnum {
+impl UpdateProjectSandboxRegionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Api => "api",
+            Self::Iad1 => "iad1",
+            Self::Sfo1 => "sfo1",
+            Self::Cle1 => "cle1",
+            Self::Cdg1 => "cdg1",
+            Self::Fra1 => "fra1",
+            Self::Arn1 => "arn1",
+            Self::Sin1 => "sin1",
+            Self::Pdx1 => "pdx1",
+            Self::Lhr1 => "lhr1",
+            Self::Icn1 => "icn1",
+            Self::Bom1 => "bom1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Hnd1 => "hnd1",
+            Self::Kix1 => "kix1",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseCronsDefinitionsItemSourceEnum {
+impl serde::Serialize for UpdateProjectSandboxRegionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -268,21 +114,185 @@ impl serde::Serialize for UpdateProjectResponseCronsDefinitionsItemSourceEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseCronsDefinitionsItemSourceEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectSandboxRegionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "api" => Self::Api,
+            "iad1" => Self::Iad1,
+            "sfo1" => Self::Sfo1,
+            "cle1" => Self::Cle1,
+            "cdg1" => Self::Cdg1,
+            "fra1" => Self::Fra1,
+            "arn1" => Self::Arn1,
+            "sin1" => Self::Sin1,
+            "pdx1" => Self::Pdx1,
+            "lhr1" => Self::Lhr1,
+            "icn1" => Self::Icn1,
+            "bom1" => Self::Bom1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            "hnd1" => Self::Hnd1,
+            "kix1" => Self::Kix1,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseCronsDefinitionsItemSourceEnum {
+impl std::fmt::Display for UpdateProjectSandboxRegionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectSandboxFailoverRegionsItemEnum {
+    #[default]
+    Iad1,
+    Sfo1,
+    Cle1,
+    Cdg1,
+    Fra1,
+    Arn1,
+    Sin1,
+    Pdx1,
+    Lhr1,
+    Icn1,
+    Bom1,
+    Cpt1,
+    Dub1,
+    Gru1,
+    Hkg1,
+    Syd1,
+    Yul1,
+    Hnd1,
+    Kix1,
+    Unknown(String),
+}
+
+impl UpdateProjectSandboxFailoverRegionsItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Iad1 => "iad1",
+            Self::Sfo1 => "sfo1",
+            Self::Cle1 => "cle1",
+            Self::Cdg1 => "cdg1",
+            Self::Fra1 => "fra1",
+            Self::Arn1 => "arn1",
+            Self::Sin1 => "sin1",
+            Self::Pdx1 => "pdx1",
+            Self::Lhr1 => "lhr1",
+            Self::Icn1 => "icn1",
+            Self::Bom1 => "bom1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Hnd1 => "hnd1",
+            Self::Kix1 => "kix1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectSandboxFailoverRegionsItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectSandboxFailoverRegionsItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "iad1" => Self::Iad1,
+            "sfo1" => Self::Sfo1,
+            "cle1" => Self::Cle1,
+            "cdg1" => Self::Cdg1,
+            "fra1" => Self::Fra1,
+            "arn1" => Self::Arn1,
+            "sin1" => Self::Sin1,
+            "pdx1" => Self::Pdx1,
+            "lhr1" => Self::Lhr1,
+            "icn1" => Self::Icn1,
+            "bom1" => Self::Bom1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            "hnd1" => Self::Hnd1,
+            "kix1" => Self::Kix1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectSandboxFailoverRegionsItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Specifies the default region and failover regions for sandboxes created in the project
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectSandbox {
+    /// The Vercel region sandboxes in this project are created in by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<UpdateProjectSandboxRegionEnum>,
+    /// The regions sandboxes in this project fall back to when they cannot be created in `region`.
+    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
+    pub failover_regions: Option<Vec<UpdateProjectSandboxFailoverRegionsItemEnum>>,
+}
+
+impl UpdateProjectSandbox {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.failover_regions.as_ref() {
+            crate::validation::validate_items(
+                "failoverRegions",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    max: Some(19),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            region: None,
+            failover_regions: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Specify if the Vercel Authentication (SSO Protection) will apply to every Deployment Target or just Preview
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectSsoProtectionDeploymentTypeEnum {
+    #[default]
+    All,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    AllExceptCustomDomains,
+    Unknown(String),
 }

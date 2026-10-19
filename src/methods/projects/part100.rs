@@ -3,7 +3,79 @@
 
 use super::*;
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
+impl ListProjectsResponseVariant2ProjectsItemTargetsValue {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        created_in: String,
+        creator: Option<ListProjectsResponseVariant2ProjectsItemTargetsValueCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: ListProjectsResponseVariant2ProjectsItemTargetsValuePlanEnum,
+        private: bool,
+        ready_state: ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum,
+        type_: ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum,
+        url: String,
+    ) -> Self {
+        Self {
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemTierEnum {
+    #[default]
+    Priority,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTierEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Priority => "priority",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTierEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,305 +84,207 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSources
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTierEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "priority" => Self::Priority,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTierEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub preset: ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
+/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum {
+    #[default]
+    External,
+    Internal,
+    Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1 {
-    pub fn new(
-        preset: ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
+impl ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::External => "external",
+            Self::Internal => "internal",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemTo {
-    AllCustom(
-        Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>,
-    ),
-    AllCustom2(
-        Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>,
-    ),
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemTo
+    for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum
 {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0>>(value.clone()) {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1>>(value.clone()) {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItem {
-    pub to: ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemTo,
-    pub claims: std::collections::HashMap<String, Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItem {
-    pub fn new(
-        to: ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemTo,
-        claims: std::collections::HashMap<String, Vec<String>>,
-    ) -> Self {
-        Self {
-            to,
-            claims,
-            label: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "external" => Self::External,
+            "internal" => Self::Internal,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The source envs on the trusted project that are allowed to access `to`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl
-    ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0
-{
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
-{
+pub enum ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum {
     #[default]
-    AllCustom,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
+impl ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
     }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The source envs on the trusted project that are allowed to access `to`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
-    pub preset: ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub slugs: Option<Vec<String>>,
-}
-
-impl
-    ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1
-{
-    pub fn new(
-        preset: ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
-    ) -> Self {
-        Self {
-            preset,
-            slugs: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFrom {
-    AllCustom(Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0>),
-    AllCustom2(Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1>),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFrom
+    for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum
 {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant0>>(value.clone()) {
-            let candidate = Self::AllCustom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFromVariant1>>(value.clone()) {
-            let candidate = Self::AllCustom2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemFrom branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTrustedSourcesProjectsValueCustomAllowItemToVariant0PresetEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItem {
+    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub destination:
+        Option<ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemDestinationEnum>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItemEnvEnum>,
+    pub rate: f64,
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItem {
+    pub fn new(rate: f64) -> Self {
+        Self {
+            destination: None,
+            env: None,
+            rate,
+            request_path: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemTracing {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<String>,
+    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
+    pub ignore_paths: Option<Vec<String>>,
+    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
+    pub sampling_rules:
+        Option<Vec<ListProjectsResponseVariant2ProjectsItemTracingSamplingRulesItem>>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTracing {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            domains: None,
+            ignore_paths: None,
+            sampling_rules: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0AddressesItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    pub value: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0AddressesItem {
+    pub fn new(value: String) -> Self {
+        Self { note: None, value }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum {
+    #[default]
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    Production,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }

@@ -3,6 +3,113 @@
 
 // projects_get domain models (part 3)
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant0TargetVariant0ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectEnvResponseVariant0TargetVariant1Enum {
+    #[default]
+    Production,
+    Preview,
+    Development,
+    Unknown(String),
+}
+
+impl GetProjectEnvResponseVariant0TargetVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectEnvResponseVariant0TargetVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0TargetVariant1Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "production" => Self::Production,
+            "preview" => Self::Preview,
+            "development" => Self::Development,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant0TargetVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectEnvResponseVariant0Target {
+    Variant0ItemEnumArray(Vec<GetProjectEnvResponseVariant0TargetVariant0ItemEnum>),
+    Literal(GetProjectEnvResponseVariant0TargetVariant1Enum),
+}
+
 impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0Target {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -31,6 +138,22 @@ impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant0Target {
                 "no GetProjectEnvResponseVariant0Target branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Vec<GetProjectEnvResponseVariant0TargetVariant0ItemEnum>>
+    for GetProjectEnvResponseVariant0Target
+{
+    fn from(value: Vec<GetProjectEnvResponseVariant0TargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<GetProjectEnvResponseVariant0TargetVariant1Enum>
+    for GetProjectEnvResponseVariant0Target
+{
+    fn from(value: GetProjectEnvResponseVariant0TargetVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
@@ -367,130 +490,4 @@ pub enum GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
     #[serde(rename = "redis-rest-api-read-only-token")]
     #[default]
     RedisRestApiReadOnlyToken,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => {
-                f.write_str("redis-rest-api-read-only-token")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1ContentHintVariant3 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant3 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
-    #[serde(rename = "blob-read-write-token")]
-    #[default]
-    BlobReadWriteToken,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobReadWriteToken => "blob-read-write-token",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum::BlobReadWriteToken => {
-                f.write_str("blob-read-write-token")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1ContentHintVariant4 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant4 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    #[serde(rename = "blob-store-id")]
-    #[default]
-    BlobStoreId,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobStoreId => "blob-store-id",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum::BlobStoreId => {
-                f.write_str("blob-store-id")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1ContentHintVariant5 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant5 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
-    #[serde(rename = "blob-webhook-public-key")]
-    #[default]
-    BlobWebhookPublicKey,
 }

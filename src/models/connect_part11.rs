@@ -182,6 +182,18 @@ impl<'de> serde::Deserialize<'de> for ConnectConnectorUpdateDataVariant1ToUpdate
     }
 }
 
+impl ::std::convert::From<i64> for ConnectConnectorUpdateDataVariant1ToUpdateItemExpiresAt {
+    fn from(value: i64) -> Self {
+        Self::Integer(value)
+    }
+}
+
+impl ::std::convert::From<String> for ConnectConnectorUpdateDataVariant1ToUpdateItemExpiresAt {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 /// Required object value serialized in the `toUpdate[]` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct ConnectConnectorUpdateDataVariant1ToUpdateItem {
@@ -524,20 +536,4 @@ pub struct ConnectConnectorUpdateDataVariant3 {
     /// Additional provider metadata stored with the connector.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extras: Option<std::collections::HashMap<String, serde_json::Value>>,
-}
-
-impl ConnectConnectorUpdateDataVariant3 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            app_id: None,
-            app_name: None,
-            client_id: None,
-            app_scopes: None,
-            user_scopes: None,
-            owner_organization: None,
-            application: None,
-            extras: None,
-        }
-    }
 }

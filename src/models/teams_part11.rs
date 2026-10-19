@@ -3,6 +3,55 @@
 
 // teams domain models (part 11)
 
+impl serde::Serialize for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "gitlab" => Self::Gitlab,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1 {
+    pub provider: UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum,
+    pub namespace: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project: Option<String>,
+}
+
+impl UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1 {
+    pub fn new(
+        provider: UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum,
+        namespace: String,
+    ) -> Self {
+        Self {
+            provider,
+            namespace,
+            project: None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem {
@@ -45,6 +94,34 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0>,
+    > for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem
+{
+    fn from(
+        value: Box<
+            UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0,
+        >,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1>,
+    > for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem
+{
+    fn from(
+        value: Box<
+            UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1,
+        >,
+    ) -> Self {
+        Self::Gitlab(value)
     }
 }
 
@@ -101,6 +178,20 @@ impl<'de> serde::Deserialize<'de> for UpdateTeamsRequestDeploymentPolicyVariant0
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no UpdateTeamsRequestDeploymentPolicyVariant0GitSources branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0Item>>
+    for UpdateTeamsRequestDeploymentPolicyVariant0GitSources
+{
+    fn from(value: Vec<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateTeamsRequestDeploymentPolicyVariant0GitSources {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -271,6 +362,18 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Box<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0>> for UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0>) -> Self {
+        Self::System(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant1>> for UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant1>) -> Self {
+        Self::Custom(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemSourcesItemEnum {
     #[default]
@@ -396,6 +499,24 @@ impl<'de> serde::Deserialize<'de> for UpdateTeamsRequestDeploymentPolicyVariant0
     }
 }
 
+impl
+    ::std::convert::From<
+        Vec<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0Item>,
+    > for UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSources
+{
+    fn from(
+        value: Vec<UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSourcesVariant0Item>,
+    ) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateTeamsRequestDeploymentPolicyVariant0DeploymentSources {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 /// Composable deployment-time policy. Each rule type holds a list of rules, one per environment scope.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UpdateTeamsRequestDeploymentPolicyVariant0 {
@@ -423,86 +544,6 @@ pub enum UpdateTeamsRequestDeploymentPolicy {
 }
 
 impl UpdateTeamsRequestDeploymentPolicy {
-    pub fn as_string_wire_value(&self) -> Option<&str> {
-        match self {
-            Self::String(value) => Some(value.as_str()),
-            _ => None,
-        }
-    }
-}
-
-/// The NSNB preference for the team.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum {
-    #[default]
-    AutoApproval,
-    ManualApproval,
-    Block,
-    Unknown(String),
-}
-
-impl UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AutoApproval => "auto-approval",
-            Self::ManualApproval => "manual-approval",
-            Self::Block => "block",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "auto-approval" => Self::AutoApproval,
-            "manual-approval" => Self::ManualApproval,
-            "block" => Self::Block,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// NSNB configuration for the team.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateTeamsRequestNsnbConfigVariant0 {
-    /// The NSNB preference for the team.
-    pub preference: UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum,
-}
-
-impl UpdateTeamsRequestNsnbConfigVariant0 {
-    pub fn new(preference: UpdateTeamsRequestNsnbConfigVariant0PreferenceEnum) -> Self {
-        Self { preference }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-#[serde(untagged)]
-pub enum UpdateTeamsRequestNsnbConfig {
-    Object(Box<UpdateTeamsRequestNsnbConfigVariant0>),
-    String(String),
-}
-
-impl UpdateTeamsRequestNsnbConfig {
     pub fn as_string_wire_value(&self) -> Option<&str> {
         match self {
             Self::String(value) => Some(value.as_str()),

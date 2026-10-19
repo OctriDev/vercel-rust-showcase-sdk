@@ -5,7 +5,514 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_length, LengthOpts};
+use crate::validation::{
+    validate_date_time, validate_items, validate_length, validate_pattern, LengthOpts,
+};
+
+#[derive(Debug, Clone)]
+pub struct SubmitInvoiceParams {
+    pub integration_configuration_id: String,
+    pub invoice_date: String,
+    pub period: SubmitInvoicePeriod,
+    pub items: Vec<SubmitInvoiceItemsItem>,
+    pub external_id: Option<String>,
+    pub memo: Option<String>,
+    pub discounts: Option<Vec<SubmitInvoiceDiscountsItem>>,
+    pub final_: Option<bool>,
+    pub test: Option<SubmitInvoiceTest>,
+}
+
+/// Submits an invoice for an installation to the billing system for delivery to the customer. Include the invoice date, billing period, and invoice items; the resource must be eligible for the selected active subscription plan during that period. Send interim subscription usage data hourly before submitting the invoice.
+///
+/// This endpoint allows the partner to submit an invoice to Vercel. The invoice is created in Vercel's billing system and sent to the customer. Depending on the type of billing plan, the invoice can be sent at a time of signup, at the start of the billing period, or at the end of the billing period. Use the `credentials.access_token` we provided in the Upsert Installation body to authorize this request. There are several limitations to the invoice submission: 1\. A resource can only be billed once per the billing period and the billing plan. 2\. The billing plan used to bill the resource must have been active for this resource during the billing period. 3\. The billing plan used must be a subscription plan. 4\. The interim usage data must be sent hourly for all types of subscriptions. See Send subscription billing and usage data API on how to send interim billing and usage data. 5\. If provided, `externalId` must be unique for the installation.
+///
+/// # Arguments
+///
+/// * `invoice_date` - Invoice date. Must be within the period's start and end.
+/// * `period` - Subscription period for this billing cycle.
+/// * `external_id` - Partner-provided invoice identifier. If provided, it must
+///   be unique for this installation.
+/// * `memo` - Additional memo for the invoice.
+/// * `final_` - Set this to `true` if this is the final invoice for the
+///   installation. Can only be set when the installation is pending deletion.
+/// * `test` - Test mode
+pub fn submit_invoice(
+    config: &ClientConfig,
+    params: SubmitInvoiceParams,
+    options: Option<&RequestOptions>,
+) -> Result<SubmitInvoiceResponse, SdkError> {
+    let SubmitInvoiceParams {
+        integration_configuration_id,
+        invoice_date,
+        period,
+        items,
+        external_id,
+        memo,
+        discounts,
+        final_,
+        test,
+    } = params;
+    validate_date_time("invoiceDate", &invoice_date)?;
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "invoiceDate".to_string(),
+        serde_json::to_value(invoice_date).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "period".to_string(),
+        serde_json::to_value(period).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "items".to_string(),
+        serde_json::to_value(items).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = external_id {
+        __body_map.insert(
+            "externalId".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = memo {
+        __body_map.insert(
+            "memo".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = discounts {
+        __body_map.insert(
+            "discounts".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = final_ {
+        __body_map.insert(
+            "final".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = test {
+        __body_map.insert(
+            "test".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<SubmitInvoiceResponse>(
+        "POST",
+        &format!(
+            "/v1/installations/{}/billing/invoices",
+            crate::client::encode_path_segment(&integration_configuration_id)
+        ),
+        config,
+        RequestOpts {
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "submit_invoice",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Finalizes an installation after a customer requests uninstall and you have submitted any remaining invoices. Finalization indicates that you will submit no further invoices and allows uninstall to proceed after outstanding invoices are paid. Authorize the request with the installation's `credentials.access_token`.
+///
+/// This endpoint allows the partner to mark an installation as finalized. This means you will not send any more invoices for the installation. Use this after a customer has requested uninstall and you have sent any remaining invoices. This will allow the uninstall process to proceed immediately after all invoices have been paid. Use the `credentials.access_token` we provided in the Upsert Installation body to authorize this request.
+pub fn finalize_installation(
+    config: &ClientConfig,
+    integration_configuration_id: String,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    Ok(sdk_request::<serde_json::Value>(
+        "POST",
+        &format!(
+            "/v1/installations/{}/billing/finalize",
+            crate::client::encode_path_segment(&integration_configuration_id)
+        ),
+        config,
+        RequestOpts {
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "finalize_installation",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Retrieves invoice details and status for an installation. Use the installation and invoice identifiers to select the invoice, and use the returned state and timestamps to track its billing lifecycle. Consult billing events through webhooks when you need invoice event notifications.
+///
+/// Get Invoice details and status for a given invoice ID. See [Billing Events with Webhooks documentation](https://vercel.com/docs/integrations/create-integration/marketplace-api#working-with-billing-events-through-webhooks) on how to receive invoice events. This endpoint is used to retrieve the invoice details.
+pub fn get_invoice(
+    config: &ClientConfig,
+    integration_configuration_id: String,
+    invoice_id: String,
+    options: Option<&RequestOptions>,
+) -> Result<GetInvoiceResponse, SdkError> {
+    Ok(sdk_request::<GetInvoiceResponse>(
+        "GET",
+        &format!(
+            "/v1/installations/{}/billing/invoices/{}",
+            crate::client::encode_path_segment(&integration_configuration_id),
+            crate::client::encode_path_segment(&invoice_id)
+        ),
+        config,
+        RequestOpts {
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_invoice",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone)]
+pub struct UpdateInvoiceParams {
+    pub integration_configuration_id: String,
+    pub invoice_id: String,
+    pub action: UpdateInvoiceActionEnum,
+    pub reason: String,
+    pub total: String,
+}
+
+/// Submits a refund request for an invoice previously created through the invoice submission operation. Provide the refund reason and amount along with the `refund` action. The requested amount cannot exceed the invoice total.
+///
+/// This endpoint allows the partner to request a refund for an invoice to Vercel. The invoice is created using the Submit Invoice API.
+///
+/// # Arguments
+///
+/// * `reason` - Refund reason.
+/// * `total` - The total amount to be refunded. Must be less than or equal to
+///   the total amount of the invoice.
+pub fn update_invoice(
+    config: &ClientConfig,
+    params: UpdateInvoiceParams,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    let UpdateInvoiceParams {
+        integration_configuration_id,
+        invoice_id,
+        action,
+        reason,
+        total,
+    } = params;
+    validate_pattern("total", &total, "^[0-9]+(\\.[0-9]+)?$")?;
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "action".to_string(),
+        serde_json::to_value(action).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "reason".to_string(),
+        serde_json::to_value(reason).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "total".to_string(),
+        serde_json::to_value(total).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>(
+        "POST",
+        &format!(
+            "/v1/installations/{}/billing/invoices/{}/actions",
+            crate::client::encode_path_segment(&integration_configuration_id),
+            crate::client::encode_path_segment(&invoice_id)
+        ),
+        config,
+        RequestOpts {
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "update_invoice",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Submits prepayment credit balances for an installation. Send the latest balances at least daily, and ideally hourly, so the billing system can use their USD values to evaluate automatic purchase thresholds. Authorize the request with the installation's `credentials.access_token`.
+///
+/// Sends the prepayment balances. The partner should do this at least once a day and ideally once per hour. Use the `credentials.access_token` we provided in the Upsert Installation body to authorize this request.
+///
+/// # Arguments
+///
+/// * `timestamp` - Server time of your integration, used to determine the most
+///   recent data for race conditions & updates. Only the latest usage data for a
+///   given day, week, and month will be kept.
+pub fn submit_prepayment_balances(
+    config: &ClientConfig,
+    integration_configuration_id: String,
+    timestamp: String,
+    balances: Vec<SubmitPrepaymentBalancesBalancesItem>,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    validate_date_time("timestamp", &timestamp)?;
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "timestamp".to_string(),
+        serde_json::to_value(timestamp).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "balances".to_string(),
+        serde_json::to_value(balances).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>(
+        "POST",
+        &format!(
+            "/v1/installations/{}/billing/balance",
+            crate::client::encode_path_segment(&integration_configuration_id)
+        ),
+        config,
+        RequestOpts {
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "submit_prepayment_balances",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct UpdateResourceSecretsParams {
+    pub integration_configuration_id: String,
+    pub integration_product_id_or_slug: String,
+    pub resource_id: String,
+    pub secrets: Vec<UpdateResourceSecretsSecretsItem>,
+    pub partial: Option<bool>,
+}
+
+/// Replaces the secrets for a resource connected to an installation. This operation is deprecated and has been replaced by PUT /v1/installations/{integrationConfigurationId}/resources/{resourceId}/secrets; existing connected projects may continue using old secrets until you redeploy them. Use `partial` to update only the supplied secrets instead of replacing the full set.
+///
+/// This endpoint is deprecated and replaced with the endpoint Update Resource Secrets. This endpoint updates the secrets of a resource. If a resource has projects connected, the connected secrets are updated with the new secrets. The old secrets may still be used by existing connected projects because they are not automatically redeployed. Redeployment is a manual action and must be completed by the user. All new project connections will use the new secrets. Use cases for this endpoint: \- Resetting the credentials of a database in the partner. If the user requests the credentials to be updated in the partner’s application, the partner post the new set of secrets to Vercel, the user should redeploy their application and the expire the old credentials.
+///
+/// # Arguments
+///
+/// * `partial` - If true, will only update the provided secrets
+///
+/// # Deprecated
+///
+/// This operation is deprecated and may be removed in a future release.
+pub fn update_resource_secrets(
+    config: &ClientConfig,
+    params: UpdateResourceSecretsParams,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    let UpdateResourceSecretsParams {
+        integration_configuration_id,
+        integration_product_id_or_slug,
+        resource_id,
+        secrets,
+        partial,
+    } = params;
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "secrets".to_string(),
+        serde_json::to_value(secrets).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = partial {
+        __body_map.insert(
+            "partial".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>(
+        "PUT",
+        &format!(
+            "/v1/installations/{}/products/{}/resources/{}/secrets",
+            crate::client::encode_path_segment(&integration_configuration_id),
+            crate::client::encode_path_segment(&integration_product_id_or_slug),
+            crate::client::encode_path_segment(&resource_id)
+        ),
+        config,
+        RequestOpts {
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "update_resource_secrets",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Replaces the secrets for a resource connected to an installation. Existing connected projects may continue using old secrets because they are not redeployed automatically, while new project connections use the updated secrets. Set `partial` to `true` to overwrite only the supplied secrets rather than replacing all secrets.
+///
+/// This endpoint updates the secrets of a resource. If a resource has projects connected, the connected secrets are updated with the new secrets. The old secrets may still be used by existing connected projects because they are not automatically redeployed. Redeployment is a manual action and must be completed by the user. All new project connections will use the new secrets. Use cases for this endpoint: \- Resetting the credentials of a database in the partner. If the user requests the credentials to be updated in the partner’s application, the partner post the new set of secrets to Vercel, the user should redeploy their application and the expire the old credentials.
+///
+/// # Arguments
+///
+/// * `partial` - If true, will only overwrite the provided secrets instead of
+///   replacing all secrets.
+pub fn update_resource_secrets_by_id(
+    config: &ClientConfig,
+    integration_configuration_id: String,
+    resource_id: String,
+    secrets: Vec<UpdateResourceSecretsByIdSecretsItem>,
+    partial: Option<bool>,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "secrets".to_string(),
+        serde_json::to_value(secrets).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = partial {
+        __body_map.insert(
+            "partial".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>(
+        "PUT",
+        &format!(
+            "/v1/installations/{}/resources/{}/secrets",
+            crate::client::encode_path_segment(&integration_configuration_id),
+            crate::client::encode_path_segment(&resource_id)
+        ),
+        config,
+        RequestOpts {
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "update_resource_secrets_by_id",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Creates one or more experimentation items for an integration resource. Supply an `items` array whose entries identify each item with `id`, `slug`, and `origin`; each item can also include category and descriptive metadata.
+///
+/// Create one or multiple experimentation items
+pub fn create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items(
+    config: &ClientConfig,
+    integration_configuration_id: String,
+    resource_id: String,
+    items: Vec<CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItem>,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    validate_items(
+        "items",
+        &items,
+        LengthOpts {
+            max: Some(50),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "items".to_string(),
+        serde_json::to_value(items).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>("POST", &format!("/v1/installations/{}/resources/{}/experimentation/items", crate::client::encode_path_segment(&integration_configuration_id), crate::client::encode_path_segment(&resource_id)), config, RequestOpts { body: Some(__body), decoder: crate::client::ResponseDecoder::Empty, operation_id: "create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items", options, ..Default::default() })?.data)
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdParams {

@@ -34,6 +34,18 @@ impl<'de> serde::Deserialize<'de> for StageRedirectsRedirectsItemStatusCode {
     }
 }
 
+impl ::std::convert::From<f64> for StageRedirectsRedirectsItemStatusCode {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for StageRedirectsRedirectsItemStatusCode {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct StageRedirectsRedirectsItem {
     pub source: String,
@@ -218,6 +230,18 @@ impl<'de> serde::Deserialize<'de> for GetRedirects {
     }
 }
 
+impl ::std::convert::From<bool> for GetRedirects {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<GetRedirectsVariant1Enum> for GetRedirects {
+    fn from(value: GetRedirectsVariant1Enum) -> Self {
+        Self::Only(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetRedirectsResponseVariant1Pagination {
     #[serde(rename = "numPages")]
@@ -270,31 +294,4 @@ impl GetRedirectsResponseVariant1RedirectsItem {
             status_code: None,
         }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRedirectsResponseVariant1Version {
-    /// The staging link for previewing redirects in this version.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<String>,
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    /// The unique identifier for the version.
-    pub id: String,
-    /// Whether this version is currently live in production.
-    #[serde(rename = "isLive", skip_serializing_if = "Option::is_none")]
-    pub is_live: Option<bool>,
-    /// Whether this version has not been promoted to production yet and is not serving end users.
-    #[serde(rename = "isStaging", skip_serializing_if = "Option::is_none")]
-    pub is_staging: Option<bool>,
-    /// The key of the version. The key may be duplicated across versions if the contents are the same as a different version.
-    pub key: String,
-    #[serde(rename = "lastModified")]
-    pub last_modified: f64,
-    /// Optional name for the version. If not provided, defaults to an ISO timestamp string.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// The number of redirects in this version.
-    #[serde(rename = "redirectCount", skip_serializing_if = "Option::is_none")]
-    pub redirect_count: Option<f64>,
 }

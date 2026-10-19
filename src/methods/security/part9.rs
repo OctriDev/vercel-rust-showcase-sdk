@@ -3,6 +3,87 @@
 
 use super::*;
 
+impl serde::Serialize
+    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action: Option<Option<GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum>>,
+    pub algo: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
+}
+
+impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
+    pub fn new(
+        algo: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
+    ) -> Self {
+        Self {
+            action: None,
+            algo,
+            keys,
+            limit,
+            window,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRedirect {
+    pub location: String,
+    pub permanent: bool,
+}
+
+impl GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
+        Self {
+            location,
+            permanent,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigate {
     pub action: GetSecurityFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum,
@@ -250,71 +331,4 @@ impl<'de> serde::Deserialize<'de>
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueLogHeaders branch accepts this payload"))
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Unknown(String),
-}
-
-impl GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetSecurityFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
-    #[default]
-    FixedWindow,
-    TokenBucket,
-    Unknown(String),
 }

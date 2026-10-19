@@ -77,6 +77,18 @@ impl<'de> serde::Deserialize<'de> for UpdateAttackChallengeMode {
     }
 }
 
+impl ::std::convert::From<Box<UpdateAttackChallengeModeVariant0>> for UpdateAttackChallengeMode {
+    fn from(value: Box<UpdateAttackChallengeModeVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateAttackChallengeModeVariant1>> for UpdateAttackChallengeMode {
+    fn from(value: Box<UpdateAttackChallengeModeVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateAttackChallengeModeResponse {
     #[serde(rename = "attackModeEnabled")]

@@ -3,6 +3,30 @@
 
 // billing domain models (part 3)
 
+/// The plan item quantities to set for the subscription
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6OptionsPlanItemQuantitiesItem
+{
+    /// The ID of the plan item to set the quantity for
+    #[serde(rename = "planItemId")]
+    pub plan_item_id: String,
+    /// The nonnegative integer quantity for the plan item
+    pub quantity: f64,
+    /// The resource IDs to associate with the plan item quantity
+    #[serde(rename = "resourceIds", skip_serializing_if = "Option::is_none")]
+    pub resource_ids: Option<Vec<String>>,
+}
+
+impl BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6OptionsPlanItemQuantitiesItem {
+    pub fn new(plan_item_id: String, quantity: f64) -> Self {
+        Self {
+            plan_item_id,
+            quantity,
+            resource_ids: None,
+        }
+    }
+}
+
 /// Purchase configuration specific options
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6Options {
@@ -183,6 +207,62 @@ impl<'de> serde::Deserialize<'de> for BuyCreditsResponseVariant1PurchaseIntentCo
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no BuyCreditsResponseVariant1PurchaseIntentConfiguration branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant0>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant0>) -> Self {
+        Self::CreditTopup(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant1>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant1>) -> Self {
+        Self::DomainName(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant2>) -> Self {
+        Self::OrbPlanChange(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant3>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant3>) -> Self {
+        Self::OrbPriceInterval(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4>) -> Self {
+        Self::OrbSubscription(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant5>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant5>) -> Self {
+        Self::OrbSubscriptionIntent(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6>>
+    for BuyCreditsResponseVariant1PurchaseIntentConfiguration
+{
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6>) -> Self {
+        Self::Subscription(value)
     }
 }
 
@@ -465,68 +545,4 @@ impl serde::Serialize for BuyCreditsResponseVariant1PurchaseIntentStatusEnum {
     {
         serializer.serialize_str(self.as_str())
     }
-}
-
-impl<'de> serde::Deserialize<'de> for BuyCreditsResponseVariant1PurchaseIntentStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "pending" => Self::Pending,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for BuyCreditsResponseVariant1PurchaseIntentStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The created purchase intent
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct BuyCreditsResponseVariant1PurchaseIntent {
-    pub configuration: BuyCreditsResponseVariant1PurchaseIntentConfiguration,
-    /// The datetime when the Purchase Intent was created.
-    #[serde(rename = "createdAt")]
-    pub created_at: String,
-    /// The currency for the purchase intent
-    pub currency: BuyCreditsResponseVariant1PurchaseIntentCurrencyEnum,
-    /// The dispute details, if any.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dispute: Option<BuyCreditsResponseVariant1PurchaseIntentDispute>,
-    /// The unique ID of a Purchase Intent. Uses the format `pur_\*`
-    pub id: String,
-    /// The line items that make up the Purchase Intent.
-    #[serde(rename = "lineItems", skip_serializing_if = "Option::is_none")]
-    pub line_items: Option<Vec<BuyCreditsResponseVariant1PurchaseIntentLineItemsItem>>,
-    /// Optional metadata associated with the purchase intent
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
-    /// The ID of the owner of the Purchase Intent.
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    pub provider: BuyCreditsResponseVariant1PurchaseIntentProvider,
-    /// The amount of the purchase intent that has been refunded
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub refund: Option<String>,
-    /// The URL to redirect to after the purchase is complete
-    #[serde(rename = "returnUrl", skip_serializing_if = "Option::is_none")]
-    pub return_url: Option<String>,
-    /// The status of the Purchase Intent.
-    pub status: BuyCreditsResponseVariant1PurchaseIntentStatusEnum,
-    /// The subtotal of the Purchase Intent.
-    pub subtotal: String,
-    /// The tax due on the Purchase Intent.
-    pub tax: String,
-    /// The total balance due on the Purchase Intent.
-    pub total: String,
-    /// The datetime when the Purchase Intent was last updated.
-    #[serde(rename = "updatedAt")]
-    pub updated_at: String,
 }

@@ -6,6 +6,71 @@ use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
 use crate::validation::{validate_items, validate_range, LengthOpts, RangeOpts};
 
+/// Invalidates source images, marking them stale so their transformed images are revalidated in the background on the next request. Use `projectIdOrName` to scope the operation and supply the image sources in `srcImages`. The request can include between 1 and 8 source images.
+///
+/// Marks a source image as stale, causing its corresponding transformed images to be revalidated in the background on the next request.
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn invalidate_by_src_images(
+    config: &ClientConfig,
+    project_id_or_name: String,
+    src_images: Vec<String>,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<serde_json::Value, SdkError> {
+    validate_items(
+        "srcImages",
+        &src_images,
+        LengthOpts {
+            min: Some(1),
+            max: Some(8),
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
+    __query.extend([(
+        "projectIdOrName",
+        crate::client::query_value(&project_id_or_name),
+    )]);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "srcImages".to_string(),
+        serde_json::to_value(src_images).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<serde_json::Value>(
+        "POST",
+        "/v1/edge-cache/invalidate-by-src-images",
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Empty,
+            operation_id: "invalidate_by_src_images",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct DangerouslyDeleteBySrcImagesParams {
     pub project_id_or_name: String,

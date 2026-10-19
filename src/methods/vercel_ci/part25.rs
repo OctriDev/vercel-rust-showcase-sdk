@@ -2,36 +2,51 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::validation::{validate_items, LengthOpts};
+use crate::types::GetVercelCiTaskLogsResponseTasksItemConclusion;
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiTaskRunsResponse {
+    #[serde(rename = "taskRuns")]
+    pub task_runs: Vec<ListVercelCiTaskRunsResponseTaskRunsItem>,
+}
+
+impl ListVercelCiTaskRunsResponse {
+    pub fn new(task_runs: Vec<ListVercelCiTaskRunsResponseTaskRunsItem>) -> Self {
+        Self { task_runs }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateVercelCiRepositorySettingsEnum {
+pub enum GetVercelCiInvocationLogsItemEnum {
     #[default]
-    Bitbucket,
-    CursorOrigin,
-    Github,
-    Gitlab,
-    Vercel,
+    Trace,
+    Debug,
+    Command,
+    Info,
+    Warn,
+    Error,
+    Systemerror,
+    Fatal,
     Unknown(String),
 }
 
-impl UpdateVercelCiRepositorySettingsEnum {
+impl GetVercelCiInvocationLogsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Bitbucket => "bitbucket",
-            Self::CursorOrigin => "cursor-origin",
-            Self::Github => "github",
-            Self::Gitlab => "gitlab",
-            Self::Vercel => "vercel",
+            Self::Trace => "trace",
+            Self::Debug => "debug",
+            Self::Command => "command",
+            Self::Info => "info",
+            Self::Warn => "warn",
+            Self::Error => "error",
+            Self::Systemerror => "systemError",
+            Self::Fatal => "fatal",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateVercelCiRepositorySettingsEnum {
+impl serde::Serialize for GetVercelCiInvocationLogsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -40,52 +55,83 @@ impl serde::Serialize for UpdateVercelCiRepositorySettingsEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateVercelCiRepositorySettingsEnum {
+impl<'de> serde::Deserialize<'de> for GetVercelCiInvocationLogsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "bitbucket" => Self::Bitbucket,
-            "cursor-origin" => Self::CursorOrigin,
-            "github" => Self::Github,
-            "gitlab" => Self::Gitlab,
-            "vercel" => Self::Vercel,
+            "trace" => Self::Trace,
+            "debug" => Self::Debug,
+            "command" => Self::Command,
+            "info" => Self::Info,
+            "warn" => Self::Warn,
+            "error" => Self::Error,
+            "systemError" => Self::Systemerror,
+            "fatal" => Self::Fatal,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateVercelCiRepositorySettingsEnum {
+impl std::fmt::Display for GetVercelCiInvocationLogsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationLogsResponseLinesItem {
+    pub level: String,
+    pub timestamp: f64,
+    pub message: String,
+}
+
+impl GetVercelCiInvocationLogsResponseLinesItem {
+    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+        Self {
+            level,
+            timestamp,
+            message,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationLogsResponse {
+    pub lines: Vec<GetVercelCiInvocationLogsResponseLinesItem>,
+}
+
+impl GetVercelCiInvocationLogsResponse {
+    pub fn new(lines: Vec<GetVercelCiInvocationLogsResponseLinesItem>) -> Self {
+        Self { lines }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListVercelCiInvocationsEnum {
+pub enum GetVercelCiTaskLogsItemEnum {
     #[default]
-    Bitbucket,
-    Github,
-    Gitlab,
-    Vercel,
+    Succeeded,
+    Cached,
+    Failed,
+    Skipped,
     Unknown(String),
 }
 
-impl ListVercelCiInvocationsEnum {
+impl GetVercelCiTaskLogsItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Bitbucket => "bitbucket",
-            Self::Github => "github",
-            Self::Gitlab => "gitlab",
-            Self::Vercel => "vercel",
+            Self::Succeeded => "succeeded",
+            Self::Cached => "cached",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for ListVercelCiInvocationsEnum {
+impl serde::Serialize for GetVercelCiTaskLogsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -94,310 +140,156 @@ impl serde::Serialize for ListVercelCiInvocationsEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListVercelCiInvocationsEnum {
+impl<'de> serde::Deserialize<'de> for GetVercelCiTaskLogsItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "bitbucket" => Self::Bitbucket,
-            "github" => Self::Github,
-            "gitlab" => Self::Gitlab,
-            "vercel" => Self::Vercel,
+            "succeeded" => Self::Succeeded,
+            "cached" => Self::Cached,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListVercelCiInvocationsEnum {
+impl std::fmt::Display for GetVercelCiTaskLogsItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone)]
-pub struct GetVercelCiRepositorySettingsParams {
-    pub provider: GetVercelCiRepositorySettingsEnum,
-    pub organization_id: String,
-    pub repository: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetVercelCiTaskLogsItemEnum1e08a244 {
+    #[default]
+    Trace,
+    Debug,
+    Command,
+    Info,
+    Warn,
+    Error,
+    Systemerror,
+    Fatal,
+    Unknown(String),
 }
 
-/// Retrieves Vercel CI settings for a connected repository. Identify the repository with `provider`, `organizationId`, and `repository`; use `teamId` or `slug` to make the request on behalf of a team. The response includes whether Vercel CI is enabled and the associated timestamps.
-///
-/// Get Repository Settings
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_vercel_ci_repository_settings(
-    config: &ClientConfig,
-    params: GetVercelCiRepositorySettingsParams,
-    options: Option<&RequestOptions>,
-) -> Result<GetVercelCiRepositorySettingsResponse, SdkError> {
-    let GetVercelCiRepositorySettingsParams {
-        provider,
-        organization_id,
-        repository,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    __query.extend([("provider", crate::client::query_value(&provider))]);
-    __query.extend([(
-        "organizationId",
-        crate::client::query_value(&organization_id),
-    )]);
-    __query.extend([("repository", crate::client::query_value(&repository))]);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetVercelCiRepositorySettingsResponse>(
-        "GET",
-        "/v1/vercel-ci/repository-settings",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_vercel_ci_repository_settings",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone)]
-pub struct UpdateVercelCiRepositorySettingsParams {
-    pub provider: UpdateVercelCiRepositorySettingsEnum,
-    pub organization_id: String,
-    pub repository: String,
-    pub ci_enabled: bool,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Updates the Vercel CI enabled state for a connected repository. Identify the repository with `provider`, `organizationId`, and `repository`, then set `ciEnabled` in the request body. Use `teamId` or `slug` to perform the request on behalf of a team.
-///
-/// Update Repository Settings
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn update_vercel_ci_repository_settings(
-    config: &ClientConfig,
-    params: UpdateVercelCiRepositorySettingsParams,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateVercelCiRepositorySettingsResponse, SdkError> {
-    let UpdateVercelCiRepositorySettingsParams {
-        provider,
-        organization_id,
-        repository,
-        ci_enabled,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(5);
-    __query.extend([("provider", crate::client::query_value(&provider))]);
-    __query.extend([(
-        "organizationId",
-        crate::client::query_value(&organization_id),
-    )]);
-    __query.extend([("repository", crate::client::query_value(&repository))]);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "ciEnabled".to_string(),
-        serde_json::to_value(ci_enabled).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<UpdateVercelCiRepositorySettingsResponse>(
-        "PATCH",
-        "/v1/vercel-ci/repository-settings",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_vercel_ci_repository_settings",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct ListVercelCiInvocationsParams {
-    pub provider: Option<ListVercelCiInvocationsEnum>,
-    pub repository: Option<String>,
-    pub branch_name: Option<String>,
-    pub snapshot: Option<String>,
-    pub status: Option<Vec<ListVercelCiInvocationsItemEnum>>,
-    pub conclusion: Option<Vec<ListVercelCiInvocationsItemEnum146c1f41>>,
-    pub source: Option<Vec<ListVercelCiInvocationsItemEnumead06394>>,
-    pub author_git_hub_id: Option<String>,
-    pub author: Option<String>,
-    pub created_after: Option<f64>,
-    pub created_before: Option<f64>,
-    pub limit: Option<f64>,
-    pub cursor: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Lists Vercel CI invocations for a team, with optional filters for repository, branch, commit, status, conclusion, source, author, and creation time. Use `cursor` to continue from a previous response and `limit` to set the page size. The response includes invocation records, repository details, and pagination metadata.
-///
-/// List Invocations
-///
-/// # Arguments
-///
-/// * `provider` - Repository provider (e.g., \"github\").
-/// * `repository` - Repository slug (e.g., \"vercel/next.js\").
-/// * `branch_name` - Branch name (e.g., \"main\").
-/// * `snapshot` - Snapshot/commit hash.
-/// * `author` - GitHub author login.
-/// * `limit` - Number of results per page (default: 20, max: 100).
-/// * `cursor` - Pagination cursor from a previous response.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_vercel_ci_invocations(
-    config: &ClientConfig,
-    params: ListVercelCiInvocationsParams,
-    options: Option<&RequestOptions>,
-) -> Result<ListVercelCiInvocationsResponse, SdkError> {
-    let ListVercelCiInvocationsParams {
-        provider,
-        repository,
-        branch_name,
-        snapshot,
-        status,
-        conclusion,
-        source,
-        author_git_hub_id,
-        author,
-        created_after,
-        created_before,
-        limit,
-        cursor,
-        team_id,
-        slug,
-    } = params;
-    if let Some(ref status_v) = status {
-        validate_items(
-            "status",
-            status_v,
-            LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref conclusion_v) = conclusion {
-        validate_items(
-            "conclusion",
-            conclusion_v,
-            LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref source_v) = source {
-        validate_items(
-            "source",
-            source_v,
-            LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(15);
-    if let Some(ref v) = provider {
-        __query.push(("provider", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = repository {
-        __query.push(("repository", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = branch_name {
-        __query.push(("branchName", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = snapshot {
-        __query.push(("snapshot", crate::client::query_value(v)));
-    }
-    if let Some(ref vec) = status {
-        for item in vec {
-            __query.push(("status", crate::client::query_value(item)));
+impl GetVercelCiTaskLogsItemEnum1e08a244 {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Trace => "trace",
+            Self::Debug => "debug",
+            Self::Command => "command",
+            Self::Info => "info",
+            Self::Warn => "warn",
+            Self::Error => "error",
+            Self::Systemerror => "systemError",
+            Self::Fatal => "fatal",
+            Self::Unknown(value) => value.as_str(),
         }
     }
-    if let Some(ref vec) = conclusion {
-        for item in vec {
-            __query.push(("conclusion", crate::client::query_value(item)));
-        }
-    }
-    if let Some(ref vec) = source {
-        for item in vec {
-            __query.push(("source", crate::client::query_value(item)));
-        }
-    }
-    if let Some(ref v) = author_git_hub_id {
-        __query.push(("authorGitHubId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = author {
-        __query.push(("author", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = created_after {
-        __query.push(("createdAfter", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = created_before {
-        __query.push(("createdBefore", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = cursor {
-        __query.push(("cursor", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+}
 
-    Ok(sdk_request::<ListVercelCiInvocationsResponse>(
-        "GET",
-        "/v2/vercel-ci/invocations",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_vercel_ci_invocations",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+impl serde::Serialize for GetVercelCiTaskLogsItemEnum1e08a244 {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetVercelCiTaskLogsItemEnum1e08a244 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "trace" => Self::Trace,
+            "debug" => Self::Debug,
+            "command" => Self::Command,
+            "info" => Self::Info,
+            "warn" => Self::Warn,
+            "error" => Self::Error,
+            "systemError" => Self::Systemerror,
+            "fatal" => Self::Fatal,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetVercelCiTaskLogsItemEnum1e08a244 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiTaskLogsResponseTasksItemLinesItem {
+    pub level: String,
+    pub timestamp: f64,
+    pub message: String,
+}
+
+impl GetVercelCiTaskLogsResponseTasksItemLinesItem {
+    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+        Self {
+            level,
+            timestamp,
+            message,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiTaskLogsResponseTasksItem {
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    #[serde(rename = "jobName")]
+    pub job_name: String,
+    #[serde(rename = "jobRunAttempt")]
+    pub job_run_attempt: f64,
+    #[serde(rename = "taskDefinitionId")]
+    pub task_definition_id: String,
+    #[serde(rename = "taskName")]
+    pub task_name: String,
+    #[serde(rename = "taskRunAttempt", skip_serializing_if = "Option::is_none")]
+    pub task_run_attempt: Option<f64>,
+    /// Typed representation of the `GetVercelCiTaskLogsResponseTasksItemConclusion` API schema.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conclusion: Option<GetVercelCiTaskLogsResponseTasksItemConclusion>,
+    pub lines: Vec<GetVercelCiTaskLogsResponseTasksItemLinesItem>,
+}
+
+impl GetVercelCiTaskLogsResponseTasksItem {
+    pub fn new(
+        job_definition_id: String,
+        job_name: String,
+        job_run_attempt: f64,
+        task_definition_id: String,
+        task_name: String,
+        lines: Vec<GetVercelCiTaskLogsResponseTasksItemLinesItem>,
+    ) -> Self {
+        Self {
+            job_definition_id,
+            job_name,
+            job_run_attempt,
+            task_definition_id,
+            task_name,
+            task_run_attempt: None,
+            conclusion: None,
+            lines,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiTaskLogsResponse {
+    pub tasks: Vec<GetVercelCiTaskLogsResponseTasksItem>,
+    /// Whether more tasks matched the filters than were returned. With `search`, whether more than 1000 lines matched.
+    #[serde(rename = "hasMore")]
+    pub has_more: bool,
 }

@@ -3,6 +3,66 @@
 
 // projects_create domain models (part 6)
 
+impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant12TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectResponseEnvItemContentHintVariant12TypeEnum::PostgresPassword => {
+                f.write_str("postgres-password")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseEnvItemContentHintVariant12 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemContentHintVariant12TypeEnum,
+}
+
+impl CreateProjectResponseEnvItemContentHintVariant12 {
+    pub fn new(
+        store_id: String,
+        type_: CreateProjectResponseEnvItemContentHintVariant12TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
+    #[serde(rename = "postgres-database")]
+    #[default]
+    PostgresDatabase,
+}
+
+impl CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresDatabase => "postgres-database",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant13TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectResponseEnvItemContentHintVariant13TypeEnum::PostgresDatabase => {
+                f.write_str("postgres-database")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseEnvItemContentHintVariant13 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseEnvItemContentHintVariant13TypeEnum,
+}
+
 impl CreateProjectResponseEnvItemContentHintVariant13 {
     pub fn new(
         store_id: String,
@@ -501,60 +561,6 @@ impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Header => "header",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum::Header => {
-                f.write_str("header")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value {
-    pub eq: String,
-}
-
-impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value {
-    pub fn new(eq: String) -> Self {
-        Self { eq }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0 {
-    pub key: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
-    pub value: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value,
-}
-
-impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0 {
-    pub fn new(
-        key: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
-        type_: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
-        value: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value,
-    ) -> Self {
-        Self { key, type_, value }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
-    #[serde(rename = "host")]
-    #[default]
-    Host,
-}
-
-impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Host => "host",
         }
     }
 }

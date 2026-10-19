@@ -3,6 +3,72 @@
 
 // microfrontends domain models (part 4)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant9 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant9TypeEnum,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant9 {
+    pub fn new(
+        store_id: String,
+        type_: GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant9TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum {
+    #[serde(rename = "postgres-user")]
+    #[default]
+    PostgresUser,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::PostgresUser => "postgres-user",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum::PostgresUser => f.write_str("postgres-user"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10 {
+    pub fn new(
+        store_id: String,
+        type_: GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant10TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant11TypeEnum {
+    #[serde(rename = "postgres-host")]
+    #[default]
+    PostgresHost,
+}
+
 impl GetMicrofrontendsInGroupResponseProjectsItemEnvItemContentHintVariant11TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -496,74 +562,4 @@ pub struct GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant1 {
     /// userId of the actor that triggered the lock (system or admin).
     #[serde(rename = "lockedBy")]
     pub locked_by: String,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant1 {
-    pub fn new(locked_at: f64, locked_by: String) -> Self {
-        Self {
-            locked_at,
-            locked_by,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemExpiration {
-    Object(Box<GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant0>),
-    Object2(Box<GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for GetMicrofrontendsInGroupResponseProjectsItemExpiration {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetMicrofrontendsInGroupResponseProjectsItemExpirationVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsInGroupResponseProjectsItemExpiration branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemInternalRoutesItemVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiry: Option<f64>,
-    pub src: String,
-    pub status: f64,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemInternalRoutesItemVariant0 {
-    pub fn new(src: String, status: f64) -> Self {
-        Self {
-            expiry: None,
-            src,
-            status,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
-{
-    #[default]
-    XVercelIpCountry,
-    Unknown(String),
 }

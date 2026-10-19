@@ -3,6 +3,119 @@
 
 // sandboxes domain models (part 11)
 
+/// This object contains information related to a Snapshot of a Vercel Sandbox session (v2 API).
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct Snapshot {
+    /// CPU architecture required to restore the snapshot.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub architecture: Option<SnapshotArchitectureEnum>,
+    /// The time when the snapshot was created, in milliseconds since the epoch.
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// The method used to create the snapshot.
+    #[serde(rename = "creationMethod", skip_serializing_if = "Option::is_none")]
+    pub creation_method: Option<SnapshotCreationMethodEnum>,
+    /// The time when the snapshot will expire, in milliseconds since the epoch. If not set, the snapshot does not have any expiration.
+    #[serde(rename = "expiresAt", skip_serializing_if = "Option::is_none")]
+    pub expires_at: Option<f64>,
+    /// The unique identifier of the snapshot.
+    pub id: String,
+    /// The last time the snapshot was used (e.g. to resume or create a sandbox), in milliseconds since the epoch. Falls back to `createdAt` for older snapshots that predate this field.
+    #[serde(rename = "lastUsedAt")]
+    pub last_used_at: f64,
+    /// The unique identifier of the parent snapshot, if this snapshot was created from another snapshot.
+    #[serde(rename = "parentId", skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    /// The region where the snapshot is stored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub region: Option<String>,
+    /// The regions where the snapshot is available.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub regions: Option<Vec<String>>,
+    /// The size of the snapshot in bytes.
+    #[serde(rename = "sizeBytes")]
+    pub size_bytes: f64,
+    /// The unique identifier of the session from which the snapshot was created.
+    #[serde(rename = "sourceSessionId")]
+    pub source_session_id: String,
+    /// The status of the snapshot.
+    pub status: SnapshotStatusEnum,
+    /// The last time the snapshot was updated, in milliseconds since the epoch.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+    /// Whether this snapshot is managed by v0 on the customer's behalf.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub v0: Option<bool>,
+}
+
+impl Snapshot {
+    pub fn new(
+        created_at: f64,
+        id: String,
+        last_used_at: f64,
+        size_bytes: f64,
+        source_session_id: String,
+        status: SnapshotStatusEnum,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            architecture: None,
+            created_at,
+            creation_method: None,
+            expires_at: None,
+            id,
+            last_used_at,
+            parent_id: None,
+            region: None,
+            regions: None,
+            size_bytes,
+            source_session_id,
+            status,
+            updated_at,
+            v0: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct StopSessionResponseVariant0 {
+    /// This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
+    pub session: Session,
+}
+
+impl StopSessionResponseVariant0 {
+    pub fn new(session: Session) -> Self {
+        Self { session }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct StopSessionResponseVariant1 {
+    /// This object contains information related to a Vercel NamedSandbox.
+    pub sandbox: NamedSandbox,
+    /// This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
+    pub session: Session,
+    /// This object contains information related to a Snapshot of a Vercel Sandbox session (v2 API).
+    pub snapshot: Snapshot,
+}
+
+impl StopSessionResponseVariant1 {
+    pub fn new(sandbox: NamedSandbox, session: Session, snapshot: Snapshot) -> Self {
+        Self {
+            sandbox,
+            session,
+            snapshot,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum StopSessionResponse {
+    Object(Box<StopSessionResponseVariant0>),
+    Object2(Box<StopSessionResponseVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for StopSessionResponse {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -416,117 +529,6 @@ impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQuerySt
         Self {
             exact: None,
             starts_with: None,
-        }
-    }
-}
-
-/// Matcher for the entry value.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue
-{
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
-}
-
-impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            exact: None,
-            starts_with: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItem {
-    /// Matcher for the entry key (header name or query key).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: Option<
-        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemKey,
-    >,
-    /// Matcher for the entry value.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<
-        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue,
-    >,
-}
-
-impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItem {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            key: None,
-            value: None,
-        }
-    }
-}
-
-/// Matcher for the entry key (header name or query key).
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey {
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
-}
-
-impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            exact: None,
-            starts_with: None,
-        }
-    }
-}
-
-/// Matcher for the entry value.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue {
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
-}
-
-impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            exact: None,
-            starts_with: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItem {
-    /// Matcher for the entry key (header name or query key).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key:
-        Option<UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey>,
-    /// Matcher for the entry value.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<
-        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue,
-    >,
-}
-
-impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItem {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            key: None,
-            value: None,
         }
     }
 }

@@ -7,6 +7,18 @@ use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
 use crate::validation::{validate_email, validate_length, validate_range, LengthOpts, RangeOpts};
 
+impl ::std::convert::From<Box<GetProjectMembersResponseVariant1>> for GetProjectMembersResponse {
+    fn from(value: Box<GetProjectMembersResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for GetProjectMembersResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 /// Responds with the project ID on success.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct AddProjectMemberResponse {

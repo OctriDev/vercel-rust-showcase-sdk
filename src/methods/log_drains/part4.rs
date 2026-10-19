@@ -3,6 +3,20 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub compression:
+        Option<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0CompressionEnum>,
+    pub encoding: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0EncodingEnum,
+    pub endpoint: String,
+    pub headers: std::collections::HashMap<String, String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret: Option<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0Secret>,
+    #[serde(rename = "type")]
+    pub type_: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0TypeEnum,
+}
+
 impl ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0 {
     pub fn new(
         encoding: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant0EncodingEnum,
@@ -184,6 +198,26 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant1Secret
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant1SecretVariant1>,
+    > for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant1Secret
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant1SecretVariant1>,
+    ) -> Self {
+        Self::INTEGRATIONSECRET(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant1TypeEnum {
     #[serde(rename = "otlphttp")]
@@ -297,39 +331,5 @@ impl ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionE
             Self::None => "none",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize
-    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "none" => Self::None,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

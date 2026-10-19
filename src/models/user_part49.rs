@@ -3,6 +3,70 @@
 
 // user domain models (part 49)
 
+impl UserEventPayloadVariant129 {
+    pub fn new(domain: String, id: String, name: String, type_: String, value: String) -> Self {
+        Self {
+            domain,
+            id,
+            mx_priority: None,
+            name,
+            type_,
+            value,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `action` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant130ActionEnum {
+    #[default]
+    Add,
+    Delete,
+    Update,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant130ActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Add => "add",
+            Self::Delete => "delete",
+            Self::Update => "update",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant130ActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant130ActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "add" => Self::Add,
+            "delete" => Self::Delete,
+            "update" => Self::Update,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant130ActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// Required enumerated value serialized in the `initiator` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UserEventPayloadVariant130InitiatorEnum {
@@ -436,76 +500,4 @@ impl serde::Serialize for UserEventPayloadVariant141PreviousEchModeEnum {
     {
         serializer.serialize_str(self.as_str())
     }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant141PreviousEchModeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "auto" => Self::Auto,
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant141PreviousEchModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant141 {
-    /// Required `string` value serialized in the `domain` wire field.
-    pub domain: String,
-    /// Required enumerated value serialized in the `echMode` wire field.
-    #[serde(rename = "echMode")]
-    pub ech_mode: UserEventPayloadVariant141EchModeEnum,
-    /// Required enumerated value serialized in the `previousEchMode` wire field.
-    #[serde(rename = "previousEchMode")]
-    pub previous_ech_mode: UserEventPayloadVariant141PreviousEchModeEnum,
-}
-
-impl UserEventPayloadVariant141 {
-    pub fn new(
-        domain: String,
-        ech_mode: UserEventPayloadVariant141EchModeEnum,
-        previous_ech_mode: UserEventPayloadVariant141PreviousEchModeEnum,
-    ) -> Self {
-        Self {
-            domain,
-            ech_mode,
-            previous_ech_mode,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant142 {
-    /// Required `string` value serialized in the `domain` wire field.
-    pub domain: String,
-    /// Required enumerated value serialized in the `zone` wire field.
-    pub zone: bool,
-}
-
-impl UserEventPayloadVariant142 {
-    pub fn new(domain: String, zone: bool) -> Self {
-        Self { domain, zone }
-    }
-}
-
-/// Required enumerated value serialized in the `initiator` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant143InitiatorEnum {
-    #[default]
-    System,
-    User,
-    Unknown(String),
 }

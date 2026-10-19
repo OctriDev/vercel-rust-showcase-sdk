@@ -3,6 +3,31 @@
 
 // teams domain models (part 5)
 
+impl TeamMembership {
+    pub fn new(
+        confirmed: bool,
+        created: f64,
+        created_at: f64,
+        role: TeamMembershipRoleEnum,
+    ) -> Self {
+        Self {
+            access_requested_at: None,
+            confirmed,
+            created,
+            created_at,
+            entitlements: None,
+            is_org_backing_team_membership: None,
+            joined_from: None,
+            organization_id: None,
+            role,
+            team_id: None,
+            team_permissions: None,
+            team_roles: None,
+            uid: None,
+        }
+    }
+}
+
 /// Required enumerated value serialized in the `preference` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum TeamNsnbConfigPreferenceEnum {
@@ -448,30 +473,4 @@ pub struct TeamSamlDirectory {
     /// The Identity Provider "type", for example Okta.
     #[serde(rename = "type")]
     pub type_: String,
-}
-
-impl TeamSamlDirectory {
-    pub fn new(connected_at: f64, state: String, type_: String) -> Self {
-        Self {
-            connected_at,
-            last_received_webhook_event: None,
-            last_synced_at: None,
-            state,
-            sync_state: None,
-            type_,
-        }
-    }
-}
-
-/// When "Directory Sync" is configured, this object contains a mapping of which Directory Group (by ID) should be assigned to which Vercel Team roles and permissions, or an access group. Bare team roles are deprecated in favor of DirectorySyncRolesMapping.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct TeamSamlRolesValueVariant0 {
-    #[serde(rename = "accessGroupId")]
-    pub access_group_id: String,
-}
-
-impl TeamSamlRolesValueVariant0 {
-    pub fn new(access_group_id: String) -> Self {
-        Self { access_group_id }
-    }
 }

@@ -3,6 +3,74 @@
 
 // projects_update domain models (part 8)
 
+impl UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseTrustedIpsVariant1 {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum,
+}
+
+impl UpdateMicrofrontendsResponseTrustedIpsVariant1 {
+    pub fn new(
+        deployment_type: UpdateMicrofrontendsResponseTrustedIpsVariant1DeploymentTypeEnum,
+    ) -> Self {
+        Self { deployment_type }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateMicrofrontendsResponseTrustedIps {
+    Object(Box<UpdateMicrofrontendsResponseTrustedIpsVariant0>),
+    Object2(Box<UpdateMicrofrontendsResponseTrustedIpsVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseTrustedIps {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -198,6 +266,18 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant0>> for UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant0>) -> Self {
+        Self::System(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant1>> for UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant1>) -> Self {
+        Self::Custom(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0ProviderEnum
 {
@@ -368,6 +448,34 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0>,
+    > for UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem
+{
+    fn from(
+        value: Box<
+            UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0,
+        >,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1>,
+    > for UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItem
+{
+    fn from(
+        value: Box<
+            UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1,
+        >,
+    ) -> Self {
+        Self::Gitlab(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UpdateProjectRequestDeploymentPolicyVariant0GitSourcesVariant0Item {
     pub enabled: bool,
@@ -422,97 +530,4 @@ impl<'de> serde::Deserialize<'de> for UpdateProjectRequestDeploymentPolicyVarian
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectRequestDeploymentPolicyVariant0GitSources branch accepts this payload"))
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum
-{
-    #[serde(rename = "system")]
-    #[default]
-    System,
-}
-
-impl UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::System => "system",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum
-{
-    #[default]
-    Production,
-    Preview,
-    Unknown(String),
-}
-
-impl UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0 {
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum,
-    pub target: UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum,
-}
-
-impl UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0 {
-    pub fn new(type_: UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TypeEnum, target: UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant0TargetEnum) -> Self {
-        Self { type_, target }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateProjectRequestDeploymentPolicyVariant0DeploymentSourcesVariant0ItemEnvironmentsItemVariant1TypeEnum
-{
-    #[serde(rename = "custom")]
-    #[default]
-    Custom,
 }

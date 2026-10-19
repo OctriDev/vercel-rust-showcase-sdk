@@ -4,6 +4,43 @@
 // feature_flags domain models (part 4)
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
+    #[serde(rename = "segment")]
+    #[default]
+    Segment,
+}
+
+impl FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Segment => "segment",
+        }
+    }
+}
+
+impl std::fmt::Display for FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum::Segment => {
+                f.write_str("segment")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
+    #[serde(rename = "type")]
+    pub type_: FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum,
+}
+
+impl FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
+    pub fn new(type_: FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0TypeEnum) -> Self {
+        Self { type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum FlagEnvironmentsValueRulesItemConditionsItemLhsVariant1TypeEnum {
     #[serde(rename = "entity")]
     #[default]
@@ -89,6 +126,22 @@ impl<'de> serde::Deserialize<'de> for FlagEnvironmentsValueRulesItemConditionsIt
     }
 }
 
+impl ::std::convert::From<Box<FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0>>
+    for FlagEnvironmentsValueRulesItemConditionsItemLhs
+{
+    fn from(value: Box<FlagEnvironmentsValueRulesItemConditionsItemLhsVariant0>) -> Self {
+        Self::Segment(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueRulesItemConditionsItemLhsVariant1>>
+    for FlagEnvironmentsValueRulesItemConditionsItemLhs
+{
+    fn from(value: Box<FlagEnvironmentsValueRulesItemConditionsItemLhsVariant1>) -> Self {
+        Self::Entity(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItemVariant0 {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -161,6 +214,30 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItem branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItemVariant0>,
+    > for FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(
+        value: Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItemVariant0>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItemVariant1>,
+    > for FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItem
+{
+    fn from(
+        value: Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2ItemsItemVariant1>,
+    ) -> Self {
+        Self::Object2(value)
     }
 }
 
@@ -360,6 +437,40 @@ impl<'de> serde::Deserialize<'de> for FlagEnvironmentsValueRulesItemConditionsIt
     }
 }
 
+impl ::std::convert::From<String> for FlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for FlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2>>
+    for FlagEnvironmentsValueRulesItemConditionsItemRhs
+{
+    fn from(value: Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant2>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant3>>
+    for FlagEnvironmentsValueRulesItemConditionsItemRhs
+{
+    fn from(value: Box<FlagEnvironmentsValueRulesItemConditionsItemRhsVariant3>) -> Self {
+        Self::Regex(value)
+    }
+}
+
+impl ::std::convert::From<bool> for FlagEnvironmentsValueRulesItemConditionsItemRhs {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct FlagEnvironmentsValueRulesItemConditionsItem {
     pub cmp: FlagEnvironmentsValueRulesItemConditionsItemCmpEnum,
@@ -428,121 +539,6 @@ impl FlagEnvironmentsValueRulesItemOutcomeVariant0 {
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
-    #[default]
-    Entity,
-    Unknown(String),
-}
-
-impl FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Entity => "entity",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "entity" => Self::Entity,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct FlagEnvironmentsValueRulesItemOutcomeVariant1Base {
-    pub attribute: String,
-    pub kind: String,
-    #[serde(rename = "type")]
-    pub type_: FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
-}
-
-impl FlagEnvironmentsValueRulesItemOutcomeVariant1Base {
-    pub fn new(
-        attribute: String,
-        kind: String,
-        type_: FlagEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
-    ) -> Self {
-        Self {
-            attribute,
-            kind,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
-    #[serde(rename = "split")]
-    #[default]
-    Split,
-}
-
-impl FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Split => "split",
-        }
-    }
-}
-
-impl std::fmt::Display for FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum::Split => f.write_str("split"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct FlagEnvironmentsValueRulesItemOutcomeVariant1 {
-    pub base: FlagEnvironmentsValueRulesItemOutcomeVariant1Base,
-    #[serde(rename = "defaultVariantId")]
-    pub default_variant_id: String,
-    #[serde(rename = "type")]
-    pub type_: FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
-    pub weights: std::collections::HashMap<String, f64>,
-}
-
-impl FlagEnvironmentsValueRulesItemOutcomeVariant1 {
-    pub fn new(
-        base: FlagEnvironmentsValueRulesItemOutcomeVariant1Base,
-        default_variant_id: String,
-        type_: FlagEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
-        weights: std::collections::HashMap<String, f64>,
-    ) -> Self {
-        Self {
-            base,
-            default_variant_id,
-            type_,
-            weights,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum FlagEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
     #[default]
     Entity,
     Unknown(String),

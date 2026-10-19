@@ -3,6 +3,117 @@
 
 use super::*;
 
+/// Matcher for the entry value.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue {
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
+impl UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exact: None,
+            starts_with: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItem {
+    /// Matcher for the entry key (header name or query key).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemKey>,
+    /// Matcher for the entry value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItemValue>,
+}
+
+impl UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            key: None,
+            value: None,
+        }
+    }
+}
+
+/// Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatch {
+    /// Match on the request path. Comparison is case-sensitive.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchPath>,
+    /// HTTP methods to match. Any single match succeeds (OR semantics).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub method: Option<Vec<String>>,
+    /// Query-string entry matchers. Multiple entries are ANDed. Query parameter names and values are both compared case-sensitively (RFC 3986). When a request has multiple values for the same key, any matching value satisfies the matcher.
+    #[serde(rename = "queryString", skip_serializing_if = "Option::is_none")]
+    pub query_string:
+        Option<Vec<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchQueryStringItem>>,
+    /// Header matchers. Multiple entries are ANDed. Header names are compared case-insensitively (RFC 9110); header values are compared case-sensitively. When a request has multiple values for the same header, any matching value satisfies the matcher.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatchHeadersItem>>,
+}
+
+impl UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatch {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            path: None,
+            method: None,
+            query_string: None,
+            headers: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant0InjectionRulesItem {
+    /// The domain (or pattern) of requests to add headers for. Supports wildcards like \*.example.com.
+    pub domain: String,
+    /// HTTP headers to inject into requests for this domain. Existing headers with the same name will be overridden.
+    pub headers: std::collections::HashMap<String, String>,
+    /// Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
+    #[serde(rename = "match", skip_serializing_if = "Option::is_none")]
+    pub match_: Option<UpdateSessionNetworkPolicyVariant0InjectionRulesItemMatch>,
+}
+
+impl UpdateSessionNetworkPolicyVariant0InjectionRulesItem {
+    pub fn new(domain: String, headers: std::collections::HashMap<String, String>) -> Self {
+        Self {
+            domain,
+            headers,
+            match_: None,
+        }
+    }
+}
+
+/// Network access policy for the sandbox.\n    Controls which external hosts the sandbox can communicate with.\n    Use \"allow-all\" mode to allow all traffic, \"deny-all\" to block all traffic or \"custom\" to provide specific rules.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSessionNetworkPolicyVariant0 {
+    /// The network access policy mode. Use \"allow-all\" to permit all outbound traffic. Use \"deny-all\" to block all outbound traffic. Use \"custom\" to specify explicit allow/deny rules.
+    pub mode: UpdateSessionNetworkPolicyVariant0ModeEnum,
+    /// List of domain names the sandbox is allowed to connect to. Only applies when mode is \"custom\". Supports wildcard patterns (e.g., \"\*.example.com\" matches all subdomains).
+    #[serde(rename = "allowedDomains", skip_serializing_if = "Option::is_none")]
+    pub allowed_domains: Option<Vec<String>>,
+    /// List of IP address ranges (in CIDR notation) the sandbox is allowed to connect to. Traffic to these addresses bypasses domain-based restrictions.
+    #[serde(rename = "allowedCIDRs", skip_serializing_if = "Option::is_none")]
+    pub allowed_cid_rs: Option<Vec<String>>,
+    /// List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.
+    #[serde(rename = "deniedCIDRs", skip_serializing_if = "Option::is_none")]
+    pub denied_cid_rs: Option<Vec<String>>,
+    /// HTTP header injection rules for outgoing requests matching specific domains. Traffic to matching domains will be intercepted instead of proxied through encrypted connections.
+    #[serde(rename = "injectionRules", skip_serializing_if = "Option::is_none")]
+    pub injection_rules: Option<Vec<UpdateSessionNetworkPolicyVariant0InjectionRulesItem>>,
+}
+
 impl UpdateSessionNetworkPolicyVariant0 {
     pub fn new(mode: UpdateSessionNetworkPolicyVariant0ModeEnum) -> Self {
         Self {
@@ -204,138 +315,5 @@ impl UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemTransformItem {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self { headers: None }
-    }
-}
-
-/// Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse {
-    /// HTTP status code returned to the sandbox.
-    #[serde(rename = "statusCode")]
-    pub status_code: i64,
-    /// HTTP response headers. Framing and hop-by-hop headers are managed by the proxy and cannot be set.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub headers: Option<std::collections::HashMap<String, String>>,
-    /// UTF-8 response body. Requires `contentType`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub body: Option<String>,
-    /// Value of the `Content-Type` response header. Required when `body` is set.
-    #[serde(rename = "contentType", skip_serializing_if = "Option::is_none")]
-    pub content_type: Option<String>,
-}
-
-impl UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_range(
-            "statusCode",
-            self.status_code as f64,
-            crate::validation::RangeOpts {
-                min: Some(200_f64),
-                max: Some(599_f64),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(status_code: i64) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            status_code,
-            headers: None,
-            body: None,
-            content_type: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem {
-    /// Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
-    #[serde(rename = "match", skip_serializing_if = "Option::is_none")]
-    pub match_: Option<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemMatch>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub transform:
-        Option<Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemTransformItem>>,
-    /// HTTP/1.1 proxy URL to forward traffic to. Must not include username, password, query string, or fragment.
-    #[serde(rename = "forwardURL", skip_serializing_if = "Option::is_none")]
-    pub forward_url: Option<String>,
-    /// Answer matching requests from the proxy with this response instead of forwarding them to the origin. Combine with a `match` on an earlier rule to allow one sub-path and reject the rest of a domain.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub response: Option<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItemResponse>,
-}
-
-impl UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            match_: None,
-            transform: None,
-            forward_url: None,
-            response: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateSessionNetworkPolicyVariant1Allow {
-    StringArray(Vec<String>),
-    Variant1ValueItemArrayMap(
-        std::collections::HashMap<
-            String,
-            Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
-        >,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateSessionNetworkPolicyVariant1Allow {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            std::collections::HashMap<
-                String,
-                Vec<UpdateSessionNetworkPolicyVariant1AllowVariant1ValueItem>,
-            >,
-        >(value.clone())
-        {
-            let candidate = Self::Variant1ValueItemArrayMap(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UpdateSessionNetworkPolicyVariant1Allow branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSessionNetworkPolicyVariant1Subnets {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub allow: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deny: Option<Vec<String>>,
-}
-
-impl UpdateSessionNetworkPolicyVariant1Subnets {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            allow: None,
-            deny: None,
-        }
     }
 }

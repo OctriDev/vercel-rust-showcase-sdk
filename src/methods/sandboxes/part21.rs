@@ -5,10 +5,451 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::CreateSandboxesByNameForkV2RequestNetworkPolicy;
-use crate::validation::{
-    validate_items, validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts,
-};
+use crate::types::{GetSessionCommandLogsResponse, StopSessionResponse};
+use crate::validation::{validate_length, validate_range, LengthOpts, RangeOpts};
+
+#[derive(Debug, Clone, Default)]
+pub struct WriteSessionCommandStdinParams {
+    pub cmd_id: String,
+    pub session_id: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub data: Option<String>,
+    pub offset: Option<i64>,
+    pub close: Option<bool>,
+}
+
+/// Writes data to a running command's stdin and can close stdin after the write. The command must have started with `attachStdin` enabled; send writes one at a time to preserve order, and use `offset` to make retries safe when the response includes `bytesWritten`.
+///
+/// Writes data to the stdin of a running command, and optionally closes it. The command must have been started with `attachStdin` set to true. Writes are applied in the order they are received. Send them one at a time to keep the data in order. A write returns once the command has accepted the data, and fails with a 504 after 30 seconds if the command is not reading stdin. Each write counts against the sandbox control plane rate limit, so batch small writes where possible. Set `offset` to the position in stdin where `data` starts to make a request safe to resend, for example after a 502 or 504: bytes the command has already received are skipped, and an offset past them fails with a 409\. The response returns `bytesWritten`, the total written so far, and a 504 includes it in the error when the sandbox reports it. A request with no `data` and no `close` writes nothing and returns it. If a request with an `offset` gets a response without `bytesWritten`, the sandbox predates offsets and ignored it, so resending that request is not safe.
+///
+/// # Arguments
+///
+/// * `cmd_id` - The unique identifier of the command to write to.
+/// * `session_id` - The unique identifier of the session containing the
+///   command.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `data` - Base64-encoded bytes to write to the command stdin. The request
+///   body is limited to 1 MB, so send at most about 700 KB of data per request.
+/// * `offset` - The position in the command stdin where `data` starts. Bytes
+///   before the total already written are skipped, so a resent request does not
+///   write them twice. Fails with 409 if it is past the bytes written so far.
+///   Without it, `data` is appended.
+/// * `close` - If true, closes the command stdin after writing `data`. Use this
+///   for commands that wait for end of input.
+pub fn write_session_command_stdin(
+    config: &ClientConfig,
+    params: WriteSessionCommandStdinParams,
+    options: Option<&RequestOptions>,
+) -> Result<WriteSessionCommandStdinResponse, SdkError> {
+    let WriteSessionCommandStdinParams {
+        cmd_id,
+        session_id,
+        team_id,
+        slug,
+        data,
+        offset,
+        close,
+    } = params;
+    if let Some(ref data_v) = data {
+        validate_length(
+            "data",
+            data_v,
+            LengthOpts {
+                max: Some(1000000),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref offset_v) = offset {
+        validate_range(
+            "offset",
+            *offset_v as f64,
+            RangeOpts {
+                min: Some(0_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    if let Some(ref value) = data {
+        __body_map.insert(
+            "data".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = offset {
+        __body_map.insert(
+            "offset".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = close {
+        __body_map.insert(
+            "close".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<WriteSessionCommandStdinResponse>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/cmd/{}/stdin",
+            crate::client::encode_path_segment(&session_id),
+            crate::client::encode_path_segment(&cmd_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "write_session_command_stdin",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Streams command output in real time as newline-delimited JSON (ND-JSON). Each stream entry includes output data and a stream type such as `stdout`, `stderr`, or `error`.
+///
+/// Streams the output of a command in real-time using newline-delimited JSON (ND-JSON). Each entry includes the output data and stream type. Stream types include `stdout`, `stderr`, and `error` (for stream failures).
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session containing the
+///   command.
+/// * `cmd_id` - The unique identifier of the command to stream logs for.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn get_session_command_logs(
+    config: &ClientConfig,
+    session_id: String,
+    cmd_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<impl Iterator<Item = Result<GetSessionCommandLogsResponse, SdkError>>, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+    let opts = RequestOpts {
+        query: &__query,
+        operation_id: "get_session_command_logs",
+        options,
+        ..Default::default()
+    };
+    let upstream = crate::client::sdk_stream_with_format(
+        "GET",
+        &format!(
+            "/v2/sandboxes/sessions/{}/cmd/{}/logs",
+            crate::client::encode_path_segment(&session_id),
+            crate::client::encode_path_segment(&cmd_id)
+        ),
+        config,
+        opts,
+        "ndjson",
+        "application/x-ndjson",
+        "bytes",
+    )?;
+    Ok(upstream.filter_map(|res| match res {
+        Ok(ev) => {
+            if ev.data == "[DONE]" {
+                None
+            } else {
+                Some(
+                    serde_json::from_str::<GetSessionCommandLogsResponse>(&ev.data).map_err(|e| {
+                        crate::client::response_decode_error(
+                            200,
+                            &Default::default(),
+                            None,
+                            ev.data.as_bytes(),
+                            None,
+                            e.to_string(),
+                        )
+                    }),
+                )
+            }
+        }
+        Err(e) => Some(Err(e)),
+    }))
+}
+
+/// Stops a running session and releases its allocated resources, terminating all processes within it. This action cannot be undone, and the stopped session cannot be restarted.
+///
+/// Stops a running session and releases its allocated resources. All running processes within the session will be terminated. This action cannot be undone. A stopped session cannot be restarted.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session to stop.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn stop_session(
+    config: &ClientConfig,
+    session_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<StopSessionResponse, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<StopSessionResponse>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/stop",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "stop_session",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Extends the maximum execution time of a running session. Supply the additional duration in milliseconds; the session must be active, and the resulting timeout cannot exceed your account's maximum allowed limit.
+///
+/// Extends the maximum execution time of a running session. The session must be active and able to accept commands. The total timeout cannot exceed the maximum allowed limit for your account.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session to extend the timeout
+///   for.
+/// * `duration` - The amount of time in milliseconds to add to the current
+///   timeout. Must be at least 1000ms (1 second).
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn extend_session_timeout(
+    config: &ClientConfig,
+    session_id: String,
+    duration: f64,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<ExtendSessionTimeoutResponse, SdkError> {
+    validate_range(
+        "duration",
+        duration,
+        RangeOpts {
+            min: Some(1000_f64),
+            ..Default::default()
+        },
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "duration".to_string(),
+        serde_json::to_value(duration).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<ExtendSessionTimeoutResponse>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/extend-timeout",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "extend_session_timeout",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Replaces the network access policy for a running session, controlling which external hosts it can reach. This is a full replacement, so any previously configured network rules are overwritten; choose the policy mode and rules for the complete configuration you want applied.
+///
+/// Replaces the network access policy of a running session. Use this to control which external hosts the session can communicate with. This is a full replacement. Any previously configured network rules will be overwritten.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session to update the network
+///   policy for.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn update_session_network_policy(
+    config: &ClientConfig,
+    session_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    body: Option<UpdateSessionNetworkPolicy>,
+    options: Option<&RequestOptions>,
+) -> Result<UpdateSessionNetworkPolicyResponse, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let __body = serde_json::to_value(body).map_err(|e| {
+        SdkError::Network(SdkNetworkError {
+            message: format!("encode body: {}", e),
+            request_id: None,
+        })
+    })?;
+
+    Ok(sdk_request::<UpdateSessionNetworkPolicyResponse>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/network-policy",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "update_session_network_policy",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct ReadSessionFileParams {
+    pub session_id: String,
+    pub path: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub cwd: Option<String>,
+}
+
+/// Retrieves a file from a session's filesystem. Supply `path` to identify the file and optionally use `cwd` to resolve a relative path from a different base directory. The file is returned as a binary stream for download.
+///
+/// Downloads the contents of a file from a session's filesystem. The file content is returned as a binary stream with appropriate Content-Disposition headers for file download.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session to read the file from.
+/// * `path` - The path of the file to read. Can be absolute or relative to the
+///   working directory.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `cwd` - The base directory for resolving relative paths. If not specified,
+///   paths are resolved from the sandbox home directory.
+pub fn read_session_file(
+    config: &ClientConfig,
+    params: ReadSessionFileParams,
+    options: Option<&RequestOptions>,
+) -> Result<Vec<u8>, SdkError> {
+    let ReadSessionFileParams {
+        session_id,
+        path,
+        team_id,
+        slug,
+        cwd,
+    } = params;
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "path".to_string(),
+        serde_json::to_value(path).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = cwd {
+        __body_map.insert(
+            "cwd".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<Vec<u8>>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/fs/read",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Bytes,
+            operation_id: "read_session_file",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct CreateSessionDirectoryParams {
@@ -158,434 +599,6 @@ pub fn write_session_files(
             headers: __headers,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "write_session_files",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Creates a point-in-time snapshot of a running session's filesystem. Use a snapshot to restore the filesystem later or initialize another session with the same environment; the session must be running and able to accept commands. The source session is terminated after the snapshot is created.
-///
-/// Creates a point-in-time snapshot of a running session's filesystem. Snapshots can be used to quickly restore a session to a previous state or to create new sessions with pre-configured environments. The session must be running and able to accept commands for a snapshot to be created. The session will be terminated after the snapshot is created.
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session to snapshot.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `expiration` - The number of milliseconds after which the snapshot will
-///   expire and be deleted. Use 0 for no expiration.
-pub fn create_sandboxes_sessions_by_session_id_snapshot_v2(
-    config: &ClientConfig,
-    session_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    expiration: Option<Option<i64>>,
-    options: Option<&RequestOptions>,
-) -> Result<CreateSandboxesSessionsBySessionIdSnapshotV2Response, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = expiration {
-        __body_map.insert(
-            "expiration".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(
-        sdk_request::<CreateSandboxesSessionsBySessionIdSnapshotV2Response>(
-            "POST",
-            &format!(
-                "/v2/sandboxes/sessions/{}/snapshot",
-                crate::client::encode_path_segment(&session_id)
-            ),
-            config,
-            RequestOpts {
-                query: &__query,
-                body: Some(__body),
-                decoder: crate::client::ResponseDecoder::Json,
-                operation_id: "create_sandboxes_sessions_by_session_id_snapshot_v2",
-                options,
-                ..Default::default()
-            },
-        )?
-        .data,
-    )
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct CreateSandboxesByNameForkV2Params {
-    pub name: String,
-    pub project_id: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub network_policy: Option<CreateSandboxesByNameForkV2RequestNetworkPolicy>,
-    pub resources: Option<CreateSandboxesByNameForkV2Resources>,
-    pub ports: Option<Vec<i64>>,
-    pub image: Option<String>,
-    pub timeout: Option<i64>,
-    pub env: Option<std::collections::HashMap<String, String>>,
-    pub mounts: Option<std::collections::HashMap<String, CreateSandboxesByNameForkV2MountsValue>>,
-    pub region: Option<CreateSandboxesByNameForkV2RegionEnum>,
-    pub failover_regions: Option<Vec<CreateSandboxesByNameForkV2FailoverRegionsItemEnum>>,
-    pub network_id: Option<String>,
-    pub name_2: Option<String>,
-    pub persistent: Option<bool>,
-    pub snapshot_expiration: Option<Option<i64>>,
-    pub keep_last_snapshots: Option<CreateSandboxesByNameForkV2KeepLastSnapshots>,
-    pub tags: Option<std::collections::HashMap<String, String>>,
-}
-
-/// Forks a named sandbox into a new named sandbox, copying its configuration and environment variables. Supply `name` to identify the source and `projectId` unless you authenticate with an OIDC token; request fields override values copied from the source. If the source has a snapshot, the fork starts from it; otherwise, it starts from the source runtime or image.
-///
-/// Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source.
-///
-/// # Arguments
-///
-/// * `name` - Name of the source sandbox to fork.
-/// * `project_id` - The ID of the project the source sandbox belongs to.
-///   Required unless authenticating with an OIDC token.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `network_policy` - Typed representation of the
-///   `CreateSandboxesByNameForkV2RequestNetworkPolicy` API schema.
-/// * `resources` - Resources to define the VM
-/// * `ports` - List of ports to expose from the sandbox. Each port will be
-///   accessible via a unique URL. Maximum of 15 ports can be exposed.
-/// * `image` - Image to use for the sandbox.
-/// * `timeout` - Maximum duration in milliseconds that the sandbox can run
-///   before being automatically stopped.
-/// * `env` - Default environment variables for the sandbox. These are inherited
-///   by all commands unless overridden.
-/// * `mounts` - List of drives to mount to the sandbox at the provided path.
-/// * `region` - The Vercel region in which to create the sandbox.
-/// * `failover_regions` - The regions the sandbox falls back to when it cannot
-///   be created in `region`.
-/// * `network_id` - The Connect network id for the target Secure Compute
-///   private network.
-/// * `name_2` - Name for the forked sandbox. Must be unique per project and
-///   URL-safe (alphanumeric, hyphens, underscores). A random name is generated
-///   when omitted.
-/// * `persistent` - Whether the sandbox persists its state across restarts via
-///   automatic snapshots. Defaults to the source sandbox setting.
-/// * `snapshot_expiration` - Default snapshot expiration time in milliseconds.
-///   Set to 0 to disable expiration. When set, this value is used as the default
-///   expiration for all snapshots created for this sandbox.
-/// * `keep_last_snapshots` - Protect the N most recent snapshots with different
-///   expiration/deletion behavior.
-/// * `tags` - Key-value tags to associate with the sandbox. Maximum 5 tags.
-pub fn create_sandboxes_by_name_fork_v2(
-    config: &ClientConfig,
-    params: CreateSandboxesByNameForkV2Params,
-    options: Option<&RequestOptions>,
-) -> Result<CreateSandboxesByNameForkV2Response, SdkError> {
-    let CreateSandboxesByNameForkV2Params {
-        name,
-        project_id,
-        team_id,
-        slug,
-        network_policy,
-        resources,
-        ports,
-        image,
-        timeout,
-        env,
-        mounts,
-        region,
-        failover_regions,
-        network_id,
-        name_2,
-        persistent,
-        snapshot_expiration,
-        keep_last_snapshots,
-        tags,
-    } = params;
-    validate_length(
-        "name",
-        &name,
-        LengthOpts {
-            max: Some(128),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern("name", &name, "^[a-zA-Z0-9_-]+$")?;
-    if let Some(ref project_id_v) = project_id {
-        validate_length(
-            "projectId",
-            project_id_v,
-            LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref ports_v) = ports {
-        validate_items(
-            "ports",
-            ports_v,
-            LengthOpts {
-                max: Some(15),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref image_v) = image {
-        validate_length(
-            "image",
-            image_v,
-            LengthOpts {
-                max: Some(255),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref timeout_v) = timeout {
-        validate_range(
-            "timeout",
-            *timeout_v as f64,
-            RangeOpts {
-                min: Some(1000_f64),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref failover_regions_v) = failover_regions {
-        validate_items(
-            "failoverRegions",
-            failover_regions_v,
-            LengthOpts {
-                max: Some(19),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref network_id_v) = network_id {
-        validate_length(
-            "networkId",
-            network_id_v,
-            LengthOpts {
-                max: Some(255),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref name_2_v) = name_2 {
-        validate_length(
-            "name",
-            name_2_v,
-            LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-        validate_pattern("name", name_2_v, "^[a-zA-Z0-9_-]+$")?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = network_policy {
-        __body_map.insert(
-            "networkPolicy".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = resources {
-        __body_map.insert(
-            "resources".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = ports {
-        __body_map.insert(
-            "ports".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = image {
-        __body_map.insert(
-            "image".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = timeout {
-        __body_map.insert(
-            "timeout".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = env {
-        __body_map.insert(
-            "env".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = mounts {
-        __body_map.insert(
-            "mounts".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = region {
-        __body_map.insert(
-            "region".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = failover_regions {
-        __body_map.insert(
-            "failoverRegions".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = network_id {
-        __body_map.insert(
-            "networkId".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = name_2 {
-        __body_map.insert(
-            "name".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = persistent {
-        __body_map.insert(
-            "persistent".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = snapshot_expiration {
-        __body_map.insert(
-            "snapshotExpiration".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = keep_last_snapshots {
-        __body_map.insert(
-            "keepLastSnapshots".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = tags {
-        __body_map.insert(
-            "tags".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateSandboxesByNameForkV2Response>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/{}/fork",
-            crate::client::encode_path_segment(&name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_sandboxes_by_name_fork_v2",
             options,
             ..Default::default()
         },

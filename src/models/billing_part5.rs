@@ -3,6 +3,73 @@
 
 // billing domain models (part 5)
 
+/// The source used as the authoritative price for this intent.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
+{
+    #[default]
+    Copper,
+    Orb,
+    Unknown(String),
+}
+
+impl BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Copper => "copper",
+            Self::Orb => "orb",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "copper" => Self::Copper,
+            "orb" => Self::Orb,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputPricingSourceEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The canonical reference-product billing period at intent creation. Omitted for historical intents.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputReferenceBillingPeriod
+{
+    /// The exclusive end of the reference billing period.
+    #[serde(rename = "endDate")]
+    pub end_date: String,
+    /// The inclusive start of the reference billing period.
+    #[serde(rename = "startDate")]
+    pub start_date: String,
+}
+
 impl
     BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant1OutputReferenceBillingPeriod
 {
@@ -463,71 +530,4 @@ pub struct BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3O
     /// The full set of resource IDs after the change.
     #[serde(rename = "resourceIds", skip_serializing_if = "Option::is_none")]
     pub resource_ids: Option<Vec<String>>,
-}
-
-impl
-    BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputChangedResourcesItem
-{
-    pub fn new(product_alias: String, product_id: String, quantity: f64) -> Self {
-        Self {
-            added_resource_ids: None,
-            effective_at: None,
-            product_alias,
-            product_id,
-            quantity,
-            removed_resource_ids: None,
-            resource_ids: None,
-        }
-    }
-}
-
-/// When the subscription change should take effect.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputEffectiveBehaviorEnum
-{
-    #[default]
-    EndOfTerm,
-    Immediate,
-    Unknown(String),
-}
-
-impl
-    BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputEffectiveBehaviorEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::EndOfTerm => "end_of_term",
-            Self::Immediate => "immediate",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputEffectiveBehaviorEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputEffectiveBehaviorEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "end_of_term" => Self::EndOfTerm,
-            "immediate" => Self::Immediate,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for BuyCreditsResponseVariant2OrbSubscriptionIntentConfigurationVariant3OutputEffectiveBehaviorEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

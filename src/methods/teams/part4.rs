@@ -3,6 +3,12 @@
 
 use super::*;
 
+impl std::fmt::Display for InviteUserToTeamItemRoleEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// Sets the project roles for the invited user
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum InviteUserToTeamItemProjectsItemRoleEnum {
@@ -213,6 +219,18 @@ impl<'de> serde::Deserialize<'de> for RequestAccessToTeamJoinedFromGitUserId {
     }
 }
 
+impl ::std::convert::From<String> for RequestAccessToTeamJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for RequestAccessToTeamJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct RequestAccessToTeamJoinedFrom {
     /// The origin of the request.
@@ -277,11 +295,4 @@ impl RequestAccessToTeamResponseGithub {
 pub struct RequestAccessToTeamResponseGitlab {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub login: Option<String>,
-}
-
-impl RequestAccessToTeamResponseGitlab {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { login: None }
-    }
 }

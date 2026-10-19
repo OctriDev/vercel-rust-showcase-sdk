@@ -3,307 +3,353 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemChecksConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemChecksConclusionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksConclusionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksConclusionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksConclusionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksStateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl AcceptProjectTransferRequestResponse {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        partner_calls: Vec<AcceptProjectTransferRequestResponsePartnerCallsItem>,
+        project_name: String,
+        resource_transfer_errors: Vec<serde_json::Value>,
+        transferred_store_ids: Vec<String>,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            partner_calls,
+            project_name,
+            resource_transfer_errors,
+            transferred_store_ids,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemPlanEnum {
-    #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
+/// Optional instructions for revoking and regenerating a automation bypass
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassRevoke {
+    /// Automation bypass to revoked
+    pub secret: String,
+    /// Whether or not a new automation bypass should be created after the provided secret is revoked
+    pub regenerate: bool,
 }
 
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemPlanEnum {
+impl UpdateProjectProtectionBypassRevoke {
+    pub fn new(secret: String, regenerate: bool) -> Self {
+        Self { secret, regenerate }
+    }
+}
+
+/// Generate a new secret. If neither generate or revoke are provided, a new random secret will be generated.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassGenerate {
+    /// Optional value of the secret to generate, don't send it for oauth2 tokens
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+    /// Note to be displayed in the UI for this bypass
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+}
+
+impl UpdateProjectProtectionBypassGenerate {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.secret.as_ref() {
+            crate::validation::validate_pattern("secret", value, "^[a-zA-Z0-9]{32}$")?;
+        }
+        if let Some(value) = self.note.as_ref() {
+            crate::validation::validate_length(
+                "note",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(100),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            secret: None,
+            note: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Update an existing bypass
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassUpdate {
+    /// Automation bypass to updated
+    pub secret: String,
+    /// Whether or not this bypass is set as the VERCEL_AUTOMATION_BYPASS_SECRET environment variable on deployments
+    #[serde(rename = "isEnvVar", skip_serializing_if = "Option::is_none")]
+    pub is_env_var: Option<bool>,
+    /// Note to be displayed in the UI for this bypass
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+}
+
+impl UpdateProjectProtectionBypassUpdate {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.note.as_ref() {
+            crate::validation::validate_length(
+                "note",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(100),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn new(secret: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            secret,
+            is_env_var: None,
+            note: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum {
+    #[serde(rename = "integration-automation-bypass")]
+    #[default]
+    IntegrationAutomationBypass,
+}
+
+impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
+            Self::IntegrationAutomationBypass => "integration-automation-bypass",
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseLatestDeploymentsItemPlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseLatestDeploymentsItemReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseLatestDeploymentsItemReadyStateEnum
+impl std::fmt::Display
+    for UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum
 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum::IntegrationAutomationBypass => f.write_str("integration-automation-bypass"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0 {
+    #[serde(rename = "configurationId")]
+    pub configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdBy")]
+    pub created_by: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    pub scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum,
+}
+
+impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0 {
+    pub fn new(
+        configuration_id: String,
+        created_at: f64,
+        created_by: String,
+        integration_id: String,
+        scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0ScopeEnum,
+    ) -> Self {
+        Self {
+            configuration_id,
+            created_at,
+            created_by,
+            integration_id,
+            scope,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum {
+    #[serde(rename = "automation-bypass")]
+    #[default]
+    AutomationBypass,
+}
+
+impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AutomationBypass => "automation-bypass",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum::AutomationBypass => f.write_str("automation-bypass"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1 {
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdBy")]
+    pub created_by: String,
+    /// When there was only one bypass, it was automatically set as an env var on deployments. With multiple bypasses, there is always one bypass that is selected as the default, and gets set as an env var on deployments. As this is a new field, undefined means that the bypass is the env var. If there are any automation bypasses, exactly one must be the env var.
+    #[serde(rename = "isEnvVar", skip_serializing_if = "Option::is_none")]
+    pub is_env_var: Option<bool>,
+    /// Optional note about the bypass to be displayed in the UI
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    pub scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum,
+}
+
+impl UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1 {
+    pub fn new(
+        created_at: f64,
+        created_by: String,
+        scope: UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1ScopeEnum,
+    ) -> Self {
+        Self {
+            created_at,
+            created_by,
+            is_env_var: None,
+            note: None,
+            scope,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateProjectProtectionBypassResponseProtectionBypassValue {
+    IntegrationAutomationBypass(
+        Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>,
+    ),
+    AutomationBypass(Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectProtectionBypassResponseProtectionBypassValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::IntegrationAutomationBypass(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AutomationBypass(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectProtectionBypassResponseProtectionBypassValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>>
+    for UpdateProjectProtectionBypassResponseProtectionBypassValue
+{
+    fn from(
+        value: Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant0>,
+    ) -> Self {
+        Self::IntegrationAutomationBypass(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>>
+    for UpdateProjectProtectionBypassResponseProtectionBypassValue
+{
+    fn from(
+        value: Box<UpdateProjectProtectionBypassResponseProtectionBypassValueVariant1>,
+    ) -> Self {
+        Self::AutomationBypass(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectProtectionBypassResponse {
+    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
+    pub protection_bypass: Option<
+        std::collections::HashMap<
+            String,
+            UpdateProjectProtectionBypassResponseProtectionBypassValue,
+        >,
+    >,
+}
+
+impl UpdateProjectProtectionBypassResponse {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            protection_bypass: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+    #[default]
+    A,
+    Cname,
+    Dns01,
+    Http,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::A => "A",
+            Self::Cname => "CNAME",
+            Self::Dns01 => "dns-01",
+            Self::Http => "http",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
+            "A" => Self::A,
+            "CNAME" => Self::Cname,
+            "dns-01" => Self::Dns01,
+            "http" => Self::Http,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemReadyStateEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemConfiguredByEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

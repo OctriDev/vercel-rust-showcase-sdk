@@ -3,10 +3,196 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine {
+impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configuration:
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueueConfigurationEnum>,
+}
+
+impl UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            configuration: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachine {
+    pub cores: f64,
+    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+    pub label: UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
+    pub memory: f64,
+}
+
+impl UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachine {
     pub fn new(
         cores: f64,
-        label: UpdateMicrofrontendsResponseResourceConfigElasticBuildMachineLabelEnum,
+        label: UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
         memory: f64,
     ) -> Self {
         Self {
@@ -18,7 +204,7 @@ impl UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseResourceConfig {
+pub struct UpdateMicrofrontendsResponseDefaultResourceConfig {
     #[serde(
         rename = "buildMachineElasticLastUpdated",
         skip_serializing_if = "Option::is_none"
@@ -29,23 +215,24 @@ pub struct UpdateMicrofrontendsResponseResourceConfig {
         skip_serializing_if = "Option::is_none"
     )]
     pub build_machine_elastic_reason:
-        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticReasonEnum>,
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
     #[serde(
         rename = "buildMachineElasticTransition",
         skip_serializing_if = "Option::is_none"
     )]
     pub build_machine_elastic_transition:
-        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineElasticTransition>,
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineElasticTransition>,
     #[serde(
         rename = "buildMachineSelection",
         skip_serializing_if = "Option::is_none"
     )]
     pub build_machine_selection:
-        Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineSelectionEnum>,
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineSelectionEnum>,
     #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<UpdateMicrofrontendsResponseResourceConfigBuildMachineTypeEnum>,
+    pub build_machine_type:
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildMachineTypeEnum>,
     #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<UpdateMicrofrontendsResponseResourceConfigBuildQueue>,
+    pub build_queue: Option<UpdateMicrofrontendsResponseDefaultResourceConfigBuildQueue>,
     #[serde(
         rename = "elasticConcurrencyEnabled",
         skip_serializing_if = "Option::is_none"
@@ -63,7 +250,7 @@ pub struct UpdateMicrofrontendsResponseResourceConfig {
         skip_serializing_if = "Option::is_none"
     )]
     pub function_default_memory_type:
-        Option<UpdateMicrofrontendsResponseResourceConfigFunctionDefaultMemoryTypeEnum>,
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
     #[serde(rename = "functionDefaultRegions")]
     pub function_default_regions: Vec<String>,
     #[serde(
@@ -84,10 +271,10 @@ pub struct UpdateMicrofrontendsResponseResourceConfig {
         skip_serializing_if = "Option::is_none"
     )]
     pub elastic_build_machine:
-        Option<UpdateMicrofrontendsResponseResourceConfigElasticBuildMachine>,
+        Option<UpdateMicrofrontendsResponseDefaultResourceConfigElasticBuildMachine>,
 }
 
-impl UpdateMicrofrontendsResponseResourceConfig {
+impl UpdateMicrofrontendsResponseDefaultResourceConfig {
     pub fn new(function_default_regions: Vec<String>) -> Self {
         Self {
             build_machine_elastic_last_updated: None,
@@ -109,247 +296,57 @@ impl UpdateMicrofrontendsResponseResourceConfig {
     }
 }
 
-/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
+/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseRollbackDescription {
-    /// Timestamp of when the rollback was requested.
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
-    pub description: String,
-    /// The user who rolled back the project.
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    /// The username of the user who rolled back the project.
-    pub username: String,
-}
-
-impl UpdateMicrofrontendsResponseRollbackDescription {
-    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
-        Self {
-            created_at,
-            description,
-            user_id,
-            username,
-        }
-    }
-}
-
-/// What to do when the gate trips: pause the rollout, or roll it back.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
-    #[default]
-    Pause,
-    Rollback,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Pause => "pause",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "pause" => Self::Pause,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseRollingReleaseGateActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The metric this check evaluates.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
-    #[default]
-    ErrorRate5xx,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ErrorRate5xx => "error-rate-5xx",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "error-rate-5xx" => Self::ErrorRate5xx,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The checks to evaluate. An empty array means nothing is evaluated.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseRollingReleaseGateChecksItem {
-    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
-    pub exclude_paths: Option<Vec<String>>,
-    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
-    pub exclude_status_codes: Option<Vec<f64>>,
-    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+pub struct UpdateMicrofrontendsResponseDeploymentExpiration {
+    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
+    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
+    pub deployments_to_keep: Option<f64>,
+    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
+    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
+    pub expiration_days: Option<f64>,
+    /// Number of days to keep canceled deployments before soft deletion.
     #[serde(
-        rename = "ingestWatermarkSeconds",
+        rename = "expirationDaysCanceled",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ingest_watermark_seconds: Option<f64>,
-    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
-    pub significance_level: Option<f64>,
-    /// The metric this check evaluates.
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum,
-}
-
-impl UpdateMicrofrontendsResponseRollingReleaseGateChecksItem {
-    pub fn new(type_: UpdateMicrofrontendsResponseRollingReleaseGateChecksItemTypeEnum) -> Self {
-        Self {
-            exclude_paths: None,
-            exclude_status_codes: None,
-            ingest_watermark_seconds: None,
-            significance_level: None,
-            type_,
-        }
-    }
-}
-
-/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseRollingReleaseGate {
-    /// What to do when the gate trips: pause the rollout, or roll it back.
-    pub action: UpdateMicrofrontendsResponseRollingReleaseGateActionEnum,
-    /// The checks to evaluate. An empty array means nothing is evaluated.
-    pub checks: Vec<UpdateMicrofrontendsResponseRollingReleaseGateChecksItem>,
-    /// When true, a tripped gate is only reported — {@link action} is not taken.
-    #[serde(rename = "dryRun")]
-    pub dry_run: bool,
-    /// Whether automated gating is enabled for this project's rollouts.
-    pub enabled: bool,
-    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
-    pub failure_threshold: Option<f64>,
-    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
-    pub window_size: Option<f64>,
-}
-
-impl UpdateMicrofrontendsResponseRollingReleaseGate {
-    pub fn new(
-        action: UpdateMicrofrontendsResponseRollingReleaseGateActionEnum,
-        checks: Vec<UpdateMicrofrontendsResponseRollingReleaseGateChecksItem>,
-        dry_run: bool,
-        enabled: bool,
-    ) -> Self {
-        Self {
-            action,
-            checks,
-            dry_run,
-            enabled,
-            failure_threshold: None,
-            window_size: None,
-        }
-    }
-}
-
-/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseRollingReleaseStagesItem {
-    /// Duration in minutes for automatic advancement to the next stage
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub duration: Option<f64>,
-    /// Whether to linearly shift traffic over the duration of this stage
-    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
-    pub linear_shift: Option<bool>,
-    /// Whether or not this stage requires manual approval to proceed
-    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
-    pub require_approval: Option<bool>,
-    /// The percentage of traffic to serve to the canary deployment (0-100)
-    #[serde(rename = "targetPercentage")]
-    pub target_percentage: f64,
-}
-
-impl UpdateMicrofrontendsResponseRollingReleaseStagesItem {
-    pub fn new(target_percentage: f64) -> Self {
-        Self {
-            duration: None,
-            linear_shift: None,
-            require_approval: None,
-            target_percentage,
-        }
-    }
-}
-
-/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseRollingRelease {
-    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
+    pub expiration_days_canceled: Option<f64>,
+    /// Number of days to keep errored deployments before soft deletion.
     #[serde(
-        rename = "canaryResponseHeader",
+        rename = "expirationDaysErrored",
         skip_serializing_if = "Option::is_none"
     )]
-    pub canary_response_header: Option<bool>,
-    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gate: Option<UpdateMicrofrontendsResponseRollingReleaseGate>,
-    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+    pub expiration_days_errored: Option<f64>,
+    /// Number of days to keep production deployments before soft deletion.
     #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
+        rename = "expirationDaysProduction",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub stages: Option<Option<Vec<UpdateMicrofrontendsResponseRollingReleaseStagesItem>>>,
-    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
-    pub target: String,
+    pub expiration_days_production: Option<f64>,
+}
+
+impl UpdateMicrofrontendsResponseDeploymentExpiration {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployments_to_keep: None,
+            expiration_days: None,
+            expiration_days_canceled: None,
+            expiration_days_errored: None,
+            expiration_days_production: None,
+        }
+    }
+}
+
+/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
+    #[default]
+    Cli,
+    DeployHook,
+    Git,
+    Integration,
+    RestApi,
+    V0,
+    Unknown(String),
 }

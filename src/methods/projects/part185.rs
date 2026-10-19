@@ -3,221 +3,322 @@
 
 use super::*;
 
-impl UpdateProjectResponseCustomEnvironmentsItem {
-    pub fn new(
-        created_at: f64,
-        id: String,
-        slug: String,
-        type_: UpdateProjectResponseCustomEnvironmentsItemTypeEnum,
-        updated_at: f64,
-    ) -> Self {
-        Self {
-            branch_matcher: None,
-            created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
-            id,
-            slug,
-            type_,
-            updated_at,
-        }
-    }
-}
-
+/// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseDataCache {
-    #[serde(
-        rename = "storageSizeBytes",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub storage_size_bytes: Option<Option<f64>>,
+pub struct UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub unlimited: Option<bool>,
-    #[serde(rename = "userDisabled")]
-    pub user_disabled: bool,
+    pub slugs: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset: Option<UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFromPresetEnum>,
 }
 
-impl UpdateProjectResponseDataCache {
-    pub fn new(user_disabled: bool) -> Self {
-        Self {
-            storage_size_bytes: None,
-            unlimited: None,
-            user_disabled,
+impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.slugs.as_ref() {
+            crate::validation::validate_items(
+                "slugs",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(1),
+                    max: Some(10),
+                },
+            )?;
         }
+        Ok(())
     }
-}
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
-    #[default]
-    BasicFloor,
-    BuildTimeoutFailure,
-    EnospcFailure,
-    EnterpriseFloor,
-    HighPeakDisk,
-    HighPeakMemory,
-    LongBuildDuration,
-    OomFailure,
-    ShortBuildDuration,
-    SustainedHighCpu,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BasicFloor => "basic-floor",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::OomFailure => "oom-failure",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::SustainedHighCpu => "sustained-high-cpu",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic-floor" => Self::BasicFloor,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "long-build-duration" => Self::LongBuildDuration,
-            "oom-failure" => Self::OomFailure,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    #[default]
-    Downgrade,
-    Upgrade,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Downgrade => "downgrade",
-            Self::Upgrade => "upgrade",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "downgrade" => Self::Downgrade,
-            "upgrade" => Self::Upgrade,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            slugs: None,
+            preset: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransition {
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-    pub at: f64,
-    pub direction:
-        UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+pub struct UpdateProjectTrustedSourcesProjectsValueCustomAllowItem {
+    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+    pub to: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo,
+    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+    pub from: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom,
 }
 
-impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransition {
+impl UpdateProjectTrustedSourcesProjectsValueCustomAllowItem {
     pub fn new(
-        algorithm_version: String,
-        at: f64,
-        direction: UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+        to: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemTo,
+        from: UpdateProjectTrustedSourcesProjectsValueCustomAllowItemFrom,
     ) -> Self {
+        Self { to, from }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedSourcesProjectsValue {
+    /// The label or description of the trusted source
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    /// Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.
+    #[serde(rename = "customAllow", skip_serializing_if = "Option::is_none")]
+    pub custom_allow: Option<Vec<UpdateProjectTrustedSourcesProjectsValueCustomAllowItem>>,
+}
+
+impl UpdateProjectTrustedSourcesProjectsValue {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.label.as_ref() {
+            crate::validation::validate_length(
+                "label",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(100),
+                    ..Default::default()
+                },
+            )?;
+        }
+        if let Some(value) = self.custom_allow.as_ref() {
+            crate::validation::validate_items(
+                "customAllow",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(0),
+                    max: Some(20),
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            label: None,
+            custom_allow: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedSourcesOidcProvidersValueItemTo {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset: Option<UpdateProjectTrustedSourcesOidcProvidersValueItemToPresetEnum>,
+}
+
+impl UpdateProjectTrustedSourcesOidcProvidersValueItemTo {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.slugs.as_ref() {
+            crate::validation::validate_items(
+                "slugs",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(1),
+                    max: Some(10),
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            slugs: None,
+            preset: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedSourcesOidcProvidersValueItem {
+    /// The label or description of the trusted source
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    /// A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.
+    pub to: UpdateProjectTrustedSourcesOidcProvidersValueItemTo,
+    pub claims: std::collections::HashMap<String, Vec<String>>,
+}
+
+impl UpdateProjectTrustedSourcesOidcProvidersValueItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.label.as_ref() {
+            crate::validation::validate_length(
+                "label",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(100),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn new(
+        to: UpdateProjectTrustedSourcesOidcProvidersValueItemTo,
+        claims: std::collections::HashMap<String, Vec<String>>,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            label: None,
+            to,
+            claims,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Deployment Protection Trusted Sources
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectTrustedSources {
+    /// Allow same-team Vercel CI access to preview and production deployments built from the same repository as the CI run. The deployment source repository, not the current project repository link, is authoritative. Defaults to enabled when not stored. Omitting this field preserves its stored value, including when trustedSources is cleared. Set true explicitly to re-enable.
+    #[serde(
+        rename = "enableVercelCiSameRepository",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_vercel_ci_same_repository: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub projects:
+        Option<std::collections::HashMap<String, UpdateProjectTrustedSourcesProjectsValue>>,
+    #[serde(rename = "oidcProviders", skip_serializing_if = "Option::is_none")]
+    pub oidc_providers: Option<
+        std::collections::HashMap<String, Vec<UpdateProjectTrustedSourcesOidcProvidersValueItem>>,
+    >,
+}
+
+impl UpdateProjectTrustedSources {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            algorithm_version,
-            at,
-            direction,
+            enable_vercel_ci_same_repository: None,
+            projects: None,
+            oidc_providers: None,
         }
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectOptionsAllowlistPathsItem {
+    /// The regex path that should not be protected by Deployment Protection
+    pub value: String,
+}
+
+impl UpdateProjectOptionsAllowlistPathsItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_pattern("value", &self.value, "^/.*")?;
+        Ok(())
+    }
+
+    pub fn new(value: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { value };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Specify a list of paths that should not be protected by Deployment Protection to enable Cors preflight requests
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectOptionsAllowlist {
+    pub paths: Vec<UpdateProjectOptionsAllowlistPathsItem>,
+}
+
+impl UpdateProjectOptionsAllowlist {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "paths",
+            self.paths.as_slice(),
+            crate::validation::LengthOpts {
+                min: Some(1),
+                max: Some(5),
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        paths: Vec<UpdateProjectOptionsAllowlistPathsItem>,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { paths };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
+pub enum UpdateProjectDismissedToastsItemActionEnum {
     #[default]
-    Elastic,
-    Fixed,
+    Cancel,
+    Accept,
+    Delete,
     Unknown(String),
 }
 
-impl UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
+impl UpdateProjectDismissedToastsItemActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
+            Self::Cancel => "cancel",
+            Self::Accept => "accept",
+            Self::Delete => "delete",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
+impl serde::Serialize for UpdateProjectDismissedToastsItemActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -226,87 +327,23 @@ impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachine
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum
-{
+impl<'de> serde::Deserialize<'de> for UpdateProjectDismissedToastsItemActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "elastic" => Self::Elastic,
-            "fixed" => Self::Fixed,
+            "cancel" => Self::Cancel,
+            "accept" => Self::Accept,
+            "delete" => Self::Delete,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
+impl std::fmt::Display for UpdateProjectDismissedToastsItemActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
-    #[default]
-    Basic,
-    Enhanced,
-    Standard,
-    Turbo,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Basic => "basic",
-            Self::Enhanced => "enhanced",
-            Self::Standard => "standard",
-            Self::Turbo => "turbo",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum {
-    #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
-    Unknown(String),
 }

@@ -3,192 +3,66 @@
 
 use super::*;
 
-impl serde::Serialize for CreateProjectResponseAliasItemConfiguredByEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemConfiguredByEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "A" => Self::A,
-            "CNAME" => Self::Cname,
-            "dns-01" => Self::Dns01,
-            "http" => Self::Http,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseAliasItemConfiguredByEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateProjectResponseAliasItemDeploymentAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemDeploymentAliasAssigned {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl CreateProjectEnvironmentVariablesItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.git_branch.as_ref() {
+            crate::validation::validate_length(
+                "gitBranch",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(250),
+                    ..Default::default()
+                },
+            )?;
         }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
+        Ok(())
     }
-}
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAliasItemDeploymentAliasError {
-    pub code: String,
-    pub message: String,
-}
-
-impl CreateProjectResponseAliasItemDeploymentAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAliasItemDeploymentBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
-}
-
-impl CreateProjectResponseAliasItemDeploymentBranchMatcher {
     pub fn new(
-        pattern: String,
-        type_: CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
+        key: String,
+        target: CreateProjectEnvironmentVariablesItemTarget,
+        value: String,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            key,
+            target,
+            git_branch: None,
+            type_: None,
+            value,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAliasItemDeploymentBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
-}
-
-impl CreateProjectResponseAliasItemDeploymentBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
+/// The Git Provider of the repository
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+pub enum CreateProjectGitRepositoryTypeEnum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    Github,
+    GithubLimited,
+    Gitlab,
+    Bitbucket,
+    Vercel,
+    CursorOrigin,
     Unknown(String),
 }
 
-impl CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl CreateProjectGitRepositoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Github => "github",
+            Self::GithubLimited => "github-limited",
+            Self::Gitlab => "gitlab",
+            Self::Bitbucket => "bitbucket",
+            Self::Vercel => "vercel",
+            Self::CursorOrigin => "cursor-origin",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl serde::Serialize for CreateProjectGitRepositoryTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -197,49 +71,69 @@ impl serde::Serialize for CreateProjectResponseAliasItemDeploymentChecksConclusi
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectGitRepositoryTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "github" => Self::Github,
+            "github-limited" => Self::GithubLimited,
+            "gitlab" => Self::Gitlab,
+            "bitbucket" => Self::Bitbucket,
+            "vercel" => Self::Vercel,
+            "cursor-origin" => Self::CursorOrigin,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
+impl std::fmt::Display for CreateProjectGitRepositoryTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The Git Repository that will be connected to the project. When this is defined, any pushes to the specified connected Git Repository will be automatically deployed
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectGitRepository {
+    /// The name of the git repository. For example: \"vercel/next.js\"
+    pub repo: String,
+    /// The Git Provider of the repository
+    #[serde(rename = "type")]
+    pub type_: CreateProjectGitRepositoryTypeEnum,
+}
+
+impl CreateProjectGitRepository {
+    pub fn new(repo: String, type_: CreateProjectGitRepositoryTypeEnum) -> Self {
+        Self { repo, type_ }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseAliasItemDeploymentChecksStateEnum {
+pub enum CreateProjectSsoProtectionDeploymentTypeEnum {
     #[default]
-    Completed,
-    Registered,
-    Running,
+    All,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
+    AllExceptCustomDomains,
     Unknown(String),
 }
 
-impl CreateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl CreateProjectSsoProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
+            Self::All => "all",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl serde::Serialize for CreateProjectSsoProtectionDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -248,46 +142,161 @@ impl serde::Serialize for CreateProjectResponseAliasItemDeploymentChecksStateEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectSsoProtectionDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "all" => Self::All,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl std::fmt::Display for CreateProjectSsoProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// The Vercel Auth setting for the project (historically named \"SSO Protection\")
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAliasItemDeploymentCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct CreateProjectSsoProtection {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: CreateProjectSsoProtectionDeploymentTypeEnum,
 }
 
-impl CreateProjectResponseAliasItemDeploymentCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
+impl CreateProjectSsoProtection {
+    pub fn new(deployment_type: CreateProjectSsoProtectionDeploymentTypeEnum) -> Self {
+        Self { deployment_type }
+    }
+}
+
+/// The Vercel region sandboxes in this project are created in by default.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectSandboxRegionEnum {
+    #[default]
+    Iad1,
+    Sfo1,
+    Cle1,
+    Cdg1,
+    Fra1,
+    Arn1,
+    Sin1,
+    Pdx1,
+    Lhr1,
+    Icn1,
+    Bom1,
+    Cpt1,
+    Dub1,
+    Gru1,
+    Hkg1,
+    Syd1,
+    Yul1,
+    Hnd1,
+    Kix1,
+    Unknown(String),
+}
+
+impl CreateProjectSandboxRegionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Iad1 => "iad1",
+            Self::Sfo1 => "sfo1",
+            Self::Cle1 => "cle1",
+            Self::Cdg1 => "cdg1",
+            Self::Fra1 => "fra1",
+            Self::Arn1 => "arn1",
+            Self::Sin1 => "sin1",
+            Self::Pdx1 => "pdx1",
+            Self::Lhr1 => "lhr1",
+            Self::Icn1 => "icn1",
+            Self::Bom1 => "bom1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Hnd1 => "hnd1",
+            Self::Kix1 => "kix1",
+            Self::Unknown(value) => value.as_str(),
         }
     }
+}
+
+impl serde::Serialize for CreateProjectSandboxRegionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectSandboxRegionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "iad1" => Self::Iad1,
+            "sfo1" => Self::Sfo1,
+            "cle1" => Self::Cle1,
+            "cdg1" => Self::Cdg1,
+            "fra1" => Self::Fra1,
+            "arn1" => Self::Arn1,
+            "sin1" => Self::Sin1,
+            "pdx1" => Self::Pdx1,
+            "lhr1" => Self::Lhr1,
+            "icn1" => Self::Icn1,
+            "bom1" => Self::Bom1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            "hnd1" => Self::Hnd1,
+            "kix1" => Self::Kix1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectSandboxRegionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectSandboxFailoverRegionsItemEnum {
+    #[default]
+    Iad1,
+    Sfo1,
+    Cle1,
+    Cdg1,
+    Fra1,
+    Arn1,
+    Sin1,
+    Pdx1,
+    Lhr1,
+    Icn1,
+    Bom1,
+    Cpt1,
+    Dub1,
+    Gru1,
+    Hkg1,
+    Syd1,
+    Yul1,
+    Hnd1,
+    Kix1,
+    Unknown(String),
 }

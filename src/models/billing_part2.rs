@@ -3,6 +3,31 @@
 
 // billing domain models (part 2)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant3Options {
+    /// The price intervals to add to the subscription
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub add: Option<Vec<serde_json::Value>>,
+    /// The adjustment intervals to add to the subscription
+    #[serde(rename = "addAdjustments", skip_serializing_if = "Option::is_none")]
+    pub add_adjustments: Option<Vec<serde_json::Value>>,
+    /// Whether to allow invoice credit or void
+    #[serde(
+        rename = "allowInvoiceCreditOrVoid",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allow_invoice_credit_or_void: Option<bool>,
+    /// The price intervals to edit on the subscription
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub edit: Option<Vec<serde_json::Value>>,
+    /// The adjustment intervals to edit on the subscription
+    #[serde(rename = "editAdjustments", skip_serializing_if = "Option::is_none")]
+    pub edit_adjustments: Option<Vec<serde_json::Value>>,
+    /// The ID of the Orb subscription to modify price intervals for
+    #[serde(rename = "orbSubscriptionId")]
+    pub orb_subscription_id: String,
+}
+
 impl BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant3Options {
     pub fn new(orb_subscription_id: String) -> Self {
         Self {
@@ -120,6 +145,20 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4OptionsAddPricesItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4OptionsAddPricesItemVariant0>> for BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4OptionsAddPricesItem {
+    fn from(value: Box<BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4OptionsAddPricesItemVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value>
+    for BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant4OptionsAddPricesItem
+{
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
     }
 }
 
@@ -495,30 +534,6 @@ impl BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6OptionsFromPla
             plan_id,
             plan_item_quantities: None,
             rate_variant_key: None,
-        }
-    }
-}
-
-/// The plan item quantities to set for the subscription
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6OptionsPlanItemQuantitiesItem
-{
-    /// The ID of the plan item to set the quantity for
-    #[serde(rename = "planItemId")]
-    pub plan_item_id: String,
-    /// The nonnegative integer quantity for the plan item
-    pub quantity: f64,
-    /// The resource IDs to associate with the plan item quantity
-    #[serde(rename = "resourceIds", skip_serializing_if = "Option::is_none")]
-    pub resource_ids: Option<Vec<String>>,
-}
-
-impl BuyCreditsResponseVariant1PurchaseIntentConfigurationVariant6OptionsPlanItemQuantitiesItem {
-    pub fn new(plan_item_id: String, quantity: f64) -> Self {
-        Self {
-            plan_item_id,
-            quantity,
-            resource_ids: None,
         }
     }
 }

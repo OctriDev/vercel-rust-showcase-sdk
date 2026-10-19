@@ -3,108 +3,88 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseLastAliasRequest {
-    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
-    pub from_deployment_id: Option<String>,
-    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
-    #[serde(
-        rename = "fromRollingReleaseId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub from_rolling_release_id: Option<String>,
-    #[serde(rename = "jobStatus")]
-    pub job_status: UpdateProjectResponseLastAliasRequestJobStatusEnum,
-    #[serde(rename = "requestedAt")]
-    pub requested_at: f64,
-    #[serde(rename = "toDeploymentId")]
-    pub to_deployment_id: String,
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseLastAliasRequestTypeEnum,
-}
-
-impl UpdateProjectResponseLastAliasRequest {
+impl UpdateProjectResponseCustomEnvironmentsItem {
     pub fn new(
-        from_deployment_id: Option<String>,
-        job_status: UpdateProjectResponseLastAliasRequestJobStatusEnum,
-        requested_at: f64,
-        to_deployment_id: String,
-        type_: UpdateProjectResponseLastAliasRequestTypeEnum,
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: UpdateProjectResponseCustomEnvironmentsItemTypeEnum,
+        updated_at: f64,
     ) -> Self {
         Self {
-            from_deployment_id,
-            from_rolling_release_id: None,
-            job_status,
-            requested_at,
-            to_deployment_id,
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
             type_,
+            updated_at,
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateProjectResponseLatestDeploymentsItemAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseLatestDeploymentsItemAliasAssigned {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseLatestDeploymentsItemAliasError {
-    pub code: String,
-    pub message: String,
+pub struct UpdateProjectResponseDataCache {
+    #[serde(
+        rename = "storageSizeBytes",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub storage_size_bytes: Option<Option<f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unlimited: Option<bool>,
+    #[serde(rename = "userDisabled")]
+    pub user_disabled: bool,
 }
 
-impl UpdateProjectResponseLatestDeploymentsItemAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
+impl UpdateProjectResponseDataCache {
+    pub fn new(user_disabled: bool) -> Self {
+        Self {
+            storage_size_bytes: None,
+            unlimited: None,
+            user_disabled,
+        }
     }
 }
 
-/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     #[default]
-    Endswith,
-    Equals,
-    Startswith,
+    BasicFloor,
+    BuildTimeoutFailure,
+    EnospcFailure,
+    EnterpriseFloor,
+    HighPeakDisk,
+    HighPeakMemory,
+    LongBuildDuration,
+    OomFailure,
+    ShortBuildDuration,
+    SustainedHighCpu,
     Unknown(String),
 }
 
-impl UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
+            Self::BasicFloor => "basic-floor",
+            Self::BuildTimeoutFailure => "build-timeout-failure",
+            Self::EnospcFailure => "enospc-failure",
+            Self::EnterpriseFloor => "enterprise-floor",
+            Self::HighPeakDisk => "high-peak-disk",
+            Self::HighPeakMemory => "high-peak-memory",
+            Self::LongBuildDuration => "long-build-duration",
+            Self::OomFailure => "oom-failure",
+            Self::ShortBuildDuration => "short-build-duration",
+            Self::SustainedHighCpu => "sustained-high-cpu",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -114,7 +94,7 @@ impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemBranchMatche
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -122,81 +102,122 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
+            "basic-floor" => Self::BasicFloor,
+            "build-timeout-failure" => Self::BuildTimeoutFailure,
+            "enospc-failure" => Self::EnospcFailure,
+            "enterprise-floor" => Self::EnterpriseFloor,
+            "high-peak-disk" => Self::HighPeakDisk,
+            "high-peak-memory" => Self::HighPeakMemory,
+            "long-build-duration" => Self::LongBuildDuration,
+            "oom-failure" => Self::OomFailure,
+            "short-build-duration" => Self::ShortBuildDuration,
+            "sustained-high-cpu" => Self::SustainedHighCpu,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    #[default]
+    Downgrade,
+    Upgrade,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Downgrade => "downgrade",
+            Self::Upgrade => "upgrade",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "downgrade" => Self::Downgrade,
+            "upgrade" => Self::Upgrade,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseLatestDeploymentsItemBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+pub struct UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
 }
 
-impl UpdateProjectResponseLatestDeploymentsItemBranchMatcher {
+impl UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        pattern: String,
-        type_: UpdateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+        algorithm_version: String,
+        at: f64,
+        direction: UpdateProjectResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseLatestDeploymentsItemBuildsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dest: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
-}
-
-impl UpdateProjectResponseLatestDeploymentsItemBuildsItem {
-    pub fn new(use_: String) -> Self {
         Self {
-            dest: None,
-            src: None,
-            use_,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
+pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
+impl UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
+impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -206,7 +227,7 @@ impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemChecksConclu
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -214,42 +235,42 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseLatestDeploymentsItemChecksConclusionEnum {
+impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineSelectionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseLatestDeploymentsItemChecksStateEnum {
+pub enum UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
     #[default]
-    Completed,
-    Registered,
-    Running,
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl UpdateProjectResponseLatestDeploymentsItemChecksStateEnum {
+impl UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemChecksStateEnum {
+impl serde::Serialize for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -258,46 +279,34 @@ impl serde::Serialize for UpdateProjectResponseLatestDeploymentsItemChecksStateE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseLatestDeploymentsItemChecksStateEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseLatestDeploymentsItemChecksStateEnum {
+impl std::fmt::Display for UpdateProjectResponseDefaultResourceConfigBuildMachineTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseLatestDeploymentsItemCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
-}
-
-impl UpdateProjectResponseLatestDeploymentsItemCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
 }

@@ -42,6 +42,18 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Box<GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1TargetVariant0Enum>> for GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1Target {
+    fn from(value: Box<GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1TargetVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1TargetVariant1Enum>> for GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1Target {
+    fn from(value: Box<GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1TargetVariant1Enum>) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1 {
     pub kind: GetVercelCiInvocationTreeResponseJobsItemTasksItemDefinitionOperationVariant1KindEnum,
@@ -522,17 +534,4 @@ impl std::fmt::Display for GetVercelCiTaskLogsResponseTasksItemConclusionVariant
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct GetVercelCiTaskLogsResponseTasksItemConclusionVariant0 {
     pub result: GetVercelCiTaskLogsResponseTasksItemConclusionVariant0ResultEnum,
-}
-
-impl GetVercelCiTaskLogsResponseTasksItemConclusionVariant0 {
-    pub fn new(result: GetVercelCiTaskLogsResponseTasksItemConclusionVariant0ResultEnum) -> Self {
-        Self { result }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiTaskLogsResponseTasksItemConclusionVariant1ResultEnum {
-    #[serde(rename = "cached")]
-    #[default]
-    Cached,
 }

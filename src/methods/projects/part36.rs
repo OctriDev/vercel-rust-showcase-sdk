@@ -3,6 +3,189 @@
 
 use super::*;
 
+impl ListProjectsResponseVariant1ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus {
+    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
+        Self {
+            enabled,
+            propagate_failures,
+        }
+    }
+}
+
+/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
+    #[default]
+    Disabled,
+    Enabled,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemGitProviderOptions {
+    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+    #[serde(
+        rename = "consolidatedGitCommitStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub consolidated_git_commit_status: Option<
+        ListProjectsResponseVariant1ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus,
+    >,
+    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+    #[serde(rename = "createDeployments")]
+    pub create_deployments:
+        ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
+    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    #[serde(
+        rename = "disableRepositoryDispatchEvents",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_repository_dispatch_events: Option<bool>,
+    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
+    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
+    pub git_commit_status: Option<bool>,
+    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    #[serde(
+        rename = "requireVerifiedCommits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_verified_commits: Option<bool>,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemGitProviderOptions {
+    pub fn new(
+        create_deployments: ListProjectsResponseVariant1ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
+    ) -> Self {
+        Self {
+            consolidated_git_commit_status: None,
+            create_deployments,
+            disable_repository_dispatch_events: None,
+            git_commit_status: None,
+            require_verified_commits: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiry: Option<f64>,
+    pub src: String,
+    pub status: f64,
+}
+
+impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant0 {
+    pub fn new(src: String, status: f64) -> Self {
+        Self {
+            expiry: None,
+            src,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    #[default]
+    XVercelIpCountry,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::XVercelIpCountry => "x-vercel-ip-country",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "x-vercel-ip-country" => Self::XVercelIpCountry,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    #[serde(rename = "header")]
+    #[default]
+    Header,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -144,184 +327,16 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum {
-    #[default]
-    BlockLegalCwc,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlockLegalCwc => "block_legal_cwc",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum
+impl
+    ::std::convert::From<
+        Box<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0>,
+    > for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItem
 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "block_legal_cwc" => Self::BlockLegalCwc,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1Mitigate {
-    pub action:
-        ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1Mitigate {
-    pub fn new(
-        action: ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1MitigateActionEnum,
+    fn from(
+        value: Box<
+            ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItemVariant0,
+        >,
     ) -> Self {
-        Self { action }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1 {
-    pub has: Vec<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItem>,
-    pub mitigate: ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1Mitigate,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1 {
-    pub fn new(
-        has: Vec<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1HasItem>,
-        mitigate: ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1Mitigate,
-    ) -> Self {
-        Self {
-            has,
-            mitigate,
-            src: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant1ProjectsItemInternalRoutesItem {
-    Object(Box<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant0>),
-    Object2(Box<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemInternalRoutesItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant1ProjectsItemInternalRoutesItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant1ProjectsItemInternalRoutesItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
-        Self {
-            bucket,
-            default: None,
-            support_until: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemAliasAssigned {
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemAliasAssigned
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemAliasAssigned branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemAliasError {
-    pub code: String,
-    pub message: String,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemLatestDeploymentsItemAliasError {
-    pub fn new(code: String, message: String) -> Self {
-        Self { code, message }
+        Self::Header(value)
     }
 }

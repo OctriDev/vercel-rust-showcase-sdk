@@ -2,309 +2,333 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    GetVercelCiJobRunResponseJobRunCompletedConclusion,
+    ListVercelCiJobRunsResponseJobRunsItemCompletedConclusion,
+    ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperation,
+    ListVercelCiTaskRunsResponseTaskRunsItemCompletedConclusion,
+};
 
-impl SearchVercelCiLogsResponseInvocationsItemTasksItem {
+impl ListVercelCiJobRunsResponseJobRunsItemStarted {
+    pub fn new(started_at: f64) -> Self {
+        Self { started_at }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiJobRunsResponseJobRunsItemCompleted {
+    #[serde(rename = "completedAt")]
+    pub completed_at: f64,
+    /// Typed representation of the `ListVercelCiJobRunsResponseJobRunsItemCompletedConclusion` API schema.
+    pub conclusion: ListVercelCiJobRunsResponseJobRunsItemCompletedConclusion,
+}
+
+impl ListVercelCiJobRunsResponseJobRunsItemCompleted {
     pub fn new(
-        job_definition_id: String,
-        job_name: String,
-        job_run_attempt: f64,
-        task_definition_id: String,
-        task_name: String,
-        lines: Vec<SearchVercelCiLogsResponseInvocationsItemTasksItemLinesItem>,
+        completed_at: f64,
+        conclusion: ListVercelCiJobRunsResponseJobRunsItemCompletedConclusion,
     ) -> Self {
         Self {
-            job_definition_id,
-            job_name,
-            job_run_attempt,
-            task_definition_id,
-            task_name,
-            task_run_attempt: None,
-            conclusion: None,
-            lines,
+            completed_at,
+            conclusion,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SearchVercelCiLogsResponseInvocationsItem {
+pub struct ListVercelCiJobRunsResponseJobRunsItem {
     #[serde(rename = "invocationId")]
     pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
     pub attempt: f64,
-    pub tasks: Vec<SearchVercelCiLogsResponseInvocationsItemTasksItem>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub started: Option<ListVercelCiJobRunsResponseJobRunsItemStarted>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub completed: Option<ListVercelCiJobRunsResponseJobRunsItemCompleted>,
 }
 
-impl SearchVercelCiLogsResponseInvocationsItem {
+impl ListVercelCiJobRunsResponseJobRunsItem {
     pub fn new(
         invocation_id: String,
+        invocation_attempt: f64,
+        job_definition_id: String,
         attempt: f64,
-        tasks: Vec<SearchVercelCiLogsResponseInvocationsItemTasksItem>,
+        created_at: f64,
     ) -> Self {
         Self {
             invocation_id,
+            invocation_attempt,
+            job_definition_id,
             attempt,
-            tasks,
+            created_at,
+            started: None,
+            completed: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SearchVercelCiLogsResponse {
-    pub invocations: Vec<SearchVercelCiLogsResponseInvocationsItem>,
-    /// Whether more than 1000 lines matched. The newest lines are returned.
-    #[serde(rename = "hasMore")]
-    pub has_more: bool,
+pub struct ListVercelCiJobRunsResponse {
+    #[serde(rename = "jobRuns")]
+    pub job_runs: Vec<ListVercelCiJobRunsResponseJobRunsItem>,
 }
 
-impl SearchVercelCiLogsResponse {
+impl ListVercelCiJobRunsResponse {
+    pub fn new(job_runs: Vec<ListVercelCiJobRunsResponseJobRunsItem>) -> Self {
+        Self { job_runs }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiJobRunResponseJobRunStarted {
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
+}
+
+impl GetVercelCiJobRunResponseJobRunStarted {
+    pub fn new(started_at: f64) -> Self {
+        Self { started_at }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiJobRunResponseJobRunCompleted {
+    #[serde(rename = "completedAt")]
+    pub completed_at: f64,
+    /// Typed representation of the `GetVercelCiJobRunResponseJobRunCompletedConclusion` API schema.
+    pub conclusion: GetVercelCiJobRunResponseJobRunCompletedConclusion,
+}
+
+impl GetVercelCiJobRunResponseJobRunCompleted {
     pub fn new(
-        invocations: Vec<SearchVercelCiLogsResponseInvocationsItem>,
-        has_more: bool,
+        completed_at: f64,
+        conclusion: GetVercelCiJobRunResponseJobRunCompletedConclusion,
     ) -> Self {
         Self {
-            invocations,
-            has_more,
+            completed_at,
+            conclusion,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetVercelCiJobRunLogsItemEnum {
-    #[default]
-    Trace,
-    Debug,
-    Command,
-    Info,
-    Warn,
-    Error,
-    Systemerror,
-    Fatal,
-    Unknown(String),
-}
-
-impl GetVercelCiJobRunLogsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Trace => "trace",
-            Self::Debug => "debug",
-            Self::Command => "command",
-            Self::Info => "info",
-            Self::Warn => "warn",
-            Self::Error => "error",
-            Self::Systemerror => "systemError",
-            Self::Fatal => "fatal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetVercelCiJobRunLogsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetVercelCiJobRunLogsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "trace" => Self::Trace,
-            "debug" => Self::Debug,
-            "command" => Self::Command,
-            "info" => Self::Info,
-            "warn" => Self::Warn,
-            "error" => Self::Error,
-            "systemError" => Self::Systemerror,
-            "fatal" => Self::Fatal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetVercelCiJobRunLogsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiJobRunLogsResponseLinesItem {
-    pub level: String,
-    pub timestamp: f64,
-    pub message: String,
+pub struct GetVercelCiJobRunResponseJobRun {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    pub attempt: f64,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub started: Option<GetVercelCiJobRunResponseJobRunStarted>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub completed: Option<GetVercelCiJobRunResponseJobRunCompleted>,
 }
 
-impl GetVercelCiJobRunLogsResponseLinesItem {
-    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+impl GetVercelCiJobRunResponseJobRun {
+    pub fn new(
+        invocation_id: String,
+        invocation_attempt: f64,
+        job_definition_id: String,
+        attempt: f64,
+        created_at: f64,
+    ) -> Self {
         Self {
-            level,
-            timestamp,
-            message,
+            invocation_id,
+            invocation_attempt,
+            job_definition_id,
+            attempt,
+            created_at,
+            started: None,
+            completed: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiJobRunLogsResponse {
-    pub lines: Vec<GetVercelCiJobRunLogsResponseLinesItem>,
+pub struct GetVercelCiJobRunResponse {
+    #[serde(rename = "jobRun")]
+    pub job_run: GetVercelCiJobRunResponseJobRun,
 }
 
-impl GetVercelCiJobRunLogsResponse {
-    pub fn new(lines: Vec<GetVercelCiJobRunLogsResponseLinesItem>) -> Self {
-        Self { lines }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetVercelCiTaskRunLogsItemEnum {
-    #[default]
-    Trace,
-    Debug,
-    Command,
-    Info,
-    Warn,
-    Error,
-    Systemerror,
-    Fatal,
-    Unknown(String),
-}
-
-impl GetVercelCiTaskRunLogsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Trace => "trace",
-            Self::Debug => "debug",
-            Self::Command => "command",
-            Self::Info => "info",
-            Self::Warn => "warn",
-            Self::Error => "error",
-            Self::Systemerror => "systemError",
-            Self::Fatal => "fatal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetVercelCiTaskRunLogsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetVercelCiTaskRunLogsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "trace" => Self::Trace,
-            "debug" => Self::Debug,
-            "command" => Self::Command,
-            "info" => Self::Info,
-            "warn" => Self::Warn,
-            "error" => Self::Error,
-            "systemError" => Self::Systemerror,
-            "fatal" => Self::Fatal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetVercelCiTaskRunLogsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl GetVercelCiJobRunResponse {
+    pub fn new(job_run: GetVercelCiJobRunResponseJobRun) -> Self {
+        Self { job_run }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiTaskRunLogsResponseLinesItem {
-    pub level: String,
-    pub timestamp: f64,
-    pub message: String,
+pub struct ListVercelCiTaskDefinitionsResponseTaskDefinitionsItem {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    #[serde(rename = "jobRunAttempt")]
+    pub job_run_attempt: f64,
+    #[serde(rename = "taskDefinitionId")]
+    pub task_definition_id: String,
+    pub name: String,
+    #[serde(rename = "packageDirectory", skip_serializing_if = "Option::is_none")]
+    pub package_directory: Option<String>,
+    /// Typed representation of the `ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperation` API schema.
+    pub operation: ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperation,
+    #[serde(rename = "dependencyTaskDefinitionIds")]
+    pub dependency_task_definition_ids: Vec<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
 }
 
-impl GetVercelCiTaskRunLogsResponseLinesItem {
-    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+impl ListVercelCiTaskDefinitionsResponseTaskDefinitionsItem {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        invocation_id: String,
+        invocation_attempt: f64,
+        job_definition_id: String,
+        job_run_attempt: f64,
+        task_definition_id: String,
+        name: String,
+        operation: ListVercelCiTaskDefinitionsResponseTaskDefinitionsItemOperation,
+        dependency_task_definition_ids: Vec<String>,
+        created_at: f64,
+    ) -> Self {
         Self {
-            level,
-            timestamp,
-            message,
+            invocation_id,
+            invocation_attempt,
+            job_definition_id,
+            job_run_attempt,
+            task_definition_id,
+            name,
+            package_directory: None,
+            operation,
+            dependency_task_definition_ids,
+            created_at,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiTaskRunLogsResponse {
-    pub lines: Vec<GetVercelCiTaskRunLogsResponseLinesItem>,
+pub struct ListVercelCiTaskDefinitionsResponse {
+    #[serde(rename = "taskDefinitions")]
+    pub task_definitions: Vec<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItem>,
 }
 
-impl GetVercelCiTaskRunLogsResponse {
-    pub fn new(lines: Vec<GetVercelCiTaskRunLogsResponseLinesItem>) -> Self {
-        Self { lines }
+impl ListVercelCiTaskDefinitionsResponse {
+    pub fn new(
+        task_definitions: Vec<ListVercelCiTaskDefinitionsResponseTaskDefinitionsItem>,
+    ) -> Self {
+        Self { task_definitions }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetVercelCiRepositorySettingsEnum {
-    #[default]
-    Bitbucket,
-    CursorOrigin,
-    Github,
-    Gitlab,
-    Vercel,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiTaskRunsResponseTaskRunsItemStarted {
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
 }
 
-impl GetVercelCiRepositorySettingsEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Bitbucket => "bitbucket",
-            Self::CursorOrigin => "cursor-origin",
-            Self::Github => "github",
-            Self::Gitlab => "gitlab",
-            Self::Vercel => "vercel",
-            Self::Unknown(value) => value.as_str(),
+impl ListVercelCiTaskRunsResponseTaskRunsItemStarted {
+    pub fn new(started_at: f64) -> Self {
+        Self { started_at }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiTaskRunsResponseTaskRunsItemCompleted {
+    #[serde(rename = "completedAt")]
+    pub completed_at: f64,
+    /// Typed representation of the `ListVercelCiTaskRunsResponseTaskRunsItemCompletedConclusion` API schema.
+    pub conclusion: ListVercelCiTaskRunsResponseTaskRunsItemCompletedConclusion,
+}
+
+impl ListVercelCiTaskRunsResponseTaskRunsItemCompleted {
+    pub fn new(
+        completed_at: f64,
+        conclusion: ListVercelCiTaskRunsResponseTaskRunsItemCompletedConclusion,
+    ) -> Self {
+        Self {
+            completed_at,
+            conclusion,
         }
     }
 }
 
-impl serde::Serialize for GetVercelCiRepositorySettingsEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiTaskRunsResponseTaskRunsItemDeploymentBinding {
+    #[serde(rename = "deploymentId")]
+    pub deployment_id: String,
+    #[serde(rename = "deploymentCreatedAt")]
+    pub deployment_created_at: f64,
+    #[serde(rename = "eventAt")]
+    pub event_at: f64,
+    #[serde(rename = "readyState", skip_serializing_if = "Option::is_none")]
+    pub ready_state: Option<String>,
+}
+
+impl ListVercelCiTaskRunsResponseTaskRunsItemDeploymentBinding {
+    pub fn new(deployment_id: String, deployment_created_at: f64, event_at: f64) -> Self {
+        Self {
+            deployment_id,
+            deployment_created_at,
+            event_at,
+            ready_state: None,
+        }
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetVercelCiRepositorySettingsEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "bitbucket" => Self::Bitbucket,
-            "cursor-origin" => Self::CursorOrigin,
-            "github" => Self::Github,
-            "gitlab" => Self::Gitlab,
-            "vercel" => Self::Vercel,
-            _ => Self::Unknown(value),
-        })
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiTaskRunsResponseTaskRunsItem {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    #[serde(rename = "jobRunAttempt")]
+    pub job_run_attempt: f64,
+    #[serde(rename = "taskDefinitionId")]
+    pub task_definition_id: String,
+    pub attempt: f64,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub started: Option<ListVercelCiTaskRunsResponseTaskRunsItemStarted>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub completed: Option<ListVercelCiTaskRunsResponseTaskRunsItemCompleted>,
+    #[serde(rename = "deploymentBinding", skip_serializing_if = "Option::is_none")]
+    pub deployment_binding: Option<ListVercelCiTaskRunsResponseTaskRunsItemDeploymentBinding>,
 }
 
-impl std::fmt::Display for GetVercelCiRepositorySettingsEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ListVercelCiTaskRunsResponseTaskRunsItem {
+    pub fn new(
+        invocation_id: String,
+        invocation_attempt: f64,
+        job_definition_id: String,
+        job_run_attempt: f64,
+        task_definition_id: String,
+        attempt: f64,
+        created_at: f64,
+    ) -> Self {
+        Self {
+            invocation_id,
+            invocation_attempt,
+            job_definition_id,
+            job_run_attempt,
+            task_definition_id,
+            attempt,
+            created_at,
+            started: None,
+            completed: None,
+            deployment_binding: None,
+        }
     }
 }

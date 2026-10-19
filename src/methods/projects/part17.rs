@@ -3,6 +3,34 @@
 
 use super::*;
 
+impl serde::Serialize
+    for ListProjectsResponseVariant0ItemSecurityManagedRulesVercelRulesetActionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant0ItemSecurityManagedRulesVercelRulesetActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display
     for ListProjectsResponseVariant0ItemSecurityManagedRulesVercelRulesetActionEnum
 {
@@ -202,6 +230,26 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Vec<String>>
+    for ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeadersVariant1Enum,
+    > for ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeaders
+{
+    fn from(
+        value: ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeadersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListProjectsResponseVariant0ItemSecurityRulesetsValueRateLimitAlgoEnum {
     #[default]
@@ -279,47 +327,4 @@ impl ListProjectsResponseVariant0ItemSecurityRulesetsValueRateLimit {
 pub struct ListProjectsResponseVariant0ItemSecurityRulesetsValueRedirect {
     pub location: String,
     pub permanent: bool,
-}
-
-impl ListProjectsResponseVariant0ItemSecurityRulesetsValueRedirect {
-    pub fn new(location: String, permanent: bool) -> Self {
-        Self {
-            location,
-            permanent,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant0ItemSecurityRulesetsValue {
-    pub action: ListProjectsResponseVariant0ItemSecurityRulesetsValueActionEnum,
-    #[serde(
-        rename = "actionDuration",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub action_duration: Option<Option<String>>,
-    #[serde(
-        rename = "bypassSystem",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub bypass_system: Option<Option<bool>>,
-    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueLogHeaders>,
-    #[serde(
-        rename = "rateLimit",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rate_limit: Option<Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueRateLimit>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<ListProjectsResponseVariant0ItemSecurityRulesetsValueRedirect>>,
 }

@@ -3,6 +3,33 @@
 
 use super::*;
 
+impl UpdateTeamMemberTeamPermissionsItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Connectormanager => "ConnectorManager",
+            Self::Integrationmanager => "IntegrationManager",
+            Self::Createproject => "CreateProject",
+            Self::Fullproductiondeployment => "FullProductionDeployment",
+            Self::Usageviewer => "UsageViewer",
+            Self::Envvariablemanager => "EnvVariableManager",
+            Self::Environmentmanager => "EnvironmentManager",
+            Self::Workflowdecryptor => "WorkflowDecryptor",
+            Self::Orgadmin => "OrgAdmin",
+            Self::Orgviewer => "OrgViewer",
+            Self::Aigatewaysettings => "AiGatewaySettings",
+            Self::Aigatewaycredits => "AiGatewayCredits",
+            Self::Aigatewayuser => "AiGatewayUser",
+            Self::Aigatewaybudgetmanager => "AiGatewayBudgetManager",
+            Self::Aigatewaytranscriptsmanager => "AiGatewayTranscriptsManager",
+            Self::Aigatewaytranscriptsviewer => "AiGatewayTranscriptsViewer",
+            Self::V0builder => "V0Builder",
+            Self::V0chatter => "V0Chatter",
+            Self::V0viewer => "V0Viewer",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for UpdateTeamMemberTeamPermissionsItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -260,40 +287,5 @@ impl UpdateTeamsSamlRolesValueVariant1 {
         let value = Self { access_group_id };
         value.validate_constraints()?;
         Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateTeamsSamlRolesValue {
-    Literal(UpdateTeamsSamlRolesValueVariant0Enum),
-    Object(Box<UpdateTeamsSamlRolesValueVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateTeamsSamlRolesValue {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<UpdateTeamsSamlRolesValueVariant0Enum>(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<UpdateTeamsSamlRolesValueVariant1>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no UpdateTeamsSamlRolesValue branch accepts this payload")
-        })
     }
 }

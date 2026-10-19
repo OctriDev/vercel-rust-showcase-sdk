@@ -3,27 +3,7 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl CreateProjectResponseLatestDeploymentsItemReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemReadySubstateEnum {
+impl serde::Serialize for CreateProjectResponseFrameworkEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -32,268 +12,286 @@ impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemReadySubstat
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemReadySubstateEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseFrameworkEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemReadySubstateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseLatestDeploymentsItemTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl CreateProjectResponseLatestDeploymentsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemTypeEnum {
+impl std::fmt::Display for CreateProjectResponseFrameworkEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseLatestDeploymentsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
-    #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned: Option<Option<CreateProjectResponseLatestDeploymentsItemAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error: Option<Option<CreateProjectResponseLatestDeploymentsItemAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<CreateProjectResponseLatestDeploymentsItemBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<CreateProjectResponseLatestDeploymentsItemBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion: Option<CreateProjectResponseLatestDeploymentsItemChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state: Option<CreateProjectResponseLatestDeploymentsItemChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<CreateProjectResponseLatestDeploymentsItemCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims: Option<CreateProjectResponseLatestDeploymentsItemOidcTokenClaims>,
-    pub plan: CreateProjectResponseLatestDeploymentsItemPlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: CreateProjectResponseLatestDeploymentsItemReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate: Option<CreateProjectResponseLatestDeploymentsItemReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseLatestDeploymentsItemTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+pub struct CreateProjectResponseGitComments {
+    /// Whether the Vercel bot should comment on commits
+    #[serde(rename = "onCommit")]
+    pub on_commit: bool,
+    /// Whether the Vercel bot should comment on PRs
+    #[serde(rename = "onPullRequest")]
+    pub on_pull_request: bool,
 }
 
-impl CreateProjectResponseLatestDeploymentsItem {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<CreateProjectResponseLatestDeploymentsItemCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: CreateProjectResponseLatestDeploymentsItemPlanEnum,
-        private: bool,
-        ready_state: CreateProjectResponseLatestDeploymentsItemReadyStateEnum,
-        type_: CreateProjectResponseLatestDeploymentsItemTypeEnum,
-        url: String,
-    ) -> Self {
+impl CreateProjectResponseGitComments {
+    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+            on_commit,
+            on_pull_request,
         }
     }
 }
 
+/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    /// Whether consolidated commit status is enabled.
+    pub enabled: bool,
+    /// Whether to propagate individual deployment failures to the consolidated status.
+    #[serde(rename = "propagateFailures")]
+    pub propagate_failures: bool,
+}
+
+impl CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus {
+    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
+        Self {
+            enabled,
+            propagate_failures,
+        }
+    }
+}
+
+/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseNodeVersionEnum {
+pub enum CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
     #[default]
-    _10X,
-    _12X,
-    _14X,
-    _16X,
-    _18X,
-    _20X,
-    _22X,
-    _24X,
-    _26X,
-    _810X,
+    Disabled,
+    Enabled,
     Unknown(String),
 }
 
-impl CreateProjectResponseNodeVersionEnum {
+impl CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::_10X => "10.x",
-            Self::_12X => "12.x",
-            Self::_14X => "14.x",
-            Self::_16X => "16.x",
-            Self::_18X => "18.x",
-            Self::_20X => "20.x",
-            Self::_22X => "22.x",
-            Self::_24X => "24.x",
-            Self::_26X => "26.x",
-            Self::_810X => "8.10.x",
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "disabled" => Self::Disabled,
+            "enabled" => Self::Enabled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseGitProviderOptions {
+    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+    #[serde(
+        rename = "consolidatedGitCommitStatus",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub consolidated_git_commit_status:
+        Option<CreateProjectResponseGitProviderOptionsConsolidatedGitCommitStatus>,
+    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+    #[serde(rename = "createDeployments")]
+    pub create_deployments: CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
+    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    #[serde(
+        rename = "disableRepositoryDispatchEvents",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_repository_dispatch_events: Option<bool>,
+    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
+    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
+    pub git_commit_status: Option<bool>,
+    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    #[serde(
+        rename = "requireVerifiedCommits",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_verified_commits: Option<bool>,
+}
+
+impl CreateProjectResponseGitProviderOptions {
+    pub fn new(
+        create_deployments: CreateProjectResponseGitProviderOptionsCreateDeploymentsEnum,
+    ) -> Self {
+        Self {
+            consolidated_git_commit_status: None,
+            create_deployments,
+            disable_repository_dispatch_events: None,
+            git_commit_status: None,
+            require_verified_commits: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseIpBucketsItem {
+    pub bucket: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default: Option<bool>,
+    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
+    pub support_until: Option<f64>,
+}
+
+impl CreateProjectResponseIpBucketsItem {
+    pub fn new(bucket: String) -> Self {
+        Self {
+            bucket,
+            default: None,
+            support_until: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseJobsFlagdefinitionspresent {
+    pub targets: Vec<String>,
+}
+
+impl CreateProjectResponseJobsFlagdefinitionspresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseJobsLint {
+    pub targets: Vec<String>,
+}
+
+impl CreateProjectResponseJobsLint {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseJobsMfeconfigpresent {
+    pub targets: Vec<String>,
+}
+
+impl CreateProjectResponseJobsMfeconfigpresent {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseJobsTypecheck {
+    pub targets: Vec<String>,
+}
+
+impl CreateProjectResponseJobsTypecheck {
+    pub fn new(targets: Vec<String>) -> Self {
+        Self { targets }
     }
 }

@@ -2,230 +2,178 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+    UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+    UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem,
+    UploadProjectAvatarResponseDismissedToastsItemValue,
+};
 
-impl serde::Serialize for UploadProjectAvatarResponseNodeVersionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDefaultResourceConfig {
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition>,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum>,
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<UploadProjectAvatarResponseDefaultResourceConfigBuildQueue>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
+    #[serde(rename = "functionDefaultRegions")]
+    pub function_default_regions: Vec<String>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+    #[serde(
+        rename = "elasticBuildMachine",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_build_machine:
+        Option<UploadProjectAvatarResponseDefaultResourceConfigElasticBuildMachine>,
 }
 
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseNodeVersionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
-            "8.10.x" => Self::_810X,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseNodeVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    #[default]
-    Global,
-    Team,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Global => "global",
-            Self::Team => "team",
-            Self::Unknown(value) => value.as_str(),
+impl UploadProjectAvatarResponseDefaultResourceConfig {
+    pub fn new(function_default_regions: Vec<String>) -> Self {
+        Self {
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            build_machine_selection: None,
+            build_machine_type: None,
+            build_queue: None,
+            elastic_concurrency_enabled: None,
+            enable_functions_beta: None,
+            fluid: None,
+            function_default_memory_type: None,
+            function_default_regions,
+            function_default_timeout: None,
+            function_zero_config_failover: None,
+            is_nsnb_disabled: None,
+            elastic_build_machine: None,
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "global" => Self::Global,
-            "team" => Self::Team,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<UploadProjectAvatarResponseOidcTokenConfigIssuerModeEnum>,
+pub struct UploadProjectAvatarResponseDeploymentExpiration {
+    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
+    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
+    pub deployments_to_keep: Option<f64>,
+    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
+    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
+    pub expiration_days: Option<f64>,
+    /// Number of days to keep canceled deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysCanceled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_canceled: Option<f64>,
+    /// Number of days to keep errored deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysErrored",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_errored: Option<f64>,
+    /// Number of days to keep production deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysProduction",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_production: Option<f64>,
 }
 
-impl UploadProjectAvatarResponseOidcTokenConfig {
+impl UploadProjectAvatarResponseDeploymentExpiration {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            enabled: None,
-            issuer_mode: None,
+            deployments_to_keep: None,
+            expiration_days: None,
+            expiration_days_canceled: None,
+            expiration_days_errored: None,
+            expiration_days_production: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseOptionsAllowlistPathsItem {
-    pub value: String,
-}
-
-impl UploadProjectAvatarResponseOptionsAllowlistPathsItem {
-    pub fn new(value: String) -> Self {
-        Self { value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseOptionsAllowlist {
-    pub paths: Vec<UploadProjectAvatarResponseOptionsAllowlistPathsItem>,
-}
-
-impl UploadProjectAvatarResponseOptionsAllowlist {
-    pub fn new(paths: Vec<UploadProjectAvatarResponseOptionsAllowlistPathsItem>) -> Self {
-        Self { paths }
-    }
-}
-
+/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponsePassportDeploymentTypeEnum {
+pub enum UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    Cli,
+    DeployHook,
+    Git,
+    Integration,
+    RestApi,
+    V0,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponsePassportDeploymentTypeEnum {
+impl UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Cli => "cli",
+            Self::DeployHook => "deploy-hook",
+            Self::Git => "git",
+            Self::Integration => "integration",
+            Self::RestApi => "rest-api",
+            Self::V0 => "v0",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponsePassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: UploadProjectAvatarResponsePassportDeploymentTypeEnum,
-}
-
-impl UploadProjectAvatarResponsePassport {
-    pub fn new(
-        connector_id: String,
-        deployment_type: UploadProjectAvatarResponsePassportDeploymentTypeEnum,
-    ) -> Self {
-        Self {
-            connector_id,
-            deployment_type,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+impl serde::Serialize
+    for UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -235,7 +183,7 @@ impl serde::Serialize for UploadProjectAvatarResponsePasswordProtectionDeploymen
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum
+    for UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -243,32 +191,188 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "cli" => Self::Cli,
+            "deploy-hook" => Self::DeployHook,
+            "git" => Self::Git,
+            "integration" => Self::Integration,
+            "rest-api" => Self::RestApi,
+            "v0" => Self::V0,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+impl std::fmt::Display
+    for UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Password protection settings returned without the secret password hash.
+/// `enabled: true` with empty `sources` is deny-all.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponsePasswordProtection {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+pub struct UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+    pub sources:
+        Vec<UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
 }
 
-impl UploadProjectAvatarResponsePasswordProtection {
+impl UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem {
     pub fn new(
-        deployment_type: UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+        enabled: bool,
+        environments: Vec<
+            UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<
+            UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum,
+        >,
     ) -> Self {
-        Self { deployment_type }
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
     }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDeploymentPolicyGitSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+    pub sources: Vec<UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+}
+
+impl UploadProjectAvatarResponseDeploymentPolicyGitSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<UploadProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDeploymentPolicy {
+    #[serde(
+        rename = "deploymentSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deployment_sources:
+        Option<Option<Vec<UploadProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem>>>,
+    #[serde(
+        rename = "gitSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_sources: Option<Option<Vec<UploadProjectAvatarResponseDeploymentPolicyGitSourcesItem>>>,
+}
+
+impl UploadProjectAvatarResponseDeploymentPolicy {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployment_sources: None,
+            git_sources: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseDismissedToastsItemActionEnum {
+    #[default]
+    Accept,
+    Cancel,
+    Delete,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseDismissedToastsItemActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Accept => "accept",
+            Self::Cancel => "cancel",
+            Self::Delete => "delete",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "accept" => Self::Accept,
+            "cancel" => Self::Cancel,
+            "delete" => Self::Delete,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDismissedToastsItem {
+    pub action: UploadProjectAvatarResponseDismissedToastsItemActionEnum,
+    #[serde(rename = "dismissedAt")]
+    pub dismissed_at: f64,
+    pub key: String,
+    /// Typed representation of the `UploadProjectAvatarResponseDismissedToastsItemValue` API schema.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub value: Option<UploadProjectAvatarResponseDismissedToastsItemValue>,
+}
+
+impl UploadProjectAvatarResponseDismissedToastsItem {
+    pub fn new(
+        action: UploadProjectAvatarResponseDismissedToastsItemActionEnum,
+        dismissed_at: f64,
+        key: String,
+        value: Option<UploadProjectAvatarResponseDismissedToastsItemValue>,
+    ) -> Self {
+        Self {
+            action,
+            dismissed_at,
+            key,
+            value,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseEnvItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
 }

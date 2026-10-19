@@ -3,6 +3,440 @@
 
 // user domain models (part 88)
 
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381BudgetPricingPlanEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flex" => Self::Flex,
+            "legacy" => Self::Legacy,
+            "platform" => Self::Platform,
+            "plus" => Self::Plus,
+            "unbundled" => Self::Unbundled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381BudgetPricingPlanEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant381BudgetScopeEnum {
+    #[default]
+    Organization,
+    Project,
+    Team,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant381BudgetScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Organization => "organization",
+            Self::Project => "project",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant381BudgetScopeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381BudgetScopeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "organization" => Self::Organization,
+            "project" => Self::Project,
+            "team" => Self::Team,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381BudgetScopeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The budget type
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant381BudgetTypeEnum {
+    #[default]
+    Fixed,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant381BudgetTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant381BudgetTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381BudgetTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fixed" => Self::Fixed,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381BudgetTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Represents a budget for tracking and notifying teams on their spending.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant381Budget {
+    /// Date time when budget is created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Budget amount (USD / dollars)
+    #[serde(rename = "fixedBudget")]
+    pub fixed_budget: f64,
+    /// Sort key that needs to be unique per teamId
+    pub id: String,
+    /// Is the budget currently active for a customer
+    #[serde(rename = "isActive")]
+    pub is_active: bool,
+    /// Array of 50, 75, 100 to keep track of notifications sent out
+    #[serde(rename = "notifiedAt")]
+    pub notified_at: Vec<f64>,
+    /// Should all projects be paused if budget is exceeded
+    #[serde(rename = "pauseProjects", skip_serializing_if = "Option::is_none")]
+    pub pause_projects: Option<bool>,
+    /// Array of the last 3 months of spend data
+    #[serde(rename = "previousSpend")]
+    pub previous_spend: Vec<f64>,
+    /// The acive pricing plan the team is billed with
+    #[serde(rename = "pricingPlan", skip_serializing_if = "Option::is_none")]
+    pub pricing_plan: Option<UserEventPayloadVariant381BudgetPricingPlanEnum>,
+    /// Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope: Option<UserEventPayloadVariant381BudgetScopeEnum>,
+    /// Project id when `scope` is `project`.
+    #[serde(rename = "scopeId", skip_serializing_if = "Option::is_none")]
+    pub scope_id: Option<String>,
+    /// Partition key
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// The budget type
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant381BudgetTypeEnum,
+    /// Date time when budget is updated last
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// Webhook id that corresponds to a webhook in Cosmos webhook collection
+    #[serde(rename = "webhookId", skip_serializing_if = "Option::is_none")]
+    pub webhook_id: Option<String>,
+    /// Keep track if the webhook has been called for the month
+    #[serde(rename = "webhookNotified", skip_serializing_if = "Option::is_none")]
+    pub webhook_notified: Option<bool>,
+}
+
+impl UserEventPayloadVariant381Budget {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        fixed_budget: f64,
+        id: String,
+        is_active: bool,
+        notified_at: Vec<f64>,
+        previous_spend: Vec<f64>,
+        team_id: String,
+        type_: UserEventPayloadVariant381BudgetTypeEnum,
+    ) -> Self {
+        Self {
+            created_at,
+            fixed_budget,
+            id,
+            is_active,
+            notified_at,
+            pause_projects: None,
+            previous_spend,
+            pricing_plan: None,
+            scope: None,
+            scope_id: None,
+            team_id,
+            type_,
+            updated_at: None,
+            webhook_id: None,
+            webhook_notified: None,
+        }
+    }
+}
+
+/// The acive pricing plan the team is billed with
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant381PrevBudgetPricingPlanEnum {
+    #[default]
+    Flex,
+    Legacy,
+    Platform,
+    Plus,
+    Unbundled,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant381PrevBudgetPricingPlanEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Flex => "flex",
+            Self::Legacy => "legacy",
+            Self::Platform => "platform",
+            Self::Plus => "plus",
+            Self::Unbundled => "unbundled",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant381PrevBudgetPricingPlanEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381PrevBudgetPricingPlanEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flex" => Self::Flex,
+            "legacy" => Self::Legacy,
+            "platform" => Self::Platform,
+            "plus" => Self::Plus,
+            "unbundled" => Self::Unbundled,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381PrevBudgetPricingPlanEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant381PrevBudgetScopeEnum {
+    #[default]
+    Organization,
+    Project,
+    Team,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant381PrevBudgetScopeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Organization => "organization",
+            Self::Project => "project",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant381PrevBudgetScopeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381PrevBudgetScopeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "organization" => Self::Organization,
+            "project" => Self::Project,
+            "team" => Self::Team,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381PrevBudgetScopeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The budget type
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant381PrevBudgetTypeEnum {
+    #[default]
+    Fixed,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant381PrevBudgetTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant381PrevBudgetTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant381PrevBudgetTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fixed" => Self::Fixed,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant381PrevBudgetTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Represents a budget for tracking and notifying teams on their spending.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant381PrevBudget {
+    /// Date time when budget is created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Budget amount (USD / dollars)
+    #[serde(rename = "fixedBudget")]
+    pub fixed_budget: f64,
+    /// Sort key that needs to be unique per teamId
+    pub id: String,
+    /// Is the budget currently active for a customer
+    #[serde(rename = "isActive")]
+    pub is_active: bool,
+    /// Array of 50, 75, 100 to keep track of notifications sent out
+    #[serde(rename = "notifiedAt")]
+    pub notified_at: Vec<f64>,
+    /// Should all projects be paused if budget is exceeded
+    #[serde(rename = "pauseProjects", skip_serializing_if = "Option::is_none")]
+    pub pause_projects: Option<bool>,
+    /// Array of the last 3 months of spend data
+    #[serde(rename = "previousSpend")]
+    pub previous_spend: Vec<f64>,
+    /// The acive pricing plan the team is billed with
+    #[serde(rename = "pricingPlan", skip_serializing_if = "Option::is_none")]
+    pub pricing_plan: Option<UserEventPayloadVariant381PrevBudgetPricingPlanEnum>,
+    /// Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope: Option<UserEventPayloadVariant381PrevBudgetScopeEnum>,
+    /// Project id when `scope` is `project`.
+    #[serde(rename = "scopeId", skip_serializing_if = "Option::is_none")]
+    pub scope_id: Option<String>,
+    /// Partition key
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// The budget type
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant381PrevBudgetTypeEnum,
+    /// Date time when budget is updated last
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    /// Webhook id that corresponds to a webhook in Cosmos webhook collection
+    #[serde(rename = "webhookId", skip_serializing_if = "Option::is_none")]
+    pub webhook_id: Option<String>,
+    /// Keep track if the webhook has been called for the month
+    #[serde(rename = "webhookNotified", skip_serializing_if = "Option::is_none")]
+    pub webhook_notified: Option<bool>,
+}
+
+impl UserEventPayloadVariant381PrevBudget {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        fixed_budget: f64,
+        id: String,
+        is_active: bool,
+        notified_at: Vec<f64>,
+        previous_spend: Vec<f64>,
+        team_id: String,
+        type_: UserEventPayloadVariant381PrevBudgetTypeEnum,
+    ) -> Self {
+        Self {
+            created_at,
+            fixed_budget,
+            id,
+            is_active,
+            notified_at,
+            pause_projects: None,
+            previous_spend,
+            pricing_plan: None,
+            scope: None,
+            scope_id: None,
+            team_id,
+            type_,
+            updated_at: None,
+            webhook_id: None,
+            webhook_notified: None,
+        }
+    }
+}
+
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UserEventPayloadVariant381 {
@@ -50,444 +484,4 @@ pub struct UserEventPayloadVariant382 {
     /// Optional `string` value serialized in the `webhookUrl` wire field.
     #[serde(rename = "webhookUrl", skip_serializing_if = "Option::is_none")]
     pub webhook_url: Option<String>,
-}
-
-impl UserEventPayloadVariant382 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            project_id: None,
-            project_name: None,
-            webhook_url: None,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `storeType` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant383StoreTypeEnum {
-    #[default]
-    Postgres,
-    Redis,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant383StoreTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Postgres => "postgres",
-            Self::Redis => "redis",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant383StoreTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant383StoreTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "postgres" => Self::Postgres,
-            "redis" => Self::Redis,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant383StoreTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant383 {
-    /// Required enumerated value serialized in the `storeType` wire field.
-    #[serde(rename = "storeType")]
-    pub store_type: UserEventPayloadVariant383StoreTypeEnum,
-}
-
-impl UserEventPayloadVariant383 {
-    pub fn new(store_type: UserEventPayloadVariant383StoreTypeEnum) -> Self {
-        Self { store_type }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant384StoreTypeEnum {
-    #[default]
-    Blob,
-    EdgeConfig,
-    Integration,
-    Postgres,
-    Redis,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant384StoreTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blob => "blob",
-            Self::EdgeConfig => "edge-config",
-            Self::Integration => "integration",
-            Self::Postgres => "postgres",
-            Self::Redis => "redis",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant384StoreTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant384StoreTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "blob" => Self::Blob,
-            "edge-config" => Self::EdgeConfig,
-            "integration" => Self::Integration,
-            "postgres" => Self::Postgres,
-            "redis" => Self::Redis,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant384StoreTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `store` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant384Store {
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `name` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant384StoreTypeEnum,
-}
-
-impl UserEventPayloadVariant384Store {
-    pub fn new(id: String, type_: UserEventPayloadVariant384StoreTypeEnum) -> Self {
-        Self {
-            id,
-            name: None,
-            type_,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant384 {
-    /// Required object value serialized in the `store` wire field.
-    pub store: UserEventPayloadVariant384Store,
-}
-
-impl UserEventPayloadVariant384 {
-    pub fn new(store: UserEventPayloadVariant384Store) -> Self {
-        Self { store }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant385StoreTypeEnum {
-    #[default]
-    Blob,
-    EdgeConfig,
-    Integration,
-    Postgres,
-    Redis,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant385StoreTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blob => "blob",
-            Self::EdgeConfig => "edge-config",
-            Self::Integration => "integration",
-            Self::Postgres => "postgres",
-            Self::Redis => "redis",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant385StoreTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant385StoreTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "blob" => Self::Blob,
-            "edge-config" => Self::EdgeConfig,
-            "integration" => Self::Integration,
-            "postgres" => Self::Postgres,
-            "redis" => Self::Redis,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant385StoreTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `store` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant385Store {
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `name` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant385StoreTypeEnum,
-}
-
-impl UserEventPayloadVariant385Store {
-    pub fn new(id: String, type_: UserEventPayloadVariant385StoreTypeEnum) -> Self {
-        Self {
-            id,
-            name: None,
-            type_,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant385 {
-    /// Required object value serialized in the `store` wire field.
-    pub store: UserEventPayloadVariant385Store,
-    /// Required `string` value serialized in the `destinationTeamId` wire field.
-    #[serde(rename = "destinationTeamId")]
-    pub destination_team_id: String,
-    /// Required `string` value serialized in the `destinationTeamName` wire field.
-    #[serde(rename = "destinationTeamName")]
-    pub destination_team_name: String,
-}
-
-impl UserEventPayloadVariant385 {
-    pub fn new(
-        store: UserEventPayloadVariant385Store,
-        destination_team_id: String,
-        destination_team_name: String,
-    ) -> Self {
-        Self {
-            store,
-            destination_team_id,
-            destination_team_name,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant386StoreTypeEnum {
-    #[default]
-    Blob,
-    EdgeConfig,
-    Integration,
-    Postgres,
-    Redis,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant386StoreTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blob => "blob",
-            Self::EdgeConfig => "edge-config",
-            Self::Integration => "integration",
-            Self::Postgres => "postgres",
-            Self::Redis => "redis",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant386StoreTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant386StoreTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "blob" => Self::Blob,
-            "edge-config" => Self::EdgeConfig,
-            "integration" => Self::Integration,
-            "postgres" => Self::Postgres,
-            "redis" => Self::Redis,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant386StoreTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `store` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant386Store {
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `name` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// Required enumerated value serialized in the `type` wire field.
-    #[serde(rename = "type")]
-    pub type_: UserEventPayloadVariant386StoreTypeEnum,
-}
-
-impl UserEventPayloadVariant386Store {
-    pub fn new(id: String, type_: UserEventPayloadVariant386StoreTypeEnum) -> Self {
-        Self {
-            id,
-            name: None,
-            type_,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant386 {
-    /// Required object value serialized in the `store` wire field.
-    pub store: UserEventPayloadVariant386Store,
-    /// Required `string` value serialized in the `originTeamId` wire field.
-    #[serde(rename = "originTeamId")]
-    pub origin_team_id: String,
-    /// Required `string` value serialized in the `originTeamName` wire field.
-    #[serde(rename = "originTeamName")]
-    pub origin_team_name: String,
-}
-
-impl UserEventPayloadVariant386 {
-    pub fn new(
-        store: UserEventPayloadVariant386Store,
-        origin_team_id: String,
-        origin_team_name: String,
-    ) -> Self {
-        Self {
-            store,
-            origin_team_id,
-            origin_team_name,
-        }
-    }
-}
-
-/// Optional enumerated value serialized in the `access` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant387AccessEnum {
-    #[default]
-    Private,
-    Public,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant387AccessEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Private => "private",
-            Self::Public => "public",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant387AccessEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant387AccessEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "private" => Self::Private,
-            "public" => Self::Public,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant387AccessEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant387TypeEnum {
-    #[default]
-    Blob,
-    EdgeConfig,
-    Integration,
-    Postgres,
-    Redis,
-    Unknown(String),
 }

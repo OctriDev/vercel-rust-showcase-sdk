@@ -2,300 +2,377 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::{
+    DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+    DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+    DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem,
+    DeleteProjectAvatarResponseDismissedToastsItemValue,
+};
 
-impl DeleteProjectAvatarResponsePermissions {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDefaultResourceConfig {
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum>,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition>,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum>,
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineTypeEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<DeleteProjectAvatarResponseDefaultResourceConfigBuildQueue>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum>,
+    #[serde(rename = "functionDefaultRegions")]
+    pub function_default_regions: Vec<String>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+    #[serde(
+        rename = "elasticBuildMachine",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_build_machine:
+        Option<DeleteProjectAvatarResponseDefaultResourceConfigElasticBuildMachine>,
+}
+
+impl DeleteProjectAvatarResponseDefaultResourceConfig {
+    pub fn new(function_default_regions: Vec<String>) -> Self {
+        Self {
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            build_machine_selection: None,
+            build_machine_type: None,
+            build_queue: None,
+            elastic_concurrency_enabled: None,
+            enable_functions_beta: None,
+            fluid: None,
+            function_default_memory_type: None,
+            function_default_regions,
+            function_default_timeout: None,
+            function_zero_config_failover: None,
+            is_nsnb_disabled: None,
+            elastic_build_machine: None,
+        }
+    }
+}
+
+/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDeploymentExpiration {
+    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
+    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
+    pub deployments_to_keep: Option<f64>,
+    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
+    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
+    pub expiration_days: Option<f64>,
+    /// Number of days to keep canceled deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysCanceled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_canceled: Option<f64>,
+    /// Number of days to keep errored deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysErrored",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_errored: Option<f64>,
+    /// Number of days to keep production deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysProduction",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_production: Option<f64>,
+}
+
+impl DeleteProjectAvatarResponseDeploymentExpiration {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            access_group: None,
-            agent: None,
-            ai_gateway_api_key: None,
-            ai_gateway_api_key_bypass_all: None,
-            ai_gateway_api_key_owned_by_self: None,
-            ai_gateway_api_key_spend_attribution: None,
-            ai_gateway_api_key_zdr_exemption: None,
-            ai_gateway_budget: None,
-            ai_gateway_credits: None,
-            ai_gateway_guardrails: None,
-            ai_gateway_private_models: None,
-            ai_gateway_rules: None,
-            ai_gateway_settings: None,
-            ai_gateway_transcripts: None,
-            ai_gateway_transcripts_settings: None,
-            ai_gateway_usage: None,
-            ai_gateway_virtual_model_configs: None,
-            alert_rules: None,
-            alerts: None,
-            alias_global: None,
-            alias_project: None,
-            alias_protection_bypass: None,
-            analytics: None,
-            analytics_sampling: None,
-            analytics_usage: None,
-            api_key: None,
-            api_key_ai_gateway: None,
-            api_key_owned_by_self: None,
-            audit_log: None,
-            automation: None,
-            billing_address: None,
-            billing_information: None,
-            billing_invoice: None,
-            billing_invoice_email_recipient: None,
-            billing_invoice_language: None,
-            billing_plan: None,
-            billing_purchase_order: None,
-            billing_refund: None,
-            billing_tax_id: None,
-            blob: None,
-            blob_store_token_set: None,
-            budget: None,
-            build_machine: None,
-            build_machine_default: None,
-            bulk_redirects: None,
-            cache_artifact: None,
-            cache_artifact_usage_event: None,
-            ci_invocations: None,
-            ci_logs: None,
-            code_checks: None,
-            code_owners: None,
-            concurrent_builds: None,
-            connect: None,
-            connect_configuration: None,
-            connect_configuration_link: None,
-            connect_logs: None,
-            connex_client: None,
-            connex_client_project: None,
-            connex_contact: None,
-            connex_installation: None,
-            connex_token: None,
-            cursor_origin_installation: None,
-            data_cache_billing_settings: None,
-            data_cache_namespace: None,
-            default_deployment_protection: None,
-            deployment: None,
-            deployment_build_logs: None,
-            deployment_check: None,
-            deployment_check_preview: None,
-            deployment_check_re_run_from_production_branch: None,
-            deployment_policy: None,
-            deployment_preview: None,
-            deployment_private: None,
-            deployment_production_git: None,
-            deployment_promote: None,
-            deployment_protection_exception: None,
-            deployment_rollback: None,
-            deployment_v0: None,
-            domain: None,
-            domain_accept_delegation: None,
-            domain_auth_codes: None,
-            domain_certificate: None,
-            domain_check_config: None,
-            domain_move: None,
-            domain_purchase: None,
-            domain_record: None,
-            domain_transfer_in: None,
-            drain: None,
-            edge_cache_namespace: None,
-            edge_config: None,
-            edge_config_item: None,
-            edge_config_schema: None,
-            edge_config_token: None,
-            endpoint_verification: None,
-            environments: None,
-            event: None,
-            file_upload: None,
-            flags_explorer_subscription: None,
-            git_credential_grant: None,
-            git_repository: None,
-            image_optimization_new_price: None,
-            integration: None,
-            integration_account: None,
-            integration_configuration: None,
-            integration_configuration_projects: None,
-            integration_configuration_role: None,
-            integration_configuration_transfer: None,
-            integration_deployment_action: None,
-            integration_event: None,
-            integration_log: None,
-            integration_pull_request: None,
-            integration_resource: None,
-            integration_resource_data: None,
-            integration_resource_repl_command: None,
-            integration_resource_secrets: None,
-            integration_sso_session: None,
-            integration_store_token_set: None,
-            integration_strict: None,
-            integration_vercel_configuration_override: None,
-            ip_blocking: None,
-            job: None,
-            job_global: None,
-            kms_issuer: None,
-            kms_project_grant: None,
-            log_drain: None,
-            logs: None,
-            logs_preset: None,
-            marketplace_billing_data: None,
-            marketplace_experimentation_edge_config_data: None,
-            marketplace_experimentation_item: None,
-            marketplace_flex_commit: None,
-            marketplace_installation_member: None,
-            marketplace_invoice: None,
-            marketplace_settings: None,
-            messageboard: None,
-            messageboard_space: None,
-            messageboard_task: None,
-            monitoring: None,
-            monitoring_alert: None,
-            monitoring_chart: None,
-            monitoring_query: None,
-            monitoring_settings: None,
-            notification_customer_budget: None,
-            notification_deployment_failed: None,
-            notification_domain_configuration: None,
-            notification_domain_expire: None,
-            notification_domain_moved: None,
-            notification_domain_purchase: None,
-            notification_domain_renewal: None,
-            notification_domain_transfer: None,
-            notification_domain_unverified: None,
-            notification_monitoring_alert: None,
-            notification_payment_failed: None,
-            notification_preferences: None,
-            notification_statement_of_reasons: None,
-            notification_usage_alert: None,
-            oauth2_application: None,
-            oauth2_connection: None,
-            observability_configuration: None,
-            observability_data: None,
-            observability_funnel: None,
-            observability_notebook: None,
-            oidc_federation_policy: None,
-            on_demand_build: None,
-            on_demand_concurrency: None,
-            open_telemetry_endpoint: None,
-            options_allowlist: None,
-            organization: None,
-            organization_domain: None,
-            organization_team: None,
-            own_event: None,
-            page_integrity: None,
-            password_protection: None,
-            password_protection_invoice_item: None,
-            payment_method: None,
-            permissions: None,
-            postgres: None,
-            postgres_store_token_set: None,
-            preview_deployment_suffix: None,
-            private_cloud_account: None,
-            private_link_endpoint: None,
-            production_alias_protection_bypass: None,
-            production_shareable_link: None,
-            project: None,
-            project_access_group: None,
-            project_analytics_sampling: None,
-            project_analytics_usage: None,
-            project_check: None,
-            project_check_run: None,
-            project_deployment_expiration: None,
-            project_deployment_hook: None,
-            project_deployment_protection_strict: None,
-            project_domain: None,
-            project_domain_check_config: None,
-            project_domain_move: None,
-            project_domain_verify: None,
-            project_env_vars: None,
-            project_env_vars_production: None,
-            project_env_vars_unowned_by_integration: None,
-            project_event: None,
-            project_flags: None,
-            project_flags_production: None,
-            project_flags_sdk_key: None,
-            project_from_v0: None,
-            project_id: None,
-            project_integration_configuration: None,
-            project_link: None,
-            project_member: None,
-            project_monitoring: None,
-            project_oidc_token: None,
-            project_permissions: None,
-            project_production_branch: None,
-            project_protection_bypass: None,
-            project_rolling_release: None,
-            project_routes: None,
-            project_setting: None,
-            project_support_case: None,
-            project_support_case_comment: None,
-            project_tier: None,
-            project_transfer: None,
-            project_transfer_in: None,
-            project_transfer_out: None,
-            project_transfer_request: None,
-            project_usage: None,
-            pro_trial_onboarding: None,
-            rate_limit: None,
-            redis: None,
-            redis_store_token_set: None,
-            remote_caching: None,
-            repository: None,
-            saml_config: None,
-            schedule: None,
-            seawall_config: None,
-            secret: None,
-            security_config: None,
-            security_plus_configuration: None,
-            sensitive_environment_variable_policy: None,
-            setting: None,
-            shareable_link: None,
-            shareable_link_strict: None,
-            shared_env_var_connection: None,
-            shared_env_vars: None,
-            shared_env_vars_production: None,
-            skew_protection: None,
-            space: None,
-            space_run: None,
-            store_is_locked: None,
-            store_token_set_sensitive: None,
-            store_transfer: None,
-            support_case: None,
-            support_case_comment: None,
-            team: None,
-            team_access_request: None,
-            team_fellow_membership: None,
-            team_git_exclusivity: None,
-            team_invite: None,
-            team_invite_code: None,
-            team_invite_link: None,
-            team_join: None,
-            team_member_mfa_status: None,
-            team_microfrontends: None,
-            team_own_membership: None,
-            team_own_membership_disconnect_saml: None,
-            team_sudo: None,
-            team_token_invalidation: None,
-            token: None,
-            toolbar_comment: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            usage: None,
-            usage_cycle: None,
-            user: None,
-            user_connection: None,
-            user_mfa_configuration: None,
-            user_preference: None,
-            user_sudo: None,
-            v0_chat: None,
-            vcr_repository: None,
-            vercel_app_installation: None,
-            vercel_app_installation_request: None,
-            vercel_auth: None,
-            vercel_run: None,
-            vpc_peering_connection: None,
-            web_analytics: None,
-            web_analytics_plan: None,
-            web_authn: None,
-            webhook: None,
-            webhook_event: None,
-            workflow_run_data: None,
+            deployments_to_keep: None,
+            expiration_days: None,
+            expiration_days_canceled: None,
+            expiration_days_errored: None,
+            expiration_days_production: None,
         }
     }
+}
+
+/// Customer-configurable deployment sources. Every deploy classifies to exactly one. JSON schema in `packages/deployment-policy/schemas/body.ts` enumerates exactly these values. \- `'git'` — git provider webhook. \- `'cli'` — Vercel CLI (legacy classic-token CLI and SIWV CLI both). \- `'rest-api'` — direct user/team-token REST upload. Does NOT cover deploy hooks, Marketplace integrations, or first-party app tokens. \- `'deploy-hook'` — project deploy-hook URL. The URL is the credential. \- `'integration'` — third-party Marketplace actor: Marketplace integration token, user-delegated OAuth from a Marketplace app, or an unrecognized third-party Vercel App. First-party Vercel Apps are never `'integration'`. \- `'v0'` — the v0 product surface (entitlement-gated). v0 deploys through the CLI under the hood, but classifies as its own source so a team can allow or deny v0 independently of `'cli'`. First-party Vercel apps (Toolbar, etc.) classify as `'first-party'` — see `ClassifiedSource` in `./checks`. They're not in this union because they aren't customer-configurable; they bypass `checkDeploymentSources` entirely. v0 is intentionally NOT among them: like the CLI, it's a real product surface and is policy-controllable.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
+    #[default]
+    Cli,
+    DeployHook,
+    Git,
+    Integration,
+    RestApi,
+    V0,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Cli => "cli",
+            Self::DeployHook => "deploy-hook",
+            Self::Git => "git",
+            Self::Integration => "integration",
+            Self::RestApi => "rest-api",
+            Self::V0 => "v0",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "cli" => Self::Cli,
+            "deploy-hook" => Self::DeployHook,
+            "git" => Self::Git,
+            "integration" => Self::Integration,
+            "rest-api" => Self::RestApi,
+            "v0" => Self::V0,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
+    pub sources:
+        Vec<DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+}
+
+impl DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<
+            DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemSourcesItemEnum,
+        >,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// `enabled: true` with empty `sources` is deny-all.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItem {
+    pub enabled: bool,
+    pub environments:
+        Vec<DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem>,
+    pub sources: Vec<DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+}
+
+impl DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItem {
+    pub fn new(
+        enabled: bool,
+        environments: Vec<
+            DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemEnvironmentsItem,
+        >,
+        sources: Vec<DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItemSourcesItem>,
+    ) -> Self {
+        Self {
+            enabled,
+            environments,
+            sources,
+        }
+    }
+}
+
+/// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDeploymentPolicy {
+    #[serde(
+        rename = "deploymentSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deployment_sources:
+        Option<Option<Vec<DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItem>>>,
+    #[serde(
+        rename = "gitSources",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_sources: Option<Option<Vec<DeleteProjectAvatarResponseDeploymentPolicyGitSourcesItem>>>,
+}
+
+impl DeleteProjectAvatarResponseDeploymentPolicy {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployment_sources: None,
+            git_sources: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseDismissedToastsItemActionEnum {
+    #[default]
+    Accept,
+    Cancel,
+    Delete,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseDismissedToastsItemActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Accept => "accept",
+            Self::Cancel => "cancel",
+            Self::Delete => "delete",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "accept" => Self::Accept,
+            "cancel" => Self::Cancel,
+            "delete" => Self::Delete,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseDismissedToastsItemActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDismissedToastsItem {
+    pub action: DeleteProjectAvatarResponseDismissedToastsItemActionEnum,
+    #[serde(rename = "dismissedAt")]
+    pub dismissed_at: f64,
+    pub key: String,
+    /// Typed representation of the `DeleteProjectAvatarResponseDismissedToastsItemValue` API schema.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub value: Option<DeleteProjectAvatarResponseDismissedToastsItemValue>,
+}
+
+impl DeleteProjectAvatarResponseDismissedToastsItem {
+    pub fn new(
+        action: DeleteProjectAvatarResponseDismissedToastsItemActionEnum,
+        dismissed_at: f64,
+        key: String,
+        value: Option<DeleteProjectAvatarResponseDismissedToastsItemValue>,
+    ) -> Self {
+        Self {
+            action,
+            dismissed_at,
+            key,
+            value,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseEnvItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
 }

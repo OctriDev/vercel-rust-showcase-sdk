@@ -319,6 +319,142 @@ impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponseVariant0ContentHi
     }
 }
 
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant0>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant0>) -> Self {
+        Self::RedisUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant1>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant1>) -> Self {
+        Self::RedisRestApiUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant2>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant2>) -> Self {
+        Self::RedisRestApiToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant3>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant3>) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant4>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant4>) -> Self {
+        Self::BlobReadWriteToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant5>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant5>) -> Self {
+        Self::BlobStoreId(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant6>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant6>) -> Self {
+        Self::BlobWebhookPublicKey(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant7>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant7>) -> Self {
+        Self::PostgresUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant8>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant8>) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant9>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant9>) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant10>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant10>) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant11>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant11>) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant12>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant12>) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant13>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant13>) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant14>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant14>) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant15>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant15>) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<FilterProjectEnvsResponseVariant0ContentHintVariant16>>
+    for FilterProjectEnvsResponseVariant0ContentHint
+{
+    fn from(value: Box<FilterProjectEnvsResponseVariant0ContentHintVariant16>) -> Self {
+        Self::FlagsConnectionString(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum FilterProjectEnvsResponseVariant0SecurityIssuesItemEnum {
     #[default]
@@ -423,117 +559,4 @@ pub enum FilterProjectEnvsResponseVariant0TargetVariant1Enum {
     Preview,
     Production,
     Unknown(String),
-}
-
-impl FilterProjectEnvsResponseVariant0TargetVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for FilterProjectEnvsResponseVariant0TargetVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponseVariant0TargetVariant1Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for FilterProjectEnvsResponseVariant0TargetVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum FilterProjectEnvsResponseVariant0Target {
-    Variant0ItemEnumArray(Vec<FilterProjectEnvsResponseVariant0TargetVariant0ItemEnum>),
-    Literal(FilterProjectEnvsResponseVariant0TargetVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponseVariant0Target {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<FilterProjectEnvsResponseVariant0TargetVariant0ItemEnum>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemEnumArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            FilterProjectEnvsResponseVariant0TargetVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no FilterProjectEnvsResponseVariant0Target branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum FilterProjectEnvsResponseVariant0TypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl FilterProjectEnvsResponseVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for FilterProjectEnvsResponseVariant0TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
 }

@@ -3,7 +3,7 @@
 
 use super::*;
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemFrameworkEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,158 +12,49 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemFrameworkEnum 
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemFrameworkEnum {
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "secret" => Self::Secret,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemFrameworkEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemGitComments {
-    /// Whether the Vercel bot should comment on commits
-    #[serde(rename = "onCommit")]
-    pub on_commit: bool,
-    /// Whether the Vercel bot should comment on PRs
-    #[serde(rename = "onPullRequest")]
-    pub on_pull_request: bool,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemGitComments {
-    pub fn new(on_commit: bool, on_pull_request: bool) -> Self {
-        Self {
-            on_commit,
-            on_pull_request,
-        }
-    }
-}
-
-/// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus {
-    /// Whether consolidated commit status is enabled.
-    pub enabled: bool,
-    /// Whether to propagate individual deployment failures to the consolidated status.
-    #[serde(rename = "propagateFailures")]
-    pub propagate_failures: bool,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus {
-    pub fn new(enabled: bool, propagate_failures: bool) -> Self {
-        Self {
-            enabled,
-            propagate_failures,
-        }
-    }
-}
-
-/// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
+/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum {
     #[default]
-    Disabled,
-    Enabled,
+    Config,
+    Secret,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum {
+impl ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
+            Self::Config => "config",
+            Self::Secret => "secret",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -173,7 +64,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
+    for ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -181,137 +72,239 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
+            "config" => Self::Config,
+            "secret" => Self::Secret,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemGitProviderOptions {
-    /// Configuration for consolidated git commit status reporting. When enabled, Vercel will post a single consolidated commit status instead of individual statuses for each deployment.
+pub struct ListProjectsResponseVariant2ProjectsItemEnvItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
     #[serde(
-        rename = "consolidatedGitCommitStatus",
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<ListProjectsResponseVariant2ProjectsItemEnvItemContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
         skip_serializing_if = "Option::is_none"
     )]
-    pub consolidated_git_commit_status: Option<
-        ListProjectsResponseVariant2ProjectsItemGitProviderOptionsConsolidatedGitCommitStatus,
-    >,
-    /// Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
-    #[serde(rename = "createDeployments")]
-    pub create_deployments:
-        ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
-    /// Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events \- `true`: disable repository-dispatch events for this project (explicit override of the team setting). \- `false`: enable repository-dispatch events for this project (explicit override of the team setting). \- absent: inherit from `team.disableRepositoryDispatchEvents`.
+    pub custom_environment_ids: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub decrypted: Option<bool>,
     #[serde(
-        rename = "disableRepositoryDispatchEvents",
-        skip_serializing_if = "Option::is_none"
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub disable_repository_dispatch_events: Option<bool>,
-    /// Whether Vercel should post commit statuses for this project. When omitted, commit statuses remain enabled.
-    #[serde(rename = "gitCommitStatus", skip_serializing_if = "Option::is_none")]
-    pub git_commit_status: Option<bool>,
-    /// Whether the project requires commits to be signed & verified before deployments will be created. \- `true`: require verified commits for this project (explicit override of the team setting). \- `false`: do not require verified commits (explicit override of the team setting). \- absent: inherit from `team.requireVerifiedCommits`.
+    pub edge_config_id: Option<Option<String>>,
     #[serde(
-        rename = "requireVerifiedCommits",
-        skip_serializing_if = "Option::is_none"
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
     )]
-    pub require_verified_commits: Option<bool>,
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// Similar to `contentHints`, but should not be exposed to the user.
+    #[serde(
+        rename = "internalContentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub internal_content_hint:
+        Option<Option<ListProjectsResponseVariant2ProjectsItemEnvItemInternalContentHint>>,
+    pub key: String,
+    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
+    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
+    pub legacy_value: Option<String>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<ListProjectsResponseVariant2ProjectsItemEnvItemTarget>,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<ListProjectsResponseVariant2ProjectsItemEnvItemVisibilityEnum>,
+    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
+    pub vsm_value: Option<String>,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemGitProviderOptions {
+impl ListProjectsResponseVariant2ProjectsItemEnvItem {
     pub fn new(
-        create_deployments: ListProjectsResponseVariant2ProjectsItemGitProviderOptionsCreateDeploymentsEnum,
+        key: String,
+        type_: ListProjectsResponseVariant2ProjectsItemEnvItemTypeEnum,
+        value: String,
     ) -> Self {
         Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            internal_content_hint: None,
+            key,
+            legacy_value: None,
+            sunset_secret_id: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+            vsm_value: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiry: Option<f64>,
-    pub src: String,
-    pub status: f64,
+pub struct ListProjectsResponseVariant2ProjectsItemExpirationVariant0 {
+    /// Unix ms timestamp when the project is scheduled to expire.
+    #[serde(rename = "expiresAt")]
+    pub expires_at: f64,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant0 {
-    pub fn new(src: String, status: f64) -> Self {
+impl ListProjectsResponseVariant2ProjectsItemExpirationVariant0 {
+    pub fn new(expires_at: f64) -> Self {
+        Self { expires_at }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemExpirationVariant1 {
+    /// Unix ms timestamp when the project was locked.
+    #[serde(rename = "lockedAt")]
+    pub locked_at: f64,
+    /// userId of the actor that triggered the lock (system or admin).
+    #[serde(rename = "lockedBy")]
+    pub locked_by: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemExpirationVariant1 {
+    pub fn new(locked_at: f64, locked_by: String) -> Self {
         Self {
-            expiry: None,
-            src,
-            status,
+            locked_at,
+            locked_by,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
-    #[default]
-    XVercelIpCountry,
-    Unknown(String),
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemExpiration {
+    Object(Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>),
+    Object2(Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::XVercelIpCountry => "x-vercel-ip-country",
-            Self::Unknown(value) => value.as_str(),
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemExpiration {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "x-vercel-ip-country" => Self::XVercelIpCountry,
-            _ => Self::Unknown(value),
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no ListProjectsResponseVariant2ProjectsItemExpiration branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0KeyEnum
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>>
+    for ListProjectsResponseVariant2ProjectsItemExpiration
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant0>) -> Self {
+        Self::Object(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemInternalRoutesItemVariant1HasItemVariant0TypeEnum {
-    #[serde(rename = "header")]
-    #[default]
-    Header,
+impl ::std::convert::From<Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>>
+    for ListProjectsResponseVariant2ProjectsItemExpiration
+{
+    fn from(value: Box<ListProjectsResponseVariant2ProjectsItemExpirationVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemFeatures {
+    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
+    pub web_analytics: Option<bool>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemFeatures {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            web_analytics: None,
+        }
+    }
 }

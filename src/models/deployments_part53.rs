@@ -4,111 +4,38 @@
 // deployments domain models (part 53)
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1 {
-    pub key: String,
-    #[serde(rename = "type")]
-    pub type_: CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1TypeEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1Value>,
+pub struct CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueAffinity {
+    pub mode: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueAffinityModeEnum,
 }
 
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1 {
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueAffinity {
     pub fn new(
-        key: String,
-        type_: CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1TypeEnum,
+        mode: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueAffinityModeEnum,
     ) -> Self {
-        Self {
-            key,
-            type_,
-            value: None,
-        }
+        Self { mode }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItem {
-    Host(Box<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant0>),
-    Object(
-        Box<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItem
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant0>>(value.clone()) {
-            let candidate = Self::Host(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItemVariant1>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItem {
-    pub destination: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub has: Option<Vec<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemHasItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub missing:
-        Option<Vec<CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItemMissingItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub permanent: Option<bool>,
-    pub source: String,
-    #[serde(rename = "statusCode", skip_serializing_if = "Option::is_none")]
-    pub status_code: Option<f64>,
-}
-
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RedirectsItem {
-    pub fn new(destination: String, source: String) -> Self {
-        Self {
-            destination,
-            env: None,
-            has: None,
-            missing: None,
-            permanent: None,
-            source,
-            status_code: None,
-        }
-    }
-}
-
-/// Optional explicit format marker. The destination is identified by the presence of `service`, so `type` is no longer required.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum
-{
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum {
     #[default]
-    Service,
+    Arm64,
+    X8664,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum {
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Service => "service",
+            Self::Arm64 => "arm64",
+            Self::X8664 => "x86_64",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -119,7 +46,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -127,89 +54,398 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "service" => Self::Service,
+            "arm64" => Self::Arm64,
+            "x86_64" => Self::X8664,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1 {
-    /// Routing-only path used to select a route inside the target service.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
-    pub service: String,
-    /// Optional explicit format marker. The destination is identified by the presence of `service`, so `type` is no longer required.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<
-        CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1TypeEnum,
-    >,
+/// Event type \- must be "queue/v1beta" (REQUIRED)
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum
+{
+    #[serde(rename = "queue/v1beta")]
+    #[default]
+    QueueV1beta,
 }
 
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1 {
-    pub fn new(service: String) -> Self {
-        Self {
-            path: None,
-            service,
-            type_: None,
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::QueueV1beta => "queue/v1beta",
         }
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum::QueueV1beta => f.write_str("queue/v1beta"),
+        }
+    }
+}
+
+/// Queue trigger input event for v1beta (from vercel.json config). Requires explicit consumer name.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0 {
+    /// Name of the consumer group for this trigger (REQUIRED)
+    pub consumer: String,
+    /// Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "initialDelaySeconds", skip_serializing_if = "Option::is_none")]
+    pub initial_delay_seconds: Option<f64>,
+    /// Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
+    pub max_concurrency: Option<f64>,
+    /// Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "maxDeliveries", skip_serializing_if = "Option::is_none")]
+    pub max_deliveries: Option<f64>,
+    /// Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "retryAfterSeconds", skip_serializing_if = "Option::is_none")]
+    pub retry_after_seconds: Option<f64>,
+    /// Name of the queue topic to consume from (REQUIRED)
+    pub topic: String,
+    /// Event type \- must be "queue/v1beta" (REQUIRED)
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0 {
+    pub fn new(consumer: String, topic: String, type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0TypeEnum) -> Self {
+        Self {
+            consumer,
+            initial_delay_seconds: None,
+            max_concurrency: None,
+            max_deliveries: None,
+            retry_after_seconds: None,
+            topic,
+            type_,
+        }
+    }
+}
+
+/// Event type \- must be "queue/v2beta" (REQUIRED)
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum
+{
+    #[serde(rename = "queue/v2beta")]
+    #[default]
+    QueueV2beta,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::QueueV2beta => "queue/v2beta",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum::QueueV2beta => f.write_str("queue/v2beta"),
+        }
+    }
+}
+
+/// Queue trigger input event for v2beta (from vercel.json config). Consumer name is implicitly derived from the function path. Only one trigger per function is allowed.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1 {
+    /// Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "initialDelaySeconds", skip_serializing_if = "Option::is_none")]
+    pub initial_delay_seconds: Option<f64>,
+    /// Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
+    pub max_concurrency: Option<f64>,
+    /// Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "maxDeliveries", skip_serializing_if = "Option::is_none")]
+    pub max_deliveries: Option<f64>,
+    /// Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
+    #[serde(rename = "retryAfterSeconds", skip_serializing_if = "Option::is_none")]
+    pub retry_after_seconds: Option<f64>,
+    /// Name of the queue topic to consume from (REQUIRED)
+    pub topic: String,
+    /// Event type \- must be "queue/v2beta" (REQUIRED)
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1 {
+    pub fn new(topic: String, type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1TypeEnum) -> Self {
+        Self {
+            initial_delay_seconds: None,
+            max_concurrency: None,
+            max_deliveries: None,
+            retry_after_seconds: None,
+            topic,
+            type_,
+        }
+    }
+}
+
+/// Event type \- must be "schedule/v1beta" (REQUIRED)
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum
+{
+    #[serde(rename = "schedule/v1beta")]
+    #[default]
+    ScheduleV1beta,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ScheduleV1beta => "schedule/v1beta",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum::ScheduleV1beta => f.write_str("schedule/v1beta"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2 {
+    /// Event type \- must be "schedule/v1beta" (REQUIRED)
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2 {
+    pub fn new(type_: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2TypeEnum) -> Self {
+        Self { type_ }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestination {
-    String(String),
-    Service(
-        Box<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1>,
-    ),
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem
+{
+    QueueV1beta(Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0>),
+    QueueV2beta(Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1>),
+    ScheduleV1beta(Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2>),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestination
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
+        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0>>(value.clone()) {
+            let candidate = Self::QueueV1beta(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<
-                CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestinationVariant1,
-            >,
-        >(value.clone())
-        {
-            let candidate = Self::Service(branch);
+        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1>>(value.clone()) {
+            let candidate = Self::QueueV2beta(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemDestination branch accepts this payload"))
+        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2>>(value.clone()) {
+            let candidate = Self::ScheduleV1beta(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0>> for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem {
+    fn from(value: Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant0>) -> Self {
+        Self::QueueV1beta(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1>> for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem {
+    fn from(value: Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant1>) -> Self {
+        Self::QueueV2beta(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2>> for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem {
+    fn from(value: Box<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItemVariant2>) -> Self {
+        Self::ScheduleV1beta(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum {
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum {
+    #[default]
+    Max,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Max => "max",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "max" => Self::Max,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration {
+    Number(f64),
+    Max(CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum>(value.clone()) {
+            let candidate = Self::Max(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64>
+    for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum,
+    > for CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration
+{
+    fn from(
+        value: CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDurationVariant1Enum,
+    ) -> Self {
+        Self::Max(value)
+    }
+}
+
+/// Function configuration scoped to this service.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub affinity: Option<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueAffinity>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub architecture: Option<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueArchitectureEnum>,
+    #[serde(rename = "excludeFiles", skip_serializing_if = "Option::is_none")]
+    pub exclude_files: Option<String>,
+    #[serde(rename = "experimentalTriggers", skip_serializing_if = "Option::is_none")]
+    pub experimental_triggers: Option<Vec<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueExperimentalTriggersItem>>,
+    #[serde(rename = "functionFailoverRegions", skip_serializing_if = "Option::is_none")]
+    pub function_failover_regions: Option<Vec<String>>,
+    #[serde(rename = "includeFiles", skip_serializing_if = "Option::is_none")]
+    pub include_files: Option<String>,
+    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
+    pub max_concurrency: Option<f64>,
+    #[serde(rename = "maxDuration", skip_serializing_if = "Option::is_none")]
+    pub max_duration: Option<CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValueMaxDuration>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub memory: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub regions: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub runtime: Option<String>,
+    #[serde(rename = "supportsCancellation", skip_serializing_if = "Option::is_none")]
+    pub supports_cancellation: Option<bool>,
+}
+
+impl CreateDeploymentResponseVariant1ServicesItemVariant1FunctionsValue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            affinity: None,
+            architecture: None,
+            exclude_files: None,
+            experimental_triggers: None,
+            function_failover_regions: None,
+            include_files: None,
+            max_concurrency: None,
+            max_duration: None,
+            memory: None,
+            regions: None,
+            runtime: None,
+            supports_cancellation: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0TypeEnum {
     #[default]
     Host,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum {
+impl CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Host => "host",
@@ -219,7 +455,7 @@ impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVari
 }
 
 impl serde::Serialize
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0TypeEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -230,7 +466,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0TypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -245,7 +481,7 @@ impl<'de> serde::Deserialize<'de>
 }
 
 impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum
+    for CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0TypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -254,261 +490,8 @@ impl std::fmt::Display
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1Eq
+pub enum CreateDeploymentResponseVariant1ServicesItemVariant1HeadersItemHasItemVariant0ValueVariant1Eq
 {
     String(String),
     Number(f64),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1Eq {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1Eq branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub eq: Option<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1Eq>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub inc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub neq: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ninc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pre: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub re: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub suf: Option<String>,
-}
-
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            eq: None,
-            gt: None,
-            gte: None,
-            inc: None,
-            lt: None,
-            lte: None,
-            neq: None,
-            ninc: None,
-            pre: None,
-            re: None,
-            suf: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0Value {
-    String(String),
-    Object(Box<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0Value
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0ValueVariant1>>(value.clone()) {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0Value branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0 {
-    #[serde(rename = "type")]
-    pub type_:
-        CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum,
-    pub value: CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0Value,
-}
-
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0 {
-    pub fn new(
-        type_: CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0TypeEnum,
-        value: CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant0Value,
-    ) -> Self {
-        Self { type_, value }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1TypeEnum {
-    #[default]
-    Cookie,
-    Header,
-    Query,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Cookie => "cookie",
-            Self::Header => "header",
-            Self::Query => "query",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1TypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1TypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "cookie" => Self::Cookie,
-            "header" => Self::Header,
-            "query" => Self::Query,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1Eq
-{
-    String(String),
-    Number(f64),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1Eq {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1Eq branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub eq: Option<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1Eq>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub inc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub neq: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ninc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pre: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub re: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub suf: Option<String>,
-}
-
-impl CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            eq: None,
-            gt: None,
-            gte: None,
-            inc: None,
-            lt: None,
-            lte: None,
-            neq: None,
-            ninc: None,
-            pre: None,
-            re: None,
-            suf: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1Value {
-    String(String),
-    Object(Box<CreateDeploymentResponseVariant1ServicesItemVariant1RewritesItemHasItemVariant1ValueVariant1>),
 }

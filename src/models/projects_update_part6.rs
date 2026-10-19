@@ -3,6 +3,86 @@
 
 // projects_update domain models (part 6)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseLinkVariant1 {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(rename = "deployHooks")]
+    pub deploy_hooks: Vec<UpdateMicrofrontendsResponseLinkVariant1DeployHooksItem>,
+    #[serde(rename = "gitCredentialId")]
+    pub git_credential_id: String,
+    pub org: String,
+    #[serde(rename = "productionBranch")]
+    pub production_branch: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<f64>,
+    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
+    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
+    pub repo_owner_id: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sourceless: Option<bool>,
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseLinkVariant1TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+}
+
+impl UpdateMicrofrontendsResponseLinkVariant1 {
+    pub fn new(
+        deploy_hooks: Vec<UpdateMicrofrontendsResponseLinkVariant1DeployHooksItem>,
+        git_credential_id: String,
+        org: String,
+        production_branch: String,
+        type_: UpdateMicrofrontendsResponseLinkVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            org,
+            production_branch,
+            repo: None,
+            repo_id: None,
+            repo_owner_id: None,
+            sourceless: None,
+            type_,
+            updated_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseLinkVariant2DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl UpdateMicrofrontendsResponseLinkVariant2DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UpdateMicrofrontendsResponseLinkVariant2TypeEnum {
+    #[serde(rename = "github-custom-host")]
+    #[default]
+    GithubCustomHost,
+}
+
 impl UpdateMicrofrontendsResponseLinkVariant2TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -466,79 +546,4 @@ impl UpdateMicrofrontendsResponseLinkVariant6 {
             updated_at: None,
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLinkVariant7DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl UpdateMicrofrontendsResponseLinkVariant7DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateMicrofrontendsResponseLinkVariant7TypeEnum {
-    #[serde(rename = "cursor-origin")]
-    #[default]
-    CursorOrigin,
-}
-
-impl UpdateMicrofrontendsResponseLinkVariant7TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::CursorOrigin => "cursor-origin",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseLinkVariant7TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateMicrofrontendsResponseLinkVariant7TypeEnum::CursorOrigin => {
-                f.write_str("cursor-origin")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseLinkVariant7 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<UpdateMicrofrontendsResponseLinkVariant7DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    /// Owner (namespace) slug, e.g. `acme`.
-    pub owner: String,
-    /// Origin namespace id (`ns_…`) of the owner.
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    pub repo: String,
-    /// Origin repository id.
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseLinkVariant7TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
 }

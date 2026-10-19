@@ -5,6 +5,126 @@ use super::*;
 use crate::types::GetSharedEnvVarResponseLastEditedByPrincipal;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteSharedEnvVariableResponse {
+    pub deleted: Vec<String>,
+    pub failed: Vec<DeleteSharedEnvVariableResponseFailedItem>,
+}
+
+impl DeleteSharedEnvVariableResponse {
+    pub fn new(
+        deleted: Vec<String>,
+        failed: Vec<DeleteSharedEnvVariableResponseFailedItem>,
+    ) -> Self {
+        Self { deleted, failed }
+    }
+}
+
+/// environments this env variable targets
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSharedEnvVarResponseTargetItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl GetSharedEnvVarResponseTargetItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSharedEnvVarResponseTargetItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSharedEnvVarResponseTargetItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSharedEnvVarResponseTargetItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The type of this cosmos doc instance, if blank, assume secret.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetSharedEnvVarResponseTypeEnum {
+    #[default]
+    Encrypted,
+    Plain,
+    Sensitive,
+    System,
+    Unknown(String),
+}
+
+impl GetSharedEnvVarResponseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetSharedEnvVarResponseTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSharedEnvVarResponseTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSharedEnvVarResponseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetSharedEnvVarResponse {
     /// whether or not this env varible applies to custom environments
     #[serde(
@@ -167,147 +287,4 @@ impl CreateCustomEnvironmentBranchMatcherTypeEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for CreateCustomEnvironmentBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateCustomEnvironmentBranchMatcherTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            "endsWith" => Self::Endswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateCustomEnvironmentBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// How we want to determine a matching branch. This is optional.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateCustomEnvironmentBranchMatcher {
-    /// Type of matcher. One of "equals", "startsWith", or "endsWith".
-    #[serde(rename = "type")]
-    pub type_: CreateCustomEnvironmentBranchMatcherTypeEnum,
-    /// Git branch name or portion thereof.
-    pub pattern: String,
-}
-
-impl CreateCustomEnvironmentBranchMatcher {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_length(
-            "pattern",
-            &self.pattern,
-            crate::validation::LengthOpts {
-                max: Some(100),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        type_: CreateCustomEnvironmentBranchMatcherTypeEnum,
-        pattern: String,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { type_, pattern };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateCustomEnvironmentResponseBranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl CreateCustomEnvironmentResponseBranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateCustomEnvironmentResponseBranchMatcherTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Configuration for matching git branches to this environment
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateCustomEnvironmentResponseBranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: CreateCustomEnvironmentResponseBranchMatcherTypeEnum,
-}
-
-impl CreateCustomEnvironmentResponseBranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: CreateCustomEnvironmentResponseBranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateCustomEnvironmentResponseDomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
 }

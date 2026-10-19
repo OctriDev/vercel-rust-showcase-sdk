@@ -3,508 +3,558 @@
 
 // deployments domain models (part 65)
 
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "basic" => Self::Basic,
-            "enhanced" => Self::Enhanced,
-            "standard" => Self::Standard,
-            "turbo" => Self::Turbo,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Returns the newly created deployment object. Poll `readyState` to track build progress. See https://vercel.com/docs/deployments/deployment-states for possible states.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
-    /// Machine type that was used for the build.
-    #[serde(
-        rename = "purchaseType",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub purchase_type: Option<
-        Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum>,
-    >,
-}
-
-impl GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            purchase_type: None,
-        }
-    }
-}
-
-/// Build resource configuration snapshot for this deployment.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ConfigResourceConfig {
-    /// Build resource configuration snapshot for this deployment.
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildQueue>,
-    /// When elastic concurrency is used for this deployment, a value is set. The value tells the reason where the setting was coming from. \- TEAM_SETTING: Inherited from team settings \- PROJECT_SETTING: Inherited from project settings \- SKIP_QUEUE: Manually triggered by user to skip the queues
-    #[serde(rename = "elasticConcurrency", skip_serializing_if = "Option::is_none")]
-    pub elastic_concurrency:
-        Option<GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum>,
-    #[serde(rename = "buildMachine", skip_serializing_if = "Option::is_none")]
-    pub build_machine: Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine>,
-}
-
-impl GetDeploymentResponseVariant1ConfigResourceConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            build_queue: None,
-            elastic_concurrency: None,
-            build_machine: None,
-        }
-    }
-}
-
-/// Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1Config {
-    #[serde(rename = "functionMemoryType")]
-    pub function_memory_type: GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum,
-    #[serde(rename = "functionTimeout", deserialize_with = "Option::deserialize")]
-    pub function_timeout: Option<f64>,
-    #[serde(rename = "functionType")]
-    pub function_type: GetDeploymentResponseVariant1ConfigFunctionTypeEnum,
-    #[serde(rename = "isUsingActiveCPU", skip_serializing_if = "Option::is_none")]
-    pub is_using_active_cpu: Option<bool>,
-    /// Build resource configuration snapshot for this deployment.
-    #[serde(rename = "resourceConfig", skip_serializing_if = "Option::is_none")]
-    pub resource_config: Option<GetDeploymentResponseVariant1ConfigResourceConfig>,
-    #[serde(
-        rename = "secureComputeFallbackRegion",
-        deserialize_with = "Option::deserialize"
-    )]
-    pub secure_compute_fallback_region: Option<String>,
-    #[serde(
-        rename = "secureComputePrimaryRegion",
-        deserialize_with = "Option::deserialize"
-    )]
-    pub secure_compute_primary_region: Option<String>,
+pub struct CreateDeploymentResponseVariant1 {
+    /// A list of all the aliases (default aliases, staging aliases and production aliases) that were assigned upon deployment creation
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: Option<f64>,
-}
-
-impl GetDeploymentResponseVariant1Config {
-    pub fn new(
-        function_memory_type: GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum,
-        function_timeout: Option<f64>,
-        function_type: GetDeploymentResponseVariant1ConfigFunctionTypeEnum,
-        secure_compute_fallback_region: Option<String>,
-        secure_compute_primary_region: Option<String>,
-    ) -> Self {
-        Self {
-            function_memory_type,
-            function_timeout,
-            function_type,
-            is_using_active_cpu: None,
-            resource_config: None,
-            secure_compute_fallback_region,
-            secure_compute_primary_region,
-            version: None,
-        }
-    }
-}
-
-/// Principal type of the deployment creator.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1CreatorTypeEnum {
-    #[default]
-    App,
-    Integration,
-    System,
-    User,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1CreatorTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::App => "app",
-            Self::Integration => "integration",
-            Self::System => "system",
-            Self::User => "user",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1CreatorTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1CreatorTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "app" => Self::App,
-            "integration" => Self::Integration,
-            "system" => Self::System,
-            "user" => Self::User,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1CreatorTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Information about the deployment creator
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1Creator {
-    /// The avatar of the user that created the deployment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Principal type of the deployment creator.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub type_: Option<GetDeploymentResponseVariant1CreatorTypeEnum>,
-    /// Stable creator id across principal types (user id, app id, integration configuration id, or `system`).
-    pub uid: String,
-    /// The username of the user that created the deployment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-}
-
-impl GetDeploymentResponseVariant1Creator {
-    pub fn new(uid: String) -> Self {
-        Self {
-            avatar: None,
-            type_: None,
-            uid,
-            username: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CronsItem {
-    pub path: String,
-    pub schedule: String,
-}
-
-impl GetDeploymentResponseVariant1CronsItem {
-    pub fn new(path: String, schedule: String) -> Self {
-        Self { path, schedule }
-    }
-}
-
-/// The type of matching to perform
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum {
-    #[default]
-    Endswith,
-    Equals,
-    Startswith,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Endswith => "endsWith",
-            Self::Equals => "equals",
-            Self::Startswith => "startsWith",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "endsWith" => Self::Endswith,
-            "equals" => Self::Equals,
-            "startsWith" => Self::Startswith,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Configuration for matching git branches to this environment
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher {
-    /// The pattern to match against branch names
-    pub pattern: String,
-    /// The type of matching to perform
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum,
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher {
-    pub fn new(
-        pattern: String,
-        type_: GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcherTypeEnum,
-    ) -> Self {
-        Self { pattern, type_ }
-    }
-}
-
-/// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem {
-    pub domain: String,
-    pub reason: String,
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub value: String,
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem {
-    pub fn new(domain: String, reason: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            reason,
-            type_,
-            value,
-        }
-    }
-}
-
-/// List of domains associated with this environment
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem {
-    #[serde(rename = "apexName")]
-    pub apex_name: String,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
+    pub alias: Option<Vec<String>>,
+    /// A boolean that will be true when the aliases from the alias property were assigned successfully
+    #[serde(rename = "aliasAssigned")]
+    pub alias_assigned: bool,
     #[serde(
-        rename = "customEnvironmentId",
+        rename = "aliasAssignedAt",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub custom_environment_id: Option<Option<String>>,
+    pub alias_assigned_at: Option<Option<CreateDeploymentResponseVariant1AliasAssignedAt>>,
+    /// An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`
     #[serde(
-        rename = "gitBranch",
+        rename = "aliasError",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub git_branch: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
+    pub alias_error: Option<Option<CreateDeploymentResponseVariant1AliasError>>,
     #[serde(
+        rename = "aliasFinal",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub redirect: Option<Option<String>>,
+    pub alias_final: Option<Option<String>>,
     #[serde(
-        rename = "redirectStatusCode",
+        rename = "aliasWarning",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub redirect_status_code: Option<Option<f64>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    /// A list of verification challenges, one of which must be completed to verify the domain for use on the project. After the challenge is complete `POST /projects/:idOrName/domains/:domain/verify` to verify the domain. Possible challenges: \- If `verification.type = TXT` the `verification.domain` will be checked for a TXT record matching `verification.value`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub verification: Option<
-        Vec<GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItemVerificationItem>,
-    >,
-    /// `true` if the domain is verified for use with the project. If `false` it will not be used as an alias on this project until the challenge in `verification` is completed.
-    pub verified: bool,
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem {
-    pub fn new(apex_name: String, name: String, project_id: String, verified: bool) -> Self {
-        Self {
-            apex_name,
-            created_at: None,
-            custom_environment_id: None,
-            git_branch: None,
-            name,
-            project_id,
-            redirect: None,
-            redirect_status_code: None,
-            updated_at: None,
-            verification: None,
-            verified,
-        }
-    }
-}
-
-/// The type of environment (production, preview, or development)
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// If the deployment was created using a Custom Environment, then this property contains information regarding the environment used.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CustomEnvironmentVariant0 {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<GetDeploymentResponseVariant1CustomEnvironmentVariant0BranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
+    pub alias_warning: Option<Option<CreateDeploymentResponseVariant1AliasWarning>>,
     #[serde(
-        rename = "currentDeploymentAliases",
+        rename = "alwaysRefuseToBuild",
         skip_serializing_if = "Option::is_none"
     )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
+    pub always_refuse_to_build: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// List of domains associated with this environment
+    pub atproto: Option<CreateDeploymentResponseVariant1Atproto>,
+    /// Attribution metadata for the deployment, linking commit author to git and Vercel users. Only populated when the `enable-deployment-attribution` flag is enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<GetDeploymentResponseVariant1CustomEnvironmentVariant0DomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
+    pub attribution: Option<CreateDeploymentResponseVariant1Attribution>,
+    /// applies to custom domains only, defaults to `true`
+    #[serde(
+        rename = "autoAssignCustomDomains",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_assign_custom_domains: Option<bool>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "bootedAt")]
+    pub booted_at: f64,
+    pub build: CreateDeploymentResponseVariant1Build,
+    #[serde(rename = "buildArtifactUrls", skip_serializing_if = "Option::is_none")]
+    pub build_artifact_urls: Option<Vec<String>>,
+    /// Since April 2025 it necessary for On-Demand Concurrency Minutes calculation
+    #[serde(
+        rename = "buildContainerFinishedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_container_finished_at: Option<f64>,
+    #[serde(rename = "buildErrorAt", skip_serializing_if = "Option::is_none")]
+    pub build_error_at: Option<f64>,
+    #[serde(rename = "buildingAt")]
+    pub building_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<CreateDeploymentResponseVariant1BuildsItem>>,
+    #[serde(rename = "buildSkipped")]
+    pub build_skipped: bool,
+    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
+    pub canceled_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checks: Option<CreateDeploymentResponseVariant1Checks>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<CreateDeploymentResponseVariant1ChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<CreateDeploymentResponseVariant1ChecksStateEnum>,
+    /// Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub config: Option<CreateDeploymentResponseVariant1Config>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    /// A number containing the date when the deployment was created in milliseconds
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    /// Information about the deployment creator
+    pub creator: CreateDeploymentResponseVariant1Creator,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub crons: Option<Vec<CreateDeploymentResponseVariant1CronsItem>>,
+    #[serde(rename = "customEnvironment", skip_serializing_if = "Option::is_none")]
+    pub custom_environment: Option<CreateDeploymentResponseVariant1CustomEnvironment>,
+    /// Computed field that is only available for deployments with a microfrontend configuration.
+    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
+    pub default_route: Option<String>,
+    /// A number containing the date when the deployment was deleted at milliseconds
+    #[serde(
+        rename = "deletedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub deleted_at: Option<Option<f64>>,
+    pub duration: CreateDeploymentResponseVariant1Duration,
+    pub env: Vec<String>,
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    pub error_code: Option<String>,
+    #[serde(rename = "errorLink", skip_serializing_if = "Option::is_none")]
+    pub error_link: Option<String>,
+    #[serde(
+        rename = "errorMessage",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub error_message: Option<Option<String>>,
+    #[serde(rename = "errorStep", skip_serializing_if = "Option::is_none")]
+    pub error_step: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub flags: Option<CreateDeploymentResponseVariant1Flags>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub functions: Option<
+        Option<std::collections::HashMap<String, CreateDeploymentResponseVariant1FunctionsValue>>,
+    >,
+    #[serde(
+        rename = "gitRepo",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_repo: Option<Option<CreateDeploymentResponseVariant1GitRepo>>,
+    #[serde(rename = "gitSource", skip_serializing_if = "Option::is_none")]
+    pub git_source: Option<CreateDeploymentResponseVariant1GitSource>,
+    /// A string holding the unique ID of the deployment
     pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub images: Option<CreateDeploymentResponseVariant1Images>,
+    #[serde(rename = "initReadyAt", skip_serializing_if = "Option::is_none")]
+    pub init_ready_at: Option<f64>,
+    #[serde(rename = "inspectorUrl", deserialize_with = "Option::deserialize")]
+    pub inspector_url: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub integrations: Option<CreateDeploymentResponseVariant1Integrations>,
+    #[serde(
+        rename = "isFirstBranchDeployment",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_first_branch_deployment: Option<bool>,
+    #[serde(rename = "isInConcurrentBuildsQueue")]
+    pub is_in_concurrent_builds_queue: bool,
+    /// Whether this deployment completed through the instant static fast path.
+    #[serde(rename = "isInstantStatic", skip_serializing_if = "Option::is_none")]
+    pub is_instant_static: Option<bool>,
+    #[serde(rename = "isInSystemBuildsQueue")]
+    pub is_in_system_builds_queue: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lambdas: Option<Vec<CreateDeploymentResponseVariant1LambdasItem>>,
+    /// Present when deployment was created with manual provisioning enabled, either explicitly or via the experimental BYOC git flow. The deployment stays in INITIALIZING until /continue is called.
+    #[serde(rename = "manualProvisioning", skip_serializing_if = "Option::is_none")]
+    pub manual_provisioning: Option<CreateDeploymentResponseVariant1ManualProvisioning>,
+    pub meta: std::collections::HashMap<String, String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub microfrontends: Option<CreateDeploymentResponseVariant1Microfrontends>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    /// The name of the project associated with the deployment at the time that the deployment was created
+    pub name: String,
+    /// If set it overrides the `projectSettings.nodeVersion` for this deployment.
+    #[serde(rename = "nodeVersion", skip_serializing_if = "Option::is_none")]
+    pub node_version: Option<CreateDeploymentResponseVariant1NodeVersionEnum>,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<CreateDeploymentResponseVariant1OidcTokenClaims>,
+    #[serde(rename = "oomReport", skip_serializing_if = "Option::is_none")]
+    pub oom_report: Option<CreateDeploymentResponseVariant1OomReportEnum>,
+    #[serde(rename = "originCacheRegion", skip_serializing_if = "Option::is_none")]
+    pub origin_cache_region: Option<String>,
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    /// Since November 2023 this field defines a Secure Compute network that will only be used to deploy passive lambdas to (as in passiveRegions)
+    #[serde(
+        rename = "passiveConnectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub passive_connect_configuration_id: Option<String>,
+    /// Since November 2023 this field defines a set of regions that we will deploy the lambda to passively Lambdas will be deployed to these regions but only invoked if all of the primary `regions` are marked as out of service
+    #[serde(rename = "passiveRegions", skip_serializing_if = "Option::is_none")]
+    pub passive_regions: Option<Vec<String>>,
+    pub plan: CreateDeploymentResponseVariant1PlanEnum,
+    /// Metadata about the source platform that triggered the deployment. Allows us to map a deployment back to a platform (e.g. the chat that created it)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub platform: Option<CreateDeploymentResponseVariant1Platform>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prebuilt: Option<bool>,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    /// The public project information associated with the deployment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project: Option<CreateDeploymentResponseVariant1Project>,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "projectSettings")]
+    pub project_settings: CreateDeploymentResponseVariant1ProjectSettings,
+    /// A boolean representing if the deployment is public or not. By default this is `false`
+    pub public: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ready: Option<f64>,
+    /// The state of the deployment depending on the process of deploying, or if it is ready or in an error state
+    #[serde(rename = "readyState")]
+    pub ready_state: CreateDeploymentResponseVariant1ReadyStateEnum,
+    #[serde(rename = "readyStateReason", skip_serializing_if = "Option::is_none")]
+    pub ready_state_reason: Option<String>,
+    /// Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: \- STAGED: never seen production traffic \- ROLLING: in the process of having production traffic gradually transitioned. \- PROMOTED: has seen production traffic
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<CreateDeploymentResponseVariant1ReadySubstateEnum>,
+    /// The regions the deployment exists in
+    pub regions: Vec<String>,
+    #[serde(rename = "resourceConfig", skip_serializing_if = "Option::is_none")]
+    pub resource_config: Option<CreateDeploymentResponseVariant1ResourceConfig>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub routes: Option<Vec<CreateDeploymentResponseVariant1RoutesItem>>,
+    /// NSNB Blocked metadata
+    #[serde(rename = "seatBlock", skip_serializing_if = "Option::is_none")]
+    pub seat_block: Option<CreateDeploymentResponseVariant1SeatBlock>,
+    /// Services detected during build from vercel.json experimentalServices or auto-detected from project structure. Used to inject service URLs as environment variables at runtime.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub services: Option<Vec<CreateDeploymentResponseVariant1ServicesItem>>,
+    /// flag to indicate if the deployment was deleted by retention policy
+    #[serde(
+        rename = "softDeletedByRetention",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub soft_deleted_by_retention: Option<bool>,
+    /// Where was the deployment created from. Best-effort guess for metrics only — not authoritative; do not gate behavior on it.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<CreateDeploymentResponseVariant1SourceEnum>,
+    pub status: CreateDeploymentResponseVariant1StatusEnum,
+    /// If defined, either `staging` if a staging alias in the format `<project\>.<team\>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<CreateDeploymentResponseVariant1TargetEnum>>,
+    /// The team that owns the deployment if any
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub team: Option<CreateDeploymentResponseVariant1Team>,
+    #[serde(rename = "ttyBuildLogs", skip_serializing_if = "Option::is_none")]
+    pub tty_build_logs: Option<bool>,
     #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum,
-    /// Timestamp when the environment was last updated
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+    pub type_: CreateDeploymentResponseVariant1TypeEnum,
+    /// A number containing the date when the deployment was undeleted at milliseconds
+    #[serde(rename = "undeletedAt", skip_serializing_if = "Option::is_none")]
+    pub undeleted_at: Option<f64>,
+    /// A string with the unique URL of the deployment
+    pub url: String,
+    /// An array of domains that were provided by the user when creating the Deployment.
+    #[serde(rename = "userAliases", skip_serializing_if = "Option::is_none")]
+    pub user_aliases: Option<Vec<String>>,
+    /// Since January 2025 User-configured deployment ID for skew protection with pre-built deployments. This is set when users configure a custom deploymentId in their next.config.js file. This allows Next.js to use skew protection even when deployments are pre-built outside of Vercel's build system.
+    #[serde(
+        rename = "userConfiguredDeploymentId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user_configured_deployment_id: Option<String>,
+    /// The platform version that was used to create the deployment.
+    pub version: i64,
 }
 
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant0 {
+impl CreateDeploymentResponseVariant1 {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
+        alias_assigned: bool,
+        booted_at: f64,
+        build: CreateDeploymentResponseVariant1Build,
+        building_at: f64,
+        build_skipped: bool,
         created_at: f64,
+        created_in: String,
+        creator: CreateDeploymentResponseVariant1Creator,
+        duration: CreateDeploymentResponseVariant1Duration,
+        env: Vec<String>,
         id: String,
-        slug: String,
-        type_: GetDeploymentResponseVariant1CustomEnvironmentVariant0TypeEnum,
-        updated_at: f64,
+        inspector_url: Option<String>,
+        is_in_concurrent_builds_queue: bool,
+        is_in_system_builds_queue: bool,
+        meta: std::collections::HashMap<String, String>,
+        name: String,
+        owner_id: String,
+        plan: CreateDeploymentResponseVariant1PlanEnum,
+        project_id: String,
+        project_settings: CreateDeploymentResponseVariant1ProjectSettings,
+        public: bool,
+        ready_state: CreateDeploymentResponseVariant1ReadyStateEnum,
+        regions: Vec<String>,
+        routes: Option<Vec<CreateDeploymentResponseVariant1RoutesItem>>,
+        status: CreateDeploymentResponseVariant1StatusEnum,
+        type_: CreateDeploymentResponseVariant1TypeEnum,
+        url: String,
+        version: i64,
     ) -> Self {
         Self {
-            branch_matcher: None,
+            alias: None,
+            alias_assigned,
+            alias_assigned_at: None,
+            alias_error: None,
+            alias_final: None,
+            alias_warning: None,
+            always_refuse_to_build: None,
+            atproto: None,
+            attribution: None,
+            auto_assign_custom_domains: None,
+            automatic_aliases: None,
+            booted_at,
+            build,
+            build_artifact_urls: None,
+            build_container_finished_at: None,
+            build_error_at: None,
+            building_at,
+            builds: None,
+            build_skipped,
+            canceled_at: None,
+            checks: None,
+            checks_conclusion: None,
+            checks_state: None,
+            config: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
             created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
+            created_in,
+            creator,
+            crons: None,
+            custom_environment: None,
+            default_route: None,
+            deleted_at: None,
+            duration,
+            env,
+            error_code: None,
+            error_link: None,
+            error_message: None,
+            error_step: None,
+            flags: None,
+            functions: None,
+            git_repo: None,
+            git_source: None,
             id,
-            slug,
+            images: None,
+            init_ready_at: None,
+            inspector_url,
+            integrations: None,
+            is_first_branch_deployment: None,
+            is_in_concurrent_builds_queue,
+            is_instant_static: None,
+            is_in_system_builds_queue,
+            lambdas: None,
+            manual_provisioning: None,
+            meta,
+            microfrontends: None,
+            monorepo_manager: None,
+            name,
+            node_version: None,
+            oidc_token_claims: None,
+            oom_report: None,
+            origin_cache_region: None,
+            owner_id,
+            passive_connect_configuration_id: None,
+            passive_regions: None,
+            plan,
+            platform: None,
+            prebuilt: None,
+            preview_comments_enabled: None,
+            project: None,
+            project_id,
+            project_settings,
+            public,
+            ready: None,
+            ready_state,
+            ready_state_reason: None,
+            ready_substate: None,
+            regions,
+            resource_config: None,
+            routes,
+            seat_block: None,
+            services: None,
+            soft_deleted_by_retention: None,
+            source: None,
+            status,
+            target: None,
+            team: None,
+            tty_build_logs: None,
             type_,
-            updated_at,
+            undeleted_at: None,
+            url,
+            user_aliases: None,
+            user_configured_deployment_id: None,
+            version,
         }
-    }
-}
-
-/// If the deployment was created using a Custom Environment, then this property contains information regarding the environment used.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1CustomEnvironmentVariant1 {
-    pub id: String,
-}
-
-impl GetDeploymentResponseVariant1CustomEnvironmentVariant1 {
-    pub fn new(id: String) -> Self {
-        Self { id }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetDeploymentResponseVariant1CustomEnvironment {
-    Object(Box<GetDeploymentResponseVariant1CustomEnvironmentVariant0>),
-    Object2(Box<GetDeploymentResponseVariant1CustomEnvironmentVariant1>),
+pub enum CreateDeploymentResponse {
+    Object(Box<CreateDeploymentResponseVariant0>),
+    LAMBDAS(Box<CreateDeploymentResponseVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentResponseVariant0>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<CreateDeploymentResponseVariant1>>(value.clone())
+        {
+            let candidate = Self::LAMBDAS(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no CreateDeploymentResponse branch accepts this payload")
+        })
+    }
+}
+
+/// String indicating the type of file tree entry.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum FileTreeTypeEnum {
+    #[default]
+    Directory,
+    File,
+    Invalid,
+    Lambda,
+    Middleware,
+    Symlink,
+    Unknown(String),
+}
+
+impl FileTreeTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Directory => "directory",
+            Self::File => "file",
+            Self::Invalid => "invalid",
+            Self::Lambda => "lambda",
+            Self::Middleware => "middleware",
+            Self::Symlink => "symlink",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for FileTreeTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for FileTreeTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "directory" => Self::Directory,
+            "file" => Self::File,
+            "invalid" => Self::Invalid,
+            "lambda" => Self::Lambda,
+            "middleware" => Self::Middleware,
+            "symlink" => Self::Symlink,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for FileTreeTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// A deployment file tree entry
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct FileTree {
+    /// The list of children files of the directory (only valid for the `directory` type)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub children: Option<Vec<FileTree>>,
+    /// The content-type of the file (only valid for the `file` type)
+    #[serde(rename = "contentType", skip_serializing_if = "Option::is_none")]
+    pub content_type: Option<String>,
+    /// The file "mode" indicating file type and permissions.
+    pub mode: f64,
+    /// The name of the file tree entry
+    pub name: String,
+    /// String indicating the type of file tree entry.
+    #[serde(rename = "type")]
+    pub type_: FileTreeTypeEnum,
+    /// The unique identifier of the file (only valid for the `file` type)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uid: Option<String>,
+}
+
+impl FileTree {
+    pub fn new(mode: f64, name: String, type_: FileTreeTypeEnum) -> Self {
+        Self {
+            children: None,
+            content_type: None,
+            mode,
+            name,
+            type_,
+            uid: None,
+        }
+    }
 }

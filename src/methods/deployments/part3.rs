@@ -131,6 +131,18 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseAliasAssignedAt {
     }
 }
 
+impl ::std::convert::From<f64> for CancelDeploymentResponseAliasAssignedAt {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CancelDeploymentResponseAliasAssignedAt {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 /// An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CancelDeploymentResponseAliasError {
@@ -220,6 +232,18 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseAttributionGitUser
                 "no CancelDeploymentResponseAttributionGitUserId branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for CancelDeploymentResponseAttributionGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CancelDeploymentResponseAttributionGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -333,15 +357,4 @@ pub enum CancelDeploymentResponseChecksDeploymentaliasStateEnum {
     Pending,
     Succeeded,
     Unknown(String),
-}
-
-impl CancelDeploymentResponseChecksDeploymentaliasStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Failed => "failed",
-            Self::Pending => "pending",
-            Self::Succeeded => "succeeded",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

@@ -3,39 +3,28 @@
 
 use super::*;
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
+/// The type of environment (production, preview, or development)
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+pub enum UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
+    Development,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl serde::Serialize for UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -44,236 +33,144 @@ impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemChecks
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum
-{
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl std::fmt::Display for UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
-    #[default]
-    Completed,
-    Registered,
-    Running,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseLatestDeploymentsItemChecksStateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Internal representation of a custom environment with all required properties
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLatestDeploymentsItemCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct UploadProjectAvatarResponseCustomEnvironmentsItem {
+    /// Configuration for matching git branches to this environment
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<UploadProjectAvatarResponseCustomEnvironmentsItemBranchMatcher>,
+    /// Timestamp when the environment was created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// List of aliases for the current deployment
+    #[serde(
+        rename = "currentDeploymentAliases",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub current_deployment_aliases: Option<Vec<String>>,
+    /// Optional description of the environment's purpose
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// List of domains associated with this environment
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<Vec<UploadProjectAvatarResponseCustomEnvironmentsItemDomainsItem>>,
+    /// Unique identifier for the custom environment (format: env_\*)
+    pub id: String,
+    /// URL-friendly name of the environment
+    pub slug: String,
+    /// The type of environment (production, preview, or development)
+    #[serde(rename = "type")]
+    pub type_: UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum,
+    /// Timestamp when the environment was last updated
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl UploadProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl UploadProjectAvatarResponseCustomEnvironmentsItem {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: UploadProjectAvatarResponseCustomEnvironmentsItemTypeEnum,
+        updated_at: f64,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
+            type_,
+            updated_at,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDataCache {
+    #[serde(
+        rename = "storageSizeBytes",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub storage_size_bytes: Option<Option<f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unlimited: Option<bool>,
+    #[serde(rename = "userDisabled")]
+    pub user_disabled: bool,
+}
+
+impl UploadProjectAvatarResponseDataCache {
+    pub fn new(user_disabled: bool) -> Self {
+        Self {
+            storage_size_bytes: None,
+            unlimited: None,
+            user_disabled,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+pub enum UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    BasicFloor,
+    BuildTimeoutFailure,
+    EnospcFailure,
+    EnterpriseFloor,
+    HighPeakDisk,
+    HighPeakMemory,
+    LongBuildDuration,
+    OomFailure,
+    ShortBuildDuration,
+    SustainedHighCpu,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+impl UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::BasicFloor => "basic-floor",
+            Self::BuildTimeoutFailure => "build-timeout-failure",
+            Self::EnospcFailure => "enospc-failure",
+            Self::EnterpriseFloor => "enterprise-floor",
+            Self::HighPeakDisk => "high-peak-disk",
+            Self::HighPeakMemory => "high-peak-memory",
+            Self::LongBuildDuration => "long-build-duration",
+            Self::OomFailure => "oom-failure",
+            Self::ShortBuildDuration => "short-build-duration",
+            Self::SustainedHighCpu => "sustained-high-cpu",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
+impl serde::Serialize
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -283,7 +180,7 @@ impl serde::Serialize for UploadProjectAvatarResponseLatestDeploymentsItemReadyS
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -291,20 +188,120 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
+            "basic-floor" => Self::BasicFloor,
+            "build-timeout-failure" => Self::BuildTimeoutFailure,
+            "enospc-failure" => Self::EnospcFailure,
+            "enterprise-floor" => Self::EnterpriseFloor,
+            "high-peak-disk" => Self::HighPeakDisk,
+            "high-peak-memory" => Self::HighPeakMemory,
+            "long-build-duration" => Self::LongBuildDuration,
+            "oom-failure" => Self::OomFailure,
+            "short-build-duration" => Self::ShortBuildDuration,
+            "sustained-high-cpu" => Self::SustainedHighCpu,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
+impl std::fmt::Display
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    #[default]
+    Downgrade,
+    Upgrade,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Downgrade => "downgrade",
+            Self::Upgrade => "upgrade",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "downgrade" => Self::Downgrade,
+            "upgrade" => Self::Upgrade,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition {
+    pub fn new(
+        algorithm_version: String,
+        at: f64,
+        direction: UploadProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    ) -> Self {
+        Self {
+            algorithm_version,
+            at,
+            direction,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    #[default]
+    Elastic,
+    Fixed,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }

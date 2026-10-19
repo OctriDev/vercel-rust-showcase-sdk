@@ -3,6 +3,137 @@
 
 use super::*;
 
+impl std::fmt::Display for GetAliasResponseProtectionBypassValueVariant3ScopeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetAliasResponseProtectionBypassValueVariant3ScopeEnum::EmailInvite => {
+                f.write_str("email_invite")
+            }
+        }
+    }
+}
+
+/// The protection bypass for the alias
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetAliasResponseProtectionBypassValueVariant3 {
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "lastUpdatedAt")]
+    pub last_updated_at: f64,
+    #[serde(rename = "lastUpdatedBy")]
+    pub last_updated_by: String,
+    pub scope: GetAliasResponseProtectionBypassValueVariant3ScopeEnum,
+}
+
+impl GetAliasResponseProtectionBypassValueVariant3 {
+    pub fn new(
+        created_at: f64,
+        last_updated_at: f64,
+        last_updated_by: String,
+        scope: GetAliasResponseProtectionBypassValueVariant3ScopeEnum,
+    ) -> Self {
+        Self {
+            created_at,
+            last_updated_at,
+            last_updated_by,
+            scope,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetAliasResponseProtectionBypassValue {
+    ShareableLink(Box<GetAliasResponseProtectionBypassValueVariant0>),
+    User(Box<GetAliasResponseProtectionBypassValueVariant1>),
+    AliasProtectionOverride(Box<GetAliasResponseProtectionBypassValueVariant2>),
+    EmailInvite(Box<GetAliasResponseProtectionBypassValueVariant3>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetAliasResponseProtectionBypassValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetAliasResponseProtectionBypassValueVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::ShareableLink(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetAliasResponseProtectionBypassValueVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::User(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetAliasResponseProtectionBypassValueVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::AliasProtectionOverride(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetAliasResponseProtectionBypassValueVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::EmailInvite(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetAliasResponseProtectionBypassValue branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<GetAliasResponseProtectionBypassValueVariant0>>
+    for GetAliasResponseProtectionBypassValue
+{
+    fn from(value: Box<GetAliasResponseProtectionBypassValueVariant0>) -> Self {
+        Self::ShareableLink(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetAliasResponseProtectionBypassValueVariant1>>
+    for GetAliasResponseProtectionBypassValue
+{
+    fn from(value: Box<GetAliasResponseProtectionBypassValueVariant1>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetAliasResponseProtectionBypassValueVariant2>>
+    for GetAliasResponseProtectionBypassValue
+{
+    fn from(value: Box<GetAliasResponseProtectionBypassValueVariant2>) -> Self {
+        Self::AliasProtectionOverride(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetAliasResponseProtectionBypassValueVariant3>>
+    for GetAliasResponseProtectionBypassValue
+{
+    fn from(value: Box<GetAliasResponseProtectionBypassValueVariant3>) -> Self {
+        Self::EmailInvite(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetAliasResponse {
     /// The alias name, it could be a `.vercel.app` subdomain or a custom domain
@@ -183,124 +314,4 @@ pub struct PatchUrlProtectionBypassVariant0 {
     /// Optional instructions for revoking and regenerating a shareable link
     #[serde(skip_serializing_if = "Option::is_none")]
     pub revoke: Option<PatchUrlProtectionBypassVariant0Revoke>,
-}
-
-impl PatchUrlProtectionBypassVariant0 {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.ttl.as_ref() {
-            crate::validation::validate_range(
-                "ttl",
-                *value,
-                crate::validation::RangeOpts {
-                    max: Some(63072000_f64),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            ttl: None,
-            revoke: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-/// Invitation status for the user scoped bypass.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum PatchUrlProtectionBypassVariant1ScopeAccessEnum {
-    #[default]
-    Denied,
-    Granted,
-    Unknown(String),
-}
-
-impl PatchUrlProtectionBypassVariant1ScopeAccessEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Denied => "denied",
-            Self::Granted => "granted",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "denied" => Self::Denied,
-            "granted" => Self::Granted,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for PatchUrlProtectionBypassVariant1ScopeAccessEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Instructions for creating a user scoped protection bypass
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PatchUrlProtectionBypassVariant1Scope {
-    /// Specified user id for the scoped bypass.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    /// Specified email for the scoped bypass.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>,
-    /// Invitation status for the user scoped bypass.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub access: Option<PatchUrlProtectionBypassVariant1ScopeAccessEnum>,
-}
-
-impl PatchUrlProtectionBypassVariant1Scope {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.email.as_ref() {
-            crate::validation::validate_email("email", value)?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            user_id: None,
-            email: None,
-            access: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PatchUrlProtectionBypassVariant1 {
-    /// Instructions for creating a user scoped protection bypass
-    pub scope: PatchUrlProtectionBypassVariant1Scope,
-}
-
-impl PatchUrlProtectionBypassVariant1 {
-    pub fn new(scope: PatchUrlProtectionBypassVariant1Scope) -> Self {
-        Self { scope }
-    }
 }

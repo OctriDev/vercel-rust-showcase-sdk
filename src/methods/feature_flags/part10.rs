@@ -3,6 +3,253 @@
 
 use super::*;
 
+impl ::std::convert::From<Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1>>
+    for CreateFlagResponseEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1>) -> Self {
+        Self::Split(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2>>
+    for CreateFlagResponseEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2>) -> Self {
+        Self::Rollout(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3>>
+    for CreateFlagResponseEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3>) -> Self {
+        Self::Experiment(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItem {
+    pub conditions: Vec<CreateFlagResponseEnvironmentsValueRulesItemConditionsItem>,
+    pub id: String,
+    pub outcome: CreateFlagResponseEnvironmentsValueRulesItemOutcome,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItem {
+    pub fn new(
+        conditions: Vec<CreateFlagResponseEnvironmentsValueRulesItemConditionsItem>,
+        id: String,
+        outcome: CreateFlagResponseEnvironmentsValueRulesItemOutcome,
+    ) -> Self {
+        Self {
+            conditions,
+            id,
+            outcome,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub note: Option<String>,
+    pub value: String,
+}
+
+impl CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem {
+    pub fn new(value: String) -> Self {
+        Self { note: None, value }
+    }
+}
+
+pub type CreateFlagResponseEnvironmentsValueTargets = std::collections::HashMap<
+    String,
+    std::collections::HashMap<
+        String,
+        std::collections::HashMap<
+            String,
+            Vec<CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem>,
+        >,
+    >,
+>;
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValue {
+    pub active: bool,
+    pub fallthrough: CreateFlagResponseEnvironmentsValueFallthrough,
+    #[serde(rename = "pausedOutcome")]
+    pub paused_outcome: CreateFlagResponseEnvironmentsValuePausedOutcome,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reuse: Option<CreateFlagResponseEnvironmentsValueReuse>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revision: Option<f64>,
+    pub rules: Vec<CreateFlagResponseEnvironmentsValueRulesItem>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub targets: Option<CreateFlagResponseEnvironmentsValueTargets>,
+}
+
+impl CreateFlagResponseEnvironmentsValue {
+    pub fn new(
+        active: bool,
+        fallthrough: CreateFlagResponseEnvironmentsValueFallthrough,
+        paused_outcome: CreateFlagResponseEnvironmentsValuePausedOutcome,
+        rules: Vec<CreateFlagResponseEnvironmentsValueRulesItem>,
+    ) -> Self {
+        Self {
+            active,
+            fallthrough,
+            paused_outcome,
+            reuse: None,
+            revision: None,
+            rules,
+            targets: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateFlagResponseKindEnum {
+    #[default]
+    Boolean,
+    Json,
+    Number,
+    String,
+    Unknown(String),
+}
+
+impl CreateFlagResponseKindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Boolean => "boolean",
+            Self::Json => "json",
+            Self::Number => "number",
+            Self::String => "string",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateFlagResponseKindEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagResponseKindEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "boolean" => Self::Boolean,
+            "json" => Self::Json,
+            "number" => Self::Number,
+            "string" => Self::String,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseKindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateFlagResponseStateEnum {
+    #[default]
+    Active,
+    Archived,
+    Unknown(String),
+}
+
+impl CreateFlagResponseStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Active => "active",
+            Self::Archived => "archived",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateFlagResponseStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagResponseStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "active" => Self::Active,
+            "archived" => Self::Archived,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateFlagResponseTypeNameEnum {
+    #[default]
+    Flag,
+    Unknown(String),
+}
+
+impl CreateFlagResponseTypeNameEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Flag => "flag",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateFlagResponseTypeNameEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagResponseTypeNameEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flag" => Self::Flag,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseTypeNameEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum CreateFlagResponseVariantsItemValue {
@@ -63,257 +310,8 @@ impl<'de> serde::Deserialize<'de> for CreateFlagResponseVariantsItemValue {
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseVariantsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub value: Option<CreateFlagResponseVariantsItemValue>,
-}
-
-impl CreateFlagResponseVariantsItem {
-    pub fn new(id: String, value: Option<CreateFlagResponseVariantsItemValue>) -> Self {
-        Self {
-            description: None,
-            id,
-            label: None,
-            value,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponse {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    pub environments: std::collections::HashMap<String, CreateFlagResponseEnvironmentsValue>,
-    pub id: String,
-    pub kind: CreateFlagResponseKindEnum,
-    #[serde(rename = "maintainerIds", skip_serializing_if = "Option::is_none")]
-    pub maintainer_ids: Option<Vec<String>>,
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub permanent: Option<bool>,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    pub revision: f64,
-    pub seed: f64,
-    #[serde(rename = "seenInProduction", skip_serializing_if = "Option::is_none")]
-    pub seen_in_production: Option<bool>,
-    pub slug: String,
-    pub state: CreateFlagResponseStateEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<String>>,
-    #[serde(rename = "typeName")]
-    pub type_name: CreateFlagResponseTypeNameEnum,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-    #[serde(rename = "updatedBy", skip_serializing_if = "Option::is_none")]
-    pub updated_by: Option<String>,
-    pub variants: Vec<CreateFlagResponseVariantsItem>,
-}
-
-impl CreateFlagResponse {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_by: String,
-        environments: std::collections::HashMap<String, CreateFlagResponseEnvironmentsValue>,
-        id: String,
-        kind: CreateFlagResponseKindEnum,
-        owner_id: String,
-        project_id: String,
-        revision: f64,
-        seed: f64,
-        slug: String,
-        state: CreateFlagResponseStateEnum,
-        type_name: CreateFlagResponseTypeNameEnum,
-        updated_at: f64,
-        variants: Vec<CreateFlagResponseVariantsItem>,
-    ) -> Self {
-        Self {
-            created_at,
-            created_by,
-            description: None,
-            environments,
-            id,
-            kind,
-            maintainer_ids: None,
-            owner_id,
-            permanent: None,
-            project_id,
-            revision,
-            seed,
-            seen_in_production: None,
-            slug,
-            state,
-            tags: None,
-            type_name,
-            updated_at,
-            updated_by: None,
-            variants,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateFlagVariantsItemValue {
-    String(String),
-    Number(f64),
-    Bool(bool),
-    ValueArray(Vec<serde_json::Value>),
-    Value(serde_json::Value),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFlagVariantsItemValue {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<serde_json::Value>>(value.clone()) {
-            let candidate = Self::ValueArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<serde_json::Value>(value.clone()) {
-            let candidate = Self::Value(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no UpdateFlagVariantsItemValue branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagVariantsItem {
-    /// The id of the variant
-    pub id: String,
-    /// A label for the variant
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub label: Option<String>,
-    /// A description of the variant
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    pub value: UpdateFlagVariantsItemValue,
-}
-
-impl UpdateFlagVariantsItem {
-    pub fn new(id: String, value: UpdateFlagVariantsItemValue) -> Self {
-        Self {
-            id,
-            label: None,
-            description: None,
-            value,
-        }
-    }
-}
-
-/// Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagEnvironmentsValueReuse {
-    /// Whether the reuse is active or not
-    pub active: bool,
-    /// The environment to link to
-    pub environment: String,
-}
-
-impl UpdateFlagEnvironmentsValueReuse {
-    pub fn new(active: bool, environment: String) -> Self {
-        Self {
-            active,
-            environment,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagEnvironmentsValueTargetsValueValueValueItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-    pub value: String,
-}
-
-impl UpdateFlagEnvironmentsValueTargetsValueValueValueItem {
-    pub fn new(value: String) -> Self {
-        Self { note: None, value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagEnvironmentsValuePausedOutcome {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    #[serde(rename = "variantId")]
-    pub variant_id: String,
-}
-
-impl UpdateFlagEnvironmentsValuePausedOutcome {
-    pub fn new(type_: serde_json::Value, variant_id: String) -> Self {
-        Self { type_, variant_id }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-}
-
-impl UpdateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant0 {
-    pub fn new(type_: serde_json::Value) -> Self {
-        Self { type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant1 {
-    #[serde(rename = "type")]
-    pub type_: serde_json::Value,
-    pub kind: String,
-    pub attribute: String,
-}
-
-impl UpdateFlagEnvironmentsValueRulesItemConditionsItemLhsVariant1 {
-    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
-        Self {
-            type_,
-            kind,
-            attribute,
-        }
+impl ::std::convert::From<String> for CreateFlagResponseVariantsItemValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }

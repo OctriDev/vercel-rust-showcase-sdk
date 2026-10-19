@@ -10,6 +10,43 @@ use crate::types::{
 };
 use crate::validation::{validate_items, LengthOpts};
 
+impl serde::Serialize for CreateDrainProjectsEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDrainProjectsEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "some" => Self::Some,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDrainProjectsEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainProjectsEnum {
+    #[default]
+    All,
+    Some,
+    Unknown(String),
+}
+
 impl UpdateDrainProjectsEnum {
     pub fn as_str(&self) -> &str {
         match self {

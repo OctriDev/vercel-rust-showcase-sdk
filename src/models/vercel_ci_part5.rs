@@ -3,6 +3,44 @@
 
 // vercel_ci domain models (part 5)
 
+impl SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Succeeded => "succeeded",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum::Succeeded => f.write_str("succeeded"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0 {
+    pub result: SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum,
+}
+
+impl SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0 {
+    pub fn new(
+        result: SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant0ResultEnum,
+    ) -> Self {
+        Self { result }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant1ResultEnum {
+    #[serde(rename = "cached")]
+    #[default]
+    Cached,
+}
+
 impl SearchVercelCiLogsResponseInvocationsItemTasksItemConclusionVariant1ResultEnum {
     pub fn as_str(&self) -> &str {
         match self {
