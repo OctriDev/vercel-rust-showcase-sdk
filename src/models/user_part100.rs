@@ -3,95 +3,231 @@
 
 // user domain models (part 100)
 
-impl std::fmt::Display for UserEventPayloadVariant456MethodEnum {
+impl serde::Serialize for UserEventPayloadVariant450ActorTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant450ActorTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "admin" => Self::Admin,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant450ActorTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Required object value serialized in the `next` wire field.
+/// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant456Next {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
+pub struct UserEventPayloadVariant450 {
+    /// Required `string` value serialized in the `actorId` wire field.
+    #[serde(rename = "actorId")]
+    pub actor_id: String,
+    /// Required enumerated value serialized in the `actorType` wire field.
+    #[serde(rename = "actorType")]
+    pub actor_type: UserEventPayloadVariant450ActorTypeEnum,
 }
 
-impl UserEventPayloadVariant456Next {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
+impl UserEventPayloadVariant450 {
+    pub fn new(actor_id: String, actor_type: UserEventPayloadVariant450ActorTypeEnum) -> Self {
         Self {
-            enabled,
-            totp_verified,
+            actor_id,
+            actor_type,
         }
     }
 }
 
-/// Required object value serialized in the `previous` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant456Previous {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
+/// Required enumerated value serialized in the `actorType` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant451ActorTypeEnum {
+    #[default]
+    Admin,
+    Unknown(String),
 }
 
-impl UserEventPayloadVariant456Previous {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
-        Self {
-            enabled,
-            totp_verified,
+impl UserEventPayloadVariant451ActorTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Admin => "admin",
+            Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant451ActorTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant451ActorTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "admin" => Self::Admin,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant451ActorTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant456 {
-    /// Optional enumerated value serialized in the `method` wire field.
+pub struct UserEventPayloadVariant451 {
+    /// Required `string` value serialized in the `actorId` wire field.
+    #[serde(rename = "actorId")]
+    pub actor_id: String,
+    /// Required enumerated value serialized in the `actorType` wire field.
+    #[serde(rename = "actorType")]
+    pub actor_type: UserEventPayloadVariant451ActorTypeEnum,
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+}
+
+impl UserEventPayloadVariant451 {
+    pub fn new(
+        actor_id: String,
+        actor_type: UserEventPayloadVariant451ActorTypeEnum,
+        enabled: bool,
+    ) -> Self {
+        Self {
+            actor_id,
+            actor_type,
+            enabled,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `actorType` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant452ActorTypeEnum {
+    #[default]
+    Admin,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant452ActorTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Admin => "admin",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant452ActorTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant452ActorTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "admin" => Self::Admin,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant452ActorTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant452 {
+    /// Required `string` value serialized in the `actorId` wire field.
+    #[serde(rename = "actorId")]
+    pub actor_id: String,
+    /// Required enumerated value serialized in the `actorType` wire field.
+    #[serde(rename = "actorType")]
+    pub actor_type: UserEventPayloadVariant452ActorTypeEnum,
+    /// Required enumerated value serialized in the `autoBlockPrevented` wire field.
+    #[serde(rename = "autoBlockPrevented")]
+    pub auto_block_prevented: bool,
+    /// Optional `number` value serialized in the `preventUntil` wire field.
+    #[serde(rename = "preventUntil", skip_serializing_if = "Option::is_none")]
+    pub prevent_until: Option<f64>,
+    /// Optional `string` value serialized in the `reason` wire field.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub method: Option<UserEventPayloadVariant456MethodEnum>,
-    /// Required object value serialized in the `next` wire field.
-    pub next: UserEventPayloadVariant456Next,
-    /// Required object value serialized in the `previous` wire field.
-    pub previous: UserEventPayloadVariant456Previous,
+    pub reason: Option<String>,
 }
 
-impl UserEventPayloadVariant456 {
+impl UserEventPayloadVariant452 {
     pub fn new(
-        next: UserEventPayloadVariant456Next,
-        previous: UserEventPayloadVariant456Previous,
+        actor_id: String,
+        actor_type: UserEventPayloadVariant452ActorTypeEnum,
+        auto_block_prevented: bool,
     ) -> Self {
         Self {
-            method: None,
-            next,
-            previous,
+            actor_id,
+            actor_type,
+            auto_block_prevented,
+            prevent_until: None,
+            reason: None,
         }
     }
 }
 
-/// Absent on events predating the field; those were all logins.
+/// Required enumerated value serialized in the `method` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant457ContextEnum {
+pub enum UserEventPayloadVariant453MethodEnum {
     #[default]
-    Login,
-    Sudo,
+    EmailOtp,
+    RecoveryCode,
+    Totp,
+    Webauthn,
     Unknown(String),
 }
 
-impl UserEventPayloadVariant457ContextEnum {
+impl UserEventPayloadVariant453MethodEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Login => "login",
-            Self::Sudo => "sudo",
+            Self::EmailOtp => "email-otp",
+            Self::RecoveryCode => "recovery-code",
+            Self::Totp => "totp",
+            Self::Webauthn => "webauthn",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant457ContextEnum {
+impl serde::Serialize for UserEventPayloadVariant453MethodEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -100,21 +236,23 @@ impl serde::Serialize for UserEventPayloadVariant457ContextEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant457ContextEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant453MethodEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "login" => Self::Login,
-            "sudo" => Self::Sudo,
+            "email-otp" => Self::EmailOtp,
+            "recovery-code" => Self::RecoveryCode,
+            "totp" => Self::Totp,
+            "webauthn" => Self::Webauthn,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant457ContextEnum {
+impl std::fmt::Display for UserEventPayloadVariant453MethodEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
@@ -122,310 +260,143 @@ impl std::fmt::Display for UserEventPayloadVariant457ContextEnum {
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant457 {
-    /// Absent on events predating the field; those were all logins.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub context: Option<UserEventPayloadVariant457ContextEnum>,
-    /// Required `number` value serialized in the `remaining` wire field.
-    pub remaining: f64,
+pub struct UserEventPayloadVariant453 {
+    /// Optional `string` value serialized in the `flowId` wire field.
+    #[serde(rename = "flowId", skip_serializing_if = "Option::is_none")]
+    pub flow_id: Option<String>,
+    /// Optional `string` value serialized in the `loginSessionId` wire field.
+    #[serde(rename = "loginSessionId", skip_serializing_if = "Option::is_none")]
+    pub login_session_id: Option<String>,
+    /// Required enumerated value serialized in the `method` wire field.
+    pub method: UserEventPayloadVariant453MethodEnum,
+    /// Required `string` value serialized in the `reason` wire field.
+    pub reason: String,
 }
 
-impl UserEventPayloadVariant457 {
-    pub fn new(remaining: f64) -> Self {
+impl UserEventPayloadVariant453 {
+    pub fn new(method: UserEventPayloadVariant453MethodEnum, reason: String) -> Self {
         Self {
-            context: None,
-            remaining,
+            flow_id: None,
+            login_session_id: None,
+            method,
+            reason,
         }
+    }
+}
+
+/// Required enumerated value serialized in the `allowedMethods[]` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant454AllowedMethodsItemEnum {
+    #[default]
+    RecoveryCode,
+    Totp,
+    Webauthn,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant454AllowedMethodsItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RecoveryCode => "recovery-code",
+            Self::Totp => "totp",
+            Self::Webauthn => "webauthn",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant454AllowedMethodsItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant454AllowedMethodsItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "recovery-code" => Self::RecoveryCode,
+            "totp" => Self::Totp,
+            "webauthn" => Self::Webauthn,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant454AllowedMethodsItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant458 {
-    /// Required enumerated value serialized in the `mfaEnabled` wire field.
-    #[serde(rename = "mfaEnabled")]
-    pub mfa_enabled: bool,
+pub struct UserEventPayloadVariant454 {
+    /// Required array value serialized in the `allowedMethods` wire field.
+    #[serde(rename = "allowedMethods")]
+    pub allowed_methods: Vec<UserEventPayloadVariant454AllowedMethodsItemEnum>,
+    /// Required `string` value serialized in the `firstFactor` wire field.
+    #[serde(rename = "firstFactor")]
+    pub first_factor: String,
+    /// Required `string` value serialized in the `flowId` wire field.
+    #[serde(rename = "flowId")]
+    pub flow_id: String,
+    /// Optional `string` value serialized in the `loginSessionId` wire field.
+    #[serde(rename = "loginSessionId", skip_serializing_if = "Option::is_none")]
+    pub login_session_id: Option<String>,
 }
 
-impl UserEventPayloadVariant458 {
-    pub fn new(mfa_enabled: bool) -> Self {
-        Self { mfa_enabled }
-    }
-}
-
-/// Required object value serialized in the `mfa` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant459Mfa {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
-}
-
-impl UserEventPayloadVariant459Mfa {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
-        Self {
-            enabled,
-            totp_verified,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant459 {
-    /// Required object value serialized in the `mfa` wire field.
-    pub mfa: UserEventPayloadVariant459Mfa,
-}
-
-impl UserEventPayloadVariant459 {
-    pub fn new(mfa: UserEventPayloadVariant459Mfa) -> Self {
-        Self { mfa }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant460 {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
-}
-
-impl UserEventPayloadVariant460 {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
-        Self {
-            enabled,
-            totp_verified,
-        }
-    }
-}
-
-/// Required object value serialized in the `next` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant461Next {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
-}
-
-impl UserEventPayloadVariant461Next {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
-        Self {
-            enabled,
-            totp_verified,
-        }
-    }
-}
-
-/// Required object value serialized in the `previous` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant461Previous {
-    /// Required enumerated value serialized in the `enabled` wire field.
-    pub enabled: bool,
-    /// Required enumerated value serialized in the `totpVerified` wire field.
-    #[serde(rename = "totpVerified")]
-    pub totp_verified: bool,
-}
-
-impl UserEventPayloadVariant461Previous {
-    pub fn new(enabled: bool, totp_verified: bool) -> Self {
-        Self {
-            enabled,
-            totp_verified,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant461 {
-    /// Required object value serialized in the `next` wire field.
-    pub next: UserEventPayloadVariant461Next,
-    /// Required object value serialized in the `previous` wire field.
-    pub previous: UserEventPayloadVariant461Previous,
-}
-
-impl UserEventPayloadVariant461 {
+impl UserEventPayloadVariant454 {
     pub fn new(
-        next: UserEventPayloadVariant461Next,
-        previous: UserEventPayloadVariant461Previous,
-    ) -> Self {
-        Self { next, previous }
-    }
-}
-
-/// Required enumerated value serialized in the `basis` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant462DecisionBasisEnum {
-    #[default]
-    Gmail,
-    None,
-    WorkspaceMx,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant462DecisionBasisEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gmail => "gmail",
-            Self::None => "none",
-            Self::WorkspaceMx => "workspace-mx",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant462DecisionBasisEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462DecisionBasisEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "gmail" => Self::Gmail,
-            "none" => Self::None,
-            "workspace-mx" => Self::WorkspaceMx,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant462DecisionBasisEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `mxOutcome` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant462DecisionMxOutcomeEnum {
-    #[default]
-    Google,
-    LookupError,
-    NonGoogle,
-    NotChecked,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant462DecisionMxOutcomeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Google => "google",
-            Self::LookupError => "lookup-error",
-            Self::NonGoogle => "non-google",
-            Self::NotChecked => "not-checked",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant462DecisionMxOutcomeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462DecisionMxOutcomeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "google" => Self::Google,
-            "lookup-error" => Self::LookupError,
-            "non-google" => Self::NonGoogle,
-            "not-checked" => Self::NotChecked,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant462DecisionMxOutcomeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required object value serialized in the `decision` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant462Decision {
-    /// Required enumerated value serialized in the `authoritative` wire field.
-    pub authoritative: bool,
-    /// Required enumerated value serialized in the `basis` wire field.
-    pub basis: UserEventPayloadVariant462DecisionBasisEnum,
-    /// Required `string` value serialized in the `emailDomain` wire field.
-    #[serde(rename = "emailDomain")]
-    pub email_domain: String,
-    /// Required enumerated value serialized in the `emailVerified` wire field.
-    #[serde(rename = "emailVerified")]
-    pub email_verified: bool,
-    /// Required enumerated value serialized in the `hostedDomainMatch` wire field.
-    #[serde(rename = "hostedDomainMatch")]
-    pub hosted_domain_match: bool,
-    /// Required enumerated value serialized in the `mxOutcome` wire field.
-    #[serde(rename = "mxOutcome")]
-    pub mx_outcome: UserEventPayloadVariant462DecisionMxOutcomeEnum,
-}
-
-impl UserEventPayloadVariant462Decision {
-    pub fn new(
-        authoritative: bool,
-        basis: UserEventPayloadVariant462DecisionBasisEnum,
-        email_domain: String,
-        email_verified: bool,
-        hosted_domain_match: bool,
-        mx_outcome: UserEventPayloadVariant462DecisionMxOutcomeEnum,
+        allowed_methods: Vec<UserEventPayloadVariant454AllowedMethodsItemEnum>,
+        first_factor: String,
+        flow_id: String,
     ) -> Self {
         Self {
-            authoritative,
-            basis,
-            email_domain,
-            email_verified,
-            hosted_domain_match,
-            mx_outcome,
+            allowed_methods,
+            first_factor,
+            flow_id,
+            login_session_id: None,
         }
     }
 }
 
-/// Required enumerated value serialized in the `outcome` wire field.
+/// Required enumerated value serialized in the `action` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant462OutcomeEnum {
+pub enum UserEventPayloadVariant455ActionEnum {
     #[default]
-    AccountMatched,
-    LinkingRequired,
+    AddPasskey,
+    AddTotp,
+    AdminRemove,
+    Disable,
+    Enable,
+    RegenerateRecoveryCodes,
+    RemovePasskey,
     Unknown(String),
 }
 
-impl UserEventPayloadVariant462OutcomeEnum {
+impl UserEventPayloadVariant455ActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AccountMatched => "account-matched",
-            Self::LinkingRequired => "linking-required",
+            Self::AddPasskey => "add-passkey",
+            Self::AddTotp => "add-totp",
+            Self::AdminRemove => "admin-remove",
+            Self::Disable => "disable",
+            Self::Enable => "enable",
+            Self::RegenerateRecoveryCodes => "regenerate-recovery-codes",
+            Self::RemovePasskey => "remove-passkey",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant462OutcomeEnum {
+impl serde::Serialize for UserEventPayloadVariant455ActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -434,44 +405,70 @@ impl serde::Serialize for UserEventPayloadVariant462OutcomeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462OutcomeEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant455ActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "account-matched" => Self::AccountMatched,
-            "linking-required" => Self::LinkingRequired,
+            "add-passkey" => Self::AddPasskey,
+            "add-totp" => Self::AddTotp,
+            "admin-remove" => Self::AdminRemove,
+            "disable" => Self::Disable,
+            "enable" => Self::Enable,
+            "regenerate-recovery-codes" => Self::RegenerateRecoveryCodes,
+            "remove-passkey" => Self::RemovePasskey,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UserEventPayloadVariant462OutcomeEnum {
+impl std::fmt::Display for UserEventPayloadVariant455ActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Required enumerated value serialized in the `provider` wire field.
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant455 {
+    /// Required enumerated value serialized in the `action` wire field.
+    pub action: UserEventPayloadVariant455ActionEnum,
+    /// Required `string` value serialized in the `reason` wire field.
+    pub reason: String,
+}
+
+impl UserEventPayloadVariant455 {
+    pub fn new(action: UserEventPayloadVariant455ActionEnum, reason: String) -> Self {
+        Self { action, reason }
+    }
+}
+
+/// Optional enumerated value serialized in the `method` wire field.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant462ProviderEnum {
+pub enum UserEventPayloadVariant456MethodEnum {
     #[default]
-    Google,
+    Passkey,
+    SelfServeRecovery,
+    Totp,
+    UserDisabled,
     Unknown(String),
 }
 
-impl UserEventPayloadVariant462ProviderEnum {
+impl UserEventPayloadVariant456MethodEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Google => "google",
+            Self::Passkey => "passkey",
+            Self::SelfServeRecovery => "self_serve_recovery",
+            Self::Totp => "totp",
+            Self::UserDisabled => "user_disabled",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UserEventPayloadVariant462ProviderEnum {
+impl serde::Serialize for UserEventPayloadVariant456MethodEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -480,21 +477,18 @@ impl serde::Serialize for UserEventPayloadVariant462ProviderEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462ProviderEnum {
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant456MethodEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "google" => Self::Google,
+            "passkey" => Self::Passkey,
+            "self_serve_recovery" => Self::SelfServeRecovery,
+            "totp" => Self::Totp,
+            "user_disabled" => Self::UserDisabled,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant462ProviderEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

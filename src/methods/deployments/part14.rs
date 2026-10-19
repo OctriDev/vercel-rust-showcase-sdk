@@ -265,6 +265,18 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseSeatBlockGitUserId
     }
 }
 
+impl ::std::convert::From<String> for CancelDeploymentResponseSeatBlockGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CancelDeploymentResponseSeatBlockGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 /// NSNB Blocked metadata
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CancelDeploymentResponseSeatBlock {
@@ -282,16 +294,4 @@ pub struct CancelDeploymentResponseSeatBlock {
     /// The blocked vercel user ID.
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
-}
-
-impl CancelDeploymentResponseSeatBlock {
-    pub fn new(block_code: CancelDeploymentResponseSeatBlockBlockCodeEnum) -> Self {
-        Self {
-            block_code,
-            git_provider: None,
-            git_user_id: None,
-            is_verified: None,
-            user_id: None,
-        }
-    }
 }

@@ -2,617 +2,318 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{AddBypassIpResponse, GetConditionalBypassResponse};
-use crate::validation::{
-    validate_items, validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts,
-};
 
-#[derive(Debug, Clone, Default)]
-pub struct GetBypassIpParams {
-    pub project_id: String,
-    pub limit: Option<f64>,
-    pub source_ip: Option<String>,
-    pub domain: Option<String>,
-    pub project_scope: Option<bool>,
-    pub offset: Option<String>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum {
+    #[default]
+    BotCategory,
+    BotName,
+    BotProtection,
+    BotStatus,
+    Cookie,
+    DomainEnvironment,
+    Environment,
+    GeoAsNumber,
+    GeoCity,
+    GeoContinent,
+    GeoCountry,
+    GeoCountryRegion,
+    Header,
+    Host,
+    IpAddress,
+    Ja3Digest,
+    Ja4Digest,
+    Method,
+    Path,
+    Protocol,
+    Query,
+    RateLimitApiId,
+    RawPath,
+    Region,
+    ResponseCode,
+    Route,
+    Ruleset,
+    Scheme,
+    ServerAction,
+    SharedCondition,
+    TargetPath,
+    TrafficSource,
+    TrustedSource,
+    UserAgent,
+    Unknown(String),
 }
 
-/// Lists system bypass rules configured for a project. Filter the results with `sourceIp`, `domain`, or `projectScope`, and use `offset` and `limit` to page through matching rules.
-///
-/// Retrieve the system bypass rules configured for the specified project
-///
-/// # Arguments
-///
-/// * `source_ip` - Filter by source IP
-/// * `domain` - Filter by domain
-/// * `project_scope` - Filter by project scoped rules
-/// * `offset` - Used for pagination. Retrieves results after the provided id
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_bypass_ip(
-    config: &ClientConfig,
-    params: GetBypassIpParams,
-    options: Option<&RequestOptions>,
-) -> Result<GetBypassIpResponse, SdkError> {
-    let GetBypassIpParams {
-        project_id,
-        limit,
-        source_ip,
-        domain,
-        project_scope,
-        offset,
-        team_id,
-        slug,
-    } = params;
-    if let Some(ref limit_v) = limit {
-        validate_range(
-            "limit",
-            *limit_v,
-            RangeOpts {
-                max: Some(256_f64),
-                ..Default::default()
-            },
-        )?;
+impl CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BotCategory => "bot_category",
+            Self::BotName => "bot_name",
+            Self::BotProtection => "bot_protection",
+            Self::BotStatus => "bot_status",
+            Self::Cookie => "cookie",
+            Self::DomainEnvironment => "domain_environment",
+            Self::Environment => "environment",
+            Self::GeoAsNumber => "geo_as_number",
+            Self::GeoCity => "geo_city",
+            Self::GeoContinent => "geo_continent",
+            Self::GeoCountry => "geo_country",
+            Self::GeoCountryRegion => "geo_country_region",
+            Self::Header => "header",
+            Self::Host => "host",
+            Self::IpAddress => "ip_address",
+            Self::Ja3Digest => "ja3_digest",
+            Self::Ja4Digest => "ja4_digest",
+            Self::Method => "method",
+            Self::Path => "path",
+            Self::Protocol => "protocol",
+            Self::Query => "query",
+            Self::RateLimitApiId => "rate_limit_api_id",
+            Self::RawPath => "raw_path",
+            Self::Region => "region",
+            Self::ResponseCode => "response_code",
+            Self::Route => "route",
+            Self::Ruleset => "ruleset",
+            Self::Scheme => "scheme",
+            Self::ServerAction => "server_action",
+            Self::SharedCondition => "shared_condition",
+            Self::TargetPath => "target_path",
+            Self::TrafficSource => "traffic_source",
+            Self::TrustedSource => "trusted_source",
+            Self::UserAgent => "user_agent",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref source_ip_v) = source_ip {
-        validate_length(
-            "sourceIp",
-            source_ip_v,
-            LengthOpts {
-                max: Some(49),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref domain_v) = domain {
-        validate_length(
-            "domain",
-            domain_v,
-            LengthOpts {
-                max: Some(2544),
-                ..Default::default()
-            },
-        )?;
-        validate_pattern("domain", domain_v, "([a-z]+[a-z.]+)$")?;
-    }
-    if let Some(ref offset_v) = offset {
-        validate_length(
-            "offset",
-            offset_v,
-            LengthOpts {
-                max: Some(2560),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(8);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = source_ip {
-        __query.push(("sourceIp", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = domain {
-        __query.push(("domain", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = project_scope {
-        __query.push(("projectScope", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = offset {
-        __query.push(("offset", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetBypassIpResponse>(
-        "GET",
-        "/v1/security/firewall/bypass",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_bypass_ip",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct AddBypassIpParams {
-    pub project_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub domain: Option<String>,
-    pub project_scope: Option<bool>,
-    pub source_ip: Option<String>,
-    pub all_sources: Option<bool>,
-    pub ttl: Option<f64>,
-    pub note: Option<String>,
+impl serde::Serialize
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-/// Creates a system bypass rule for a project. Supply either `domain` to scope the rule to a domain or `projectScope` to apply it across project domains; you can also set a source IP, expiry, and note.
-///
-/// Create new system bypass rules
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `project_scope` - If the specified bypass will apply to all domains for a
-///   project.
-/// * `ttl` - Time to live in milliseconds
-pub fn add_bypass_ip(
-    config: &ClientConfig,
-    params: AddBypassIpParams,
-    options: Option<&RequestOptions>,
-) -> Result<AddBypassIpResponse, SdkError> {
-    let AddBypassIpParams {
-        project_id,
-        team_id,
-        slug,
-        domain,
-        project_scope,
-        source_ip,
-        all_sources,
-        ttl,
-        note,
-    } = params;
-    if let Some(ref domain_v) = domain {
-        validate_length(
-            "domain",
-            domain_v,
-            LengthOpts {
-                max: Some(2544),
-                ..Default::default()
-            },
-        )?;
-        validate_pattern("domain", domain_v, "([a-z]+[a-z.]+)$")?;
+impl<'de> serde::Deserialize<'de>
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "bot_category" => Self::BotCategory,
+            "bot_name" => Self::BotName,
+            "bot_protection" => Self::BotProtection,
+            "bot_status" => Self::BotStatus,
+            "cookie" => Self::Cookie,
+            "domain_environment" => Self::DomainEnvironment,
+            "environment" => Self::Environment,
+            "geo_as_number" => Self::GeoAsNumber,
+            "geo_city" => Self::GeoCity,
+            "geo_continent" => Self::GeoContinent,
+            "geo_country" => Self::GeoCountry,
+            "geo_country_region" => Self::GeoCountryRegion,
+            "header" => Self::Header,
+            "host" => Self::Host,
+            "ip_address" => Self::IpAddress,
+            "ja3_digest" => Self::Ja3Digest,
+            "ja4_digest" => Self::Ja4Digest,
+            "method" => Self::Method,
+            "path" => Self::Path,
+            "protocol" => Self::Protocol,
+            "query" => Self::Query,
+            "rate_limit_api_id" => Self::RateLimitApiId,
+            "raw_path" => Self::RawPath,
+            "region" => Self::Region,
+            "response_code" => Self::ResponseCode,
+            "route" => Self::Route,
+            "ruleset" => Self::Ruleset,
+            "scheme" => Self::Scheme,
+            "server_action" => Self::ServerAction,
+            "shared_condition" => Self::SharedCondition,
+            "target_path" => Self::TargetPath,
+            "traffic_source" => Self::TrafficSource,
+            "trusted_source" => Self::TrustedSource,
+            "user_agent" => Self::UserAgent,
+            _ => Self::Unknown(value),
+        })
     }
-    if let Some(ref note_v) = note {
-        validate_length(
-            "note",
-            note_v,
-            LengthOpts {
-                max: Some(500),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = domain {
-        __body_map.insert(
-            "domain".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = project_scope {
-        __body_map.insert(
-            "projectScope".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = source_ip {
-        __body_map.insert(
-            "sourceIp".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = all_sources {
-        __body_map.insert(
-            "allSources".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = ttl {
-        __body_map.insert(
-            "ttl".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = note {
-        __body_map.insert(
-            "note".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<AddBypassIpResponse>(
-        "POST",
-        "/v1/security/firewall/bypass",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "add_bypass_ip",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct RemoveBypassIpParams {
-    pub project_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub domain: Option<String>,
-    pub project_scope: Option<bool>,
-    pub source_ip: Option<String>,
-    pub all_sources: Option<bool>,
-    pub note: Option<String>,
+impl std::fmt::Display
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
-/// Deletes system bypass rules for a project. Specify either `domain` or `projectScope` to identify the scope of the rules to remove, and optionally narrow the selection with source details.
-///
-/// Remove system bypass rules
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn remove_bypass_ip(
-    config: &ClientConfig,
-    params: RemoveBypassIpParams,
-    options: Option<&RequestOptions>,
-) -> Result<RemoveBypassIpResponse, SdkError> {
-    let RemoveBypassIpParams {
-        project_id,
-        team_id,
-        slug,
-        domain,
-        project_scope,
-        source_ip,
-        all_sources,
-        note,
-    } = params;
-    if let Some(ref domain_v) = domain {
-        validate_length(
-            "domain",
-            domain_v,
-            LengthOpts {
-                max: Some(2544),
-                ..Default::default()
-            },
-        )?;
-        validate_pattern("domain", domain_v, "([a-z]+[a-z.]+)$")?;
-    }
-    if let Some(ref note_v) = note {
-        validate_length(
-            "note",
-            note_v,
-            LengthOpts {
-                max: Some(500),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = domain {
-        __body_map.insert(
-            "domain".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = project_scope {
-        __body_map.insert(
-            "projectScope".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = source_ip {
-        __body_map.insert(
-            "sourceIp".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = all_sources {
-        __body_map.insert(
-            "allSources".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = note {
-        __body_map.insert(
-            "note".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<RemoveBypassIpResponse>(
-        "DELETE",
-        "/v1/security/firewall/bypass",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "remove_bypass_ip",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue {
+    String(String),
+    Number(f64),
+    StringArray(Vec<String>),
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct GetConditionalBypassParams {
-    pub project_id: String,
-    pub slug: Option<String>,
-    pub domain: Option<String>,
-    pub limit: Option<f64>,
-    pub offset: Option<String>,
-    pub team_id: Option<String>,
+impl<'de> serde::Deserialize<'de>
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
 }
 
-/// Lists conditional firewall bypass rules for a project. Use `projectId` to select the project and optionally filter by `slug` or `domain`; `limit` and `offset` control the returned results. The response includes the rules and may include pagination metadata.
-///
-/// Retrieve conditional firewall bypass rules for a project.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-pub fn get_conditional_bypass(
-    config: &ClientConfig,
-    params: GetConditionalBypassParams,
-    options: Option<&RequestOptions>,
-) -> Result<GetConditionalBypassResponse, SdkError> {
-    let GetConditionalBypassParams {
-        project_id,
-        slug,
-        domain,
-        limit,
-        offset,
-        team_id,
-    } = params;
-    if let Some(ref limit_v) = limit {
-        validate_range(
-            "limit",
-            *limit_v,
-            RangeOpts {
-                min: Some(1_f64),
-                max: Some(100_f64),
-                ..Default::default()
-            },
-        )?;
+impl ::std::convert::From<String>
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
-    if let Some(ref offset_v) = offset {
-        validate_length(
-            "offset",
-            offset_v,
-            LengthOpts {
-                max: Some(512),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(6);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = domain {
-        __query.push(("domain", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = offset {
-        __query.push(("offset", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetConditionalBypassResponse>(
-        "GET",
-        "/v1/security/firewall/bypass/rules",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_conditional_bypass",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct CreateConditionalBypassParams {
-    pub project_id: String,
+impl ::std::convert::From<f64>
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateConditionalBypassResponseResultConditionGroupItemConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    pub op: CreateConditionalBypassResponseResultConditionGroupItemConditionsItemOpEnum,
+    #[serde(rename = "type")]
+    pub type_: CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<CreateConditionalBypassResponseResultConditionGroupItemConditionsItemValue>,
+}
+
+impl CreateConditionalBypassResponseResultConditionGroupItemConditionsItem {
+    pub fn new(
+        op: CreateConditionalBypassResponseResultConditionGroupItemConditionsItemOpEnum,
+        type_: CreateConditionalBypassResponseResultConditionGroupItemConditionsItemTypeEnum,
+    ) -> Self {
+        Self {
+            key: None,
+            neg: None,
+            op,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateConditionalBypassResponseResultConditionGroupItem {
+    pub conditions: Vec<CreateConditionalBypassResponseResultConditionGroupItemConditionsItem>,
+}
+
+impl CreateConditionalBypassResponseResultConditionGroupItem {
+    pub fn new(
+        conditions: Vec<CreateConditionalBypassResponseResultConditionGroupItemConditionsItem>,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateConditionalBypassResponseResult {
+    pub condition: String,
+    #[serde(rename = "conditionGroup")]
+    pub condition_group: Vec<CreateConditionalBypassResponseResultConditionGroupItem>,
+    #[serde(rename = "createdAt")]
+    pub created_at: String,
     pub domain: String,
-    pub condition_group: Vec<CreateConditionalBypassConditionGroupItem>,
-    pub slug: Option<String>,
-    pub team_id: Option<String>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub note: Option<String>,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: String,
 }
 
-/// Creates a conditional firewall bypass rule for a project domain. Provide the domain and a `conditionGroup` containing the conditions that determine when the bypass applies. You can add an optional note to describe the rule.
-///
-/// Create a conditional firewall bypass rule for a project domain.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-pub fn create_conditional_bypass(
-    config: &ClientConfig,
-    params: CreateConditionalBypassParams,
-    options: Option<&RequestOptions>,
-) -> Result<CreateConditionalBypassResponse, SdkError> {
-    let CreateConditionalBypassParams {
-        project_id,
-        domain,
-        condition_group,
-        slug,
-        team_id,
-        note,
-    } = params;
-    validate_items(
-        "conditionGroup",
-        &condition_group,
-        LengthOpts {
-            min: Some(1),
-            max: Some(25),
-        },
-    )?;
-    if let Some(ref note_v) = note {
-        validate_length(
-            "note",
-            note_v,
-            LengthOpts {
-                max: Some(500),
-                ..Default::default()
-            },
-        )?;
+impl CreateConditionalBypassResponseResult {
+    pub fn new(
+        condition: String,
+        condition_group: Vec<CreateConditionalBypassResponseResultConditionGroupItem>,
+        created_at: String,
+        domain: String,
+        id: String,
+        project_id: String,
+        updated_at: String,
+    ) -> Self {
+        Self {
+            condition,
+            condition_group,
+            created_at,
+            domain,
+            id,
+            note: None,
+            project_id,
+            updated_at,
+        }
     }
+}
 
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    __query.extend([("projectId", crate::client::query_value(&project_id))]);
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateConditionalBypassResponse {
+    pub result: CreateConditionalBypassResponseResult,
+}
 
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "domain".to_string(),
-        serde_json::to_value(domain).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "conditionGroup".to_string(),
-        serde_json::to_value(condition_group).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = note {
-        __body_map.insert(
-            "note".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
+impl CreateConditionalBypassResponse {
+    pub fn new(result: CreateConditionalBypassResponseResult) -> Self {
+        Self { result }
     }
-    let __body = serde_json::Value::Object(__body_map);
+}
 
-    Ok(sdk_request::<CreateConditionalBypassResponse>(
-        "POST",
-        "/v1/security/firewall/bypass/rules",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_conditional_bypass",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteConditionalBypassResponse {
+    pub ok: bool,
+}
+
+impl DeleteConditionalBypassResponse {
+    pub fn new(ok: bool) -> Self {
+        Self { ok }
+    }
 }

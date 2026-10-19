@@ -3,156 +3,28 @@
 
 use super::*;
 
-impl serde::Serialize for DeleteProjectAvatarResponseNodeVersionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseNodeVersionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
-            "8.10.x" => Self::_810X,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseNodeVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+/// The type of environment (production, preview, or development)
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
+pub enum DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     #[default]
-    Global,
-    Team,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Global => "global",
-            Self::Team => "team",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "global" => Self::Global,
-            "team" => Self::Team,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<DeleteProjectAvatarResponseOidcTokenConfigIssuerModeEnum>,
-}
-
-impl DeleteProjectAvatarResponseOidcTokenConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            enabled: None,
-            issuer_mode: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseOptionsAllowlistPathsItem {
-    pub value: String,
-}
-
-impl DeleteProjectAvatarResponseOptionsAllowlistPathsItem {
-    pub fn new(value: String) -> Self {
-        Self { value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseOptionsAllowlist {
-    pub paths: Vec<DeleteProjectAvatarResponseOptionsAllowlistPathsItem>,
-}
-
-impl DeleteProjectAvatarResponseOptionsAllowlist {
-    pub fn new(paths: Vec<DeleteProjectAvatarResponseOptionsAllowlistPathsItem>) -> Self {
-        Self { paths }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponsePassportDeploymentTypeEnum {
-    #[default]
-    All,
-    AllExceptCustomDomains,
+    Development,
     Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    Production,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponsePassportDeploymentTypeEnum {
+impl DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Development => "development",
             Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponsePassportDeploymentTypeEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -161,71 +33,144 @@ impl serde::Serialize for DeleteProjectAvatarResponsePassportDeploymentTypeEnum 
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponsePassportDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "development" => Self::Development,
             "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponsePassportDeploymentTypeEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Internal representation of a custom environment with all required properties
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponsePassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: DeleteProjectAvatarResponsePassportDeploymentTypeEnum,
+pub struct DeleteProjectAvatarResponseCustomEnvironmentsItem {
+    /// Configuration for matching git branches to this environment
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<DeleteProjectAvatarResponseCustomEnvironmentsItemBranchMatcher>,
+    /// Timestamp when the environment was created
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// List of aliases for the current deployment
+    #[serde(
+        rename = "currentDeploymentAliases",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub current_deployment_aliases: Option<Vec<String>>,
+    /// Optional description of the environment's purpose
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// List of domains associated with this environment
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domains: Option<Vec<DeleteProjectAvatarResponseCustomEnvironmentsItemDomainsItem>>,
+    /// Unique identifier for the custom environment (format: env_\*)
+    pub id: String,
+    /// URL-friendly name of the environment
+    pub slug: String,
+    /// The type of environment (production, preview, or development)
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum,
+    /// Timestamp when the environment was last updated
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
 }
 
-impl DeleteProjectAvatarResponsePassport {
+impl DeleteProjectAvatarResponseCustomEnvironmentsItem {
     pub fn new(
-        connector_id: String,
-        deployment_type: DeleteProjectAvatarResponsePassportDeploymentTypeEnum,
+        created_at: f64,
+        id: String,
+        slug: String,
+        type_: DeleteProjectAvatarResponseCustomEnvironmentsItemTypeEnum,
+        updated_at: f64,
     ) -> Self {
         Self {
-            connector_id,
-            deployment_type,
+            branch_matcher: None,
+            created_at,
+            current_deployment_aliases: None,
+            description: None,
+            domains: None,
+            id,
+            slug,
+            type_,
+            updated_at,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDataCache {
+    #[serde(
+        rename = "storageSizeBytes",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub storage_size_bytes: Option<Option<f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unlimited: Option<bool>,
+    #[serde(rename = "userDisabled")]
+    pub user_disabled: bool,
+}
+
+impl DeleteProjectAvatarResponseDataCache {
+    pub fn new(user_disabled: bool) -> Self {
+        Self {
+            storage_size_bytes: None,
+            unlimited: None,
+            user_disabled,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+pub enum DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    BasicFloor,
+    BuildTimeoutFailure,
+    EnospcFailure,
+    EnterpriseFloor,
+    HighPeakDisk,
+    HighPeakMemory,
+    LongBuildDuration,
+    OomFailure,
+    ShortBuildDuration,
+    SustainedHighCpu,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+impl DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::BasicFloor => "basic-floor",
+            Self::BuildTimeoutFailure => "build-timeout-failure",
+            Self::EnospcFailure => "enospc-failure",
+            Self::EnterpriseFloor => "enterprise-floor",
+            Self::HighPeakDisk => "high-peak-disk",
+            Self::HighPeakMemory => "high-peak-memory",
+            Self::LongBuildDuration => "long-build-duration",
+            Self::OomFailure => "oom-failure",
+            Self::ShortBuildDuration => "short-build-duration",
+            Self::SustainedHighCpu => "sustained-high-cpu",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+impl serde::Serialize
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -235,7 +180,7 @@ impl serde::Serialize for DeleteProjectAvatarResponsePasswordProtectionDeploymen
 }
 
 impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -243,32 +188,120 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "basic-floor" => Self::BasicFloor,
+            "build-timeout-failure" => Self::BuildTimeoutFailure,
+            "enospc-failure" => Self::EnospcFailure,
+            "enterprise-floor" => Self::EnterpriseFloor,
+            "high-peak-disk" => Self::HighPeakDisk,
+            "high-peak-memory" => Self::HighPeakMemory,
+            "long-build-duration" => Self::LongBuildDuration,
+            "oom-failure" => Self::OomFailure,
+            "short-build-duration" => Self::ShortBuildDuration,
+            "sustained-high-cpu" => Self::SustainedHighCpu,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticReasonEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Password protection settings returned without the secret password hash.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponsePasswordProtection {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    #[default]
+    Downgrade,
+    Upgrade,
+    Unknown(String),
 }
 
-impl DeleteProjectAvatarResponsePasswordProtection {
+impl DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Downgrade => "downgrade",
+            Self::Upgrade => "upgrade",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "downgrade" => Self::Downgrade,
+            "upgrade" => Self::Upgrade,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        deployment_type: DeleteProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+        algorithm_version: String,
+        at: f64,
+        direction: DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
-        Self { deployment_type }
+        Self {
+            algorithm_version,
+            at,
+            direction,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    #[default]
+    Elastic,
+    Fixed,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
 }

@@ -3,6 +3,55 @@
 
 use super::*;
 
+impl std::fmt::Display
+    for ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction:
+        ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransition {
+    pub fn new(
+        algorithm_version: String,
+        at: f64,
+        direction: ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    ) -> Self {
+        Self {
+            algorithm_version,
+            at,
+            direction,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant0ItemResourceConfigBuildMachineSelectionEnum {
+    #[default]
+    Elastic,
+    Fixed,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant0ItemResourceConfigBuildMachineSelectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ListProjectsResponseVariant0ItemResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -263,36 +312,5 @@ impl<'de> serde::Deserialize<'de>
             "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant0ItemResourceConfigElasticBuildMachineLabelEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant0ItemResourceConfigElasticBuildMachine {
-    pub cores: f64,
-    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
-    pub label: ListProjectsResponseVariant0ItemResourceConfigElasticBuildMachineLabelEnum,
-    pub memory: f64,
-}
-
-impl ListProjectsResponseVariant0ItemResourceConfigElasticBuildMachine {
-    pub fn new(
-        cores: f64,
-        label: ListProjectsResponseVariant0ItemResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
-    ) -> Self {
-        Self {
-            cores,
-            label,
-            memory,
-        }
     }
 }

@@ -2,290 +2,326 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{
-    GetVercelCiTaskLogsResponseTasksItemConclusion,
-    SearchVercelCiLogsResponseInvocationsItemTasksItemConclusion,
-};
 
-impl GetVercelCiTaskLogsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Succeeded => "succeeded",
-            Self::Cached => "cached",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetVercelCiTaskLogsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetVercelCiTaskLogsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "succeeded" => Self::Succeeded,
-            "cached" => Self::Cached,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetVercelCiTaskLogsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetVercelCiTaskLogsItemEnum1e08a244 {
-    #[default]
-    Trace,
-    Debug,
-    Command,
-    Info,
-    Warn,
-    Error,
-    Systemerror,
-    Fatal,
-    Unknown(String),
-}
-
-impl GetVercelCiTaskLogsItemEnum1e08a244 {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Trace => "trace",
-            Self::Debug => "debug",
-            Self::Command => "command",
-            Self::Info => "info",
-            Self::Warn => "warn",
-            Self::Error => "error",
-            Self::Systemerror => "systemError",
-            Self::Fatal => "fatal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetVercelCiTaskLogsItemEnum1e08a244 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetVercelCiTaskLogsItemEnum1e08a244 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "trace" => Self::Trace,
-            "debug" => Self::Debug,
-            "command" => Self::Command,
-            "info" => Self::Info,
-            "warn" => Self::Warn,
-            "error" => Self::Error,
-            "systemError" => Self::Systemerror,
-            "fatal" => Self::Fatal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetVercelCiTaskLogsItemEnum1e08a244 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiTaskLogsResponseTasksItemLinesItem {
-    pub level: String,
-    pub timestamp: f64,
-    pub message: String,
-}
-
-impl GetVercelCiTaskLogsResponseTasksItemLinesItem {
-    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+impl RetryVercelCiInvocationResponse {
+    pub fn new(invocation_id: String, attempt: f64) -> Self {
         Self {
-            level,
-            timestamp,
-            message,
+            invocation_id,
+            attempt,
         }
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum {
+    #[serde(rename = "command")]
+    #[default]
+    Command,
+}
+
+impl ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Command => "command",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum::Command => {
+                f.write_str("command")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum {
+    #[serde(rename = "turbo")]
+    #[default]
+    Turbo,
+}
+
+impl ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Turbo => "turbo",
+        }
+    }
+}
+
+impl std::fmt::Display for ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum::Turbo => {
+                f.write_str("turbo")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind {
+    Object(Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum>),
+    Object2(Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum>),
+}
+
+impl<'de> serde::Deserialize<'de> for ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum>>
+    for ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind
+{
+    fn from(
+        value: Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant0Enum>,
+    ) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum>>
+    for ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind
+{
+    fn from(
+        value: Box<ListVercelCiJobDefinitionsResponseJobDefinitionsItemKindVariant1Enum>,
+    ) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiTaskLogsResponseTasksItem {
+pub struct ListVercelCiJobDefinitionsResponseJobDefinitionsItem {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
     #[serde(rename = "jobDefinitionId")]
     pub job_definition_id: String,
-    #[serde(rename = "jobName")]
-    pub job_name: String,
-    #[serde(rename = "jobRunAttempt")]
-    pub job_run_attempt: f64,
-    #[serde(rename = "taskDefinitionId")]
-    pub task_definition_id: String,
-    #[serde(rename = "taskName")]
-    pub task_name: String,
-    #[serde(rename = "taskRunAttempt", skip_serializing_if = "Option::is_none")]
-    pub task_run_attempt: Option<f64>,
-    /// Typed representation of the `GetVercelCiTaskLogsResponseTasksItemConclusion` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub conclusion: Option<GetVercelCiTaskLogsResponseTasksItemConclusion>,
-    pub lines: Vec<GetVercelCiTaskLogsResponseTasksItemLinesItem>,
+    pub kind: ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind,
+    pub name: String,
+    pub command: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
 }
 
-impl GetVercelCiTaskLogsResponseTasksItem {
+impl ListVercelCiJobDefinitionsResponseJobDefinitionsItem {
     pub fn new(
+        invocation_id: String,
+        invocation_attempt: f64,
         job_definition_id: String,
-        job_name: String,
-        job_run_attempt: f64,
-        task_definition_id: String,
-        task_name: String,
-        lines: Vec<GetVercelCiTaskLogsResponseTasksItemLinesItem>,
+        kind: ListVercelCiJobDefinitionsResponseJobDefinitionsItemKind,
+        name: String,
+        command: String,
+        created_at: f64,
     ) -> Self {
         Self {
+            invocation_id,
+            invocation_attempt,
             job_definition_id,
-            job_name,
-            job_run_attempt,
-            task_definition_id,
-            task_name,
-            task_run_attempt: None,
-            conclusion: None,
-            lines,
+            kind,
+            name,
+            command,
+            created_at,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiTaskLogsResponse {
-    pub tasks: Vec<GetVercelCiTaskLogsResponseTasksItem>,
-    /// Whether more tasks matched the filters than were returned. With `search`, whether more than 1000 lines matched.
-    #[serde(rename = "hasMore")]
-    pub has_more: bool,
+pub struct ListVercelCiJobDefinitionsResponse {
+    #[serde(rename = "jobDefinitions")]
+    pub job_definitions: Vec<ListVercelCiJobDefinitionsResponseJobDefinitionsItem>,
 }
 
-impl GetVercelCiTaskLogsResponse {
-    pub fn new(tasks: Vec<GetVercelCiTaskLogsResponseTasksItem>, has_more: bool) -> Self {
-        Self { tasks, has_more }
+impl ListVercelCiJobDefinitionsResponse {
+    pub fn new(job_definitions: Vec<ListVercelCiJobDefinitionsResponseJobDefinitionsItem>) -> Self {
+        Self { job_definitions }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum SearchVercelCiLogsItemEnum {
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum {
+    #[serde(rename = "command")]
     #[default]
-    Trace,
-    Debug,
     Command,
-    Info,
-    Warn,
-    Error,
-    Systemerror,
-    Fatal,
-    Unknown(String),
 }
 
-impl SearchVercelCiLogsItemEnum {
+impl GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Trace => "trace",
-            Self::Debug => "debug",
             Self::Command => "command",
-            Self::Info => "info",
-            Self::Warn => "warn",
-            Self::Error => "error",
-            Self::Systemerror => "systemError",
-            Self::Fatal => "fatal",
-            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for SearchVercelCiLogsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl std::fmt::Display for GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum::Command => {
+                f.write_str("command")
+            }
+        }
     }
 }
 
-impl<'de> serde::Deserialize<'de> for SearchVercelCiLogsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "trace" => Self::Trace,
-            "debug" => Self::Debug,
-            "command" => Self::Command,
-            "info" => Self::Info,
-            "warn" => Self::Warn,
-            "error" => Self::Error,
-            "systemError" => Self::Systemerror,
-            "fatal" => Self::Fatal,
-            _ => Self::Unknown(value),
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum {
+    #[serde(rename = "turbo")]
+    #[default]
+    Turbo,
+}
+
+impl GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Turbo => "turbo",
+        }
+    }
+}
+
+impl std::fmt::Display for GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum::Turbo => {
+                f.write_str("turbo")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetVercelCiJobDefinitionResponseJobDefinitionKind {
+    Object(Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum>),
+    Object2(Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetVercelCiJobDefinitionResponseJobDefinitionKind {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetVercelCiJobDefinitionResponseJobDefinitionKind branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display for SearchVercelCiLogsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum>>
+    for GetVercelCiJobDefinitionResponseJobDefinitionKind
+{
+    fn from(value: Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum>>
+    for GetVercelCiJobDefinitionResponseJobDefinitionKind
+{
+    fn from(value: Box<GetVercelCiJobDefinitionResponseJobDefinitionKindVariant1Enum>) -> Self {
+        Self::Object2(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SearchVercelCiLogsResponseInvocationsItemTasksItemLinesItem {
-    pub level: String,
-    pub timestamp: f64,
-    pub message: String,
+pub struct GetVercelCiJobDefinitionResponseJobDefinition {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    pub kind: GetVercelCiJobDefinitionResponseJobDefinitionKind,
+    pub name: String,
+    pub command: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
 }
 
-impl SearchVercelCiLogsResponseInvocationsItemTasksItemLinesItem {
-    pub fn new(level: String, timestamp: f64, message: String) -> Self {
+impl GetVercelCiJobDefinitionResponseJobDefinition {
+    pub fn new(
+        invocation_id: String,
+        invocation_attempt: f64,
+        job_definition_id: String,
+        kind: GetVercelCiJobDefinitionResponseJobDefinitionKind,
+        name: String,
+        command: String,
+        created_at: f64,
+    ) -> Self {
         Self {
-            level,
-            timestamp,
-            message,
+            invocation_id,
+            invocation_attempt,
+            job_definition_id,
+            kind,
+            name,
+            command,
+            created_at,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SearchVercelCiLogsResponseInvocationsItemTasksItem {
-    #[serde(rename = "jobDefinitionId")]
-    pub job_definition_id: String,
-    #[serde(rename = "jobName")]
-    pub job_name: String,
-    #[serde(rename = "jobRunAttempt")]
-    pub job_run_attempt: f64,
-    #[serde(rename = "taskDefinitionId")]
-    pub task_definition_id: String,
-    #[serde(rename = "taskName")]
-    pub task_name: String,
-    #[serde(rename = "taskRunAttempt", skip_serializing_if = "Option::is_none")]
-    pub task_run_attempt: Option<f64>,
-    /// Typed representation of the `SearchVercelCiLogsResponseInvocationsItemTasksItemConclusion` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub conclusion: Option<SearchVercelCiLogsResponseInvocationsItemTasksItemConclusion>,
-    pub lines: Vec<SearchVercelCiLogsResponseInvocationsItemTasksItemLinesItem>,
+pub struct GetVercelCiJobDefinitionResponse {
+    #[serde(rename = "jobDefinition")]
+    pub job_definition: GetVercelCiJobDefinitionResponseJobDefinition,
+}
+
+impl GetVercelCiJobDefinitionResponse {
+    pub fn new(job_definition: GetVercelCiJobDefinitionResponseJobDefinition) -> Self {
+        Self { job_definition }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiJobRunsResponseJobRunsItemStarted {
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
 }

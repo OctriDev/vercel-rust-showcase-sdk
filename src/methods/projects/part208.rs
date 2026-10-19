@@ -3,264 +3,49 @@
 
 use super::*;
 
-impl UpdateProjectResponseTargetsValue {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<UpdateProjectResponseTargetsValueCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: UpdateProjectResponseTargetsValuePlanEnum,
-        private: bool,
-        ready_state: UpdateProjectResponseTargetsValueReadyStateEnum,
-        type_: UpdateProjectResponseTargetsValueTypeEnum,
-        url: String,
-    ) -> Self {
-        Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTierEnum {
-    #[default]
-    Priority,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTierEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Priority => "priority",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseTierEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTierEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "priority" => Self::Priority,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseTierEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTracingSamplingRulesItemDestinationEnum {
-    #[default]
-    External,
-    Internal,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTracingSamplingRulesItemDestinationEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::External => "external",
-            Self::Internal => "internal",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseTracingSamplingRulesItemDestinationEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTracingSamplingRulesItemDestinationEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "external" => Self::External,
-            "internal" => Self::Internal,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseTracingSamplingRulesItemDestinationEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTracingSamplingRulesItemEnvEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseTracingSamplingRulesItemEnvEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseTracingSamplingRulesItemEnvEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseTracingSamplingRulesItemEnvEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseTracingSamplingRulesItemEnvEnum {
+impl std::fmt::Display for UpdateProjectResponseSecurityManagedRulesTrafficSourcesActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTracingSamplingRulesItem {
-    /// Which tracing destination this rule applies to. `internal` is the hidden Vercel production-tracing drain (internal delivery); `external` is any customer-configured drain. Derived from the owning drain's delivery type when project tracing is computed; absent on configs persisted before this field existed.
+pub struct UpdateProjectResponseSecurityManagedRulesTrafficSources {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub destination: Option<UpdateProjectResponseTracingSamplingRulesItemDestinationEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<UpdateProjectResponseTracingSamplingRulesItemEnvEnum>,
-    pub rate: f64,
-    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
-    pub request_path: Option<String>,
+    pub action: Option<UpdateProjectResponseSecurityManagedRulesTrafficSourcesActionEnum>,
+    pub active: bool,
 }
 
-impl UpdateProjectResponseTracingSamplingRulesItem {
-    pub fn new(rate: f64) -> Self {
+impl UpdateProjectResponseSecurityManagedRulesTrafficSources {
+    pub fn new(active: bool) -> Self {
         Self {
-            destination: None,
-            env: None,
-            rate,
-            request_path: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTracing {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<String>,
-    #[serde(rename = "ignorePaths", skip_serializing_if = "Option::is_none")]
-    pub ignore_paths: Option<Vec<String>>,
-    #[serde(rename = "samplingRules", skip_serializing_if = "Option::is_none")]
-    pub sampling_rules: Option<Vec<UpdateProjectResponseTracingSamplingRulesItem>>,
-}
-
-impl UpdateProjectResponseTracing {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            domains: None,
-            ignore_paths: None,
-            sampling_rules: None,
+            action: None,
+            active,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+pub enum UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
     #[default]
-    AllCustom,
+    Challenge,
+    Deny,
+    Log,
     Unknown(String),
 }
 
-impl UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
+impl UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AllCustom => "all-custom",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl serde::Serialize for UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -270,7 +55,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
+    for UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -278,35 +63,231 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
+impl std::fmt::Display for UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
+pub struct UpdateProjectResponseSecurityManagedRulesVercelRuleset {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset:
-        Option<UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
+    pub action: Option<UpdateProjectResponseSecurityManagedRulesVercelRulesetActionEnum>,
+    pub active: bool,
 }
 
-impl UpdateProjectResponseTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
+impl UpdateProjectResponseSecurityManagedRulesVercelRuleset {
+    pub fn new(active: bool) -> Self {
         Self {
-            preset: None,
-            slugs,
+            action: None,
+            active,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseSecurityManagedRules {
+    pub ai_bots: UpdateProjectResponseSecurityManagedRulesAiBots,
+    pub bot_filter: UpdateProjectResponseSecurityManagedRulesBotFilter,
+    pub owasp: UpdateProjectResponseSecurityManagedRulesOwasp,
+    pub traffic_sources: UpdateProjectResponseSecurityManagedRulesTrafficSources,
+    pub vercel_ruleset: UpdateProjectResponseSecurityManagedRulesVercelRuleset,
+}
+
+impl UpdateProjectResponseSecurityManagedRules {
+    pub fn new(
+        ai_bots: UpdateProjectResponseSecurityManagedRulesAiBots,
+        bot_filter: UpdateProjectResponseSecurityManagedRulesBotFilter,
+        owasp: UpdateProjectResponseSecurityManagedRulesOwasp,
+        traffic_sources: UpdateProjectResponseSecurityManagedRulesTrafficSources,
+        vercel_ruleset: UpdateProjectResponseSecurityManagedRulesVercelRuleset,
+    ) -> Self {
+        Self {
+            ai_bots,
+            bot_filter,
+            owasp,
+            traffic_sources,
+            vercel_ruleset,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseSecurityRulesetsValueActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseSecurityRulesetsValueActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Bypass => "bypass",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Redirect => "redirect",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseSecurityRulesetsValueActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSecurityRulesetsValueActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "bypass" => Self::Bypass,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            "redirect" => Self::Redirect,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseSecurityRulesetsValueActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "*" => Self::Unknown2,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateProjectResponseSecurityRulesetsValueLogHeaders {
+    StringArray(Vec<String>),
+    Literal(UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSecurityRulesetsValueLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum,
+        >(value.clone())
+        {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateProjectResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for UpdateProjectResponseSecurityRulesetsValueLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum>
+    for UpdateProjectResponseSecurityRulesetsValueLogHeaders
+{
+    fn from(value: UpdateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    #[default]
+    FixedWindow,
+    TokenBucket,
+    Unknown(String),
+}
+
+impl UpdateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }

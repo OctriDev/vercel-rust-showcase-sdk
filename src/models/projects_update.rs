@@ -184,6 +184,22 @@ impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseCreatorVariant
     }
 }
 
+impl ::std::convert::From<Box<UpdateMicrofrontendsResponseCreatorVariant0ViaVariant0>>
+    for UpdateMicrofrontendsResponseCreatorVariant0Via
+{
+    fn from(value: Box<UpdateMicrofrontendsResponseCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateMicrofrontendsResponseCreatorVariant0ViaVariant1>>
+    for UpdateMicrofrontendsResponseCreatorVariant0Via
+{
+    fn from(value: Box<UpdateMicrofrontendsResponseCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UpdateMicrofrontendsResponseCreatorVariant0User {
     pub id: String,
@@ -490,21 +506,5 @@ impl std::fmt::Display for UpdateMicrofrontendsResponseDeploymentPolicyDeploymen
         match self {
             UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub target: UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-}
-
-impl UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub fn new(
-        target: UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-        type_: UpdateMicrofrontendsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-    ) -> Self {
-        Self { target, type_ }
     }
 }

@@ -2,304 +2,309 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::UploadProjectAvatarResponseEnvItemContentHint;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseEnvItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    /// Typed representation of the `UploadProjectAvatarResponseEnvItemContentHint` API schema.
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<UploadProjectAvatarResponseEnvItemContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub decrypted: Option<bool>,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Similar to `contentHints`, but should not be exposed to the user.
-    #[serde(
-        rename = "internalContentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub internal_content_hint:
-        Option<Option<UploadProjectAvatarResponseEnvItemInternalContentHint>>,
-    pub key: String,
-    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
-    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
-    pub legacy_value: Option<String>,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<UploadProjectAvatarResponseEnvItemTarget>,
-    #[serde(rename = "type")]
-    pub type_: UploadProjectAvatarResponseEnvItemTypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<UploadProjectAvatarResponseEnvItemVisibilityEnum>,
-    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
-    pub vsm_value: Option<String>,
+impl serde::Serialize for UploadProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl UploadProjectAvatarResponseEnvItem {
-    pub fn new(
-        key: String,
-        type_: UploadProjectAvatarResponseEnvItemTypeEnum,
-        value: String,
-    ) -> Self {
-        Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
-            created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            internal_content_hint: None,
-            key,
-            legacy_value: None,
-            sunset_secret_id: None,
-            target: None,
-            type_,
-            updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-            vsm_value: None,
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseAliasItemDeploymentReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseFeatures {
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<bool>,
+impl serde::Serialize for UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl UploadProjectAvatarResponseFeatures {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UploadProjectAvatarResponseAliasItemDeploymentTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl UploadProjectAvatarResponseAliasItemDeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseAliasItemDeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseAliasItemDeploymentTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseAliasItemDeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseAliasItemDeployment {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned: Option<Option<UploadProjectAvatarResponseAliasItemDeploymentAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<UploadProjectAvatarResponseAliasItemDeploymentAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<UploadProjectAvatarResponseAliasItemDeploymentBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<UploadProjectAvatarResponseAliasItemDeploymentBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion:
+        Option<UploadProjectAvatarResponseAliasItemDeploymentChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<UploadProjectAvatarResponseAliasItemDeploymentChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<UploadProjectAvatarResponseAliasItemDeploymentCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<UploadProjectAvatarResponseAliasItemDeploymentOidcTokenClaims>,
+    pub plan: UploadProjectAvatarResponseAliasItemDeploymentPlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: UploadProjectAvatarResponseAliasItemDeploymentReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<UploadProjectAvatarResponseAliasItemDeploymentReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: UploadProjectAvatarResponseAliasItemDeploymentTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
+}
+
+impl UploadProjectAvatarResponseAliasItemDeployment {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        created_in: String,
+        creator: Option<UploadProjectAvatarResponseAliasItemDeploymentCreator>,
+        deployment_hostname: String,
+        id: String,
+        name: String,
+        plan: UploadProjectAvatarResponseAliasItemDeploymentPlanEnum,
+        private: bool,
+        ready_state: UploadProjectAvatarResponseAliasItemDeploymentReadyStateEnum,
+        type_: UploadProjectAvatarResponseAliasItemDeploymentTypeEnum,
+        url: String,
+    ) -> Self {
         Self {
-            web_analytics: None,
+            alias: None,
+            alias_assigned: None,
+            alias_error: None,
+            alias_final: None,
+            automatic_aliases: None,
+            branch_matcher: None,
+            building_at: None,
+            builds: None,
+            checks_conclusion: None,
+            checks_state: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            created_at,
+            created_in,
+            creator,
+            deleted_at: None,
+            deployment_hostname,
+            forced: None,
+            id,
+            meta: None,
+            monorepo_manager: None,
+            name,
+            oidc_token_claims: None,
+            plan,
+            preview_comments_enabled: None,
+            private,
+            ready_at: None,
+            ready_state,
+            ready_substate: None,
+            requested_at: None,
+            target: None,
+            team_id: None,
+            type_,
+            url,
+            user_id: None,
+            with_cache: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseFrameworkEnum {
+pub enum UploadProjectAvatarResponseAliasItemEnvironmentEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    Preview,
+    Production,
     Unknown(String),
-}
-
-impl UploadProjectAvatarResponseFrameworkEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

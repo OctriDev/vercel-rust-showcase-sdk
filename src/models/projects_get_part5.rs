@@ -3,6 +3,127 @@
 
 // projects_get domain models (part 5)
 
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    #[serde(rename = "integration-store-secret")]
+    #[default]
+    IntegrationStoreSecret,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::IntegrationStoreSecret => "integration-store-secret",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum::IntegrationStoreSecret => {
+                f.write_str("integration-store-secret")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectEnvResponseVariant1ContentHintVariant15 {
+    #[serde(rename = "integrationConfigurationId")]
+    pub integration_configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    #[serde(rename = "integrationProductId")]
+    pub integration_product_id: String,
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant15 {
+    pub fn new(
+        integration_configuration_id: String,
+        integration_id: String,
+        integration_product_id: String,
+        store_id: String,
+        type_: GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
+    ) -> Self {
+        Self {
+            integration_configuration_id,
+            integration_id,
+            integration_product_id,
+            store_id,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
+    #[serde(rename = "flags-connection-string")]
+    #[default]
+    FlagsConnectionString,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FlagsConnectionString => "flags-connection-string",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum::FlagsConnectionString => {
+                f.write_str("flags-connection-string")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectEnvResponseVariant1ContentHintVariant16 {
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant16 {
+    pub fn new(
+        project_id: String,
+        type_: GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
+    ) -> Self {
+        Self { project_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectEnvResponseVariant1ContentHint {
+    RedisUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant0>),
+    RedisRestApiUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant1>),
+    RedisRestApiToken(Box<GetProjectEnvResponseVariant1ContentHintVariant2>),
+    RedisRestApiReadOnlyToken(Box<GetProjectEnvResponseVariant1ContentHintVariant3>),
+    BlobReadWriteToken(Box<GetProjectEnvResponseVariant1ContentHintVariant4>),
+    BlobStoreId(Box<GetProjectEnvResponseVariant1ContentHintVariant5>),
+    BlobWebhookPublicKey(Box<GetProjectEnvResponseVariant1ContentHintVariant6>),
+    PostgresUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant7>),
+    PostgresUrlNonPooling(Box<GetProjectEnvResponseVariant1ContentHintVariant8>),
+    PostgresPrismaUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant9>),
+    PostgresUser(Box<GetProjectEnvResponseVariant1ContentHintVariant10>),
+    PostgresHost(Box<GetProjectEnvResponseVariant1ContentHintVariant11>),
+    PostgresPassword(Box<GetProjectEnvResponseVariant1ContentHintVariant12>),
+    PostgresDatabase(Box<GetProjectEnvResponseVariant1ContentHintVariant13>),
+    PostgresUrlNoSsl(Box<GetProjectEnvResponseVariant1ContentHintVariant14>),
+    IntegrationStoreSecret(Box<GetProjectEnvResponseVariant1ContentHintVariant15>),
+    FlagsConnectionString(Box<GetProjectEnvResponseVariant1ContentHintVariant16>),
+}
+
 impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant1ContentHint {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -185,6 +306,142 @@ impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant1ContentHint {
     }
 }
 
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant0>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant0>) -> Self {
+        Self::RedisUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant1>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant1>) -> Self {
+        Self::RedisRestApiUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant2>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant2>) -> Self {
+        Self::RedisRestApiToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant3>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant3>) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant4>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant4>) -> Self {
+        Self::BlobReadWriteToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant5>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant5>) -> Self {
+        Self::BlobStoreId(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant6>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant6>) -> Self {
+        Self::BlobWebhookPublicKey(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant7>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant7>) -> Self {
+        Self::PostgresUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant8>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant8>) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant9>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant9>) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant10>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant10>) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant11>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant11>) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant12>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant12>) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant13>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant13>) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant14>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant14>) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant15>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant15>) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectEnvResponseVariant1ContentHintVariant16>>
+    for GetProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<GetProjectEnvResponseVariant1ContentHintVariant16>) -> Self {
+        Self::FlagsConnectionString(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetProjectEnvResponseVariant1TargetVariant0ItemEnum {
     #[default]
@@ -290,259 +547,4 @@ impl std::fmt::Display for GetProjectEnvResponseVariant1TargetVariant1Enum {
 pub enum GetProjectEnvResponseVariant1Target {
     Variant0ItemEnumArray(Vec<GetProjectEnvResponseVariant1TargetVariant0ItemEnum>),
     Literal(GetProjectEnvResponseVariant1TargetVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant1Target {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<GetProjectEnvResponseVariant1TargetVariant0ItemEnum>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemEnumArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<GetProjectEnvResponseVariant1TargetVariant1Enum>(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetProjectEnvResponseVariant1Target branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectEnvResponseVariant1TypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl GetProjectEnvResponseVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectEnvResponseVariant1TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant1TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "secret" => Self::Secret,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectEnvResponseVariant1VisibilityEnum {
-    #[default]
-    Config,
-    Secret,
-    Unknown(String),
-}
-
-impl GetProjectEnvResponseVariant1VisibilityEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Config => "config",
-            Self::Secret => "secret",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectEnvResponseVariant1VisibilityEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectEnvResponseVariant1VisibilityEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "config" => Self::Config,
-            "secret" => Self::Secret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1VisibilityEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<GetProjectEnvResponseVariant1ContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    pub decrypted: bool,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    pub key: String,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<GetProjectEnvResponseVariant1Target>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<GetProjectEnvResponseVariant1VisibilityEnum>,
-}
-
-impl GetProjectEnvResponseVariant1 {
-    pub fn new(
-        decrypted: bool,
-        key: String,
-        type_: GetProjectEnvResponseVariant1TypeEnum,
-        value: String,
-    ) -> Self {
-        Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
-            created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            key,
-            sunset_secret_id: None,
-            target: None,
-            type_,
-            updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant2ContentHintVariant0TypeEnum {
-    #[serde(rename = "redis-url")]
-    #[default]
-    RedisUrl,
-}
-
-impl GetProjectEnvResponseVariant2ContentHintVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisUrl => "redis-url",
-        }
-    }
 }

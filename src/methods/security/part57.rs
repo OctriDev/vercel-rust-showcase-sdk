@@ -3,68 +3,7 @@
 
 use super::*;
 
-/// Add a custom rule
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant10 {
-    pub action: UpdateFirewallConfigVariant10ActionEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    pub value: UpdateFirewallConfigVariant10Value,
-}
-
-impl UpdateFirewallConfigVariant10 {
-    pub fn new(
-        action: UpdateFirewallConfigVariant10ActionEnum,
-        value: UpdateFirewallConfigVariant10Value,
-    ) -> Self {
-        Self {
-            action,
-            id: None,
-            value,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum {
-    #[default]
-    Host,
-    Path,
-    Method,
-    Header,
-    Query,
-    Cookie,
-    TargetPath,
-    Route,
-    RawPath,
-    IpAddress,
-    Region,
-    Protocol,
-    Scheme,
-    Environment,
-    DomainEnvironment,
-    UserAgent,
-    GeoContinent,
-    GeoCountry,
-    GeoCountryRegion,
-    GeoCity,
-    GeoAsNumber,
-    Ja4Digest,
-    Ja3Digest,
-    RateLimitApiId,
-    ServerAction,
-    BotName,
-    BotCategory,
-    BotStatus,
-    BotProtection,
-    SharedCondition,
-    TrafficSource,
-    Ruleset,
-    ResponseCode,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum {
+impl UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Host => "host",
@@ -106,7 +45,7 @@ impl UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum 
 }
 
 impl serde::Serialize
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -117,7 +56,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -164,7 +103,7 @@ impl<'de> serde::Deserialize<'de>
 }
 
 impl std::fmt::Display
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -172,7 +111,7 @@ impl std::fmt::Display
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum {
+pub enum UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum {
     #[default]
     Re,
     Eq,
@@ -192,7 +131,7 @@ pub enum UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnu
     Unknown(String),
 }
 
-impl UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum {
+impl UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Re => "re",
@@ -215,7 +154,7 @@ impl UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum {
     }
 }
 
-impl serde::Serialize for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum {
+impl serde::Serialize for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -225,7 +164,7 @@ impl serde::Serialize for UpdateFirewallConfigVariant11ValueConditionGroupItemCo
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -254,7 +193,7 @@ impl<'de> serde::Deserialize<'de>
 }
 
 impl std::fmt::Display
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemOpEnum
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -263,14 +202,14 @@ impl std::fmt::Display
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemValue {
+pub enum UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue {
     String(String),
     StringArray(Vec<String>),
     Number(f64),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemValue
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -296,6 +235,85 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemValue branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItem {
+    #[serde(rename = "type")]
+    pub type_: UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum,
+    pub op: UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemValue>,
+}
+
+impl UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItem {
+    pub fn new(
+        type_: UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemTypeEnum,
+        op: UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItemOpEnum,
+    ) -> Self {
+        Self {
+            type_,
+            op,
+            neg: None,
+            key: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant10ValueConditionGroupItem {
+    pub conditions: Vec<UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItem>,
+}
+
+impl UpdateFirewallConfigVariant10ValueConditionGroupItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_items(
+            "conditions",
+            self.conditions.as_slice(),
+            crate::validation::LengthOpts {
+                max: Some(65),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(
+        conditions: Vec<UpdateFirewallConfigVariant10ValueConditionGroupItemConditionsItem>,
+    ) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { conditions };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }

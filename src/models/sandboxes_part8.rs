@@ -3,6 +3,81 @@
 
 // sandboxes domain models (part 8)
 
+/// Clone a Git repository into the sandbox.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV4RequestSourceVariant0 {
+    /// Indicates the source is a Git repository.
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    /// The URL of the Git repository to clone.
+    pub url: String,
+    /// Username for Git authentication. Required together with password for private repositories.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+    /// Password or personal access token for Git authentication. Required together with username for private repositories.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub password: Option<String>,
+    /// Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub depth: Option<i64>,
+    /// The specific commit SHA, branch name, or tag to checkout after cloning.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revision: Option<String>,
+}
+
+impl CreateSandboxesV4RequestSourceVariant0 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_uri("url", &self.url)?;
+        if let Some(value) = self.depth.as_ref() {
+            crate::validation::validate_range(
+                "depth",
+                *value as f64,
+                crate::validation::RangeOpts {
+                    min: Some(1_f64),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    pub fn new(type_: serde_json::Value, url: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            type_,
+            url,
+            username: None,
+            password: None,
+            depth: None,
+            revision: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Download and extract a gzipped tarball into the sandbox.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV4RequestSourceVariant1 {
+    /// Indicates the source is a tarball.
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    /// URL of a gzipped tarball (.tar.gz) to download and extract.
+    pub url: String,
+}
+
+impl CreateSandboxesV4RequestSourceVariant1 {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_uri("url", &self.url)?;
+        Ok(())
+    }
+
+    pub fn new(type_: serde_json::Value, url: String) -> Result<Self, crate::errors::SdkError> {
+        let value = Self { type_, url };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
 /// Restore the sandbox filesystem from an existing snapshot.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSandboxesV4RequestSourceVariant2 {
@@ -400,95 +475,6 @@ impl NamedSandboxFailoverRegionsItemEnum {
 }
 
 impl serde::Serialize for NamedSandboxFailoverRegionsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for NamedSandboxFailoverRegionsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for NamedSandboxFailoverRegionsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Keep-last snapshot configuration.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct NamedSandboxKeepLastSnapshots {
-    /// Number of most recent snapshots to keep.
-    pub count: f64,
-    /// Whether to immediately delete evicted snapshots.
-    #[serde(rename = "deleteEvicted")]
-    pub delete_evicted: bool,
-    /// Expiration time in milliseconds for kept snapshots.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiration: Option<f64>,
-}
-
-impl NamedSandboxKeepLastSnapshots {
-    pub fn new(count: f64, delete_evicted: bool) -> Self {
-        Self {
-            count,
-            delete_evicted,
-            expiration: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum NamedSandboxMountsValueModeEnum {
-    #[default]
-    ReadOnly,
-    ReadWrite,
-    Snapshot,
-    Unknown(String),
-}
-
-impl NamedSandboxMountsValueModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ReadOnly => "read-only",
-            Self::ReadWrite => "read-write",
-            Self::Snapshot => "snapshot",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for NamedSandboxMountsValueModeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,

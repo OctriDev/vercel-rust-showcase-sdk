@@ -2,134 +2,54 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilitiesSecretRotation;
 
-impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductTagsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductTagsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "ai" => Self::Ai,
-            "authentication" => Self::Authentication,
-            "blob" => Self::Blob,
-            "checks" => Self::Checks,
-            "drains" => Self::Drains,
-            "edge-config" => Self::EdgeConfig,
-            "experimentation" => Self::Experimentation,
-            "kv" => Self::Kv,
-            "libsql" => Self::Libsql,
-            "logDrain" => Self::Logdrain,
-            "mcp" => Self::Mcp,
-            "messaging" => Self::Messaging,
-            "mysql" => Self::Mysql,
-            "observability" => Self::Observability,
-            "other" => Self::Other,
-            "postgres" => Self::Postgres,
-            "rds" => Self::Rds,
-            "redis" => Self::Redis,
-            "sqlite" => Self::Sqlite,
-            "storage" => Self::Storage,
-            "tag_agents" => Self::TagAgents,
-            "tag_ai" => Self::TagAi,
-            "tag_analytics" => Self::TagAnalytics,
-            "tag_authentication" => Self::TagAuthentication,
-            "tag_checks" => Self::TagChecks,
-            "tag_cms" => Self::TagCms,
-            "tag_code_repository" => Self::TagCodeRepository,
-            "tag_code_review" => Self::TagCodeReview,
-            "tag_code_security" => Self::TagCodeSecurity,
-            "tag_code_testing" => Self::TagCodeTesting,
-            "tag_commerce" => Self::TagCommerce,
-            "tag_databases" => Self::TagDatabases,
-            "tag_dev_tools" => Self::TagDevTools,
-            "tag_experimentation" => Self::TagExperimentation,
-            "tag_flags" => Self::TagFlags,
-            "tag_logDrain" => Self::TagLogdrain,
-            "tag_logging" => Self::TagLogging,
-            "tag_messaging" => Self::TagMessaging,
-            "tag_monitoring" => Self::TagMonitoring,
-            "tag_observability" => Self::TagObservability,
-            "tag_other" => Self::TagOther,
-            "tag_payments" => Self::TagPayments,
-            "tag_performance" => Self::TagPerformance,
-            "tag_productivity" => Self::TagProductivity,
-            "tag_searching" => Self::TagSearching,
-            "tag_security" => Self::TagSecurity,
-            "tag_storage" => Self::TagStorage,
-            "tag_support_agent" => Self::TagSupportAgent,
-            "tag_testing" => Self::TagTesting,
-            "tag_traceDrain" => Self::TagTracedrain,
-            "tag_video" => Self::TagVideo,
-            "tag_web_automation" => Self::TagWebAutomation,
-            "tag_workflow" => Self::TagWorkflow,
-            "traceDrain" => Self::Tracedrain,
-            "vector" => Self::Vector,
-            "video" => Self::Video,
-            "workflow" => Self::Workflow,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductTagsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductRepl {
-    pub enabled: bool,
-    #[serde(rename = "supportsReadOnlyMode")]
-    pub supports_read_only_mode: bool,
-    #[serde(rename = "welcomeMessage", skip_serializing_if = "Option::is_none")]
-    pub welcome_message: Option<String>,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductRepl {
-    pub fn new(enabled: bool, supports_read_only_mode: bool) -> Self {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant8 {
+    pub fn new(
+        items: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant8Items,
+        type_: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant8TypeEnum,
+        ui_control: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant8UicontrolEnum,
+        ui_options: Vec<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant8UioptionsItem>,
+    ) -> Self {
         Self {
-            enabled,
-            supports_read_only_mode,
-            welcome_message: None,
+            default: None,
+            description: None,
+            example: None,
+            items,
+            max_items: None,
+            min_items: None,
+            type_,
+            ui_control,
+            ui_description: None,
+            ui_disabled: None,
+            ui_formatted_value: None,
+            ui_hidden: None,
+            ui_label: None,
+            ui_options,
+            ui_paid_only: None,
+            ui_placeholder: None,
+            ui_read_only: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum {
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum
+{
     #[default]
-    AddDrain,
-    ConfigureProjectConnections,
-    ConnectToProject,
+    String,
     Unknown(String),
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum {
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::AddDrain => "add_drain",
-            Self::ConfigureProjectConnections => "configure_project_connections",
-            Self::ConnectToProject => "connect_to_project",
+            Self::String => "string",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum
-{
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -138,187 +58,236 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum
-{
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "add_drain" => Self::AddDrain,
-            "configure_project_connections" => Self::ConfigureProjectConnections,
-            "connect_to_project" => Self::ConnectToProject,
+            "string" => Self::String,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum
 {
+    #[default]
+    VercelCountry,
+    Unknown(String),
+}
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::VercelCountry => "vercel-country",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "vercel-country" => Self::VercelCountry,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UicontrolEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItem {
-    #[serde(rename = "type")]
-    pub type_:
-        CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum,
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1
+{
+    pub expr: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItem {
-    pub fn new(
-        type_: CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItemTypeEnum,
-    ) -> Self {
-        Self { type_ }
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidescription
+{
+    String(String),
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidescription {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidescription branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidescription {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidescription {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidescriptionVariant1>) -> Self {
+        Self::Object(value)
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub actions:
-        Option<Vec<CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItemActionsItem>>,
-    pub content: String,
-    pub title: String,
+pub struct CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0
+{
+    pub expr: String,
 }
 
-impl CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItem {
-    pub fn new(content: String, title: String) -> Self {
-        Self {
-            actions: None,
-            content,
-            title,
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0 {
+    pub fn new(expr: String) -> Self {
+        Self { expr }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum
+{
+    #[default]
+    Create,
+    Update,
+    Unknown(String),
+}
+
+impl CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Create => "create",
+            Self::Update => "update",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductGuidesItem {
-    pub framework: String,
-    pub steps: Vec<CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItem>,
-    pub title: String,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductGuidesItem {
-    pub fn new(
-        framework: String,
-        steps: Vec<CreateIntegrationStoreDirectResponseStoreProductGuidesItemStepsItem>,
-        title: String,
-    ) -> Self {
-        Self {
-            framework,
-            steps,
-            title,
-        }
+impl serde::Serialize for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilities {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub billable: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub checks: Option<bool>,
-    #[serde(
-        rename = "connectedImportResource",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connected_import_resource: Option<bool>,
-    #[serde(
-        rename = "connectedProvisioning",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connected_provisioning: Option<bool>,
-    #[serde(rename = "flexCommitEligible", skip_serializing_if = "Option::is_none")]
-    pub flex_commit_eligible: Option<bool>,
-    #[serde(rename = "importResource", skip_serializing_if = "Option::is_none")]
-    pub import_resource: Option<bool>,
-    #[serde(rename = "maxAllowedTeams", skip_serializing_if = "Option::is_none")]
-    pub max_allowed_teams: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mcp: Option<bool>,
-    #[serde(rename = "mcpConfiguration", skip_serializing_if = "Option::is_none")]
-    pub mcp_configuration: Option<bool>,
-    #[serde(rename = "mcpReadonly", skip_serializing_if = "Option::is_none")]
-    pub mcp_readonly: Option<bool>,
-    #[serde(
-        rename = "nativeImportResource",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub native_import_resource: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub provisioning: Option<bool>,
-    #[serde(
-        rename = "requiresBrowserInstall",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub requires_browser_install: Option<bool>,
-    /// Typed representation of the `CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilitiesSecretRotation` API schema.
-    #[serde(rename = "secretRotation", skip_serializing_if = "Option::is_none")]
-    pub secret_rotation: Option<
-        CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilitiesSecretRotation,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sso: Option<bool>,
-    #[serde(rename = "templateCloneOnly", skip_serializing_if = "Option::is_none")]
-    pub template_clone_only: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub transferable: Option<bool>,
-    #[serde(
-        rename = "updateConfiguration",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub update_configuration: Option<bool>,
-    #[serde(rename = "v0Flavors", skip_serializing_if = "Option::is_none")]
-    pub v0_flavors: Option<bool>,
-}
-
-impl CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilities {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            billable: None,
-            checks: None,
-            connected_import_resource: None,
-            connected_provisioning: None,
-            flex_commit_eligible: None,
-            import_resource: None,
-            max_allowed_teams: None,
-            mcp: None,
-            mcp_configuration: None,
-            mcp_readonly: None,
-            native_import_resource: None,
-            provisioning: None,
-            requires_browser_install: None,
-            secret_rotation: None,
-            sso: None,
-            template_clone_only: None,
-            transferable: None,
-            update_configuration: None,
-            v0_flavors: None,
-        }
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "create" => Self::Create,
+            "update" => Self::Update,
+            _ => Self::Unknown(value),
+        })
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateIntegrationStoreDirectResponseStoreProductIntegration {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub capabilities:
-        Option<CreateIntegrationStoreDirectResponseStoreProductIntegrationCapabilities>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub flags: Option<Vec<String>>,
-    pub icon: String,
-    pub id: String,
-    pub name: String,
-    pub slug: String,
-    #[serde(
-        rename = "supportsInstallationBillingPlans",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub supports_installation_billing_plans: Option<bool>,
+impl std::fmt::Display for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled
+{
+    Object(Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0>),
+    Bool(bool),
+    Literal(CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0>>(value.clone()) {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum>(value.clone()) {
+            let candidate = Self::Literal(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0>> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled {
+    fn from(value: Box<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum> for CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9Uidisabled {
+    fn from(value: CreateIntegrationStoreDirectResponseStoreProductMetadataSchemaPropertiesValueVariant9UidisabledVariant2Enum) -> Self {
+        Self::Literal(value)
+    }
 }

@@ -3,213 +3,48 @@
 
 use super::*;
 
-impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachine {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction: GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        cores: f64,
-        label: GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
+        algorithm_version: String,
+        at: f64,
+        direction: GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
         Self {
-            cores,
-            label,
-            memory,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemResourceConfig {
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason: Option<
-        GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticReasonEnum,
-    >,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition: Option<
-        GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineElasticTransition,
-    >,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type: Option<
-        GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum,
-    >,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachine>,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
-        Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
-        }
-    }
-}
-
-/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemRollbackDescription {
-    /// Timestamp of when the rollback was requested.
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
-    pub description: String,
-    /// The user who rolled back the project.
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    /// The username of the user who rolled back the project.
-    pub username: String,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemRollbackDescription {
-    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
-        Self {
-            created_at,
-            description,
-            user_id,
-            username,
-        }
-    }
-}
-
-/// What to do when the gate trips: pause the rollout, or roll it back.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Pause,
-    Rollback,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Pause => "pause",
-            Self::Rollback => "rollback",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "pause" => Self::Pause,
-            "rollback" => Self::Rollback,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The metric this check evaluates.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum {
-    #[default]
-    ErrorRate5xx,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ErrorRate5xx => "error-rate-5xx",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
 impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -220,7 +55,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -228,143 +63,262 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "error-rate-5xx" => Self::ErrorRate5xx,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineSelectionEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The checks to evaluate. An empty array means nothing is evaluated.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItem {
-    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
-    pub exclude_paths: Option<Vec<String>>,
-    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
-    pub exclude_status_codes: Option<Vec<f64>>,
-    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-    #[serde(
-        rename = "ingestWatermarkSeconds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub ingest_watermark_seconds: Option<f64>,
-    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
-    pub significance_level: Option<f64>,
-    /// The metric this check evaluates.
-    #[serde(rename = "type")]
-    pub type_: GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItem {
-    pub fn new(
-        type_: GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItemTypeEnum,
-    ) -> Self {
-        Self {
-            exclude_paths: None,
-            exclude_status_codes: None,
-            ingest_watermark_seconds: None,
-            significance_level: None,
-            type_,
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGate {
-    /// What to do when the gate trips: pause the rollout, or roll it back.
-    pub action: GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum,
-    /// The checks to evaluate. An empty array means nothing is evaluated.
-    pub checks: Vec<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItem>,
-    /// When true, a tripped gate is only reported — {@link action} is not taken.
-    #[serde(rename = "dryRun")]
-    pub dry_run: bool,
-    /// Whether automated gating is enabled for this project's rollouts.
-    pub enabled: bool,
-    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
-    pub failure_threshold: Option<f64>,
-    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
-    pub window_size: Option<f64>,
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGate {
-    pub fn new(
-        action: GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateActionEnum,
-        checks: Vec<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGateChecksItem>,
-        dry_run: bool,
-        enabled: bool,
-    ) -> Self {
-        Self {
-            action,
-            checks,
-            dry_run,
-            enabled,
-            failure_threshold: None,
-            window_size: None,
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildMachineTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseStagesItem {
-    /// Duration in minutes for automatic advancement to the next stage
+pub struct GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub duration: Option<f64>,
-    /// Whether to linearly shift traffic over the duration of this stage
-    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
-    pub linear_shift: Option<bool>,
-    /// Whether or not this stage requires manual approval to proceed
-    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
-    pub require_approval: Option<bool>,
-    /// The percentage of traffic to serve to the canary deployment (0-100)
-    #[serde(rename = "targetPercentage")]
-    pub target_percentage: f64,
+    pub configuration: Option<
+        GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueueConfigurationEnum,
+    >,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseStagesItem {
-    pub fn new(target_percentage: f64) -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            duration: None,
-            linear_shift: None,
-            require_approval: None,
-            target_percentage,
+            configuration: None,
         }
     }
 }
 
-/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemRollingRelease {
-    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
-    #[serde(
-        rename = "canaryResponseHeader",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub canary_response_header: Option<bool>,
-    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gate: Option<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseGate>,
-    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub stages:
-        Option<Option<Vec<GetMicrofrontendsInGroupResponseProjectsItemRollingReleaseStagesItem>>>,
-    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
-    pub target: String,
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigFunctionDefaultMemoryTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemResourceConfigElasticBuildMachineLabelEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }

@@ -3,6 +3,81 @@
 
 // microfrontends domain models (part 7)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7TypeEnum {
+    #[serde(rename = "cursor-origin")]
+    #[default]
+    CursorOrigin,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::CursorOrigin => "cursor-origin",
+        }
+    }
+}
+
+impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7TypeEnum::CursorOrigin => {
+                f.write_str("cursor-origin")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7 {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(rename = "deployHooks")]
+    pub deploy_hooks: Vec<GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7DeployHooksItem>,
+    #[serde(rename = "gitCredentialId")]
+    pub git_credential_id: String,
+    /// Owner (namespace) slug, e.g. `acme`.
+    pub owner: String,
+    /// Origin namespace id (`ns_…`) of the owner.
+    #[serde(rename = "ownerId")]
+    pub owner_id: String,
+    #[serde(rename = "productionBranch")]
+    pub production_branch: String,
+    pub repo: String,
+    /// Origin repository id.
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sourceless: Option<bool>,
+    #[serde(rename = "type")]
+    pub type_: GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7TypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+}
+
 impl GetMicrofrontendsInGroupResponseProjectsItemLinkVariant7 {
     #[allow(clippy::too_many_arguments)]
     pub fn new(
@@ -510,77 +585,4 @@ pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1Deploymen
     ProdDeploymentUrlsAndAllPreviews,
     Production,
     Unknown(String),
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1 {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type:
-        GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1 {
-    pub fn new(
-        deployment_type: GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
-    ) -> Self {
-        Self { deployment_type }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemTrustedIps {
-    Object(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant0>),
-    Object2(Box<GetMicrofrontendsInGroupResponseProjectsItemTrustedIpsVariant1>),
 }

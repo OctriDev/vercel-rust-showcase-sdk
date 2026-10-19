@@ -3,170 +3,177 @@
 
 use super::*;
 
-impl GetProjectsResponseGitProviderOptions {
-    pub fn new(
-        create_deployments: GetProjectsResponseGitProviderOptionsCreateDeploymentsEnum,
-    ) -> Self {
-        Self {
-            consolidated_git_commit_status: None,
-            create_deployments,
-            disable_repository_dispatch_events: None,
-            git_commit_status: None,
-            require_verified_commits: None,
+impl serde::Serialize for GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-/// The list of the installation resources connected to the project.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseIntegrationsItemResourcesItem {
-    #[serde(rename = "externalResourceId")]
-    pub external_resource_id: String,
+impl serde::Serialize for GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl GetProjectsResponseIntegrationsItemResourcesItem {
-    pub fn new(external_resource_id: String) -> Self {
-        Self {
-            external_resource_id,
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigBuildMachineTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-/// Integration installation enabled on the project.
+impl serde::Serialize for GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseIntegrationsItem {
-    /// The integration installation ID.
-    #[serde(rename = "installationId")]
-    pub installation_id: String,
-    /// The list of the installation resources connected to the project.
+pub struct GetProjectsResponseDefaultResourceConfigBuildQueue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub resources: Option<Vec<GetProjectsResponseIntegrationsItemResourcesItem>>,
+    pub configuration: Option<GetProjectsResponseDefaultResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl GetProjectsResponseIntegrationsItem {
-    pub fn new(installation_id: String) -> Self {
-        Self {
-            installation_id,
-            resources: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseIpBucketsItem {
-    pub bucket: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub default: Option<bool>,
-    #[serde(rename = "supportUntil", skip_serializing_if = "Option::is_none")]
-    pub support_until: Option<f64>,
-}
-
-impl GetProjectsResponseIpBucketsItem {
-    pub fn new(bucket: String) -> Self {
-        Self {
-            bucket,
-            default: None,
-            support_until: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseJobsFlagdefinitionspresent {
-    pub targets: Vec<String>,
-}
-
-impl GetProjectsResponseJobsFlagdefinitionspresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseJobsLint {
-    pub targets: Vec<String>,
-}
-
-impl GetProjectsResponseJobsLint {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseJobsMfeconfigpresent {
-    pub targets: Vec<String>,
-}
-
-impl GetProjectsResponseJobsMfeconfigpresent {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseJobsTypecheck {
-    pub targets: Vec<String>,
-}
-
-impl GetProjectsResponseJobsTypecheck {
-    pub fn new(targets: Vec<String>) -> Self {
-        Self { targets }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseJobs {
-    #[serde(
-        rename = "flag-definitions-present",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub flag_definitions_present: Option<GetProjectsResponseJobsFlagdefinitionspresent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lint: Option<GetProjectsResponseJobsLint>,
-    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
-    pub mfe_config_present: Option<GetProjectsResponseJobsMfeconfigpresent>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub typecheck: Option<GetProjectsResponseJobsTypecheck>,
-}
-
-impl GetProjectsResponseJobs {
+impl GetProjectsResponseDefaultResourceConfigBuildQueue {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            flag_definitions_present: None,
-            lint: None,
-            mfe_config_present: None,
-            typecheck: None,
+            configuration: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseLastAliasRequestJobStatusEnum {
+pub enum GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
     #[default]
-    Failed,
-    InProgress,
-    Pending,
-    Skipped,
-    Succeeded,
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
     Unknown(String),
 }
 
-impl GetProjectsResponseLastAliasRequestJobStatusEnum {
+impl GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Failed => "failed",
-            Self::InProgress => "in-progress",
-            Self::Pending => "pending",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseLastAliasRequestJobStatusEnum {
+impl serde::Serialize for GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -175,48 +182,52 @@ impl serde::Serialize for GetProjectsResponseLastAliasRequestJobStatusEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseLastAliasRequestJobStatusEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "failed" => Self::Failed,
-            "in-progress" => Self::InProgress,
-            "pending" => Self::Pending,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseLastAliasRequestJobStatusEnum {
+impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigFunctionDefaultMemoryTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseLastAliasRequestTypeEnum {
+pub enum GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
     #[default]
-    Promote,
-    Rollback,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl GetProjectsResponseLastAliasRequestTypeEnum {
+impl GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Promote => "promote",
-            Self::Rollback => "rollback",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseLastAliasRequestTypeEnum {
+impl serde::Serialize for GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -225,61 +236,48 @@ impl serde::Serialize for GetProjectsResponseLastAliasRequestTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseLastAliasRequestTypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "promote" => Self::Promote,
-            "rollback" => Self::Rollback,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseLastAliasRequestTypeEnum {
+impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLastAliasRequest {
-    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
-    pub from_deployment_id: Option<String>,
-    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
-    #[serde(
-        rename = "fromRollingReleaseId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub from_rolling_release_id: Option<String>,
-    #[serde(rename = "jobStatus")]
-    pub job_status: GetProjectsResponseLastAliasRequestJobStatusEnum,
-    #[serde(rename = "requestedAt")]
-    pub requested_at: f64,
-    #[serde(rename = "toDeploymentId")]
-    pub to_deployment_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseLastAliasRequestTypeEnum,
+pub struct GetProjectsResponseDefaultResourceConfigElasticBuildMachine {
+    pub cores: f64,
+    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+    pub label: GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
+    pub memory: f64,
 }
 
-impl GetProjectsResponseLastAliasRequest {
+impl GetProjectsResponseDefaultResourceConfigElasticBuildMachine {
     pub fn new(
-        from_deployment_id: Option<String>,
-        job_status: GetProjectsResponseLastAliasRequestJobStatusEnum,
-        requested_at: f64,
-        to_deployment_id: String,
-        type_: GetProjectsResponseLastAliasRequestTypeEnum,
+        cores: f64,
+        label: GetProjectsResponseDefaultResourceConfigElasticBuildMachineLabelEnum,
+        memory: f64,
     ) -> Self {
         Self {
-            from_deployment_id,
-            from_rolling_release_id: None,
-            job_status,
-            requested_at,
-            to_deployment_id,
-            type_,
+            cores,
+            label,
+            memory,
         }
     }
 }

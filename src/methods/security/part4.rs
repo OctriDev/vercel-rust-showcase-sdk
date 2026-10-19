@@ -3,6 +3,35 @@
 
 use super::*;
 
+impl serde::Serialize for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetSecurityFirewallConfigResponseActiveCrsRfi {
     pub action: GetSecurityFirewallConfigResponseActiveCrsRfiActionEnum,
@@ -255,59 +284,4 @@ impl std::fmt::Display for GetSecurityFirewallConfigResponseActiveCrsXssActionEn
 pub struct GetSecurityFirewallConfigResponseActiveCrsXss {
     pub action: GetSecurityFirewallConfigResponseActiveCrsXssActionEnum,
     pub active: bool,
-}
-
-impl GetSecurityFirewallConfigResponseActiveCrsXss {
-    pub fn new(
-        action: GetSecurityFirewallConfigResponseActiveCrsXssActionEnum,
-        active: bool,
-    ) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetSecurityFirewallConfigResponseActiveCrs {
-    pub gen: GetSecurityFirewallConfigResponseActiveCrsGen,
-    pub java: GetSecurityFirewallConfigResponseActiveCrsJava,
-    pub lfi: GetSecurityFirewallConfigResponseActiveCrsLfi,
-    pub ma: GetSecurityFirewallConfigResponseActiveCrsMa,
-    pub php: GetSecurityFirewallConfigResponseActiveCrsPhp,
-    pub rce: GetSecurityFirewallConfigResponseActiveCrsRce,
-    pub rfi: GetSecurityFirewallConfigResponseActiveCrsRfi,
-    pub sd: GetSecurityFirewallConfigResponseActiveCrsSd,
-    pub sf: GetSecurityFirewallConfigResponseActiveCrsSf,
-    pub sqli: GetSecurityFirewallConfigResponseActiveCrsSqli,
-    pub xss: GetSecurityFirewallConfigResponseActiveCrsXss,
-}
-
-impl GetSecurityFirewallConfigResponseActiveCrs {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        gen: GetSecurityFirewallConfigResponseActiveCrsGen,
-        java: GetSecurityFirewallConfigResponseActiveCrsJava,
-        lfi: GetSecurityFirewallConfigResponseActiveCrsLfi,
-        ma: GetSecurityFirewallConfigResponseActiveCrsMa,
-        php: GetSecurityFirewallConfigResponseActiveCrsPhp,
-        rce: GetSecurityFirewallConfigResponseActiveCrsRce,
-        rfi: GetSecurityFirewallConfigResponseActiveCrsRfi,
-        sd: GetSecurityFirewallConfigResponseActiveCrsSd,
-        sf: GetSecurityFirewallConfigResponseActiveCrsSf,
-        sqli: GetSecurityFirewallConfigResponseActiveCrsSqli,
-        xss: GetSecurityFirewallConfigResponseActiveCrsXss,
-    ) -> Self {
-        Self {
-            gen,
-            java,
-            lfi,
-            ma,
-            php,
-            rce,
-            rfi,
-            sd,
-            sf,
-            sqli,
-            xss,
-        }
-    }
 }

@@ -3,6 +3,81 @@
 
 // projects_delete domain models (part 3)
 
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseDismissedToastsItemValueVariant2 {
+    #[serde(rename = "currentValue")]
+    pub current_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue,
+    #[serde(rename = "previousValue")]
+    pub previous_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue,
+}
+
+impl DeleteProjectAvatarResponseDismissedToastsItemValueVariant2 {
+    pub fn new(
+        current_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2CurrentValue,
+        previous_value: DeleteProjectAvatarResponseDismissedToastsItemValueVariant2PreviousValue,
+    ) -> Self {
+        Self {
+            current_value,
+            previous_value,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(untagged)]
 pub enum DeleteProjectAvatarResponseDismissedToastsItemValue {
@@ -427,70 +502,4 @@ impl std::fmt::Display for DeleteProjectAvatarResponseEnvItemContentHintVariant9
             }
         }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseEnvItemContentHintVariant9 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: DeleteProjectAvatarResponseEnvItemContentHintVariant9TypeEnum,
-}
-
-impl DeleteProjectAvatarResponseEnvItemContentHintVariant9 {
-    pub fn new(
-        store_id: String,
-        type_: DeleteProjectAvatarResponseEnvItemContentHintVariant9TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
-    #[serde(rename = "postgres-user")]
-    #[default]
-    PostgresUser,
-}
-
-impl DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUser => "postgres-user",
-        }
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum::PostgresUser => {
-                f.write_str("postgres-user")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseEnvItemContentHintVariant10 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum,
-}
-
-impl DeleteProjectAvatarResponseEnvItemContentHintVariant10 {
-    pub fn new(
-        store_id: String,
-        type_: DeleteProjectAvatarResponseEnvItemContentHintVariant10TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum DeleteProjectAvatarResponseEnvItemContentHintVariant11TypeEnum {
-    #[serde(rename = "postgres-host")]
-    #[default]
-    PostgresHost,
 }

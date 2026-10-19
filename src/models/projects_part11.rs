@@ -3,6 +3,301 @@
 
 // projects domain models (part 11)
 
+impl FilterProjectEnvsResponseVariant2EnvsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Encrypted => "encrypted",
+            Self::Plain => "plain",
+            Self::Secret => "secret",
+            Self::Sensitive => "sensitive",
+            Self::System => "system",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for FilterProjectEnvsResponseVariant2EnvsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponseVariant2EnvsItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "encrypted" => Self::Encrypted,
+            "plain" => Self::Plain,
+            "secret" => Self::Secret,
+            "sensitive" => Self::Sensitive,
+            "system" => Self::System,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for FilterProjectEnvsResponseVariant2EnvsItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum {
+    #[default]
+    Config,
+    Secret,
+    Unknown(String),
+}
+
+impl FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Config => "config",
+            Self::Secret => "secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "config" => Self::Config,
+            "secret" => Self::Secret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct FilterProjectEnvsResponseVariant2EnvsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    #[serde(
+        rename = "configurationId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configuration_id: Option<Option<String>>,
+    #[serde(
+        rename = "contentHint",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub content_hint: Option<Option<FilterProjectEnvsResponseVariant2EnvsItemContentHint>>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    #[serde(
+        rename = "createdBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_by: Option<Option<String>>,
+    #[serde(
+        rename = "customEnvironmentIds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub custom_environment_ids: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub decrypted: Option<bool>,
+    #[serde(
+        rename = "edgeConfigId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_id: Option<Option<String>>,
+    #[serde(
+        rename = "edgeConfigTokenId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub edge_config_token_id: Option<Option<String>>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    pub key: String,
+    #[serde(rename = "securityIssues")]
+    pub security_issues: Vec<FilterProjectEnvsResponseVariant2EnvsItemSecurityIssuesItemEnum>,
+    /// This is used to identify variables that have been migrated from type secret to sensitive.
+    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
+    pub sunset_secret_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub system: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<FilterProjectEnvsResponseVariant2EnvsItemTarget>,
+    #[serde(rename = "type")]
+    pub type_: FilterProjectEnvsResponseVariant2EnvsItemTypeEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
+    #[serde(
+        rename = "updatedBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub updated_by: Option<Option<String>>,
+    pub value: String,
+    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visibility: Option<FilterProjectEnvsResponseVariant2EnvsItemVisibilityEnum>,
+}
+
+impl FilterProjectEnvsResponseVariant2EnvsItem {
+    pub fn new(
+        key: String,
+        security_issues: Vec<FilterProjectEnvsResponseVariant2EnvsItemSecurityIssuesItemEnum>,
+        type_: FilterProjectEnvsResponseVariant2EnvsItemTypeEnum,
+        value: String,
+    ) -> Self {
+        Self {
+            comment: None,
+            configuration_id: None,
+            content_hint: None,
+            created_at: None,
+            created_by: None,
+            custom_environment_ids: None,
+            decrypted: None,
+            edge_config_id: None,
+            edge_config_token_id: None,
+            git_branch: None,
+            id: None,
+            key,
+            security_issues,
+            sunset_secret_id: None,
+            system: None,
+            target: None,
+            type_,
+            updated_at: None,
+            updated_by: None,
+            value,
+            visibility: None,
+        }
+    }
+}
+
+/// The list of environment variables for the given project
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct FilterProjectEnvsResponseVariant2 {
+    pub envs: Vec<FilterProjectEnvsResponseVariant2EnvsItem>,
+    #[serde(rename = "hiddenProductionEnvCount")]
+    pub hidden_production_env_count: f64,
+}
+
+impl FilterProjectEnvsResponseVariant2 {
+    pub fn new(
+        envs: Vec<FilterProjectEnvsResponseVariant2EnvsItem>,
+        hidden_production_env_count: f64,
+    ) -> Self {
+        Self {
+            envs,
+            hidden_production_env_count,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum FilterProjectEnvsResponse {
+    Object(Box<FilterProjectEnvsResponseVariant0>),
+    Object2(Box<FilterProjectEnvsResponseVariant1>),
+    Object3(Box<FilterProjectEnvsResponseVariant2>),
+}
+
+impl<'de> serde::Deserialize<'de> for FilterProjectEnvsResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<FilterProjectEnvsResponseVariant0>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<FilterProjectEnvsResponseVariant1>>(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<FilterProjectEnvsResponseVariant2>>(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no FilterProjectEnvsResponse branch accepts this payload")
+        })
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum RemoveProjectEnvResponseItemContentHintVariant0TypeEnum {
+    #[serde(rename = "redis-url")]
+    #[default]
+    RedisUrl,
+}
+
+impl RemoveProjectEnvResponseItemContentHintVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisUrl => "redis-url",
+        }
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RemoveProjectEnvResponseItemContentHintVariant0TypeEnum::RedisUrl => {
+                f.write_str("redis-url")
+            }
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct RemoveProjectEnvResponseItemContentHintVariant0 {
     #[serde(rename = "storeId")]
@@ -209,290 +504,6 @@ impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant5TypeEn
             RemoveProjectEnvResponseItemContentHintVariant5TypeEnum::BlobStoreId => {
                 f.write_str("blob-store-id")
             }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant5 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant5TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant5 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant5TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant6TypeEnum {
-    #[serde(rename = "blob-webhook-public-key")]
-    #[default]
-    BlobWebhookPublicKey,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant6TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BlobWebhookPublicKey => "blob-webhook-public-key",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant6TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant6TypeEnum::BlobWebhookPublicKey => {
-                f.write_str("blob-webhook-public-key")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant6 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant6TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant6 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant6TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant7TypeEnum {
-    #[serde(rename = "postgres-url")]
-    #[default]
-    PostgresUrl,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant7TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrl => "postgres-url",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant7TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant7TypeEnum::PostgresUrl => {
-                f.write_str("postgres-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant7 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant7TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant7 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant7TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant8TypeEnum {
-    #[serde(rename = "postgres-url-non-pooling")]
-    #[default]
-    PostgresUrlNonPooling,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant8TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrlNonPooling => "postgres-url-non-pooling",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant8TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant8TypeEnum::PostgresUrlNonPooling => {
-                f.write_str("postgres-url-non-pooling")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant8 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant8TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant8 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant8TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant9TypeEnum {
-    #[serde(rename = "postgres-prisma-url")]
-    #[default]
-    PostgresPrismaUrl,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant9TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPrismaUrl => "postgres-prisma-url",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant9TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant9TypeEnum::PostgresPrismaUrl => {
-                f.write_str("postgres-prisma-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant9 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant9TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant9 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant9TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant10TypeEnum {
-    #[serde(rename = "postgres-user")]
-    #[default]
-    PostgresUser,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant10TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUser => "postgres-user",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant10TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant10TypeEnum::PostgresUser => {
-                f.write_str("postgres-user")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant10 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant10TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant10 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant10TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant11TypeEnum {
-    #[serde(rename = "postgres-host")]
-    #[default]
-    PostgresHost,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant11TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresHost => "postgres-host",
-        }
-    }
-}
-
-impl std::fmt::Display for RemoveProjectEnvResponseItemContentHintVariant11TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            RemoveProjectEnvResponseItemContentHintVariant11TypeEnum::PostgresHost => {
-                f.write_str("postgres-host")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct RemoveProjectEnvResponseItemContentHintVariant11 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: RemoveProjectEnvResponseItemContentHintVariant11TypeEnum,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant11 {
-    pub fn new(
-        store_id: String,
-        type_: RemoveProjectEnvResponseItemContentHintVariant11TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum RemoveProjectEnvResponseItemContentHintVariant12TypeEnum {
-    #[serde(rename = "postgres-password")]
-    #[default]
-    PostgresPassword,
-}
-
-impl RemoveProjectEnvResponseItemContentHintVariant12TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresPassword => "postgres-password",
         }
     }
 }

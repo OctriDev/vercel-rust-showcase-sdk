@@ -3,139 +3,86 @@
 
 // deployments domain models (part 70)
 
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant8TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant8TypeEnum {
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "bitbucket" => Self::Bitbucket,
+            "failed" => Self::Failed,
+            "pending" => Self::Pending,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant8TypeEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1ChecksDeploymentaliasStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant8 {
-    pub owner: String,
-    #[serde(
-        rename = "prId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub pr_id: Option<Option<f64>>,
-    #[serde(
-        rename = "ref",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub ref_: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sha: Option<String>,
-    pub slug: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant8TypeEnum,
+pub struct GetDeploymentResponseVariant1ChecksDeploymentalias {
+    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
+    pub completed_at: Option<f64>,
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
+    pub state: GetDeploymentResponseVariant1ChecksDeploymentaliasStateEnum,
 }
 
-impl GetDeploymentResponseVariant1GitSourceVariant8 {
+impl GetDeploymentResponseVariant1ChecksDeploymentalias {
     pub fn new(
-        owner: String,
-        slug: String,
-        type_: GetDeploymentResponseVariant1GitSourceVariant8TypeEnum,
+        started_at: f64,
+        state: GetDeploymentResponseVariant1ChecksDeploymentaliasStateEnum,
     ) -> Self {
         Self {
-            owner,
-            pr_id: None,
-            ref_: None,
-            sha: None,
-            slug,
-            type_,
+            completed_at: None,
+            started_at,
+            state,
         }
     }
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor {
-    pub date: String,
-    pub email: String,
-    pub name: String,
+pub struct GetDeploymentResponseVariant1Checks {
+    /// Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
+    #[serde(rename = "deployment-alias")]
+    pub deployment_alias: GetDeploymentResponseVariant1ChecksDeploymentalias,
 }
 
-impl GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor {
-    pub fn new(date: String, email: String, name: String) -> Self {
-        Self { date, email, name }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter {
-    pub date: String,
-    pub email: String,
-    pub name: String,
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter {
-    pub fn new(date: String, email: String, name: String) -> Self {
-        Self { date, email, name }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant9CommitMetadata {
-    pub author: GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor,
-    pub committer: GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter,
-    pub message: String,
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant9CommitMetadata {
-    pub fn new(
-        author: GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataAuthor,
-        committer: GetDeploymentResponseVariant1GitSourceVariant9CommitMetadataCommitter,
-        message: String,
-    ) -> Self {
-        Self {
-            author,
-            committer,
-            message,
-        }
+impl GetDeploymentResponseVariant1Checks {
+    pub fn new(deployment_alias: GetDeploymentResponseVariant1ChecksDeploymentalias) -> Self {
+        Self { deployment_alias }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1GitSourceVariant9TypeEnum {
+pub enum GetDeploymentResponseVariant1ChecksConclusionEnum {
     #[default]
-    Vercel,
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl GetDeploymentResponseVariant1GitSourceVariant9TypeEnum {
+impl GetDeploymentResponseVariant1ChecksConclusionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Vercel => "vercel",
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant9TypeEnum {
+impl serde::Serialize for GetDeploymentResponseVariant1ChecksConclusionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -144,93 +91,49 @@ impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant9TypeEnum
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant9TypeEnum {
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ChecksConclusionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "vercel" => Self::Vercel,
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant9TypeEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1ChecksConclusionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant9 {
-    #[serde(rename = "commitMetadata", skip_serializing_if = "Option::is_none")]
-    pub commit_metadata: Option<GetDeploymentResponseVariant1GitSourceVariant9CommitMetadata>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub org: Option<String>,
-    #[serde(
-        rename = "prId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub pr_id: Option<Option<f64>>,
-    #[serde(
-        rename = "ref",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub ref_: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
-    #[serde(rename = "repoPushedAt", skip_serializing_if = "Option::is_none")]
-    pub repo_pushed_at: Option<f64>,
-    pub sha: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant9TypeEnum,
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant9 {
-    pub fn new(
-        repo_id: String,
-        sha: String,
-        type_: GetDeploymentResponseVariant1GitSourceVariant9TypeEnum,
-    ) -> Self {
-        Self {
-            commit_metadata: None,
-            org: None,
-            pr_id: None,
-            ref_: None,
-            repo: None,
-            repo_id,
-            repo_pushed_at: None,
-            sha,
-            type_,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+pub enum GetDeploymentResponseVariant1ChecksStateEnum {
     #[default]
-    CursorOrigin,
+    Completed,
+    Registered,
+    Running,
     Unknown(String),
 }
 
-impl GetDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+impl GetDeploymentResponseVariant1ChecksStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::CursorOrigin => "cursor-origin",
+            Self::Completed => "completed",
+            Self::Registered => "registered",
+            Self::Running => "running",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+impl serde::Serialize for GetDeploymentResponseVariant1ChecksStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -239,277 +142,345 @@ impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant10TypeEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ChecksStateEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cursor-origin" => Self::CursorOrigin,
+            "completed" => Self::Completed,
+            "registered" => Self::Registered,
+            "running" => Self::Running,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant10TypeEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1ChecksStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum {
+    #[default]
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1ConfigFunctionMemoryTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ConfigFunctionTypeEnum {
+    #[default]
+    Fluid,
+    Standard,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ConfigFunctionTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Fluid => "fluid",
+            Self::Standard => "standard",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1ConfigFunctionTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ConfigFunctionTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "fluid" => Self::Fluid,
+            "standard" => Self::Standard,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1ConfigFunctionTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Build resource configuration snapshot for this deployment.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Build resource configuration snapshot for this deployment.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentResponseVariant1ConfigResourceConfigBuildQueue {
+    /// Build resource configuration snapshot for this deployment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configuration:
+        Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildQueueConfigurationEnum>,
+}
+
+impl GetDeploymentResponseVariant1ConfigResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            configuration: None,
+        }
+    }
+}
+
+/// When elastic concurrency is used for this deployment, a value is set. The value tells the reason where the setting was coming from. \- TEAM_SETTING: Inherited from team settings \- PROJECT_SETTING: Inherited from project settings \- SKIP_QUEUE: Manually triggered by user to skip the queues
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
+    #[default]
+    ProjectSetting,
+    SkipQueue,
+    TeamSetting,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ProjectSetting => "PROJECT_SETTING",
+            Self::SkipQueue => "SKIP_QUEUE",
+            Self::TeamSetting => "TEAM_SETTING",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROJECT_SETTING" => Self::ProjectSetting,
+            "SKIP_QUEUE" => Self::SkipQueue,
+            "TEAM_SETTING" => Self::TeamSetting,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Machine type that was used for the build.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum {
+    #[default]
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant10 {
-    /// Owner (namespace) slug.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub owner: Option<String>,
+pub struct GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
+    /// Machine type that was used for the build.
     #[serde(
-        rename = "prId",
+        rename = "purchaseType",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub pr_id: Option<Option<f64>>,
-    #[serde(
-        rename = "ref",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub ref_: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    /// Origin repository id.
-    #[serde(rename = "repoId")]
-    pub repo_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sha: Option<String>,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant10TypeEnum,
+    pub purchase_type: Option<
+        Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildMachinePurchaseTypeEnum>,
+    >,
 }
 
-impl GetDeploymentResponseVariant1GitSourceVariant10 {
-    pub fn new(
-        repo_id: String,
-        type_: GetDeploymentResponseVariant1GitSourceVariant10TypeEnum,
-    ) -> Self {
+impl GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
         Self {
-            owner: None,
-            pr_id: None,
-            ref_: None,
-            repo: None,
-            repo_id,
-            sha: None,
-            type_,
+            purchase_type: None,
         }
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1GitSourceVariant11TypeEnum {
-    #[default]
-    Custom,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant11TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Custom => "custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant11TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant11TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "custom" => Self::Custom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant11TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Allows custom git sources (local folder mounted to the container) in test mode
+/// Build resource configuration snapshot for this deployment.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant11 {
-    #[serde(rename = "gitUrl")]
-    pub git_url: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub sha: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant11TypeEnum,
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant11 {
-    pub fn new(
-        git_url: String,
-        ref_: String,
-        sha: String,
-        type_: GetDeploymentResponseVariant1GitSourceVariant11TypeEnum,
-    ) -> Self {
-        Self {
-            git_url,
-            ref_,
-            sha,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1GitSourceVariant12TypeEnum {
-    #[default]
-    Github,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant12TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Github => "github",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant12TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant12TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "github" => Self::Github,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant12TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant12 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub org: Option<String>,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId")]
-    pub repo_id: f64,
-    pub sha: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant12TypeEnum,
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant12 {
-    pub fn new(
-        ref_: String,
-        repo_id: f64,
-        sha: String,
-        type_: GetDeploymentResponseVariant1GitSourceVariant12TypeEnum,
-    ) -> Self {
-        Self {
-            org: None,
-            ref_,
-            repo: None,
-            repo_id,
-            sha,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1GitSourceVariant13TypeEnum {
-    #[default]
-    GithubCustomHost,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1GitSourceVariant13TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::GithubCustomHost => "github-custom-host",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentResponseVariant1GitSourceVariant13TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1GitSourceVariant13TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "github-custom-host" => Self::GithubCustomHost,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentResponseVariant1GitSourceVariant13TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1GitSourceVariant13 {
-    pub host: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub org: Option<String>,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId")]
-    pub repo_id: f64,
-    pub sha: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1GitSourceVariant13TypeEnum,
+pub struct GetDeploymentResponseVariant1ConfigResourceConfig {
+    /// Build resource configuration snapshot for this deployment.
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildQueue>,
+    /// When elastic concurrency is used for this deployment, a value is set. The value tells the reason where the setting was coming from. \- TEAM_SETTING: Inherited from team settings \- PROJECT_SETTING: Inherited from project settings \- SKIP_QUEUE: Manually triggered by user to skip the queues
+    #[serde(rename = "elasticConcurrency", skip_serializing_if = "Option::is_none")]
+    pub elastic_concurrency:
+        Option<GetDeploymentResponseVariant1ConfigResourceConfigElasticConcurrencyEnum>,
+    #[serde(rename = "buildMachine", skip_serializing_if = "Option::is_none")]
+    pub build_machine: Option<GetDeploymentResponseVariant1ConfigResourceConfigBuildMachine>,
 }

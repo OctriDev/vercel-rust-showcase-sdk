@@ -5,51 +5,54 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{
-    CreateSandboxesByNameForkV3RequestKeepLastSnapshots,
-    CreateSandboxesByNameForkV3RequestNetworkPolicy,
-};
+use crate::types::{CreateSandboxesV3RequestNetworkPolicy, CreateSandboxesV3RequestSource};
 use crate::validation::{
     validate_items, validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts,
 };
 
 #[derive(Debug, Clone, Default)]
-pub struct CreateSandboxesByNameForkV3Params {
-    pub name: String,
-    pub project_id: Option<String>,
+pub struct CreateSandboxesV3Params {
     pub team_id: Option<String>,
     pub slug: Option<String>,
-    pub network_policy: Option<CreateSandboxesByNameForkV3RequestNetworkPolicy>,
-    pub resources: Option<CreateSandboxesByNameForkV3Resources>,
+    pub network_policy: Option<CreateSandboxesV3RequestNetworkPolicy>,
+    pub architecture: Option<CreateSandboxesV3ArchitectureEnum>,
+    pub resources: Option<CreateSandboxesV3Resources>,
+    pub source: Option<CreateSandboxesV3RequestSource>,
+    pub project_id: Option<String>,
     pub ports: Option<Vec<i64>>,
     pub image: Option<String>,
     pub timeout: Option<i64>,
     pub env: Option<std::collections::HashMap<String, String>>,
-    pub mounts: Option<std::collections::HashMap<String, CreateSandboxesByNameForkV3MountsValue>>,
-    pub region: Option<CreateSandboxesByNameForkV3RegionEnum>,
-    pub failover_regions: Option<Vec<CreateSandboxesByNameForkV3FailoverRegionsItemEnum>>,
+    pub mounts: Option<std::collections::HashMap<String, CreateSandboxesV3MountsValue>>,
+    pub region: Option<CreateSandboxesV3RegionEnum>,
+    pub failover_regions: Option<Vec<CreateSandboxesV3FailoverRegionsItemEnum>>,
     pub network_id: Option<String>,
-    pub name_2: Option<String>,
+    pub name: Option<String>,
     pub persistent: Option<bool>,
     pub snapshot_expiration: Option<Option<i64>>,
-    pub keep_last_snapshots: Option<CreateSandboxesByNameForkV3RequestKeepLastSnapshots>,
+    pub keep_last_snapshots: Option<CreateSandboxesV3KeepLastSnapshots>,
     pub tags: Option<std::collections::HashMap<String, String>>,
 }
 
-/// Forks a named sandbox into a new named sandbox, copying its configuration and environment variables. Supply `name` to identify the source and `projectId` unless you authenticate with an OIDC token; request fields override values copied from the source. If the source has a snapshot, the fork starts from it; otherwise, it starts from the source runtime or image, with seven-day snapshot expiration and a one-snapshot retention limit by default.
+/// Creates a named sandbox environment with automatic snapshotting on shutdown. Configure its resources, source, networking, and other settings in the request body; when `image` and a snapshot source are both absent, the sandbox uses the default universal image. This API version does not accept a `runtime` parameter.
 ///
-/// Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source. Unlike v2, when neither the body nor the source provides a value, snapshots expire after 7 days by default and persistent sandboxes keep only their most recent snapshot (`keepLastSnapshots: null` disables the limit).
+/// Creates a named sandbox environment. Named sandboxes have a unique name within a project and support automatic snapshotting on shutdown. Unlike v2, this version has no `runtime` parameter: when no `image` is provided (and the sandbox is not restored from a snapshot), the sandbox is created from the default universal image.
 ///
 /// # Arguments
 ///
-/// * `name` - Name of the source sandbox to fork.
-/// * `project_id` - The ID of the project the source sandbox belongs to.
-///   Required unless authenticating with an OIDC token.
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
 /// * `network_policy` - Typed representation of the
-///   `CreateSandboxesByNameForkV3RequestNetworkPolicy` API schema.
+///   `CreateSandboxesV3RequestNetworkPolicy` API schema.
+/// * `architecture` - CPU architecture. Inherits a snapshot or single image
+///   manifest when omitted. Image indexes default to amd64. Must match the
+///   source. ARM64 creation requires API v3 or v4 without runtime and team
+///   access.
 /// * `resources` - Resources to define the VM
+/// * `source` - The source from which to initialize the sandbox filesystem. Can
+///   be a Git repository, a tarball URL, or an existing snapshot.
+/// * `project_id` - The target project slug or ID in which the sandbox will be
+///   assigned to.
 /// * `ports` - List of ports to expose from the sandbox. Each port will be
 ///   accessible via a unique URL. Maximum of 15 ports can be exposed.
 /// * `image` - Image to use for the sandbox.
@@ -63,31 +66,29 @@ pub struct CreateSandboxesByNameForkV3Params {
 ///   be created in `region`.
 /// * `network_id` - The Connect network id for the target Secure Compute
 ///   private network.
-/// * `name_2` - Name for the forked sandbox. Must be unique per project and
-///   URL-safe (alphanumeric, hyphens, underscores). A random name is generated
-///   when omitted.
+/// * `name` - Name for the sandbox. Must be unique per project and URL-safe
+///   (alphanumeric, hyphens, underscores).
 /// * `persistent` - Whether the sandbox persists its state across restarts via
-///   automatic snapshots. Defaults to the source sandbox setting.
+///   automatic snapshots. Defaults to true.
 /// * `snapshot_expiration` - Default snapshot expiration time in milliseconds.
-///   Defaults to 7 days. Set to 0 to disable expiration. When set, this value is
-///   used as the default expiration for all snapshots created for this sandbox.
+///   Set to 0 to disable expiration. When set, this value is used as the default
+///   expiration for all snapshots created for this sandbox.
 /// * `keep_last_snapshots` - Protect the N most recent snapshots with different
-///   expiration/deletion behavior. Persistent sandboxes default to keeping only
-///   the last snapshot (evicted snapshots are deleted). Set to null to disable
-///   the limit.
+///   expiration/deletion behavior.
 /// * `tags` - Key-value tags to associate with the sandbox. Maximum 5 tags.
-pub fn create_sandboxes_by_name_fork_v3(
+pub fn create_sandboxes_v3(
     config: &ClientConfig,
-    params: CreateSandboxesByNameForkV3Params,
+    params: CreateSandboxesV3Params,
     options: Option<&RequestOptions>,
-) -> Result<CreateSandboxesByNameForkV3Response, SdkError> {
-    let CreateSandboxesByNameForkV3Params {
-        name,
-        project_id,
+) -> Result<CreateSandboxesV3Response, SdkError> {
+    let CreateSandboxesV3Params {
         team_id,
         slug,
         network_policy,
+        architecture,
         resources,
+        source,
+        project_id,
         ports,
         image,
         timeout,
@@ -96,31 +97,12 @@ pub fn create_sandboxes_by_name_fork_v3(
         region,
         failover_regions,
         network_id,
-        name_2,
+        name,
         persistent,
         snapshot_expiration,
         keep_last_snapshots,
         tags,
     } = params;
-    validate_length(
-        "name",
-        &name,
-        LengthOpts {
-            max: Some(128),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern("name", &name, "^[a-zA-Z0-9_-]+$")?;
-    if let Some(ref project_id_v) = project_id {
-        validate_length(
-            "projectId",
-            project_id_v,
-            LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-    }
     if let Some(ref ports_v) = ports {
         validate_items(
             "ports",
@@ -171,22 +153,19 @@ pub fn create_sandboxes_by_name_fork_v3(
             },
         )?;
     }
-    if let Some(ref name_2_v) = name_2 {
+    if let Some(ref name_v) = name {
         validate_length(
             "name",
-            name_2_v,
+            name_v,
             LengthOpts {
                 max: Some(128),
                 ..Default::default()
             },
         )?;
-        validate_pattern("name", name_2_v, "^[a-zA-Z0-9_-]+$")?;
+        validate_pattern("name", name_v, "^[a-zA-Z0-9_-]+$")?;
     }
 
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
@@ -206,9 +185,42 @@ pub fn create_sandboxes_by_name_fork_v3(
             })?,
         );
     }
+    if let Some(ref value) = architecture {
+        __body_map.insert(
+            "architecture".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
     if let Some(ref value) = resources {
         __body_map.insert(
             "resources".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = source {
+        __body_map.insert(
+            "source".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = project_id {
+        __body_map.insert(
+            "projectId".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -305,7 +317,7 @@ pub fn create_sandboxes_by_name_fork_v3(
             })?,
         );
     }
-    if let Some(ref value) = name_2 {
+    if let Some(ref value) = name {
         __body_map.insert(
             "name".to_string(),
             serde_json::to_value(value).map_err(|e| {
@@ -362,21 +374,81 @@ pub fn create_sandboxes_by_name_fork_v3(
     }
     let __body = serde_json::Value::Object(__body_map);
 
-    Ok(sdk_request::<CreateSandboxesByNameForkV3Response>(
+    Ok(sdk_request::<CreateSandboxesV3Response>(
         "POST",
-        &format!(
-            "/v3/sandboxes/{}/fork",
-            crate::client::encode_path_segment(&name)
-        ),
+        "/v3/sandboxes",
         config,
         RequestOpts {
             query: &__query,
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_sandboxes_by_name_fork_v3",
+            operation_id: "create_sandboxes_v3",
             options,
             ..Default::default()
         },
     )?
     .data)
+}
+
+/// Creates a point-in-time snapshot of a running session's filesystem. Use a snapshot to restore the filesystem later or initialize another session with the same environment; the session must be running and able to accept commands. The source session is terminated after the snapshot is created, and snapshots default to a seven-day expiration when neither the request nor sandbox configuration sets one.
+///
+/// Creates a point-in-time snapshot of a running session's filesystem. Snapshots can be used to quickly restore a session to a previous state or to create new sessions with pre-configured environments. The session must be running and able to accept commands for a snapshot to be created. The session will be terminated after the snapshot is created. Unlike v2, snapshots expire after 7 days when neither the request nor the sandbox configuration specifies an expiration.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session to snapshot.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `expiration` - The number of milliseconds after which the snapshot will
+///   expire and be deleted. Defaults to 7 days when neither this field nor the
+///   sandbox configuration specifies an expiration. Use 0 for no expiration.
+pub fn create_sandboxes_sessions_by_session_id_snapshot_v3(
+    config: &ClientConfig,
+    session_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    expiration: Option<Option<i64>>,
+    options: Option<&RequestOptions>,
+) -> Result<CreateSandboxesSessionsBySessionIdSnapshotV3Response, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    if let Some(ref value) = expiration {
+        __body_map.insert(
+            "expiration".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(
+        sdk_request::<CreateSandboxesSessionsBySessionIdSnapshotV3Response>(
+            "POST",
+            &format!(
+                "/v3/sandboxes/sessions/{}/snapshot",
+                crate::client::encode_path_segment(&session_id)
+            ),
+            config,
+            RequestOpts {
+                query: &__query,
+                body: Some(__body),
+                decoder: crate::client::ResponseDecoder::Json,
+                operation_id: "create_sandboxes_sessions_by_session_id_snapshot_v3",
+                options,
+                ..Default::default()
+            },
+        )?
+        .data,
+    )
 }

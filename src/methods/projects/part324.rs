@@ -3,213 +3,58 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
-            Self::Unknown(value) => value.as_str(),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseJobs {
+    #[serde(
+        rename = "flag-definitions-present",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flag_definitions_present: Option<UpdateMicrofrontendsResponseJobsFlagdefinitionspresent>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lint: Option<UpdateMicrofrontendsResponseJobsLint>,
+    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
+    pub mfe_config_present: Option<UpdateMicrofrontendsResponseJobsMfeconfigpresent>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub typecheck: Option<UpdateMicrofrontendsResponseJobsTypecheck>,
+}
+
+impl UpdateMicrofrontendsResponseJobs {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            flag_definitions_present: None,
+            lint: None,
+            mfe_config_present: None,
+            typecheck: None,
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseServicesItemFrameworkEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Service kind (Service.type). Omitted for schemas that do not define one.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+pub enum UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
     #[default]
-    Cron,
-    Job,
-    Web,
-    Worker,
+    Failed,
+    InProgress,
+    Pending,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+impl UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Cron => "cron",
-            Self::Job => "job",
-            Self::Web => "web",
-            Self::Worker => "worker",
+            Self::Failed => "failed",
+            Self::InProgress => "in-progress",
+            Self::Pending => "pending",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+impl serde::Serialize for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -218,83 +63,237 @@ impl serde::Serialize for UpdateMicrofrontendsResponseServicesItemServiceTypeEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cron" => Self::Cron,
-            "job" => Self::Job,
-            "web" => Self::Web,
-            "worker" => Self::Worker,
+            "failed" => Self::Failed,
+            "in-progress" => Self::InProgress,
+            "pending" => Self::Pending,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseServicesItemServiceTypeEnum {
+impl std::fmt::Display for UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
+    #[default]
+    Promote,
+    Rollback,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promote => "promote",
+            Self::Rollback => "rollback",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "promote" => Self::Promote,
+            "rollback" => Self::Rollback,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseLastAliasRequestTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseServicesItem {
-    /// Framework slug, when the service has one (omitted otherwise).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub framework: Option<UpdateMicrofrontendsResponseServicesItemFrameworkEnum>,
-    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    /// Service name from the deployment (Service.name).
-    #[serde(rename = "serviceName")]
-    pub service_name: String,
-    /// Service kind (Service.type). Omitted for schemas that do not define one.
-    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
-    pub service_type: Option<UpdateMicrofrontendsResponseServicesItemServiceTypeEnum>,
+pub struct UpdateMicrofrontendsResponseLastAliasRequest {
+    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
+    pub from_deployment_id: Option<String>,
+    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
+    #[serde(
+        rename = "fromRollingReleaseId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub from_rolling_release_id: Option<String>,
+    #[serde(rename = "jobStatus")]
+    pub job_status: UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum,
+    #[serde(rename = "requestedAt")]
+    pub requested_at: f64,
+    #[serde(rename = "toDeploymentId")]
+    pub to_deployment_id: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseLastAliasRequestTypeEnum,
 }
 
-impl UpdateMicrofrontendsResponseServicesItem {
-    pub fn new(service_name: String) -> Self {
+impl UpdateMicrofrontendsResponseLastAliasRequest {
+    pub fn new(
+        from_deployment_id: Option<String>,
+        job_status: UpdateMicrofrontendsResponseLastAliasRequestJobStatusEnum,
+        requested_at: f64,
+        to_deployment_id: String,
+        type_: UpdateMicrofrontendsResponseLastAliasRequestTypeEnum,
+    ) -> Self {
         Self {
-            framework: None,
-            runtime: None,
-            service_name,
-            service_type: None,
+            from_deployment_id,
+            from_rolling_release_id: None,
+            job_status,
+            requested_at,
+            to_deployment_id,
+            type_,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseSpeedInsights {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
-    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
-    pub data_received_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned {
+    Number(f64),
+    Bool(bool),
 }
 
-impl UpdateMicrofrontendsResponseSpeedInsights {
-    pub fn new(id: String) -> Self {
-        Self {
-            canceled_at: None,
-            data_received_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
-            paid_at: None,
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for UpdateMicrofrontendsResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl UpdateMicrofrontendsResponseLatestDeploymentsItemAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+}
+
+impl UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: UpdateMicrofrontendsResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
     }
 }

@@ -3,148 +3,25 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub comment: Option<String>,
-    #[serde(
-        rename = "configurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configuration_id: Option<Option<String>>,
-    #[serde(
-        rename = "contentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub content_hint: Option<Option<CreateProjectEnvResponseCreatedVariant0ContentHint>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(
-        rename = "createdBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_by: Option<Option<String>>,
-    #[serde(
-        rename = "customEnvironmentIds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_environment_ids: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub decrypted: Option<bool>,
-    #[serde(
-        rename = "edgeConfigId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_id: Option<Option<String>>,
-    #[serde(
-        rename = "edgeConfigTokenId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub edge_config_token_id: Option<Option<String>>,
-    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
-    pub git_branch: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    /// Similar to `contentHints`, but should not be exposed to the user.
-    #[serde(
-        rename = "internalContentHint",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub internal_content_hint:
-        Option<Option<CreateProjectEnvResponseCreatedVariant0InternalContentHint>>,
-    pub key: String,
-    /// Legacy now-encryption ciphertext, present after migration swaps value/vsmValue
-    #[serde(rename = "legacyValue", skip_serializing_if = "Option::is_none")]
-    pub legacy_value: Option<String>,
-    /// This is used to identify variables that have been migrated from type secret to sensitive.
-    #[serde(rename = "sunsetSecretId", skip_serializing_if = "Option::is_none")]
-    pub sunset_secret_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target: Option<CreateProjectEnvResponseCreatedVariant0Target>,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(
-        rename = "updatedBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub updated_by: Option<Option<String>>,
-    pub value: String,
-    /// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<CreateProjectEnvResponseCreatedVariant0VisibilityEnum>,
-    #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
-    pub vsm_value: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub system: Option<bool>,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0 {
-    pub fn new(
-        key: String,
-        type_: CreateProjectEnvResponseCreatedVariant0TypeEnum,
-        value: String,
-    ) -> Self {
-        Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
-            created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            internal_content_hint: None,
-            key,
-            legacy_value: None,
-            sunset_secret_id: None,
-            target: None,
-            type_,
-            updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-            vsm_value: None,
-            system: None,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+pub enum DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     #[default]
-    FlagsSecret,
+    AllCustom,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::FlagsSecret => "flags-secret",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+impl serde::Serialize
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -154,7 +31,7 @@ impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemInternalCon
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -162,148 +39,330 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "flags-secret" => Self::FlagsSecret,
+            "all-custom" => Self::AllCustom,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum {
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Similar to `contentHints`, but should not be exposed to the user.
+/// The target envs on the current project that may be accessed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant1ItemInternalContentHint {
-    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
-    #[serde(rename = "encryptedValue")]
-    pub encrypted_value: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum,
+pub struct DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
+    pub preset: DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
 }
 
-impl CreateProjectEnvResponseCreatedVariant1ItemInternalContentHint {
+impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1 {
     pub fn new(
-        encrypted_value: String,
-        type_: CreateProjectEnvResponseCreatedVariant1ItemInternalContentHintTypeEnum,
+        preset: DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum,
     ) -> Self {
         Self {
-            encrypted_value,
-            type_,
+            preset,
+            slugs: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
-    #[default]
-    Production,
-    Preview,
-    Development,
-    Unknown(String),
-}
-
-impl CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
-            Self::Development => "development",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
-            "development" => Self::Development,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum CreateProjectEnvResponseCreatedVariant1ItemTarget {
-    StringArray(Vec<String>),
-    Literal(CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum),
+pub enum DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo {
+    AllCustom(Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>),
+    AllCustom2(Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>),
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant1ItemTarget {
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo
+{
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
+        if let Ok(branch) = serde_json::from_value::<
+            Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            CreateProjectEnvResponseCreatedVariant1ItemTargetVariant1Enum,
+            Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
         >(value.clone())
         {
-            let candidate = Self::Literal(branch);
+            let candidate = Self::AllCustom2(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateProjectEnvResponseCreatedVariant1ItemTarget branch accepts this payload",
-            )
-        })
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
+    > for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(
+        value: Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant0>,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
+    > for DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo
+{
+    fn from(
+        value: Box<DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemToVariant1>,
+    ) -> Self {
+        Self::AllCustom2(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItem {
+    pub to: DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo,
+    pub claims: std::collections::HashMap<String, Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+}
+
+impl DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItem {
+    pub fn new(
+        to: DeleteProjectAvatarResponseTrustedSourcesOidcProvidersValueItemTo,
+        claims: std::collections::HashMap<String, Vec<String>>,
+    ) -> Self {
+        Self {
+            to,
+            claims,
+            label: None,
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
+pub enum DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
     #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
+    AllCustom,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant1ItemTypeEnum {
+impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
+            Self::AllCustom => "all-custom",
             Self::Unknown(value) => value.as_str(),
         }
+    }
+}
+
+impl serde::Serialize
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The source envs on the trusted project that are allowed to access `to`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preset: Option<
+        DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0PresetEnum,
+    >,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    pub slugs: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0 {
+    pub fn new(slugs: Vec<String>) -> Self {
+        Self {
+            preset: None,
+            slugs,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    #[default]
+    AllCustom,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AllCustom => "all-custom",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all-custom" => Self::AllCustom,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The source envs on the trusted project that are allowed to access `to`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
+    pub preset:
+        DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
+    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slugs: Option<Vec<String>>,
+}
+
+impl DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1 {
+    pub fn new(
+        preset: DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1PresetEnum,
+    ) -> Self {
+        Self {
+            preset,
+            slugs: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom {
+    AllCustom(
+        Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+    ),
+    AllCustom2(
+        Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+    ),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::AllCustom2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom branch accepts this payload"))
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0>,
+    > for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<
+            DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant0,
+        >,
+    ) -> Self {
+        Self::AllCustom(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1>,
+    > for DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFrom
+{
+    fn from(
+        value: Box<
+            DeleteProjectAvatarResponseTrustedSourcesProjectsValueCustomAllowItemFromVariant1,
+        >,
+    ) -> Self {
+        Self::AllCustom2(value)
     }
 }

@@ -3,6 +3,60 @@
 
 // projects_create domain models (part 7)
 
+impl std::fmt::Display for CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum::Header => {
+                f.write_str("header")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value {
+    pub eq: String,
+}
+
+impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value {
+    pub fn new(eq: String) -> Self {
+        Self { eq }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0 {
+    pub key: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+    pub value: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value,
+}
+
+impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0 {
+    pub fn new(
+        key: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+        type_: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+        value: CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0Value,
+    ) -> Self {
+        Self { key, type_, value }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    #[serde(rename = "host")]
+    #[default]
+    Host,
+}
+
+impl CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Host => "host",
+        }
+    }
+}
+
 impl std::fmt::Display for CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -72,6 +126,22 @@ impl<'de> serde::Deserialize<'de> for CreateProjectResponseInternalRoutesItemVar
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseInternalRoutesItemVariant1HasItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0>>
+    for CreateProjectResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<CreateProjectResponseInternalRoutesItemVariant1HasItemVariant0>) -> Self {
+        Self::Header(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1>>
+    for CreateProjectResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<CreateProjectResponseInternalRoutesItemVariant1HasItemVariant1>) -> Self {
+        Self::Host(value)
     }
 }
 
@@ -459,76 +529,4 @@ pub struct CreateProjectResponseLinkVariant2 {
     pub type_: CreateProjectResponseLinkVariant2TypeEnum,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<f64>,
-}
-
-impl CreateProjectResponseLinkVariant2 {
-    pub fn new(
-        deploy_hooks: Vec<CreateProjectResponseLinkVariant2DeployHooksItem>,
-        git_credential_id: String,
-        host: String,
-        org: String,
-        production_branch: String,
-        type_: CreateProjectResponseLinkVariant2TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            host,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseLinkVariant3DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl CreateProjectResponseLinkVariant3DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectResponseLinkVariant3TypeEnum {
-    #[serde(rename = "gitlab")]
-    #[default]
-    Gitlab,
-}
-
-impl CreateProjectResponseLinkVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gitlab => "gitlab",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseLinkVariant3TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectResponseLinkVariant3TypeEnum::Gitlab => f.write_str("gitlab"),
-        }
-    }
 }

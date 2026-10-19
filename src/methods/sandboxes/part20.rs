@@ -5,8 +5,434 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{GetSessionCommandLogsResponse, StopSessionResponse};
-use crate::validation::{validate_length, validate_range, LengthOpts, RangeOpts};
+use crate::validation::{validate_range, RangeOpts};
+
+#[derive(Debug, Clone, Default)]
+pub struct RunSessionCommandParams {
+    pub session_id: String,
+    pub cmd_id: String,
+    pub command: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub args: Option<Vec<String>>,
+    pub cwd: Option<String>,
+    pub env: Option<std::collections::HashMap<String, String>>,
+    pub sudo: Option<bool>,
+    pub wait: Option<bool>,
+    pub logs: Option<bool>,
+    pub timeout: Option<i64>,
+    pub attach_stdin: Option<bool>,
+}
+
+/// Submits a shell command for execution in a session and returns a command ID for tracking its progress. Use `wait` to stream status updates until the command finishes; set `logs` as well to stream execution output in real time.
+///
+/// Executes a shell command inside a running session. The command runs asynchronously and returns immediately with a command ID that can be used to track its progress and retrieve its output. Optionally, use the `wait` parameter to stream the command status until completion.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session in which to execute
+///   the command.
+/// * `cmd_id` - The unique identifier of the command to stream logs for.
+/// * `command` - The executable or shell command to run. This is the program
+///   name without arguments.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `args` - Arguments to pass to the command. Each argument should be a
+///   separate array element.
+/// * `cwd` - The working directory in which to execute the command. Defaults to
+///   the sandbox home directory if not specified.
+/// * `env` - Additional environment variables to set for this command. These
+///   are merged with the sandbox environment.
+/// * `sudo` - Execute the command with root (superuser) privileges.
+/// * `wait` - If true, returns an ND-JSON stream that emits the command status
+///   when started and again when finished. Useful for synchronously waiting for
+///   command completion.
+/// * `logs` - If true, stream the logs of the command execution in real-time
+///   via ND-JSON. This is only applicable if `wait` is also true.
+/// * `timeout` - Maximum duration in milliseconds the command may run before it
+///   is killed with SIGKILL, up to 5 hours. Enforced at exec time, independently
+///   of `wait`.
+/// * `attach_stdin` - If true, keeps the command stdin open so it can be
+///   written to with the stdin endpoint while the command runs. When false, the
+///   command reads from an empty stdin.
+pub fn run_session_command(
+    config: &ClientConfig,
+    params: RunSessionCommandParams,
+    options: Option<&RequestOptions>,
+) -> Result<RunSessionCommandResponse, SdkError> {
+    let RunSessionCommandParams {
+        session_id,
+        cmd_id,
+        command,
+        team_id,
+        slug,
+        args,
+        cwd,
+        env,
+        sudo,
+        wait,
+        logs,
+        timeout,
+        attach_stdin,
+    } = params;
+    if let Some(ref timeout_v) = timeout {
+        validate_range(
+            "timeout",
+            *timeout_v as f64,
+            RangeOpts {
+                min: Some(100_f64),
+                max: Some(18000000_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
+    __query.extend([("cmdId", crate::client::query_value(&cmd_id))]);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "command".to_string(),
+        serde_json::to_value(command).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = args {
+        __body_map.insert(
+            "args".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = cwd {
+        __body_map.insert(
+            "cwd".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = env {
+        __body_map.insert(
+            "env".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = sudo {
+        __body_map.insert(
+            "sudo".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = wait {
+        __body_map.insert(
+            "wait".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = logs {
+        __body_map.insert(
+            "logs".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = timeout {
+        __body_map.insert(
+            "timeout".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = attach_stdin {
+        __body_map.insert(
+            "attachStdin".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+
+    Ok(sdk_request::<RunSessionCommandResponse>(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/cmd",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            body: Some(__body),
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "run_session_command",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct RunSessionCommandStreamParams {
+    pub session_id: String,
+    pub cmd_id: String,
+    pub command: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub args: Option<Vec<String>>,
+    pub cwd: Option<String>,
+    pub env: Option<std::collections::HashMap<String, String>>,
+    pub sudo: Option<bool>,
+    pub wait: Option<bool>,
+    pub logs: Option<bool>,
+    pub timeout: Option<i64>,
+    pub attach_stdin: Option<bool>,
+}
+
+/// Submits a shell command for execution in a session and returns a command ID for tracking its progress. Use `wait` to stream status updates until the command finishes; set `logs` as well to stream execution output in real time.
+///
+/// Executes a shell command inside a running session. The command runs asynchronously and returns immediately with a command ID that can be used to track its progress and retrieve its output. Optionally, use the `wait` parameter to stream the command status until completion.
+///
+/// # Arguments
+///
+/// * `session_id` - The unique identifier of the session in which to execute
+///   the command.
+/// * `cmd_id` - The unique identifier of the command to stream logs for.
+/// * `command` - The executable or shell command to run. This is the program
+///   name without arguments.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `args` - Arguments to pass to the command. Each argument should be a
+///   separate array element.
+/// * `cwd` - The working directory in which to execute the command. Defaults to
+///   the sandbox home directory if not specified.
+/// * `env` - Additional environment variables to set for this command. These
+///   are merged with the sandbox environment.
+/// * `sudo` - Execute the command with root (superuser) privileges.
+/// * `wait` - If true, returns an ND-JSON stream that emits the command status
+///   when started and again when finished. Useful for synchronously waiting for
+///   command completion.
+/// * `logs` - If true, stream the logs of the command execution in real-time
+///   via ND-JSON. This is only applicable if `wait` is also true.
+/// * `timeout` - Maximum duration in milliseconds the command may run before it
+///   is killed with SIGKILL, up to 5 hours. Enforced at exec time, independently
+///   of `wait`.
+/// * `attach_stdin` - If true, keeps the command stdin open so it can be
+///   written to with the stdin endpoint while the command runs. When false, the
+///   command reads from an empty stdin.
+pub fn run_session_command_stream(
+    config: &ClientConfig,
+    params: RunSessionCommandStreamParams,
+    options: Option<&RequestOptions>,
+) -> Result<impl Iterator<Item = Result<RunSessionCommandResponse26a0914c, SdkError>>, SdkError> {
+    let RunSessionCommandStreamParams {
+        session_id,
+        cmd_id,
+        command,
+        team_id,
+        slug,
+        args,
+        cwd,
+        env,
+        sudo,
+        wait,
+        logs,
+        timeout,
+        attach_stdin,
+    } = params;
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
+    __query.extend([("cmdId", crate::client::query_value(&cmd_id))]);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+    let mut __body_map = serde_json::Map::new();
+    __body_map.insert(
+        "command".to_string(),
+        serde_json::to_value(command).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = args {
+        __body_map.insert(
+            "args".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = cwd {
+        __body_map.insert(
+            "cwd".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = env {
+        __body_map.insert(
+            "env".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = sudo {
+        __body_map.insert(
+            "sudo".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = wait {
+        __body_map.insert(
+            "wait".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = logs {
+        __body_map.insert(
+            "logs".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = timeout {
+        __body_map.insert(
+            "timeout".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = attach_stdin {
+        __body_map.insert(
+            "attachStdin".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    let __body = serde_json::Value::Object(__body_map);
+    let opts = RequestOpts {
+        query: &__query,
+        body: Some(__body),
+        operation_id: "run_session_command_stream",
+        options,
+        ..Default::default()
+    };
+    let upstream = crate::client::sdk_stream_with_format(
+        "POST",
+        &format!(
+            "/v2/sandboxes/sessions/{}/cmd",
+            crate::client::encode_path_segment(&session_id)
+        ),
+        config,
+        opts,
+        "ndjson",
+        "application/x-ndjson",
+        "bytes",
+    )?;
+    Ok(upstream.filter_map(|res| match res {
+        Ok(ev) => {
+            if ev.data == "[DONE]" {
+                None
+            } else {
+                Some(
+                    serde_json::from_str::<RunSessionCommandResponse26a0914c>(&ev.data).map_err(
+                        |e| {
+                            crate::client::response_decode_error(
+                                200,
+                                &Default::default(),
+                                None,
+                                ev.data.as_bytes(),
+                                None,
+                                e.to_string(),
+                            )
+                        },
+                    ),
+                )
+            }
+        }
+        Err(e) => Some(Err(e)),
+    }))
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct GetSessionCommandParams {
@@ -139,449 +565,6 @@ pub fn kill_session_command(
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "kill_session_command",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct WriteSessionCommandStdinParams {
-    pub cmd_id: String,
-    pub session_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub data: Option<String>,
-    pub offset: Option<i64>,
-    pub close: Option<bool>,
-}
-
-/// Writes data to a running command's stdin and can close stdin after the write. The command must have started with `attachStdin` enabled; send writes one at a time to preserve order, and use `offset` to make retries safe when the response includes `bytesWritten`.
-///
-/// Writes data to the stdin of a running command, and optionally closes it. The command must have been started with `attachStdin` set to true. Writes are applied in the order they are received. Send them one at a time to keep the data in order. A write returns once the command has accepted the data, and fails with a 504 after 30 seconds if the command is not reading stdin. Each write counts against the sandbox control plane rate limit, so batch small writes where possible. Set `offset` to the position in stdin where `data` starts to make a request safe to resend, for example after a 502 or 504: bytes the command has already received are skipped, and an offset past them fails with a 409\. The response returns `bytesWritten`, the total written so far, and a 504 includes it in the error when the sandbox reports it. A request with no `data` and no `close` writes nothing and returns it. If a request with an `offset` gets a response without `bytesWritten`, the sandbox predates offsets and ignored it, so resending that request is not safe.
-///
-/// # Arguments
-///
-/// * `cmd_id` - The unique identifier of the command to write to.
-/// * `session_id` - The unique identifier of the session containing the
-///   command.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `data` - Base64-encoded bytes to write to the command stdin. The request
-///   body is limited to 1 MB, so send at most about 700 KB of data per request.
-/// * `offset` - The position in the command stdin where `data` starts. Bytes
-///   before the total already written are skipped, so a resent request does not
-///   write them twice. Fails with 409 if it is past the bytes written so far.
-///   Without it, `data` is appended.
-/// * `close` - If true, closes the command stdin after writing `data`. Use this
-///   for commands that wait for end of input.
-pub fn write_session_command_stdin(
-    config: &ClientConfig,
-    params: WriteSessionCommandStdinParams,
-    options: Option<&RequestOptions>,
-) -> Result<WriteSessionCommandStdinResponse, SdkError> {
-    let WriteSessionCommandStdinParams {
-        cmd_id,
-        session_id,
-        team_id,
-        slug,
-        data,
-        offset,
-        close,
-    } = params;
-    if let Some(ref data_v) = data {
-        validate_length(
-            "data",
-            data_v,
-            LengthOpts {
-                max: Some(1000000),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref offset_v) = offset {
-        validate_range(
-            "offset",
-            *offset_v as f64,
-            RangeOpts {
-                min: Some(0_f64),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = data {
-        __body_map.insert(
-            "data".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = offset {
-        __body_map.insert(
-            "offset".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = close {
-        __body_map.insert(
-            "close".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<WriteSessionCommandStdinResponse>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/sessions/{}/cmd/{}/stdin",
-            crate::client::encode_path_segment(&session_id),
-            crate::client::encode_path_segment(&cmd_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "write_session_command_stdin",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Streams command output in real time as newline-delimited JSON (ND-JSON). Each stream entry includes output data and a stream type such as `stdout`, `stderr`, or `error`.
-///
-/// Streams the output of a command in real-time using newline-delimited JSON (ND-JSON). Each entry includes the output data and stream type. Stream types include `stdout`, `stderr`, and `error` (for stream failures).
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session containing the
-///   command.
-/// * `cmd_id` - The unique identifier of the command to stream logs for.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_session_command_logs(
-    config: &ClientConfig,
-    session_id: String,
-    cmd_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<impl Iterator<Item = Result<GetSessionCommandLogsResponse, SdkError>>, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-    let opts = RequestOpts {
-        query: &__query,
-        operation_id: "get_session_command_logs",
-        options,
-        ..Default::default()
-    };
-    let upstream = crate::client::sdk_stream_with_format(
-        "GET",
-        &format!(
-            "/v2/sandboxes/sessions/{}/cmd/{}/logs",
-            crate::client::encode_path_segment(&session_id),
-            crate::client::encode_path_segment(&cmd_id)
-        ),
-        config,
-        opts,
-        "ndjson",
-        "application/x-ndjson",
-        "bytes",
-    )?;
-    Ok(upstream.filter_map(|res| match res {
-        Ok(ev) => {
-            if ev.data == "[DONE]" {
-                None
-            } else {
-                Some(
-                    serde_json::from_str::<GetSessionCommandLogsResponse>(&ev.data).map_err(|e| {
-                        crate::client::response_decode_error(
-                            200,
-                            &Default::default(),
-                            None,
-                            ev.data.as_bytes(),
-                            None,
-                            e.to_string(),
-                        )
-                    }),
-                )
-            }
-        }
-        Err(e) => Some(Err(e)),
-    }))
-}
-
-/// Stops a running session and releases its allocated resources, terminating all processes within it. This action cannot be undone, and the stopped session cannot be restarted.
-///
-/// Stops a running session and releases its allocated resources. All running processes within the session will be terminated. This action cannot be undone. A stopped session cannot be restarted.
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session to stop.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn stop_session(
-    config: &ClientConfig,
-    session_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<StopSessionResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<StopSessionResponse>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/sessions/{}/stop",
-            crate::client::encode_path_segment(&session_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "stop_session",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Extends the maximum execution time of a running session. Supply the additional duration in milliseconds; the session must be active, and the resulting timeout cannot exceed your account's maximum allowed limit.
-///
-/// Extends the maximum execution time of a running session. The session must be active and able to accept commands. The total timeout cannot exceed the maximum allowed limit for your account.
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session to extend the timeout
-///   for.
-/// * `duration` - The amount of time in milliseconds to add to the current
-///   timeout. Must be at least 1000ms (1 second).
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn extend_session_timeout(
-    config: &ClientConfig,
-    session_id: String,
-    duration: f64,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ExtendSessionTimeoutResponse, SdkError> {
-    validate_range(
-        "duration",
-        duration,
-        RangeOpts {
-            min: Some(1000_f64),
-            ..Default::default()
-        },
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "duration".to_string(),
-        serde_json::to_value(duration).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<ExtendSessionTimeoutResponse>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/sessions/{}/extend-timeout",
-            crate::client::encode_path_segment(&session_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "extend_session_timeout",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Replaces the network access policy for a running session, controlling which external hosts it can reach. This is a full replacement, so any previously configured network rules are overwritten; choose the policy mode and rules for the complete configuration you want applied.
-///
-/// Replaces the network access policy of a running session. Use this to control which external hosts the session can communicate with. This is a full replacement. Any previously configured network rules will be overwritten.
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session to update the network
-///   policy for.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn update_session_network_policy(
-    config: &ClientConfig,
-    session_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    body: Option<UpdateSessionNetworkPolicy>,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateSessionNetworkPolicyResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let __body = serde_json::to_value(body).map_err(|e| {
-        SdkError::Network(SdkNetworkError {
-            message: format!("encode body: {}", e),
-            request_id: None,
-        })
-    })?;
-
-    Ok(sdk_request::<UpdateSessionNetworkPolicyResponse>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/sessions/{}/network-policy",
-            crate::client::encode_path_segment(&session_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_session_network_policy",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct ReadSessionFileParams {
-    pub session_id: String,
-    pub path: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub cwd: Option<String>,
-}
-
-/// Retrieves a file from a session's filesystem. Supply `path` to identify the file and optionally use `cwd` to resolve a relative path from a different base directory. The file is returned as a binary stream for download.
-///
-/// Downloads the contents of a file from a session's filesystem. The file content is returned as a binary stream with appropriate Content-Disposition headers for file download.
-///
-/// # Arguments
-///
-/// * `session_id` - The unique identifier of the session to read the file from.
-/// * `path` - The path of the file to read. Can be absolute or relative to the
-///   working directory.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `cwd` - The base directory for resolving relative paths. If not specified,
-///   paths are resolved from the sandbox home directory.
-pub fn read_session_file(
-    config: &ClientConfig,
-    params: ReadSessionFileParams,
-    options: Option<&RequestOptions>,
-) -> Result<Vec<u8>, SdkError> {
-    let ReadSessionFileParams {
-        session_id,
-        path,
-        team_id,
-        slug,
-        cwd,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "path".to_string(),
-        serde_json::to_value(path).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = cwd {
-        __body_map.insert(
-            "cwd".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<Vec<u8>>(
-        "POST",
-        &format!(
-            "/v2/sandboxes/sessions/{}/fs/read",
-            crate::client::encode_path_segment(&session_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Bytes,
-            operation_id: "read_session_file",
             options,
             ..Default::default()
         },

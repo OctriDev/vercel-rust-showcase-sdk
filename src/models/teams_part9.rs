@@ -3,6 +3,43 @@
 
 // teams domain models (part 9)
 
+impl<'de> serde::Deserialize<'de> for TeamLimitedMembershipJoinedFromOriginEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "account-update" => Self::AccountUpdate,
+            "bitbucket" => Self::Bitbucket,
+            "dsync" => Self::Dsync,
+            "feedback" => Self::Feedback,
+            "github" => Self::Github,
+            "gitlab" => Self::Gitlab,
+            "import" => Self::Import,
+            "link" => Self::Link,
+            "mail" => Self::Mail,
+            "nsnb-auto-approve" => Self::NsnbAutoApprove,
+            "nsnb-hobby-upgrade" => Self::NsnbHobbyUpgrade,
+            "nsnb-invite" => Self::NsnbInvite,
+            "nsnb-redeploy" => Self::NsnbRedeploy,
+            "nsnb-redeploy-attribution-card" => Self::NsnbRedeployAttributionCard,
+            "nsnb-request-access" => Self::NsnbRequestAccess,
+            "nsnb-viewer-upgrade" => Self::NsnbViewerUpgrade,
+            "organization-teams" => Self::OrganizationTeams,
+            "saml" => Self::Saml,
+            "teams" => Self::Teams,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for TeamLimitedMembershipJoinedFromOriginEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// Optional object value serialized in the `joinedFrom` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct TeamLimitedMembershipJoinedFrom {
@@ -444,33 +481,5 @@ impl TeamLimitedSamlConnection {
             type_,
             status,
         }
-    }
-}
-
-/// Controls whether directory sync events are processed. \- 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. \- 'ACTIVE': Fully configured. Events are processed normally. \- undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum TeamLimitedSamlDirectorySyncStateEnum {
-    #[default]
-    Active,
-    Setup,
-    Unknown(String),
-}
-
-impl TeamLimitedSamlDirectorySyncStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "ACTIVE",
-            Self::Setup => "SETUP",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for TeamLimitedSamlDirectorySyncStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
     }
 }

@@ -4,95 +4,138 @@
 use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
+use crate::errors::SdkError;
 use crate::validation::{validate_items, validate_length, validate_range, LengthOpts, RangeOpts};
 
-/// Lists feature flag settings for projects in a team. Use `limit` to control the maximum number of settings returned and `cursor` to continue through the results.
-///
-/// Retrieve feature flag settings for projects in a team.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `limit` - Maximum number of settings to return.
-/// * `cursor` - Pagination cursor to continue from.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_team_flag_settings(
-    config: &ClientConfig,
-    team_id: String,
-    limit: Option<i64>,
-    cursor: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ListTeamFlagSettingsResponse, SdkError> {
-    if let Some(ref limit_v) = limit {
-        validate_range(
-            "limit",
-            *limit_v as f64,
-            RangeOpts {
-                min: Some(1_f64),
-                max: Some(100_f64),
-                ..Default::default()
-            },
-        )?;
-    }
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListTeamFlagsEnumc723bb9e {
+    #[default]
+    Boolean,
+    Json,
+    Number,
+    String,
+    Unknown(String),
+}
 
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = limit {
-        __query.push(("limit", crate::client::query_value(v)));
+impl ListTeamFlagsEnumc723bb9e {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Boolean => "boolean",
+            Self::Json => "json",
+            Self::Number => "number",
+            Self::String => "string",
+            Self::Unknown(value) => value.as_str(),
+        }
     }
-    if let Some(ref v) = cursor {
-        __query.push(("cursor", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
+}
 
-    Ok(sdk_request::<ListTeamFlagSettingsResponse>(
-        "GET",
-        &format!(
-            "/v1/teams/{}/feature-flags/settings",
-            crate::client::encode_path_segment(&team_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_team_flag_settings",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
+impl serde::Serialize for ListTeamFlagsEnumc723bb9e {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListTeamFlagsEnumc723bb9e {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "boolean" => Self::Boolean,
+            "json" => Self::Json,
+            "number" => Self::Number,
+            "string" => Self::String,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListTeamFlagsEnumc723bb9e {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateSdkKeySdkKeyTypeEnum {
+    #[default]
+    Client,
+    Mobile,
+    Server,
+    Unknown(String),
+}
+
+impl CreateSdkKeySdkKeyTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Client => "client",
+            Self::Mobile => "mobile",
+            Self::Server => "server",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateSdkKeySdkKeyTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateSdkKeySdkKeyTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "client" => Self::Client,
+            "mobile" => Self::Mobile,
+            "server" => Self::Server,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateSdkKeySdkKeyTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct ListTeamFlagsV2Params {
-    pub team_id: String,
-    pub state: Option<ListTeamFlagsV2Enum>,
+pub struct ListFlagsV2Params {
+    pub project_id_or_name: String,
+    pub state: Option<ListFlagsV2Enum>,
     pub limit: Option<i64>,
     pub cursor: Option<String>,
     pub search: Option<String>,
-    pub kind: Option<ListTeamFlagsV2Enumff594321>,
     pub tags: Option<Vec<String>>,
     pub created_by: Option<String>,
     pub maintainer_ids: Option<Vec<String>>,
     pub include_marketplace_flags: Option<bool>,
+    pub team_id: Option<String>,
     pub slug: Option<String>,
 }
 
-/// Lists feature flags across all projects in a team. Filter the results by state, kind, tags, creator, maintainers, or search text, and use `cursor` to continue through the results. The response includes an opaque next cursor for pagination.
+/// Lists a project's feature flags with cursor-based pagination. Use `state`, `search`, `tags`, or maintainer and creator filters to narrow the results, and pass the returned pagination cursor to continue through the list. The `state` filter defaults to `active`.
 ///
-/// Retrieve all feature flags for a team across all projects. Returns an opaque cursor for pagination.
+/// Retrieve feature flags for a project. Returns an opaque cursor for pagination.
 ///
 /// # Arguments
 ///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `project_id_or_name` - The project id or name
 /// * `state` - The state of the flags to retrieve. Defaults to `active`.
 /// * `limit` - Maximum number of flags to return.
 /// * `cursor` - Pagination cursor to continue from.
 /// * `search` - Search flags by their slug or description. Case-insensitive.
-/// * `kind` - The kind of flags to retrieve.
 /// * `tags` - Filter flags by tag. Repeat the parameter for multiple tags (all
 ///   must match).
 /// * `created_by` - Filter flags by the id of the entity that created them (a
@@ -101,23 +144,24 @@ pub struct ListTeamFlagsV2Params {
 ///   parameter for multiple maintainers (any may match).
 /// * `include_marketplace_flags` - Whether to include Marketplace
 ///   experimentation items in the paginated response. Defaults to false.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_team_flags_v2(
+pub fn list_flags_v2(
     config: &ClientConfig,
-    params: ListTeamFlagsV2Params,
+    params: ListFlagsV2Params,
     options: Option<&RequestOptions>,
-) -> Result<ListTeamFlagsV2Response, SdkError> {
-    let ListTeamFlagsV2Params {
-        team_id,
+) -> Result<ListFlagsV2Response, SdkError> {
+    let ListFlagsV2Params {
+        project_id_or_name,
         state,
         limit,
         cursor,
         search,
-        kind,
         tags,
         created_by,
         maintainer_ids,
         include_marketplace_flags,
+        team_id,
         slug,
     } = params;
     if let Some(ref limit_v) = limit {
@@ -175,9 +219,6 @@ pub fn list_team_flags_v2(
     if let Some(ref v) = search {
         __query.push(("search", crate::client::query_value(v)));
     }
-    if let Some(ref v) = kind {
-        __query.push(("kind", crate::client::query_value(v)));
-    }
     if let Some(ref vec) = tags {
         for item in vec {
             __query.push(("tags", crate::client::query_value(item)));
@@ -194,21 +235,24 @@ pub fn list_team_flags_v2(
     if let Some(ref v) = include_marketplace_flags {
         __query.push(("includeMarketplaceFlags", crate::client::query_value(v)));
     }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
     if let Some(ref v) = slug {
         __query.push(("slug", crate::client::query_value(v)));
     }
 
-    Ok(sdk_request::<ListTeamFlagsV2Response>(
+    Ok(sdk_request::<ListFlagsV2Response>(
         "GET",
         &format!(
-            "/v2/teams/{}/feature-flags/flags",
-            crate::client::encode_path_segment(&team_id)
+            "/v2/projects/{}/feature-flags/flags",
+            crate::client::encode_path_segment(&project_id_or_name)
         ),
         config,
         RequestOpts {
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_team_flags_v2",
+            operation_id: "list_flags_v2",
             options,
             ..Default::default()
         },
@@ -217,51 +261,54 @@ pub fn list_team_flags_v2(
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct ListTeamFlagsParams {
-    pub team_id: String,
-    pub state: Option<ListTeamFlagsEnum>,
+pub struct ListFlagsParams {
+    pub project_id_or_name: String,
+    pub state: Option<ListFlagsEnum>,
     pub with_metadata: Option<bool>,
     pub limit: Option<i64>,
     pub cursor: Option<String>,
     pub search: Option<String>,
-    pub kind: Option<ListTeamFlagsEnumc723bb9e>,
     pub tags: Option<Vec<String>>,
+    pub team_id: Option<String>,
     pub slug: Option<String>,
 }
 
-/// Lists feature flags across all projects in a team. Filter the results by state, kind, tags, or search text, and use `cursor` to continue through the results. The `withMetadata` parameter is deprecated; resolve creator identity separately instead.
+/// Lists feature flags for a project, with optional filtering by state, slug or description, and tags. Use the `cursor` to continue through paginated results, or omit `limit` to retrieve all flags. The `withMetadata` parameter is deprecated; resolve creator identity separately or use the single-flag endpoint when you need that metadata.
 ///
-/// Retrieve all feature flags for a team across all projects. The list can be filtered by state and supports pagination.
+/// Retrieve feature flags for a project. The list can be filtered by state and supports pagination.
 ///
 /// # Arguments
 ///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `project_id_or_name` - The project id or name
 /// * `state` - The state of the flags to retrieve. Defaults to `active`.
 /// * `with_metadata` - Deprecated. Whether to include creator metadata in each
 ///   flag in the response. Resolve creator identity client-side (e.g. via the
 ///   team members endpoint) instead; this parameter will be removed in a future
-///   release.
-/// * `limit` - Maximum number of flags to return.
+///   release. Use `GET
+///   /v1/projects/:id/feature-flags/flags/:flagIdOrSlug?withMetadata=true` for
+///   single-flag lookups that need creator metadata.
+/// * `limit` - Maximum number of flags to return. When not set, all flags are
+///   returned.
 /// * `cursor` - Pagination cursor to continue from.
 /// * `search` - Search flags by their slug or description. Case-insensitive.
-/// * `kind` - The kind of flags to retrieve.
 /// * `tags` - Filter flags by tag. Repeat the parameter for multiple tags (all
 ///   must match).
+/// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_team_flags(
+pub fn list_flags(
     config: &ClientConfig,
-    params: ListTeamFlagsParams,
+    params: ListFlagsParams,
     options: Option<&RequestOptions>,
-) -> Result<ListTeamFlagsResponse, SdkError> {
-    let ListTeamFlagsParams {
-        team_id,
+) -> Result<ListFlagsResponse, SdkError> {
+    let ListFlagsParams {
+        project_id_or_name,
         state,
         with_metadata,
         limit,
         cursor,
         search,
-        kind,
         tags,
+        team_id,
         slug,
     } = params;
     if let Some(ref limit_v) = limit {
@@ -302,186 +349,11 @@ pub fn list_team_flags(
     if let Some(ref v) = search {
         __query.push(("search", crate::client::query_value(v)));
     }
-    if let Some(ref v) = kind {
-        __query.push(("kind", crate::client::query_value(v)));
-    }
     if let Some(ref vec) = tags {
         for item in vec {
             __query.push(("tags", crate::client::query_value(item)));
         }
     }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ListTeamFlagsResponse>(
-        "GET",
-        &format!(
-            "/v1/teams/{}/feature-flags/flags",
-            crate::client::encode_path_segment(&team_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_team_flags",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone)]
-pub struct CreateFlagSegmentParams {
-    pub project_id_or_name: String,
-    pub slug: String,
-    pub label: String,
-    pub data: CreateFlagSegmentData,
-    pub hint: String,
-    pub team_id: Option<String>,
-    pub slug_2: Option<String>,
-    pub created_by: Option<String>,
-    pub description: Option<String>,
-}
-
-/// Creates a feature flag segment for a project. Supply `slug`, `label`, `data`, and `hint`; `data` can define segment rules and include or exclude data. A 201 response returns the created segment with its generated identifier.
-///
-/// Create a new feature flag segment.
-///
-/// # Arguments
-///
-/// * `project_id_or_name` - The project id or name
-/// * `data` - The data of the segment
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug_2` - The Team slug to perform the request on behalf of.
-/// * `created_by` - The entity who created the segment
-pub fn create_flag_segment(
-    config: &ClientConfig,
-    params: CreateFlagSegmentParams,
-    options: Option<&RequestOptions>,
-) -> Result<CreateFlagSegmentResponse, SdkError> {
-    let CreateFlagSegmentParams {
-        project_id_or_name,
-        slug,
-        label,
-        data,
-        hint,
-        team_id,
-        slug_2,
-        created_by,
-        description,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug_2 {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "slug".to_string(),
-        serde_json::to_value(slug).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "label".to_string(),
-        serde_json::to_value(label).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "data".to_string(),
-        serde_json::to_value(data).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "hint".to_string(),
-        serde_json::to_value(hint).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = created_by {
-        __body_map.insert(
-            "createdBy".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = description {
-        __body_map.insert(
-            "description".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<CreateFlagSegmentResponse>(
-        "PUT",
-        &format!(
-            "/v1/projects/{}/feature-flags/segments",
-            crate::client::encode_path_segment(&project_id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_flag_segment",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists feature flag segments defined for a project. Use `withMetadata` to control whether metadata is included in the segment records.
-///
-/// List all feature flag segments for a project.
-///
-/// # Arguments
-///
-/// * `project_id_or_name` - The project id or name
-/// * `with_metadata` - Whether to include metadata
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn list_flag_segments(
-    config: &ClientConfig,
-    project_id_or_name: String,
-    with_metadata: Option<bool>,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ListFlagSegmentsResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = with_metadata {
-        __query.push(("withMetadata", crate::client::query_value(v)));
-    }
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
@@ -489,17 +361,17 @@ pub fn list_flag_segments(
         __query.push(("slug", crate::client::query_value(v)));
     }
 
-    Ok(sdk_request::<ListFlagSegmentsResponse>(
+    Ok(sdk_request::<ListFlagsResponse>(
         "GET",
         &format!(
-            "/v1/projects/{}/feature-flags/segments",
+            "/v1/projects/{}/feature-flags/flags",
             crate::client::encode_path_segment(&project_id_or_name)
         ),
         config,
         RequestOpts {
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "list_flag_segments",
+            operation_id: "list_flags",
             options,
             ..Default::default()
         },

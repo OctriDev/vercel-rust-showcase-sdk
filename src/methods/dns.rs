@@ -4,7 +4,9 @@
 mod part1;
 mod part2;
 mod part3;
+mod part4;
 
 pub use part1::*;
 pub use part2::*;
 pub use part3::*;
+pub use part4::*;

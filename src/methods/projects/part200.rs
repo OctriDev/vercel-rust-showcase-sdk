@@ -3,70 +3,46 @@
 
 use super::*;
 
-impl UpdateProjectResponseRollingRelease {
-    pub fn new(target: String) -> Self {
-        Self {
-            canary_response_header: None,
-            gate: None,
-            stages: None,
-            target,
-        }
+impl UpdateProjectResponseOptionsAllowlistPathsItem {
+    pub fn new(value: String) -> Self {
+        Self { value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponseOptionsAllowlist {
+    pub paths: Vec<UpdateProjectResponseOptionsAllowlistPathsItem>,
+}
+
+impl UpdateProjectResponseOptionsAllowlist {
+    pub fn new(paths: Vec<UpdateProjectResponseOptionsAllowlistPathsItem>) -> Self {
+        Self { paths }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+pub enum UpdateProjectResponsePassportDeploymentTypeEnum {
     #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+impl UpdateProjectResponsePassportDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+impl serde::Serialize for UpdateProjectResponsePassportDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -75,176 +51,71 @@ impl serde::Serialize for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponsePassportDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseSandboxFailoverRegionsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseSandboxRegionEnum {
-    #[default]
-    Arn1,
-    Bom1,
-    Cdg1,
-    Cle1,
-    Cpt1,
-    Dub1,
-    Fra1,
-    Gru1,
-    Hkg1,
-    Hnd1,
-    Iad1,
-    Icn1,
-    Kix1,
-    Lhr1,
-    Pdx1,
-    Sfo1,
-    Sin1,
-    Syd1,
-    Yul1,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseSandboxRegionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Arn1 => "arn1",
-            Self::Bom1 => "bom1",
-            Self::Cdg1 => "cdg1",
-            Self::Cle1 => "cle1",
-            Self::Cpt1 => "cpt1",
-            Self::Dub1 => "dub1",
-            Self::Fra1 => "fra1",
-            Self::Gru1 => "gru1",
-            Self::Hkg1 => "hkg1",
-            Self::Hnd1 => "hnd1",
-            Self::Iad1 => "iad1",
-            Self::Icn1 => "icn1",
-            Self::Kix1 => "kix1",
-            Self::Lhr1 => "lhr1",
-            Self::Pdx1 => "pdx1",
-            Self::Sfo1 => "sfo1",
-            Self::Sin1 => "sin1",
-            Self::Syd1 => "syd1",
-            Self::Yul1 => "yul1",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseSandboxRegionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSandboxRegionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "arn1" => Self::Arn1,
-            "bom1" => Self::Bom1,
-            "cdg1" => Self::Cdg1,
-            "cle1" => Self::Cle1,
-            "cpt1" => Self::Cpt1,
-            "dub1" => Self::Dub1,
-            "fra1" => Self::Fra1,
-            "gru1" => Self::Gru1,
-            "hkg1" => Self::Hkg1,
-            "hnd1" => Self::Hnd1,
-            "iad1" => Self::Iad1,
-            "icn1" => Self::Icn1,
-            "kix1" => Self::Kix1,
-            "lhr1" => Self::Lhr1,
-            "pdx1" => Self::Pdx1,
-            "sfo1" => Self::Sfo1,
-            "sin1" => Self::Sin1,
-            "syd1" => Self::Syd1,
-            "yul1" => Self::Yul1,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseSandboxRegionEnum {
+impl std::fmt::Display for UpdateProjectResponsePassportDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseSandbox {
-    #[serde(rename = "failoverRegions", skip_serializing_if = "Option::is_none")]
-    pub failover_regions: Option<Vec<UpdateProjectResponseSandboxFailoverRegionsItemEnum>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub region: Option<UpdateProjectResponseSandboxRegionEnum>,
+pub struct UpdateProjectResponsePassport {
+    #[serde(rename = "connectorId")]
+    pub connector_id: String,
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateProjectResponsePassportDeploymentTypeEnum,
 }
 
-impl UpdateProjectResponseSandbox {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl UpdateProjectResponsePassport {
+    pub fn new(
+        connector_id: String,
+        deployment_type: UpdateProjectResponsePassportDeploymentTypeEnum,
+    ) -> Self {
         Self {
-            failover_regions: None,
-            region: None,
+            connector_id,
+            deployment_type,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseSecurityLogHeadersVariant1Enum {
+pub enum UpdateProjectResponsePasswordProtectionDeploymentTypeEnum {
     #[default]
-    Unknown2,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl UpdateProjectResponseSecurityLogHeadersVariant1Enum {
+impl UpdateProjectResponsePasswordProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
+impl serde::Serialize for UpdateProjectResponsePasswordProtectionDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -253,21 +124,37 @@ impl serde::Serialize for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResponsePasswordProtectionDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseSecurityLogHeadersVariant1Enum {
+impl std::fmt::Display for UpdateProjectResponsePasswordProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
+    }
+}
+
+/// Password protection settings returned without the secret password hash.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResponsePasswordProtection {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UpdateProjectResponsePasswordProtectionDeploymentTypeEnum,
+}
+
+impl UpdateProjectResponsePasswordProtection {
+    pub fn new(deployment_type: UpdateProjectResponsePasswordProtectionDeploymentTypeEnum) -> Self {
+        Self { deployment_type }
     }
 }

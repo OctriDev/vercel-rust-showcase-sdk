@@ -184,6 +184,22 @@ impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseCreatorVariant0
     }
 }
 
+impl ::std::convert::From<Box<DeleteProjectAvatarResponseCreatorVariant0ViaVariant0>>
+    for DeleteProjectAvatarResponseCreatorVariant0Via
+{
+    fn from(value: Box<DeleteProjectAvatarResponseCreatorVariant0ViaVariant0>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<DeleteProjectAvatarResponseCreatorVariant0ViaVariant1>>
+    for DeleteProjectAvatarResponseCreatorVariant0Via
+{
+    fn from(value: Box<DeleteProjectAvatarResponseCreatorVariant0ViaVariant1>) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct DeleteProjectAvatarResponseCreatorVariant0User {
     pub id: String,
@@ -492,21 +508,5 @@ impl std::fmt::Display for DeleteProjectAvatarResponseDeploymentPolicyDeployment
         match self {
             DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub target: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-    #[serde(rename = "type")]
-    pub type_: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-}
-
-impl DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub fn new(
-        target: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-        type_: DeleteProjectAvatarResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-    ) -> Self {
-        Self { target, type_ }
     }
 }

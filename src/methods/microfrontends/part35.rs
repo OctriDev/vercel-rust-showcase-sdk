@@ -2,22 +2,222 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::SdkError;
 
-impl GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant1 {
+impl GetMicrofrontendsInGroupResponseProjectsItem {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        routing: Vec<
-            GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant1RoutingItem,
-        >,
+        account_id: String,
+        alias: Vec<GetMicrofrontendsInGroupResponseProjectsItemAliasItem>,
+        default_resource_config: GetMicrofrontendsInGroupResponseProjectsItemDefaultResourceConfig,
+        deployment_expiration: GetMicrofrontendsInGroupResponseProjectsItemDeploymentExpiration,
+        directory_listing: bool,
+        id: String,
+        name: String,
+        node_version: GetMicrofrontendsInGroupResponseProjectsItemNodeVersionEnum,
+        resource_config: GetMicrofrontendsInGroupResponseProjectsItemResourceConfig,
+    ) -> Self {
+        Self {
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            avatar: None,
+            avatar_dark_mode: None,
+            blobs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            concurrency_bucket_name: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            connect_configurations: None,
+            created_at: None,
+            creator: None,
+            crons: None,
+            custom_environments: None,
+            customer_support_code_visibility: None,
+            data_cache: None,
+            default_resource_config,
+            deployment_expiration,
+            deployment_policy: None,
+            dev_command: None,
+            directory_listing,
+            dismissed_toasts: None,
+            enable_affected_projects_deployments: None,
+            enable_external_rewrite_caching: None,
+            enable_preview_feedback: None,
+            enable_production_feedback: None,
+            env: None,
+            expiration: None,
+            features: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_lfs: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            has_deployments: None,
+            id,
+            install_command: None,
+            internal_routes: None,
+            ip_buckets: None,
+            jobs: None,
+            last_alias_request: None,
+            last_rollback_target: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            microfrontends: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            options_allowlist: None,
+            output_directory: None,
+            passive_connect_configuration_id: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            permissions: None,
+            production_deployments_fast_lane: None,
+            protected_sourcemaps: None,
+            protection_bypass: None,
+            protection_config: None,
+            resource_config,
+            rollback_description: None,
+            rolling_release: None,
+            root_directory: None,
+            sandbox: None,
+            security: None,
+            serverless_function_zero_config_failover: None,
+            services: None,
+            skew_protection_allowed_domains: None,
+            skew_protection_boundary_at: None,
+            skew_protection_max_age: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            static_ips: None,
+            targets: None,
+            tier: None,
+            tracing: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_ips: None,
+            trusted_sources: None,
+            updated_at: None,
+            usage_status: None,
+            v0: None,
+            v0_created: None,
+            web_analytics: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponse {
+    pub projects: Vec<GetMicrofrontendsInGroupResponseProjectsItem>,
+}
+
+impl GetMicrofrontendsInGroupResponse {
+    pub fn new(projects: Vec<GetMicrofrontendsInGroupResponseProjectsItem>) -> Self {
+        Self { projects }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal {
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+/// Development configuration for the default application.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0Development {
+    /// Fallback for local development, could point to any environment. This is required for the default app. This value is used as the fallback for child apps as well if they do not have a fallback. If passing a string, include the protocol (optional), host (required) and port (optional). For example: `https://this.ismyhost:8080`. If omitted, the protocol defaults to HTTPS. If omitted, the port defaults to `80` for HTTP and `443` for HTTPS. See https://vercel.com/docs/microfrontends/local-development.
+    pub fallback: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local:
+        Option<GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0DevelopmentLocal>,
+    /// The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub task: Option<String>,
+}
+
+impl GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0Development {
+    pub fn new(fallback: String) -> Self {
+        Self {
+            fallback,
+            local: None,
+            task: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0 {
+    /// Development configuration for the default application.
+    pub development: GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0Development,
+    /// The name used to run the application, e.g. the `name` field in the `package.json`. This is used by the local proxy to map the application config to the locally running app. This is only necessary when the application name does not match the `name` used in `package.json`. See https://vercel.com/docs/microfrontends/configuration#application-naming.
+    #[serde(rename = "packageName", skip_serializing_if = "Option::is_none")]
+    pub package_name: Option<String>,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+}
+
+impl GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0 {
+    pub fn new(
+        development: GetMicrofrontendsConfigResponseConfigApplicationsValueVariant0Development,
         project_id: String,
     ) -> Self {
         Self {
-            asset_prefix: None,
-            development: None,
+            development,
             package_name: None,
-            routing,
             project_id,
         }
     }
@@ -25,363 +225,95 @@ impl GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant1 {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetMicrofrontendsConfigForProjectResponseConfigApplicationsValue {
-    Object(Box<GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant0>),
-    Object2(Box<GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant1>),
+pub enum GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal {
+    String(String),
+    Number(f64),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsConfigForProjectResponseConfigApplicationsValue
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetMicrofrontendsConfigForProjectResponseConfigApplicationsValueVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
             if crate::client::keeps_every_key(&value, &candidate) {
                 return Ok(candidate);
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsConfigForProjectResponseConfigApplicationsValue branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal branch accepts this payload"))
     }
 }
 
-/// Optional configuration options for the microfrontend.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsConfigForProjectResponseConfigOptions {
-    /// If you want to disable the overrides for the site. For example, if you are managing rewrites between applications externally, you may wish to disable the overrides on the toolbar as they will have no effect. See https://vercel.com/docs/microfrontends/managing-microfrontends/vercel-toolbar#routing-overrides.
-    #[serde(rename = "disableOverrides", skip_serializing_if = "Option::is_none")]
-    pub disable_overrides: Option<bool>,
-    /// The port number used by the local proxy server. The default value is 3024\. See https://vercel.com/docs/microfrontends/local-development.
-    #[serde(rename = "localProxyPort", skip_serializing_if = "Option::is_none")]
-    pub local_proxy_port: Option<f64>,
+impl ::std::convert::From<String>
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
 }
 
-impl GetMicrofrontendsConfigForProjectResponseConfigOptions {
+impl ::std::convert::From<f64>
+    for GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+/// Development configuration for the child application.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1Development {
+    /// Fallback for local development, could point to any environment. If not provided for child apps, the fallback of the default app will be used. If passing a string, include the protocol (optional), host (required) and port (optional). For example: `https://this.ismyhost:8080`. If omitted, the protocol defaults to HTTPS. If omitted, the port defaults to `80` for HTTP and `443` for HTTPS. See https://vercel.com/docs/microfrontends/local-development.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fallback: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local:
+        Option<GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1DevelopmentLocal>,
+    /// The task to run when starting the development server. Should reference a script in the package.json of the application. The default value is "dev". See https://vercel.com/docs/microfrontends/local-development.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub task: Option<String>,
+}
+
+impl GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1Development {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            disable_overrides: None,
-            local_proxy_port: None,
+            fallback: None,
+            local: None,
+            task: None,
         }
     }
 }
 
-/// The version of the microfrontends config schema.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsConfigForProjectResponseConfigVersionEnum {
-    #[default]
-    _1,
-    Unknown(String),
-}
-
-impl GetMicrofrontendsConfigForProjectResponseConfigVersionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::_1 => "1",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetMicrofrontendsConfigForProjectResponseConfigVersionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetMicrofrontendsConfigForProjectResponseConfigVersionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "1" => Self::_1,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetMicrofrontendsConfigForProjectResponseConfigVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// projectIds are added when the config is uploaded to s3 deployment assets.
+/// Groups of path expressions that are routed to this application. See https://vercel.com/docs/microfrontends/path-routing.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsConfigForProjectResponseConfig {
-    /// See https://openapi.vercel.sh/microfrontends.json.
-    #[serde(rename = "$schema", skip_serializing_if = "Option::is_none")]
-    pub schema: Option<String>,
-    pub applications: std::collections::HashMap<
-        String,
-        GetMicrofrontendsConfigForProjectResponseConfigApplicationsValue,
-    >,
-    /// Optional configuration options for the microfrontend.
+pub struct GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1RoutingItem {
+    /// The name of the feature flag that controls routing for this group of paths. See https://vercel.com/docs/microfrontends/path-routing#routing-changes-safely-with-flags.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub options: Option<GetMicrofrontendsConfigForProjectResponseConfigOptions>,
-    /// The version of the microfrontends config schema.
+    pub flag: Option<String>,
+    /// Group name for the paths.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: Option<GetMicrofrontendsConfigForProjectResponseConfigVersionEnum>,
+    pub group: Option<String>,
+    /// A list of path expressions that are routed to this application. See https://vercel.com/docs/microfrontends/path-routing#supported-path-expressions.
+    pub paths: Vec<String>,
 }
 
-impl GetMicrofrontendsConfigForProjectResponseConfig {
-    pub fn new(
-        applications: std::collections::HashMap<
-            String,
-            GetMicrofrontendsConfigForProjectResponseConfigApplicationsValue,
-        >,
-    ) -> Self {
+impl GetMicrofrontendsConfigResponseConfigApplicationsValueVariant1RoutingItem {
+    pub fn new(paths: Vec<String>) -> Self {
         Self {
-            schema: None,
-            applications,
-            options: None,
-            version: None,
+            flag: None,
+            group: None,
+            paths,
         }
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsConfigForProjectResponse {
-    /// projectIds are added when the config is uploaded to s3 deployment assets.
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub config: Option<GetMicrofrontendsConfigForProjectResponseConfig>,
-}
-
-impl GetMicrofrontendsConfigForProjectResponse {
-    pub fn new(config: Option<GetMicrofrontendsConfigForProjectResponseConfig>) -> Self {
-        Self { config }
-    }
-}
-
-/// The default app for the new microfrontend group
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateMicrofrontendsGroupWithApplicationsDefaultApp {
-    /// The id of the project that will be used as the default app for the new microfrontend group
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// The default route for the default app of the new microfrontend group
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-}
-
-impl CreateMicrofrontendsGroupWithApplicationsDefaultApp {
-    pub fn new(project_id: String) -> Self {
-        Self {
-            project_id,
-            default_route: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateMicrofrontendsGroupWithApplicationsOtherApplicationsItem {
-    /// The id of the project that will be used in the new microfrontend group
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// The default route for the application in the new microfrontend group
-    #[serde(rename = "defaultRoute", skip_serializing_if = "Option::is_none")]
-    pub default_route: Option<String>,
-}
-
-impl CreateMicrofrontendsGroupWithApplicationsOtherApplicationsItem {
-    pub fn new(project_id: String) -> Self {
-        Self {
-            project_id,
-            default_route: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateMicrofrontendsGroupWithApplicationsResponseNewMicrofrontendsGroup {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "enablePolyrepoBranchRouting")]
-    pub enable_polyrepo_branch_routing: bool,
-    #[serde(rename = "fallbackEnvironment")]
-    pub fallback_environment: String,
-    pub id: String,
-    pub name: String,
-    pub slug: String,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl CreateMicrofrontendsGroupWithApplicationsResponseNewMicrofrontendsGroup {
-    pub fn new(
-        created_at: f64,
-        enable_polyrepo_branch_routing: bool,
-        fallback_environment: String,
-        id: String,
-        name: String,
-        slug: String,
-        updated_at: f64,
-    ) -> Self {
-        Self {
-            created_at,
-            enable_polyrepo_branch_routing,
-            fallback_environment,
-            id,
-            name,
-            slug,
-            updated_at,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateMicrofrontendsGroupWithApplicationsResponse {
-    #[serde(rename = "newMicrofrontendsGroup")]
-    pub new_microfrontends_group:
-        CreateMicrofrontendsGroupWithApplicationsResponseNewMicrofrontendsGroup,
-}
-
-impl CreateMicrofrontendsGroupWithApplicationsResponse {
-    pub fn new(
-        new_microfrontends_group: CreateMicrofrontendsGroupWithApplicationsResponseNewMicrofrontendsGroup,
-    ) -> Self {
-        Self {
-            new_microfrontends_group,
-        }
-    }
-}
-
-/// Lists the microfrontends group IDs for a team. Use `teamId` or `slug` to specify which team's groups to retrieve.
-///
-/// Get the microfrontends group IDs for a team.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_microfrontends_groups(
-    config: &ClientConfig,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "GET",
-        "/v1/microfrontends/groups",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_microfrontends_groups",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists the projects in a microfrontends group. Use `groupId` to identify the group, and optionally use `teamId` or `slug` to specify the team context.
-///
-/// Get the microfrontends for a given group ID.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_microfrontends_in_group(
-    config: &ClientConfig,
-    group_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetMicrofrontendsInGroupResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetMicrofrontendsInGroupResponse>(
-        "GET",
-        &format!(
-            "/v1/microfrontends/groups/{}/projects",
-            crate::client::encode_path_segment(&group_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_microfrontends_in_group",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves the microfrontends configuration for a specific deployment. Supply the deployment identifier and, when needed, `teamId` or `slug` to scope the request to a team.
-///
-/// Get the microfrontends config for a deployment.
-///
-/// # Arguments
-///
-/// * `deployment_id` - The unique deployment identifier
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_microfrontends_config(
-    config: &ClientConfig,
-    deployment_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetMicrofrontendsConfigResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetMicrofrontendsConfigResponse>(
-        "GET",
-        &format!(
-            "/v1/microfrontends/{}/config",
-            crate::client::encode_path_segment(&deployment_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_microfrontends_config",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }

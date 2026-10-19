@@ -3,6 +3,44 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct AggregatePageviewsResponseDataVariant1Item {
+    #[serde(rename = "browserName")]
+    pub browser_name: String,
+    pub country: String,
+    #[serde(rename = "deviceType")]
+    pub device_type: String,
+    pub environment: String,
+    pub flags: String,
+    #[serde(rename = "osName")]
+    pub os_name: String,
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    #[serde(rename = "projectName")]
+    pub project_name: String,
+    #[serde(rename = "referrerHostname")]
+    pub referrer_hostname: String,
+    #[serde(rename = "requestHostname")]
+    pub request_hostname: String,
+    #[serde(rename = "requestPath")]
+    pub request_path: String,
+    pub route: String,
+    #[serde(rename = "utmCampaign")]
+    pub utm_campaign: String,
+    #[serde(rename = "utmContent")]
+    pub utm_content: String,
+    #[serde(rename = "utmMedium")]
+    pub utm_medium: String,
+    #[serde(rename = "utmSource")]
+    pub utm_source: String,
+    #[serde(rename = "utmTerm")]
+    pub utm_term: String,
+    #[serde(rename = "visitorId")]
+    pub visitor_id: String,
+    #[serde(flatten)]
+    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
+}
+
 impl AggregatePageviewsResponseDataVariant1Item {
     #[allow(clippy::too_many_arguments)]
     pub fn new(
@@ -83,6 +121,22 @@ impl<'de> serde::Deserialize<'de> for AggregatePageviewsResponseData {
                 "no AggregatePageviewsResponseData branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Vec<AggregatePageviewsResponseDataVariant0Item>>
+    for AggregatePageviewsResponseData
+{
+    fn from(value: Vec<AggregatePageviewsResponseDataVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<AggregatePageviewsResponseDataVariant1Item>>
+    for AggregatePageviewsResponseData
+{
+    fn from(value: Vec<AggregatePageviewsResponseDataVariant1Item>) -> Self {
+        Self::Variant1ItemArray(value)
     }
 }
 
@@ -266,53 +320,5 @@ impl AggregateEventsItemVariant0Enum {
             Self::Eventdata => "eventData",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for AggregateEventsItemVariant0Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for AggregateEventsItemVariant0Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "hour" => Self::Hour,
-            "day" => Self::Day,
-            "week" => Self::Week,
-            "month" => Self::Month,
-            "year" => Self::Year,
-            "country" => Self::Country,
-            "deviceType" => Self::Devicetype,
-            "environment" => Self::Environment,
-            "requestPath" => Self::Requestpath,
-            "referrerHostname" => Self::Referrerhostname,
-            "osName" => Self::Osname,
-            "browserName" => Self::Browsername,
-            "route" => Self::Route,
-            "utmSource" => Self::Utmsource,
-            "utmMedium" => Self::Utmmedium,
-            "utmCampaign" => Self::Utmcampaign,
-            "utmContent" => Self::Utmcontent,
-            "utmTerm" => Self::Utmterm,
-            "eventName" => Self::Eventname,
-            "flags" => Self::Flags,
-            "eventData" => Self::Eventdata,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for AggregateEventsItemVariant0Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

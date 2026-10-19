@@ -3,69 +3,17 @@
 
 use super::*;
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadyStateEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadyStateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadyStateEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum {
+impl ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
+            Self::Promote => "promote",
+            Self::Rollback => "rollback",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -75,7 +23,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum
+    for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -83,250 +31,287 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
+            "promote" => Self::Promote,
+            "rollback" => Self::Rollback,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
+pub struct ListProjectsResponseVariant2ProjectsItemLastAliasRequest {
+    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
+    pub from_deployment_id: Option<String>,
+    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
     #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned:
-        Option<Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error:
-        Option<Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher:
-        Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds:
-        Option<Vec<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion:
-        Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state:
-        Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
+        rename = "fromRollingReleaseId",
         skip_serializing_if = "Option::is_none"
     )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims:
-        Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemOidcTokenClaims>,
-    pub plan: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemPlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate:
-        Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
+    pub from_rolling_release_id: Option<String>,
+    #[serde(rename = "jobStatus")]
+    pub job_status: ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum,
+    #[serde(rename = "requestedAt")]
+    pub requested_at: f64,
+    #[serde(rename = "toDeploymentId")]
+    pub to_deployment_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+    pub type_: ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItem {
-    #[allow(clippy::too_many_arguments)]
+impl ListProjectsResponseVariant2ProjectsItemLastAliasRequest {
     pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemPlanEnum,
-        private: bool,
-        ready_state: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemReadyStateEnum,
-        type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemTypeEnum,
-        url: String,
+        from_deployment_id: Option<String>,
+        job_status: ListProjectsResponseVariant2ProjectsItemLastAliasRequestJobStatusEnum,
+        requested_at: f64,
+        to_deployment_id: String,
+        type_: ListProjectsResponseVariant2ProjectsItemLastAliasRequestTypeEnum,
     ) -> Self {
         Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
+            from_deployment_id,
+            from_rolling_release_id: None,
+            job_status,
+            requested_at,
+            to_deployment_id,
             type_,
-            url,
-            user_id: None,
-            with_cache: None,
         }
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64>
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasAssigned
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemLinkVariant0DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
+pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemBuildsItem {
+    pub fn new(use_: String) -> Self {
+        Self {
+            dest: None,
+            src: None,
+            use_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksConclusionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksStateEnum {
+    #[default]
+    Completed,
+    Registered,
+    Running,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemLatestDeploymentsItemChecksStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Completed => "completed",
+            Self::Registered => "registered",
+            Self::Running => "running",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
 }

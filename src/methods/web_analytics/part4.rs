@@ -2,7 +2,104 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{CountEventsResponseData, CountPageviewsResponseData};
+use crate::types::CountPageviewsResponseData;
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum AggregateEventsResponseData {
+    Variant0ItemArray(Vec<AggregateEventsResponseDataVariant0Item>),
+    Variant1ItemArray(Vec<AggregateEventsResponseDataVariant1Item>),
+}
+
+impl<'de> serde::Deserialize<'de> for AggregateEventsResponseData {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Vec<AggregateEventsResponseDataVariant0Item>>(value.clone())
+        {
+            let candidate = Self::Variant0ItemArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Vec<AggregateEventsResponseDataVariant1Item>>(value.clone())
+        {
+            let candidate = Self::Variant1ItemArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no AggregateEventsResponseData branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<AggregateEventsResponseDataVariant0Item>>
+    for AggregateEventsResponseData
+{
+    fn from(value: Vec<AggregateEventsResponseDataVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<AggregateEventsResponseDataVariant1Item>>
+    for AggregateEventsResponseData
+{
+    fn from(value: Vec<AggregateEventsResponseDataVariant1Item>) -> Self {
+        Self::Variant1ItemArray(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum AggregateEventsResponseQueryGroupByItem {
+    #[default]
+    Browsername,
+    Country,
+    Devicetype,
+    Environment,
+    Eventdata,
+    Eventname,
+    Flags,
+    Osname,
+    Referrerhostname,
+    Requestpath,
+    Route,
+    Utmcampaign,
+    Utmcontent,
+    Utmmedium,
+    Utmsource,
+    Utmterm,
+    Unknown(String),
+}
+
+impl AggregateEventsResponseQueryGroupByItem {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Browsername => "browserName",
+            Self::Country => "country",
+            Self::Devicetype => "deviceType",
+            Self::Environment => "environment",
+            Self::Eventdata => "eventData",
+            Self::Eventname => "eventName",
+            Self::Flags => "flags",
+            Self::Osname => "osName",
+            Self::Referrerhostname => "referrerHostname",
+            Self::Requestpath => "requestPath",
+            Self::Route => "route",
+            Self::Utmcampaign => "utmCampaign",
+            Self::Utmcontent => "utmContent",
+            Self::Utmmedium => "utmMedium",
+            Self::Utmsource => "utmSource",
+            Self::Utmterm => "utmTerm",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
 
 impl serde::Serialize for AggregateEventsResponseQueryGroupByItem {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -122,6 +219,18 @@ impl<'de> serde::Deserialize<'de> for CountPageviews {
     }
 }
 
+impl ::std::convert::From<f64> for CountPageviews {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for CountPageviews {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum CountPageviews9935b237 {
@@ -150,6 +259,18 @@ impl<'de> serde::Deserialize<'de> for CountPageviews9935b237 {
         lossy.ok_or_else(|| {
             serde::de::Error::custom("no CountPageviews9935b237 branch accepts this payload")
         })
+    }
+}
+
+impl ::std::convert::From<f64> for CountPageviews9935b237 {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for CountPageviews9935b237 {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -183,106 +304,6 @@ impl CountPageviewsResponse {
     pub fn new(
         data: CountPageviewsResponseData,
         query: CountPageviewsResponseQuery,
-        version: f64,
-    ) -> Self {
-        Self {
-            data,
-            query,
-            version,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CountEvents {
-    Number(f64),
-    String(String),
-}
-
-impl<'de> serde::Deserialize<'de> for CountEvents {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CountEvents branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CountEvents1c5616a1 {
-    Number(f64),
-    String(String),
-}
-
-impl<'de> serde::Deserialize<'de> for CountEvents1c5616a1 {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no CountEvents1c5616a1 branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CountEventsResponseQuery {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub filter: Option<String>,
-    pub since: String,
-    pub until: String,
-}
-
-impl CountEventsResponseQuery {
-    pub fn new(since: String, until: String) -> Self {
-        Self {
-            filter: None,
-            since,
-            until,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CountEventsResponse {
-    /// Typed representation of the `CountEventsResponseData` API schema.
-    pub data: CountEventsResponseData,
-    pub query: CountEventsResponseQuery,
-    pub version: f64,
-}
-
-impl CountEventsResponse {
-    pub fn new(
-        data: CountEventsResponseData,
-        query: CountEventsResponseQuery,
         version: f64,
     ) -> Self {
         Self {

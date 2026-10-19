@@ -3,281 +3,298 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateFirewallConfigVariant19IdEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant19IdEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "ai_bots" => Self::AiBots,
-            "bot_filter" => Self::BotFilter,
-            "bot_protection" => Self::BotProtection,
-            "traffic_sources" => Self::TrafficSources,
-            "vercel_ruleset" => Self::VercelRuleset,
-            "owasp" => Self::Owasp,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant19IdEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant19ValueActionEnum {
-    #[default]
-    Log,
-    Challenge,
-    Deny,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant19ValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Log => "log",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant19ValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant19ValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "log" => Self::Log,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant19ValueActionEnum {
+impl std::fmt::Display
+    for UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0AlgoEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant19Value {
+pub struct UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0 {
+    pub algo: UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0AlgoEnum,
+    pub window: f64,
+    pub limit: f64,
+    pub keys: Vec<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateFirewallConfigVariant19ValueActionEnum>,
-    pub active: bool,
+    pub action: Option<String>,
 }
 
-impl UpdateFirewallConfigVariant19Value {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-/// Update a managed ruleset
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant19 {
-    pub action: String,
-    pub id: UpdateFirewallConfigVariant19IdEnum,
-    pub value: UpdateFirewallConfigVariant19Value,
-}
-
-impl UpdateFirewallConfigVariant19 {
+impl UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0 {
     pub fn new(
-        action: String,
-        id: UpdateFirewallConfigVariant19IdEnum,
-        value: UpdateFirewallConfigVariant19Value,
+        algo: UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0AlgoEnum,
+        window: f64,
+        limit: f64,
+        keys: Vec<String>,
     ) -> Self {
-        Self { action, id, value }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant20IdEnum {
-    #[default]
-    AiBots,
-    BotFilter,
-    BotProtection,
-    TrafficSources,
-    VercelRuleset,
-    Owasp,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant20IdEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AiBots => "ai_bots",
-            Self::BotFilter => "bot_filter",
-            Self::BotProtection => "bot_protection",
-            Self::TrafficSources => "traffic_sources",
-            Self::VercelRuleset => "vercel_ruleset",
-            Self::Owasp => "owasp",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant20IdEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant20IdEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "ai_bots" => Self::AiBots,
-            "bot_filter" => Self::BotFilter,
-            "bot_protection" => Self::BotProtection,
-            "traffic_sources" => Self::TrafficSources,
-            "vercel_ruleset" => Self::VercelRuleset,
-            "owasp" => Self::Owasp,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant20IdEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant20ValueValueActionEnum {
-    #[default]
-    Log,
-    Challenge,
-    Deny,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant20ValueValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Log => "log",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant20ValueValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant20ValueValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "log" => Self::Log,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFirewallConfigVariant20ValueValueActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant20ValueValue {
-    pub active: bool,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UpdateFirewallConfigVariant20ValueValueActionEnum>,
-}
-
-impl UpdateFirewallConfigVariant20ValueValue {
-    pub fn new(active: bool) -> Self {
         Self {
-            active,
+            algo,
+            window,
+            limit,
+            keys,
             action: None,
         }
     }
 }
 
-/// Update a managed rule group
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant20 {
-    pub action: String,
-    pub id: UpdateFirewallConfigVariant20IdEnum,
-    pub value: std::collections::HashMap<String, UpdateFirewallConfigVariant20ValueValue>,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfigVariant11ValueActionMitigateRateLimit {
+    Object(Box<UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0>),
+    String(String),
 }
 
-impl UpdateFirewallConfigVariant20 {
-    pub fn new(
-        action: String,
-        id: UpdateFirewallConfigVariant20IdEnum,
-        value: std::collections::HashMap<String, UpdateFirewallConfigVariant20ValueValue>,
-    ) -> Self {
-        Self { action, id, value }
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueActionMitigateRateLimit {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant11ValueActionMitigateRateLimit branch accepts this payload"))
     }
 }
 
-/// Toggle bot ID
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant21 {
-    pub action: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    pub value: bool,
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0>>
+    for UpdateFirewallConfigVariant11ValueActionMitigateRateLimit
+{
+    fn from(value: Box<UpdateFirewallConfigVariant11ValueActionMitigateRateLimitVariant0>) -> Self {
+        Self::Object(value)
+    }
 }
 
-impl UpdateFirewallConfigVariant21 {
-    pub fn new(action: String, value: bool) -> Self {
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant11ValueActionMitigateRateLimit {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0 {
+    pub location: String,
+    pub permanent: bool,
+}
+
+impl UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0 {
+    pub fn new(location: String, permanent: bool) -> Self {
+        Self {
+            location,
+            permanent,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfigVariant11ValueActionMitigateRedirect {
+    Object(Box<UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0>),
+    String(String),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueActionMitigateRedirect {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant11ValueActionMitigateRedirect branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0>>
+    for UpdateFirewallConfigVariant11ValueActionMitigateRedirect
+{
+    fn from(value: Box<UpdateFirewallConfigVariant11ValueActionMitigateRedirectVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant11ValueActionMitigateRedirect {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders {
+    String(String),
+    StringArray(Vec<String>),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant11ValueActionMitigate {
+    pub action: UpdateFirewallConfigVariant11ValueActionMitigateActionEnum,
+    #[serde(rename = "rateLimit", skip_serializing_if = "Option::is_none")]
+    pub rate_limit: Option<UpdateFirewallConfigVariant11ValueActionMitigateRateLimit>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub redirect: Option<UpdateFirewallConfigVariant11ValueActionMitigateRedirect>,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders>,
+}
+
+impl UpdateFirewallConfigVariant11ValueActionMitigate {
+    pub fn new(action: UpdateFirewallConfigVariant11ValueActionMitigateActionEnum) -> Self {
         Self {
             action,
-            id: None,
-            value,
+            rate_limit: None,
+            redirect: None,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
         }
     }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant11ValueAction {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mitigate: Option<UpdateFirewallConfigVariant11ValueActionMitigate>,
+}
+
+impl UpdateFirewallConfigVariant11ValueAction {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { mitigate: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfigVariant11ValueValidationErrors {
+    StringArray(Vec<String>),
+    String(String),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueValidationErrors {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no UpdateFirewallConfigVariant11ValueValidationErrors branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for UpdateFirewallConfigVariant11ValueValidationErrors {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant11ValueValidationErrors {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateFirewallConfigVariant11Value {
+    pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    pub active: bool,
+    #[serde(rename = "conditionGroup")]
+    pub condition_group: Vec<UpdateFirewallConfigVariant11ValueConditionGroupItem>,
+    pub action: UpdateFirewallConfigVariant11ValueAction,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub valid: Option<bool>,
+    #[serde(rename = "validationErrors", skip_serializing_if = "Option::is_none")]
+    pub validation_errors: Option<UpdateFirewallConfigVariant11ValueValidationErrors>,
 }

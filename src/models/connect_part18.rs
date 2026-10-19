@@ -3,6 +3,19 @@
 
 // connect domain models (part 18)
 
+/// Required object value serialized in the `destinations[]` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ConnectTriggerDestinationInputVariant1 {
+    /// Project that receives matching trigger requests.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+    /// Git branch used to select a preview deployment.
+    pub branch: String,
+    /// Route path on the linked project that receives forwarded trigger requests.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+}
+
 impl ConnectTriggerDestinationInputVariant1 {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         crate::validation::validate_length(

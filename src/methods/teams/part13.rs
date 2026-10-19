@@ -11,6 +11,39 @@ use crate::types::{
 };
 use crate::validation::{validate_length, validate_pattern, LengthOpts};
 
+/// Retrieves information about the specified team, including its billing plan, creation details, and team configuration. Use the team identifier to select the team; you can also supply its slug as request context.
+///
+/// Get information for the Team specified by the `teamId` parameter.
+///
+/// # Arguments
+///
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+pub fn get_teams(
+    config: &ClientConfig,
+    team_id: String,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<Team, SdkError> {
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<Team>(
+        "GET",
+        &format!("/v2/teams/{}", crate::client::encode_path_segment(&team_id)),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_teams",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct UpdateTeamsParams {
     pub team_id: String,

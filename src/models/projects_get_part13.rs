@@ -3,6 +3,505 @@
 
 // projects_get domain models (part 13)
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseEnvItemContentHint {
+    RedisUrl(Box<GetProjectsResponseEnvItemContentHintVariant0>),
+    RedisRestApiUrl(Box<GetProjectsResponseEnvItemContentHintVariant1>),
+    RedisRestApiToken(Box<GetProjectsResponseEnvItemContentHintVariant2>),
+    RedisRestApiReadOnlyToken(Box<GetProjectsResponseEnvItemContentHintVariant3>),
+    BlobReadWriteToken(Box<GetProjectsResponseEnvItemContentHintVariant4>),
+    BlobStoreId(Box<GetProjectsResponseEnvItemContentHintVariant5>),
+    BlobWebhookPublicKey(Box<GetProjectsResponseEnvItemContentHintVariant6>),
+    PostgresUrl(Box<GetProjectsResponseEnvItemContentHintVariant7>),
+    PostgresUrlNonPooling(Box<GetProjectsResponseEnvItemContentHintVariant8>),
+    PostgresPrismaUrl(Box<GetProjectsResponseEnvItemContentHintVariant9>),
+    PostgresUser(Box<GetProjectsResponseEnvItemContentHintVariant10>),
+    PostgresHost(Box<GetProjectsResponseEnvItemContentHintVariant11>),
+    PostgresPassword(Box<GetProjectsResponseEnvItemContentHintVariant12>),
+    PostgresDatabase(Box<GetProjectsResponseEnvItemContentHintVariant13>),
+    PostgresUrlNoSsl(Box<GetProjectsResponseEnvItemContentHintVariant14>),
+    IntegrationStoreSecret(Box<GetProjectsResponseEnvItemContentHintVariant15>),
+    FlagsConnectionString(Box<GetProjectsResponseEnvItemContentHintVariant16>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseEnvItemContentHint {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiReadOnlyToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobReadWriteToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant5>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobStoreId(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant6>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobWebhookPublicKey(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant7>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant8>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNonPooling(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant9>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPrismaUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant10>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUser(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant11>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresHost(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant12>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPassword(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant13>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresDatabase(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant14>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNoSsl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant15>,
+        >(value.clone())
+        {
+            let candidate = Self::IntegrationStoreSecret(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseEnvItemContentHintVariant16>,
+        >(value.clone())
+        {
+            let candidate = Self::FlagsConnectionString(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetProjectsResponseEnvItemContentHint branch accepts this payload",
+            )
+        })
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseExpirationVariant0 {
+    /// Unix ms timestamp when the project is scheduled to expire.
+    #[serde(rename = "expiresAt")]
+    pub expires_at: f64,
+}
+
+impl GetProjectsResponseExpirationVariant0 {
+    pub fn new(expires_at: f64) -> Self {
+        Self { expires_at }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseExpirationVariant1 {
+    /// Unix ms timestamp when the project was locked.
+    #[serde(rename = "lockedAt")]
+    pub locked_at: f64,
+    /// userId of the actor that triggered the lock (system or admin).
+    #[serde(rename = "lockedBy")]
+    pub locked_by: String,
+}
+
+impl GetProjectsResponseExpirationVariant1 {
+    pub fn new(locked_at: f64, locked_by: String) -> Self {
+        Self {
+            locked_at,
+            locked_by,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseExpiration {
+    Object(Box<GetProjectsResponseExpirationVariant0>),
+    Object2(Box<GetProjectsResponseExpirationVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseExpiration {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseExpirationVariant0>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseExpirationVariant1>>(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no GetProjectsResponseExpiration branch accepts this payload")
+        })
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseInternalRoutesItemVariant0 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiry: Option<f64>,
+    pub src: String,
+    pub status: f64,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant0 {
+    pub fn new(src: String, status: f64) -> Self {
+        Self {
+            expiry: None,
+            src,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    #[default]
+    XVercelIpCountry,
+    Unknown(String),
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::XVercelIpCountry => "x-vercel-ip-country",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "x-vercel-ip-country" => Self::XVercelIpCountry,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    #[serde(rename = "header")]
+    #[default]
+    Header,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Header => "header",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum::Header => {
+                f.write_str("header")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0Value {
+    pub eq: String,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0Value {
+    pub fn new(eq: String) -> Self {
+        Self { eq }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0 {
+    pub key: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+    pub value: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0Value,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0 {
+    pub fn new(
+        key: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0KeyEnum,
+        type_: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0TypeEnum,
+        value: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0Value,
+    ) -> Self {
+        Self { key, type_, value }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    #[serde(rename = "host")]
+    #[default]
+    Host,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Host => "host",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum::Host => {
+                f.write_str("host")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1Value {
+    pub eq: String,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1Value {
+    pub fn new(eq: String) -> Self {
+        Self { eq }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1 {
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum,
+    pub value: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1Value,
+}
+
+impl GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1 {
+    pub fn new(
+        type_: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1TypeEnum,
+        value: GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1Value,
+    ) -> Self {
+        Self { type_, value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseInternalRoutesItemVariant1HasItem {
+    Header(Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0>),
+    Host(Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseInternalRoutesItemVariant1HasItem {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Header(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Host(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseInternalRoutesItemVariant1HasItem branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0>>
+    for GetProjectsResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant0>) -> Self {
+        Self::Header(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1>>
+    for GetProjectsResponseInternalRoutesItemVariant1HasItem
+{
+    fn from(value: Box<GetProjectsResponseInternalRoutesItemVariant1HasItemVariant1>) -> Self {
+        Self::Host(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseInternalRoutesItemVariant1MitigateActionEnum {
+    #[default]
+    BlockLegalCwc,
+    Unknown(String),
+}
+
 impl GetProjectsResponseInternalRoutesItemVariant1MitigateActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -51,495 +550,4 @@ impl GetProjectsResponseInternalRoutesItemVariant1Mitigate {
     pub fn new(action: GetProjectsResponseInternalRoutesItemVariant1MitigateActionEnum) -> Self {
         Self { action }
     }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseInternalRoutesItemVariant1 {
-    pub has: Vec<GetProjectsResponseInternalRoutesItemVariant1HasItem>,
-    pub mitigate: GetProjectsResponseInternalRoutesItemVariant1Mitigate,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-}
-
-impl GetProjectsResponseInternalRoutesItemVariant1 {
-    pub fn new(
-        has: Vec<GetProjectsResponseInternalRoutesItemVariant1HasItem>,
-        mitigate: GetProjectsResponseInternalRoutesItemVariant1Mitigate,
-    ) -> Self {
-        Self {
-            has,
-            mitigate,
-            src: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseInternalRoutesItem {
-    Object(Box<GetProjectsResponseInternalRoutesItemVariant0>),
-    Object2(Box<GetProjectsResponseInternalRoutesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseInternalRoutesItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetProjectsResponseInternalRoutesItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetProjectsResponseInternalRoutesItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetProjectsResponseInternalRoutesItem branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant0DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl GetProjectsResponseLinkVariant0DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseLinkVariant0TypeEnum {
-    #[serde(rename = "github")]
-    #[default]
-    Github,
-}
-
-impl GetProjectsResponseLinkVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Github => "github",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseLinkVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseLinkVariant0TypeEnum::Github => f.write_str("github"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant0 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<GetProjectsResponseLinkVariant0DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    pub org: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
-    pub repo_id: Option<f64>,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
-    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
-    pub repo_owner_id: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseLinkVariant0TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl GetProjectsResponseLinkVariant0 {
-    pub fn new(
-        deploy_hooks: Vec<GetProjectsResponseLinkVariant0DeployHooksItem>,
-        git_credential_id: String,
-        org: String,
-        production_branch: String,
-        type_: GetProjectsResponseLinkVariant0TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant1DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl GetProjectsResponseLinkVariant1DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseLinkVariant1TypeEnum {
-    #[serde(rename = "github-limited")]
-    #[default]
-    GithubLimited,
-}
-
-impl GetProjectsResponseLinkVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::GithubLimited => "github-limited",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseLinkVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseLinkVariant1TypeEnum::GithubLimited => f.write_str("github-limited"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant1 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<GetProjectsResponseLinkVariant1DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    pub org: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
-    pub repo_id: Option<f64>,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
-    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
-    pub repo_owner_id: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseLinkVariant1TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl GetProjectsResponseLinkVariant1 {
-    pub fn new(
-        deploy_hooks: Vec<GetProjectsResponseLinkVariant1DeployHooksItem>,
-        git_credential_id: String,
-        org: String,
-        production_branch: String,
-        type_: GetProjectsResponseLinkVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant2DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl GetProjectsResponseLinkVariant2DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseLinkVariant2TypeEnum {
-    #[serde(rename = "github-custom-host")]
-    #[default]
-    GithubCustomHost,
-}
-
-impl GetProjectsResponseLinkVariant2TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::GithubCustomHost => "github-custom-host",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseLinkVariant2TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseLinkVariant2TypeEnum::GithubCustomHost => {
-                f.write_str("github-custom-host")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant2 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<GetProjectsResponseLinkVariant2DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    pub host: String,
-    pub org: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
-    pub repo_id: Option<f64>,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes.
-    #[serde(rename = "repoOwnerId", skip_serializing_if = "Option::is_none")]
-    pub repo_owner_id: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseLinkVariant2TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl GetProjectsResponseLinkVariant2 {
-    pub fn new(
-        deploy_hooks: Vec<GetProjectsResponseLinkVariant2DeployHooksItem>,
-        git_credential_id: String,
-        host: String,
-        org: String,
-        production_branch: String,
-        type_: GetProjectsResponseLinkVariant2TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            host,
-            org,
-            production_branch,
-            repo: None,
-            repo_id: None,
-            repo_owner_id: None,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant3DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl GetProjectsResponseLinkVariant3DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseLinkVariant3TypeEnum {
-    #[serde(rename = "gitlab")]
-    #[default]
-    Gitlab,
-}
-
-impl GetProjectsResponseLinkVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gitlab => "gitlab",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseLinkVariant3TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseLinkVariant3TypeEnum::Gitlab => f.write_str("gitlab"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant3 {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    #[serde(rename = "deployHooks")]
-    pub deploy_hooks: Vec<GetProjectsResponseLinkVariant3DeployHooksItem>,
-    #[serde(rename = "gitCredentialId")]
-    pub git_credential_id: String,
-    #[serde(rename = "productionBranch")]
-    pub production_branch: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    #[serde(rename = "projectNamespace")]
-    pub project_namespace: String,
-    #[serde(rename = "projectNameWithNamespace")]
-    pub project_name_with_namespace: String,
-    /// A new field, should be included in all new project links, is being added just in time when a deployment is created. This is needed for Protected Git scopes. This is the id of the top level group that a namespace belongs to. Gitlab supports group nesting (up to 20 levels).
-    #[serde(rename = "projectOwnerId", skip_serializing_if = "Option::is_none")]
-    pub project_owner_id: Option<f64>,
-    #[serde(rename = "projectUrl")]
-    pub project_url: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sourceless: Option<bool>,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseLinkVariant3TypeEnum,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-}
-
-impl GetProjectsResponseLinkVariant3 {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        deploy_hooks: Vec<GetProjectsResponseLinkVariant3DeployHooksItem>,
-        git_credential_id: String,
-        production_branch: String,
-        project_id: String,
-        project_name: String,
-        project_namespace: String,
-        project_name_with_namespace: String,
-        project_url: String,
-        type_: GetProjectsResponseLinkVariant3TypeEnum,
-    ) -> Self {
-        Self {
-            created_at: None,
-            deploy_hooks,
-            git_credential_id,
-            production_branch,
-            project_id,
-            project_name,
-            project_namespace,
-            project_name_with_namespace,
-            project_owner_id: None,
-            project_url,
-            sourceless: None,
-            type_,
-            updated_at: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseLinkVariant4DeployHooksItem {
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    pub id: String,
-    pub name: String,
-    #[serde(rename = "ref")]
-    pub ref_: String,
-    pub url: String,
-}
-
-impl GetProjectsResponseLinkVariant4DeployHooksItem {
-    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
-        Self {
-            created_at: None,
-            id,
-            name,
-            ref_,
-            url,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseLinkVariant4TypeEnum {
-    #[serde(rename = "bitbucket")]
-    #[default]
-    Bitbucket,
 }

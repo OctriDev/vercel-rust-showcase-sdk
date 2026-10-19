@@ -4,6 +4,154 @@
 use super::*;
 use crate::types::{NamedSandbox, SandboxPublicRoute, Session};
 
+impl CreateSandboxesByNameForkV3FailoverRegionsItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Iad1 => "iad1",
+            Self::Sfo1 => "sfo1",
+            Self::Cle1 => "cle1",
+            Self::Cdg1 => "cdg1",
+            Self::Fra1 => "fra1",
+            Self::Arn1 => "arn1",
+            Self::Sin1 => "sin1",
+            Self::Pdx1 => "pdx1",
+            Self::Lhr1 => "lhr1",
+            Self::Icn1 => "icn1",
+            Self::Bom1 => "bom1",
+            Self::Cpt1 => "cpt1",
+            Self::Dub1 => "dub1",
+            Self::Gru1 => "gru1",
+            Self::Hkg1 => "hkg1",
+            Self::Syd1 => "syd1",
+            Self::Yul1 => "yul1",
+            Self::Hnd1 => "hnd1",
+            Self::Kix1 => "kix1",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateSandboxesByNameForkV3FailoverRegionsItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateSandboxesByNameForkV3FailoverRegionsItemEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "iad1" => Self::Iad1,
+            "sfo1" => Self::Sfo1,
+            "cle1" => Self::Cle1,
+            "cdg1" => Self::Cdg1,
+            "fra1" => Self::Fra1,
+            "arn1" => Self::Arn1,
+            "sin1" => Self::Sin1,
+            "pdx1" => Self::Pdx1,
+            "lhr1" => Self::Lhr1,
+            "icn1" => Self::Icn1,
+            "bom1" => Self::Bom1,
+            "cpt1" => Self::Cpt1,
+            "dub1" => Self::Dub1,
+            "gru1" => Self::Gru1,
+            "hkg1" => Self::Hkg1,
+            "syd1" => Self::Syd1,
+            "yul1" => Self::Yul1,
+            "hnd1" => Self::Hnd1,
+            "kix1" => Self::Kix1,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateSandboxesByNameForkV3FailoverRegionsItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesByNameForkV3Response {
+    pub routes: Vec<SandboxPublicRoute>,
+    /// This object contains information related to a Vercel NamedSandbox.
+    pub sandbox: NamedSandbox,
+    /// This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
+    pub session: Session,
+}
+
+impl CreateSandboxesByNameForkV3Response {
+    pub fn new(routes: Vec<SandboxPublicRoute>, sandbox: NamedSandbox, session: Session) -> Self {
+        Self {
+            routes,
+            sandbox,
+            session,
+        }
+    }
+}
+
+/// Resources to define the VM
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateSandboxesV4Resources {
+    /// The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vcpus: Option<i64>,
+    /// The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus \* 2048.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub memory: Option<i64>,
+}
+
+impl CreateSandboxesV4Resources {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.vcpus.as_ref() {
+            crate::validation::validate_range(
+                "vcpus",
+                *value as f64,
+                crate::validation::RangeOpts {
+                    min: Some(1_f64),
+                    ..Default::default()
+                },
+            )?;
+        }
+        if let Some(value) = self.memory.as_ref() {
+            crate::validation::validate_range(
+                "memory",
+                *value as f64,
+                crate::validation::RangeOpts {
+                    min: Some(2048_f64),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            vcpus: None,
+            memory: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateSandboxesV4MountsValueModeEnum {
+    #[default]
+    Snapshot,
+    ReadWrite,
+    Unknown(String),
+}
+
 impl CreateSandboxesV4MountsValueModeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -162,130 +310,5 @@ impl<'de> serde::Deserialize<'de> for CreateSandboxesV4FailoverRegionsItemEnum {
             "kix1" => Self::Kix1,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for CreateSandboxesV4FailoverRegionsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesV4Response {
-    pub routes: Vec<SandboxPublicRoute>,
-    /// This object contains information related to a Vercel NamedSandbox.
-    pub sandbox: NamedSandbox,
-    /// This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
-    pub session: Session,
-}
-
-impl CreateSandboxesV4Response {
-    pub fn new(routes: Vec<SandboxPublicRoute>, sandbox: NamedSandbox, session: Session) -> Self {
-        Self {
-            routes,
-            sandbox,
-            session,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListNamedSandboxesEnum {
-    #[default]
-    Createdat,
-    Currentsnapshotid,
-    Name,
-    Statusupdatedat,
-    Unknown(String),
-}
-
-impl ListNamedSandboxesEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Createdat => "createdAt",
-            Self::Currentsnapshotid => "currentSnapshotId",
-            Self::Name => "name",
-            Self::Statusupdatedat => "statusUpdatedAt",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListNamedSandboxesEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListNamedSandboxesEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "createdAt" => Self::Createdat,
-            "currentSnapshotId" => Self::Currentsnapshotid,
-            "name" => Self::Name,
-            "statusUpdatedAt" => Self::Statusupdatedat,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListNamedSandboxesEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListNamedSandboxesEnum82d0ae37 {
-    #[default]
-    Asc,
-    Desc,
-    Unknown(String),
-}
-
-impl ListNamedSandboxesEnum82d0ae37 {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Asc => "asc",
-            Self::Desc => "desc",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListNamedSandboxesEnum82d0ae37 {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListNamedSandboxesEnum82d0ae37 {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "asc" => Self::Asc,
-            "desc" => Self::Desc,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListNamedSandboxesEnum82d0ae37 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

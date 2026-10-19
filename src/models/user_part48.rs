@@ -3,6 +3,71 @@
 
 // user domain models (part 48)
 
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant124RuleNameEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "deploymentSources" => Self::Deploymentsources,
+            "gitSources" => Self::Gitsources,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant124RuleNameEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Team-level or project-level rule.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant124RuleProvenanceEnum {
+    #[default]
+    Default,
+    Project,
+    Team,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant124RuleProvenanceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Default => "default",
+            Self::Project => "project",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant124RuleProvenanceEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant124RuleProvenanceEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "default" => Self::Default,
+            "project" => Self::Project,
+            "team" => Self::Team,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display for UserEventPayloadVariant124RuleProvenanceEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -432,68 +497,4 @@ pub struct UserEventPayloadVariant129 {
     pub type_: String,
     /// Required `string` value serialized in the `value` wire field.
     pub value: String,
-}
-
-impl UserEventPayloadVariant129 {
-    pub fn new(domain: String, id: String, name: String, type_: String, value: String) -> Self {
-        Self {
-            domain,
-            id,
-            mx_priority: None,
-            name,
-            type_,
-            value,
-        }
-    }
-}
-
-/// Required enumerated value serialized in the `action` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant130ActionEnum {
-    #[default]
-    Add,
-    Delete,
-    Update,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant130ActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Add => "add",
-            Self::Delete => "delete",
-            Self::Update => "update",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant130ActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant130ActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "add" => Self::Add,
-            "delete" => Self::Delete,
-            "update" => Self::Update,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant130ActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

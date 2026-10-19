@@ -3,176 +3,78 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAliasItem {
-    #[serde(
-        rename = "configuredBy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configured_by: Option<Option<CreateProjectResponseAliasItemConfiguredByEnum>>,
-    #[serde(
-        rename = "configuredChangedAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub configured_changed_at: Option<Option<f64>>,
-    #[serde(
-        rename = "createdAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub created_at: Option<Option<f64>>,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub deployment: Option<CreateProjectResponseAliasItemDeployment>,
-    pub domain: String,
-    pub environment: CreateProjectResponseAliasItemEnvironmentEnum,
-    #[serde(
-        rename = "gitBranch",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub git_branch: Option<Option<String>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<String>>,
-    #[serde(
-        rename = "redirectStatusCode",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect_status_code: Option<Option<f64>>,
-    pub target: CreateProjectResponseAliasItemTargetEnum,
-}
-
-impl CreateProjectResponseAliasItem {
-    pub fn new(
-        deployment: Option<CreateProjectResponseAliasItemDeployment>,
-        domain: String,
-        environment: CreateProjectResponseAliasItemEnvironmentEnum,
-        target: CreateProjectResponseAliasItemTargetEnum,
-    ) -> Self {
-        Self {
-            configured_by: None,
-            configured_changed_at: None,
-            created_at: None,
-            deployment,
-            domain,
-            environment,
-            git_branch: None,
-            redirect: None,
-            redirect_status_code: None,
-            target,
+impl CreateProjectResourceConfig {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.function_default_regions.as_ref() {
+            crate::validation::validate_items(
+                "functionDefaultRegions",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(1),
+                    ..Default::default()
+                },
+            )?;
         }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseAnalytics {
-    #[serde(
-        rename = "canceledAt",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub canceled_at: Option<Option<f64>>,
-    #[serde(rename = "disabledAt")]
-    pub disabled_at: f64,
-    #[serde(rename = "enabledAt")]
-    pub enabled_at: f64,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
-    #[serde(
-        rename = "sampleRatePercent",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub sample_rate_percent: Option<Option<f64>>,
-    #[serde(
-        rename = "spendLimitInDollars",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub spend_limit_in_dollars: Option<Option<f64>>,
-}
-
-impl CreateProjectResponseAnalytics {
-    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
-        Self {
-            canceled_at: None,
-            disabled_at,
-            enabled_at,
-            id,
-            paid_at: None,
-            sample_rate_percent: None,
-            spend_limit_in_dollars: None,
+        if let Some(value) = self.function_default_timeout.as_ref() {
+            crate::validation::validate_range(
+                "functionDefaultTimeout",
+                *value,
+                crate::validation::RangeOpts {
+                    min: Some(1_f64),
+                    max: Some(900_f64),
+                    ..Default::default()
+                },
+            )?;
         }
+        Ok(())
     }
-}
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseBlobs {
-    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
-    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
-    pub is_default_app: Option<bool>,
-}
-
-impl CreateProjectResponseBlobs {
     #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            is_default_app: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseConnectConfigurationsItemAws {
-    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
-    pub security_group_id: Option<String>,
-    #[serde(rename = "subnetIds")]
-    pub subnet_ids: Vec<String>,
-}
-
-impl CreateProjectResponseConnectConfigurationsItemAws {
-    pub fn new(subnet_ids: Vec<String>) -> Self {
-        Self {
-            security_group_id: None,
-            subnet_ids,
-        }
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            build_machine_type: None,
+            fluid: None,
+            function_default_regions: None,
+            function_default_timeout: None,
+            function_default_memory_type: None,
+            function_zero_config_failover: None,
+            elastic_concurrency_enabled: None,
+            build_machine_selection: None,
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            is_nsnb_disabled: None,
+            build_queue: None,
+            enable_functions_beta: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseConnectConfigurationsItemEnvId {
+pub enum CreateProjectResponseAliasItemConfiguredByEnum {
     #[default]
-    Preview,
-    Production,
+    A,
+    Cname,
+    Dns01,
+    Http,
     Unknown(String),
 }
 
-impl CreateProjectResponseConnectConfigurationsItemEnvId {
+impl CreateProjectResponseAliasItemConfiguredByEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
+            Self::A => "A",
+            Self::Cname => "CNAME",
+            Self::Dns01 => "dns-01",
+            Self::Http => "http",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseConnectConfigurationsItemEnvId {
+impl serde::Serialize for CreateProjectResponseAliasItemConfiguredByEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -181,85 +83,195 @@ impl serde::Serialize for CreateProjectResponseConnectConfigurationsItemEnvId {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseConnectConfigurationsItemEnvId {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemConfiguredByEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
+            "A" => Self::A,
+            "CNAME" => Self::Cname,
+            "dns-01" => Self::Dns01,
+            "http" => Self::Http,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseConnectConfigurationsItemEnvId {
+impl std::fmt::Display for CreateProjectResponseAliasItemConfiguredByEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateProjectResponseAliasItemDeploymentAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemDeploymentAliasAssigned {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for CreateProjectResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateProjectResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseAliasItemDeploymentAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl CreateProjectResponseAliasItemDeploymentAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    #[default]
+    Endswith,
+    Equals,
+    Startswith,
+    Unknown(String),
+}
+
+impl CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseConnectConfigurationsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub aws: Option<CreateProjectResponseConnectConfigurationsItemAws>,
-    #[serde(rename = "buildsEnabled")]
-    pub builds_enabled: bool,
-    #[serde(rename = "connectConfigurationId")]
-    pub connect_configuration_id: String,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub dc: Option<String>,
-    #[serde(rename = "envId")]
-    pub env_id: CreateProjectResponseConnectConfigurationsItemEnvId,
-    pub passive: bool,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
+pub struct CreateProjectResponseAliasItemDeploymentBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
 }
 
-impl CreateProjectResponseConnectConfigurationsItem {
+impl CreateProjectResponseAliasItemDeploymentBranchMatcher {
     pub fn new(
-        builds_enabled: bool,
-        connect_configuration_id: String,
-        created_at: f64,
-        env_id: CreateProjectResponseConnectConfigurationsItemEnvId,
-        passive: bool,
-        updated_at: f64,
+        pattern: String,
+        type_: CreateProjectResponseAliasItemDeploymentBranchMatcherTypeEnum,
     ) -> Self {
+        Self { pattern, type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseAliasItemDeploymentBuildsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    #[serde(rename = "use")]
+    pub use_: String,
+}
+
+impl CreateProjectResponseAliasItemDeploymentBuildsItem {
+    pub fn new(use_: String) -> Self {
         Self {
-            aws: None,
-            builds_enabled,
-            connect_configuration_id,
-            created_at,
-            dc: None,
-            env_id,
-            passive,
-            updated_at,
+            dest: None,
+            src: None,
+            use_,
         }
     }
 }
 
-/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseCronsDefinitionsItemSourceEnum {
+pub enum CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
     #[default]
-    Api,
+    Canceled,
+    Failed,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl CreateProjectResponseCronsDefinitionsItemSourceEnum {
+impl CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Api => "api",
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+impl serde::Serialize for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -268,20 +280,23 @@ impl serde::Serialize for CreateProjectResponseCronsDefinitionsItemSourceEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "api" => Self::Api,
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseCronsDefinitionsItemSourceEnum {
+impl std::fmt::Display for CreateProjectResponseAliasItemDeploymentChecksConclusionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

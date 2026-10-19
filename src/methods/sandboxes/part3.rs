@@ -2,7 +2,50 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{NamedSandbox, SessionCommand};
+use crate::types::{NamedSandbox, SandboxPublicRoute, Session, SessionCommand};
+
+impl GetSessionResponse {
+    pub fn new(routes: Vec<SandboxPublicRoute>, session: Session) -> Self {
+        Self { routes, session }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetNamedSandboxResponse {
+    pub resumed: bool,
+    pub routes: Vec<SandboxPublicRoute>,
+    /// This object contains information related to a Vercel NamedSandbox.
+    pub sandbox: NamedSandbox,
+    /// This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.
+    pub session: Session,
+}
+
+impl GetNamedSandboxResponse {
+    pub fn new(
+        resumed: bool,
+        routes: Vec<SandboxPublicRoute>,
+        sandbox: NamedSandbox,
+        session: Session,
+    ) -> Self {
+        Self {
+            resumed,
+            routes,
+            sandbox,
+            session,
+        }
+    }
+}
+
+/// Resources to define the VM
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxResources {
+    /// The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vcpus: Option<i64>,
+    /// The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus \* 2048.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub memory: Option<i64>,
+}
 
 impl UpdateSandboxResources {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
@@ -265,39 +308,4 @@ impl RunSessionCommandResponseVariant0DataCodeEnum {
             Self::Unknown(value) => value.as_str(),
         }
     }
-}
-
-impl serde::Serialize for RunSessionCommandResponseVariant0DataCodeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for RunSessionCommandResponseVariant0DataCodeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "sandbox_stream_closed" => Self::SandboxStreamClosed,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for RunSessionCommandResponseVariant0DataCodeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum RunSessionCommandResponseVariant0DataMessageEnum {
-    #[default]
-    SandboxStreamWasClosedAndIsNotAcceptingCommands,
-    Unknown(String),
 }

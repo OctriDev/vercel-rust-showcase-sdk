@@ -3,401 +3,33 @@
 
 // user domain models (part 105)
 
-impl UserEventPayloadVariant491Geolocation {
-    pub fn new(country: UserEventPayloadVariant491GeolocationCountry) -> Self {
-        Self {
-            city: None,
-            country,
-            most_specific_subdivision: None,
-            region_name: None,
-        }
-    }
-}
-
-/// How the token was issued. Always `'manual'` for explicit PAT creation.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant491OriginEnum {
-    #[default]
-    App,
-    Apple,
-    Bitbucket,
-    Chatgpt,
-    Email,
-    Emu,
-    Github,
-    GithubWebhook,
-    Gitlab,
-    Google,
-    Invite,
-    Manual,
-    Otp,
-    Passkey,
-    Saml,
-    Sms,
-    TokenExchangeOidc,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant491OriginEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::App => "app",
-            Self::Apple => "apple",
-            Self::Bitbucket => "bitbucket",
-            Self::Chatgpt => "chatgpt",
-            Self::Email => "email",
-            Self::Emu => "emu",
-            Self::Github => "github",
-            Self::GithubWebhook => "github-webhook",
-            Self::Gitlab => "gitlab",
-            Self::Google => "google",
-            Self::Invite => "invite",
-            Self::Manual => "manual",
-            Self::Otp => "otp",
-            Self::Passkey => "passkey",
-            Self::Saml => "saml",
-            Self::Sms => "sms",
-            Self::TokenExchangeOidc => "token-exchange-oidc",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant491OriginEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491OriginEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "app" => Self::App,
-            "apple" => Self::Apple,
-            "bitbucket" => Self::Bitbucket,
-            "chatgpt" => Self::Chatgpt,
-            "email" => Self::Email,
-            "emu" => Self::Emu,
-            "github" => Self::Github,
-            "github-webhook" => Self::GithubWebhook,
-            "gitlab" => Self::Gitlab,
-            "google" => Self::Google,
-            "invite" => Self::Invite,
-            "manual" => Self::Manual,
-            "otp" => Self::Otp,
-            "passkey" => Self::Passkey,
-            "saml" => Self::Saml,
-            "sms" => Self::Sms,
-            "token-exchange-oidc" => Self::TokenExchangeOidc,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant491OriginEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Present when `scope` is `'project'`.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant491ProjectScopeEnum {
-    #[default]
-    Account,
-    ProjectOnly,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant491ProjectScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Account => "account",
-            Self::ProjectOnly => "project-only",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant491ProjectScopeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491ProjectScopeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "account" => Self::Account,
-            "project-only" => Self::ProjectOnly,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant491ProjectScopeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Scope of the token: \- `'user'`: full-account token (not tied to any team). \- `'team'`: scoped to a single team. \- `'project'`: scoped to a single project within a team.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant491ScopeEnum {
-    #[default]
-    Project,
-    Team,
-    User,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant491ScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Project => "project",
-            Self::Team => "team",
-            Self::User => "user",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant491ScopeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491ScopeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "project" => Self::Project,
-            "team" => Self::Team,
-            "user" => Self::User,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant491ScopeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Optional enumerated value serialized in the `source` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant491SourceEnum {
-    #[default]
-    V0,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant491SourceEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::V0 => "v0",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant491SourceEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491SourceEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "v0" => Self::V0,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant491SourceEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The token prefix used when showing a safe checksum-style fingerprint.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant491TokenPrefixEnum {
-    #[default]
-    Vcp,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant491TokenPrefixEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Vcp => "vcp_",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant491TokenPrefixEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant491TokenPrefixEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "vcp_" => Self::Vcp,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant491TokenPrefixEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant491 {
-    /// Optional `string` value serialized in the `createdByParentTeamId` wire field.
-    #[serde(
-        rename = "createdByParentTeamId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub created_by_parent_team_id: Option<String>,
-    /// Unix epoch milliseconds. Absent when the token never expires.
-    #[serde(rename = "expiresAt", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<f64>,
-    /// Optional object value serialized in the `geolocation` wire field.
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub geolocation: Option<Option<UserEventPayloadVariant491Geolocation>>,
-    /// Whether the token was issued with RFC 9396 authorization details.
-    #[serde(
-        rename = "hasAuthorizationDetails",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub has_authorization_details: Option<bool>,
-    /// Optional `string` value serialized in the `ip` wire field.
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub ip: Option<Option<String>>,
-    /// How the token was issued. Always `'manual'` for explicit PAT creation.
-    pub origin: UserEventPayloadVariant491OriginEnum,
-    /// Present when `scope` is `'project'`.
-    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<String>,
-    /// Present when `scope` is `'project'`.
-    #[serde(rename = "projectName", skip_serializing_if = "Option::is_none")]
-    pub project_name: Option<String>,
-    /// Present when `scope` is `'project'`.
-    #[serde(rename = "projectScope", skip_serializing_if = "Option::is_none")]
-    pub project_scope: Option<UserEventPayloadVariant491ProjectScopeEnum>,
-    /// Optional `string` value serialized in the `reqId` wire field.
-    #[serde(rename = "reqId", skip_serializing_if = "Option::is_none")]
-    pub req_id: Option<String>,
-    /// Optional `string` value serialized in the `reqUrl` wire field.
-    #[serde(rename = "reqUrl", skip_serializing_if = "Option::is_none")]
-    pub req_url: Option<String>,
-    /// Scope of the token: \- `'user'`: full-account token (not tied to any team). \- `'team'`: scoped to a single team. \- `'project'`: scoped to a single project within a team.
-    pub scope: UserEventPayloadVariant491ScopeEnum,
-    /// Optional enumerated value serialized in the `source` wire field.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source: Option<UserEventPayloadVariant491SourceEnum>,
-    /// Present when `scope` is `'team'` or `'project'`.
-    #[serde(rename = "teamId", skip_serializing_if = "Option::is_none")]
-    pub team_id: Option<String>,
-    /// Present when `scope` is `'team'` or `'project'`.
-    #[serde(rename = "teamSlug", skip_serializing_if = "Option::is_none")]
-    pub team_slug: Option<String>,
-    /// The token's public ID.
-    #[serde(rename = "tokenId")]
-    pub token_id: String,
-    /// User-supplied name of the token.
-    #[serde(rename = "tokenName")]
-    pub token_name: String,
-    /// The token prefix used when showing a safe checksum-style fingerprint.
-    #[serde(rename = "tokenPrefix", skip_serializing_if = "Option::is_none")]
-    pub token_prefix: Option<UserEventPayloadVariant491TokenPrefixEnum>,
-    /// The token checksum suffix.
-    #[serde(rename = "tokenSuffix", skip_serializing_if = "Option::is_none")]
-    pub token_suffix: Option<String>,
-    /// Optional `string` value serialized in the `userAgent` wire field.
-    #[serde(rename = "userAgent", skip_serializing_if = "Option::is_none")]
-    pub user_agent: Option<String>,
-}
-
-impl UserEventPayloadVariant491 {
+impl UserEventPayloadVariant487 {
     pub fn new(
-        origin: UserEventPayloadVariant491OriginEnum,
-        scope: UserEventPayloadVariant491ScopeEnum,
-        token_id: String,
-        token_name: String,
+        app_name: String,
+        at_ttl: f64,
+        auth_method: UserEventPayloadVariant487AuthMethodEnum,
+        grant_type: UserEventPayloadVariant487GrantTypeEnum,
+        scope: String,
     ) -> Self {
         Self {
-            created_by_parent_team_id: None,
-            expires_at: None,
+            app: None,
+            app_name,
+            at_ttl,
+            auth_method,
             geolocation: None,
-            has_authorization_details: None,
+            grant_type,
+            includes_refresh_token: None,
             ip: None,
-            origin,
-            project_id: None,
-            project_name: None,
-            project_scope: None,
-            req_id: None,
-            req_url: None,
+            issuer_url: None,
+            oidc_subject: None,
+            policy_id: None,
+            public_id: None,
+            refresh_token_prefix: None,
+            refresh_token_public_id: None,
+            refresh_token_suffix: None,
+            rt_ttl: None,
             scope,
-            source: None,
-            team_id: None,
-            team_slug: None,
-            token_id,
-            token_name,
+            session_id: None,
             token_prefix: None,
             token_suffix: None,
             user_agent: None,
@@ -405,14 +37,401 @@ impl UserEventPayloadVariant491 {
     }
 }
 
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant488 {
+    /// Required `string` value serialized in the `domain` wire field.
+    pub domain: String,
+    /// Required `string` value serialized in the `projectId` wire field.
+    #[serde(rename = "projectId")]
+    pub project_id: String,
+}
+
+impl UserEventPayloadVariant488 {
+    pub fn new(domain: String, project_id: String) -> Self {
+        Self { domain, project_id }
+    }
+}
+
+/// Required object value serialized in the `values[]` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant489PolicyClaimsItemValuesItem {
+    /// Required `string` value serialized in the `value` wire field.
+    pub value: String,
+    /// Required enumerated value serialized in the `wildcards` wire field.
+    pub wildcards: bool,
+}
+
+impl UserEventPayloadVariant489PolicyClaimsItemValuesItem {
+    pub fn new(value: String, wildcards: bool) -> Self {
+        Self { value, wildcards }
+    }
+}
+
+/// Claim matchers an OIDC token must satisfy to use the policy.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant489PolicyClaimsItem {
+    /// Required `string` value serialized in the `name` wire field.
+    pub name: String,
+    /// Required array value serialized in the `values` wire field.
+    pub values: Vec<UserEventPayloadVariant489PolicyClaimsItemValuesItem>,
+}
+
+impl UserEventPayloadVariant489PolicyClaimsItem {
+    pub fn new(
+        name: String,
+        values: Vec<UserEventPayloadVariant489PolicyClaimsItemValuesItem>,
+    ) -> Self {
+        Self { name, values }
+    }
+}
+
+/// Resource boundary, or `null` when the policy has none.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant489PolicyResources {
+    /// Required array value serialized in the `projectIds` wire field.
+    #[serde(rename = "projectIds")]
+    pub project_ids: Vec<String>,
+}
+
+impl UserEventPayloadVariant489PolicyResources {
+    pub fn new(project_ids: Vec<String>) -> Self {
+        Self { project_ids }
+    }
+}
+
+/// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant489Policy {
+    /// Claim matchers an OIDC token must satisfy to use the policy.
+    pub claims: Vec<UserEventPayloadVariant489PolicyClaimsItem>,
+    /// Required `string` value serialized in the `clientId` wire field.
+    #[serde(rename = "clientId")]
+    pub client_id: String,
+    /// Creation time (epoch ms).
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Required `string` value serialized in the `issuerUrl` wire field.
+    #[serde(rename = "issuerUrl")]
+    pub issuer_url: String,
+    /// Human-readable policy name, or `null` when unnamed.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
+    /// Permission boundary (`['\*']` = the app's full declared permissions).
+    pub permissions: Vec<String>,
+    /// Required `string` value serialized in the `policyId` wire field.
+    #[serde(rename = "policyId")]
+    pub policy_id: String,
+    /// Resource boundary, or `null` when the policy has none.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub resources: Option<UserEventPayloadVariant489PolicyResources>,
+    /// Required `string` value serialized in the `teamId` wire field.
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// Last-update time (epoch ms).
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl UserEventPayloadVariant489Policy {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        claims: Vec<UserEventPayloadVariant489PolicyClaimsItem>,
+        client_id: String,
+        created_at: f64,
+        issuer_url: String,
+        name: Option<String>,
+        permissions: Vec<String>,
+        policy_id: String,
+        resources: Option<UserEventPayloadVariant489PolicyResources>,
+        team_id: String,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            claims,
+            client_id,
+            created_at,
+            issuer_url,
+            name,
+            permissions,
+            policy_id,
+            resources,
+            team_id,
+            updated_at,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant489 {
+    /// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+    pub policy: UserEventPayloadVariant489Policy,
+    /// Optional `string` value serialized in the `appName` wire field.
+    #[serde(rename = "appName", skip_serializing_if = "Option::is_none")]
+    pub app_name: Option<String>,
+}
+
+impl UserEventPayloadVariant489 {
+    pub fn new(policy: UserEventPayloadVariant489Policy) -> Self {
+        Self {
+            policy,
+            app_name: None,
+        }
+    }
+}
+
+/// Required object value serialized in the `values[]` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490AfterClaimsItemValuesItem {
+    /// Required `string` value serialized in the `value` wire field.
+    pub value: String,
+    /// Required enumerated value serialized in the `wildcards` wire field.
+    pub wildcards: bool,
+}
+
+impl UserEventPayloadVariant490AfterClaimsItemValuesItem {
+    pub fn new(value: String, wildcards: bool) -> Self {
+        Self { value, wildcards }
+    }
+}
+
+/// Claim matchers an OIDC token must satisfy to use the policy.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490AfterClaimsItem {
+    /// Required `string` value serialized in the `name` wire field.
+    pub name: String,
+    /// Required array value serialized in the `values` wire field.
+    pub values: Vec<UserEventPayloadVariant490AfterClaimsItemValuesItem>,
+}
+
+impl UserEventPayloadVariant490AfterClaimsItem {
+    pub fn new(
+        name: String,
+        values: Vec<UserEventPayloadVariant490AfterClaimsItemValuesItem>,
+    ) -> Self {
+        Self { name, values }
+    }
+}
+
+/// Resource boundary, or `null` when the policy has none.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490AfterResources {
+    /// Required array value serialized in the `projectIds` wire field.
+    #[serde(rename = "projectIds")]
+    pub project_ids: Vec<String>,
+}
+
+impl UserEventPayloadVariant490AfterResources {
+    pub fn new(project_ids: Vec<String>) -> Self {
+        Self { project_ids }
+    }
+}
+
+/// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490After {
+    /// Claim matchers an OIDC token must satisfy to use the policy.
+    pub claims: Vec<UserEventPayloadVariant490AfterClaimsItem>,
+    /// Required `string` value serialized in the `clientId` wire field.
+    #[serde(rename = "clientId")]
+    pub client_id: String,
+    /// Creation time (epoch ms).
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Required `string` value serialized in the `issuerUrl` wire field.
+    #[serde(rename = "issuerUrl")]
+    pub issuer_url: String,
+    /// Human-readable policy name, or `null` when unnamed.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
+    /// Permission boundary (`['\*']` = the app's full declared permissions).
+    pub permissions: Vec<String>,
+    /// Required `string` value serialized in the `policyId` wire field.
+    #[serde(rename = "policyId")]
+    pub policy_id: String,
+    /// Resource boundary, or `null` when the policy has none.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub resources: Option<UserEventPayloadVariant490AfterResources>,
+    /// Required `string` value serialized in the `teamId` wire field.
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// Last-update time (epoch ms).
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl UserEventPayloadVariant490After {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        claims: Vec<UserEventPayloadVariant490AfterClaimsItem>,
+        client_id: String,
+        created_at: f64,
+        issuer_url: String,
+        name: Option<String>,
+        permissions: Vec<String>,
+        policy_id: String,
+        resources: Option<UserEventPayloadVariant490AfterResources>,
+        team_id: String,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            claims,
+            client_id,
+            created_at,
+            issuer_url,
+            name,
+            permissions,
+            policy_id,
+            resources,
+            team_id,
+            updated_at,
+        }
+    }
+}
+
+/// Required object value serialized in the `values[]` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490BeforeClaimsItemValuesItem {
+    /// Required `string` value serialized in the `value` wire field.
+    pub value: String,
+    /// Required enumerated value serialized in the `wildcards` wire field.
+    pub wildcards: bool,
+}
+
+impl UserEventPayloadVariant490BeforeClaimsItemValuesItem {
+    pub fn new(value: String, wildcards: bool) -> Self {
+        Self { value, wildcards }
+    }
+}
+
+/// Claim matchers an OIDC token must satisfy to use the policy.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490BeforeClaimsItem {
+    /// Required `string` value serialized in the `name` wire field.
+    pub name: String,
+    /// Required array value serialized in the `values` wire field.
+    pub values: Vec<UserEventPayloadVariant490BeforeClaimsItemValuesItem>,
+}
+
+impl UserEventPayloadVariant490BeforeClaimsItem {
+    pub fn new(
+        name: String,
+        values: Vec<UserEventPayloadVariant490BeforeClaimsItemValuesItem>,
+    ) -> Self {
+        Self { name, values }
+    }
+}
+
+/// Resource boundary, or `null` when the policy has none.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490BeforeResources {
+    /// Required array value serialized in the `projectIds` wire field.
+    #[serde(rename = "projectIds")]
+    pub project_ids: Vec<String>,
+}
+
+impl UserEventPayloadVariant490BeforeResources {
+    pub fn new(project_ids: Vec<String>) -> Self {
+        Self { project_ids }
+    }
+}
+
+/// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490Before {
+    /// Claim matchers an OIDC token must satisfy to use the policy.
+    pub claims: Vec<UserEventPayloadVariant490BeforeClaimsItem>,
+    /// Required `string` value serialized in the `clientId` wire field.
+    #[serde(rename = "clientId")]
+    pub client_id: String,
+    /// Creation time (epoch ms).
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// Required `string` value serialized in the `issuerUrl` wire field.
+    #[serde(rename = "issuerUrl")]
+    pub issuer_url: String,
+    /// Human-readable policy name, or `null` when unnamed.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
+    /// Permission boundary (`['\*']` = the app's full declared permissions).
+    pub permissions: Vec<String>,
+    /// Required `string` value serialized in the `policyId` wire field.
+    #[serde(rename = "policyId")]
+    pub policy_id: String,
+    /// Resource boundary, or `null` when the policy has none.
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub resources: Option<UserEventPayloadVariant490BeforeResources>,
+    /// Required `string` value serialized in the `teamId` wire field.
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// Last-update time (epoch ms).
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl UserEventPayloadVariant490Before {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        claims: Vec<UserEventPayloadVariant490BeforeClaimsItem>,
+        client_id: String,
+        created_at: f64,
+        issuer_url: String,
+        name: Option<String>,
+        permissions: Vec<String>,
+        policy_id: String,
+        resources: Option<UserEventPayloadVariant490BeforeResources>,
+        team_id: String,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            claims,
+            client_id,
+            created_at,
+            issuer_url,
+            name,
+            permissions,
+            policy_id,
+            resources,
+            team_id,
+            updated_at,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant490 {
+    /// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+    pub after: UserEventPayloadVariant490After,
+    /// A full point-in-time snapshot of an OIDC exchange policy, captured on every lifecycle event so the audit trail records exactly what the policy looked like. Mirrors the management endpoints' public response shape.
+    pub before: UserEventPayloadVariant490Before,
+    /// Optional `string` value serialized in the `appName` wire field.
+    #[serde(rename = "appName", skip_serializing_if = "Option::is_none")]
+    pub app_name: Option<String>,
+}
+
+impl UserEventPayloadVariant490 {
+    pub fn new(
+        after: UserEventPayloadVariant490After,
+        before: UserEventPayloadVariant490Before,
+    ) -> Self {
+        Self {
+            after,
+            before,
+            app_name: None,
+        }
+    }
+}
+
 /// Required object value serialized in the `names` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationCityNames {
+pub struct UserEventPayloadVariant491GeolocationCityNames {
     /// Required `string` value serialized in the `en` wire field.
     pub en: String,
 }
 
-impl UserEventPayloadVariant492GeolocationCityNames {
+impl UserEventPayloadVariant491GeolocationCityNames {
     pub fn new(en: String) -> Self {
         Self { en }
     }
@@ -420,25 +439,25 @@ impl UserEventPayloadVariant492GeolocationCityNames {
 
 /// Optional object value serialized in the `city` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationCity {
+pub struct UserEventPayloadVariant491GeolocationCity {
     /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant492GeolocationCityNames,
+    pub names: UserEventPayloadVariant491GeolocationCityNames,
 }
 
-impl UserEventPayloadVariant492GeolocationCity {
-    pub fn new(names: UserEventPayloadVariant492GeolocationCityNames) -> Self {
+impl UserEventPayloadVariant491GeolocationCity {
+    pub fn new(names: UserEventPayloadVariant491GeolocationCityNames) -> Self {
         Self { names }
     }
 }
 
 /// Required object value serialized in the `names` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationCountryNames {
+pub struct UserEventPayloadVariant491GeolocationCountryNames {
     /// Required `string` value serialized in the `en` wire field.
     pub en: String,
 }
 
-impl UserEventPayloadVariant492GeolocationCountryNames {
+impl UserEventPayloadVariant491GeolocationCountryNames {
     pub fn new(en: String) -> Self {
         Self { en }
     }
@@ -446,25 +465,25 @@ impl UserEventPayloadVariant492GeolocationCountryNames {
 
 /// Required object value serialized in the `country` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationCountry {
+pub struct UserEventPayloadVariant491GeolocationCountry {
     /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant492GeolocationCountryNames,
+    pub names: UserEventPayloadVariant491GeolocationCountryNames,
 }
 
-impl UserEventPayloadVariant492GeolocationCountry {
-    pub fn new(names: UserEventPayloadVariant492GeolocationCountryNames) -> Self {
+impl UserEventPayloadVariant491GeolocationCountry {
+    pub fn new(names: UserEventPayloadVariant491GeolocationCountryNames) -> Self {
         Self { names }
     }
 }
 
 /// Required object value serialized in the `names` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames {
+pub struct UserEventPayloadVariant491GeolocationMostSpecificSubdivisionNames {
     /// Required `string` value serialized in the `en` wire field.
     pub en: String,
 }
 
-impl UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames {
+impl UserEventPayloadVariant491GeolocationMostSpecificSubdivisionNames {
     pub fn new(en: String) -> Self {
         Self { en }
     }
@@ -472,7 +491,30 @@ impl UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames {
 
 /// Optional object value serialized in the `most_specific_subdivision` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant492GeolocationMostSpecificSubdivision {
+pub struct UserEventPayloadVariant491GeolocationMostSpecificSubdivision {
     /// Required object value serialized in the `names` wire field.
-    pub names: UserEventPayloadVariant492GeolocationMostSpecificSubdivisionNames,
+    pub names: UserEventPayloadVariant491GeolocationMostSpecificSubdivisionNames,
+}
+
+impl UserEventPayloadVariant491GeolocationMostSpecificSubdivision {
+    pub fn new(names: UserEventPayloadVariant491GeolocationMostSpecificSubdivisionNames) -> Self {
+        Self { names }
+    }
+}
+
+/// Optional object value serialized in the `geolocation` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant491Geolocation {
+    /// Optional object value serialized in the `city` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub city: Option<UserEventPayloadVariant491GeolocationCity>,
+    /// Required object value serialized in the `country` wire field.
+    pub country: UserEventPayloadVariant491GeolocationCountry,
+    /// Optional object value serialized in the `most_specific_subdivision` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub most_specific_subdivision:
+        Option<UserEventPayloadVariant491GeolocationMostSpecificSubdivision>,
+    /// Optional `string` value serialized in the `regionName` wire field.
+    #[serde(rename = "regionName", skip_serializing_if = "Option::is_none")]
+    pub region_name: Option<String>,
 }

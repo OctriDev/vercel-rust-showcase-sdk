@@ -198,6 +198,46 @@ impl<'de> serde::Deserialize<'de> for GetVercelCiRepositorySettingsResponseProvi
     }
 }
 
+impl ::std::convert::From<Box<GetVercelCiRepositorySettingsResponseProviderVariant0Enum>>
+    for GetVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<GetVercelCiRepositorySettingsResponseProviderVariant0Enum>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiRepositorySettingsResponseProviderVariant1Enum>>
+    for GetVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<GetVercelCiRepositorySettingsResponseProviderVariant1Enum>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiRepositorySettingsResponseProviderVariant2Enum>>
+    for GetVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<GetVercelCiRepositorySettingsResponseProviderVariant2Enum>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiRepositorySettingsResponseProviderVariant3Enum>>
+    for GetVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<GetVercelCiRepositorySettingsResponseProviderVariant3Enum>) -> Self {
+        Self::Object4(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetVercelCiRepositorySettingsResponseProviderVariant4Enum>>
+    for GetVercelCiRepositorySettingsResponseProvider
+{
+    fn from(value: Box<GetVercelCiRepositorySettingsResponseProviderVariant4Enum>) -> Self {
+        Self::Object5(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetVercelCiRepositorySettingsResponse {
     pub provider: GetVercelCiRepositorySettingsResponseProvider,
@@ -278,36 +318,4 @@ impl std::fmt::Display for UpdateVercelCiRepositorySettingsResponseProviderVaria
             }
         }
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
-    #[serde(rename = "github")]
-    #[default]
-    Github,
-}
-
-impl UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Github => "github",
-        }
-    }
-}
-
-impl std::fmt::Display for UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            UpdateVercelCiRepositorySettingsResponseProviderVariant2Enum::Github => {
-                f.write_str("github")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum UpdateVercelCiRepositorySettingsResponseProviderVariant3Enum {
-    #[serde(rename = "gitlab")]
-    #[default]
-    Gitlab,
 }

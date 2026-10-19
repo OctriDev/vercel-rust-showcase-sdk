@@ -3,6 +3,27 @@
 
 // connect domain models (part 16)
 
+impl ConnectConnectorUpdatedByVariant1 {
+    pub fn new(
+        environment: ConnectConnectorUpdatedByVariant1Environment,
+        id: String,
+        type_: ConnectConnectorUpdatedByVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            environment,
+            id,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ConnectConnectorUpdatedBy {
+    User(Box<ConnectConnectorUpdatedByVariant0>),
+    Project(Box<ConnectConnectorUpdatedByVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for ConnectConnectorUpdatedBy {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -614,15 +635,4 @@ pub enum ConnectEnvironmentVariant0Enum {
     Preview,
     Production,
     Unknown(String),
-}
-
-impl ConnectEnvironmentVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

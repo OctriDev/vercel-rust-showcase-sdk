@@ -3,6 +3,104 @@
 
 // billing domain models (part 7)
 
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2ModeEnum {
+    #[default]
+    Async,
+    Unknown(String),
+}
+
+impl BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2ModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Async => "async",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2ModeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2ModeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "async" => Self::Async,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2ModeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2StatusEnum {
+    #[default]
+    Succeeded,
+    Unknown(String),
+}
+
+impl BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2StatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2StatusEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2StatusEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "succeeded" => Self::Succeeded,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2StatusEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// How the subscription change is applied to Orb.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2 {
@@ -70,6 +168,30 @@ impl<'de> serde::Deserialize<'de> for BuyCreditsResponseVariant2OrbSubscriptionI
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdate branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant0>>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdate
+{
+    fn from(value: Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant0>) -> Self {
+        Self::Sync(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant1>>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdate
+{
+    fn from(value: Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant1>) -> Self {
+        Self::Async(value)
+    }
+}
+
+impl ::std::convert::From<Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2>>
+    for BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdate
+{
+    fn from(value: Box<BuyCreditsResponseVariant2OrbSubscriptionIntentOrbUpdateVariant2>) -> Self {
+        Self::Succeeded(value)
     }
 }
 

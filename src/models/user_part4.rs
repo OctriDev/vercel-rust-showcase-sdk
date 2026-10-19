@@ -3,6 +3,37 @@
 
 // user domain models (part 4)
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetAuthUserResponseUser {
+    AuthUser(Box<AuthUser>),
+    AuthUserLimited(Box<AuthUserLimited>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetAuthUserResponseUser {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<Box<AuthUser>>(value.clone()) {
+            let candidate = Self::AuthUser(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Box<AuthUserLimited>>(value.clone()) {
+            let candidate = Self::AuthUserLimited(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no GetAuthUserResponseUser branch accepts this payload")
+        })
+    }
+}
+
 /// Categories that group this event type with related event types.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListEventTypeCategoriesItemEnum {

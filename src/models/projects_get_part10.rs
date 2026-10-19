@@ -3,6 +3,419 @@
 
 // projects_get domain models (part 10)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseCreatorVariant2 {
+    pub integration: GetProjectsResponseCreatorVariant2Integration,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseCreatorVariant2TypeEnum,
+}
+
+impl GetProjectsResponseCreatorVariant2 {
+    pub fn new(
+        integration: GetProjectsResponseCreatorVariant2Integration,
+        type_: GetProjectsResponseCreatorVariant2TypeEnum,
+    ) -> Self {
+        Self { integration, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseCreatorVariant3TypeEnum {
+    #[serde(rename = "system")]
+    #[default]
+    System,
+}
+
+impl GetProjectsResponseCreatorVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseCreatorVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseCreatorVariant3TypeEnum::System => f.write_str("system"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseCreatorVariant3 {
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseCreatorVariant3TypeEnum,
+}
+
+impl GetProjectsResponseCreatorVariant3 {
+    pub fn new(type_: GetProjectsResponseCreatorVariant3TypeEnum) -> Self {
+        Self { type_ }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseCreator {
+    User(Box<GetProjectsResponseCreatorVariant0>),
+    App(Box<GetProjectsResponseCreatorVariant1>),
+    Integration(Box<GetProjectsResponseCreatorVariant2>),
+    System(Box<GetProjectsResponseCreatorVariant3>),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseCreator {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseCreatorVariant0>>(value.clone())
+        {
+            let candidate = Self::User(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseCreatorVariant1>>(value.clone())
+        {
+            let candidate = Self::App(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseCreatorVariant2>>(value.clone())
+        {
+            let candidate = Self::Integration(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<GetProjectsResponseCreatorVariant3>>(value.clone())
+        {
+            let candidate = Self::System(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no GetProjectsResponseCreator branch accepts this payload")
+        })
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum {
+    #[serde(rename = "system")]
+    #[default]
+    System,
+}
+
+impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub target:
+        GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
+    #[serde(rename = "type")]
+    pub type_:
+        GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
+}
+
+impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub fn new(
+        target: GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
+        type_: GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
+    ) -> Self {
+        Self { target, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum {
+    #[serde(rename = "custom")]
+    #[default]
+    Custom,
+}
+
+impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Custom => "custom",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
+    #[serde(rename = "environmentId")]
+    pub environment_id: String,
+    #[serde(rename = "type")]
+    pub type_:
+        GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum,
+}
+
+impl GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
+    pub fn new(
+        environment_id: String,
+        type_: GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            environment_id,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem {
+    System(Box<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>),
+    Custom(Box<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::System(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Custom(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseDeploymentPolicyDeploymentSourcesItemEnvironmentsItem branch accepts this payload"))
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+    #[serde(rename = "system")]
+    #[default]
+    System,
+}
+
+impl GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::System => "system",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0 {
+    pub target: GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
+}
+
+impl GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0 {
+    pub fn new(
+        target: GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
+        type_: GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
+    ) -> Self {
+        Self { target, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+    #[serde(rename = "custom")]
+    #[default]
+    Custom,
+}
+
+impl GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Custom => "custom",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1 {
+    #[serde(rename = "environmentId")]
+    pub environment_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum,
+}
+
 impl GetProjectsResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1 {
     pub fn new(
         environment_id: String,
@@ -112,417 +525,4 @@ pub struct GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0 
     pub provider: GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub repo: Option<String>,
-}
-
-impl GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0 {
-    pub fn new(
-        org: String,
-        provider: GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
-    ) -> Self {
-        Self {
-            org,
-            provider,
-            repo: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
-    #[default]
-    Gitlab,
-    Unknown(String),
-}
-
-impl GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gitlab => "gitlab",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "gitlab" => Self::Gitlab,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Allowlist entry for GitLab, which uses nested groups rather than a flat org/repo. `namespace` is the full group path (e.g. `group` or `group/subgroup`); `project` is the leaf project name. Omit `project` to match any project under the namespace. Namespace is matched case-insensitively.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
-    pub namespace: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<String>,
-    pub provider: GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
-}
-
-impl GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1 {
-    pub fn new(
-        namespace: String,
-        provider: GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum,
-    ) -> Self {
-        Self {
-            namespace,
-            project: None,
-            provider,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem {
-    Object(Box<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0>),
-    Gitlab(Box<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItemVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Gitlab(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseDeploymentPolicyGitSourcesItemSourcesItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseDismissedToastsItemValueVariant2CurrentValue {
-    String(String),
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDismissedToastsItemValueVariant2CurrentValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseDismissedToastsItemValueVariant2CurrentValue branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseDismissedToastsItemValueVariant2PreviousValue {
-    String(String),
-    Number(f64),
-    Bool(bool),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDismissedToastsItemValueVariant2PreviousValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
-            let candidate = Self::Bool(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDismissedToastsItemValueVariant2 {
-    #[serde(rename = "currentValue")]
-    pub current_value: GetProjectsResponseDismissedToastsItemValueVariant2CurrentValue,
-    #[serde(rename = "previousValue")]
-    pub previous_value: GetProjectsResponseDismissedToastsItemValueVariant2PreviousValue,
-}
-
-impl GetProjectsResponseDismissedToastsItemValueVariant2 {
-    pub fn new(
-        current_value: GetProjectsResponseDismissedToastsItemValueVariant2CurrentValue,
-        previous_value: GetProjectsResponseDismissedToastsItemValueVariant2PreviousValue,
-    ) -> Self {
-        Self {
-            current_value,
-            previous_value,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-#[serde(untagged)]
-pub enum GetProjectsResponseDismissedToastsItemValue {
-    String(String),
-    Number(f64),
-    Object(Box<GetProjectsResponseDismissedToastsItemValueVariant2>),
-    Bool(bool),
-}
-
-impl GetProjectsResponseDismissedToastsItemValue {
-    pub fn as_numeric_wire_value(&self) -> Option<f64> {
-        match self {
-            Self::Number(value) => Some(*value),
-            _ => None,
-        }
-    }
-}
-
-impl GetProjectsResponseDismissedToastsItemValue {
-    pub fn as_string_wire_value(&self) -> Option<&str> {
-        match self {
-            Self::String(value) => Some(value.as_str()),
-            _ => None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseEnvItemContentHintVariant0TypeEnum {
-    #[serde(rename = "redis-url")]
-    #[default]
-    RedisUrl,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisUrl => "redis-url",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseEnvItemContentHintVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseEnvItemContentHintVariant0TypeEnum::RedisUrl => {
-                f.write_str("redis-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseEnvItemContentHintVariant0 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseEnvItemContentHintVariant0TypeEnum,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant0 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectsResponseEnvItemContentHintVariant0TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseEnvItemContentHintVariant1TypeEnum {
-    #[serde(rename = "redis-rest-api-url")]
-    #[default]
-    RedisRestApiUrl,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiUrl => "redis-rest-api-url",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseEnvItemContentHintVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseEnvItemContentHintVariant1TypeEnum::RedisRestApiUrl => {
-                f.write_str("redis-rest-api-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseEnvItemContentHintVariant1 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseEnvItemContentHintVariant1TypeEnum,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant1 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectsResponseEnvItemContentHintVariant1TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseEnvItemContentHintVariant2TypeEnum {
-    #[serde(rename = "redis-rest-api-token")]
-    #[default]
-    RedisRestApiToken,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant2TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiToken => "redis-rest-api-token",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseEnvItemContentHintVariant2TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseEnvItemContentHintVariant2TypeEnum::RedisRestApiToken => {
-                f.write_str("redis-rest-api-token")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseEnvItemContentHintVariant2 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseEnvItemContentHintVariant2TypeEnum,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant2 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectsResponseEnvItemContentHintVariant2TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectsResponseEnvItemContentHintVariant3TypeEnum {
-    #[serde(rename = "redis-rest-api-read-only-token")]
-    #[default]
-    RedisRestApiReadOnlyToken,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant3TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseEnvItemContentHintVariant3TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectsResponseEnvItemContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => {
-                f.write_str("redis-rest-api-read-only-token")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseEnvItemContentHintVariant3 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseEnvItemContentHintVariant3TypeEnum,
-}
-
-impl GetProjectsResponseEnvItemContentHintVariant3 {
-    pub fn new(
-        store_id: String,
-        type_: GetProjectsResponseEnvItemContentHintVariant3TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
 }

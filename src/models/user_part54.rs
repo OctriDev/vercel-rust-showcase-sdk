@@ -3,6 +3,173 @@
 
 // user domain models (part 54)
 
+impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::User => "user",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum::User => {
+                f.write_str("user")
+            }
+        }
+    }
+}
+
+/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0 {
+    /// Optional `string` value serialized in the `avatar` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub avatar: Option<String>,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Optional `string` value serialized in the `name` wire field.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub name: Option<Option<String>>,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum,
+    /// Required `string` value serialized in the `username` wire field.
+    pub username: String,
+}
+
+impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0 {
+    pub fn new(
+        id: String,
+        type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0TypeEnum,
+        username: String,
+    ) -> Self {
+        Self {
+            avatar: None,
+            id,
+            name: None,
+            type_,
+            username,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `type` wire field.
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum {
+    #[serde(rename = "app")]
+    #[default]
+    App,
+}
+
+impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::App => "app",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum::App => {
+                f.write_str("app")
+            }
+        }
+    }
+}
+
+/// The principal that last edited this env var, when the editor id resolves to a known user or app. Lets clients render the right avatar instead of assuming every editor is a user.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1 {
+    /// Optional `string` value serialized in the `avatar` wire field.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub avatar: Option<String>,
+    /// Required `string` value serialized in the `id` wire field.
+    pub id: String,
+    /// Required `string` value serialized in the `name` wire field.
+    pub name: String,
+    /// Required enumerated value serialized in the `type` wire field.
+    #[serde(rename = "type")]
+    pub type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum,
+}
+
+impl UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1 {
+    pub fn new(
+        id: String,
+        name: String,
+        type_: UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1TypeEnum,
+    ) -> Self {
+        Self {
+            avatar: None,
+            id,
+            name,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal {
+    User(Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>),
+    App(Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>),
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::User(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::App(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>>
+    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal
+{
+    fn from(value: Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant0>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>>
+    for UserEventPayloadVariant173NewEnvVarLastEditedByPrincipal
+{
+    fn from(value: Box<UserEventPayloadVariant173NewEnvVarLastEditedByPrincipalVariant1>) -> Self {
+        Self::App(value)
+    }
+}
+
 /// environments this env variable targets
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UserEventPayloadVariant173NewEnvVarTargetItemEnum {
@@ -371,137 +538,4 @@ impl UserEventPayloadVariant173OldEnvVarLastEditedByPrincipalVariant1 {
 pub enum UserEventPayloadVariant173OldEnvVarLastEditedByPrincipal {
     User(Box<UserEventPayloadVariant173OldEnvVarLastEditedByPrincipalVariant0>),
     App(Box<UserEventPayloadVariant173OldEnvVarLastEditedByPrincipalVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant173OldEnvVarLastEditedByPrincipal {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant173OldEnvVarLastEditedByPrincipalVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::User(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UserEventPayloadVariant173OldEnvVarLastEditedByPrincipalVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::App(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UserEventPayloadVariant173OldEnvVarLastEditedByPrincipal branch accepts this payload"))
-    }
-}
-
-/// environments this env variable targets
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant173OldEnvVarTargetItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant173OldEnvVarTargetItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant173OldEnvVarTargetItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant173OldEnvVarTargetItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant173OldEnvVarTargetItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The type of this cosmos doc instance, if blank, assume secret.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant173OldEnvVarTypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant173OldEnvVarTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant173OldEnvVarTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant173OldEnvVarTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant173OldEnvVarTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

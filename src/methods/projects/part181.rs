@@ -3,7 +3,25 @@
 
 use super::*;
 
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::OomFailure => "oom-failure",
+            Self::EnospcFailure => "enospc-failure",
+            Self::BuildTimeoutFailure => "build-timeout-failure",
+            Self::BasicFloor => "basic-floor",
+            Self::HighPeakMemory => "high-peak-memory",
+            Self::SustainedHighCpu => "sustained-high-cpu",
+            Self::HighPeakDisk => "high-peak-disk",
+            Self::LongBuildDuration => "long-build-duration",
+            Self::ShortBuildDuration => "short-build-duration",
+            Self::EnterpriseFloor => "enterprise-floor",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,123 +30,255 @@ impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentChecksStateEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "oom-failure" => Self::OomFailure,
+            "enospc-failure" => Self::EnospcFailure,
+            "build-timeout-failure" => Self::BuildTimeoutFailure,
+            "basic-floor" => Self::BasicFloor,
+            "high-peak-memory" => Self::HighPeakMemory,
+            "sustained-high-cpu" => Self::SustainedHighCpu,
+            "high-peak-disk" => Self::HighPeakDisk,
+            "long-build-duration" => Self::LongBuildDuration,
+            "short-build-duration" => Self::ShortBuildDuration,
+            "enterprise-floor" => Self::EnterpriseFloor,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentChecksStateEnum {
+impl std::fmt::Display for UpdateProjectResourceConfigBuildMachineElasticReasonEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    #[default]
+    Upgrade,
+    Downgrade,
+    Unknown(String),
+}
+
+impl UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Upgrade => "upgrade",
+            Self::Downgrade => "downgrade",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "upgrade" => Self::Upgrade,
+            "downgrade" => Self::Downgrade,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeploymentCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct UpdateProjectResourceConfigBuildMachineElasticTransition {
+    pub at: f64,
+    pub direction: UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
 }
 
-impl UpdateProjectResponseAliasItemDeploymentCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateProjectResponseAliasItemDeploymentOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl UpdateProjectResponseAliasItemDeploymentOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl UpdateProjectResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        at: f64,
+        direction: UpdateProjectResourceConfigBuildMachineElasticTransitionDirectionEnum,
+        algorithm_version: String,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            at,
+            direction,
+            algorithm_version,
         }
     }
 }
 
+/// Specifies resource override configuration for the project
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectResourceConfig {
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type: Option<serde_json::Value>,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection: Option<UpdateProjectResourceConfigBuildMachineSelectionEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<UpdateProjectResourceConfigBuildQueue>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    /// The regions to deploy Vercel Functions to for this project
+    #[serde(
+        rename = "functionDefaultRegions",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_regions: Option<Vec<String>>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type:
+        Option<UpdateProjectResourceConfigFunctionDefaultMemoryTypeEnum>,
+    /// Specifies whether Zero Config Failover is enabled for this project.
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason:
+        Option<UpdateProjectResourceConfigBuildMachineElasticReasonEnum>,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition:
+        Option<UpdateProjectResourceConfigBuildMachineElasticTransition>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+}
+
+impl UpdateProjectResourceConfig {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.function_default_regions.as_ref() {
+            crate::validation::validate_items(
+                "functionDefaultRegions",
+                value.as_slice(),
+                crate::validation::LengthOpts {
+                    min: Some(1),
+                    ..Default::default()
+                },
+            )?;
+        }
+        if let Some(value) = self.function_default_timeout.as_ref() {
+            crate::validation::validate_range(
+                "functionDefaultTimeout",
+                *value,
+                crate::validation::RangeOpts {
+                    min: Some(1_f64),
+                    max: Some(900_f64),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            build_machine_type: None,
+            build_machine_selection: None,
+            build_queue: None,
+            fluid: None,
+            function_default_regions: None,
+            function_default_timeout: None,
+            function_default_memory_type: None,
+            function_zero_config_failover: None,
+            elastic_concurrency_enabled: None,
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            is_nsnb_disabled: None,
+            enable_functions_beta: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+/// Manage Static IPs for this project
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateProjectStaticIps {
+    /// Opt-in to Static IPs for this project
+    pub enabled: bool,
+}
+
+impl UpdateProjectStaticIps {
+    pub fn new(enabled: bool) -> Self {
+        Self { enabled }
+    }
+}
+
+/// Environment to apply sampling to
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentPlanEnum {
+pub enum UpdateProjectTracingSamplingRulesItemEnvEnum {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    Production,
+    Preview,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemDeploymentPlanEnum {
+impl UpdateProjectTracingSamplingRulesItemEnvEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::Production => "production",
+            Self::Preview => "preview",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentPlanEnum {
+impl serde::Serialize for UpdateProjectTracingSamplingRulesItemEnvEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -137,150 +287,40 @@ impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentPlanEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentPlanEnum {
+impl<'de> serde::Deserialize<'de> for UpdateProjectTracingSamplingRulesItemEnvEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
+            "production" => Self::Production,
+            "preview" => Self::Preview,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentPlanEnum {
+impl std::fmt::Display for UpdateProjectTracingSamplingRulesItemEnvEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+/// Tracing destination this rule applies to. Derived server-side when project tracing is computed; accepted here so a computed config can round-trip through this endpoint.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentReadyStateEnum {
+pub enum UpdateProjectTracingSamplingRulesItemDestinationEnum {
     #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
+    Internal,
+    External,
     Unknown(String),
 }
 
-impl UpdateProjectResponseAliasItemDeploymentReadyStateEnum {
+impl UpdateProjectTracingSamplingRulesItemDestinationEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentReadyStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseAliasItemDeploymentReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateProjectResponseAliasItemDeploymentReadySubstateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateProjectResponseAliasItemDeploymentReadySubstateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateProjectResponseAliasItemDeploymentReadySubstateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectResponseAliasItemDeploymentTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl UpdateProjectResponseAliasItemDeploymentTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
+            Self::Internal => "internal",
+            Self::External => "external",
             Self::Unknown(value) => value.as_str(),
         }
     }

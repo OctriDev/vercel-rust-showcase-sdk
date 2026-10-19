@@ -3,6 +3,272 @@
 
 use super::*;
 
+impl std::fmt::Display for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1Base {
+    pub attribute: String,
+    pub kind: String,
+    #[serde(rename = "type")]
+    pub type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1Base {
+    pub fn new(
+        attribute: String,
+        kind: String,
+        type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1BaseTypeEnum,
+    ) -> Self {
+        Self {
+            attribute,
+            kind,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
+    #[serde(rename = "split")]
+    #[default]
+    Split,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Split => "split",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum::Split => {
+                f.write_str("split")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1 {
+    pub base: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1Base,
+    #[serde(rename = "defaultVariantId")]
+    pub default_variant_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
+    pub weights: std::collections::HashMap<String, f64>,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1 {
+    pub fn new(
+        base: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1Base,
+        default_variant_id: String,
+        type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant1TypeEnum,
+        weights: std::collections::HashMap<String, f64>,
+    ) -> Self {
+        Self {
+            base,
+            default_variant_id,
+            type_,
+            weights,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    #[default]
+    Entity,
+    Unknown(String),
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Entity => "entity",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "entity" => Self::Entity,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2Base {
+    pub attribute: String,
+    pub kind: String,
+    #[serde(rename = "type")]
+    pub type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2Base {
+    pub fn new(
+        attribute: String,
+        kind: String,
+        type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2BaseTypeEnum,
+    ) -> Self {
+        Self {
+            attribute,
+            kind,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2SlotsItem {
+    #[serde(rename = "durationMs")]
+    pub duration_ms: f64,
+    pub promille: f64,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2SlotsItem {
+    pub fn new(duration_ms: f64, promille: f64) -> Self {
+        Self {
+            duration_ms,
+            promille,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum {
+    #[serde(rename = "rollout")]
+    #[default]
+    Rollout,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Rollout => "rollout",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum::Rollout => {
+                f.write_str("rollout")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2 {
+    pub base: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2Base,
+    #[serde(rename = "defaultVariantId")]
+    pub default_variant_id: String,
+    #[serde(rename = "finalPromille", skip_serializing_if = "Option::is_none")]
+    pub final_promille: Option<f64>,
+    #[serde(rename = "rollFromVariantId")]
+    pub roll_from_variant_id: String,
+    #[serde(rename = "rollToVariantId")]
+    pub roll_to_variant_id: String,
+    pub slots: Vec<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2SlotsItem>,
+    #[serde(rename = "startTimestamp")]
+    pub start_timestamp: f64,
+    #[serde(rename = "type")]
+    pub type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2 {
+    pub fn new(
+        base: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2Base,
+        default_variant_id: String,
+        roll_from_variant_id: String,
+        roll_to_variant_id: String,
+        slots: Vec<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2SlotsItem>,
+        start_timestamp: f64,
+        type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant2TypeEnum,
+    ) -> Self {
+        Self {
+            base,
+            default_variant_id,
+            final_promille: None,
+            roll_from_variant_id,
+            roll_to_variant_id,
+            slots,
+            start_timestamp,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum {
+    #[serde(rename = "experiment")]
+    #[default]
+    Experiment,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Experiment => "experiment",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum::Experiment => {
+                f.write_str("experiment")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3 {
+    #[serde(rename = "type")]
+    pub type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum,
+}
+
+impl CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3 {
+    pub fn new(type_: CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant3TypeEnum) -> Self {
+        Self { type_ }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum CreateFlagResponseEnvironmentsValueRulesItemOutcome {
@@ -60,225 +326,10 @@ impl<'de> serde::Deserialize<'de> for CreateFlagResponseEnvironmentsValueRulesIt
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValueRulesItem {
-    pub conditions: Vec<CreateFlagResponseEnvironmentsValueRulesItemConditionsItem>,
-    pub id: String,
-    pub outcome: CreateFlagResponseEnvironmentsValueRulesItemOutcome,
-}
-
-impl CreateFlagResponseEnvironmentsValueRulesItem {
-    pub fn new(
-        conditions: Vec<CreateFlagResponseEnvironmentsValueRulesItemConditionsItem>,
-        id: String,
-        outcome: CreateFlagResponseEnvironmentsValueRulesItemOutcome,
-    ) -> Self {
-        Self {
-            conditions,
-            id,
-            outcome,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-    pub value: String,
-}
-
-impl CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem {
-    pub fn new(value: String) -> Self {
-        Self { note: None, value }
-    }
-}
-
-pub type CreateFlagResponseEnvironmentsValueTargets = std::collections::HashMap<
-    String,
-    std::collections::HashMap<
-        String,
-        std::collections::HashMap<
-            String,
-            Vec<CreateFlagResponseEnvironmentsValueTargetsValueValueValueItem>,
-        >,
-    >,
->;
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValue {
-    pub active: bool,
-    pub fallthrough: CreateFlagResponseEnvironmentsValueFallthrough,
-    #[serde(rename = "pausedOutcome")]
-    pub paused_outcome: CreateFlagResponseEnvironmentsValuePausedOutcome,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reuse: Option<CreateFlagResponseEnvironmentsValueReuse>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision: Option<f64>,
-    pub rules: Vec<CreateFlagResponseEnvironmentsValueRulesItem>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub targets: Option<CreateFlagResponseEnvironmentsValueTargets>,
-}
-
-impl CreateFlagResponseEnvironmentsValue {
-    pub fn new(
-        active: bool,
-        fallthrough: CreateFlagResponseEnvironmentsValueFallthrough,
-        paused_outcome: CreateFlagResponseEnvironmentsValuePausedOutcome,
-        rules: Vec<CreateFlagResponseEnvironmentsValueRulesItem>,
-    ) -> Self {
-        Self {
-            active,
-            fallthrough,
-            paused_outcome,
-            reuse: None,
-            revision: None,
-            rules,
-            targets: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagResponseKindEnum {
-    #[default]
-    Boolean,
-    Json,
-    Number,
-    String,
-    Unknown(String),
-}
-
-impl CreateFlagResponseKindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Boolean => "boolean",
-            Self::Json => "json",
-            Self::Number => "number",
-            Self::String => "string",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagResponseKindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagResponseKindEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "boolean" => Self::Boolean,
-            "json" => Self::Json,
-            "number" => Self::Number,
-            "string" => Self::String,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseKindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagResponseStateEnum {
-    #[default]
-    Active,
-    Archived,
-    Unknown(String),
-}
-
-impl CreateFlagResponseStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Active => "active",
-            Self::Archived => "archived",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagResponseStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagResponseStateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "active" => Self::Active,
-            "archived" => Self::Archived,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagResponseTypeNameEnum {
-    #[default]
-    Flag,
-    Unknown(String),
-}
-
-impl CreateFlagResponseTypeNameEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Flag => "flag",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagResponseTypeNameEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateFlagResponseTypeNameEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "flag" => Self::Flag,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseTypeNameEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant0>>
+    for CreateFlagResponseEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagResponseEnvironmentsValueRulesItemOutcomeVariant0>) -> Self {
+        Self::Variant(value)
     }
 }

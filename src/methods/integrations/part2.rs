@@ -3,6 +3,45 @@
 
 use super::*;
 
+impl SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Team => "team",
+            Self::User => "user",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "team" => Self::Team,
+            "user" => Self::User,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for SearchRepoResponseVariant2ReposItemOwnerTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum SearchRepoResponseVariant2ReposItemProviderEnum {
     #[default]
@@ -145,6 +184,18 @@ impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant3GitAccountNamesp
     }
 }
 
+impl ::std::convert::From<String> for SearchRepoResponseVariant3GitAccountNamespaceId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for SearchRepoResponseVariant3GitAccountNamespaceId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum SearchRepoResponseVariant3GitAccountProviderEnum {
     #[default]
@@ -257,57 +308,4 @@ impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant3ReposItemId {
             )
         })
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum SearchRepoResponseVariant3ReposItemOwnerId {
-    String(String),
-    Number(f64),
-}
-
-impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant3ReposItemOwnerId {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no SearchRepoResponseVariant3ReposItemOwnerId branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SearchRepoResponseVariant3ReposItemOwner {
-    pub id: SearchRepoResponseVariant3ReposItemOwnerId,
-    pub name: String,
-}
-
-impl SearchRepoResponseVariant3ReposItemOwner {
-    pub fn new(id: SearchRepoResponseVariant3ReposItemOwnerId, name: String) -> Self {
-        Self { id, name }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum SearchRepoResponseVariant3ReposItemOwnerTypeEnum {
-    #[default]
-    Team,
-    User,
-    Unknown(String),
 }

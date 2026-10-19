@@ -3,139 +3,47 @@
 
 use super::*;
 
-impl CreateProjectResponseSecurityManagedRulesTrafficSources {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseSecurityManagedRulesVercelRuleset {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<CreateProjectResponseSecurityManagedRulesVercelRulesetActionEnum>,
-    pub active: bool,
+pub struct CreateProjectResponseResourceConfigBuildMachineElasticTransition {
+    #[serde(rename = "algorithmVersion")]
+    pub algorithm_version: String,
+    pub at: f64,
+    pub direction: CreateProjectResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
 }
 
-impl CreateProjectResponseSecurityManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseSecurityManagedRules {
-    pub ai_bots: CreateProjectResponseSecurityManagedRulesAiBots,
-    pub bot_filter: CreateProjectResponseSecurityManagedRulesBotFilter,
-    pub owasp: CreateProjectResponseSecurityManagedRulesOwasp,
-    pub traffic_sources: CreateProjectResponseSecurityManagedRulesTrafficSources,
-    pub vercel_ruleset: CreateProjectResponseSecurityManagedRulesVercelRuleset,
-}
-
-impl CreateProjectResponseSecurityManagedRules {
+impl CreateProjectResponseResourceConfigBuildMachineElasticTransition {
     pub fn new(
-        ai_bots: CreateProjectResponseSecurityManagedRulesAiBots,
-        bot_filter: CreateProjectResponseSecurityManagedRulesBotFilter,
-        owasp: CreateProjectResponseSecurityManagedRulesOwasp,
-        traffic_sources: CreateProjectResponseSecurityManagedRulesTrafficSources,
-        vercel_ruleset: CreateProjectResponseSecurityManagedRulesVercelRuleset,
+        algorithm_version: String,
+        at: f64,
+        direction: CreateProjectResponseResourceConfigBuildMachineElasticTransitionDirectionEnum,
     ) -> Self {
         Self {
-            ai_bots,
-            bot_filter,
-            owasp,
-            traffic_sources,
-            vercel_ruleset,
+            algorithm_version,
+            at,
+            direction,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseSecurityRulesetsValueActionEnum {
+pub enum CreateProjectResponseResourceConfigBuildMachineSelectionEnum {
     #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
+    Elastic,
+    Fixed,
     Unknown(String),
 }
 
-impl CreateProjectResponseSecurityRulesetsValueActionEnum {
+impl CreateProjectResponseResourceConfigBuildMachineSelectionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
+            Self::Elastic => "elastic",
+            Self::Fixed => "fixed",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueActionEnum {
+impl serde::Serialize for CreateProjectResponseResourceConfigBuildMachineSelectionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -144,48 +52,98 @@ impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueActionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseSecurityRulesetsValueActionEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseResourceConfigBuildMachineSelectionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
+            "elastic" => Self::Elastic,
+            "fixed" => Self::Fixed,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseSecurityRulesetsValueActionEnum {
+impl std::fmt::Display for CreateProjectResponseResourceConfigBuildMachineSelectionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+pub enum CreateProjectResponseResourceConfigBuildMachineTypeEnum {
     #[default]
-    Unknown2,
+    Basic,
+    Enhanced,
+    Standard,
+    Turbo,
     Unknown(String),
 }
 
-impl CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl CreateProjectResponseResourceConfigBuildMachineTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Unknown2 => "*",
+            Self::Basic => "basic",
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl serde::Serialize for CreateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "basic" => Self::Basic,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseResourceConfigBuildMachineTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
+impl CreateProjectResponseResourceConfigBuildQueueConfigurationEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::SkipNamespaceQueue => "SKIP_NAMESPACE_QUEUE",
+            Self::WaitForNamespaceQueue => "WAIT_FOR_NAMESPACE_QUEUE",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseResourceConfigBuildQueueConfigurationEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -195,7 +153,7 @@ impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueLogHeadersVa
 }
 
 impl<'de> serde::Deserialize<'de>
-    for CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum
+    for CreateProjectResponseResourceConfigBuildQueueConfigurationEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -203,69 +161,57 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "SKIP_NAMESPACE_QUEUE" => Self::SkipNamespaceQueue,
+            "WAIT_FOR_NAMESPACE_QUEUE" => Self::WaitForNamespaceQueue,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl std::fmt::Display for CreateProjectResponseResourceConfigBuildQueueConfigurationEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateProjectResponseSecurityRulesetsValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum),
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseResourceConfigBuildQueue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configuration: Option<CreateProjectResponseResourceConfigBuildQueueConfigurationEnum>,
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseSecurityRulesetsValueLogHeaders {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
+impl CreateProjectResponseResourceConfigBuildQueue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            configuration: None,
         }
-        if let Ok(branch) = serde_json::from_value::<
-            CreateProjectResponseSecurityRulesetsValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+pub enum CreateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     #[default]
-    FixedWindow,
-    TokenBucket,
+    Performance,
+    PerformanceXl,
+    Standard,
+    StandardLegacy,
     Unknown(String),
 }
 
-impl CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl CreateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::FixedWindow => "fixed_window",
-            Self::TokenBucket => "token_bucket",
+            Self::Performance => "performance",
+            Self::PerformanceXl => "performance_xl",
+            Self::Standard => "standard",
+            Self::StandardLegacy => "standard_legacy",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl serde::Serialize for CreateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -274,30 +220,79 @@ impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueRateLimitAlg
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
+            "performance" => Self::Performance,
+            "performance_xl" => Self::PerformanceXl,
+            "standard" => Self::Standard,
+            "standard_legacy" => Self::StandardLegacy,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
+impl std::fmt::Display for CreateProjectResponseResourceConfigFunctionDefaultMemoryTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseSecurityRulesetsValueRateLimit {
-    pub algo: CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
+/// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    #[default]
+    Enhanced,
+    Standard,
+    Turbo,
+    Unknown(String),
+}
+
+impl CreateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Enhanced => "enhanced",
+            Self::Standard => "standard",
+            Self::Turbo => "turbo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseResourceConfigElasticBuildMachineLabelEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseResourceConfigElasticBuildMachineLabelEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }

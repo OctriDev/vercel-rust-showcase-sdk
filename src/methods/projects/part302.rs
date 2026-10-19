@@ -3,268 +3,358 @@
 
 use super::*;
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateMicrofrontendsResponseAliasItemDeployment {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
-    #[serde(
-        rename = "aliasAssigned",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_assigned:
-        Option<Option<UpdateMicrofrontendsResponseAliasItemDeploymentAliasAssigned>>,
-    #[serde(
-        rename = "aliasError",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_error: Option<Option<UpdateMicrofrontendsResponseAliasItemDeploymentAliasError>>,
-    #[serde(
-        rename = "aliasFinal",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<UpdateMicrofrontendsResponseAliasItemDeploymentBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<UpdateMicrofrontendsResponseAliasItemDeploymentBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion:
-        Option<UpdateMicrofrontendsResponseAliasItemDeploymentChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state: Option<UpdateMicrofrontendsResponseAliasItemDeploymentChecksStateEnum>,
-    #[serde(
-        rename = "connectBuildsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_builds_enabled: Option<bool>,
-    #[serde(
-        rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<UpdateMicrofrontendsResponseAliasItemDeploymentCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims: Option<UpdateMicrofrontendsResponseAliasItemDeploymentOidcTokenClaims>,
-    pub plan: UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate: Option<UpdateMicrofrontendsResponseAliasItemDeploymentReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub target: Option<Option<String>>,
-    #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum RemoveProjectEnvResponseVariant1ContentHint {
+    RedisUrl(Box<RemoveProjectEnvResponseVariant1ContentHintVariant0>),
+    RedisRestApiUrl(Box<RemoveProjectEnvResponseVariant1ContentHintVariant1>),
+    RedisRestApiToken(Box<RemoveProjectEnvResponseVariant1ContentHintVariant2>),
+    RedisRestApiReadOnlyToken(Box<RemoveProjectEnvResponseVariant1ContentHintVariant3>),
+    BlobReadWriteToken(Box<RemoveProjectEnvResponseVariant1ContentHintVariant4>),
+    BlobStoreId(Box<RemoveProjectEnvResponseVariant1ContentHintVariant5>),
+    BlobWebhookPublicKey(Box<RemoveProjectEnvResponseVariant1ContentHintVariant6>),
+    PostgresUrl(Box<RemoveProjectEnvResponseVariant1ContentHintVariant7>),
+    PostgresUrlNonPooling(Box<RemoveProjectEnvResponseVariant1ContentHintVariant8>),
+    PostgresPrismaUrl(Box<RemoveProjectEnvResponseVariant1ContentHintVariant9>),
+    PostgresUser(Box<RemoveProjectEnvResponseVariant1ContentHintVariant10>),
+    PostgresHost(Box<RemoveProjectEnvResponseVariant1ContentHintVariant11>),
+    PostgresPassword(Box<RemoveProjectEnvResponseVariant1ContentHintVariant12>),
+    PostgresDatabase(Box<RemoveProjectEnvResponseVariant1ContentHintVariant13>),
+    PostgresUrlNoSsl(Box<RemoveProjectEnvResponseVariant1ContentHintVariant14>),
+    IntegrationStoreSecret(Box<RemoveProjectEnvResponseVariant1ContentHintVariant15>),
+    FlagsConnectionString(Box<RemoveProjectEnvResponseVariant1ContentHintVariant16>),
 }
 
-impl UpdateMicrofrontendsResponseAliasItemDeployment {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        created_in: String,
-        creator: Option<UpdateMicrofrontendsResponseAliasItemDeploymentCreator>,
-        deployment_hostname: String,
-        id: String,
-        name: String,
-        plan: UpdateMicrofrontendsResponseAliasItemDeploymentPlanEnum,
-        private: bool,
-        ready_state: UpdateMicrofrontendsResponseAliasItemDeploymentReadyStateEnum,
-        type_: UpdateMicrofrontendsResponseAliasItemDeploymentTypeEnum,
-        url: String,
-    ) -> Self {
-        Self {
-            alias: None,
-            alias_assigned: None,
-            alias_error: None,
-            alias_final: None,
-            automatic_aliases: None,
-            branch_matcher: None,
-            building_at: None,
-            builds: None,
-            checks_conclusion: None,
-            checks_state: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            created_at,
-            created_in,
-            creator,
-            deleted_at: None,
-            deployment_hostname,
-            forced: None,
-            id,
-            meta: None,
-            monorepo_manager: None,
-            name,
-            oidc_token_claims: None,
-            plan,
-            preview_comments_enabled: None,
-            private,
-            ready_at: None,
-            ready_state,
-            ready_substate: None,
-            requested_at: None,
-            target: None,
-            team_id: None,
-            type_,
-            url,
-            user_id: None,
-            with_cache: None,
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant1ContentHint {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemEnvironmentEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateMicrofrontendsResponseAliasItemEnvironmentEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemEnvironmentEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemEnvironmentEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant3>,
+        >(value.clone())
+        {
+            let candidate = Self::RedisRestApiReadOnlyToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant4>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobReadWriteToken(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant5>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobStoreId(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant6>,
+        >(value.clone())
+        {
+            let candidate = Self::BlobWebhookPublicKey(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant7>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant8>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNonPooling(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant9>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPrismaUrl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant10>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUser(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant11>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresHost(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant12>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresPassword(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant13>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresDatabase(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant14>,
+        >(value.clone())
+        {
+            let candidate = Self::PostgresUrlNoSsl(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant15>,
+        >(value.clone())
+        {
+            let candidate = Self::IntegrationStoreSecret(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<RemoveProjectEnvResponseVariant1ContentHintVariant16>,
+        >(value.clone())
+        {
+            let candidate = Self::FlagsConnectionString(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no RemoveProjectEnvResponseVariant1ContentHint branch accepts this payload",
+            )
         })
     }
 }
 
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemEnvironmentEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant0>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant0>) -> Self {
+        Self::RedisUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant1>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant1>) -> Self {
+        Self::RedisRestApiUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant2>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant2>) -> Self {
+        Self::RedisRestApiToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant3>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant3>) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant4>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant4>) -> Self {
+        Self::BlobReadWriteToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant5>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant5>) -> Self {
+        Self::BlobStoreId(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant6>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant6>) -> Self {
+        Self::BlobWebhookPublicKey(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant7>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant7>) -> Self {
+        Self::PostgresUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant8>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant8>) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant9>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant9>) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant10>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant10>) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant11>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant11>) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant12>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant12>) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant13>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant13>) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant14>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant14>) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant15>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant15>) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<RemoveProjectEnvResponseVariant1ContentHintVariant16>>
+    for RemoveProjectEnvResponseVariant1ContentHint
+{
+    fn from(value: Box<RemoveProjectEnvResponseVariant1ContentHintVariant16>) -> Self {
+        Self::FlagsConnectionString(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateMicrofrontendsResponseAliasItemTargetEnum {
+pub enum RemoveProjectEnvResponseVariant1InternalContentHintTypeEnum {
     #[default]
-    Preview,
-    Production,
-    Staging,
+    FlagsSecret,
     Unknown(String),
 }
 
-impl UpdateMicrofrontendsResponseAliasItemTargetEnum {
+impl RemoveProjectEnvResponseVariant1InternalContentHintTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Preview => "PREVIEW",
-            Self::Production => "PRODUCTION",
-            Self::Staging => "STAGING",
+            Self::FlagsSecret => "flags-secret",
             Self::Unknown(value) => value.as_str(),
         }
-    }
-}
-
-impl serde::Serialize for UpdateMicrofrontendsResponseAliasItemTargetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseAliasItemTargetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PREVIEW" => Self::Preview,
-            "PRODUCTION" => Self::Production,
-            "STAGING" => Self::Staging,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateMicrofrontendsResponseAliasItemTargetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

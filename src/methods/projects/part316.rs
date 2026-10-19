@@ -3,299 +3,286 @@
 
 use super::*;
 
-impl UpdateMicrofrontendsResponsePermissions {
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseAliasItem {
+    #[serde(
+        rename = "configuredBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_by: Option<Option<UpdateMicrofrontendsResponseAliasItemConfiguredByEnum>>,
+    #[serde(
+        rename = "configuredChangedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_changed_at: Option<Option<f64>>,
+    #[serde(
+        rename = "createdAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_at: Option<Option<f64>>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub deployment: Option<UpdateMicrofrontendsResponseAliasItemDeployment>,
+    pub domain: String,
+    pub environment: UpdateMicrofrontendsResponseAliasItemEnvironmentEnum,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    pub target: UpdateMicrofrontendsResponseAliasItemTargetEnum,
+}
+
+impl UpdateMicrofrontendsResponseAliasItem {
+    pub fn new(
+        deployment: Option<UpdateMicrofrontendsResponseAliasItemDeployment>,
+        domain: String,
+        environment: UpdateMicrofrontendsResponseAliasItemEnvironmentEnum,
+        target: UpdateMicrofrontendsResponseAliasItemTargetEnum,
+    ) -> Self {
+        Self {
+            configured_by: None,
+            configured_changed_at: None,
+            created_at: None,
+            deployment,
+            domain,
+            environment,
+            git_branch: None,
+            redirect: None,
+            redirect_status_code: None,
+            target,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseAnalytics {
+    #[serde(
+        rename = "canceledAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub canceled_at: Option<Option<f64>>,
+    #[serde(rename = "disabledAt")]
+    pub disabled_at: f64,
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+    #[serde(
+        rename = "sampleRatePercent",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub sample_rate_percent: Option<Option<f64>>,
+    #[serde(
+        rename = "spendLimitInDollars",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub spend_limit_in_dollars: Option<Option<f64>>,
+}
+
+impl UpdateMicrofrontendsResponseAnalytics {
+    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
+        Self {
+            canceled_at: None,
+            disabled_at,
+            enabled_at,
+            id,
+            paid_at: None,
+            sample_rate_percent: None,
+            spend_limit_in_dollars: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseBlobs {
+    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
+}
+
+impl UpdateMicrofrontendsResponseBlobs {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            access_group: None,
-            agent: None,
-            ai_gateway_api_key: None,
-            ai_gateway_api_key_bypass_all: None,
-            ai_gateway_api_key_owned_by_self: None,
-            ai_gateway_api_key_spend_attribution: None,
-            ai_gateway_api_key_zdr_exemption: None,
-            ai_gateway_budget: None,
-            ai_gateway_credits: None,
-            ai_gateway_guardrails: None,
-            ai_gateway_private_models: None,
-            ai_gateway_rules: None,
-            ai_gateway_settings: None,
-            ai_gateway_transcripts: None,
-            ai_gateway_transcripts_settings: None,
-            ai_gateway_usage: None,
-            ai_gateway_virtual_model_configs: None,
-            alert_rules: None,
-            alerts: None,
-            alias_global: None,
-            alias_project: None,
-            alias_protection_bypass: None,
-            analytics: None,
-            analytics_sampling: None,
-            analytics_usage: None,
-            api_key: None,
-            api_key_ai_gateway: None,
-            api_key_owned_by_self: None,
-            audit_log: None,
-            automation: None,
-            billing_address: None,
-            billing_information: None,
-            billing_invoice: None,
-            billing_invoice_email_recipient: None,
-            billing_invoice_language: None,
-            billing_plan: None,
-            billing_purchase_order: None,
-            billing_refund: None,
-            billing_tax_id: None,
-            blob: None,
-            blob_store_token_set: None,
-            budget: None,
-            build_machine: None,
-            build_machine_default: None,
-            bulk_redirects: None,
-            cache_artifact: None,
-            cache_artifact_usage_event: None,
-            ci_invocations: None,
-            ci_logs: None,
-            code_checks: None,
-            code_owners: None,
-            concurrent_builds: None,
-            connect: None,
-            connect_configuration: None,
-            connect_configuration_link: None,
-            connect_logs: None,
-            connex_client: None,
-            connex_client_project: None,
-            connex_contact: None,
-            connex_installation: None,
-            connex_token: None,
-            cursor_origin_installation: None,
-            data_cache_billing_settings: None,
-            data_cache_namespace: None,
-            default_deployment_protection: None,
-            deployment: None,
-            deployment_build_logs: None,
-            deployment_check: None,
-            deployment_check_preview: None,
-            deployment_check_re_run_from_production_branch: None,
-            deployment_policy: None,
-            deployment_preview: None,
-            deployment_private: None,
-            deployment_production_git: None,
-            deployment_promote: None,
-            deployment_protection_exception: None,
-            deployment_rollback: None,
-            deployment_v0: None,
-            domain: None,
-            domain_accept_delegation: None,
-            domain_auth_codes: None,
-            domain_certificate: None,
-            domain_check_config: None,
-            domain_move: None,
-            domain_purchase: None,
-            domain_record: None,
-            domain_transfer_in: None,
-            drain: None,
-            edge_cache_namespace: None,
-            edge_config: None,
-            edge_config_item: None,
-            edge_config_schema: None,
-            edge_config_token: None,
-            endpoint_verification: None,
-            environments: None,
-            event: None,
-            file_upload: None,
-            flags_explorer_subscription: None,
-            git_credential_grant: None,
-            git_repository: None,
-            image_optimization_new_price: None,
-            integration: None,
-            integration_account: None,
-            integration_configuration: None,
-            integration_configuration_projects: None,
-            integration_configuration_role: None,
-            integration_configuration_transfer: None,
-            integration_deployment_action: None,
-            integration_event: None,
-            integration_log: None,
-            integration_pull_request: None,
-            integration_resource: None,
-            integration_resource_data: None,
-            integration_resource_repl_command: None,
-            integration_resource_secrets: None,
-            integration_sso_session: None,
-            integration_store_token_set: None,
-            integration_strict: None,
-            integration_vercel_configuration_override: None,
-            ip_blocking: None,
-            job: None,
-            job_global: None,
-            kms_issuer: None,
-            kms_project_grant: None,
-            log_drain: None,
-            logs: None,
-            logs_preset: None,
-            marketplace_billing_data: None,
-            marketplace_experimentation_edge_config_data: None,
-            marketplace_experimentation_item: None,
-            marketplace_flex_commit: None,
-            marketplace_installation_member: None,
-            marketplace_invoice: None,
-            marketplace_settings: None,
-            messageboard: None,
-            messageboard_space: None,
-            messageboard_task: None,
-            monitoring: None,
-            monitoring_alert: None,
-            monitoring_chart: None,
-            monitoring_query: None,
-            monitoring_settings: None,
-            notification_customer_budget: None,
-            notification_deployment_failed: None,
-            notification_domain_configuration: None,
-            notification_domain_expire: None,
-            notification_domain_moved: None,
-            notification_domain_purchase: None,
-            notification_domain_renewal: None,
-            notification_domain_transfer: None,
-            notification_domain_unverified: None,
-            notification_monitoring_alert: None,
-            notification_payment_failed: None,
-            notification_preferences: None,
-            notification_statement_of_reasons: None,
-            notification_usage_alert: None,
-            oauth2_application: None,
-            oauth2_connection: None,
-            observability_configuration: None,
-            observability_data: None,
-            observability_funnel: None,
-            observability_notebook: None,
-            oidc_federation_policy: None,
-            on_demand_build: None,
-            on_demand_concurrency: None,
-            open_telemetry_endpoint: None,
-            options_allowlist: None,
-            organization: None,
-            organization_domain: None,
-            organization_team: None,
-            own_event: None,
-            page_integrity: None,
-            password_protection: None,
-            password_protection_invoice_item: None,
-            payment_method: None,
-            permissions: None,
-            postgres: None,
-            postgres_store_token_set: None,
-            preview_deployment_suffix: None,
-            private_cloud_account: None,
-            private_link_endpoint: None,
-            production_alias_protection_bypass: None,
-            production_shareable_link: None,
-            project: None,
-            project_access_group: None,
-            project_analytics_sampling: None,
-            project_analytics_usage: None,
-            project_check: None,
-            project_check_run: None,
-            project_deployment_expiration: None,
-            project_deployment_hook: None,
-            project_deployment_protection_strict: None,
-            project_domain: None,
-            project_domain_check_config: None,
-            project_domain_move: None,
-            project_domain_verify: None,
-            project_env_vars: None,
-            project_env_vars_production: None,
-            project_env_vars_unowned_by_integration: None,
-            project_event: None,
-            project_flags: None,
-            project_flags_production: None,
-            project_flags_sdk_key: None,
-            project_from_v0: None,
-            project_id: None,
-            project_integration_configuration: None,
-            project_link: None,
-            project_member: None,
-            project_monitoring: None,
-            project_oidc_token: None,
-            project_permissions: None,
-            project_production_branch: None,
-            project_protection_bypass: None,
-            project_rolling_release: None,
-            project_routes: None,
-            project_setting: None,
-            project_support_case: None,
-            project_support_case_comment: None,
-            project_tier: None,
-            project_transfer: None,
-            project_transfer_in: None,
-            project_transfer_out: None,
-            project_transfer_request: None,
-            project_usage: None,
-            pro_trial_onboarding: None,
-            rate_limit: None,
-            redis: None,
-            redis_store_token_set: None,
-            remote_caching: None,
-            repository: None,
-            saml_config: None,
-            schedule: None,
-            seawall_config: None,
-            secret: None,
-            security_config: None,
-            security_plus_configuration: None,
-            sensitive_environment_variable_policy: None,
-            setting: None,
-            shareable_link: None,
-            shareable_link_strict: None,
-            shared_env_var_connection: None,
-            shared_env_vars: None,
-            shared_env_vars_production: None,
-            skew_protection: None,
-            space: None,
-            space_run: None,
-            store_is_locked: None,
-            store_token_set_sensitive: None,
-            store_transfer: None,
-            support_case: None,
-            support_case_comment: None,
-            team: None,
-            team_access_request: None,
-            team_fellow_membership: None,
-            team_git_exclusivity: None,
-            team_invite: None,
-            team_invite_code: None,
-            team_invite_link: None,
-            team_join: None,
-            team_member_mfa_status: None,
-            team_microfrontends: None,
-            team_own_membership: None,
-            team_own_membership_disconnect_saml: None,
-            team_sudo: None,
-            team_token_invalidation: None,
-            token: None,
-            toolbar_comment: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            usage: None,
-            usage_cycle: None,
-            user: None,
-            user_connection: None,
-            user_mfa_configuration: None,
-            user_preference: None,
-            user_sudo: None,
-            v0_chat: None,
-            vcr_repository: None,
-            vercel_app_installation: None,
-            vercel_app_installation_request: None,
-            vercel_auth: None,
-            vercel_run: None,
-            vpc_peering_connection: None,
-            web_analytics: None,
-            web_analytics_plan: None,
-            web_authn: None,
-            webhook: None,
-            webhook_event: None,
-            workflow_run_data: None,
+            is_default_app: None,
         }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseConnectConfigurationsItemAws {
+    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
+    pub security_group_id: Option<String>,
+    #[serde(rename = "subnetIds")]
+    pub subnet_ids: Vec<String>,
+}
+
+impl UpdateMicrofrontendsResponseConnectConfigurationsItemAws {
+    pub fn new(subnet_ids: Vec<String>) -> Self {
+        Self {
+            security_group_id: None,
+            subnet_ids,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId {
+    #[default]
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateMicrofrontendsResponseConnectConfigurationsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aws: Option<UpdateMicrofrontendsResponseConnectConfigurationsItemAws>,
+    #[serde(rename = "buildsEnabled")]
+    pub builds_enabled: bool,
+    #[serde(rename = "connectConfigurationId")]
+    pub connect_configuration_id: String,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dc: Option<String>,
+    #[serde(rename = "envId")]
+    pub env_id: UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId,
+    pub passive: bool,
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl UpdateMicrofrontendsResponseConnectConfigurationsItem {
+    pub fn new(
+        builds_enabled: bool,
+        connect_configuration_id: String,
+        created_at: f64,
+        env_id: UpdateMicrofrontendsResponseConnectConfigurationsItemEnvId,
+        passive: bool,
+        updated_at: f64,
+    ) -> Self {
+        Self {
+            aws: None,
+            builds_enabled,
+            connect_configuration_id,
+            created_at,
+            dc: None,
+            env_id,
+            passive,
+            updated_at,
+        }
+    }
+}
+
+/// The origin of this definition. 'api' means created via the API. Undefined means it originated from a deployment (vercel.json).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum {
+    #[default]
+    Api,
+    Unknown(String),
+}
+
+impl UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Api => "api",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "api" => Self::Api,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateMicrofrontendsResponseCronsDefinitionsItemSourceEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
     }
 }

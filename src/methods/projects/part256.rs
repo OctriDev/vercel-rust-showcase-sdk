@@ -3,39 +3,17 @@
 
 use super::*;
 
-impl DeleteProjectAvatarResponseLatestDeploymentsItemBuildsItem {
-    pub fn new(use_: String) -> Self {
-        Self {
-            dest: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
-    #[default]
-    Canceled,
-    Failed,
-    Skipped,
-    Succeeded,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl DeleteProjectAvatarResponseAliasItemEnvironmentEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Canceled => "canceled",
-            Self::Failed => "failed",
-            Self::Skipped => "skipped",
-            Self::Succeeded => "succeeded",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseAliasItemEnvironmentEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -44,51 +22,47 @@ impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecks
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum
-{
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemEnvironmentEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "canceled" => Self::Canceled,
-            "failed" => Self::Failed,
-            "skipped" => Self::Skipped,
-            "succeeded" => Self::Succeeded,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemChecksConclusionEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemEnvironmentEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+pub enum DeleteProjectAvatarResponseAliasItemTargetEnum {
     #[default]
-    Completed,
-    Registered,
-    Running,
+    Preview,
+    Production,
+    Staging,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+impl DeleteProjectAvatarResponseAliasItemTargetEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Completed => "completed",
-            Self::Registered => "registered",
-            Self::Running => "running",
+            Self::Preview => "PREVIEW",
+            Self::Production => "PRODUCTION",
+            Self::Staging => "STAGING",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseAliasItemTargetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -97,125 +71,197 @@ impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemChecks
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum
-{
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseAliasItemTargetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "completed" => Self::Completed,
-            "registered" => Self::Registered,
-            "running" => Self::Running,
+            "PREVIEW" => Self::Preview,
+            "PRODUCTION" => Self::Production,
+            "STAGING" => Self::Staging,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemChecksStateEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseAliasItemTargetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseLatestDeploymentsItemCreator {
-    pub email: String,
-    #[serde(rename = "githubLogin", skip_serializing_if = "Option::is_none")]
-    pub github_login: Option<String>,
-    #[serde(rename = "gitlabLogin", skip_serializing_if = "Option::is_none")]
-    pub gitlab_login: Option<String>,
-    pub uid: String,
-    pub username: String,
+pub struct DeleteProjectAvatarResponseAliasItem {
+    #[serde(
+        rename = "configuredBy",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_by: Option<Option<DeleteProjectAvatarResponseAliasItemConfiguredByEnum>>,
+    #[serde(
+        rename = "configuredChangedAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub configured_changed_at: Option<Option<f64>>,
+    #[serde(
+        rename = "createdAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub created_at: Option<Option<f64>>,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub deployment: Option<DeleteProjectAvatarResponseAliasItemDeployment>,
+    pub domain: String,
+    pub environment: DeleteProjectAvatarResponseAliasItemEnvironmentEnum,
+    #[serde(
+        rename = "gitBranch",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub git_branch: Option<Option<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<String>>,
+    #[serde(
+        rename = "redirectStatusCode",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect_status_code: Option<Option<f64>>,
+    pub target: DeleteProjectAvatarResponseAliasItemTargetEnum,
 }
 
-impl DeleteProjectAvatarResponseLatestDeploymentsItemCreator {
-    pub fn new(email: String, uid: String, username: String) -> Self {
-        Self {
-            email,
-            github_login: None,
-            gitlab_login: None,
-            uid,
-            username,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct DeleteProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl DeleteProjectAvatarResponseLatestDeploymentsItemOidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
+impl DeleteProjectAvatarResponseAliasItem {
     pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
+        deployment: Option<DeleteProjectAvatarResponseAliasItemDeployment>,
+        domain: String,
+        environment: DeleteProjectAvatarResponseAliasItemEnvironmentEnum,
+        target: DeleteProjectAvatarResponseAliasItemTargetEnum,
     ) -> Self {
         Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
+            configured_by: None,
+            configured_changed_at: None,
+            created_at: None,
+            deployment,
+            domain,
             environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
+            git_branch: None,
+            redirect: None,
+            redirect_status_code: None,
+            target,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseAnalytics {
+    #[serde(
+        rename = "canceledAt",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub canceled_at: Option<Option<f64>>,
+    #[serde(rename = "disabledAt")]
+    pub disabled_at: f64,
+    #[serde(rename = "enabledAt")]
+    pub enabled_at: f64,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+    #[serde(
+        rename = "sampleRatePercent",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub sample_rate_percent: Option<Option<f64>>,
+    #[serde(
+        rename = "spendLimitInDollars",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub spend_limit_in_dollars: Option<Option<f64>>,
+}
+
+impl DeleteProjectAvatarResponseAnalytics {
+    pub fn new(disabled_at: f64, enabled_at: f64, id: String) -> Self {
+        Self {
+            canceled_at: None,
+            disabled_at,
+            enabled_at,
+            id,
+            paid_at: None,
+            sample_rate_percent: None,
+            spend_limit_in_dollars: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseBlobs {
+    /// Marks the team-level, Vercel-managed default blob project (`vercel-blob-default-project`) that orphan blob stores are scoped to when connected without an explicit project. Set only by internal storage flows and immutable after creation — guards rely on it to protect the connected stores from being lost when the project is deleted or transferred.
+    #[serde(rename = "isDefaultApp", skip_serializing_if = "Option::is_none")]
+    pub is_default_app: Option<bool>,
+}
+
+impl DeleteProjectAvatarResponseBlobs {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            is_default_app: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseConnectConfigurationsItemAws {
+    #[serde(rename = "securityGroupId", skip_serializing_if = "Option::is_none")]
+    pub security_group_id: Option<String>,
+    #[serde(rename = "subnetIds")]
+    pub subnet_ids: Vec<String>,
+}
+
+impl DeleteProjectAvatarResponseConnectConfigurationsItemAws {
+    pub fn new(subnet_ids: Vec<String>) -> Self {
+        Self {
+            security_group_id: None,
+            subnet_ids,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+pub enum DeleteProjectAvatarResponseConnectConfigurationsItemEnvId {
     #[default]
-    Enterprise,
-    Hobby,
-    Pro,
+    Preview,
+    Production,
     Unknown(String),
 }
 
-impl DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+impl DeleteProjectAvatarResponseConnectConfigurationsItemEnvId {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
+            Self::Preview => "preview",
+            Self::Production => "production",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+impl serde::Serialize for DeleteProjectAvatarResponseConnectConfigurationsItemEnvId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -224,86 +270,21 @@ impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEn
     }
 }
 
-impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseConnectConfigurationsItemEnvId {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemPlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for DeleteProjectAvatarResponseLatestDeploymentsItemReadyStateEnum {
+impl std::fmt::Display for DeleteProjectAvatarResponseConnectConfigurationsItemEnvId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }

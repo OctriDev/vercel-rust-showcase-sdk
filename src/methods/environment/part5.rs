@@ -3,6 +3,98 @@
 
 use super::*;
 
+impl UpdateSharedEnvVariableUpdatesValue {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        if let Some(value) = self.comment.as_ref() {
+            crate::validation::validate_length(
+                "comment",
+                value,
+                crate::validation::LengthOpts {
+                    max: Some(500),
+                    ..Default::default()
+                },
+            )?;
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            key: None,
+            value: None,
+            target: None,
+            project_id: None,
+            project_id_updates: None,
+            type_: None,
+            comment: None,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
+impl UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Development => "development",
+            Self::Preview => "preview",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "development" => Self::Development,
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
+    #[default]
+    Development,
+    Preview,
+    Production,
+    Unknown(String),
+}
+
 impl UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -80,6 +172,24 @@ impl<'de> serde::Deserialize<'de> for UpdateSharedEnvVariableResponseFailedItemE
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no UpdateSharedEnvVariableResponseFailedItemErrorTarget branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum>>
+    for UpdateSharedEnvVariableResponseFailedItemErrorTarget
+{
+    fn from(
+        value: Vec<UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant0ItemEnum>,
+    ) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum>
+    for UpdateSharedEnvVariableResponseFailedItemErrorTarget
+{
+    fn from(value: UpdateSharedEnvVariableResponseFailedItemErrorTargetVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }
 
@@ -167,6 +277,22 @@ impl<'de> serde::Deserialize<'de> for UpdateSharedEnvVariableResponseFailedItemE
     }
 }
 
+impl ::std::convert::From<String> for UpdateSharedEnvVariableResponseFailedItemErrorValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<UpdateSharedEnvVariableResponseFailedItemErrorValueVariant1ItemEnum>>
+    for UpdateSharedEnvVariableResponseFailedItemErrorValue
+{
+    fn from(
+        value: Vec<UpdateSharedEnvVariableResponseFailedItemErrorValueVariant1ItemEnum>,
+    ) -> Self {
+        Self::Variant1ItemEnumArray(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateSharedEnvVariableResponseFailedItemError {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -189,107 +315,4 @@ pub struct UpdateSharedEnvVariableResponseFailedItemError {
     pub target: Option<UpdateSharedEnvVariableResponseFailedItemErrorTarget>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value: Option<UpdateSharedEnvVariableResponseFailedItemErrorValue>,
-}
-
-impl UpdateSharedEnvVariableResponseFailedItemError {
-    pub fn new(code: String, message: String) -> Self {
-        Self {
-            action: None,
-            code,
-            env_var_id: None,
-            env_var_key: None,
-            git_branch: None,
-            key: None,
-            link: None,
-            message,
-            project: None,
-            target: None,
-            value: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateSharedEnvVariableResponseFailedItem {
-    pub error: UpdateSharedEnvVariableResponseFailedItemError,
-}
-
-impl UpdateSharedEnvVariableResponseFailedItem {
-    pub fn new(error: UpdateSharedEnvVariableResponseFailedItemError) -> Self {
-        Self { error }
-    }
-}
-
-/// environments this env variable targets
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateSharedEnvVariableResponseUpdatedItemTargetItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The type of this cosmos doc instance, if blank, assume secret.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateSharedEnvVariableResponseUpdatedItemTypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl UpdateSharedEnvVariableResponseUpdatedItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

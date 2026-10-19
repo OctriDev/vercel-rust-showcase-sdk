@@ -3,6 +3,197 @@
 
 use super::*;
 
+impl serde::Serialize for SubmitInvoiceTestResultEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for SubmitInvoiceTestResultEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "paid" => Self::Paid,
+            "notpaid" => Self::Notpaid,
+            "overdue" => Self::Overdue,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for SubmitInvoiceTestResultEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Test mode
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct SubmitInvoiceTest {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub validate: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result: Option<SubmitInvoiceTestResultEnum>,
+}
+
+impl SubmitInvoiceTest {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            validate: None,
+            result: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct SubmitInvoiceResponse {
+    #[serde(rename = "invoiceId", skip_serializing_if = "Option::is_none")]
+    pub invoice_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub test: Option<bool>,
+    #[serde(rename = "validationErrors", skip_serializing_if = "Option::is_none")]
+    pub validation_errors: Option<Vec<String>>,
+}
+
+impl SubmitInvoiceResponse {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            invoice_id: None,
+            test: None,
+            validation_errors: None,
+        }
+    }
+}
+
+/// Invoice discounts.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetInvoiceResponseDiscountsItem {
+    /// Discount amount. A dollar-based decimal string.
+    pub amount: String,
+    /// Partner's billing plan ID.
+    #[serde(rename = "billingPlanId")]
+    pub billing_plan_id: String,
+    /// Additional discount details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<String>,
+    /// Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end: Option<String>,
+    /// Discount name.
+    pub name: String,
+    /// Partner's resource ID. If not specified, indicates installation-wide discount.
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    /// Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start: Option<String>,
+}
+
+impl GetInvoiceResponseDiscountsItem {
+    pub fn new(amount: String, billing_plan_id: String, name: String) -> Self {
+        Self {
+            amount,
+            billing_plan_id,
+            details: None,
+            end: None,
+            name,
+            resource_id: None,
+            start: None,
+        }
+    }
+}
+
+/// Invoice items.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetInvoiceResponseItemsItem {
+    /// Partner's billing plan ID.
+    #[serde(rename = "billingPlanId")]
+    pub billing_plan_id: String,
+    /// Additional item details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<String>,
+    /// Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end: Option<String>,
+    /// Invoice item name.
+    pub name: String,
+    /// Item price. A dollar-based decimal string.
+    pub price: String,
+    /// Item quantity.
+    pub quantity: f64,
+    /// Partner's resource ID. If not specified, indicates installation-wide item.
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    /// Start and end are only needed if different from the period's start/end. ISO 8601 timestamp.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start: Option<String>,
+    /// Item total. A dollar-based decimal string.
+    pub total: String,
+    /// Units for item's quantity.
+    pub units: String,
+}
+
+impl GetInvoiceResponseItemsItem {
+    pub fn new(
+        billing_plan_id: String,
+        name: String,
+        price: String,
+        quantity: f64,
+        total: String,
+        units: String,
+    ) -> Self {
+        Self {
+            billing_plan_id,
+            details: None,
+            end: None,
+            name,
+            price,
+            quantity,
+            resource_id: None,
+            start: None,
+            total,
+            units,
+        }
+    }
+}
+
+/// Subscription period for this billing cycle. ISO 8601 timestamps.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetInvoiceResponsePeriod {
+    pub end: String,
+    pub start: String,
+}
+
+impl GetInvoiceResponsePeriod {
+    pub fn new(end: String, start: String) -> Self {
+        Self { end, start }
+    }
+}
+
+/// Invoice state.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetInvoiceResponseStateEnum {
+    #[default]
+    Draft,
+    Invoiced,
+    Notpaid,
+    Overdue,
+    Paid,
+    Pending,
+    RefundRequested,
+    Refunded,
+    Scheduled,
+    Unknown(String),
+}
+
 impl GetInvoiceResponseStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -103,214 +294,4 @@ pub struct GetInvoiceResponse {
     pub total: String,
     /// System update date. ISO 8601 timestamp.
     pub updated: String,
-}
-
-impl GetInvoiceResponse {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created: String,
-        invoice_date: String,
-        invoice_id: String,
-        items: Vec<GetInvoiceResponseItemsItem>,
-        period: GetInvoiceResponsePeriod,
-        state: GetInvoiceResponseStateEnum,
-        total: String,
-        updated: String,
-    ) -> Self {
-        Self {
-            created,
-            discounts: None,
-            external_id: None,
-            invoice_date,
-            invoice_id,
-            invoice_number: None,
-            items,
-            memo: None,
-            paid_at: None,
-            period,
-            refunded_at: None,
-            refund_reason: None,
-            refund_total: None,
-            state,
-            test: None,
-            total,
-            updated,
-        }
-    }
-}
-
-/// A credit balance for a particular token type
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitPrepaymentBalancesBalancesItem {
-    /// Partner's resource ID, exclude if credits are tied to the installation and not an individual resource.
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
-    /// A human-readable description of the credits the user currently has, e.g. "2,000 Tokens"
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub credit: Option<String>,
-    /// The name of the credits, for display purposes, e.g. "Tokens"
-    #[serde(rename = "nameLabel", skip_serializing_if = "Option::is_none")]
-    pub name_label: Option<String>,
-    /// The dollar value of the credit balance, in USD and provided in cents, which is used to trigger automatic purchase thresholds.
-    #[serde(rename = "currencyValueInCents")]
-    pub currency_value_in_cents: f64,
-}
-
-impl SubmitPrepaymentBalancesBalancesItem {
-    pub fn new(currency_value_in_cents: f64) -> Self {
-        Self {
-            resource_id: None,
-            credit: None,
-            name_label: None,
-            currency_value_in_cents,
-        }
-    }
-}
-
-/// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceSecretsSecretsItemEnvironmentOverrides {
-    /// Value used for development environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub development: Option<String>,
-    /// Value used for preview environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preview: Option<String>,
-    /// Value used for production environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub production: Option<String>,
-}
-
-impl UpdateResourceSecretsSecretsItemEnvironmentOverrides {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            development: None,
-            preview: None,
-            production: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceSecretsSecretsItem {
-    pub name: String,
-    pub value: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub prefix: Option<String>,
-    /// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-    #[serde(
-        rename = "environmentOverrides",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub environment_overrides: Option<UpdateResourceSecretsSecretsItemEnvironmentOverrides>,
-}
-
-impl UpdateResourceSecretsSecretsItem {
-    pub fn new(name: String, value: String) -> Self {
-        Self {
-            name,
-            value,
-            prefix: None,
-            environment_overrides: None,
-        }
-    }
-}
-
-/// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceSecretsByIdSecretsItemEnvironmentOverrides {
-    /// Value used for development environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub development: Option<String>,
-    /// Value used for preview environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub preview: Option<String>,
-    /// Value used for production environment.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub production: Option<String>,
-}
-
-impl UpdateResourceSecretsByIdSecretsItemEnvironmentOverrides {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            development: None,
-            preview: None,
-            production: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceSecretsByIdSecretsItem {
-    pub name: String,
-    pub value: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub prefix: Option<String>,
-    /// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
-    #[serde(
-        rename = "environmentOverrides",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub environment_overrides: Option<UpdateResourceSecretsByIdSecretsItemEnvironmentOverrides>,
-}
-
-impl UpdateResourceSecretsByIdSecretsItem {
-    pub fn new(name: String, value: String) -> Self {
-        Self {
-            name,
-            value,
-            prefix: None,
-            environment_overrides: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItemCategoryEnum
-{
-    #[default]
-    Experiment,
-    Flag,
-    Unknown(String),
-}
-
-impl CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItemCategoryEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Experiment => "experiment",
-            Self::Flag => "flag",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItemCategoryEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItemCategoryEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "experiment" => Self::Experiment,
-            "flag" => Self::Flag,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItemCategoryEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
 }

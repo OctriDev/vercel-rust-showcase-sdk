@@ -3,89 +3,9 @@
 
 use super::*;
 
-impl GetMicrofrontendsInGroupResponseProjectsItemServicesItemFrameworkEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemServicesItemFrameworkEnum {
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitActionEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -95,7 +15,7 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemServicesIt
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemServicesItemFrameworkEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitActionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -103,115 +23,44 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemServicesItemFrameworkEnum {
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitActionEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Service kind (Service.type). Omitted for schemas that do not define one.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum {
+pub enum GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum {
     #[default]
-    Cron,
-    Job,
-    Web,
-    Worker,
+    FixedWindow,
+    TokenBucket,
     Unknown(String),
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum {
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Cron => "cron",
-            Self::Job => "job",
-            Self::Web => "web",
-            Self::Worker => "worker",
+            Self::FixedWindow => "fixed_window",
+            Self::TokenBucket => "token_bucket",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum {
+impl serde::Serialize
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -221,7 +70,7 @@ impl serde::Serialize for GetMicrofrontendsInGroupResponseProjectsItemServicesIt
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -229,77 +78,205 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cron" => Self::Cron,
-            "job" => Self::Job,
-            "web" => Self::Web,
-            "worker" => Self::Worker,
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum {
+impl std::fmt::Display
+    for GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemServicesItem {
-    /// Framework slug, when the service has one (omitted otherwise).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub framework: Option<GetMicrofrontendsInGroupResponseProjectsItemServicesItemFrameworkEnum>,
-    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    /// Service name from the deployment (Service.name).
-    #[serde(rename = "serviceName")]
-    pub service_name: String,
-    /// Service kind (Service.type). Omitted for schemas that do not define one.
-    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
-    pub service_type:
-        Option<GetMicrofrontendsInGroupResponseProjectsItemServicesItemServiceTypeEnum>,
+pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimit {
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action: Option<
+        Option<
+            GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitActionEnum,
+        >,
+    >,
+    pub algo: GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemServicesItem {
-    pub fn new(service_name: String) -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimit {
+    pub fn new(
+        algo: GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
+    ) -> Self {
         Self {
-            framework: None,
-            runtime: None,
-            service_name,
-            service_type: None,
+            action: None,
+            algo,
+            keys,
+            limit,
+            window,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemSpeedInsights {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
-    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
-    pub data_received_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
+pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRedirect {
+    pub location: String,
+    pub permanent: bool,
 }
 
-impl GetMicrofrontendsInGroupResponseProjectsItemSpeedInsights {
-    pub fn new(id: String) -> Self {
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
         Self {
-            canceled_at: None,
-            data_received_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
-            paid_at: None,
+            location,
+            permanent,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValue {
+    pub action: GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueActionEnum,
+    #[serde(
+        rename = "actionDuration",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub action_duration: Option<Option<String>>,
+    #[serde(
+        rename = "bypassSystem",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers:
+        Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueLogHeaders>,
+    #[serde(
+        rename = "rateLimit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub rate_limit:
+        Option<Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRateLimit>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect:
+        Option<Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueRedirect>>,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValue {
+    pub fn new(
+        action: GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValueActionEnum,
+    ) -> Self {
+        Self {
+            action,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
+            rate_limit: None,
+            redirect: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetMicrofrontendsInGroupResponseProjectsItemSecurity {
+    #[serde(
+        rename = "attackModeActiveUntil",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub attack_mode_active_until: Option<Option<f64>>,
+    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
+    pub attack_mode_enabled: Option<bool>,
+    #[serde(
+        rename = "attackModeUpdatedAt",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub attack_mode_updated_at: Option<f64>,
+    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
+    pub bot_id_enabled: Option<bool>,
+    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
+    pub firewall_bypass_ips: Option<Vec<String>>,
+    #[serde(
+        rename = "firewallConfigVersion",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_config_version: Option<f64>,
+    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
+    pub firewall_enabled: Option<bool>,
+    #[serde(
+        rename = "firewallSeawallEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub firewall_seawall_enabled: Option<bool>,
+    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub firewall_updated_at: Option<f64>,
+    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja3_enabled: Option<bool>,
+    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja4_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityLogHeaders>,
+    #[serde(
+        rename = "managedRules",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub managed_rules:
+        Option<Option<GetMicrofrontendsInGroupResponseProjectsItemSecurityManagedRules>>,
+    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
+    #[serde(
+        rename = "pageIntegrityEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_integrity_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rulesets: Option<
+        std::collections::HashMap<
+            String,
+            GetMicrofrontendsInGroupResponseProjectsItemSecurityRulesetsValue,
+        >,
+    >,
+}
+
+impl GetMicrofrontendsInGroupResponseProjectsItemSecurity {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            attack_mode_active_until: None,
+            attack_mode_enabled: None,
+            attack_mode_updated_at: None,
+            bot_id_enabled: None,
+            firewall_bypass_ips: None,
+            firewall_config_version: None,
+            firewall_enabled: None,
+            firewall_seawall_enabled: None,
+            firewall_updated_at: None,
+            ja3_enabled: None,
+            ja4_enabled: None,
+            log_headers: None,
+            managed_rules: None,
+            page_integrity_enabled: None,
+            rulesets: None,
         }
     }
 }

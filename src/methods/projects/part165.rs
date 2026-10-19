@@ -3,213 +3,165 @@
 
 use super::*;
 
-impl GetProjectsResponseServicesItemFrameworkEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
-            Self::Unknown(value) => value.as_str(),
+/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseResourceConfigElasticBuildMachine {
+    pub cores: f64,
+    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+    pub label: GetProjectsResponseResourceConfigElasticBuildMachineLabelEnum,
+    pub memory: f64,
+}
+
+impl GetProjectsResponseResourceConfigElasticBuildMachine {
+    pub fn new(
+        cores: f64,
+        label: GetProjectsResponseResourceConfigElasticBuildMachineLabelEnum,
+        memory: f64,
+    ) -> Self {
+        Self {
+            cores,
+            label,
+            memory,
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseServicesItemFrameworkEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseResourceConfig {
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason:
+        Option<GetProjectsResponseResourceConfigBuildMachineElasticReasonEnum>,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition:
+        Option<GetProjectsResponseResourceConfigBuildMachineElasticTransition>,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection: Option<GetProjectsResponseResourceConfigBuildMachineSelectionEnum>,
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type: Option<GetProjectsResponseResourceConfigBuildMachineTypeEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue: Option<GetProjectsResponseResourceConfigBuildQueue>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type:
+        Option<GetProjectsResponseResourceConfigFunctionDefaultMemoryTypeEnum>,
+    #[serde(rename = "functionDefaultRegions")]
+    pub function_default_regions: Vec<String>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+    #[serde(
+        rename = "elasticBuildMachine",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_build_machine: Option<GetProjectsResponseResourceConfigElasticBuildMachine>,
+}
+
+impl GetProjectsResponseResourceConfig {
+    pub fn new(function_default_regions: Vec<String>) -> Self {
+        Self {
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            build_machine_selection: None,
+            build_machine_type: None,
+            build_queue: None,
+            elastic_concurrency_enabled: None,
+            enable_functions_beta: None,
+            fluid: None,
+            function_default_memory_type: None,
+            function_default_regions,
+            function_default_timeout: None,
+            function_zero_config_failover: None,
+            is_nsnb_disabled: None,
+            elastic_build_machine: None,
+        }
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseServicesItemFrameworkEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "actix-web" => Self::ActixWeb,
-            "angular" => Self::Angular,
-            "ash" => Self::Ash,
-            "astro" => Self::Astro,
-            "axum" => Self::Axum,
-            "blitzjs" => Self::Blitzjs,
-            "brunch" => Self::Brunch,
-            "bun" => Self::Bun,
-            "container" => Self::Container,
-            "create-react-app" => Self::CreateReactApp,
-            "django" => Self::Django,
-            "docusaurus" => Self::Docusaurus,
-            "docusaurus-2" => Self::Docusaurus2,
-            "dojo" => Self::Dojo,
-            "eleventy" => Self::Eleventy,
-            "elysia" => Self::Elysia,
-            "ember" => Self::Ember,
-            "eve" => Self::Eve,
-            "express" => Self::Express,
-            "factory-eve" => Self::FactoryEve,
-            "fastapi" => Self::Fastapi,
-            "fasthtml" => Self::Fasthtml,
-            "fastify" => Self::Fastify,
-            "flask" => Self::Flask,
-            "gatsby" => Self::Gatsby,
-            "go" => Self::Go,
-            "gridsome" => Self::Gridsome,
-            "h3" => Self::H3,
-            "hexo" => Self::Hexo,
-            "hono" => Self::Hono,
-            "hugo" => Self::Hugo,
-            "hydrogen" => Self::Hydrogen,
-            "ionic-angular" => Self::IonicAngular,
-            "ionic-react" => Self::IonicReact,
-            "jekyll" => Self::Jekyll,
-            "koa" => Self::Koa,
-            "mastra" => Self::Mastra,
-            "middleman" => Self::Middleman,
-            "nestjs" => Self::Nestjs,
-            "nextjs" => Self::Nextjs,
-            "nitro" => Self::Nitro,
-            "node" => Self::Node,
-            "nuxtjs" => Self::Nuxtjs,
-            "parcel" => Self::Parcel,
-            "polymer" => Self::Polymer,
-            "preact" => Self::Preact,
-            "python" => Self::Python,
-            "react-router" => Self::ReactRouter,
-            "redwoodjs" => Self::Redwoodjs,
-            "remix" => Self::Remix,
-            "ruby" => Self::Ruby,
-            "rust" => Self::Rust,
-            "saber" => Self::Saber,
-            "sanity" => Self::Sanity,
-            "sanity-v2" => Self::SanityV2,
-            "sapper" => Self::Sapper,
-            "scully" => Self::Scully,
-            "services" => Self::Services,
-            "solidstart" => Self::Solidstart,
-            "solidstart-1" => Self::Solidstart1,
-            "stencil" => Self::Stencil,
-            "storybook" => Self::Storybook,
-            "svelte" => Self::Svelte,
-            "sveltekit" => Self::Sveltekit,
-            "sveltekit-1" => Self::Sveltekit1,
-            "tanstack-start" => Self::TanstackStart,
-            "tanstack-start-lovable" => Self::TanstackStartLovable,
-            "umijs" => Self::Umijs,
-            "vite" => Self::Vite,
-            "vitepress" => Self::Vitepress,
-            "vue" => Self::Vue,
-            "vuepress" => Self::Vuepress,
-            "xmcp" => Self::Xmcp,
-            "zola" => Self::Zola,
-            _ => Self::Unknown(value),
-        })
+/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseRollbackDescription {
+    /// Timestamp of when the rollback was requested.
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
+    pub description: String,
+    /// The user who rolled back the project.
+    #[serde(rename = "userId")]
+    pub user_id: String,
+    /// The username of the user who rolled back the project.
+    pub username: String,
+}
+
+impl GetProjectsResponseRollbackDescription {
+    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
+        Self {
+            created_at,
+            description,
+            user_id,
+            username,
+        }
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseServicesItemFrameworkEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Service kind (Service.type). Omitted for schemas that do not define one.
+/// What to do when the gate trips: pause the rollout, or roll it back.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseServicesItemServiceTypeEnum {
+pub enum GetProjectsResponseRollingReleaseGateActionEnum {
     #[default]
-    Cron,
-    Job,
-    Web,
-    Worker,
+    Pause,
+    Rollback,
     Unknown(String),
 }
 
-impl GetProjectsResponseServicesItemServiceTypeEnum {
+impl GetProjectsResponseRollingReleaseGateActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Cron => "cron",
-            Self::Job => "job",
-            Self::Web => "web",
-            Self::Worker => "worker",
+            Self::Pause => "pause",
+            Self::Rollback => "rollback",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseServicesItemServiceTypeEnum {
+impl serde::Serialize for GetProjectsResponseRollingReleaseGateActionEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -218,83 +170,168 @@ impl serde::Serialize for GetProjectsResponseServicesItemServiceTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseServicesItemServiceTypeEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseRollingReleaseGateActionEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cron" => Self::Cron,
-            "job" => Self::Job,
-            "web" => Self::Web,
-            "worker" => Self::Worker,
+            "pause" => Self::Pause,
+            "rollback" => Self::Rollback,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseServicesItemServiceTypeEnum {
+impl std::fmt::Display for GetProjectsResponseRollingReleaseGateActionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseServicesItem {
-    /// Framework slug, when the service has one (omitted otherwise).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub framework: Option<GetProjectsResponseServicesItemFrameworkEnum>,
-    /// Generic runtime, e.g. 'node' | 'python' | 'go' | 'ruby' | 'rust' (Service.runtime). Omitted for static builds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    /// Service name from the deployment (Service.name).
-    #[serde(rename = "serviceName")]
-    pub service_name: String,
-    /// Service kind (Service.type). Omitted for schemas that do not define one.
-    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
-    pub service_type: Option<GetProjectsResponseServicesItemServiceTypeEnum>,
+/// The metric this check evaluates.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+    #[default]
+    ErrorRate5xx,
+    Unknown(String),
 }
 
-impl GetProjectsResponseServicesItem {
-    pub fn new(service_name: String) -> Self {
-        Self {
-            framework: None,
-            runtime: None,
-            service_name,
-            service_type: None,
+impl GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ErrorRate5xx => "error-rate-5xx",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseSpeedInsights {
-    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
-    pub canceled_at: Option<f64>,
-    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
-    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
-    pub data_received_at: Option<f64>,
-    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
-    pub disabled_at: Option<f64>,
-    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
-    pub enabled_at: Option<f64>,
-    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
-    pub has_data: Option<bool>,
-    pub id: String,
-    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
-    pub paid_at: Option<f64>,
+impl serde::Serialize for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
 }
 
-impl GetProjectsResponseSpeedInsights {
-    pub fn new(id: String) -> Self {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "error-rate-5xx" => Self::ErrorRate5xx,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The checks to evaluate. An empty array means nothing is evaluated.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseRollingReleaseGateChecksItem {
+    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
+    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
+    pub exclude_paths: Option<Vec<String>>,
+    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
+    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
+    pub exclude_status_codes: Option<Vec<f64>>,
+    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
+    #[serde(
+        rename = "ingestWatermarkSeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ingest_watermark_seconds: Option<f64>,
+    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
+    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
+    pub significance_level: Option<f64>,
+    /// The metric this check evaluates.
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseRollingReleaseGateChecksItemTypeEnum,
+}
+
+impl GetProjectsResponseRollingReleaseGateChecksItem {
+    pub fn new(type_: GetProjectsResponseRollingReleaseGateChecksItemTypeEnum) -> Self {
         Self {
-            canceled_at: None,
-            data_received_at: None,
-            disabled_at: None,
-            enabled_at: None,
-            has_data: None,
-            id,
-            paid_at: None,
+            exclude_paths: None,
+            exclude_status_codes: None,
+            ingest_watermark_seconds: None,
+            significance_level: None,
+            type_,
+        }
+    }
+}
+
+/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseRollingReleaseGate {
+    /// What to do when the gate trips: pause the rollout, or roll it back.
+    pub action: GetProjectsResponseRollingReleaseGateActionEnum,
+    /// The checks to evaluate. An empty array means nothing is evaluated.
+    pub checks: Vec<GetProjectsResponseRollingReleaseGateChecksItem>,
+    /// When true, a tripped gate is only reported — {@link action} is not taken.
+    #[serde(rename = "dryRun")]
+    pub dry_run: bool,
+    /// Whether automated gating is enabled for this project's rollouts.
+    pub enabled: bool,
+    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
+    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
+    pub failure_threshold: Option<f64>,
+    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
+    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
+    pub window_size: Option<f64>,
+}
+
+impl GetProjectsResponseRollingReleaseGate {
+    pub fn new(
+        action: GetProjectsResponseRollingReleaseGateActionEnum,
+        checks: Vec<GetProjectsResponseRollingReleaseGateChecksItem>,
+        dry_run: bool,
+        enabled: bool,
+    ) -> Self {
+        Self {
+            action,
+            checks,
+            dry_run,
+            enabled,
+            failure_threshold: None,
+            window_size: None,
+        }
+    }
+}
+
+/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseRollingReleaseStagesItem {
+    /// Duration in minutes for automatic advancement to the next stage
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub duration: Option<f64>,
+    /// Whether to linearly shift traffic over the duration of this stage
+    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
+    pub linear_shift: Option<bool>,
+    /// Whether or not this stage requires manual approval to proceed
+    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
+    pub require_approval: Option<bool>,
+    /// The percentage of traffic to serve to the canary deployment (0-100)
+    #[serde(rename = "targetPercentage")]
+    pub target_percentage: f64,
+}
+
+impl GetProjectsResponseRollingReleaseStagesItem {
+    pub fn new(target_percentage: f64) -> Self {
+        Self {
+            duration: None,
+            linear_shift: None,
+            require_approval: None,
+            target_percentage,
         }
     }
 }

@@ -179,6 +179,18 @@ impl<'de> serde::Deserialize<'de> for UploadFileResponse {
     }
 }
 
+impl ::std::convert::From<Box<UploadFileResponseVariant0>> for UploadFileResponse {
+    fn from(value: Box<UploadFileResponseVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for UploadFileResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GetDeploymentsResponseDeploymentsItemAliasAssigned {
@@ -209,6 +221,18 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentsResponseDeploymentsItemAlias
                 "no GetDeploymentsResponseDeploymentsItemAliasAssigned branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<f64> for GetDeploymentsResponseDeploymentsItemAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for GetDeploymentsResponseDeploymentsItemAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 
@@ -279,6 +303,18 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentsResponseDeploymentsItemAttri
     }
 }
 
+impl ::std::convert::From<String> for GetDeploymentsResponseDeploymentsItemAttributionGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetDeploymentsResponseDeploymentsItemAttributionGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 /// Git provider user associated with the commit author email (only set if resolved)
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetDeploymentsResponseDeploymentsItemAttributionGitUser {
@@ -291,54 +327,4 @@ pub struct GetDeploymentsResponseDeploymentsItemAttributionGitUser {
     /// User type
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-}
-
-impl GetDeploymentsResponseDeploymentsItemAttributionGitUser {
-    pub fn new(
-        id: GetDeploymentsResponseDeploymentsItemAttributionGitUserId,
-        login: String,
-    ) -> Self {
-        Self {
-            id,
-            login,
-            provider: None,
-            type_: None,
-        }
-    }
-}
-
-/// Vercel user linked to the git provider account (only set if resolved)
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentsResponseDeploymentsItemAttributionVercelUser {
-    /// Vercel user ID
-    pub id: String,
-    /// Team roles at time of deployment
-    #[serde(rename = "teamRoles", skip_serializing_if = "Option::is_none")]
-    pub team_roles: Option<Vec<String>>,
-    /// Vercel username
-    pub username: String,
-}
-
-impl GetDeploymentsResponseDeploymentsItemAttributionVercelUser {
-    pub fn new(id: String, username: String) -> Self {
-        Self {
-            id,
-            team_roles: None,
-            username,
-        }
-    }
-}
-
-/// Commit attribution metadata
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentsResponseDeploymentsItemAttribution {
-    /// Commit metadata from the git commit author
-    #[serde(rename = "commitMeta", skip_serializing_if = "Option::is_none")]
-    pub commit_meta: Option<GetDeploymentsResponseDeploymentsItemAttributionCommitMeta>,
-    /// Git provider user associated with the commit author email (only set if resolved)
-    #[serde(rename = "gitUser", skip_serializing_if = "Option::is_none")]
-    pub git_user: Option<GetDeploymentsResponseDeploymentsItemAttributionGitUser>,
-    /// Vercel user linked to the git provider account (only set if resolved)
-    #[serde(rename = "vercelUser", skip_serializing_if = "Option::is_none")]
-    pub vercel_user: Option<GetDeploymentsResponseDeploymentsItemAttributionVercelUser>,
 }

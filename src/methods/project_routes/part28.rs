@@ -2,114 +2,286 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-
-impl GetRouteVersionsResponseVersionsItem {
-    pub fn new(created_by: String, id: String, last_modified: f64, s3_key: String) -> Self {
-        Self {
-            alias: None,
-            created_by,
-            id,
-            is_live: None,
-            is_staging: None,
-            last_modified,
-            rule_count: None,
-            s3_key,
-        }
-    }
-}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRouteVersionsResponse {
-    pub versions: Vec<GetRouteVersionsResponseVersionsItem>,
-}
-
-impl GetRouteVersionsResponse {
-    pub fn new(versions: Vec<GetRouteVersionsResponseVersionsItem>) -> Self {
-        Self { versions }
-    }
-}
-
-/// A version of routing rules stored in S3.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateRouteVersionsResponseVersion {
-    /// The staging alias for previewing this version.
+pub struct EditRouteResponse {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<String>,
-    /// The user who created this version.
-    #[serde(rename = "createdBy")]
-    pub created_by: String,
-    /// Unique identifier for the version.
-    pub id: String,
-    /// Whether this version is currently live in production.
-    #[serde(rename = "isLive", skip_serializing_if = "Option::is_none")]
-    pub is_live: Option<bool>,
-    /// Whether this version is staged and not yet promoted to production.
-    #[serde(rename = "isStaging", skip_serializing_if = "Option::is_none")]
-    pub is_staging: Option<bool>,
-    /// Timestamp of when this version was last modified.
-    #[serde(rename = "lastModified")]
-    pub last_modified: f64,
-    /// The number of routing rules in this version.
-    #[serde(rename = "ruleCount", skip_serializing_if = "Option::is_none")]
-    pub rule_count: Option<f64>,
-    /// The S3 key where the routing rules are stored.
-    #[serde(rename = "s3Key")]
-    pub s3_key: String,
+    pub route: Option<EditRouteResponseRoute>,
+    /// A version of routing rules stored in S3.
+    pub version: EditRouteResponseVersion,
 }
 
-impl UpdateRouteVersionsResponseVersion {
-    pub fn new(created_by: String, id: String, last_modified: f64, s3_key: String) -> Self {
+impl EditRouteResponse {
+    pub fn new(version: EditRouteResponseVersion) -> Self {
         Self {
-            alias: None,
-            created_by,
-            id,
-            is_live: None,
-            is_staging: None,
-            last_modified,
-            rule_count: None,
-            s3_key,
+            route: None,
+            version,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateRouteVersionsResponse {
-    /// A version of routing rules stored in S3.
-    pub version: UpdateRouteVersionsResponseVersion,
+pub struct GenerateRouteCurrentRoutePathCondition {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub syntax: Option<String>,
 }
 
-impl UpdateRouteVersionsResponse {
-    pub fn new(version: UpdateRouteVersionsResponseVersion) -> Self {
-        Self { version }
+impl GenerateRouteCurrentRoutePathCondition {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            value: None,
+            syntax: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteCurrentRouteConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub field: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub operator: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub missing: Option<bool>,
+}
+
+impl GenerateRouteCurrentRouteConditionsItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            field: None,
+            operator: None,
+            key: None,
+            value: None,
+            missing: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteCurrentRouteActionsItemHeadersItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub op: Option<String>,
+}
+
+impl GenerateRouteCurrentRouteActionsItemHeadersItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            key: None,
+            value: None,
+            op: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteCurrentRouteActionsItem {
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
+    #[serde(rename = "subType", skip_serializing_if = "Option::is_none")]
+    pub sub_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dest: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<GenerateRouteCurrentRouteActionsItemHeadersItem>>,
+}
+
+impl GenerateRouteCurrentRouteActionsItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            type_: None,
+            sub_type: None,
+            dest: None,
+            status: None,
+            headers: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteCurrentRoute {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(rename = "pathCondition")]
+    pub path_condition: GenerateRouteCurrentRoutePathCondition,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conditions: Option<Vec<GenerateRouteCurrentRouteConditionsItem>>,
+    pub actions: Vec<GenerateRouteCurrentRouteActionsItem>,
+}
+
+impl GenerateRouteCurrentRoute {
+    pub fn new(
+        path_condition: GenerateRouteCurrentRoutePathCondition,
+        actions: Vec<GenerateRouteCurrentRouteActionsItem>,
+    ) -> Self {
+        Self {
+            name: None,
+            description: None,
+            path_condition,
+            conditions: None,
+            actions,
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetRoutesEnum {
+pub enum GenerateRouteResponseRouteActionsItemHeadersItemOpEnum {
     #[default]
+    Append,
+    Delete,
+    Set,
+    Unknown(String),
+}
+
+impl GenerateRouteResponseRouteActionsItemHeadersItemOpEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Append => "append",
+            Self::Delete => "delete",
+            Self::Set => "set",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GenerateRouteResponseRouteActionsItemHeadersItemOpEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRouteActionsItemHeadersItemOpEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "append" => Self::Append,
+            "delete" => Self::Delete,
+            "set" => Self::Set,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GenerateRouteResponseRouteActionsItemHeadersItemOpEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GenerateRouteResponseRouteActionsItemHeadersItem {
+    pub key: String,
+    pub op: GenerateRouteResponseRouteActionsItemHeadersItemOpEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+
+impl GenerateRouteResponseRouteActionsItemHeadersItem {
+    pub fn new(key: String, op: GenerateRouteResponseRouteActionsItemHeadersItemOpEnum) -> Self {
+        Self {
+            key,
+            op,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GenerateRouteResponseRouteActionsItemSubTypeEnum {
+    #[default]
+    ResponseHeaders,
+    TransformRequestHeader,
+    TransformRequestQuery,
+    Unknown(String),
+}
+
+impl GenerateRouteResponseRouteActionsItemSubTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::ResponseHeaders => "response-headers",
+            Self::TransformRequestHeader => "transform-request-header",
+            Self::TransformRequestQuery => "transform-request-query",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GenerateRouteResponseRouteActionsItemSubTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRouteActionsItemSubTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "response-headers" => Self::ResponseHeaders,
+            "transform-request-header" => Self::TransformRequestHeader,
+            "transform-request-query" => Self::TransformRequestQuery,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GenerateRouteResponseRouteActionsItemSubTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GenerateRouteResponseRouteActionsItemTypeEnum {
+    #[default]
+    Modify,
     Redirect,
     Rewrite,
     SetStatus,
-    Transform,
     Unknown(String),
 }
 
-impl GetRoutesEnum {
+impl GenerateRouteResponseRouteActionsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
+            Self::Modify => "modify",
             Self::Redirect => "redirect",
             Self::Rewrite => "rewrite",
-            Self::SetStatus => "set_status",
-            Self::Transform => "transform",
+            Self::SetStatus => "set-status",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetRoutesEnum {
+impl serde::Serialize for GenerateRouteResponseRouteActionsItemTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -118,226 +290,24 @@ impl serde::Serialize for GetRoutesEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetRoutesEnum {
+impl<'de> serde::Deserialize<'de> for GenerateRouteResponseRouteActionsItemTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
+            "modify" => Self::Modify,
             "redirect" => Self::Redirect,
             "rewrite" => Self::Rewrite,
-            "set_status" => Self::SetStatus,
-            "transform" => Self::Transform,
+            "set-status" => Self::SetStatus,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetRoutesEnum {
+impl std::fmt::Display for GenerateRouteResponseRouteActionsItemTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateRouteVersionsActionEnum {
-    #[default]
-    Discard,
-    Promote,
-    Restore,
-    Unknown(String),
-}
-
-impl UpdateRouteVersionsActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Discard => "discard",
-            Self::Promote => "promote",
-            Self::Restore => "restore",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateRouteVersionsActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateRouteVersionsActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "discard" => Self::Discard,
-            "promote" => Self::Promote,
-            "restore" => Self::Restore,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateRouteVersionsActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct GetRoutesParams {
-    pub project_id: String,
-    pub version_id: Option<String>,
-    pub q: Option<String>,
-    pub filter: Option<GetRoutesEnum>,
-    pub diff: Option<GetRoutes>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Lists routing rules for a project, with options to search, filter by route type, or compare staged changes with production. Use `q` to search by name, ID, or pattern, and `filter` to select a route type. Set `diff` to compare changes; the response can include a diff count and version information.
-///
-/// Get the routing rules for a project. Supports searching by name/ID/pattern, filtering by route type, and diffing staged changes against production.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_routes(
-    config: &ClientConfig,
-    params: GetRoutesParams,
-    options: Option<&RequestOptions>,
-) -> Result<GetRoutesResponse, SdkError> {
-    let GetRoutesParams {
-        project_id,
-        version_id,
-        q,
-        filter,
-        diff,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(6);
-    if let Some(ref v) = version_id {
-        __query.push(("versionId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = q {
-        __query.push(("q", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = filter {
-        __query.push(("filter", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = diff {
-        __query.push(("diff", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetRoutesResponse>(
-        "GET",
-        &format!(
-            "/v1/projects/{}/routes",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_routes",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct StageRoutesParams {
-    pub project_id: String,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub overwrite: Option<bool>,
-    pub routes: Option<Vec<StageRoutesRoutesItem>>,
-}
-
-/// Stages routing rules for a project and returns the new staged version. Set `overwrite` to replace all existing rules; otherwise, submitted rules are merged with existing rules by ID. Each item in `routes` must include an `id`, `name`, and route configuration with `src`.
-///
-/// Stage routing rules for a project. Set `overwrite` to true to replace all existing rules, or omit it to merge with existing rules by ID. Returns the new staged version.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn stage_routes(
-    config: &ClientConfig,
-    params: StageRoutesParams,
-    options: Option<&RequestOptions>,
-) -> Result<StageRoutesResponse, SdkError> {
-    let StageRoutesParams {
-        project_id,
-        team_id,
-        slug,
-        overwrite,
-        routes,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = overwrite {
-        __body_map.insert(
-            "overwrite".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = routes {
-        __body_map.insert(
-            "routes".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<StageRoutesResponse>(
-        "PUT",
-        &format!(
-            "/v1/projects/{}/routes",
-            crate::client::encode_path_segment(&project_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "stage_routes",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
 }

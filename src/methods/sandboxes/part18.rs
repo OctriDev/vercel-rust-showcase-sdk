@@ -4,13 +4,120 @@
 use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{
-    UpdateSandboxRequestKeepLastSnapshots, UpdateSandboxRequestNetworkPolicy, UpdateSandboxResponse,
-};
-use crate::validation::{
-    validate_items, validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts,
-};
+use crate::errors::SdkError;
+use crate::validation::{validate_length, validate_pattern, validate_range, LengthOpts, RangeOpts};
+
+/// Retrieves details for a specific sandbox snapshot, including its creation time, size, expiration, and source session. Use `snapshotId` to identify the snapshot whose details you need. The response contains the snapshot object.
+///
+/// Retrieves detailed information about a specific snapshot, including its creation time, size, expiration date, and the source session it was created from.
+///
+/// # Arguments
+///
+/// * `snapshot_id` - The unique identifier of the snapshot to retrieve.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn get_session_snapshot(
+    config: &ClientConfig,
+    snapshot_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<GetSessionSnapshotResponse, SdkError> {
+    validate_length(
+        "snapshotId",
+        &snapshot_id,
+        LengthOpts {
+            max: Some(33),
+            ..Default::default()
+        },
+    )?;
+    validate_pattern(
+        "snapshotId",
+        &snapshot_id,
+        "^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$",
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<GetSessionSnapshotResponse>(
+        "GET",
+        &format!(
+            "/v2/sandboxes/snapshots/{}",
+            crate::client::encode_path_segment(&snapshot_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_session_snapshot",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+/// Deletes a sandbox snapshot and frees its associated storage. Use `snapshotId` to select the snapshot to remove; a deleted snapshot cannot be used to create new sessions. <Callout type="warning"\>Deletion is permanent and cannot be undone.</Callout\>
+///
+/// Permanently deletes a snapshot and frees its associated storage. This action cannot be undone. After deletion, the snapshot can no longer be used to create new sessions.
+///
+/// # Arguments
+///
+/// * `snapshot_id` - The unique identifier of the snapshot to delete.
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+pub fn delete_session_snapshot(
+    config: &ClientConfig,
+    snapshot_id: String,
+    team_id: Option<String>,
+    slug: Option<String>,
+    options: Option<&RequestOptions>,
+) -> Result<DeleteSessionSnapshotResponse, SdkError> {
+    validate_length(
+        "snapshotId",
+        &snapshot_id,
+        LengthOpts {
+            max: Some(33),
+            ..Default::default()
+        },
+    )?;
+    validate_pattern(
+        "snapshotId",
+        &snapshot_id,
+        "^(?:snap_[A-Za-z0-9]{28}|vhs_[a-z0-9]{28})$",
+    )?;
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<DeleteSessionSnapshotResponse>(
+        "DELETE",
+        &format!(
+            "/v2/sandboxes/snapshots/{}",
+            crate::client::encode_path_segment(&snapshot_id)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "delete_session_snapshot",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct ListSessionsParams {
@@ -226,361 +333,6 @@ pub fn get_named_sandbox(
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "get_named_sandbox",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct UpdateSandboxParams {
-    pub name: String,
-    pub project_id: Option<String>,
-    pub resume: Option<bool>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub resources: Option<UpdateSandboxResources>,
-    pub runtime: Option<UpdateSandboxRuntimeEnum>,
-    pub timeout: Option<i64>,
-    pub persistent: Option<bool>,
-    pub snapshot_expiration: Option<Option<i64>>,
-    pub keep_last_snapshots: Option<UpdateSandboxRequestKeepLastSnapshots>,
-    pub network_policy: Option<UpdateSandboxRequestNetworkPolicy>,
-    pub region: Option<UpdateSandboxRegionEnum>,
-    pub failover_regions: Option<Vec<UpdateSandboxFailoverRegionsItemEnum>>,
-    pub mounts: Option<std::collections::HashMap<String, UpdateSandboxMountsValue>>,
-    pub network_id: Option<String>,
-    pub env: Option<std::collections::HashMap<String, String>>,
-    pub ports: Option<Vec<i64>>,
-    pub current_snapshot_id: Option<String>,
-    pub tags: Option<std::collections::HashMap<String, String>>,
-}
-
-/// Updates the configuration of a named sandbox, changing only the fields you provide. Use the request body to adjust its resources, runtime, networking, storage mounts, environment, or other settings; omitted fields remain unchanged. Set `resume` to true to resume a stopped sandbox from its snapshot.
-///
-/// Updates the configuration of a sandbox. Only the provided fields will be modified; omitted fields remain unchanged.
-///
-/// # Arguments
-///
-/// * `name` - The sandbox to update.
-/// * `project_id` - The project ID that owns the named sandbox. When provided,
-///   takes precedence over OIDC project context.
-/// * `resume` - Whether to automatically resume a stopped named sandbox by
-///   creating a new instance from its snapshot. Defaults to false.
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `resources` - Resources to define the VM
-/// * `runtime` - The runtime environment for the sandbox. Determines the
-///   pre-installed language runtimes and tools available.
-/// * `timeout` - Maximum duration in milliseconds that the sandbox can run
-///   before being automatically stopped.
-/// * `persistent` - Whether the sandbox persists its state across restarts via
-///   automatic snapshots.
-/// * `snapshot_expiration` - Default snapshot expiration time in milliseconds.
-///   Set to 0 to disable expiration. When set, this value is used as the default
-///   expiration for all snapshots created for this sandbox.
-/// * `keep_last_snapshots` - Protect the N most recent snapshots with different
-///   expiration/deletion behavior. Set to null to clear.
-/// * `network_policy` - Typed representation of the
-///   `UpdateSandboxRequestNetworkPolicy` API schema.
-/// * `region` - The Vercel region in which to create the sandbox.
-/// * `failover_regions` - The regions the sandbox falls back to when it cannot
-///   be created in `region`.
-/// * `mounts` - Drives to mount to the sandbox at the provided path. Replaces
-///   the current mounts; an empty object removes them all. Changes take effect
-///   when the next session starts.
-/// * `network_id` - The Connect network id for the target Secure Compute
-///   private network. Set to null to remove the sandbox from Secure Compute.
-/// * `env` - Default environment variables for the sandbox. Set to empty object
-///   to clear.
-/// * `ports` - List of ports to expose from the sandbox. Each port will be
-///   accessible via a unique URL. Maximum of 15 ports can be exposed.
-/// * `current_snapshot_id` - The snapshot ID to set as the current snapshot.
-///   Must be active and belong to the same project.
-/// * `tags` - Key-value tags to associate with the sandbox. Replaces existing
-///   tags. Set to empty object to clear. Maximum 5 tags.
-pub fn update_sandbox(
-    config: &ClientConfig,
-    params: UpdateSandboxParams,
-    options: Option<&RequestOptions>,
-) -> Result<UpdateSandboxResponse, SdkError> {
-    let UpdateSandboxParams {
-        name,
-        project_id,
-        resume,
-        team_id,
-        slug,
-        resources,
-        runtime,
-        timeout,
-        persistent,
-        snapshot_expiration,
-        keep_last_snapshots,
-        network_policy,
-        region,
-        failover_regions,
-        mounts,
-        network_id,
-        env,
-        ports,
-        current_snapshot_id,
-        tags,
-    } = params;
-    validate_length(
-        "name",
-        &name,
-        LengthOpts {
-            max: Some(128),
-            ..Default::default()
-        },
-    )?;
-    validate_pattern("name", &name, "^[a-zA-Z0-9_-]+$")?;
-    if let Some(ref project_id_v) = project_id {
-        validate_length(
-            "projectId",
-            project_id_v,
-            LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref timeout_v) = timeout {
-        validate_range(
-            "timeout",
-            *timeout_v as f64,
-            RangeOpts {
-                min: Some(1000_f64),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref failover_regions_v) = failover_regions {
-        validate_items(
-            "failoverRegions",
-            failover_regions_v,
-            LengthOpts {
-                max: Some(19),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref ports_v) = ports {
-        validate_items(
-            "ports",
-            ports_v,
-            LengthOpts {
-                max: Some(15),
-                ..Default::default()
-            },
-        )?;
-    }
-    if let Some(ref current_snapshot_id_v) = current_snapshot_id {
-        validate_length(
-            "currentSnapshotId",
-            current_snapshot_id_v,
-            LengthOpts {
-                max: Some(128),
-                ..Default::default()
-            },
-        )?;
-    }
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
-    if let Some(ref v) = project_id {
-        __query.push(("projectId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = resume {
-        __query.push(("resume", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = resources {
-        __body_map.insert(
-            "resources".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = runtime {
-        __body_map.insert(
-            "runtime".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = timeout {
-        __body_map.insert(
-            "timeout".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = persistent {
-        __body_map.insert(
-            "persistent".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = snapshot_expiration {
-        __body_map.insert(
-            "snapshotExpiration".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = keep_last_snapshots {
-        __body_map.insert(
-            "keepLastSnapshots".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = network_policy {
-        __body_map.insert(
-            "networkPolicy".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = region {
-        __body_map.insert(
-            "region".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = failover_regions {
-        __body_map.insert(
-            "failoverRegions".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = mounts {
-        __body_map.insert(
-            "mounts".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = network_id {
-        __body_map.insert(
-            "networkId".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = env {
-        __body_map.insert(
-            "env".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = ports {
-        __body_map.insert(
-            "ports".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = current_snapshot_id {
-        __body_map.insert(
-            "currentSnapshotId".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    if let Some(ref value) = tags {
-        __body_map.insert(
-            "tags".to_string(),
-            serde_json::to_value(value).map_err(|e| {
-                SdkError::Network(SdkNetworkError {
-                    message: format!("encode body field: {}", e),
-                    request_id: None,
-                })
-            })?,
-        );
-    }
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<UpdateSandboxResponse>(
-        "PATCH",
-        &format!(
-            "/v2/sandboxes/{}",
-            crate::client::encode_path_segment(&name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_sandbox",
             options,
             ..Default::default()
         },

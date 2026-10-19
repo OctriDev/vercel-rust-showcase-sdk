@@ -3,6 +3,132 @@
 
 // projects_get domain models (part 4)
 
+impl GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::RedisRestApiReadOnlyToken => "redis-rest-api-read-only-token",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum::RedisRestApiReadOnlyToken => {
+                f.write_str("redis-rest-api-read-only-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectEnvResponseVariant1ContentHintVariant3 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant3 {
+    pub fn new(
+        store_id: String,
+        type_: GetProjectEnvResponseVariant1ContentHintVariant3TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    #[serde(rename = "blob-read-write-token")]
+    #[default]
+    BlobReadWriteToken,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobReadWriteToken => "blob-read-write-token",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum::BlobReadWriteToken => {
+                f.write_str("blob-read-write-token")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectEnvResponseVariant1ContentHintVariant4 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant4 {
+    pub fn new(
+        store_id: String,
+        type_: GetProjectEnvResponseVariant1ContentHintVariant4TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    #[serde(rename = "blob-store-id")]
+    #[default]
+    BlobStoreId,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BlobStoreId => "blob-store-id",
+        }
+    }
+}
+
+impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum::BlobStoreId => {
+                f.write_str("blob-store-id")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectEnvResponseVariant1ContentHintVariant5 {
+    #[serde(rename = "storeId")]
+    pub store_id: String,
+    #[serde(rename = "type")]
+    pub type_: GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
+}
+
+impl GetProjectEnvResponseVariant1ContentHintVariant5 {
+    pub fn new(
+        store_id: String,
+        type_: GetProjectEnvResponseVariant1ContentHintVariant5TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum GetProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
+    #[serde(rename = "blob-webhook-public-key")]
+    #[default]
+    BlobWebhookPublicKey,
+}
+
 impl GetProjectEnvResponseVariant1ContentHintVariant6TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -372,125 +498,4 @@ impl GetProjectEnvResponseVariant1ContentHintVariant14 {
     ) -> Self {
         Self { store_id, type_ }
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
-    #[serde(rename = "integration-store-secret")]
-    #[default]
-    IntegrationStoreSecret,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::IntegrationStoreSecret => "integration-store-secret",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum::IntegrationStoreSecret => {
-                f.write_str("integration-store-secret")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1ContentHintVariant15 {
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    #[serde(rename = "integrationProductId")]
-    pub integration_product_id: String,
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant15 {
-    pub fn new(
-        integration_configuration_id: String,
-        integration_id: String,
-        integration_product_id: String,
-        store_id: String,
-        type_: GetProjectEnvResponseVariant1ContentHintVariant15TypeEnum,
-    ) -> Self {
-        Self {
-            integration_configuration_id,
-            integration_id,
-            integration_product_id,
-            store_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
-    #[serde(rename = "flags-connection-string")]
-    #[default]
-    FlagsConnectionString,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FlagsConnectionString => "flags-connection-string",
-        }
-    }
-}
-
-impl std::fmt::Display for GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum::FlagsConnectionString => {
-                f.write_str("flags-connection-string")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectEnvResponseVariant1ContentHintVariant16 {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "type")]
-    pub type_: GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
-}
-
-impl GetProjectEnvResponseVariant1ContentHintVariant16 {
-    pub fn new(
-        project_id: String,
-        type_: GetProjectEnvResponseVariant1ContentHintVariant16TypeEnum,
-    ) -> Self {
-        Self { project_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetProjectEnvResponseVariant1ContentHint {
-    RedisUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant0>),
-    RedisRestApiUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant1>),
-    RedisRestApiToken(Box<GetProjectEnvResponseVariant1ContentHintVariant2>),
-    RedisRestApiReadOnlyToken(Box<GetProjectEnvResponseVariant1ContentHintVariant3>),
-    BlobReadWriteToken(Box<GetProjectEnvResponseVariant1ContentHintVariant4>),
-    BlobStoreId(Box<GetProjectEnvResponseVariant1ContentHintVariant5>),
-    BlobWebhookPublicKey(Box<GetProjectEnvResponseVariant1ContentHintVariant6>),
-    PostgresUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant7>),
-    PostgresUrlNonPooling(Box<GetProjectEnvResponseVariant1ContentHintVariant8>),
-    PostgresPrismaUrl(Box<GetProjectEnvResponseVariant1ContentHintVariant9>),
-    PostgresUser(Box<GetProjectEnvResponseVariant1ContentHintVariant10>),
-    PostgresHost(Box<GetProjectEnvResponseVariant1ContentHintVariant11>),
-    PostgresPassword(Box<GetProjectEnvResponseVariant1ContentHintVariant12>),
-    PostgresDatabase(Box<GetProjectEnvResponseVariant1ContentHintVariant13>),
-    PostgresUrlNoSsl(Box<GetProjectEnvResponseVariant1ContentHintVariant14>),
-    IntegrationStoreSecret(Box<GetProjectEnvResponseVariant1ContentHintVariant15>),
-    FlagsConnectionString(Box<GetProjectEnvResponseVariant1ContentHintVariant16>),
 }

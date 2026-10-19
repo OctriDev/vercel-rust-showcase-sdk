@@ -3,6 +3,37 @@
 
 // deployments domain models (part 4)
 
+impl ::std::convert::From<f64> for CancelDeploymentResponseGitSourceVariant4RepoId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseGitSourceVariant4TypeEnum {
+    #[default]
+    GithubLimited,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseGitSourceVariant4TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::GithubLimited => "github-limited",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CancelDeploymentResponseGitSourceVariant4TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant4TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -176,6 +207,18 @@ impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant6P
                 "no CancelDeploymentResponseGitSourceVariant6ProjectId branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<String> for CancelDeploymentResponseGitSourceVariant6ProjectId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for CancelDeploymentResponseGitSourceVariant6ProjectId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
@@ -464,56 +507,4 @@ pub struct CancelDeploymentResponseGitSourceVariant9CommitMetadata {
     pub author: CancelDeploymentResponseGitSourceVariant9CommitMetadataAuthor,
     pub committer: CancelDeploymentResponseGitSourceVariant9CommitMetadataCommitter,
     pub message: String,
-}
-
-impl CancelDeploymentResponseGitSourceVariant9CommitMetadata {
-    pub fn new(
-        author: CancelDeploymentResponseGitSourceVariant9CommitMetadataAuthor,
-        committer: CancelDeploymentResponseGitSourceVariant9CommitMetadataCommitter,
-        message: String,
-    ) -> Self {
-        Self {
-            author,
-            committer,
-            message,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CancelDeploymentResponseGitSourceVariant9TypeEnum {
-    #[default]
-    Vercel,
-    Unknown(String),
-}
-
-impl CancelDeploymentResponseGitSourceVariant9TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Vercel => "vercel",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseGitSourceVariant9TypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseGitSourceVariant9TypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "vercel" => Self::Vercel,
-            _ => Self::Unknown(value),
-        })
-    }
 }

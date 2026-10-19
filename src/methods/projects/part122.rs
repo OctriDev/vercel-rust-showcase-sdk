@@ -3,156 +3,58 @@
 
 use super::*;
 
-impl serde::Serialize for CreateProjectResponseNodeVersionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseNodeVersionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "10.x" => Self::_10X,
-            "12.x" => Self::_12X,
-            "14.x" => Self::_14X,
-            "16.x" => Self::_16X,
-            "18.x" => Self::_18X,
-            "20.x" => Self::_20X,
-            "22.x" => Self::_22X,
-            "24.x" => Self::_24X,
-            "26.x" => Self::_26X,
-            "8.10.x" => Self::_810X,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseNodeVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseOidcTokenConfigIssuerModeEnum {
-    #[default]
-    Global,
-    Team,
-    Unknown(String),
-}
-
-impl CreateProjectResponseOidcTokenConfigIssuerModeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Global => "global",
-            Self::Team => "team",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseOidcTokenConfigIssuerModeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseOidcTokenConfigIssuerModeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "global" => Self::Global,
-            "team" => Self::Team,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseOidcTokenConfigIssuerModeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseOidcTokenConfig {
-    /// Whether or not to generate OpenID Connect JSON Web Tokens.
+pub struct CreateProjectResponseJobs {
+    #[serde(
+        rename = "flag-definitions-present",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub flag_definitions_present: Option<CreateProjectResponseJobsFlagdefinitionspresent>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    /// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
-    #[serde(rename = "issuerMode", skip_serializing_if = "Option::is_none")]
-    pub issuer_mode: Option<CreateProjectResponseOidcTokenConfigIssuerModeEnum>,
+    pub lint: Option<CreateProjectResponseJobsLint>,
+    #[serde(rename = "mfe-config-present", skip_serializing_if = "Option::is_none")]
+    pub mfe_config_present: Option<CreateProjectResponseJobsMfeconfigpresent>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub typecheck: Option<CreateProjectResponseJobsTypecheck>,
 }
 
-impl CreateProjectResponseOidcTokenConfig {
+impl CreateProjectResponseJobs {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            enabled: None,
-            issuer_mode: None,
+            flag_definitions_present: None,
+            lint: None,
+            mfe_config_present: None,
+            typecheck: None,
         }
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseOptionsAllowlistPathsItem {
-    pub value: String,
-}
-
-impl CreateProjectResponseOptionsAllowlistPathsItem {
-    pub fn new(value: String) -> Self {
-        Self { value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseOptionsAllowlist {
-    pub paths: Vec<CreateProjectResponseOptionsAllowlistPathsItem>,
-}
-
-impl CreateProjectResponseOptionsAllowlist {
-    pub fn new(paths: Vec<CreateProjectResponseOptionsAllowlistPathsItem>) -> Self {
-        Self { paths }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponsePassportDeploymentTypeEnum {
+pub enum CreateProjectResponseLastAliasRequestJobStatusEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    Failed,
+    InProgress,
+    Pending,
+    Skipped,
+    Succeeded,
     Unknown(String),
 }
 
-impl CreateProjectResponsePassportDeploymentTypeEnum {
+impl CreateProjectResponseLastAliasRequestJobStatusEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Failed => "failed",
+            Self::InProgress => "in-progress",
+            Self::Pending => "pending",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponsePassportDeploymentTypeEnum {
+impl serde::Serialize for CreateProjectResponseLastAliasRequestJobStatusEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -161,71 +63,190 @@ impl serde::Serialize for CreateProjectResponsePassportDeploymentTypeEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponsePassportDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseLastAliasRequestJobStatusEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "failed" => Self::Failed,
+            "in-progress" => Self::InProgress,
+            "pending" => Self::Pending,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponsePassportDeploymentTypeEnum {
+impl std::fmt::Display for CreateProjectResponseLastAliasRequestJobStatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseLastAliasRequestTypeEnum {
+    #[default]
+    Promote,
+    Rollback,
+    Unknown(String),
+}
+
+impl CreateProjectResponseLastAliasRequestTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promote => "promote",
+            Self::Rollback => "rollback",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseLastAliasRequestTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseLastAliasRequestTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "promote" => Self::Promote,
+            "rollback" => Self::Rollback,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseLastAliasRequestTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponsePassport {
-    #[serde(rename = "connectorId")]
-    pub connector_id: String,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: CreateProjectResponsePassportDeploymentTypeEnum,
+pub struct CreateProjectResponseLastAliasRequest {
+    #[serde(rename = "fromDeploymentId", deserialize_with = "Option::deserialize")]
+    pub from_deployment_id: Option<String>,
+    /// If rolling back from a rolling release, fromDeploymentId captures the "base" of that rolling release, and fromRollingReleaseId captures the "target" of that rolling release.
+    #[serde(
+        rename = "fromRollingReleaseId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub from_rolling_release_id: Option<String>,
+    #[serde(rename = "jobStatus")]
+    pub job_status: CreateProjectResponseLastAliasRequestJobStatusEnum,
+    #[serde(rename = "requestedAt")]
+    pub requested_at: f64,
+    #[serde(rename = "toDeploymentId")]
+    pub to_deployment_id: String,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseLastAliasRequestTypeEnum,
 }
 
-impl CreateProjectResponsePassport {
+impl CreateProjectResponseLastAliasRequest {
     pub fn new(
-        connector_id: String,
-        deployment_type: CreateProjectResponsePassportDeploymentTypeEnum,
+        from_deployment_id: Option<String>,
+        job_status: CreateProjectResponseLastAliasRequestJobStatusEnum,
+        requested_at: f64,
+        to_deployment_id: String,
+        type_: CreateProjectResponseLastAliasRequestTypeEnum,
     ) -> Self {
         Self {
-            connector_id,
-            deployment_type,
+            from_deployment_id,
+            from_rolling_release_id: None,
+            job_status,
+            requested_at,
+            to_deployment_id,
+            type_,
         }
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateProjectResponseLatestDeploymentsItemAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseLatestDeploymentsItemAliasAssigned {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseLatestDeploymentsItemAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for CreateProjectResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for CreateProjectResponseLatestDeploymentsItemAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseLatestDeploymentsItemAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl CreateProjectResponseLatestDeploymentsItemAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponsePasswordProtectionDeploymentTypeEnum {
+pub enum CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl CreateProjectResponsePasswordProtectionDeploymentTypeEnum {
+impl CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateProjectResponsePasswordProtectionDeploymentTypeEnum {
+impl serde::Serialize for CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -234,37 +255,43 @@ impl serde::Serialize for CreateProjectResponsePasswordProtectionDeploymentTypeE
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponsePasswordProtectionDeploymentTypeEnum {
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponsePasswordProtectionDeploymentTypeEnum {
+impl std::fmt::Display for CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// Password protection settings returned without the secret password hash.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponsePasswordProtection {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type: CreateProjectResponsePasswordProtectionDeploymentTypeEnum,
+pub struct CreateProjectResponseLatestDeploymentsItemBranchMatcher {
+    /// The pattern to match against branch names
+    pub pattern: String,
+    /// The type of matching to perform
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum,
 }
 
-impl CreateProjectResponsePasswordProtection {
-    pub fn new(deployment_type: CreateProjectResponsePasswordProtectionDeploymentTypeEnum) -> Self {
-        Self { deployment_type }
+impl CreateProjectResponseLatestDeploymentsItemBranchMatcher {
+    pub fn new(
+        pattern: String,
+        type_: CreateProjectResponseLatestDeploymentsItemBranchMatcherTypeEnum,
+    ) -> Self {
+        Self { pattern, type_ }
     }
 }

@@ -2,115 +2,306 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
+use crate::types::ListVercelCiInvocationAttemptsResponseAttemptsItemSource;
+
+impl
+    ::std::convert::From<Box<ListVercelCiInvocationAttemptsResponseAttemptsItemStatusVariant10Enum>>
+    for ListVercelCiInvocationAttemptsResponseAttemptsItemStatus
+{
+    fn from(
+        value: Box<ListVercelCiInvocationAttemptsResponseAttemptsItemStatusVariant10Enum>,
+    ) -> Self {
+        Self::Object11(value)
+    }
+}
+
+impl
+    ::std::convert::From<Box<ListVercelCiInvocationAttemptsResponseAttemptsItemStatusVariant11Enum>>
+    for ListVercelCiInvocationAttemptsResponseAttemptsItemStatus
+{
+    fn from(
+        value: Box<ListVercelCiInvocationAttemptsResponseAttemptsItemStatusVariant11Enum>,
+    ) -> Self {
+        Self::Object12(value)
+    }
+}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiInvocationTreeResponseInvocationCompleted {
-    #[serde(rename = "completedAt")]
-    pub completed_at: f64,
+pub struct ListVercelCiInvocationAttemptsResponseAttemptsItem {
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    pub attempt: f64,
+    #[serde(rename = "teamId")]
+    pub team_id: String,
+    /// Typed representation of the `ListVercelCiInvocationAttemptsResponseAttemptsItemSource` API schema.
+    pub source: ListVercelCiInvocationAttemptsResponseAttemptsItemSource,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "repositoryKey")]
+    pub repository_key: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    #[serde(rename = "commitSha")]
+    pub commit_sha: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub conclusion: Option<GetVercelCiInvocationTreeResponseInvocationCompletedConclusion>,
+    pub skipped: Option<ListVercelCiInvocationAttemptsResponseAttemptsItemSkipped>,
+    #[serde(
+        rename = "bootstrappingStarted",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bootstrapping_started:
+        Option<ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingStarted>,
+    #[serde(
+        rename = "bootstrappingFailed",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub bootstrapping_failed:
+        Option<ListVercelCiInvocationAttemptsResponseAttemptsItemBootstrappingFailed>,
+    #[serde(rename = "sandboxSnapshotted", skip_serializing_if = "Option::is_none")]
+    pub sandbox_snapshotted:
+        Option<ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxSnapshotted>,
+    #[serde(rename = "sandboxNamed", skip_serializing_if = "Option::is_none")]
+    pub sandbox_named: Option<ListVercelCiInvocationAttemptsResponseAttemptsItemSandboxNamed>,
+    #[serde(
+        rename = "jobDefinitionsCreated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub job_definitions_created:
+        Option<ListVercelCiInvocationAttemptsResponseAttemptsItemJobDefinitionsCreated>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub completed: Option<ListVercelCiInvocationAttemptsResponseAttemptsItemCompleted>,
+    /// The terminal setup result. Omitted while invocation setup is still running.
+    #[serde(rename = "setupConclusion", skip_serializing_if = "Option::is_none")]
+    pub setup_conclusion: Option<ListVercelCiInvocationAttemptsResponseAttemptsItemSetupConclusion>,
+    /// The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
+    #[serde(rename = "runConclusion", skip_serializing_if = "Option::is_none")]
+    pub run_conclusion: Option<ListVercelCiInvocationAttemptsResponseAttemptsItemRunConclusion>,
+    pub status: ListVercelCiInvocationAttemptsResponseAttemptsItemStatus,
 }
 
-impl GetVercelCiInvocationTreeResponseInvocationCompleted {
-    pub fn new(completed_at: f64) -> Self {
+impl ListVercelCiInvocationAttemptsResponseAttemptsItem {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        invocation_id: String,
+        attempt: f64,
+        team_id: String,
+        source: ListVercelCiInvocationAttemptsResponseAttemptsItemSource,
+        created_at: f64,
+        repository_key: String,
+        ref_: String,
+        commit_sha: String,
+        status: ListVercelCiInvocationAttemptsResponseAttemptsItemStatus,
+    ) -> Self {
         Self {
-            completed_at,
-            conclusion: None,
+            invocation_id,
+            attempt,
+            team_id,
+            source,
+            created_at,
+            repository_key,
+            ref_,
+            commit_sha,
+            skipped: None,
+            bootstrapping_started: None,
+            bootstrapping_failed: None,
+            sandbox_snapshotted: None,
+            sandbox_named: None,
+            job_definitions_created: None,
+            completed: None,
+            setup_conclusion: None,
+            run_conclusion: None,
+            status,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListVercelCiInvocationAttemptsResponse {
+    pub attempts: Vec<ListVercelCiInvocationAttemptsResponseAttemptsItem>,
+    pub repositories: serde_json::Value,
+}
+
+impl ListVercelCiInvocationAttemptsResponse {
+    pub fn new(
+        attempts: Vec<ListVercelCiInvocationAttemptsResponseAttemptsItem>,
+        repositories: serde_json::Value,
+    ) -> Self {
+        Self {
+            attempts,
+            repositories,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationTreeResponseInvocationSkipped {
+    pub reason: String,
+}
+
+impl GetVercelCiInvocationTreeResponseInvocationSkipped {
+    pub fn new(reason: String) -> Self {
+        Self { reason }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationTreeResponseInvocationBootstrappingStarted {
+    #[serde(rename = "startedAt")]
+    pub started_at: f64,
+}
+
+impl GetVercelCiInvocationTreeResponseInvocationBootstrappingStarted {
+    pub fn new(started_at: f64) -> Self {
+        Self { started_at }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationTreeResponseInvocationBootstrappingFailed {
+    pub reason: String,
+}
+
+impl GetVercelCiInvocationTreeResponseInvocationBootstrappingFailed {
+    pub fn new(reason: String) -> Self {
+        Self { reason }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationTreeResponseInvocationSandboxSnapshotted {
+    #[serde(rename = "sandboxSnapshotId")]
+    pub sandbox_snapshot_id: String,
+    #[serde(rename = "workingDirectory")]
+    pub working_directory: String,
+    #[serde(rename = "snapshottedAt", skip_serializing_if = "Option::is_none")]
+    pub snapshotted_at: Option<f64>,
+}
+
+impl GetVercelCiInvocationTreeResponseInvocationSandboxSnapshotted {
+    pub fn new(sandbox_snapshot_id: String, working_directory: String) -> Self {
+        Self {
+            sandbox_snapshot_id,
+            working_directory,
+            snapshotted_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetVercelCiInvocationTreeResponseInvocationSandboxNamed {
+    #[serde(rename = "sandboxName")]
+    pub sandbox_name: String,
+    #[serde(rename = "workingDirectory")]
+    pub working_directory: String,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+}
+
+impl GetVercelCiInvocationTreeResponseInvocationSandboxNamed {
+    pub fn new(sandbox_name: String, working_directory: String) -> Self {
+        Self {
+            sandbox_name,
+            working_directory,
+            ready_at: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum {
-    #[serde(rename = "succeeded")]
+pub enum GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum {
+    #[serde(rename = "turbo-json")]
     #[default]
-    Succeeded,
+    TurboJson,
 }
 
-impl GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum {
+impl GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Succeeded => "succeeded",
+            Self::TurboJson => "turbo-json",
         }
     }
 }
 
 impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum
+    for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum::Succeeded => f.write_str("succeeded"),
+            GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum::TurboJson => f.write_str("turbo-json"),
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum {
-    #[serde(rename = "failed")]
+pub enum GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum {
+    #[serde(rename = "vercel-ci-config")]
     #[default]
-    Failed,
+    VercelCiConfig,
 }
 
-impl GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum {
+impl GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Failed => "failed",
+            Self::VercelCiConfig => "vercel-ci-config",
         }
     }
 }
 
 impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum
+    for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum::Failed => f.write_str("failed"),
+            GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum::VercelCiConfig => f.write_str("vercel-ci-config"),
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum {
-    #[serde(rename = "skipped")]
+pub enum GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum {
+    #[serde(rename = "project-settings")]
     #[default]
-    Skipped,
+    ProjectSettings,
 }
 
-impl GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum {
+impl GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Skipped => "skipped",
+            Self::ProjectSettings => "project-settings",
         }
     }
 }
 
 impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum
+    for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum::Skipped => f.write_str("skipped"),
+            GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum::ProjectSettings => f.write_str("project-settings"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum GetVercelCiInvocationTreeResponseInvocationSetupConclusionResult {
-    Object(Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum>),
-    Object2(Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum>),
-    Object3(Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum>),
+pub enum GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSource {
+    Object(Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>),
+    Object2(
+        Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
+    ),
+    Object3(
+        Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>,
+    ),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for GetVercelCiInvocationTreeResponseInvocationSetupConclusionResult
+    for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSource
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant0Enum>,
+            Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>,
         >(value.clone())
         {
             let candidate = Self::Object(branch);
@@ -120,7 +311,7 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant1Enum>,
+            Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
         >(value.clone())
         {
             let candidate = Self::Object2(branch);
@@ -130,7 +321,7 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationSetupConclusionResultVariant2Enum>,
+            Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant2Enum>,
         >(value.clone())
         {
             let candidate = Self::Object3(branch);
@@ -139,182 +330,34 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetVercelCiInvocationTreeResponseInvocationSetupConclusionResult branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSource branch accepts this payload"))
     }
 }
 
-/// The terminal setup result. Omitted while invocation setup is still running.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiInvocationTreeResponseInvocationSetupConclusion {
-    pub result: GetVercelCiInvocationTreeResponseInvocationSetupConclusionResult,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationSetupConclusion {
-    pub fn new(result: GetVercelCiInvocationTreeResponseInvocationSetupConclusionResult) -> Self {
-        Self { result }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum {
-    #[serde(rename = "succeeded")]
-    #[default]
-    Succeeded,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Succeeded => "succeeded",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum>,
+    > for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSource
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum::Succeeded => f.write_str("succeeded"),
-        }
+    fn from(
+        value: Box<
+            GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant0Enum,
+        >,
+    ) -> Self {
+        Self::Object(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum {
-    #[serde(rename = "failed")]
-    #[default]
-    Failed,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Failed => "failed",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum
+impl
+    ::std::convert::From<
+        Box<GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum>,
+    > for GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSource
 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum::Failed => {
-                f.write_str("failed")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum {
-    #[serde(rename = "skipped")]
-    #[default]
-    Skipped,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Skipped => "skipped",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum::Skipped => {
-                f.write_str("skipped")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetVercelCiInvocationTreeResponseInvocationRunConclusionResult {
-    Object(Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum>),
-    Object2(Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum>),
-    Object3(Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetVercelCiInvocationTreeResponseInvocationRunConclusionResult
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant0Enum>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant1Enum>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<GetVercelCiInvocationTreeResponseInvocationRunConclusionResultVariant2Enum>,
-        >(value.clone())
-        {
-            let candidate = Self::Object3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetVercelCiInvocationTreeResponseInvocationRunConclusionResult branch accepts this payload"))
-    }
-}
-
-/// The aggregate outcome of every job in the invocation. Omitted while jobs are still running. Any failed job → "failed"; any (non-cascade) skipped job → "skipped"; else "succeeded". Present on completed invocations written after the field shipped; absent on older rows.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetVercelCiInvocationTreeResponseInvocationRunConclusion {
-    pub result: GetVercelCiInvocationTreeResponseInvocationRunConclusionResult,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationRunConclusion {
-    pub fn new(result: GetVercelCiInvocationTreeResponseInvocationRunConclusionResult) -> Self {
-        Self { result }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum GetVercelCiInvocationTreeResponseInvocationStatusVariant0Enum {
-    #[serde(rename = "new")]
-    #[default]
-    New,
-}
-
-impl GetVercelCiInvocationTreeResponseInvocationStatusVariant0Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::New => "new",
-        }
-    }
-}
-
-impl std::fmt::Display for GetVercelCiInvocationTreeResponseInvocationStatusVariant0Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            GetVercelCiInvocationTreeResponseInvocationStatusVariant0Enum::New => {
-                f.write_str("new")
-            }
-        }
+    fn from(
+        value: Box<
+            GetVercelCiInvocationTreeResponseInvocationJobDefinitionsCreatedSourceVariant1Enum,
+        >,
+    ) -> Self {
+        Self::Object2(value)
     }
 }

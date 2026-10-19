@@ -5,190 +5,139 @@ use super::*;
 use crate::client::ClientConfig;
 use crate::client::{sdk_request, RequestOptions, RequestOpts};
 use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{FlagsSdkKeyWithSecrets, Segment, UpdateFlagSegmentResponse};
+use crate::types::Flag;
+use crate::validation::{validate_items, validate_pattern, validate_range, LengthOpts, RangeOpts};
 
-#[derive(Debug, Clone, Default)]
-pub struct GetFlagSegmentParams {
+#[derive(Debug, Clone)]
+pub struct CreateFlagParams {
     pub project_id_or_name: String,
-    pub segment_id_or_slug: String,
-    pub with_metadata: Option<bool>,
+    pub slug: String,
+    pub kind: CreateFlagKindEnum,
+    pub environments: std::collections::HashMap<String, CreateFlagEnvironmentsValue>,
     pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Retrieves a feature flag segment from a project by its identifier or slug. Use `withMetadata` to control whether the response includes segment metadata.
-///
-/// Retrieve a feature flag segment by ID or slug.
-///
-/// # Arguments
-///
-/// * `project_id_or_name` - The project id or name
-/// * `segment_id_or_slug` - The segment slug
-/// * `with_metadata` - Whether to include metadata
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_flag_segment(
-    config: &ClientConfig,
-    params: GetFlagSegmentParams,
-    options: Option<&RequestOptions>,
-) -> Result<Segment, SdkError> {
-    let GetFlagSegmentParams {
-        project_id_or_name,
-        segment_id_or_slug,
-        with_metadata,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = with_metadata {
-        __query.push(("withMetadata", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<Segment>(
-        "GET",
-        &format!(
-            "/v1/projects/{}/feature-flags/segments/{}",
-            crate::client::encode_path_segment(&project_id_or_name),
-            crate::client::encode_path_segment(&segment_id_or_slug)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_flag_segment",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct DeleteFlagSegmentParams {
-    pub project_id_or_name: String,
-    pub segment_id_or_slug: String,
-    pub with_metadata: Option<bool>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-}
-
-/// Deletes a feature flag segment from a project. Use `projectIdOrName` and `segmentIdOrSlug` to identify the project and segment to remove. Set `withMetadata` to include metadata in the response when the operation returns a representation.
-///
-/// Delete a feature flag segment.
-///
-/// # Arguments
-///
-/// * `project_id_or_name` - The project id or name
-/// * `segment_id_or_slug` - The segment slug
-/// * `with_metadata` - Whether to include metadata
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_flag_segment(
-    config: &ClientConfig,
-    params: DeleteFlagSegmentParams,
-    options: Option<&RequestOptions>,
-) -> Result<serde_json::Value, SdkError> {
-    let DeleteFlagSegmentParams {
-        project_id_or_name,
-        segment_id_or_slug,
-        with_metadata,
-        team_id,
-        slug,
-    } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = with_metadata {
-        __query.push(("withMetadata", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<serde_json::Value>(
-        "DELETE",
-        &format!(
-            "/v1/projects/{}/feature-flags/segments/{}",
-            crate::client::encode_path_segment(&project_id_or_name),
-            crate::client::encode_path_segment(&segment_id_or_slug)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "delete_flag_segment",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone, Default)]
-pub struct UpdateFlagSegmentParams {
-    pub project_id_or_name: String,
-    pub segment_id_or_slug: String,
-    pub with_metadata: Option<bool>,
-    pub team_id: Option<String>,
-    pub slug: Option<String>,
-    pub operations: Option<Vec<UpdateFlagSegmentOperationsItem>>,
-    pub label: Option<String>,
+    pub slug_2: Option<String>,
+    pub variants: Option<Vec<CreateFlagVariantsItem>>,
+    pub seed: Option<f64>,
     pub description: Option<String>,
-    pub data: Option<UpdateFlagSegmentData>,
-    pub hint: Option<String>,
+    pub state: Option<CreateFlagStateEnum>,
+    pub maintainer_ids: Option<Vec<String>>,
+    pub permanent: Option<bool>,
+    pub tags: Option<Vec<String>>,
 }
 
-/// Updates an existing feature flag segment in a project. Use `projectIdOrName` and `segmentIdOrSlug` to identify the project and segment, and send only the segment properties you want to change. The `operations` entries can add or remove values from the segment's include or exclude fields.
+/// Creates a feature flag for a project with a unique project-level slug, a flag kind, and environment configuration. Supply `slug`, `kind`, and `environments`; the flag kind must be boolean, string, number, or JSON. Configure optional variants, state, maintainers, and tags as needed.
 ///
-/// Update an existing feature flag segment.
+/// Create a new feature flag for a project. The flag must have a unique slug within the project and specify its kind (boolean, string, number, or json).
 ///
 /// # Arguments
 ///
 /// * `project_id_or_name` - The project id or name
-/// * `segment_id_or_slug` - The segment slug
-/// * `with_metadata` - Whether to include metadata
+/// * `slug` - A unique (per project) key for the flag, composed of letters,
+///   numbers, dashes, and underscores
+/// * `kind` - The kind of flag
+/// * `environments` - The configuration for the flag in different environments
 /// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-/// * `data` - The data of the segment
-pub fn update_flag_segment(
+/// * `slug_2` - The Team slug to perform the request on behalf of.
+/// * `variants` - The variants of the flag
+/// * `seed` - A random seed to prevent split points in different flags from
+///   having the same targets
+/// * `description` - A description of the flag
+/// * `maintainer_ids` - The user ids of the maintainers of the flag
+/// * `permanent` - Whether this flag is marked as permanent, indicating it
+///   should not be removed
+/// * `tags` - Tags for categorizing the flag
+pub fn create_flag(
     config: &ClientConfig,
-    params: UpdateFlagSegmentParams,
+    params: CreateFlagParams,
     options: Option<&RequestOptions>,
-) -> Result<UpdateFlagSegmentResponse, SdkError> {
-    let UpdateFlagSegmentParams {
+) -> Result<CreateFlagResponse, SdkError> {
+    let CreateFlagParams {
         project_id_or_name,
-        segment_id_or_slug,
-        with_metadata,
-        team_id,
         slug,
-        operations,
-        label,
+        kind,
+        environments,
+        team_id,
+        slug_2,
+        variants,
+        seed,
         description,
-        data,
-        hint,
+        state,
+        maintainer_ids,
+        permanent,
+        tags,
     } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(3);
-    if let Some(ref v) = with_metadata {
-        __query.push(("withMetadata", crate::client::query_value(v)));
+    validate_pattern("slug", &slug, "^[a-zA-Z0-9_-]{1,512}$")?;
+    if let Some(ref seed_v) = seed {
+        validate_range(
+            "seed",
+            *seed_v,
+            RangeOpts {
+                min: Some(0_f64),
+                max: Some(100000_f64),
+                ..Default::default()
+            },
+        )?;
     }
+    if let Some(ref maintainer_ids_v) = maintainer_ids {
+        validate_items(
+            "maintainerIds",
+            maintainer_ids_v,
+            LengthOpts {
+                max: Some(5),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref tags_v) = tags {
+        validate_items(
+            "tags",
+            tags_v,
+            LengthOpts {
+                max: Some(20),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
-    if let Some(ref v) = slug {
+    if let Some(ref v) = slug_2 {
         __query.push(("slug", crate::client::query_value(v)));
     }
 
     let mut __body_map = serde_json::Map::new();
-    if let Some(ref value) = operations {
+    __body_map.insert(
+        "slug".to_string(),
+        serde_json::to_value(slug).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "kind".to_string(),
+        serde_json::to_value(kind).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    __body_map.insert(
+        "environments".to_string(),
+        serde_json::to_value(environments).map_err(|e| {
+            SdkError::Network(SdkNetworkError {
+                message: format!("encode body field: {}", e),
+                request_id: None,
+            })
+        })?,
+    );
+    if let Some(ref value) = variants {
         __body_map.insert(
-            "operations".to_string(),
+            "variants".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -197,9 +146,9 @@ pub fn update_flag_segment(
             })?,
         );
     }
-    if let Some(ref value) = label {
+    if let Some(ref value) = seed {
         __body_map.insert(
-            "label".to_string(),
+            "seed".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -219,9 +168,9 @@ pub fn update_flag_segment(
             })?,
         );
     }
-    if let Some(ref value) = data {
+    if let Some(ref value) = state {
         __body_map.insert(
-            "data".to_string(),
+            "state".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -230,9 +179,31 @@ pub fn update_flag_segment(
             })?,
         );
     }
-    if let Some(ref value) = hint {
+    if let Some(ref value) = maintainer_ids {
         __body_map.insert(
-            "hint".to_string(),
+            "maintainerIds".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = permanent {
+        __body_map.insert(
+            "permanent".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = tags {
+        __body_map.insert(
+            "tags".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -243,19 +214,18 @@ pub fn update_flag_segment(
     }
     let __body = serde_json::Value::Object(__body_map);
 
-    Ok(sdk_request::<UpdateFlagSegmentResponse>(
-        "PATCH",
+    Ok(sdk_request::<CreateFlagResponse>(
+        "PUT",
         &format!(
-            "/v1/projects/{}/feature-flags/segments/{}",
-            crate::client::encode_path_segment(&project_id_or_name),
-            crate::client::encode_path_segment(&segment_id_or_slug)
+            "/v1/projects/{}/feature-flags/flags",
+            crate::client::encode_path_segment(&project_id_or_name)
         ),
         config,
         RequestOpts {
             query: &__query,
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "update_flag_segment",
+            operation_id: "create_flag",
             options,
             ..Default::default()
         },
@@ -263,122 +233,181 @@ pub fn update_flag_segment(
     .data)
 }
 
-/// Retrieves the feature flags associated with a deployment. Use `deploymentId` to identify the deployment whose flags you need. The response includes the flags and status information for the deployment.
-///
-/// Retrieve the feature flags of a deployment.
-///
-/// # Arguments
-///
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_deployment_feature_flags(
-    config: &ClientConfig,
-    deployment_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetDeploymentFeatureFlagsResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetDeploymentFeatureFlagsResponse>(
-        "GET",
-        &format!(
-            "/v1/deployments/{}/feature-flags",
-            crate::client::encode_path_segment(&deployment_id)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_deployment_feature_flags",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists the SDK keys for a project. Use `projectIdOrName` to select the project whose keys you want to inspect. The response contains safe key metadata and does not include cleartext secrets.
-///
-/// Gets all SDK keys for a project.
-///
-/// # Arguments
-///
-/// * `project_id_or_name` - The project id or name
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn get_sdk_keys(
-    config: &ClientConfig,
-    project_id_or_name: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetSdkKeysResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetSdkKeysResponse>(
-        "GET",
-        &format!(
-            "/v1/projects/{}/feature-flags/sdk-keys",
-            crate::client::encode_path_segment(&project_id_or_name)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_sdk_keys",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-#[derive(Debug, Clone)]
-pub struct CreateSdkKeyParams {
+#[derive(Debug, Clone, Default)]
+pub struct GetFlagParams {
     pub project_id_or_name: String,
-    pub sdk_key_type: CreateSdkKeySdkKeyTypeEnum,
-    pub environment: String,
+    pub flag_id_or_slug: String,
+    pub if_match: Option<String>,
+    pub with_metadata: Option<bool>,
     pub team_id: Option<String>,
     pub slug: Option<String>,
-    pub label: Option<String>,
 }
 
-/// Creates an SDK key for a project. Supply `sdkKeyType` and `environment` in the request body, and optionally provide a `label` to identify the key. The response includes the cleartext key value, which is disclosed only when the key is created.
+/// Retrieves a feature flag by its ID or slug within a project. Use `ifMatch` to send an ETag condition and `withMetadata` to include metadata in the response. The result contains the flag configuration, including its environments, variants, and current state.
 ///
-/// Creates an SDK key.
+/// Retrieve a specific feature flag by its ID or slug.
 ///
 /// # Arguments
 ///
 /// * `project_id_or_name` - The project id or name
+/// * `flag_id_or_slug` - The flag id or name
+/// * `if_match` - Etag to match, can be used interchangeably with the
+///   `if-match` header
+/// * `with_metadata` - Whether to include metadata in the response
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn create_sdk_key(
+pub fn get_flag(
     config: &ClientConfig,
-    params: CreateSdkKeyParams,
+    params: GetFlagParams,
     options: Option<&RequestOptions>,
-) -> Result<FlagsSdkKeyWithSecrets, SdkError> {
-    let CreateSdkKeyParams {
+) -> Result<Flag, SdkError> {
+    let GetFlagParams {
         project_id_or_name,
-        sdk_key_type,
-        environment,
+        flag_id_or_slug,
+        if_match,
+        with_metadata,
         team_id,
         slug,
-        label,
     } = params;
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
+    if let Some(ref v) = if_match {
+        __query.push(("ifMatch", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = with_metadata {
+        __query.push(("withMetadata", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = team_id {
+        __query.push(("teamId", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = slug {
+        __query.push(("slug", crate::client::query_value(v)));
+    }
+
+    Ok(sdk_request::<Flag>(
+        "GET",
+        &format!(
+            "/v1/projects/{}/feature-flags/flags/{}",
+            crate::client::encode_path_segment(&project_id_or_name),
+            crate::client::encode_path_segment(&flag_id_or_slug)
+        ),
+        config,
+        RequestOpts {
+            query: &__query,
+            decoder: crate::client::ResponseDecoder::Json,
+            operation_id: "get_flag",
+            options,
+            ..Default::default()
+        },
+    )?
+    .data)
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct UpdateFlagParams {
+    pub project_id_or_name: String,
+    pub flag_id_or_slug: String,
+    pub if_match: Option<String>,
+    pub with_metadata: Option<bool>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub created_by: Option<String>,
+    pub message: Option<String>,
+    pub variants: Option<Vec<UpdateFlagVariantsItem>>,
+    pub environments: Option<std::collections::HashMap<String, UpdateFlagEnvironmentsValue>>,
+    pub seed: Option<f64>,
+    pub description: Option<String>,
+    pub state: Option<UpdateFlagStateEnum>,
+    pub maintainer_ids: Option<Vec<String>>,
+    pub permanent: Option<bool>,
+    pub tags: Option<Vec<String>>,
+}
+
+/// Updates selected properties of an existing feature flag without requiring the full configuration. Supply only the fields to change, such as `variants`, `environments`, or `state`; any environment configuration you provide must include its required settings. Use `ifMatch` when you need to condition the update on an ETag.
+///
+/// Update an existing feature flag. This endpoint supports partial updates, allowing you to modify specific properties like variants, environments, or state without providing the full flag configuration.
+///
+/// # Arguments
+///
+/// * `project_id_or_name` - The project id or name
+/// * `flag_id_or_slug` - The flag id or name
+/// * `if_match` - Etag to match, can be used interchangeably with the
+///   `if-match` header
+/// * `with_metadata` - Whether to include metadata in the response
+/// * `team_id` - The Team identifier to perform the request on behalf of.
+/// * `slug` - The Team slug to perform the request on behalf of.
+/// * `created_by` - The user who created this patch
+/// * `message` - Additional message for this version
+/// * `variants` - The variants of the flag
+/// * `environments` - The configuration for the flag in different environments
+/// * `seed` - A random seed to prevent split points in different flags from
+///   having the same targets
+/// * `description` - A description of the flag
+/// * `maintainer_ids` - The user ids of the maintainers of the flag
+/// * `permanent` - Whether this flag is marked as permanent, indicating it
+///   should not be removed
+/// * `tags` - Tags for categorizing the flag
+pub fn update_flag(
+    config: &ClientConfig,
+    params: UpdateFlagParams,
+    options: Option<&RequestOptions>,
+) -> Result<UpdateFlagResponse, SdkError> {
+    let UpdateFlagParams {
+        project_id_or_name,
+        flag_id_or_slug,
+        if_match,
+        with_metadata,
+        team_id,
+        slug,
+        created_by,
+        message,
+        variants,
+        environments,
+        seed,
+        description,
+        state,
+        maintainer_ids,
+        permanent,
+        tags,
+    } = params;
+    if let Some(ref seed_v) = seed {
+        validate_range(
+            "seed",
+            *seed_v,
+            RangeOpts {
+                min: Some(0_f64),
+                max: Some(100000_f64),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref maintainer_ids_v) = maintainer_ids {
+        validate_items(
+            "maintainerIds",
+            maintainer_ids_v,
+            LengthOpts {
+                max: Some(5),
+                ..Default::default()
+            },
+        )?;
+    }
+    if let Some(ref tags_v) = tags {
+        validate_items(
+            "tags",
+            tags_v,
+            LengthOpts {
+                max: Some(20),
+                ..Default::default()
+            },
+        )?;
+    }
+
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
+    if let Some(ref v) = if_match {
+        __query.push(("ifMatch", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = with_metadata {
+        __query.push(("withMetadata", crate::client::query_value(v)));
+    }
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
@@ -387,27 +416,108 @@ pub fn create_sdk_key(
     }
 
     let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "sdkKeyType".to_string(),
-        serde_json::to_value(sdk_key_type).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    __body_map.insert(
-        "environment".to_string(),
-        serde_json::to_value(environment).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    if let Some(ref value) = label {
+    if let Some(ref value) = created_by {
         __body_map.insert(
-            "label".to_string(),
+            "createdBy".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = message {
+        __body_map.insert(
+            "message".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = variants {
+        __body_map.insert(
+            "variants".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = environments {
+        __body_map.insert(
+            "environments".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = seed {
+        __body_map.insert(
+            "seed".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = description {
+        __body_map.insert(
+            "description".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = state {
+        __body_map.insert(
+            "state".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = maintainer_ids {
+        __body_map.insert(
+            "maintainerIds".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = permanent {
+        __body_map.insert(
+            "permanent".to_string(),
+            serde_json::to_value(value).map_err(|e| {
+                SdkError::Network(SdkNetworkError {
+                    message: format!("encode body field: {}", e),
+                    request_id: None,
+                })
+            })?,
+        );
+    }
+    if let Some(ref value) = tags {
+        __body_map.insert(
+            "tags".to_string(),
             serde_json::to_value(value).map_err(|e| {
                 SdkError::Network(SdkNetworkError {
                     message: format!("encode body field: {}", e),
@@ -418,18 +528,19 @@ pub fn create_sdk_key(
     }
     let __body = serde_json::Value::Object(__body_map);
 
-    Ok(sdk_request::<FlagsSdkKeyWithSecrets>(
-        "PUT",
+    Ok(sdk_request::<UpdateFlagResponse>(
+        "PATCH",
         &format!(
-            "/v1/projects/{}/feature-flags/sdk-keys",
-            crate::client::encode_path_segment(&project_id_or_name)
+            "/v1/projects/{}/feature-flags/flags/{}",
+            crate::client::encode_path_segment(&project_id_or_name),
+            crate::client::encode_path_segment(&flag_id_or_slug)
         ),
         config,
         RequestOpts {
             query: &__query,
             body: Some(__body),
             decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "create_sdk_key",
+            operation_id: "update_flag",
             options,
             ..Default::default()
         },
@@ -437,25 +548,49 @@ pub fn create_sdk_key(
     .data)
 }
 
-/// Deletes an SDK key from a project. Use `projectIdOrName` and `hashKey` to identify the project and key to remove. The operation removes the key rather than merely hiding it from the project’s key list.
+#[derive(Debug, Clone, Default)]
+pub struct DeleteFlagParams {
+    pub project_id_or_name: String,
+    pub flag_id_or_slug: String,
+    pub if_match: Option<String>,
+    pub with_metadata: Option<bool>,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
+/// Deletes a feature flag from a project permanently. Use this operation only when you no longer need the flag, because deletion cannot be undone; archive the flag instead if you may need it later. A 204 response has no response body.
 ///
-/// Deletes an SDK key.
+/// Permanently delete a feature flag from the project. This action cannot be undone. Consider archiving the flag instead if you may need it in the future.
 ///
 /// # Arguments
 ///
 /// * `project_id_or_name` - The project id or name
-/// * `hash_key` - The SDK key hash key to delete
+/// * `flag_id_or_slug` - The flag id or name
+/// * `if_match` - Etag to match, can be used interchangeably with the
+///   `if-match` header
+/// * `with_metadata` - Whether to include metadata in the response
 /// * `team_id` - The Team identifier to perform the request on behalf of.
 /// * `slug` - The Team slug to perform the request on behalf of.
-pub fn delete_sdk_key(
+pub fn delete_flag(
     config: &ClientConfig,
-    project_id_or_name: String,
-    hash_key: String,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: DeleteFlagParams,
     options: Option<&RequestOptions>,
 ) -> Result<serde_json::Value, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
+    let DeleteFlagParams {
+        project_id_or_name,
+        flag_id_or_slug,
+        if_match,
+        with_metadata,
+        team_id,
+        slug,
+    } = params;
+    let mut __query: Vec<(&str, String)> = Vec::with_capacity(4);
+    if let Some(ref v) = if_match {
+        __query.push(("ifMatch", crate::client::query_value(v)));
+    }
+    if let Some(ref v) = with_metadata {
+        __query.push(("withMetadata", crate::client::query_value(v)));
+    }
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
     }
@@ -466,15 +601,15 @@ pub fn delete_sdk_key(
     Ok(sdk_request::<serde_json::Value>(
         "DELETE",
         &format!(
-            "/v1/projects/{}/feature-flags/sdk-keys/{}",
+            "/v1/projects/{}/feature-flags/flags/{}",
             crate::client::encode_path_segment(&project_id_or_name),
-            crate::client::encode_path_segment(&hash_key)
+            crate::client::encode_path_segment(&flag_id_or_slug)
         ),
         config,
         RequestOpts {
             query: &__query,
             decoder: crate::client::ResponseDecoder::Empty,
-            operation_id: "delete_sdk_key",
+            operation_id: "delete_flag",
             options,
             ..Default::default()
         },

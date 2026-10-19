@@ -3,7 +3,43 @@
 
 use super::*;
 
-impl serde::Serialize for EditProjectEnvResponseTargetVariant0ItemEnum {
+impl ::std::convert::From<Vec<CreateProjectEnvResponseFailedItemErrorTargetVariant0ItemEnum>>
+    for CreateProjectEnvResponseFailedItemErrorTarget
+{
+    fn from(value: Vec<CreateProjectEnvResponseFailedItemErrorTargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<CreateProjectEnvResponseFailedItemErrorTargetVariant1Enum>
+    for CreateProjectEnvResponseFailedItemErrorTarget
+{
+    fn from(value: CreateProjectEnvResponseFailedItemErrorTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum {
+    #[default]
+    Production,
+    Preview,
+    Development,
+    Unknown(String),
+}
+
+impl CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Production => "production",
+            Self::Preview => "preview",
+            Self::Development => "development",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -12,29 +48,216 @@ impl serde::Serialize for EditProjectEnvResponseTargetVariant0ItemEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTargetVariant0ItemEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
             "production" => Self::Production,
+            "preview" => Self::Preview,
+            "development" => Self::Development,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for EditProjectEnvResponseTargetVariant0ItemEnum {
+impl std::fmt::Display for CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateProjectEnvResponseFailedItemErrorValue {
+    String(String),
+    Variant1ItemEnumArray(Vec<CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseFailedItemErrorValue {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Vec<CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum>,
+        >(value.clone())
+        {
+            let candidate = Self::Variant1ItemEnumArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateProjectEnvResponseFailedItemErrorValue branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<String> for CreateProjectEnvResponseFailedItemErrorValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum>>
+    for CreateProjectEnvResponseFailedItemErrorValue
+{
+    fn from(value: Vec<CreateProjectEnvResponseFailedItemErrorValueVariant1ItemEnum>) -> Self {
+        Self::Variant1ItemEnumArray(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectEnvResponseFailedItemError {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<String>,
+    pub code: String,
+    #[serde(rename = "envVarId", skip_serializing_if = "Option::is_none")]
+    pub env_var_id: Option<String>,
+    #[serde(rename = "envVarKey", skip_serializing_if = "Option::is_none")]
+    pub env_var_key: Option<String>,
+    #[serde(rename = "gitBranch", skip_serializing_if = "Option::is_none")]
+    pub git_branch: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link: Option<String>,
+    pub message: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<CreateProjectEnvResponseFailedItemErrorTarget>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<CreateProjectEnvResponseFailedItemErrorValue>,
+}
+
+impl CreateProjectEnvResponseFailedItemError {
+    pub fn new(code: String, message: String) -> Self {
+        Self {
+            action: None,
+            code,
+            env_var_id: None,
+            env_var_key: None,
+            git_branch: None,
+            key: None,
+            link: None,
+            message,
+            project: None,
+            target: None,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectEnvResponseFailedItem {
+    pub error: CreateProjectEnvResponseFailedItemError,
+}
+
+impl CreateProjectEnvResponseFailedItem {
+    pub fn new(error: CreateProjectEnvResponseFailedItemError) -> Self {
+        Self { error }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectEnvResponse {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub created: Option<CreateProjectEnvResponseCreated>,
+    pub failed: Vec<CreateProjectEnvResponseFailedItem>,
+}
+
+impl CreateProjectEnvResponse {
+    pub fn new(failed: Vec<CreateProjectEnvResponseFailedItem>) -> Self {
+        Self {
+            created: None,
+            failed,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditProjectEnvResponseTargetVariant1Enum {
+pub enum RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
+}
+
+impl RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FlagsSecret => "flags-secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RemoveProjectEnvResponseVariant0ItemInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum,
+}
+
+impl RemoveProjectEnvResponseVariant0ItemInternalContentHint {
+    pub fn new(
+        encrypted_value: String,
+        type_: RemoveProjectEnvResponseVariant0ItemInternalContentHintTypeEnum,
+    ) -> Self {
+        Self {
+            encrypted_value,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum RemoveProjectEnvResponseVariant0ItemTargetVariant0ItemEnum {
     #[default]
     Development,
     Preview,
@@ -42,7 +265,7 @@ pub enum EditProjectEnvResponseTargetVariant1Enum {
     Unknown(String),
 }
 
-impl EditProjectEnvResponseTargetVariant1Enum {
+impl RemoveProjectEnvResponseVariant0ItemTargetVariant0ItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Development => "development",
@@ -53,7 +276,7 @@ impl EditProjectEnvResponseTargetVariant1Enum {
     }
 }
 
-impl serde::Serialize for EditProjectEnvResponseTargetVariant1Enum {
+impl serde::Serialize for RemoveProjectEnvResponseVariant0ItemTargetVariant0ItemEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -62,7 +285,7 @@ impl serde::Serialize for EditProjectEnvResponseTargetVariant1Enum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTargetVariant1Enum {
+impl<'de> serde::Deserialize<'de> for RemoveProjectEnvResponseVariant0ItemTargetVariant0ItemEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -74,151 +297,5 @@ impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTargetVariant1Enum {
             "production" => Self::Production,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for EditProjectEnvResponseTargetVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum EditProjectEnvResponseTarget {
-    Variant0ItemEnumArray(Vec<EditProjectEnvResponseTargetVariant0ItemEnum>),
-    Literal(EditProjectEnvResponseTargetVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTarget {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<EditProjectEnvResponseTargetVariant0ItemEnum>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemEnumArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<EditProjectEnvResponseTargetVariant1Enum>(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no EditProjectEnvResponseTarget branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditProjectEnvResponseTypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl EditProjectEnvResponseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for EditProjectEnvResponseTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "secret" => Self::Secret,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for EditProjectEnvResponseTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum EditProjectEnvResponseVisibilityEnum {
-    #[default]
-    Config,
-    Secret,
-    Unknown(String),
-}
-
-impl EditProjectEnvResponseVisibilityEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Config => "config",
-            Self::Secret => "secret",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for EditProjectEnvResponseVisibilityEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for EditProjectEnvResponseVisibilityEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "config" => Self::Config,
-            "secret" => Self::Secret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for EditProjectEnvResponseVisibilityEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

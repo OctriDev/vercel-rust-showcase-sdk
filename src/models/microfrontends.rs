@@ -187,6 +187,30 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl
+    ::std::convert::From<
+        Box<GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0ViaVariant0>,
+    > for GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0ViaVariant0>,
+    ) -> Self {
+        Self::App(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        Box<GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0ViaVariant1>,
+    > for GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0ViaVariant1>,
+    ) -> Self {
+        Self::Integration(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct GetMicrofrontendsInGroupResponseProjectsItemCreatorVariant0User {
     pub id: String,
@@ -497,18 +521,5 @@ impl std::fmt::Display for GetMicrofrontendsInGroupResponseProjectsItemDeploymen
         match self {
             GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub target: GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
-    #[serde(rename = "type")]
-    pub type_: GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
-}
-
-impl GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
-    pub fn new(target: GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum, type_: GetMicrofrontendsInGroupResponseProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum) -> Self {
-        Self { target, type_ }
     }
 }

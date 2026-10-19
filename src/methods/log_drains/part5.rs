@@ -3,6 +3,40 @@
 
 use super::*;
 
+impl serde::Serialize
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "none" => Self::None,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3EncodingEnum {
     #[default]
@@ -278,44 +312,4 @@ pub struct ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3 {
     >,
     #[serde(rename = "type")]
     pub type_: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3TypeEnum,
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3 {
-    pub fn new(
-        compression: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3CompressionEnum,
-        encoding: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3EncodingEnum,
-        endpoint: String,
-        file_structure: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3FileStructureEnum,
-        region: String,
-        role_arn: String,
-        type_: ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant3TypeEnum,
-    ) -> Self {
-        Self {
-            compression,
-            encoding,
-            endpoint,
-            file_structure,
-            object_acl: None,
-            region,
-            role_arn,
-            server_side_encryption: None,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant4TargetEnum {
-    #[default]
-    VercelOtelTracesDb,
-    Unknown(String),
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant0ItemDeliveryVariant4TargetEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::VercelOtelTracesDb => "vercel-otel-traces-db",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

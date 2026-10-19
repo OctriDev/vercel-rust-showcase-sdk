@@ -3,172 +3,166 @@
 
 use super::*;
 
-/// The type of environment (production, preview, or development)
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseCustomEnvironmentsItemTypeEnum {
-    #[default]
-    Development,
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl GetProjectsResponseCustomEnvironmentsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Development => "development",
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetProjectsResponseCustomEnvironmentsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseCustomEnvironmentsItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "development" => Self::Development,
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetProjectsResponseCustomEnvironmentsItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Internal representation of a custom environment with all required properties
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseCustomEnvironmentsItem {
-    /// Configuration for matching git branches to this environment
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<GetProjectsResponseCustomEnvironmentsItemBranchMatcher>,
-    /// Timestamp when the environment was created
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// List of aliases for the current deployment
-    #[serde(
-        rename = "currentDeploymentAliases",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub current_deployment_aliases: Option<Vec<String>>,
-    /// Optional description of the environment's purpose
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// List of domains associated with this environment
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub domains: Option<Vec<GetProjectsResponseCustomEnvironmentsItemDomainsItem>>,
-    /// Unique identifier for the custom environment (format: env_\*)
-    pub id: String,
-    /// URL-friendly name of the environment
-    pub slug: String,
-    /// The type of environment (production, preview, or development)
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseCustomEnvironmentsItemTypeEnum,
-    /// Timestamp when the environment was last updated
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-}
-
-impl GetProjectsResponseCustomEnvironmentsItem {
+impl CreateProjectResponse {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
-        created_at: f64,
+        account_id: String,
+        alias: Vec<CreateProjectResponseAliasItem>,
+        default_resource_config: CreateProjectResponseDefaultResourceConfig,
+        deployment_expiration: CreateProjectResponseDeploymentExpiration,
+        directory_listing: bool,
         id: String,
-        slug: String,
-        type_: GetProjectsResponseCustomEnvironmentsItemTypeEnum,
-        updated_at: f64,
+        name: String,
+        node_version: CreateProjectResponseNodeVersionEnum,
+        resource_config: CreateProjectResponseResourceConfig,
     ) -> Self {
         Self {
-            branch_matcher: None,
-            created_at,
-            current_deployment_aliases: None,
-            description: None,
-            domains: None,
+            account_id,
+            alias,
+            analytics: None,
+            applied_cve55182_migration: None,
+            auto_assign_custom_domains: None,
+            auto_assign_custom_domains_updated_by: None,
+            auto_expose_system_envs: None,
+            avatar: None,
+            avatar_dark_mode: None,
+            blobs: None,
+            build_command: None,
+            command_for_ignoring_build_step: None,
+            concurrency_bucket_name: None,
+            connect_builds_enabled: None,
+            connect_configuration_id: None,
+            connect_configurations: None,
+            created_at: None,
+            creator: None,
+            crons: None,
+            custom_environments: None,
+            customer_support_code_visibility: None,
+            data_cache: None,
+            default_resource_config,
+            deployment_expiration,
+            deployment_policy: None,
+            dev_command: None,
+            directory_listing,
+            dismissed_toasts: None,
+            enable_affected_projects_deployments: None,
+            enable_external_rewrite_caching: None,
+            enable_preview_feedback: None,
+            enable_production_feedback: None,
+            env: None,
+            expiration: None,
+            features: None,
+            framework: None,
+            git_comments: None,
+            git_fork_protection: None,
+            git_lfs: None,
+            git_provider_options: None,
+            has_active_branches: None,
+            has_deployments: None,
             id,
-            slug,
-            type_,
-            updated_at,
+            install_command: None,
+            internal_routes: None,
+            ip_buckets: None,
+            jobs: None,
+            last_alias_request: None,
+            last_rollback_target: None,
+            latest_deployments: None,
+            link: None,
+            live: None,
+            microfrontends: None,
+            name,
+            node_version,
+            oidc_token_config: None,
+            options_allowlist: None,
+            output_directory: None,
+            passive_connect_configuration_id: None,
+            passport: None,
+            password_protection: None,
+            paused: None,
+            permissions: None,
+            production_deployments_fast_lane: None,
+            protected_sourcemaps: None,
+            protection_bypass: None,
+            protection_config: None,
+            resource_config,
+            rollback_description: None,
+            rolling_release: None,
+            root_directory: None,
+            sandbox: None,
+            security: None,
+            serverless_function_zero_config_failover: None,
+            services: None,
+            skew_protection_allowed_domains: None,
+            skew_protection_boundary_at: None,
+            skew_protection_max_age: None,
+            skip_git_connect_during_link: None,
+            source_files_outside_root_directory: None,
+            speed_insights: None,
+            sso_protection: None,
+            static_ips: None,
+            targets: None,
+            tier: None,
+            tracing: None,
+            transfer_completed_at: None,
+            transferred_from_account_id: None,
+            transfer_started_at: None,
+            transfer_to_account_id: None,
+            trusted_ips: None,
+            trusted_sources: None,
+            updated_at: None,
+            usage_status: None,
+            v0: None,
+            v0_created: None,
+            web_analytics: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDataCache {
-    #[serde(
-        rename = "storageSizeBytes",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub storage_size_bytes: Option<Option<f64>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub unlimited: Option<bool>,
-    #[serde(rename = "userDisabled")]
-    pub user_disabled: bool,
+pub struct GetProjectTokenResponse {
+    pub token: String,
 }
 
-impl GetProjectsResponseDataCache {
-    pub fn new(user_disabled: bool) -> Self {
-        Self {
-            storage_size_bytes: None,
-            unlimited: None,
-            user_disabled,
-        }
+impl GetProjectTokenResponse {
+    pub fn new(token: String) -> Self {
+        Self { token }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateTraceSessionResponse {
+    pub token: String,
+}
+
+impl CreateTraceSessionResponse {
+    pub fn new(token: String) -> Self {
+        Self { token }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+pub enum GetProjectsResponseAliasItemConfiguredByEnum {
     #[default]
-    BasicFloor,
-    BuildTimeoutFailure,
-    EnospcFailure,
-    EnterpriseFloor,
-    HighPeakDisk,
-    HighPeakMemory,
-    LongBuildDuration,
-    OomFailure,
-    ShortBuildDuration,
-    SustainedHighCpu,
+    A,
+    Cname,
+    Dns01,
+    Http,
     Unknown(String),
 }
 
-impl GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+impl GetProjectsResponseAliasItemConfiguredByEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::BasicFloor => "basic-floor",
-            Self::BuildTimeoutFailure => "build-timeout-failure",
-            Self::EnospcFailure => "enospc-failure",
-            Self::EnterpriseFloor => "enterprise-floor",
-            Self::HighPeakDisk => "high-peak-disk",
-            Self::HighPeakMemory => "high-peak-memory",
-            Self::LongBuildDuration => "long-build-duration",
-            Self::OomFailure => "oom-failure",
-            Self::ShortBuildDuration => "short-build-duration",
-            Self::SustainedHighCpu => "sustained-high-cpu",
+            Self::A => "A",
+            Self::Cname => "CNAME",
+            Self::Dns01 => "dns-01",
+            Self::Http => "http",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+impl serde::Serialize for GetProjectsResponseAliasItemConfiguredByEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -177,57 +171,103 @@ impl serde::Serialize for GetProjectsResponseDefaultResourceConfigBuildMachineEl
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum
-{
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemConfiguredByEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "basic-floor" => Self::BasicFloor,
-            "build-timeout-failure" => Self::BuildTimeoutFailure,
-            "enospc-failure" => Self::EnospcFailure,
-            "enterprise-floor" => Self::EnterpriseFloor,
-            "high-peak-disk" => Self::HighPeakDisk,
-            "high-peak-memory" => Self::HighPeakMemory,
-            "long-build-duration" => Self::LongBuildDuration,
-            "oom-failure" => Self::OomFailure,
-            "short-build-duration" => Self::ShortBuildDuration,
-            "sustained-high-cpu" => Self::SustainedHighCpu,
+            "A" => Self::A,
+            "CNAME" => Self::Cname,
+            "dns-01" => Self::Dns01,
+            "http" => Self::Http,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseDefaultResourceConfigBuildMachineElasticReasonEnum {
+impl std::fmt::Display for GetProjectsResponseAliasItemConfiguredByEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetProjectsResponseAliasItemDeploymentAliasAssigned {
+    Number(f64),
+    Bool(bool),
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentAliasAssigned {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<bool>(value.clone()) {
+            let candidate = Self::Bool(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetProjectsResponseAliasItemDeploymentAliasAssigned branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<f64> for GetProjectsResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool> for GetProjectsResponseAliasItemDeploymentAliasAssigned {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseAliasItemDeploymentAliasError {
+    pub code: String,
+    pub message: String,
+}
+
+impl GetProjectsResponseAliasItemDeploymentAliasError {
+    pub fn new(code: String, message: String) -> Self {
+        Self { code, message }
+    }
+}
+
+/// The type of matching to perform
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+pub enum GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
     #[default]
-    Downgrade,
-    Upgrade,
+    Endswith,
+    Equals,
+    Startswith,
     Unknown(String),
 }
 
-impl GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum {
+impl GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Downgrade => "downgrade",
-            Self::Upgrade => "upgrade",
+            Self::Endswith => "endsWith",
+            Self::Equals => "equals",
+            Self::Startswith => "startsWith",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
+impl serde::Serialize for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -236,67 +276,23 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "downgrade" => Self::Downgrade,
-            "upgrade" => Self::Upgrade,
+            "endsWith" => Self::Endswith,
+            "equals" => Self::Equals,
+            "startsWith" => Self::Startswith,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
+impl std::fmt::Display for GetProjectsResponseAliasItemDeploymentBranchMatcherTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransition {
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-    pub at: f64,
-    pub direction:
-        GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
-}
-
-impl GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransition {
-    pub fn new(
-        algorithm_version: String,
-        at: f64,
-        direction: GetProjectsResponseDefaultResourceConfigBuildMachineElasticTransitionDirectionEnum,
-    ) -> Self {
-        Self {
-            algorithm_version,
-            at,
-            direction,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum {
-    #[default]
-    Elastic,
-    Fixed,
-    Unknown(String),
-}
-
-impl GetProjectsResponseDefaultResourceConfigBuildMachineSelectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

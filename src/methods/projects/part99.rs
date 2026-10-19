@@ -3,9 +3,35 @@
 
 use super::*;
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum
-{
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum {
+    #[default]
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -15,7 +41,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum
+    for ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -23,45 +49,45 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            "production" => Self::Production,
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum {
     #[default]
-    Additional,
-    Exclusive,
+    Promoted,
+    Rolling,
+    Staged,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum {
+impl ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Additional => "additional",
-            Self::Exclusive => "exclusive",
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -71,7 +97,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum
+    for ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -79,73 +105,37 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "additional" => Self::Additional,
-            "exclusive" => Self::Exclusive,
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0 {
-    pub addresses: Vec<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0AddressesItem>,
-    #[serde(rename = "deploymentType")]
-    pub deployment_type:
-        ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum,
-    #[serde(rename = "protectionMode")]
-    pub protection_mode:
-        ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0 {
-    pub fn new(
-        addresses: Vec<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0AddressesItem>,
-        deployment_type: ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0DeploymentTypeEnum,
-        protection_mode: ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0ProtectionModeEnum,
-    ) -> Self {
-        Self {
-            addresses,
-            deployment_type,
-            protection_mode,
-        }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum {
+pub enum ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum {
     #[default]
-    All,
-    AllExceptCustomDomains,
-    Preview,
-    ProdDeploymentUrlsAndAllPreviews,
-    Production,
+    Lambdas,
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::All => "all",
-            Self::AllExceptCustomDomains => "all_except_custom_domains",
-            Self::Preview => "preview",
-            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
-            Self::Production => "production",
+            Self::Lambdas => "LAMBDAS",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -154,167 +144,136 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "all" => Self::All,
-            "all_except_custom_domains" => Self::AllExceptCustomDomains,
-            "preview" => Self::Preview,
-            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
-            "production" => Self::Production,
+            "LAMBDAS" => Self::Lambdas,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum
-{
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1 {
-    #[serde(rename = "deploymentType")]
-    pub deployment_type:
-        ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1 {
-    pub fn new(
-        deployment_type: ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1DeploymentTypeEnum,
-    ) -> Self {
-        Self { deployment_type }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedIps {
-    Object(Box<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0>),
-    Object2(Box<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedIps {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListProjectsResponseVariant2ProjectsItemTrustedIpsVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListProjectsResponseVariant2ProjectsItemTrustedIps branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl
-    ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "all-custom" => Self::AllCustom,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The target envs on the current project that may be accessed.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
+pub struct ListProjectsResponseVariant2ProjectsItemTargetsValue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub preset: Option<ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0PresetEnum>,
-    /// System environment slugs (`production`, `preview`) and/or custom environment slugs defined on the referenced project.
-    pub slugs: Vec<String>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant0 {
-    pub fn new(slugs: Vec<String>) -> Self {
-        Self {
-            preset: None,
-            slugs,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    #[default]
-    AllCustom,
-    Unknown(String),
-}
-
-impl
-    ListProjectsResponseVariant2ProjectsItemTrustedSourcesOidcProvidersValueItemToVariant1PresetEnum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::AllCustom => "all-custom",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned:
+        Option<Option<ListProjectsResponseVariant2ProjectsItemTargetsValueAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<ListProjectsResponseVariant2ProjectsItemTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<ListProjectsResponseVariant2ProjectsItemTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<ListProjectsResponseVariant2ProjectsItemTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion:
+        Option<ListProjectsResponseVariant2ProjectsItemTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<ListProjectsResponseVariant2ProjectsItemTargetsValueChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<ListProjectsResponseVariant2ProjectsItemTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims:
+        Option<ListProjectsResponseVariant2ProjectsItemTargetsValueOidcTokenClaims>,
+    pub plan: ListProjectsResponseVariant2ProjectsItemTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: ListProjectsResponseVariant2ProjectsItemTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate:
+        Option<ListProjectsResponseVariant2ProjectsItemTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant2ProjectsItemTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }

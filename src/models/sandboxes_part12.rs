@@ -3,6 +3,117 @@
 
 // sandboxes domain models (part 12)
 
+/// Matcher for the entry value.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue
+{
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
+impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exact: None,
+            starts_with: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItem {
+    /// Matcher for the entry key (header name or query key).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<
+        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemKey,
+    >,
+    /// Matcher for the entry value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<
+        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue,
+    >,
+}
+
+impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            key: None,
+            value: None,
+        }
+    }
+}
+
+/// Matcher for the entry key (header name or query key).
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey {
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
+impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exact: None,
+            starts_with: None,
+        }
+    }
+}
+
+/// Matcher for the entry value.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue {
+    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exact: Option<String>,
+    /// Match values that start with the given prefix.
+    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
+    pub starts_with: Option<String>,
+}
+
+impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            exact: None,
+            starts_with: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItem {
+    /// Matcher for the entry key (header name or query key).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key:
+        Option<UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemKey>,
+    /// Matcher for the entry value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<
+        UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItemValue,
+    >,
+}
+
+impl UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatchHeadersItem {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            key: None,
+            value: None,
+        }
+    }
+}
+
 /// Optional L7 match. When provided, the injection rule only applies to requests that satisfy every specified dimension. When multiple injection rules target the same domain they are evaluated in order and the first match wins; a rule without `match` matches any request and shadows later rules for the same domain.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItemMatch {
@@ -161,6 +272,30 @@ impl<'de> serde::Deserialize<'de> for UpdateSandboxRequestNetworkPolicyVariant1A
                 "no UpdateSandboxRequestNetworkPolicyVariant1Allow branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<Vec<String>> for UpdateSandboxRequestNetworkPolicyVariant1Allow {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        std::collections::HashMap<
+            String,
+            Vec<UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    > for UpdateSandboxRequestNetworkPolicyVariant1Allow
+{
+    fn from(
+        value: std::collections::HashMap<
+            String,
+            Vec<UpdateSandboxRequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ) -> Self {
+        Self::Variant1ValueItemArrayMap(value)
     }
 }
 

@@ -498,3 +498,19 @@ impl<'de> serde::Deserialize<'de> for GetOrderResponseDomainsItemVariant0Error {
         })
     }
 }
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant0>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant0>) -> Self {
+        Self::UnsupportedLanguageCode(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetOrderResponseDomainsItemVariant0ErrorVariant1>>
+    for GetOrderResponseDomainsItemVariant0Error
+{
+    fn from(value: Box<GetOrderResponseDomainsItemVariant0ErrorVariant1>) -> Self {
+        Self::IncorrectLanguageCode(value)
+    }
+}

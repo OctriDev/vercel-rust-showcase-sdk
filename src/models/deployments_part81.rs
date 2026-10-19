@@ -3,108 +3,89 @@
 
 // deployments domain models (part 81)
 
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigFunctionsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            affinity: None,
-            architecture: None,
-            exclude_files: None,
-            experimental_triggers: None,
-            function_failover_regions: None,
-            include_files: None,
-            max_concurrency: None,
-            max_duration: None,
-            memory: None,
-            regions: None,
-            runtime: None,
-            supports_cancellation: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigIncludeFiles {
-    String(String),
-    StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigIncludeFiles
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigIncludeFiles branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareMatcher {
-    String(String),
-    StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareMatcher
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareMatcher branch accepts this payload"))
-    }
-}
-
-/// Enforced runtime for explicitly configured Routing Middleware.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum {
-    #[default]
-    Nodejs,
-    Unknown(String),
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum {
+impl GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Nodejs => "nodejs",
+            Self::ActixWeb => "actix-web",
+            Self::Angular => "angular",
+            Self::Ash => "ash",
+            Self::Astro => "astro",
+            Self::Axum => "axum",
+            Self::Blitzjs => "blitzjs",
+            Self::Brunch => "brunch",
+            Self::Bun => "bun",
+            Self::Container => "container",
+            Self::CreateReactApp => "create-react-app",
+            Self::Django => "django",
+            Self::Docusaurus => "docusaurus",
+            Self::Docusaurus2 => "docusaurus-2",
+            Self::Dojo => "dojo",
+            Self::Eleventy => "eleventy",
+            Self::Elysia => "elysia",
+            Self::Ember => "ember",
+            Self::Eve => "eve",
+            Self::Express => "express",
+            Self::FactoryEve => "factory-eve",
+            Self::Fastapi => "fastapi",
+            Self::Fasthtml => "fasthtml",
+            Self::Fastify => "fastify",
+            Self::Flask => "flask",
+            Self::Gatsby => "gatsby",
+            Self::Go => "go",
+            Self::Gridsome => "gridsome",
+            Self::H3 => "h3",
+            Self::Hexo => "hexo",
+            Self::Hono => "hono",
+            Self::Hugo => "hugo",
+            Self::Hydrogen => "hydrogen",
+            Self::IonicAngular => "ionic-angular",
+            Self::IonicReact => "ionic-react",
+            Self::Jekyll => "jekyll",
+            Self::Koa => "koa",
+            Self::Mastra => "mastra",
+            Self::Middleman => "middleman",
+            Self::Nestjs => "nestjs",
+            Self::Nextjs => "nextjs",
+            Self::Nitro => "nitro",
+            Self::Node => "node",
+            Self::Nuxtjs => "nuxtjs",
+            Self::Parcel => "parcel",
+            Self::Polymer => "polymer",
+            Self::Preact => "preact",
+            Self::Python => "python",
+            Self::ReactRouter => "react-router",
+            Self::Redwoodjs => "redwoodjs",
+            Self::Remix => "remix",
+            Self::Ruby => "ruby",
+            Self::Rust => "rust",
+            Self::Saber => "saber",
+            Self::Sanity => "sanity",
+            Self::SanityV2 => "sanity-v2",
+            Self::Sapper => "sapper",
+            Self::Scully => "scully",
+            Self::Services => "services",
+            Self::Solidstart => "solidstart",
+            Self::Solidstart1 => "solidstart-1",
+            Self::Stencil => "stencil",
+            Self::Storybook => "storybook",
+            Self::Svelte => "svelte",
+            Self::Sveltekit => "sveltekit",
+            Self::Sveltekit1 => "sveltekit-1",
+            Self::TanstackStart => "tanstack-start",
+            Self::TanstackStartLovable => "tanstack-start-lovable",
+            Self::Umijs => "umijs",
+            Self::Vite => "vite",
+            Self::Vitepress => "vitepress",
+            Self::Vue => "vue",
+            Self::Vuepress => "vuepress",
+            Self::Xmcp => "xmcp",
+            Self::Zola => "zola",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize
-    for GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum
-{
+impl serde::Serialize for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -113,36 +94,228 @@ impl serde::Serialize
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum
-{
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "nodejs" => Self::Nodejs,
+            "actix-web" => Self::ActixWeb,
+            "angular" => Self::Angular,
+            "ash" => Self::Ash,
+            "astro" => Self::Astro,
+            "axum" => Self::Axum,
+            "blitzjs" => Self::Blitzjs,
+            "brunch" => Self::Brunch,
+            "bun" => Self::Bun,
+            "container" => Self::Container,
+            "create-react-app" => Self::CreateReactApp,
+            "django" => Self::Django,
+            "docusaurus" => Self::Docusaurus,
+            "docusaurus-2" => Self::Docusaurus2,
+            "dojo" => Self::Dojo,
+            "eleventy" => Self::Eleventy,
+            "elysia" => Self::Elysia,
+            "ember" => Self::Ember,
+            "eve" => Self::Eve,
+            "express" => Self::Express,
+            "factory-eve" => Self::FactoryEve,
+            "fastapi" => Self::Fastapi,
+            "fasthtml" => Self::Fasthtml,
+            "fastify" => Self::Fastify,
+            "flask" => Self::Flask,
+            "gatsby" => Self::Gatsby,
+            "go" => Self::Go,
+            "gridsome" => Self::Gridsome,
+            "h3" => Self::H3,
+            "hexo" => Self::Hexo,
+            "hono" => Self::Hono,
+            "hugo" => Self::Hugo,
+            "hydrogen" => Self::Hydrogen,
+            "ionic-angular" => Self::IonicAngular,
+            "ionic-react" => Self::IonicReact,
+            "jekyll" => Self::Jekyll,
+            "koa" => Self::Koa,
+            "mastra" => Self::Mastra,
+            "middleman" => Self::Middleman,
+            "nestjs" => Self::Nestjs,
+            "nextjs" => Self::Nextjs,
+            "nitro" => Self::Nitro,
+            "node" => Self::Node,
+            "nuxtjs" => Self::Nuxtjs,
+            "parcel" => Self::Parcel,
+            "polymer" => Self::Polymer,
+            "preact" => Self::Preact,
+            "python" => Self::Python,
+            "react-router" => Self::ReactRouter,
+            "redwoodjs" => Self::Redwoodjs,
+            "remix" => Self::Remix,
+            "ruby" => Self::Ruby,
+            "rust" => Self::Rust,
+            "saber" => Self::Saber,
+            "sanity" => Self::Sanity,
+            "sanity-v2" => Self::SanityV2,
+            "sapper" => Self::Sapper,
+            "scully" => Self::Scully,
+            "services" => Self::Services,
+            "solidstart" => Self::Solidstart,
+            "solidstart-1" => Self::Solidstart1,
+            "stencil" => Self::Stencil,
+            "storybook" => Self::Storybook,
+            "svelte" => Self::Svelte,
+            "sveltekit" => Self::Sveltekit,
+            "sveltekit-1" => Self::Sveltekit1,
+            "tanstack-start" => Self::TanstackStart,
+            "tanstack-start-lovable" => Self::TanstackStartLovable,
+            "umijs" => Self::Umijs,
+            "vite" => Self::Vite,
+            "vitepress" => Self::Vitepress,
+            "vue" => Self::Vue,
+            "vuepress" => Self::Vuepress,
+            "xmcp" => Self::Xmcp,
+            "zola" => Self::Zola,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display
-    for GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum
-{
+impl std::fmt::Display for GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
+    #[default]
+    _10X,
+    _12X,
+    _14X,
+    _16X,
+    _18X,
+    _20X,
+    _22X,
+    _24X,
+    _26X,
+    _810X,
+    Unknown(String),
+}
+
+impl GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::_10X => "10.x",
+            Self::_12X => "12.x",
+            Self::_14X => "14.x",
+            Self::_16X => "16.x",
+            Self::_18X => "18.x",
+            Self::_20X => "20.x",
+            Self::_22X => "22.x",
+            Self::_24X => "24.x",
+            Self::_26X => "26.x",
+            Self::_810X => "8.10.x",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "10.x" => Self::_10X,
+            "12.x" => Self::_12X,
+            "14.x" => Self::_14X,
+            "16.x" => Self::_16X,
+            "18.x" => Self::_18X,
+            "20.x" => Self::_20X,
+            "22.x" => Self::_22X,
+            "24.x" => Self::_24X,
+            "26.x" => Self::_26X,
+            "8.10.x" => Self::_810X,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProjectSettings {
-    #[serde(
-        rename = "autoExposeSystemEnvs",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_expose_system_envs: Option<bool>,
+pub struct GetDeploymentResponseVariant1ProjectSettingsSpeedInsights {
+    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
+    pub canceled_at: Option<f64>,
+    /// When the first free (not Speed Insights Plus) production data point was observed, in ms. Set once by subscriber-analytics-events; projects that already had data before this field shipped get it backfilled on their next batch, so it reads "first free data point observed", not necessarily "first ever".
+    #[serde(rename = "dataReceivedAt", skip_serializing_if = "Option::is_none")]
+    pub data_received_at: Option<f64>,
+    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
+    pub disabled_at: Option<f64>,
+    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
+    pub enabled_at: Option<f64>,
+    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
+    pub has_data: Option<bool>,
+    pub id: String,
+    #[serde(rename = "paidAt", skip_serializing_if = "Option::is_none")]
+    pub paid_at: Option<f64>,
+}
+
+impl GetDeploymentResponseVariant1ProjectSettingsSpeedInsights {
+    pub fn new(id: String) -> Self {
+        Self {
+            canceled_at: None,
+            data_received_at: None,
+            disabled_at: None,
+            enabled_at: None,
+            has_data: None,
+            id,
+            paid_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentResponseVariant1ProjectSettingsWebAnalytics {
+    #[serde(rename = "canceledAt", skip_serializing_if = "Option::is_none")]
+    pub canceled_at: Option<f64>,
+    #[serde(rename = "disabledAt", skip_serializing_if = "Option::is_none")]
+    pub disabled_at: Option<f64>,
+    #[serde(rename = "enabledAt", skip_serializing_if = "Option::is_none")]
+    pub enabled_at: Option<f64>,
+    #[serde(rename = "hasData", skip_serializing_if = "Option::is_none")]
+    pub has_data: Option<bool>,
+    pub id: String,
+}
+
+impl GetDeploymentResponseVariant1ProjectSettingsWebAnalytics {
+    pub fn new(id: String) -> Self {
+        Self {
+            canceled_at: None,
+            disabled_at: None,
+            enabled_at: None,
+            has_data: None,
+            id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetDeploymentResponseVariant1ProjectSettings {
     #[serde(
         rename = "buildCommand",
         skip_serializing_if = "Option::is_none",
@@ -157,8 +330,6 @@ pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProject
         with = "crate::client::double_option"
     )]
     pub command_for_ignoring_build_step: Option<Option<String>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
     #[serde(
         rename = "devCommand",
         skip_serializing_if = "Option::is_none",
@@ -166,16 +337,12 @@ pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProject
         with = "crate::client::double_option"
     )]
     pub dev_command: Option<Option<String>>,
-    #[serde(rename = "directoryListing", skip_serializing_if = "Option::is_none")]
-    pub directory_listing: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub framework: Option<Option<String>>,
-    #[serde(rename = "gitForkProtection", skip_serializing_if = "Option::is_none")]
-    pub git_fork_protection: Option<bool>,
+    pub framework: Option<Option<GetDeploymentResponseVariant1ProjectSettingsFrameworkEnum>>,
     #[serde(
         rename = "installCommand",
         skip_serializing_if = "Option::is_none",
@@ -183,15 +350,8 @@ pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProject
         with = "crate::client::double_option"
     )]
     pub install_command: Option<Option<String>>,
-    #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
     #[serde(rename = "nodeVersion", skip_serializing_if = "Option::is_none")]
-    pub node_version: Option<String>,
+    pub node_version: Option<GetDeploymentResponseVariant1ProjectSettingsNodeVersionEnum>,
     #[serde(
         rename = "outputDirectory",
         skip_serializing_if = "Option::is_none",
@@ -199,247 +359,59 @@ pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProject
         with = "crate::client::double_option"
     )]
     pub output_directory: Option<Option<String>>,
-    #[serde(
-        rename = "rootDirectory",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub root_directory: Option<Option<String>>,
-    #[serde(
-        rename = "sourceFilesOutsideRootDirectory",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_files_outside_root_directory: Option<bool>,
+    #[serde(rename = "speedInsights", skip_serializing_if = "Option::is_none")]
+    pub speed_insights: Option<GetDeploymentResponseVariant1ProjectSettingsSpeedInsights>,
+    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
+    pub web_analytics: Option<GetDeploymentResponseVariant1ProjectSettingsWebAnalytics>,
 }
 
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProjectSettings {
+impl GetDeploymentResponseVariant1ProjectSettings {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self {
-            auto_expose_system_envs: None,
             build_command: None,
             command_for_ignoring_build_step: None,
-            created_at: None,
             dev_command: None,
-            directory_listing: None,
             framework: None,
-            git_fork_protection: None,
             install_command: None,
-            monorepo_manager: None,
             node_version: None,
             output_directory: None,
-            root_directory: None,
-            source_files_outside_root_directory: None,
+            speed_insights: None,
+            web_analytics: None,
         }
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunctionEntrypointsItem
-{
-    /// Runtime-specific entrypoint locator from `vercel.json`.
-    pub entrypoint: String,
-    /// Names of the schedules that dispatch to this entrypoint, in config order.
-    #[serde(rename = "scheduleNames")]
-    pub schedule_names: Vec<String>,
-    /// Project-relative source file that contains the entrypoint.
-    #[serde(rename = "sourceFile")]
-    pub source_file: String,
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunctionEntrypointsItem {
-    pub fn new(entrypoint: String, schedule_names: Vec<String>, source_file: String) -> Self {
-        Self {
-            entrypoint,
-            schedule_names,
-            source_file,
-        }
-    }
-}
-
-/// Set when this build produces a function for schedule entrypoints.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunction {
-    pub entrypoints: Vec<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunctionEntrypointsItem>,
-    /// Function output path every schedule in this build targets.
-    #[serde(rename = "outputPath")]
-    pub output_path: String,
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunction {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "entrypoints",
-            self.entrypoints.as_slice(),
-            crate::validation::LengthOpts {
-                min: Some(1),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        entrypoints: Vec<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunctionEntrypointsItem>,
-        output_path: String,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            entrypoints,
-            output_path,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfig {
-    #[serde(rename = "buildCommand", skip_serializing_if = "Option::is_none")]
-    pub build_command: Option<String>,
-    /// Buildpack runtime slug (e.g. "ruby").
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub buildpack: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub bundle: Option<bool>,
-    #[serde(rename = "bunVersion", skip_serializing_if = "Option::is_none")]
-    pub bun_version: Option<String>,
-    /// Set when this build produces the named daemon.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub daemon: Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigDaemon>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub debug: Option<bool>,
-    #[serde(rename = "devCommand", skip_serializing_if = "Option::is_none")]
-    pub dev_command: Option<String>,
-    #[serde(rename = "excludeFiles", skip_serializing_if = "Option::is_none")]
-    pub exclude_files:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigExcludeFiles>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub framework: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub functions: Option<
-        std::collections::HashMap<
-            String,
-            GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigFunctionsValue,
-        >,
-    >,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub helpers: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub import: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "includeFiles", skip_serializing_if = "Option::is_none")]
-    pub include_files:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigIncludeFiles>,
-    #[serde(rename = "installCommand", skip_serializing_if = "Option::is_none")]
-    pub install_command: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ldsflags: Option<String>,
-    #[serde(rename = "maxLambdaSize", skip_serializing_if = "Option::is_none")]
-    pub max_lambda_size: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub middleware: Option<bool>,
-    #[serde(rename = "middlewareMatcher", skip_serializing_if = "Option::is_none")]
-    pub middleware_matcher:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareMatcher>,
-    /// Enforced runtime for explicitly configured Routing Middleware.
-    #[serde(rename = "middlewareRuntime", skip_serializing_if = "Option::is_none")]
-    pub middleware_runtime:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigMiddlewareRuntimeEnum>,
-    #[serde(rename = "nodeVersion", skip_serializing_if = "Option::is_none")]
-    pub node_version: Option<String>,
-    #[serde(rename = "outputDirectory", skip_serializing_if = "Option::is_none")]
-    pub output_directory: Option<String>,
-    #[serde(rename = "projectSettings", skip_serializing_if = "Option::is_none")]
-    pub project_settings:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigProjectSettings>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rust: Option<String>,
-    /// Set when this build produces a function for schedule entrypoints.
-    #[serde(rename = "scheduleFunction", skip_serializing_if = "Option::is_none")]
-    pub schedule_function:
-        Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfigScheduleFunction>,
-    /// Owning service name; scopes per-function config such as the v2beta consumer.
-    #[serde(rename = "serviceName", skip_serializing_if = "Option::is_none")]
-    pub service_name: Option<String>,
-    #[serde(rename = "zeroConfig", skip_serializing_if = "Option::is_none")]
-    pub zero_config: Option<bool>,
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfig {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            build_command: None,
-            buildpack: None,
-            bundle: None,
-            bun_version: None,
-            daemon: None,
-            debug: None,
-            dev_command: None,
-            exclude_files: None,
-            framework: None,
-            functions: None,
-            helpers: None,
-            import: None,
-            include_files: None,
-            install_command: None,
-            ldsflags: None,
-            max_lambda_size: None,
-            middleware: None,
-            middleware_matcher: None,
-            middleware_runtime: None,
-            node_version: None,
-            output_directory: None,
-            project_settings: None,
-            rust: None,
-            schedule_function: None,
-            service_name: None,
-            zero_config: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0Builder {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub config: Option<GetDeploymentResponseVariant1ServicesItemVariant0BuilderConfig>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub src: Option<String>,
-    #[serde(rename = "use")]
-    pub use_: String,
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0Builder {
-    pub fn new(use_: String) -> Self {
-        Self {
-            config: None,
-            src: None,
-            use_,
-        }
-    }
-}
-
+/// The state of the deployment depending on the process of deploying, or if it is ready or in an error state
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum {
+pub enum GetDeploymentResponseVariant1ReadyStateEnum {
     #[default]
-    ServiceRef,
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
     Unknown(String),
 }
 
-impl GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum {
+impl GetDeploymentResponseVariant1ReadyStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ServiceRef => "service-ref",
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum {
+impl serde::Serialize for GetDeploymentResponseVariant1ReadyStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -448,82 +420,57 @@ impl serde::Serialize for GetDeploymentResponseVariant1ServicesItemVariant0EnvVa
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum
-{
+impl<'de> serde::Deserialize<'de> for GetDeploymentResponseVariant1ReadyStateEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "service-ref" => Self::ServiceRef,
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum {
+impl std::fmt::Display for GetDeploymentResponseVariant1ReadyStateEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentResponseVariant1ServicesItemVariant0EnvValue {
-    pub service: String,
-    #[serde(rename = "type")]
-    pub type_: GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum,
-}
-
-impl GetDeploymentResponseVariant1ServicesItemVariant0EnvValue {
-    pub fn new(
-        service: String,
-        type_: GetDeploymentResponseVariant1ServicesItemVariant0EnvValueTypeEnum,
-    ) -> Self {
-        Self { service, type_ }
-    }
-}
-
+/// Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: \- STAGED: never seen production traffic \- ROLLING: in the process of having production traffic gradually transitioned. \- PROMOTED: has seen production traffic
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetDeploymentResponseVariant1ServicesItemVariant0RoutePrefixSourceEnum {
+pub enum GetDeploymentResponseVariant1ReadySubstateEnum {
     #[default]
-    Configured,
-    Generated,
+    Promoted,
+    Rolling,
+    Staged,
     Unknown(String),
 }
 
-impl GetDeploymentResponseVariant1ServicesItemVariant0RoutePrefixSourceEnum {
+impl GetDeploymentResponseVariant1ReadySubstateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Configured => "configured",
-            Self::Generated => "generated",
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetDeploymentResponseVariant1ServicesItemVariant0RoutePrefixSourceEnum {
+impl serde::Serialize for GetDeploymentResponseVariant1ReadySubstateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetDeploymentResponseVariant1ServicesItemVariant0RoutePrefixSourceEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "configured" => Self::Configured,
-            "generated" => Self::Generated,
-            _ => Self::Unknown(value),
-        })
     }
 }

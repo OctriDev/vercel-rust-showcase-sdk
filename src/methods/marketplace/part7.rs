@@ -3,6 +3,129 @@
 
 use super::*;
 
+impl UpdateResourceBillingPlanHighlightedDetailsItem {
+    pub fn new(label: String) -> Self {
+        Self { label, value: None }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceBillingPlan {
+    pub id: String,
+    #[serde(rename = "type")]
+    pub type_: UpdateResourceBillingPlanTypeEnum,
+    pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(
+        rename = "paymentMethodRequired",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub payment_method_required: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cost: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<Vec<UpdateResourceBillingPlanDetailsItem>>,
+    #[serde(rename = "highlightedDetails", skip_serializing_if = "Option::is_none")]
+    pub highlighted_details: Option<Vec<UpdateResourceBillingPlanHighlightedDetailsItem>>,
+    #[serde(rename = "effectiveDate", skip_serializing_if = "Option::is_none")]
+    pub effective_date: Option<String>,
+    #[serde(flatten)]
+    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
+}
+
+impl UpdateResourceBillingPlan {
+    pub fn new(id: String, type_: UpdateResourceBillingPlanTypeEnum, name: String) -> Self {
+        Self {
+            id,
+            type_,
+            name,
+            description: None,
+            payment_method_required: None,
+            cost: None,
+            details: None,
+            highlighted_details: None,
+            effective_date: None,
+            additional_properties: Default::default(),
+        }
+    }
+}
+
+/// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceSecretsVariant0ItemEnvironmentOverrides {
+    /// Value used for development environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub development: Option<String>,
+    /// Value used for preview environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preview: Option<String>,
+    /// Value used for production environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub production: Option<String>,
+}
+
+impl UpdateResourceSecretsVariant0ItemEnvironmentOverrides {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            development: None,
+            preview: None,
+            production: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceSecretsVariant0Item {
+    pub name: String,
+    pub value: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prefix: Option<String>,
+    /// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+    #[serde(
+        rename = "environmentOverrides",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub environment_overrides: Option<UpdateResourceSecretsVariant0ItemEnvironmentOverrides>,
+}
+
+impl UpdateResourceSecretsVariant0Item {
+    pub fn new(name: String, value: String) -> Self {
+        Self {
+            name,
+            value,
+            prefix: None,
+            environment_overrides: None,
+        }
+    }
+}
+
+/// A map of environments to override values for the secret, used for setting different values across deployments in production, preview, and development environments. Note: the same value will be used for all deployments in the given environment.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UpdateResourceSecretsVariant1SecretsItemEnvironmentOverrides {
+    /// Value used for development environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub development: Option<String>,
+    /// Value used for preview environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub preview: Option<String>,
+    /// Value used for production environment.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub production: Option<String>,
+}
+
+impl UpdateResourceSecretsVariant1SecretsItemEnvironmentOverrides {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            development: None,
+            preview: None,
+            production: None,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct UpdateResourceSecretsVariant1SecretsItem {
     pub name: String,
@@ -77,6 +200,20 @@ impl<'de> serde::Deserialize<'de> for UpdateResourceSecretsdd859b87 {
         lossy.ok_or_else(|| {
             serde::de::Error::custom("no UpdateResourceSecretsdd859b87 branch accepts this payload")
         })
+    }
+}
+
+impl ::std::convert::From<Vec<UpdateResourceSecretsVariant0Item>>
+    for UpdateResourceSecretsdd859b87
+{
+    fn from(value: Vec<UpdateResourceSecretsVariant0Item>) -> Self {
+        Self::UpdateResourceSecretsVariant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateResourceSecretsVariant1>> for UpdateResourceSecretsdd859b87 {
+    fn from(value: Box<UpdateResourceSecretsVariant1>) -> Self {
+        Self::UpdateResourceSecretsVariant1(value)
     }
 }
 
@@ -171,174 +308,26 @@ impl<'de> serde::Deserialize<'de> for UpdateResourceCustomClaimsClaimRulesItemCl
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceCustomClaimsClaimRulesItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub when: Option<UpdateResourceCustomClaimsClaimRulesItemWhen>,
-    /// Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.
-    pub claims: std::collections::HashMap<
-        String,
-        Option<UpdateResourceCustomClaimsClaimRulesItemClaimsValue>,
-    >,
-}
-
-impl UpdateResourceCustomClaimsClaimRulesItem {
-    pub fn new(
-        claims: std::collections::HashMap<
-            String,
-            Option<UpdateResourceCustomClaimsClaimRulesItemClaimsValue>,
-        >,
-    ) -> Self {
-        Self { when: None, claims }
+impl ::std::convert::From<String> for UpdateResourceCustomClaimsClaimRulesItemClaimsValue {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
-/// Custom claims embedded in the resource tokens Vercel mints for this resource.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceCustomClaims {
-    /// Roles a deployment may request when minting a token. The selected role becomes the `sub` claim.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub roles: Option<Vec<String>>,
-    /// Role used when the deployment does not request one. Required when `roles` is set.
-    #[serde(rename = "defaultRole", skip_serializing_if = "Option::is_none")]
-    pub default_role: Option<String>,
-    /// Ordered rules resolved at mint time. Later rules win and shallow-merge over earlier ones.
-    #[serde(rename = "claimRules", skip_serializing_if = "Option::is_none")]
-    pub claim_rules: Option<Vec<UpdateResourceCustomClaimsClaimRulesItem>>,
-}
-
-impl UpdateResourceCustomClaims {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.roles.as_ref() {
-            crate::validation::validate_items(
-                "roles",
-                value.as_slice(),
-                crate::validation::LengthOpts {
-                    max: Some(32),
-                    ..Default::default()
-                },
-            )?;
-        }
-        if let Some(value) = self.default_role.as_ref() {
-            crate::validation::validate_length(
-                "defaultRole",
-                value,
-                crate::validation::LengthOpts {
-                    max: Some(32),
-                    ..Default::default()
-                },
-            )?;
-        }
-        Ok(())
-    }
-
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            roles: None,
-            default_role: None,
-            claim_rules: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+impl ::std::convert::From<f64> for UpdateResourceCustomClaimsClaimRulesItemClaimsValue {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateResourceResponse {
-    pub name: String,
-}
-
-impl UpdateResourceResponse {
-    pub fn new(name: String) -> Self {
-        Self { name }
+impl ::std::convert::From<bool> for UpdateResourceCustomClaimsClaimRulesItemClaimsValue {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 
-/// Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitBillingDataPeriod {
-    pub start: String,
-    pub end: String,
-}
-
-impl SubmitBillingDataPeriod {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_model_date_time("start", &self.start)?;
-        crate::validation::validate_model_date_time("end", &self.end)?;
-        Ok(())
-    }
-
-    pub fn new(start: String, end: String) -> Result<Self, crate::errors::SdkError> {
-        let value = Self { start, end };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct SubmitBillingDataBillingVariant0Item {
-    /// Partner's billing plan ID.
-    #[serde(rename = "billingPlanId")]
-    pub billing_plan_id: String,
-    /// Partner's resource ID.
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
-    /// Start and end are only needed if different from the period's start/end.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub start: Option<String>,
-    /// Start and end are only needed if different from the period's start/end.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end: Option<String>,
-    /// Line item name.
-    pub name: String,
-    /// Line item details.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub details: Option<String>,
-    /// Price per unit.
-    pub price: String,
-    /// Quantity of units.
-    pub quantity: f64,
-    /// Units of the quantity.
-    pub units: String,
-    /// Total amount.
-    pub total: String,
-}
-
-impl SubmitBillingDataBillingVariant0Item {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        if let Some(value) = self.start.as_ref() {
-            crate::validation::validate_model_date_time("start", value)?;
-        }
-        if let Some(value) = self.end.as_ref() {
-            crate::validation::validate_model_date_time("end", value)?;
-        }
-        crate::validation::validate_pattern("price", &self.price, "^[0-9]+(\\.[0-9]+)?$")?;
-        crate::validation::validate_pattern("total", &self.total, "^[0-9]+(\\.[0-9]+)?$")?;
-        Ok(())
-    }
-
-    pub fn new(
-        billing_plan_id: String,
-        name: String,
-        price: String,
-        quantity: f64,
-        units: String,
-        total: String,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            billing_plan_id,
-            resource_id: None,
-            start: None,
-            end: None,
-            name,
-            details: None,
-            price,
-            quantity,
-            units,
-            total,
-        };
-        value.validate_constraints()?;
-        Ok(value)
+impl ::std::convert::From<Vec<String>> for UpdateResourceCustomClaimsClaimRulesItemClaimsValue {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
     }
 }

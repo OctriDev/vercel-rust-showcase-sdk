@@ -3,8 +3,46 @@
 
 use super::*;
 
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItem {
+    pub fn new(
+        conditions: Vec<
+            PutFirewallConfigResponseActiveRulesetsVariant0ItemConditionGroupItemConditionsItem,
+        >,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum {
+    #[default]
+    Allow,
+    Bypass,
+    Challenge,
+    Deny,
+    Log,
+    RateLimit,
+    Redirect,
+    Unknown(String),
+}
+
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Allow => "allow",
+            Self::Bypass => "bypass",
+            Self::Challenge => "challenge",
+            Self::Deny => "deny",
+            Self::Log => "log",
+            Self::RateLimit => "rate_limit",
+            Self::Redirect => "redirect",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeadersVariant1Enum
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -15,7 +53,63 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeadersVariant1Enum
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "allow" => Self::Allow,
+            "bypass" => Self::Bypass,
+            "challenge" => Self::Challenge,
+            "deny" => Self::Deny,
+            "log" => Self::Log,
+            "rate_limit" => Self::RateLimit,
+            "redirect" => Self::Redirect,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateActionEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum {
+    #[default]
+    Unknown2,
+    Unknown(String),
+}
+
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Unknown2 => "*",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -30,7 +124,7 @@ impl<'de> serde::Deserialize<'de>
 }
 
 impl std::fmt::Display
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeadersVariant1Enum
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
@@ -39,13 +133,15 @@ impl std::fmt::Display
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeaders {
+pub enum PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders {
     StringArray(Vec<String>),
-    Literal(PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeadersVariant1Enum),
+    Literal(
+        PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum,
+    ),
 }
 
 impl<'de> serde::Deserialize<'de>
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeaders
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders
 {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
@@ -58,7 +154,7 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         if let Ok(branch) = serde_json::from_value::<
-            PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeadersVariant1Enum,
+            PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum,
         >(value.clone())
         {
             let candidate = Self::Literal(branch);
@@ -67,12 +163,32 @@ impl<'de> serde::Deserialize<'de>
             }
             lossy.get_or_insert(candidate);
         }
-        lossy.ok_or_else(|| serde::de::Error::custom("no PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeaders branch accepts this payload"))
+        lossy.ok_or_else(|| serde::de::Error::custom("no PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum,
+    > for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeaders
+{
+    fn from(
+        value: PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateLogHeadersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
+pub enum PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum {
     #[default]
     Challenge,
     Deny,
@@ -81,7 +197,7 @@ pub enum PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum
     Unknown(String),
 }
 
-impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Challenge => "challenge",
@@ -93,7 +209,9 @@ impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
     }
 }
 
-impl serde::Serialize for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
+impl serde::Serialize
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -103,7 +221,7 @@ impl serde::Serialize for PutFirewallConfigResponseActiveRulesetsVariant1ValueRa
 }
 
 impl<'de> serde::Deserialize<'de>
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -120,21 +238,23 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-impl std::fmt::Display for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum {
+impl std::fmt::Display
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
+pub enum PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum {
     #[default]
     FixedWindow,
     TokenBucket,
     Unknown(String),
 }
 
-impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::FixedWindow => "fixed_window",
@@ -144,7 +264,9 @@ impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
     }
 }
 
-impl serde::Serialize for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
+impl serde::Serialize
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -154,7 +276,7 @@ impl serde::Serialize for PutFirewallConfigResponseActiveRulesetsVariant1ValueRa
 }
 
 impl<'de> serde::Deserialize<'de>
-    for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -169,30 +291,35 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-impl std::fmt::Display for PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum {
+impl std::fmt::Display
+    for PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimit {
+pub struct PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub action:
-        Option<Option<PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitActionEnum>>,
-    pub algo: PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum,
+    pub action: Option<
+        Option<
+            PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitActionEnum,
+        >,
+    >,
+    pub algo: PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
     pub keys: Vec<String>,
     pub limit: f64,
     pub window: f64,
 }
 
-impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimit {
+impl PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimit {
     pub fn new(
-        algo: PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimitAlgoEnum,
+        algo: PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRateLimitAlgoEnum,
         keys: Vec<String>,
         limit: f64,
         window: f64,
@@ -208,104 +335,7 @@ impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimit {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PutFirewallConfigResponseActiveRulesetsVariant1ValueRedirect {
+pub struct PutFirewallConfigResponseActiveRulesetsVariant0ItemActionMitigateRedirect {
     pub location: String,
     pub permanent: bool,
-}
-
-impl PutFirewallConfigResponseActiveRulesetsVariant1ValueRedirect {
-    pub fn new(location: String, permanent: bool) -> Self {
-        Self {
-            location,
-            permanent,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct PutFirewallConfigResponseActiveRulesetsVariant1Value {
-    pub action: PutFirewallConfigResponseActiveRulesetsVariant1ValueActionEnum,
-    #[serde(
-        rename = "actionDuration",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub action_duration: Option<Option<String>>,
-    #[serde(
-        rename = "bypassSystem",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub bypass_system: Option<Option<bool>>,
-    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<PutFirewallConfigResponseActiveRulesetsVariant1ValueLogHeaders>,
-    #[serde(
-        rename = "rateLimit",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rate_limit: Option<Option<PutFirewallConfigResponseActiveRulesetsVariant1ValueRateLimit>>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub redirect: Option<Option<PutFirewallConfigResponseActiveRulesetsVariant1ValueRedirect>>,
-}
-
-impl PutFirewallConfigResponseActiveRulesetsVariant1Value {
-    pub fn new(action: PutFirewallConfigResponseActiveRulesetsVariant1ValueActionEnum) -> Self {
-        Self {
-            action,
-            action_duration: None,
-            bypass_system: None,
-            log_headers: None,
-            rate_limit: None,
-            redirect: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum PutFirewallConfigResponseActiveRulesets {
-    Variant0ItemArray(Vec<PutFirewallConfigResponseActiveRulesetsVariant0Item>),
-    Variant1ValueMap(
-        std::collections::HashMap<String, PutFirewallConfigResponseActiveRulesetsVariant1Value>,
-    ),
-}
-
-impl<'de> serde::Deserialize<'de> for PutFirewallConfigResponseActiveRulesets {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Vec<PutFirewallConfigResponseActiveRulesetsVariant0Item>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            std::collections::HashMap<String, PutFirewallConfigResponseActiveRulesetsVariant1Value>,
-        >(value.clone())
-        {
-            let candidate = Self::Variant1ValueMap(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no PutFirewallConfigResponseActiveRulesets branch accepts this payload",
-            )
-        })
-    }
 }

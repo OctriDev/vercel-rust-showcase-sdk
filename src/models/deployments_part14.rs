@@ -3,6 +3,357 @@
 
 // deployments domain models (part 14)
 
+impl CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Url => "url",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "url" => Self::Url,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// If present, must be `"service"` for Service-to-Service HTTP bindings.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum {
+    #[default]
+    Service,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Service => "service",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "service" => Self::Service,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Caller-side bindings to other services.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1BindingsItem {
+    /// Environment variable name that will store the generated value
+    pub env: String,
+    /// Generated value shape, must be `"url"`.
+    pub format: CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum,
+    /// Target service name from `services`.
+    pub service: String,
+    /// If present, must be `"service"` for Service-to-Service HTTP bindings.
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub type_: Option<CancelDeploymentResponseServicesItemVariant1BindingsItemTypeEnum>,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BindingsItem {
+    pub fn new(
+        env: String,
+        format: CancelDeploymentResponseServicesItemVariant1BindingsItemFormatEnum,
+        service: String,
+    ) -> Self {
+        Self {
+            env,
+            format,
+            service,
+            type_: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum
+{
+    #[default]
+    _1gi,
+    _2gi,
+    _4gi,
+    _8gi,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::_1gi => "1Gi",
+            Self::_2gi => "2Gi",
+            Self::_4gi => "4Gi",
+            Self::_8gi => "8Gi",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "1Gi" => Self::_1gi,
+            "2Gi" => Self::_2gi,
+            "4Gi" => Self::_4gi,
+            "8Gi" => Self::_8gi,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequests {
+    pub memory:
+        CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequests {
+    pub fn new(
+        memory: CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequestsMemoryEnum,
+    ) -> Self {
+        Self { memory }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResources {
+    pub requests: CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequests,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResources {
+    pub fn new(
+        requests: CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResourcesRequests,
+    ) -> Self {
+        Self { requests }
+    }
+}
+
+/// Set when this build produces the named daemon.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemon {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub command: Option<Vec<String>>,
+    pub entrypoint: String,
+    /// Instance counts by region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub instances: Option<std::collections::HashMap<String, f64>>,
+    /// Instance counts by region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub replicas: Option<std::collections::HashMap<String, f64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resources: Option<CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemonResources>,
+    pub root: String,
+    #[serde(
+        rename = "terminationGracePeriodSeconds",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub termination_grace_period_seconds: Option<f64>,
+    pub name: String,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigDaemon {
+    pub fn new(entrypoint: String, root: String, name: String) -> Self {
+        Self {
+            command: None,
+            entrypoint,
+            instances: None,
+            replicas: None,
+            resources: None,
+            root,
+            termination_grace_period_seconds: None,
+            name,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigExcludeFiles {
+    String(String),
+    StringArray(Vec<String>),
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigExcludeFiles
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1BuilderConfigExcludeFiles branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigExcludeFiles
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigExcludeFiles
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum {
+    #[default]
+    Strict,
+    Unknown(String),
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Strict => "strict",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "strict" => Self::Strict,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinity {
+    pub mode:
+        CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum,
+}
+
+impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinity {
+    pub fn new(
+        mode: CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinityModeEnum,
+    ) -> Self {
+        Self { mode }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueArchitectureEnum {
     #[default]
@@ -141,347 +492,5 @@ impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1BuilderCo
         match self {
             CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1TypeEnum::QueueV2beta => f.write_str("queue/v2beta"),
         }
-    }
-}
-
-/// Queue trigger input event for v2beta (from vercel.json config). Consumer name is implicitly derived from the function path. Only one trigger per function is allowed.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1 {
-    /// Initial delay in seconds before first execution attempt (OPTIONAL) Must be 0 or greater. Use 0 for no initial delay. Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "initialDelaySeconds", skip_serializing_if = "Option::is_none")]
-    pub initial_delay_seconds: Option<f64>,
-    /// Maximum number of concurrent executions for this consumer (OPTIONAL) Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
-    pub max_concurrency: Option<f64>,
-    /// Maximum number of delivery attempts for message processing (OPTIONAL) This represents the total number of times a message can be delivered, not the number of retries. Must be at least 1 if specified. Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "maxDeliveries", skip_serializing_if = "Option::is_none")]
-    pub max_deliveries: Option<f64>,
-    /// Delay in seconds before retrying failed executions (OPTIONAL) Behavior when not specified depends on the server's default configuration.
-    #[serde(rename = "retryAfterSeconds", skip_serializing_if = "Option::is_none")]
-    pub retry_after_seconds: Option<f64>,
-    /// Name of the queue topic to consume from (REQUIRED)
-    pub topic: String,
-    /// Event type \- must be "queue/v2beta" (REQUIRED)
-    #[serde(rename = "type")]
-    pub type_: CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1TypeEnum,
-}
-
-impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1 {
-    pub fn new(topic: String, type_: CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1TypeEnum) -> Self {
-        Self {
-            initial_delay_seconds: None,
-            max_concurrency: None,
-            max_deliveries: None,
-            retry_after_seconds: None,
-            topic,
-            type_,
-        }
-    }
-}
-
-/// Event type \- must be "schedule/v1beta" (REQUIRED)
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum
-{
-    #[serde(rename = "schedule/v1beta")]
-    #[default]
-    ScheduleV1beta,
-}
-
-impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::ScheduleV1beta => "schedule/v1beta",
-        }
-    }
-}
-
-impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum::ScheduleV1beta => f.write_str("schedule/v1beta"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2 {
-    /// Event type \- must be "schedule/v1beta" (REQUIRED)
-    #[serde(rename = "type")]
-    pub type_: CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum,
-}
-
-impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2 {
-    pub fn new(type_: CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2TypeEnum) -> Self {
-        Self { type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItem
-{
-    QueueV1beta(Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant0>),
-    QueueV2beta(Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1>),
-    ScheduleV1beta(Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2>),
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant0>>(value.clone()) {
-            let candidate = Self::QueueV1beta(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant1>>(value.clone()) {
-            let candidate = Self::QueueV2beta(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItemVariant2>>(value.clone()) {
-            let candidate = Self::ScheduleV1beta(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum
-{
-    #[default]
-    Max,
-    Unknown(String),
-}
-
-impl
-    CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum
-{
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Max => "max",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "max" => Self::Max,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDuration {
-    Number(f64),
-    Max(CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDuration
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDurationVariant1Enum>(value.clone()) {
-            let candidate = Self::Max(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDuration branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub affinity: Option<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueAffinity>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub architecture: Option<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueArchitectureEnum>,
-    #[serde(rename = "excludeFiles", skip_serializing_if = "Option::is_none")]
-    pub exclude_files: Option<String>,
-    #[serde(rename = "experimentalTriggers", skip_serializing_if = "Option::is_none")]
-    pub experimental_triggers: Option<Vec<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueExperimentalTriggersItem>>,
-    #[serde(rename = "functionFailoverRegions", skip_serializing_if = "Option::is_none")]
-    pub function_failover_regions: Option<Vec<String>>,
-    #[serde(rename = "includeFiles", skip_serializing_if = "Option::is_none")]
-    pub include_files: Option<String>,
-    #[serde(rename = "maxConcurrency", skip_serializing_if = "Option::is_none")]
-    pub max_concurrency: Option<f64>,
-    #[serde(rename = "maxDuration", skip_serializing_if = "Option::is_none")]
-    pub max_duration: Option<CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValueMaxDuration>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub memory: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub runtime: Option<String>,
-    #[serde(rename = "supportsCancellation", skip_serializing_if = "Option::is_none")]
-    pub supports_cancellation: Option<bool>,
-}
-
-impl CancelDeploymentResponseServicesItemVariant1BuilderConfigFunctionsValue {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            affinity: None,
-            architecture: None,
-            exclude_files: None,
-            experimental_triggers: None,
-            function_failover_regions: None,
-            include_files: None,
-            max_concurrency: None,
-            max_duration: None,
-            memory: None,
-            regions: None,
-            runtime: None,
-            supports_cancellation: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigIncludeFiles {
-    String(String),
-    StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CancelDeploymentResponseServicesItemVariant1BuilderConfigIncludeFiles
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1BuilderConfigIncludeFiles branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareMatcher {
-    String(String),
-    StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareMatcher
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareMatcher branch accepts this payload"))
-    }
-}
-
-/// Enforced runtime for explicitly configured Routing Middleware.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareRuntimeEnum {
-    #[default]
-    Nodejs,
-    Unknown(String),
-}
-
-impl CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareRuntimeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Nodejs => "nodejs",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareRuntimeEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CancelDeploymentResponseServicesItemVariant1BuilderConfigMiddlewareRuntimeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "nodejs" => Self::Nodejs,
-            _ => Self::Unknown(value),
-        })
     }
 }

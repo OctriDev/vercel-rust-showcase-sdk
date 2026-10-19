@@ -32,6 +32,18 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentEvents {
     }
 }
 
+impl ::std::convert::From<f64> for GetDeploymentEvents {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetDeploymentEvents {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 /// Populates initial git metadata for different git providers.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CreateDeploymentGitMetadata {

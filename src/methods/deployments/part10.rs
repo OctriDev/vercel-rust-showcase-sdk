@@ -3,6 +3,72 @@
 
 use super::*;
 
+impl serde::Serialize for CancelDeploymentResponseManualProvisioningStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CancelDeploymentResponseManualProvisioningStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "COMPLETE" => Self::Complete,
+            "PENDING" => Self::Pending,
+            "TIMEOUT" => Self::Timeout,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CancelDeploymentResponseManualProvisioningStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Present when deployment was created with manual provisioning enabled, either explicitly or via the experimental BYOC git flow. The deployment stays in INITIALIZING until /continue is called.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CancelDeploymentResponseManualProvisioning {
+    /// Timestamp when manual provisioning completed
+    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
+    pub completed_at: Option<f64>,
+    /// Current provisioning state
+    pub state: CancelDeploymentResponseManualProvisioningStateEnum,
+}
+
+impl CancelDeploymentResponseManualProvisioning {
+    pub fn new(state: CancelDeploymentResponseManualProvisioningStateEnum) -> Self {
+        Self {
+            completed_at: None,
+            state,
+        }
+    }
+}
+
+/// If set it overrides the `projectSettings.nodeVersion` for this deployment.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseNodeVersionEnum {
+    #[default]
+    _10X,
+    _12X,
+    _14X,
+    _16X,
+    _18X,
+    _20X,
+    _22X,
+    _24X,
+    _26X,
+    _810X,
+    Unknown(String),
+}
+
 impl CancelDeploymentResponseNodeVersionEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -227,66 +293,4 @@ pub enum CancelDeploymentResponsePlatformOriginTypeEnum {
     Id,
     Url,
     Unknown(String),
-}
-
-impl CancelDeploymentResponsePlatformOriginTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Id => "id",
-            Self::Url => "url",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CancelDeploymentResponsePlatformOriginTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CancelDeploymentResponsePlatformOriginTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "id" => Self::Id,
-            "url" => Self::Url,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CancelDeploymentResponsePlatformOriginTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Reference back to the entity on the platform that initiated the deployment.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponsePlatformOrigin {
-    /// Whether the value is an opaque identifier or a URL.
-    #[serde(rename = "type")]
-    pub type_: CancelDeploymentResponsePlatformOriginTypeEnum,
-    /// The identifier or URL pointing to the originating entity.
-    pub value: String,
-}
-
-impl CancelDeploymentResponsePlatformOrigin {
-    pub fn new(type_: CancelDeploymentResponsePlatformOriginTypeEnum, value: String) -> Self {
-        Self { type_, value }
-    }
-}
-
-/// The external platform that created the deployment (e.g. its display name).
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CancelDeploymentResponsePlatformSource {
-    /// Display name of the platform.
-    pub name: String,
 }

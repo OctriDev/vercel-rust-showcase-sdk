@@ -3,156 +3,46 @@
 
 use super::*;
 
-impl GetProjectsResponseResourceConfigElasticBuildMachine {
-    pub fn new(
-        cores: f64,
-        label: GetProjectsResponseResourceConfigElasticBuildMachineLabelEnum,
-        memory: f64,
-    ) -> Self {
-        Self {
-            cores,
-            label,
-            memory,
-        }
+impl GetProjectsResponseOptionsAllowlistPathsItem {
+    pub fn new(value: String) -> Self {
+        Self { value }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseResourceConfig {
-    #[serde(
-        rename = "buildMachineElasticLastUpdated",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_last_updated: Option<f64>,
-    #[serde(
-        rename = "buildMachineElasticReason",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_reason:
-        Option<GetProjectsResponseResourceConfigBuildMachineElasticReasonEnum>,
-    #[serde(
-        rename = "buildMachineElasticTransition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_elastic_transition:
-        Option<GetProjectsResponseResourceConfigBuildMachineElasticTransition>,
-    #[serde(
-        rename = "buildMachineSelection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_machine_selection: Option<GetProjectsResponseResourceConfigBuildMachineSelectionEnum>,
-    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
-    pub build_machine_type: Option<GetProjectsResponseResourceConfigBuildMachineTypeEnum>,
-    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
-    pub build_queue: Option<GetProjectsResponseResourceConfigBuildQueue>,
-    #[serde(
-        rename = "elasticConcurrencyEnabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_concurrency_enabled: Option<bool>,
-    #[serde(
-        rename = "enableFunctionsBeta",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_functions_beta: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fluid: Option<bool>,
-    #[serde(
-        rename = "functionDefaultMemoryType",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_memory_type:
-        Option<GetProjectsResponseResourceConfigFunctionDefaultMemoryTypeEnum>,
-    #[serde(rename = "functionDefaultRegions")]
-    pub function_default_regions: Vec<String>,
-    #[serde(
-        rename = "functionDefaultTimeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_default_timeout: Option<f64>,
-    #[serde(
-        rename = "functionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub function_zero_config_failover: Option<bool>,
-    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
-    pub is_nsnb_disabled: Option<bool>,
-    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
-    #[serde(
-        rename = "elasticBuildMachine",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub elastic_build_machine: Option<GetProjectsResponseResourceConfigElasticBuildMachine>,
+pub struct GetProjectsResponseOptionsAllowlist {
+    pub paths: Vec<GetProjectsResponseOptionsAllowlistPathsItem>,
 }
 
-impl GetProjectsResponseResourceConfig {
-    pub fn new(function_default_regions: Vec<String>) -> Self {
-        Self {
-            build_machine_elastic_last_updated: None,
-            build_machine_elastic_reason: None,
-            build_machine_elastic_transition: None,
-            build_machine_selection: None,
-            build_machine_type: None,
-            build_queue: None,
-            elastic_concurrency_enabled: None,
-            enable_functions_beta: None,
-            fluid: None,
-            function_default_memory_type: None,
-            function_default_regions,
-            function_default_timeout: None,
-            function_zero_config_failover: None,
-            is_nsnb_disabled: None,
-            elastic_build_machine: None,
-        }
+impl GetProjectsResponseOptionsAllowlist {
+    pub fn new(paths: Vec<GetProjectsResponseOptionsAllowlistPathsItem>) -> Self {
+        Self { paths }
     }
 }
 
-/// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseRollbackDescription {
-    /// Timestamp of when the rollback was requested.
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    /// User-supplied explanation of why they rolled back the project. Limited to 250 characters.
-    pub description: String,
-    /// The user who rolled back the project.
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    /// The username of the user who rolled back the project.
-    pub username: String,
-}
-
-impl GetProjectsResponseRollbackDescription {
-    pub fn new(created_at: f64, description: String, user_id: String, username: String) -> Self {
-        Self {
-            created_at,
-            description,
-            user_id,
-            username,
-        }
-    }
-}
-
-/// What to do when the gate trips: pause the rollout, or roll it back.
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseRollingReleaseGateActionEnum {
+pub enum GetProjectsResponsePassportDeploymentTypeEnum {
     #[default]
-    Pause,
-    Rollback,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl GetProjectsResponseRollingReleaseGateActionEnum {
+impl GetProjectsResponsePassportDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Pause => "pause",
-            Self::Rollback => "rollback",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseRollingReleaseGateActionEnum {
+impl serde::Serialize for GetProjectsResponsePassportDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -161,44 +51,71 @@ impl serde::Serialize for GetProjectsResponseRollingReleaseGateActionEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseRollingReleaseGateActionEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponsePassportDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "pause" => Self::Pause,
-            "rollback" => Self::Rollback,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseRollingReleaseGateActionEnum {
+impl std::fmt::Display for GetProjectsResponsePassportDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The metric this check evaluates.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponsePassport {
+    #[serde(rename = "connectorId")]
+    pub connector_id: String,
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: GetProjectsResponsePassportDeploymentTypeEnum,
+}
+
+impl GetProjectsResponsePassport {
+    pub fn new(
+        connector_id: String,
+        deployment_type: GetProjectsResponsePassportDeploymentTypeEnum,
+    ) -> Self {
+        Self {
+            connector_id,
+            deployment_type,
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+pub enum GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
     #[default]
-    ErrorRate5xx,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+impl GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ErrorRate5xx => "error-rate-5xx",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+impl serde::Serialize for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -207,145 +124,37 @@ impl serde::Serialize for GetProjectsResponseRollingReleaseGateChecksItemTypeEnu
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+impl<'de> serde::Deserialize<'de> for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "error-rate-5xx" => Self::ErrorRate5xx,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for GetProjectsResponseRollingReleaseGateChecksItemTypeEnum {
+impl std::fmt::Display for GetProjectsResponsePasswordProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The checks to evaluate. An empty array means nothing is evaluated.
+/// Password protection settings returned without the secret password hash.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseRollingReleaseGateChecksItem {
-    /// Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-    #[serde(rename = "excludePaths", skip_serializing_if = "Option::is_none")]
-    pub exclude_paths: Option<Vec<String>>,
-    /// Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-    #[serde(rename = "excludeStatusCodes", skip_serializing_if = "Option::is_none")]
-    pub exclude_status_codes: Option<Vec<f64>>,
-    /// Seconds of ingest lag to allow for: the query's upper bound is `now() \- this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-    #[serde(
-        rename = "ingestWatermarkSeconds",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub ingest_watermark_seconds: Option<f64>,
-    /// A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-    #[serde(rename = "significanceLevel", skip_serializing_if = "Option::is_none")]
-    pub significance_level: Option<f64>,
-    /// The metric this check evaluates.
-    #[serde(rename = "type")]
-    pub type_: GetProjectsResponseRollingReleaseGateChecksItemTypeEnum,
+pub struct GetProjectsResponsePasswordProtection {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: GetProjectsResponsePasswordProtectionDeploymentTypeEnum,
 }
 
-impl GetProjectsResponseRollingReleaseGateChecksItem {
-    pub fn new(type_: GetProjectsResponseRollingReleaseGateChecksItemTypeEnum) -> Self {
-        Self {
-            exclude_paths: None,
-            exclude_status_codes: None,
-            ingest_watermark_seconds: None,
-            significance_level: None,
-            type_,
-        }
+impl GetProjectsResponsePasswordProtection {
+    pub fn new(deployment_type: GetProjectsResponsePasswordProtectionDeploymentTypeEnum) -> Self {
+        Self { deployment_type }
     }
-}
-
-/// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseRollingReleaseGate {
-    /// What to do when the gate trips: pause the rollout, or roll it back.
-    pub action: GetProjectsResponseRollingReleaseGateActionEnum,
-    /// The checks to evaluate. An empty array means nothing is evaluated.
-    pub checks: Vec<GetProjectsResponseRollingReleaseGateChecksItem>,
-    /// When true, a tripped gate is only reported — {@link action} is not taken.
-    #[serde(rename = "dryRun")]
-    pub dry_run: bool,
-    /// Whether automated gating is enabled for this project's rollouts.
-    pub enabled: bool,
-    /// How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-    #[serde(rename = "failureThreshold", skip_serializing_if = "Option::is_none")]
-    pub failure_threshold: Option<f64>,
-    /// How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-    #[serde(rename = "windowSize", skip_serializing_if = "Option::is_none")]
-    pub window_size: Option<f64>,
-}
-
-impl GetProjectsResponseRollingReleaseGate {
-    pub fn new(
-        action: GetProjectsResponseRollingReleaseGateActionEnum,
-        checks: Vec<GetProjectsResponseRollingReleaseGateChecksItem>,
-        dry_run: bool,
-        enabled: bool,
-    ) -> Self {
-        Self {
-            action,
-            checks,
-            dry_run,
-            enabled,
-            failure_threshold: None,
-            window_size: None,
-        }
-    }
-}
-
-/// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseRollingReleaseStagesItem {
-    /// Duration in minutes for automatic advancement to the next stage
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub duration: Option<f64>,
-    /// Whether to linearly shift traffic over the duration of this stage
-    #[serde(rename = "linearShift", skip_serializing_if = "Option::is_none")]
-    pub linear_shift: Option<bool>,
-    /// Whether or not this stage requires manual approval to proceed
-    #[serde(rename = "requireApproval", skip_serializing_if = "Option::is_none")]
-    pub require_approval: Option<bool>,
-    /// The percentage of traffic to serve to the canary deployment (0-100)
-    #[serde(rename = "targetPercentage")]
-    pub target_percentage: f64,
-}
-
-impl GetProjectsResponseRollingReleaseStagesItem {
-    pub fn new(target_percentage: f64) -> Self {
-        Self {
-            duration: None,
-            linear_shift: None,
-            require_approval: None,
-            target_percentage,
-        }
-    }
-}
-
-/// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetProjectsResponseRollingRelease {
-    /// Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.
-    #[serde(
-        rename = "canaryResponseHeader",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub canary_response_header: Option<bool>,
-    /// Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gate: Option<GetProjectsResponseRollingReleaseGate>,
-    /// An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub stages: Option<Option<Vec<GetProjectsResponseRollingReleaseStagesItem>>>,
-    /// The environment that the release targets, currently only supports production. Adding in case we want to configure with alias groups or custom environments.
-    pub target: String,
 }

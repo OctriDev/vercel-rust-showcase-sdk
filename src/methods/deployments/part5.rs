@@ -3,6 +3,15 @@
 
 use super::*;
 
+/// Build resource configuration snapshot for this deployment.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CancelDeploymentResponseConfigResourceConfigBuildQueueConfigurationEnum {
+    #[default]
+    SkipNamespaceQueue,
+    WaitForNamespaceQueue,
+    Unknown(String),
+}
+
 impl CancelDeploymentResponseConfigResourceConfigBuildQueueConfigurationEnum {
     pub fn as_str(&self) -> &str {
         match self {

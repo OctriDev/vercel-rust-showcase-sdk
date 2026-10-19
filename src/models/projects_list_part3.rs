@@ -3,6 +3,22 @@
 
 // projects_list domain models (part 3)
 
+impl ListProjectsResponseItemEnvItemContentHintVariant7 {
+    pub fn new(
+        store_id: String,
+        type_: ListProjectsResponseItemEnvItemContentHintVariant7TypeEnum,
+    ) -> Self {
+        Self { store_id, type_ }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListProjectsResponseItemEnvItemContentHintVariant8TypeEnum {
+    #[serde(rename = "postgres-url-non-pooling")]
+    #[default]
+    PostgresUrlNonPooling,
+}
+
 impl ListProjectsResponseItemEnvItemContentHintVariant8TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {

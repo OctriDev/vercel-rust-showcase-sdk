@@ -198,6 +198,20 @@ impl<'de> serde::Deserialize<'de> for ConnectConnectorSupportsIcon {
     }
 }
 
+impl ::std::convert::From<bool> for ConnectConnectorSupportsIcon {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<ConnectConnectorSupportsIconVariant1Enum>
+    for ConnectConnectorSupportsIcon
+{
+    fn from(value: ConnectConnectorSupportsIconVariant1Enum) -> Self {
+        Self::Maybe(value)
+    }
+}
+
 /// Connector implementation type.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ConnectConnectorTypeEnum {

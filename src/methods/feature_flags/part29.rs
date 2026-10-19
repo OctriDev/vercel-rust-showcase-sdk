@@ -2,18 +2,43 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::Segment;
+use crate::types::{Flag, ListTeamFlagsV2ResponseDataItem};
 
-impl CreateFlagSegmentResponseTypeNameEnum {
+impl ListTeamFlagSettingsResponseVariant1DataItemMetadata {
+    pub fn new(
+        active_flag_count: f64,
+        archived_flag_count: f64,
+        pack_size_in_bytes: f64,
+        segment_count: f64,
+    ) -> Self {
+        Self {
+            active_flag_count,
+            archived_flag_count,
+            config_updated_at: None,
+            pack_revision: None,
+            pack_size_in_bytes,
+            segment_count,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum {
+    #[default]
+    Settings,
+    Unknown(String),
+}
+
+impl ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Segment => "segment",
+            Self::Settings => "settings",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateFlagSegmentResponseTypeNameEnum {
+impl serde::Serialize for ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -22,228 +47,193 @@ impl serde::Serialize for CreateFlagSegmentResponseTypeNameEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateFlagSegmentResponseTypeNameEnum {
+impl<'de> serde::Deserialize<'de> for ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "segment" => Self::Segment,
+            "settings" => Self::Settings,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateFlagSegmentResponseTypeNameEnum {
+impl std::fmt::Display for ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagSegmentResponse {
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdBy", skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<String>,
-    pub data: CreateFlagSegmentResponseData,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    pub hint: String,
-    pub id: String,
-    pub label: String,
+pub struct ListTeamFlagSettingsResponseVariant1DataItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub enabled: bool,
+    pub entities: Vec<ListTeamFlagSettingsResponseVariant1DataItemEntitiesItem>,
+    pub environments: Vec<String>,
+    pub metadata: ListTeamFlagSettingsResponseVariant1DataItemMetadata,
+    #[serde(rename = "ownerId", skip_serializing_if = "Option::is_none")]
+    pub owner_id: Option<String>,
     #[serde(rename = "projectId")]
     pub project_id: String,
-    pub slug: String,
     #[serde(rename = "typeName")]
-    pub type_name: CreateFlagSegmentResponseTypeNameEnum,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-    #[serde(rename = "usedByFlags", skip_serializing_if = "Option::is_none")]
-    pub used_by_flags: Option<Vec<String>>,
-    #[serde(rename = "usedBySegments", skip_serializing_if = "Option::is_none")]
-    pub used_by_segments: Option<Vec<String>>,
+    pub type_name: ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum,
+    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<f64>,
 }
 
-impl CreateFlagSegmentResponse {
-    #[allow(clippy::too_many_arguments)]
+impl ListTeamFlagSettingsResponseVariant1DataItem {
     pub fn new(
-        created_at: f64,
-        data: CreateFlagSegmentResponseData,
-        hint: String,
-        id: String,
-        label: String,
+        enabled: bool,
+        entities: Vec<ListTeamFlagSettingsResponseVariant1DataItemEntitiesItem>,
+        environments: Vec<String>,
+        metadata: ListTeamFlagSettingsResponseVariant1DataItemMetadata,
         project_id: String,
-        slug: String,
-        type_name: CreateFlagSegmentResponseTypeNameEnum,
-        updated_at: f64,
+        type_name: ListTeamFlagSettingsResponseVariant1DataItemTypeNameEnum,
     ) -> Self {
         Self {
-            created_at,
-            created_by: None,
-            data,
-            description: None,
-            hint,
-            id,
-            label,
+            created_at: None,
+            enabled,
+            entities,
+            environments,
+            metadata,
+            owner_id: None,
             project_id,
-            slug,
             type_name,
-            updated_at,
-            used_by_flags: None,
-            used_by_segments: None,
+            updated_at: None,
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListFlagSegmentsResponse {
-    pub data: Vec<Segment>,
+pub struct ListTeamFlagSettingsResponseVariant1Pagination {
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub next: Option<String>,
 }
 
-impl ListFlagSegmentsResponse {
-    pub fn new(data: Vec<Segment>) -> Self {
-        Self { data }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFlagSegmentOperationsItemActionEnum {
-    #[default]
-    Add,
-    Remove,
-    Unknown(String),
-}
-
-impl UpdateFlagSegmentOperationsItemActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Add => "add",
-            Self::Remove => "remove",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFlagSegmentOperationsItemActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentOperationsItemActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "add" => Self::Add,
-            "remove" => Self::Remove,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFlagSegmentOperationsItemActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFlagSegmentOperationsItemFieldEnum {
-    #[default]
-    Include,
-    Exclude,
-    Unknown(String),
-}
-
-impl UpdateFlagSegmentOperationsItemFieldEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Include => "include",
-            Self::Exclude => "exclude",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFlagSegmentOperationsItemFieldEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFlagSegmentOperationsItemFieldEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "include" => Self::Include,
-            "exclude" => Self::Exclude,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateFlagSegmentOperationsItemFieldEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ListTeamFlagSettingsResponseVariant1Pagination {
+    pub fn new(next: Option<String>) -> Self {
+        Self { next }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentOperationsItemValue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub note: Option<String>,
-    pub value: String,
+pub struct ListTeamFlagSettingsResponseVariant1 {
+    pub data: Vec<ListTeamFlagSettingsResponseVariant1DataItem>,
+    pub pagination: ListTeamFlagSettingsResponseVariant1Pagination,
 }
 
-impl UpdateFlagSegmentOperationsItemValue {
-    pub fn new(value: String) -> Self {
-        Self { note: None, value }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFlagSegmentOperationsItem {
-    pub action: UpdateFlagSegmentOperationsItemActionEnum,
-    pub field: UpdateFlagSegmentOperationsItemFieldEnum,
-    pub entity: String,
-    pub attribute: String,
-    pub value: UpdateFlagSegmentOperationsItemValue,
-}
-
-impl UpdateFlagSegmentOperationsItem {
+impl ListTeamFlagSettingsResponseVariant1 {
     pub fn new(
-        action: UpdateFlagSegmentOperationsItemActionEnum,
-        field: UpdateFlagSegmentOperationsItemFieldEnum,
-        entity: String,
-        attribute: String,
-        value: UpdateFlagSegmentOperationsItemValue,
+        data: Vec<ListTeamFlagSettingsResponseVariant1DataItem>,
+        pagination: ListTeamFlagSettingsResponseVariant1Pagination,
     ) -> Self {
-        Self {
-            action,
-            field,
-            entity,
-            attribute,
-            value,
+        Self { data, pagination }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ListTeamFlagSettingsResponse {
+    Object(Box<ListTeamFlagSettingsResponseVariant1>),
+    Value(serde_json::Value),
+}
+
+impl<'de> serde::Deserialize<'de> for ListTeamFlagSettingsResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<ListTeamFlagSettingsResponseVariant1>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
+        if let Ok(branch) = serde_json::from_value::<serde_json::Value>(value.clone()) {
+            let candidate = Self::Value(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no ListTeamFlagSettingsResponse branch accepts this payload")
+        })
+    }
+}
+
+impl ::std::convert::From<Box<ListTeamFlagSettingsResponseVariant1>>
+    for ListTeamFlagSettingsResponse
+{
+    fn from(value: Box<ListTeamFlagSettingsResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<serde_json::Value> for ListTeamFlagSettingsResponse {
+    fn from(value: serde_json::Value) -> Self {
+        Self::Value(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListTeamFlagsV2ResponsePagination {
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub next: Option<String>,
+}
+
+impl ListTeamFlagsV2ResponsePagination {
+    pub fn new(next: Option<String>) -> Self {
+        Self { next }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListTeamFlagsV2Response {
+    pub pagination: ListTeamFlagsV2ResponsePagination,
+    pub data: Vec<ListTeamFlagsV2ResponseDataItem>,
+}
+
+impl ListTeamFlagsV2Response {
+    pub fn new(
+        pagination: ListTeamFlagsV2ResponsePagination,
+        data: Vec<ListTeamFlagsV2ResponseDataItem>,
+    ) -> Self {
+        Self { pagination, data }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListTeamFlagsResponsePagination {
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub next: Option<String>,
+}
+
+impl ListTeamFlagsResponsePagination {
+    pub fn new(next: Option<String>) -> Self {
+        Self { next }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListTeamFlagsResponse {
+    pub data: Vec<Flag>,
+    pub pagination: ListTeamFlagsResponsePagination,
+}
+
+impl ListTeamFlagsResponse {
+    pub fn new(data: Vec<Flag>, pagination: ListTeamFlagsResponsePagination) -> Self {
+        Self { data, pagination }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
+pub enum CreateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     #[default]
     Eq,
     Eq2,
@@ -271,7 +261,7 @@ pub enum UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     Unknown(String),
 }
 
-impl UpdateFlagSegmentDataRulesItemConditionsItemCmpEnum {
+impl CreateFlagSegmentDataRulesItemConditionsItemCmpEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Eq => "eq",

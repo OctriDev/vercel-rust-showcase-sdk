@@ -182,6 +182,18 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentsResponseDeploymentsItemSeatB
     }
 }
 
+impl ::std::convert::From<String> for GetDeploymentsResponseDeploymentsItemSeatBlockGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetDeploymentsResponseDeploymentsItemSeatBlockGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 /// NSNB Blocked metadata
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct GetDeploymentsResponseDeploymentsItemSeatBlock {
@@ -276,11 +288,5 @@ impl<'de> serde::Deserialize<'de> for GetDeploymentsResponseDeploymentsItemSourc
             "v0-web" => Self::V0Web,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentsResponseDeploymentsItemSourceEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

@@ -2,73 +2,200 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::types::{
-    CreateProjectResponseCreator, CreateProjectResponseExpiration,
-    CreateProjectResponseInternalRoutesItem, CreateProjectResponseLink,
-    CreateProjectResponseMicrofrontends, CreateProjectResponseTrustedIps,
-};
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseTargetsValueReadyStateEnum {
+    #[default]
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
+    Unknown(String),
+}
+
+impl CreateProjectResponseTargetsValueReadyStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseTargetsValueReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseTargetsValueReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseTargetsValueReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl CreateProjectResponseTargetsValueReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseTargetsValueReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueReadySubstateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseTargetsValueReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseTargetsValueTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl CreateProjectResponseTargetsValueTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateProjectResponseTargetsValueTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseTargetsValueTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponse {
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    pub alias: Vec<CreateProjectResponseAliasItem>,
+pub struct CreateProjectResponseTargetsValue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub analytics: Option<CreateProjectResponseAnalytics>,
+    pub alias: Option<Vec<String>>,
     #[serde(
-        rename = "appliedCve55182Migration",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub applied_cve55182_migration: Option<bool>,
-    #[serde(
-        rename = "autoAssignCustomDomains",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_assign_custom_domains: Option<bool>,
-    #[serde(
-        rename = "autoAssignCustomDomainsUpdatedBy",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_assign_custom_domains_updated_by: Option<String>,
-    #[serde(
-        rename = "autoExposeSystemEnvs",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_expose_system_envs: Option<bool>,
-    #[serde(
+        rename = "aliasAssigned",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub avatar: Option<Option<String>>,
+    pub alias_assigned: Option<Option<CreateProjectResponseTargetsValueAliasAssigned>>,
     #[serde(
-        rename = "avatarDarkMode",
+        rename = "aliasError",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub avatar_dark_mode: Option<Option<String>>,
+    pub alias_error: Option<Option<CreateProjectResponseTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<CreateProjectResponseTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub blobs: Option<CreateProjectResponseBlobs>,
-    #[serde(
-        rename = "buildCommand",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub build_command: Option<Option<String>>,
-    #[serde(
-        rename = "commandForIgnoringBuildStep",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub command_for_ignoring_build_step: Option<Option<String>>,
-    #[serde(
-        rename = "concurrencyBucketName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub concurrency_bucket_name: Option<String>,
+    pub builds: Option<Vec<CreateProjectResponseTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<CreateProjectResponseTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<CreateProjectResponseTargetsValueChecksStateEnum>,
     #[serde(
         rename = "connectBuildsEnabled",
         skip_serializing_if = "Option::is_none"
@@ -76,322 +203,69 @@ pub struct CreateProjectResponse {
     pub connect_builds_enabled: Option<bool>,
     #[serde(
         rename = "connectConfigurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub connect_configuration_id: Option<Option<String>>,
-    #[serde(
-        rename = "connectConfigurations",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub connect_configurations: Option<Option<Vec<CreateProjectResponseConnectConfigurationsItem>>>,
-    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<f64>,
-    /// Typed representation of the `CreateProjectResponseCreator` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub creator: Option<CreateProjectResponseCreator>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub crons: Option<CreateProjectResponseCrons>,
-    #[serde(rename = "customEnvironments", skip_serializing_if = "Option::is_none")]
-    pub custom_environments: Option<Vec<CreateProjectResponseCustomEnvironmentsItem>>,
-    #[serde(
-        rename = "customerSupportCodeVisibility",
         skip_serializing_if = "Option::is_none"
     )]
-    pub customer_support_code_visibility: Option<bool>,
-    #[serde(rename = "dataCache", skip_serializing_if = "Option::is_none")]
-    pub data_cache: Option<CreateProjectResponseDataCache>,
-    #[serde(rename = "defaultResourceConfig")]
-    pub default_resource_config: CreateProjectResponseDefaultResourceConfig,
-    /// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
-    #[serde(rename = "deploymentExpiration")]
-    pub deployment_expiration: CreateProjectResponseDeploymentExpiration,
-    /// Project shape. `null` on a rule list clears the project's override for that rule type (fall back to team for every env); omitting is equivalent. Setting `deploymentPolicy` itself to `null` clears every override at once. Kept structurally distinct from {@link TeamDeploymentPolicy} so the two storage locations don't share a type by accident.
-    #[serde(
-        rename = "deploymentPolicy",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub deployment_policy: Option<Option<CreateProjectResponseDeploymentPolicy>>,
-    #[serde(
-        rename = "devCommand",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub dev_command: Option<Option<String>>,
-    #[serde(rename = "directoryListing")]
-    pub directory_listing: bool,
-    #[serde(rename = "dismissedToasts", skip_serializing_if = "Option::is_none")]
-    pub dismissed_toasts: Option<Vec<CreateProjectResponseDismissedToastsItem>>,
-    #[serde(
-        rename = "enableAffectedProjectsDeployments",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_affected_projects_deployments: Option<bool>,
-    #[serde(
-        rename = "enableExternalRewriteCaching",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub enable_external_rewrite_caching: Option<bool>,
-    #[serde(
-        rename = "enablePreviewFeedback",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub enable_preview_feedback: Option<Option<bool>>,
-    #[serde(
-        rename = "enableProductionFeedback",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub enable_production_feedback: Option<Option<bool>>,
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<CreateProjectResponseTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub env: Option<Vec<CreateProjectResponseEnvItem>>,
-    /// Typed representation of the `CreateProjectResponseExpiration` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expiration: Option<CreateProjectResponseExpiration>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub features: Option<CreateProjectResponseFeatures>,
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub framework: Option<Option<CreateProjectResponseFrameworkEnum>>,
-    #[serde(rename = "gitComments", skip_serializing_if = "Option::is_none")]
-    pub git_comments: Option<CreateProjectResponseGitComments>,
-    #[serde(rename = "gitForkProtection", skip_serializing_if = "Option::is_none")]
-    pub git_fork_protection: Option<bool>,
-    #[serde(rename = "gitLFS", skip_serializing_if = "Option::is_none")]
-    pub git_lfs: Option<bool>,
-    #[serde(rename = "gitProviderOptions", skip_serializing_if = "Option::is_none")]
-    pub git_provider_options: Option<CreateProjectResponseGitProviderOptions>,
-    #[serde(rename = "hasActiveBranches", skip_serializing_if = "Option::is_none")]
-    pub has_active_branches: Option<bool>,
-    #[serde(rename = "hasDeployments", skip_serializing_if = "Option::is_none")]
-    pub has_deployments: Option<bool>,
+    pub forced: Option<bool>,
     pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
     #[serde(
-        rename = "installCommand",
+        rename = "monorepoManager",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub install_command: Option<Option<String>>,
-    #[serde(rename = "internalRoutes", skip_serializing_if = "Option::is_none")]
-    pub internal_routes: Option<Vec<CreateProjectResponseInternalRoutesItem>>,
-    #[serde(rename = "ipBuckets", skip_serializing_if = "Option::is_none")]
-    pub ip_buckets: Option<Vec<CreateProjectResponseIpBucketsItem>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub jobs: Option<CreateProjectResponseJobs>,
-    #[serde(
-        rename = "lastAliasRequest",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub last_alias_request: Option<Option<CreateProjectResponseLastAliasRequest>>,
-    #[serde(
-        rename = "lastRollbackTarget",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub last_rollback_target: Option<Option<serde_json::Value>>,
-    #[serde(rename = "latestDeployments", skip_serializing_if = "Option::is_none")]
-    pub latest_deployments: Option<Vec<CreateProjectResponseLatestDeploymentsItem>>,
-    /// Typed representation of the `CreateProjectResponseLink` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub link: Option<CreateProjectResponseLink>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub live: Option<bool>,
-    /// Typed representation of the `CreateProjectResponseMicrofrontends` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub microfrontends: Option<CreateProjectResponseMicrofrontends>,
+    pub monorepo_manager: Option<Option<String>>,
     pub name: String,
-    #[serde(rename = "nodeVersion")]
-    pub node_version: CreateProjectResponseNodeVersionEnum,
-    #[serde(rename = "oidcTokenConfig", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_config: Option<CreateProjectResponseOidcTokenConfig>,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<CreateProjectResponseTargetsValueOidcTokenClaims>,
+    pub plan: CreateProjectResponseTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
     #[serde(
-        rename = "optionsAllowlist",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub options_allowlist: Option<Option<CreateProjectResponseOptionsAllowlist>>,
-    #[serde(
-        rename = "outputDirectory",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub output_directory: Option<Option<String>>,
-    #[serde(
-        rename = "passiveConnectConfigurationId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub passive_connect_configuration_id: Option<Option<String>>,
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: CreateProjectResponseTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<CreateProjectResponseTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub passport: Option<Option<CreateProjectResponsePassport>>,
-    /// Password protection settings returned without the secret password hash.
+    pub target: Option<Option<String>>,
     #[serde(
-        rename = "passwordProtection",
+        rename = "teamId",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub password_protection: Option<Option<CreateProjectResponsePasswordProtection>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub paused: Option<bool>,
-    /// Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<CreateProjectResponsePermissions>,
-    #[serde(
-        rename = "productionDeploymentsFastLane",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub production_deployments_fast_lane: Option<bool>,
-    #[serde(
-        rename = "protectedSourcemaps",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub protected_sourcemaps: Option<bool>,
-    #[serde(rename = "protectionBypass", skip_serializing_if = "Option::is_none")]
-    pub protection_bypass:
-        Option<std::collections::HashMap<String, CreateProjectResponseProtectionBypassValue>>,
-    #[serde(rename = "protectionConfig", skip_serializing_if = "Option::is_none")]
-    pub protection_config: Option<CreateProjectResponseProtectionConfig>,
-    #[serde(rename = "resourceConfig")]
-    pub resource_config: CreateProjectResponseResourceConfig,
-    /// Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
-    #[serde(
-        rename = "rollbackDescription",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub rollback_description: Option<CreateProjectResponseRollbackDescription>,
-    /// Project-level rolling release configuration that defines how deployments should be gradually rolled out
-    #[serde(
-        rename = "rollingRelease",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub rolling_release: Option<Option<CreateProjectResponseRollingRelease>>,
-    #[serde(
-        rename = "rootDirectory",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub root_directory: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sandbox: Option<CreateProjectResponseSandbox>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub security: Option<CreateProjectResponseSecurity>,
-    #[serde(
-        rename = "serverlessFunctionZeroConfigFailover",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub serverless_function_zero_config_failover: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub services: Option<Vec<CreateProjectResponseServicesItem>>,
-    #[serde(
-        rename = "skewProtectionAllowedDomains",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_allowed_domains: Option<Vec<String>>,
-    #[serde(
-        rename = "skewProtectionBoundaryAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_boundary_at: Option<f64>,
-    #[serde(
-        rename = "skewProtectionMaxAge",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skew_protection_max_age: Option<f64>,
-    #[serde(
-        rename = "skipGitConnectDuringLink",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub skip_git_connect_during_link: Option<bool>,
-    #[serde(
-        rename = "sourceFilesOutsideRootDirectory",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_files_outside_root_directory: Option<bool>,
-    #[serde(rename = "speedInsights", skip_serializing_if = "Option::is_none")]
-    pub speed_insights: Option<CreateProjectResponseSpeedInsights>,
-    #[serde(
-        rename = "ssoProtection",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub sso_protection: Option<Option<CreateProjectResponseSsoProtection>>,
-    #[serde(rename = "staticIps", skip_serializing_if = "Option::is_none")]
-    pub static_ips: Option<CreateProjectResponseStaticIps>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub targets:
-        Option<std::collections::HashMap<String, Option<CreateProjectResponseTargetsValue>>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tier: Option<CreateProjectResponseTierEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<CreateProjectResponseTracing>,
-    #[serde(
-        rename = "transferCompletedAt",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transfer_completed_at: Option<f64>,
-    #[serde(
-        rename = "transferredFromAccountId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transferred_from_account_id: Option<String>,
-    #[serde(rename = "transferStartedAt", skip_serializing_if = "Option::is_none")]
-    pub transfer_started_at: Option<f64>,
-    #[serde(
-        rename = "transferToAccountId",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub transfer_to_account_id: Option<String>,
-    /// Typed representation of the `CreateProjectResponseTrustedIps` API schema.
-    #[serde(
-        rename = "trustedIps",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub trusted_ips: Option<Option<CreateProjectResponseTrustedIps>>,
-    #[serde(
-        rename = "trustedSources",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub trusted_sources: Option<Option<CreateProjectResponseTrustedSources>>,
-    #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<f64>,
-    #[serde(rename = "usageStatus", skip_serializing_if = "Option::is_none")]
-    pub usage_status: Option<CreateProjectResponseUsageStatus>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub v0: Option<bool>,
-    #[serde(rename = "v0Created", skip_serializing_if = "Option::is_none")]
-    pub v0_created: Option<bool>,
-    #[serde(rename = "webAnalytics", skip_serializing_if = "Option::is_none")]
-    pub web_analytics: Option<CreateProjectResponseWebAnalytics>,
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: CreateProjectResponseTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }

@@ -130,6 +130,18 @@ impl<'de> serde::Deserialize<'de> for AggregatePageviews {
     }
 }
 
+impl ::std::convert::From<f64> for AggregatePageviews {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for AggregatePageviews {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum AggregatePageviews4a2b85be {
@@ -158,6 +170,18 @@ impl<'de> serde::Deserialize<'de> for AggregatePageviews4a2b85be {
         lossy.ok_or_else(|| {
             serde::de::Error::custom("no AggregatePageviews4a2b85be branch accepts this payload")
         })
+    }
+}
+
+impl ::std::convert::From<f64> for AggregatePageviews4a2b85be {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for AggregatePageviews4a2b85be {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -233,42 +257,4 @@ impl AggregatePageviewsResponseDataVariant0Item {
         value.validate_constraints()?;
         Ok(value)
     }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct AggregatePageviewsResponseDataVariant1Item {
-    #[serde(rename = "browserName")]
-    pub browser_name: String,
-    pub country: String,
-    #[serde(rename = "deviceType")]
-    pub device_type: String,
-    pub environment: String,
-    pub flags: String,
-    #[serde(rename = "osName")]
-    pub os_name: String,
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    #[serde(rename = "referrerHostname")]
-    pub referrer_hostname: String,
-    #[serde(rename = "requestHostname")]
-    pub request_hostname: String,
-    #[serde(rename = "requestPath")]
-    pub request_path: String,
-    pub route: String,
-    #[serde(rename = "utmCampaign")]
-    pub utm_campaign: String,
-    #[serde(rename = "utmContent")]
-    pub utm_content: String,
-    #[serde(rename = "utmMedium")]
-    pub utm_medium: String,
-    #[serde(rename = "utmSource")]
-    pub utm_source: String,
-    #[serde(rename = "utmTerm")]
-    pub utm_term: String,
-    #[serde(rename = "visitorId")]
-    pub visitor_id: String,
-    #[serde(flatten)]
-    pub additional_properties: std::collections::HashMap<String, serde_json::Value>,
 }

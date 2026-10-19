@@ -3,6 +3,69 @@
 
 use super::*;
 
+impl std::fmt::Display for ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemEnvEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum {
+    #[default]
+    HeadSampling,
+    Unknown(String),
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::HeadSampling => "head_sampling",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "head_sampling" => Self::HeadSampling,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub env: Option<ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemEnvEnum>,
+    pub rate: f64,
+    #[serde(rename = "requestPath", skip_serializing_if = "Option::is_none")]
+    pub request_path: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItemTypeEnum,
+}
+
 impl ListLogDrainsResponseVariant1DrainsVariant0ItemSamplingItem {
     pub fn new(
         rate: f64,
@@ -235,71 +298,18 @@ impl<'de> serde::Deserialize<'de> for ListLogDrainsResponseVariant1DrainsVariant
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemStatusEnum {
-    #[default]
-    Disabled,
-    Enabled,
-    Errored,
-    Unknown(String),
-}
-
-impl ListLogDrainsResponseVariant1DrainsVariant0ItemStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Disabled => "disabled",
-            Self::Enabled => "enabled",
-            Self::Errored => "errored",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListLogDrainsResponseVariant1DrainsVariant0ItemStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListLogDrainsResponseVariant1DrainsVariant0ItemStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "disabled" => Self::Disabled,
-            "enabled" => Self::Enabled,
-            "errored" => Self::Errored,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListLogDrainsResponseVariant1DrainsVariant0ItemStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0DeploymentEnvironmentsItemEnum
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant0ItemSourceVariant0>>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemSource
 {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
+    fn from(value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemSourceVariant0>) -> Self {
+        Self::SelfServed(value)
+    }
 }
 
-impl ListLogDrainsResponseVariant1DrainsVariant0ItemFilterV2FilterVariant0DeploymentEnvironmentsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant0ItemSourceVariant1>>
+    for ListLogDrainsResponseVariant1DrainsVariant0ItemSource
+{
+    fn from(value: Box<ListLogDrainsResponseVariant1DrainsVariant0ItemSourceVariant1>) -> Self {
+        Self::Integration(value)
     }
 }

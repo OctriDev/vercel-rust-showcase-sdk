@@ -3,6 +3,74 @@
 
 // projects_upload domain models (part 8)
 
+impl UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
+            Self::Production => "production",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseTrustedIpsVariant1 {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum,
+}
+
+impl UploadProjectAvatarResponseTrustedIpsVariant1 {
+    pub fn new(
+        deployment_type: UploadProjectAvatarResponseTrustedIpsVariant1DeploymentTypeEnum,
+    ) -> Self {
+        Self { deployment_type }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UploadProjectAvatarResponseTrustedIps {
+    Object(Box<UploadProjectAvatarResponseTrustedIpsVariant0>),
+    Object2(Box<UploadProjectAvatarResponseTrustedIpsVariant1>),
+}
+
 impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseTrustedIps {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;

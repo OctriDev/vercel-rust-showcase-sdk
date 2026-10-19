@@ -228,6 +228,18 @@ impl<'de> serde::Deserialize<'de> for ArtifactQueryResponseValue {
     }
 }
 
+impl ::std::convert::From<Box<ArtifactQueryResponseValueVariant0>> for ArtifactQueryResponseValue {
+    fn from(value: Box<ArtifactQueryResponseValueVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<ArtifactQueryResponseValueVariant1>> for ArtifactQueryResponseValue {
+    fn from(value: Box<ArtifactQueryResponseValueVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct DeleteAllArtifactsResponse {
     #[serde(rename = "deletedCount")]

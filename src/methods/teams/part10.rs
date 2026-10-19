@@ -4,6 +4,23 @@
 use super::*;
 use crate::types::{ListTeamsResponseTeamsItem, Pagination};
 
+impl UpdateTeamsDefaultExpirationSettingsExpirationErroredEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::_1y => "1y",
+            Self::_6m => "6m",
+            Self::_3m => "3m",
+            Self::_2m => "2m",
+            Self::_1m => "1m",
+            Self::_2w => "2w",
+            Self::_1w => "1w",
+            Self::_1d => "1d",
+            Self::Unlimited => "unlimited",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for UpdateTeamsDefaultExpirationSettingsExpirationErroredEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -264,37 +281,6 @@ impl CreateTeamAttributionUtm {
             utm_medium: None,
             utm_campaign: None,
             utm_term: None,
-        }
-    }
-}
-
-/// Attribution information for the session or current page
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateTeamAttribution {
-    /// Session referrer
-    #[serde(rename = "sessionReferrer", skip_serializing_if = "Option::is_none")]
-    pub session_referrer: Option<String>,
-    /// Session landing page
-    #[serde(rename = "landingPage", skip_serializing_if = "Option::is_none")]
-    pub landing_page: Option<String>,
-    /// Referrer to the signup page
-    #[serde(
-        rename = "pageBeforeConversionPage",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub page_before_conversion_page: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub utm: Option<CreateTeamAttributionUtm>,
-}
-
-impl CreateTeamAttribution {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            session_referrer: None,
-            landing_page: None,
-            page_before_conversion_page: None,
-            utm: None,
         }
     }
 }

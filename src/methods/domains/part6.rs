@@ -133,6 +133,18 @@ impl<'de> serde::Deserialize<'de> for UpdateDomains {
     }
 }
 
+impl ::std::convert::From<Box<UpdateDomainsVariant0>> for UpdateDomains {
+    fn from(value: Box<UpdateDomainsVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateDomainsVariant1>> for UpdateDomains {
+    fn from(value: Box<UpdateDomainsVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct DeleteDomainResponse {
     pub uid: String,
@@ -348,48 +360,6 @@ pub fn get_domain_verification_record(
             query: &__query,
             decoder: crate::client::ResponseDecoder::Json,
             operation_id: "get_domain_verification_record",
-            options,
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Claims ownership of a domain for the authenticated user's team by verifying a TXT record. First add the record returned by GET /domains/:domain/verification to `_vercel.{domain}` in your DNS configuration. Once verified, ownership transfers to your team even if another user or team currently owns the domain.
-///
-/// Claim ownership of a domain for the authenticated team by verifying a TXT record. The caller must first add a TXT record to `_vercel.{domain}` (obtained from GET /domains/:domain/verification), then call this endpoint to complete the ownership transfer. If the TXT record is verified, the domain ownership will be transferred to the caller's team, even if the domain is currently owned by another user or team.
-///
-/// # Arguments
-///
-/// * `domain` - The domain name to claim ownership of
-/// * `team_id` - The Team identifier to perform the request on behalf of.
-/// * `slug` - The Team slug to perform the request on behalf of.
-pub fn claim_domain_ownership(
-    config: &ClientConfig,
-    domain: String,
-    team_id: Option<String>,
-    slug: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<ClaimDomainOwnershipResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = slug {
-        __query.push(("slug", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<ClaimDomainOwnershipResponse>(
-        "POST",
-        &format!(
-            "/v9/domains/{}/claim",
-            crate::client::encode_path_segment(&domain)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "claim_domain_ownership",
             options,
             ..Default::default()
         },

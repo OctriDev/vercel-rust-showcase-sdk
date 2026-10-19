@@ -62,6 +62,18 @@ impl<'de> serde::Deserialize<'de> for GetTldPriceResponsePurchasePrice {
     }
 }
 
+impl ::std::convert::From<f64> for GetTldPriceResponsePurchasePrice {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetTldPriceResponsePurchasePrice {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GetTldPriceResponseRenewalPrice {
@@ -95,6 +107,18 @@ impl<'de> serde::Deserialize<'de> for GetTldPriceResponseRenewalPrice {
     }
 }
 
+impl ::std::convert::From<f64> for GetTldPriceResponseRenewalPrice {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetTldPriceResponseRenewalPrice {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GetTldPriceResponseTransferPrice {
@@ -125,6 +149,18 @@ impl<'de> serde::Deserialize<'de> for GetTldPriceResponseTransferPrice {
                 "no GetTldPriceResponseTransferPrice branch accepts this payload",
             )
         })
+    }
+}
+
+impl ::std::convert::From<f64> for GetTldPriceResponseTransferPrice {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetTldPriceResponseTransferPrice {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -200,6 +236,18 @@ impl<'de> serde::Deserialize<'de> for GetDomainPriceResponsePurchasePrice {
     }
 }
 
+impl ::std::convert::From<f64> for GetDomainPriceResponsePurchasePrice {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<String> for GetDomainPriceResponsePurchasePrice {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GetDomainPriceResponseRenewalPrice {
@@ -233,95 +281,14 @@ impl<'de> serde::Deserialize<'de> for GetDomainPriceResponseRenewalPrice {
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetDomainPriceResponseTransferPrice {
-    Number(f64),
-    String(String),
-}
-
-impl<'de> serde::Deserialize<'de> for GetDomainPriceResponseTransferPrice {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetDomainPriceResponseTransferPrice branch accepts this payload",
-            )
-        })
+impl ::std::convert::From<f64> for GetDomainPriceResponseRenewalPrice {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetDomainPriceResponse {
-    pub years: f64,
-    #[serde(rename = "purchasePrice")]
-    pub purchase_price: GetDomainPriceResponsePurchasePrice,
-    #[serde(rename = "renewalPrice")]
-    pub renewal_price: GetDomainPriceResponseRenewalPrice,
-    #[serde(rename = "transferPrice")]
-    pub transfer_price: GetDomainPriceResponseTransferPrice,
-}
-
-impl GetDomainPriceResponse {
-    pub fn new(
-        years: f64,
-        purchase_price: GetDomainPriceResponsePurchasePrice,
-        renewal_price: GetDomainPriceResponseRenewalPrice,
-        transfer_price: GetDomainPriceResponseTransferPrice,
-    ) -> Self {
-        Self {
-            years,
-            purchase_price,
-            renewal_price,
-            transfer_price,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum GetBulkPriceResponseResultsItemPurchasePrice {
-    Number(f64),
-    String(String),
-}
-
-impl<'de> serde::Deserialize<'de> for GetBulkPriceResponseResultsItemPurchasePrice {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no GetBulkPriceResponseResultsItemPurchasePrice branch accepts this payload",
-            )
-        })
+impl ::std::convert::From<String> for GetDomainPriceResponseRenewalPrice {
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }

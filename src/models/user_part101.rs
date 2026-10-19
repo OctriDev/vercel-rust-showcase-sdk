@@ -3,565 +3,498 @@
 
 // user domain models (part 101)
 
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant462 {
-    /// Required object value serialized in the `decision` wire field.
-    pub decision: UserEventPayloadVariant462Decision,
-    /// Required enumerated value serialized in the `outcome` wire field.
-    pub outcome: UserEventPayloadVariant462OutcomeEnum,
-    /// Required enumerated value serialized in the `provider` wire field.
-    pub provider: UserEventPayloadVariant462ProviderEnum,
-    /// Required `string` value serialized in the `providerSubjectId` wire field.
-    #[serde(rename = "providerSubjectId")]
-    pub provider_subject_id: String,
-}
-
-impl UserEventPayloadVariant462 {
-    pub fn new(
-        decision: UserEventPayloadVariant462Decision,
-        outcome: UserEventPayloadVariant462OutcomeEnum,
-        provider: UserEventPayloadVariant462ProviderEnum,
-        provider_subject_id: String,
-    ) -> Self {
-        Self {
-            decision,
-            outcome,
-            provider,
-            provider_subject_id,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant463 {
-    /// Required `string` value serialized in the `email` wire field.
-    pub email: String,
-    /// Required `string` value serialized in the `prevEmail` wire field.
-    #[serde(rename = "prevEmail")]
-    pub prev_email: String,
-}
-
-impl UserEventPayloadVariant463 {
-    pub fn new(email: String, prev_email: String) -> Self {
-        Self { email, prev_email }
-    }
-}
-
-/// Required enumerated value serialized in the `actorType` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant464ActorTypeEnum {
-    #[default]
-    Admin,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant464ActorTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Admin => "admin",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant464ActorTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant464ActorTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "admin" => Self::Admin,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant464ActorTypeEnum {
+impl std::fmt::Display for UserEventPayloadVariant456MethodEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// The payload of the event, if requested.
+/// Required object value serialized in the `next` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant464 {
-    /// Required `string` value serialized in the `email` wire field.
-    pub email: String,
-    /// Required `string` value serialized in the `prevEmail` wire field.
-    #[serde(rename = "prevEmail")]
-    pub prev_email: String,
-    /// Okta user id.
-    #[serde(rename = "actorId")]
-    pub actor_id: String,
-    /// Optional `string` value serialized in the `actorName` wire field.
-    #[serde(rename = "actorName", skip_serializing_if = "Option::is_none")]
-    pub actor_name: Option<String>,
-    /// Required enumerated value serialized in the `actorType` wire field.
-    #[serde(rename = "actorType")]
-    pub actor_type: UserEventPayloadVariant464ActorTypeEnum,
+pub struct UserEventPayloadVariant456Next {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
 }
 
-impl UserEventPayloadVariant464 {
-    pub fn new(
-        email: String,
-        prev_email: String,
-        actor_id: String,
-        actor_type: UserEventPayloadVariant464ActorTypeEnum,
-    ) -> Self {
+impl UserEventPayloadVariant456Next {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
         Self {
-            email,
-            prev_email,
-            actor_id,
-            actor_name: None,
-            actor_type,
+            enabled,
+            totp_verified,
         }
     }
 }
 
-/// Required enumerated value serialized in the `actorType` wire field.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UserEventPayloadVariant465ActorTypeEnum {
-    #[default]
-    Admin,
-    Unknown(String),
-}
-
-impl UserEventPayloadVariant465ActorTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Admin => "admin",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UserEventPayloadVariant465ActorTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant465ActorTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "admin" => Self::Admin,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UserEventPayloadVariant465ActorTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The payload of the event, if requested.
+/// Required object value serialized in the `previous` wire field.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant465 {
-    /// Required `string` value serialized in the `username` wire field.
-    pub username: String,
-    /// Okta user id.
-    #[serde(rename = "actorId")]
-    pub actor_id: String,
-    /// Optional `string` value serialized in the `actorName` wire field.
-    #[serde(rename = "actorName", skip_serializing_if = "Option::is_none")]
-    pub actor_name: Option<String>,
-    /// Required enumerated value serialized in the `actorType` wire field.
-    #[serde(rename = "actorType")]
-    pub actor_type: UserEventPayloadVariant465ActorTypeEnum,
+pub struct UserEventPayloadVariant456Previous {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
 }
 
-impl UserEventPayloadVariant465 {
-    pub fn new(
-        username: String,
-        actor_id: String,
-        actor_type: UserEventPayloadVariant465ActorTypeEnum,
-    ) -> Self {
+impl UserEventPayloadVariant456Previous {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
         Self {
-            username,
-            actor_id,
-            actor_name: None,
-            actor_type,
+            enabled,
+            totp_verified,
         }
     }
 }
 
 /// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant466 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-}
-
-impl UserEventPayloadVariant466 {
-    pub fn new(project_id: String, project_name: String, repository_name: String) -> Self {
-        Self {
-            project_id,
-            project_name,
-            repository_name,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant467 {
-    /// Required `string` value serialized in the `digest` wire field.
-    pub digest: String,
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `string` value serialized in the `reference` wire field.
-    pub reference: String,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-}
-
-impl UserEventPayloadVariant467 {
-    pub fn new(
-        digest: String,
-        project_id: String,
-        project_name: String,
-        reference: String,
-        repository_name: String,
-    ) -> Self {
-        Self {
-            digest,
-            project_id,
-            project_name,
-            reference,
-            repository_name,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant468 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `string` value serialized in the `reference` wire field.
-    pub reference: String,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-}
-
-impl UserEventPayloadVariant468 {
-    pub fn new(
-        project_id: String,
-        project_name: String,
-        reference: String,
-        repository_name: String,
-    ) -> Self {
-        Self {
-            project_id,
-            project_name,
-            reference,
-            repository_name,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant469 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-    /// Required `string` value serialized in the `sharedWithTeamId` wire field.
-    #[serde(rename = "sharedWithTeamId")]
-    pub shared_with_team_id: String,
-    /// Required `string` value serialized in the `sharedWithTeamSlug` wire field.
-    #[serde(rename = "sharedWithTeamSlug")]
-    pub shared_with_team_slug: String,
-}
-
-impl UserEventPayloadVariant469 {
-    pub fn new(
-        project_id: String,
-        project_name: String,
-        repository_name: String,
-        shared_with_team_id: String,
-        shared_with_team_slug: String,
-    ) -> Self {
-        Self {
-            project_id,
-            project_name,
-            repository_name,
-            shared_with_team_id,
-            shared_with_team_slug,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant470 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-    /// Required `string` value serialized in the `sharedWithTeamId` wire field.
-    #[serde(rename = "sharedWithTeamId")]
-    pub shared_with_team_id: String,
-}
-
-impl UserEventPayloadVariant470 {
-    pub fn new(
-        project_id: String,
-        project_name: String,
-        repository_name: String,
-        shared_with_team_id: String,
-    ) -> Self {
-        Self {
-            project_id,
-            project_name,
-            repository_name,
-            shared_with_team_id,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant471 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required enumerated value serialized in the `public` wire field.
-    pub public: bool,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-}
-
-impl UserEventPayloadVariant471 {
-    pub fn new(
-        project_id: String,
-        project_name: String,
-        public: bool,
-        repository_name: String,
-    ) -> Self {
-        Self {
-            project_id,
-            project_name,
-            public,
-            repository_name,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant472 {
-    /// Required `string` value serialized in the `projectId` wire field.
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    /// Required `string` value serialized in the `projectName` wire field.
-    #[serde(rename = "projectName")]
-    pub project_name: String,
-    /// Required array value serialized in the `removedTeamIds` wire field.
-    #[serde(rename = "removedTeamIds")]
-    pub removed_team_ids: Vec<String>,
-    /// Required `string` value serialized in the `repositoryName` wire field.
-    #[serde(rename = "repositoryName")]
-    pub repository_name: String,
-}
-
-impl UserEventPayloadVariant472 {
-    pub fn new(
-        project_id: String,
-        project_name: String,
-        removed_team_ids: Vec<String>,
-        repository_name: String,
-    ) -> Self {
-        Self {
-            project_id,
-            project_name,
-            removed_team_ids,
-            repository_name,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant473 {
-    /// Required `string` value serialized in the `ruleName` wire field.
-    #[serde(rename = "ruleName")]
-    pub rule_name: String,
-}
-
-impl UserEventPayloadVariant473 {
-    pub fn new(rule_name: String) -> Self {
-        Self { rule_name }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant474 {
-    /// Required `number` value serialized in the `nextProjectCount` wire field.
-    #[serde(rename = "nextProjectCount", deserialize_with = "Option::deserialize")]
-    pub next_project_count: Option<f64>,
-    /// Required `number` value serialized in the `previousProjectCount` wire field.
-    #[serde(
-        rename = "previousProjectCount",
-        deserialize_with = "Option::deserialize"
-    )]
-    pub previous_project_count: Option<f64>,
-}
-
-impl UserEventPayloadVariant474 {
-    pub fn new(next_project_count: Option<f64>, previous_project_count: Option<f64>) -> Self {
-        Self {
-            next_project_count,
-            previous_project_count,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant475 {
-    /// Required `string` value serialized in the `customAlertTitle` wire field.
-    #[serde(rename = "customAlertTitle")]
-    pub custom_alert_title: String,
-}
-
-impl UserEventPayloadVariant475 {
-    pub fn new(custom_alert_title: String) -> Self {
-        Self { custom_alert_title }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant476 {
-    /// Required enumerated value serialized in the `ciEnabled` wire field.
-    #[serde(rename = "ciEnabled")]
-    pub ci_enabled: bool,
-    /// Required `string` value serialized in the `organizationId` wire field.
-    #[serde(rename = "organizationId")]
-    pub organization_id: String,
-    /// Required `string` value serialized in the `repository` wire field.
-    pub repository: String,
-}
-
-impl UserEventPayloadVariant476 {
-    pub fn new(ci_enabled: bool, organization_id: String, repository: String) -> Self {
-        Self {
-            ci_enabled,
-            organization_id,
-            repository,
-        }
-    }
-}
-
-/// The payload of the event, if requested.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant477 {
-    /// Required `number` value serialized in the `protectedProjectCount` wire field.
-    #[serde(rename = "protectedProjectCount")]
-    pub protected_project_count: f64,
-    /// Required enumerated value serialized in the `protectionEnabled` wire field.
-    #[serde(rename = "protectionEnabled")]
-    pub protection_enabled: bool,
-    /// Required array value serialized in the `vulnerabilities` wire field.
-    pub vulnerabilities: Vec<String>,
-}
-
-impl UserEventPayloadVariant477 {
-    pub fn new(
-        protected_project_count: f64,
-        protection_enabled: bool,
-        vulnerabilities: Vec<String>,
-    ) -> Self {
-        Self {
-            protected_project_count,
-            protection_enabled,
-            vulnerabilities,
-        }
-    }
-}
-
-/// Required object value serialized in the `configuration` wire field.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant478Configuration {
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Optional `string` value serialized in the `name` wire field.
+pub struct UserEventPayloadVariant456 {
+    /// Optional enumerated value serialized in the `method` wire field.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub method: Option<UserEventPayloadVariant456MethodEnum>,
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant456Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant456Previous,
 }
 
-impl UserEventPayloadVariant478Configuration {
-    pub fn new(id: String) -> Self {
-        Self { id, name: None }
+impl UserEventPayloadVariant456 {
+    pub fn new(
+        next: UserEventPayloadVariant456Next,
+        previous: UserEventPayloadVariant456Previous,
+    ) -> Self {
+        Self {
+            method: None,
+            next,
+            previous,
+        }
     }
 }
 
-/// Required object value serialized in the `peering` wire field.
+/// Absent on events predating the field; those were all logins.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant457ContextEnum {
+    #[default]
+    Login,
+    Sudo,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant457ContextEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Login => "login",
+            Self::Sudo => "sudo",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant457ContextEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant457ContextEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "login" => Self::Login,
+            "sudo" => Self::Sudo,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant457ContextEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// The payload of the event, if requested.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UserEventPayloadVariant478Peering {
-    /// Required `string` value serialized in the `accountId` wire field.
-    #[serde(rename = "accountId")]
-    pub account_id: String,
-    /// Required `string` value serialized in the `id` wire field.
-    pub id: String,
-    /// Required `string` value serialized in the `region` wire field.
-    pub region: String,
-    /// Required `string` value serialized in the `vpcId` wire field.
-    #[serde(rename = "vpcId")]
-    pub vpc_id: String,
+pub struct UserEventPayloadVariant457 {
+    /// Absent on events predating the field; those were all logins.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub context: Option<UserEventPayloadVariant457ContextEnum>,
+    /// Required `number` value serialized in the `remaining` wire field.
+    pub remaining: f64,
+}
+
+impl UserEventPayloadVariant457 {
+    pub fn new(remaining: f64) -> Self {
+        Self {
+            context: None,
+            remaining,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant458 {
+    /// Required enumerated value serialized in the `mfaEnabled` wire field.
+    #[serde(rename = "mfaEnabled")]
+    pub mfa_enabled: bool,
+}
+
+impl UserEventPayloadVariant458 {
+    pub fn new(mfa_enabled: bool) -> Self {
+        Self { mfa_enabled }
+    }
+}
+
+/// Required object value serialized in the `mfa` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant459Mfa {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
+}
+
+impl UserEventPayloadVariant459Mfa {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
+        Self {
+            enabled,
+            totp_verified,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant459 {
+    /// Required object value serialized in the `mfa` wire field.
+    pub mfa: UserEventPayloadVariant459Mfa,
+}
+
+impl UserEventPayloadVariant459 {
+    pub fn new(mfa: UserEventPayloadVariant459Mfa) -> Self {
+        Self { mfa }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant460 {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
+}
+
+impl UserEventPayloadVariant460 {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
+        Self {
+            enabled,
+            totp_verified,
+        }
+    }
+}
+
+/// Required object value serialized in the `next` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant461Next {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
+}
+
+impl UserEventPayloadVariant461Next {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
+        Self {
+            enabled,
+            totp_verified,
+        }
+    }
+}
+
+/// Required object value serialized in the `previous` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant461Previous {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required enumerated value serialized in the `totpVerified` wire field.
+    #[serde(rename = "totpVerified")]
+    pub totp_verified: bool,
+}
+
+impl UserEventPayloadVariant461Previous {
+    pub fn new(enabled: bool, totp_verified: bool) -> Self {
+        Self {
+            enabled,
+            totp_verified,
+        }
+    }
+}
+
+/// The payload of the event, if requested.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant461 {
+    /// Required object value serialized in the `next` wire field.
+    pub next: UserEventPayloadVariant461Next,
+    /// Required object value serialized in the `previous` wire field.
+    pub previous: UserEventPayloadVariant461Previous,
+}
+
+impl UserEventPayloadVariant461 {
+    pub fn new(
+        next: UserEventPayloadVariant461Next,
+        previous: UserEventPayloadVariant461Previous,
+    ) -> Self {
+        Self { next, previous }
+    }
+}
+
+/// Required enumerated value serialized in the `basis` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant462DecisionBasisEnum {
+    #[default]
+    Gmail,
+    None,
+    WorkspaceMx,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant462DecisionBasisEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Gmail => "gmail",
+            Self::None => "none",
+            Self::WorkspaceMx => "workspace-mx",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant462DecisionBasisEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462DecisionBasisEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "gmail" => Self::Gmail,
+            "none" => Self::None,
+            "workspace-mx" => Self::WorkspaceMx,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant462DecisionBasisEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `mxOutcome` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant462DecisionMxOutcomeEnum {
+    #[default]
+    Google,
+    LookupError,
+    NonGoogle,
+    NotChecked,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant462DecisionMxOutcomeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Google => "google",
+            Self::LookupError => "lookup-error",
+            Self::NonGoogle => "non-google",
+            Self::NotChecked => "not-checked",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant462DecisionMxOutcomeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462DecisionMxOutcomeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "google" => Self::Google,
+            "lookup-error" => Self::LookupError,
+            "non-google" => Self::NonGoogle,
+            "not-checked" => Self::NotChecked,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant462DecisionMxOutcomeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required object value serialized in the `decision` wire field.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UserEventPayloadVariant462Decision {
+    /// Required enumerated value serialized in the `authoritative` wire field.
+    pub authoritative: bool,
+    /// Required enumerated value serialized in the `basis` wire field.
+    pub basis: UserEventPayloadVariant462DecisionBasisEnum,
+    /// Required `string` value serialized in the `emailDomain` wire field.
+    #[serde(rename = "emailDomain")]
+    pub email_domain: String,
+    /// Required enumerated value serialized in the `emailVerified` wire field.
+    #[serde(rename = "emailVerified")]
+    pub email_verified: bool,
+    /// Required enumerated value serialized in the `hostedDomainMatch` wire field.
+    #[serde(rename = "hostedDomainMatch")]
+    pub hosted_domain_match: bool,
+    /// Required enumerated value serialized in the `mxOutcome` wire field.
+    #[serde(rename = "mxOutcome")]
+    pub mx_outcome: UserEventPayloadVariant462DecisionMxOutcomeEnum,
+}
+
+impl UserEventPayloadVariant462Decision {
+    pub fn new(
+        authoritative: bool,
+        basis: UserEventPayloadVariant462DecisionBasisEnum,
+        email_domain: String,
+        email_verified: bool,
+        hosted_domain_match: bool,
+        mx_outcome: UserEventPayloadVariant462DecisionMxOutcomeEnum,
+    ) -> Self {
+        Self {
+            authoritative,
+            basis,
+            email_domain,
+            email_verified,
+            hosted_domain_match,
+            mx_outcome,
+        }
+    }
+}
+
+/// Required enumerated value serialized in the `outcome` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant462OutcomeEnum {
+    #[default]
+    AccountMatched,
+    LinkingRequired,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant462OutcomeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::AccountMatched => "account-matched",
+            Self::LinkingRequired => "linking-required",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant462OutcomeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462OutcomeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "account-matched" => Self::AccountMatched,
+            "linking-required" => Self::LinkingRequired,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant462OutcomeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Required enumerated value serialized in the `provider` wire field.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UserEventPayloadVariant462ProviderEnum {
+    #[default]
+    Google,
+    Unknown(String),
+}
+
+impl UserEventPayloadVariant462ProviderEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Google => "google",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UserEventPayloadVariant462ProviderEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UserEventPayloadVariant462ProviderEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "google" => Self::Google,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UserEventPayloadVariant462ProviderEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
 }

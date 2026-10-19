@@ -74,6 +74,18 @@ impl<'de> serde::Deserialize<'de> for GetRoutes {
     }
 }
 
+impl ::std::convert::From<bool> for GetRoutes {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
+impl ::std::convert::From<GetRoutesVariant1Enum> for GetRoutes {
+    fn from(value: GetRoutesVariant1Enum) -> Self {
+        Self::Only(value)
+    }
+}
+
 /// Optional explicit format marker. The destination is identified by the presence of `service`, so `type` is no longer required.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetRoutesResponseVariant1RoutesItemRouteDestinationVariant1TypeEnum {
@@ -174,6 +186,20 @@ impl<'de> serde::Deserialize<'de> for GetRoutesResponseVariant1RoutesItemRouteDe
     }
 }
 
+impl ::std::convert::From<String> for GetRoutesResponseVariant1RoutesItemRouteDestination {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetRoutesResponseVariant1RoutesItemRouteDestinationVariant1>>
+    for GetRoutesResponseVariant1RoutesItemRouteDestination
+{
+    fn from(value: Box<GetRoutesResponseVariant1RoutesItemRouteDestinationVariant1>) -> Self {
+        Self::Service(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0TypeEnum {
     #[default]
@@ -251,47 +277,18 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0ValueVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub eq: Option<GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0ValueVariant1Eq>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub gte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub inc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lt: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub lte: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub neq: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ninc: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub pre: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub re: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub suf: Option<String>,
+impl ::std::convert::From<String>
+    for GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0ValueVariant1Eq
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
 }
 
-impl GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0ValueVariant1 {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self {
-            eq: None,
-            gt: None,
-            gte: None,
-            inc: None,
-            lt: None,
-            lte: None,
-            neq: None,
-            ninc: None,
-            pre: None,
-            re: None,
-            suf: None,
-        }
+impl ::std::convert::From<f64>
+    for GetRoutesResponseVariant1RoutesItemRouteHasItemVariant0ValueVariant1Eq
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
     }
 }

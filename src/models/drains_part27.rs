@@ -3,6 +3,474 @@
 
 // drains domain models (part 27)
 
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDrainRequestDeliveryVariant0 {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub endpoint: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub compression: Option<UpdateDrainRequestDeliveryVariant0CompressionEnum>,
+    pub encoding: UpdateDrainRequestDeliveryVariant0EncodingEnum,
+    pub headers: std::collections::HashMap<String, String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+impl UpdateDrainRequestDeliveryVariant0 {
+    pub fn new(
+        type_: String,
+        endpoint: String,
+        encoding: UpdateDrainRequestDeliveryVariant0EncodingEnum,
+        headers: std::collections::HashMap<String, String>,
+    ) -> Self {
+        Self {
+            type_,
+            endpoint,
+            compression: None,
+            encoding,
+            headers,
+            secret: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDrainRequestDeliveryVariant1Endpoint {
+    pub traces: String,
+}
+
+impl UpdateDrainRequestDeliveryVariant1Endpoint {
+    pub fn new(traces: String) -> Self {
+        Self { traces }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant1EncodingEnum {
+    #[default]
+    Proto,
+    Json,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant1EncodingEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Proto => "proto",
+            Self::Json => "json",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant1EncodingEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant1EncodingEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "proto" => Self::Proto,
+            "json" => Self::Json,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant1EncodingEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDrainRequestDeliveryVariant1 {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub endpoint: UpdateDrainRequestDeliveryVariant1Endpoint,
+    pub encoding: UpdateDrainRequestDeliveryVariant1EncodingEnum,
+    pub headers: std::collections::HashMap<String, String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+impl UpdateDrainRequestDeliveryVariant1 {
+    pub fn new(
+        type_: String,
+        endpoint: UpdateDrainRequestDeliveryVariant1Endpoint,
+        encoding: UpdateDrainRequestDeliveryVariant1EncodingEnum,
+        headers: std::collections::HashMap<String, String>,
+    ) -> Self {
+        Self {
+            type_,
+            endpoint,
+            encoding,
+            headers,
+            secret: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant2EncodingEnum {
+    #[default]
+    Json,
+    Ndjson,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant2EncodingEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Json => "json",
+            Self::Ndjson => "ndjson",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant2EncodingEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant2EncodingEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "json" => Self::Json,
+            "ndjson" => Self::Ndjson,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant2EncodingEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant2CompressionEnum {
+    #[default]
+    None,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant2CompressionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::None => "none",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant2CompressionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant2CompressionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "none" => Self::None,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant2CompressionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant2FileStructureEnum {
+    #[default]
+    Hive,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant2FileStructureEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Hive => "hive",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant2FileStructureEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant2FileStructureEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "hive" => Self::Hive,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant2FileStructureEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum {
+    #[default]
+    Aes256,
+    AwsKms,
+    AwsKmsDsse,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Aes256 => "AES256",
+            Self::AwsKms => "aws:kms",
+            Self::AwsKmsDsse => "aws:kms:dsse",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "AES256" => Self::Aes256,
+            "aws:kms" => Self::AwsKms,
+            "aws:kms:dsse" => Self::AwsKmsDsse,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestDeliveryVariant2ObjectAclEnum {
+    #[default]
+    Private,
+    BucketOwnerRead,
+    BucketOwnerFullControl,
+    Unknown(String),
+}
+
+impl UpdateDrainRequestDeliveryVariant2ObjectAclEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Private => "private",
+            Self::BucketOwnerRead => "bucket-owner-read",
+            Self::BucketOwnerFullControl => "bucket-owner-full-control",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for UpdateDrainRequestDeliveryVariant2ObjectAclEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDeliveryVariant2ObjectAclEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "private" => Self::Private,
+            "bucket-owner-read" => Self::BucketOwnerRead,
+            "bucket-owner-full-control" => Self::BucketOwnerFullControl,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for UpdateDrainRequestDeliveryVariant2ObjectAclEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDrainRequestDeliveryVariant2 {
+    #[serde(rename = "type")]
+    pub type_: String,
+    pub endpoint: String,
+    pub encoding: UpdateDrainRequestDeliveryVariant2EncodingEnum,
+    pub compression: UpdateDrainRequestDeliveryVariant2CompressionEnum,
+    #[serde(rename = "fileStructure")]
+    pub file_structure: UpdateDrainRequestDeliveryVariant2FileStructureEnum,
+    #[serde(rename = "roleArn")]
+    pub role_arn: String,
+    pub region: String,
+    #[serde(
+        rename = "serverSideEncryption",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub server_side_encryption: Option<UpdateDrainRequestDeliveryVariant2ServerSideEncryptionEnum>,
+    #[serde(rename = "objectAcl", skip_serializing_if = "Option::is_none")]
+    pub object_acl: Option<UpdateDrainRequestDeliveryVariant2ObjectAclEnum>,
+}
+
+impl UpdateDrainRequestDeliveryVariant2 {
+    pub fn new(
+        type_: String,
+        endpoint: String,
+        encoding: UpdateDrainRequestDeliveryVariant2EncodingEnum,
+        compression: UpdateDrainRequestDeliveryVariant2CompressionEnum,
+        file_structure: UpdateDrainRequestDeliveryVariant2FileStructureEnum,
+        role_arn: String,
+        region: String,
+    ) -> Self {
+        Self {
+            type_,
+            endpoint,
+            encoding,
+            compression,
+            file_structure,
+            role_arn,
+            region,
+            server_side_encryption: None,
+            object_acl: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateDrainRequestDelivery {
+    Object(Box<UpdateDrainRequestDeliveryVariant0>),
+    Object2(Box<UpdateDrainRequestDeliveryVariant1>),
+    None(Box<UpdateDrainRequestDeliveryVariant2>),
+}
+
+impl<'de> serde::Deserialize<'de> for UpdateDrainRequestDelivery {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateDrainRequestDeliveryVariant0>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateDrainRequestDeliveryVariant1>>(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateDrainRequestDeliveryVariant2>>(value.clone())
+        {
+            let candidate = Self::None(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no UpdateDrainRequestDelivery branch accepts this payload")
+        })
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct UpdateDrainRequestFilterVariant1FilterVariant0Project {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ids: Option<Vec<String>>,
+}
+
+impl UpdateDrainRequestFilterVariant1FilterVariant0Project {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self { ids: None }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum UpdateDrainRequestFilterVariant1FilterVariant0LogSourcesItemEnum {
+    #[default]
+    Build,
+    Edge,
+    Lambda,
+    Static,
+    External,
+    Firewall,
+    Redirect,
+    Unknown(String),
+}
+
 impl UpdateDrainRequestFilterVariant1FilterVariant0LogSourcesItemEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -25,470 +493,4 @@ impl serde::Serialize for UpdateDrainRequestFilterVariant1FilterVariant0LogSourc
     {
         serializer.serialize_str(self.as_str())
     }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDrainRequestFilterVariant1FilterVariant0LogSourcesItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "build" => Self::Build,
-            "edge" => Self::Edge,
-            "lambda" => Self::Lambda,
-            "static" => Self::Static,
-            "external" => Self::External,
-            "firewall" => Self::Firewall,
-            "redirect" => Self::Redirect,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateDrainRequestFilterVariant1FilterVariant0LogSourcesItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestFilterVariant1FilterVariant0Log {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sources: Option<Vec<UpdateDrainRequestFilterVariant1FilterVariant0LogSourcesItemEnum>>,
-}
-
-impl UpdateDrainRequestFilterVariant1FilterVariant0Log {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { sources: None }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum {
-    #[default]
-    Production,
-    Preview,
-    Unknown(String),
-}
-
-impl UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Production => "production",
-            Self::Preview => "preview",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "production" => Self::Production,
-            "preview" => Self::Preview,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestFilterVariant1FilterVariant0Deployment {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub environments:
-        Option<Vec<UpdateDrainRequestFilterVariant1FilterVariant0DeploymentEnvironmentsItemEnum>>,
-}
-
-impl UpdateDrainRequestFilterVariant1FilterVariant0Deployment {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { environments: None }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestFilterVariant1FilterVariant0 {
-    #[serde(rename = "type")]
-    pub type_: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<UpdateDrainRequestFilterVariant1FilterVariant0Project>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub log: Option<UpdateDrainRequestFilterVariant1FilterVariant0Log>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment: Option<UpdateDrainRequestFilterVariant1FilterVariant0Deployment>,
-}
-
-impl UpdateDrainRequestFilterVariant1FilterVariant0 {
-    pub fn new(type_: String) -> Self {
-        Self {
-            type_,
-            project: None,
-            log: None,
-            deployment: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestFilterVariant1FilterVariant1 {
-    #[serde(rename = "type")]
-    pub type_: String,
-    pub text: String,
-}
-
-impl UpdateDrainRequestFilterVariant1FilterVariant1 {
-    pub fn new(type_: String, text: String) -> Self {
-        Self { type_, text }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateDrainRequestFilterVariant1Filter {
-    Object(Box<UpdateDrainRequestFilterVariant1FilterVariant0>),
-    Object2(Box<UpdateDrainRequestFilterVariant1FilterVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateDrainRequestFilterVariant1Filter {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDrainRequestFilterVariant1FilterVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<UpdateDrainRequestFilterVariant1FilterVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no UpdateDrainRequestFilterVariant1Filter branch accepts this payload",
-            )
-        })
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestFilterVariant1 {
-    pub version: String,
-    pub filter: UpdateDrainRequestFilterVariant1Filter,
-}
-
-impl UpdateDrainRequestFilterVariant1 {
-    pub fn new(version: String, filter: UpdateDrainRequestFilterVariant1Filter) -> Self {
-        Self { version, filter }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-#[serde(untagged)]
-pub enum UpdateDrainRequestFilter {
-    String(String),
-    Object(Box<UpdateDrainRequestFilterVariant1>),
-}
-
-impl UpdateDrainRequestFilter {
-    pub fn as_string_wire_value(&self) -> Option<&str> {
-        match self {
-            Self::String(value) => Some(value.as_str()),
-            _ => None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestSourceVariant0 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: Option<String>,
-    #[serde(rename = "externalResourceId")]
-    pub external_resource_id: String,
-}
-
-impl UpdateDrainRequestSourceVariant0 {
-    pub fn new(external_resource_id: String) -> Self {
-        Self {
-            kind: None,
-            external_resource_id,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestSourceVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub kind: Option<String>,
-    #[serde(rename = "resourceId")]
-    pub resource_id: String,
-}
-
-impl UpdateDrainRequestSourceVariant1 {
-    pub fn new(resource_id: String) -> Self {
-        Self {
-            kind: None,
-            resource_id,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestSourceVariant2 {
-    pub kind: String,
-}
-
-impl UpdateDrainRequestSourceVariant2 {
-    pub fn new(kind: String) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainRequestSourceVariant3 {
-    pub kind: String,
-}
-
-impl UpdateDrainRequestSourceVariant3 {
-    pub fn new(kind: String) -> Self {
-        Self { kind }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UpdateDrainRequestSource {
-    Object(Box<UpdateDrainRequestSourceVariant0>),
-    Object2(Box<UpdateDrainRequestSourceVariant1>),
-    Object3(Box<UpdateDrainRequestSourceVariant2>),
-    Object4(Box<UpdateDrainRequestSourceVariant3>),
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateDrainRequestSource {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<UpdateDrainRequestSourceVariant0>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<UpdateDrainRequestSourceVariant1>>(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<UpdateDrainRequestSourceVariant2>>(value.clone())
-        {
-            let candidate = Self::Object3(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<UpdateDrainRequestSourceVariant3>>(value.clone())
-        {
-            let candidate = Self::Object4(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no UpdateDrainRequestSource branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDrainResponseVariant0DeliveryVariant0CompressionEnum {
-    #[default]
-    Gzip,
-    None,
-    Unknown(String),
-}
-
-impl UpdateDrainResponseVariant0DeliveryVariant0CompressionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gzip => "gzip",
-            Self::None => "none",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateDrainResponseVariant0DeliveryVariant0CompressionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateDrainResponseVariant0DeliveryVariant0CompressionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "gzip" => Self::Gzip,
-            "none" => Self::None,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateDrainResponseVariant0DeliveryVariant0CompressionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDrainResponseVariant0DeliveryVariant0EncodingEnum {
-    #[default]
-    Json,
-    Ndjson,
-    Unknown(String),
-}
-
-impl UpdateDrainResponseVariant0DeliveryVariant0EncodingEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Json => "json",
-            Self::Ndjson => "ndjson",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateDrainResponseVariant0DeliveryVariant0EncodingEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateDrainResponseVariant0DeliveryVariant0EncodingEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "json" => Self::Json,
-            "ndjson" => Self::Ndjson,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateDrainResponseVariant0DeliveryVariant0EncodingEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum {
-    #[default]
-    IntegrationSecret,
-    Unknown(String),
-}
-
-impl UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::IntegrationSecret => "INTEGRATION_SECRET",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "INTEGRATION_SECRET" => Self::IntegrationSecret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1 {
-    pub kind: UpdateDrainResponseVariant0DeliveryVariant0SecretVariant1KindEnum,
 }

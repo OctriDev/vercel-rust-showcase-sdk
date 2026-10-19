@@ -3,6 +3,220 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateFlagEnvironmentsValueRulesItemOutcome {
+    Object(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>),
+    Object2(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>),
+    Object3(Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>),
+}
+
+impl<'de> serde::Deserialize<'de> for CreateFlagEnvironmentsValueRulesItemOutcome {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>,
+        >(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>,
+        >(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<
+            Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>,
+        >(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no CreateFlagEnvironmentsValueRulesItemOutcome branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>>
+    for CreateFlagEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>>
+    for CreateFlagEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>>
+    for CreateFlagEnvironmentsValueRulesItemOutcome
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueRulesItemOutcomeVariant2>) -> Self {
+        Self::Object3(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueRulesItem {
+    pub id: String,
+    pub conditions: Vec<CreateFlagEnvironmentsValueRulesItemConditionsItem>,
+    pub outcome: CreateFlagEnvironmentsValueRulesItemOutcome,
+}
+
+impl CreateFlagEnvironmentsValueRulesItem {
+    pub fn new(
+        id: String,
+        conditions: Vec<CreateFlagEnvironmentsValueRulesItemConditionsItem>,
+        outcome: CreateFlagEnvironmentsValueRulesItemOutcome,
+    ) -> Self {
+        Self {
+            id,
+            conditions,
+            outcome,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueFallthroughVariant0 {
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    #[serde(rename = "variantId")]
+    pub variant_id: String,
+}
+
+impl CreateFlagEnvironmentsValueFallthroughVariant0 {
+    pub fn new(type_: serde_json::Value, variant_id: String) -> Self {
+        Self { type_, variant_id }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueFallthroughVariant1Base {
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    pub kind: String,
+    pub attribute: String,
+}
+
+impl CreateFlagEnvironmentsValueFallthroughVariant1Base {
+    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
+        Self {
+            type_,
+            kind,
+            attribute,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueFallthroughVariant1 {
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    pub base: CreateFlagEnvironmentsValueFallthroughVariant1Base,
+    /// The distribution for each variant
+    pub weights: std::collections::HashMap<String, f64>,
+    /// This variant will be used when the base attribute does not exist
+    #[serde(rename = "defaultVariantId")]
+    pub default_variant_id: String,
+}
+
+impl CreateFlagEnvironmentsValueFallthroughVariant1 {
+    pub fn new(
+        type_: serde_json::Value,
+        base: CreateFlagEnvironmentsValueFallthroughVariant1Base,
+        weights: std::collections::HashMap<String, f64>,
+        default_variant_id: String,
+    ) -> Self {
+        Self {
+            type_,
+            base,
+            weights,
+            default_variant_id,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueFallthroughVariant2Base {
+    #[serde(rename = "type")]
+    pub type_: serde_json::Value,
+    pub kind: String,
+    pub attribute: String,
+}
+
+impl CreateFlagEnvironmentsValueFallthroughVariant2Base {
+    pub fn new(type_: serde_json::Value, kind: String, attribute: String) -> Self {
+        Self {
+            type_,
+            kind,
+            attribute,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateFlagEnvironmentsValueFallthroughVariant2SlotsItem {
+    /// Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+    pub promille: f64,
+    /// How long this promille is served in ms before moving to the next slot.
+    #[serde(rename = "durationMs")]
+    pub duration_ms: f64,
+}
+
+impl CreateFlagEnvironmentsValueFallthroughVariant2SlotsItem {
+    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
+        crate::validation::validate_range(
+            "promille",
+            self.promille,
+            crate::validation::RangeOpts {
+                min: Some(0_f64),
+                max: Some(100000_f64),
+                ..Default::default()
+            },
+        )?;
+        crate::validation::validate_range(
+            "durationMs",
+            self.duration_ms,
+            crate::validation::RangeOpts {
+                min: Some(0_f64),
+                ..Default::default()
+            },
+        )?;
+        Ok(())
+    }
+
+    pub fn new(promille: f64, duration_ms: f64) -> Result<Self, crate::errors::SdkError> {
+        let value = Self {
+            promille,
+            duration_ms,
+        };
+        value.validate_constraints()?;
+        Ok(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct CreateFlagEnvironmentsValueFallthroughVariant2 {
     #[serde(rename = "type")]
@@ -125,6 +339,30 @@ impl<'de> serde::Deserialize<'de> for CreateFlagEnvironmentsValueFallthrough {
     }
 }
 
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueFallthroughVariant0>>
+    for CreateFlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueFallthroughVariant0>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueFallthroughVariant1>>
+    for CreateFlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueFallthroughVariant1>) -> Self {
+        Self::Object2(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateFlagEnvironmentsValueFallthroughVariant2>>
+    for CreateFlagEnvironmentsValueFallthrough
+{
+    fn from(value: Box<CreateFlagEnvironmentsValueFallthroughVariant2>) -> Self {
+        Self::Object3(value)
+    }
+}
+
 pub type CreateFlagEnvironmentsValueTargets = std::collections::HashMap<
     String,
     std::collections::HashMap<
@@ -152,214 +390,4 @@ pub struct CreateFlagEnvironmentsValue {
     /// The revision of the environment config
     #[serde(skip_serializing_if = "Option::is_none")]
     pub revision: Option<f64>,
-}
-
-impl CreateFlagEnvironmentsValue {
-    pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
-        crate::validation::validate_items(
-            "rules",
-            self.rules.as_slice(),
-            crate::validation::LengthOpts {
-                max: Some(10000),
-                ..Default::default()
-            },
-        )?;
-        Ok(())
-    }
-
-    pub fn new(
-        active: bool,
-        paused_outcome: CreateFlagEnvironmentsValuePausedOutcome,
-        rules: Vec<CreateFlagEnvironmentsValueRulesItem>,
-        fallthrough: CreateFlagEnvironmentsValueFallthrough,
-    ) -> Result<Self, crate::errors::SdkError> {
-        let value = Self {
-            active,
-            reuse: None,
-            targets: None,
-            paused_outcome,
-            rules,
-            fallthrough,
-            revision: None,
-        };
-        value.validate_constraints()?;
-        Ok(value)
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum {
-    #[serde(rename = "variant")]
-    #[default]
-    Variant,
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Variant => "variant",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum::Variant => {
-                f.write_str("variant")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValueFallthroughVariant0 {
-    #[serde(rename = "type")]
-    pub type_: CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum,
-    #[serde(rename = "variantId")]
-    pub variant_id: String,
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant0 {
-    pub fn new(
-        type_: CreateFlagResponseEnvironmentsValueFallthroughVariant0TypeEnum,
-        variant_id: String,
-    ) -> Self {
-        Self { type_, variant_id }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum {
-    #[default]
-    Entity,
-    Unknown(String),
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Entity => "entity",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "entity" => Self::Entity,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValueFallthroughVariant1Base {
-    pub attribute: String,
-    pub kind: String,
-    #[serde(rename = "type")]
-    pub type_: CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum,
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant1Base {
-    pub fn new(
-        attribute: String,
-        kind: String,
-        type_: CreateFlagResponseEnvironmentsValueFallthroughVariant1BaseTypeEnum,
-    ) -> Self {
-        Self {
-            attribute,
-            kind,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum {
-    #[serde(rename = "split")]
-    #[default]
-    Split,
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Split => "split",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum::Split => {
-                f.write_str("split")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateFlagResponseEnvironmentsValueFallthroughVariant1 {
-    pub base: CreateFlagResponseEnvironmentsValueFallthroughVariant1Base,
-    #[serde(rename = "defaultVariantId")]
-    pub default_variant_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum,
-    pub weights: std::collections::HashMap<String, f64>,
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant1 {
-    pub fn new(
-        base: CreateFlagResponseEnvironmentsValueFallthroughVariant1Base,
-        default_variant_id: String,
-        type_: CreateFlagResponseEnvironmentsValueFallthroughVariant1TypeEnum,
-        weights: std::collections::HashMap<String, f64>,
-    ) -> Self {
-        Self {
-            base,
-            default_variant_id,
-            type_,
-            weights,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateFlagResponseEnvironmentsValueFallthroughVariant2BaseTypeEnum {
-    #[default]
-    Entity,
-    Unknown(String),
-}
-
-impl CreateFlagResponseEnvironmentsValueFallthroughVariant2BaseTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Entity => "entity",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

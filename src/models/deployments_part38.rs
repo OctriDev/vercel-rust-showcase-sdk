@@ -3,81 +3,7 @@
 
 // deployments domain models (part 38)
 
-impl std::fmt::Display for CreateDeploymentResponseVariant1NodeVersionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1OidcTokenClaims {
-    pub aud: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_environment_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deployment_id: Option<String>,
-    pub environment: String,
-    pub iss: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mfe_group_ids: Option<Vec<String>>,
-    pub owner: String,
-    pub owner_id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub plan: Option<String>,
-    pub project: String,
-    pub project_id: String,
-    pub scope: String,
-    pub sub: String,
-}
-
-impl CreateDeploymentResponseVariant1OidcTokenClaims {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        aud: String,
-        environment: String,
-        iss: String,
-        owner: String,
-        owner_id: String,
-        project: String,
-        project_id: String,
-        scope: String,
-        sub: String,
-    ) -> Self {
-        Self {
-            aud,
-            custom_environment_id: None,
-            deployment_id: None,
-            environment,
-            iss,
-            mfe_group_ids: None,
-            owner,
-            owner_id,
-            plan: None,
-            project,
-            project_id,
-            scope,
-            sub,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1OomReportEnum {
-    #[default]
-    OutOfMemory,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1OomReportEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::OutOfMemory => "out-of-memory",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1OomReportEnum {
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -86,390 +12,436 @@ impl serde::Serialize for CreateDeploymentResponseVariant1OomReportEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1OomReportEnum {
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "out-of-memory" => Self::OutOfMemory,
+            "github-limited" => Self::GithubLimited,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateDeploymentResponseVariant1OomReportEnum {
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1PlanEnum {
-    #[default]
-    Enterprise,
-    Hobby,
-    Pro,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1PlanEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Enterprise => "enterprise",
-            Self::Hobby => "hobby",
-            Self::Pro => "pro",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1PlanEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1PlanEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "enterprise" => Self::Enterprise,
-            "hobby" => Self::Hobby,
-            "pro" => Self::Pro,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1PlanEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// The user on the external platform who triggered the deployment.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1PlatformCreator {
-    /// URL of the platform user's avatar image.
+pub struct CreateDeploymentResponseVariant1GitSourceVariant14 {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub avatar: Option<String>,
-    /// Display name of the platform user.
-    pub name: String,
-}
-
-impl CreateDeploymentResponseVariant1PlatformCreator {
-    pub fn new(name: String) -> Self {
-        Self { avatar: None, name }
-    }
-}
-
-/// Whether the value is an opaque identifier or a URL.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1PlatformOriginTypeEnum {
-    #[default]
-    Id,
-    Url,
-    Unknown(String),
-}
-
-impl CreateDeploymentResponseVariant1PlatformOriginTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Id => "id",
-            Self::Url => "url",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "id" => Self::Id,
-            "url" => Self::Url,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDeploymentResponseVariant1PlatformOriginTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Reference back to the entity on the platform that initiated the deployment.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1PlatformOrigin {
-    /// Whether the value is an opaque identifier or a URL.
+    pub org: Option<String>,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub repo: Option<String>,
+    #[serde(rename = "repoId")]
+    pub repo_id: f64,
+    pub sha: String,
     #[serde(rename = "type")]
-    pub type_: CreateDeploymentResponseVariant1PlatformOriginTypeEnum,
-    /// The identifier or URL pointing to the originating entity.
-    pub value: String,
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum,
 }
 
-impl CreateDeploymentResponseVariant1PlatformOrigin {
+impl CreateDeploymentResponseVariant1GitSourceVariant14 {
     pub fn new(
-        type_: CreateDeploymentResponseVariant1PlatformOriginTypeEnum,
-        value: String,
-    ) -> Self {
-        Self { type_, value }
-    }
-}
-
-/// The external platform that created the deployment (e.g. its display name).
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1PlatformSource {
-    /// Display name of the platform.
-    pub name: String,
-}
-
-impl CreateDeploymentResponseVariant1PlatformSource {
-    pub fn new(name: String) -> Self {
-        Self { name }
-    }
-}
-
-/// Metadata about the source platform that triggered the deployment. Allows us to map a deployment back to a platform (e.g. the chat that created it)
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Platform {
-    /// The user on the external platform who triggered the deployment.
-    pub creator: CreateDeploymentResponseVariant1PlatformCreator,
-    /// Arbitrary key-value metadata provided by the platform.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
-    /// Reference back to the entity on the platform that initiated the deployment.
-    pub origin: CreateDeploymentResponseVariant1PlatformOrigin,
-    /// The external platform that created the deployment (e.g. its display name).
-    pub source: CreateDeploymentResponseVariant1PlatformSource,
-}
-
-impl CreateDeploymentResponseVariant1Platform {
-    pub fn new(
-        creator: CreateDeploymentResponseVariant1PlatformCreator,
-        origin: CreateDeploymentResponseVariant1PlatformOrigin,
-        source: CreateDeploymentResponseVariant1PlatformSource,
+        ref_: String,
+        repo_id: f64,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant14TypeEnum,
     ) -> Self {
         Self {
-            creator,
-            meta: None,
-            origin,
-            source,
-        }
-    }
-}
-
-/// The public project information associated with the deployment.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateDeploymentResponseVariant1Project {
-    #[serde(
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub framework: Option<Option<String>>,
-    pub id: String,
-    pub name: String,
-}
-
-impl CreateDeploymentResponseVariant1Project {
-    pub fn new(id: String, name: String) -> Self {
-        Self {
-            framework: None,
-            id,
-            name,
+            org: None,
+            ref_,
+            repo: None,
+            repo_id,
+            sha,
+            type_,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+pub enum CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum {
     #[default]
-    ActixWeb,
-    Angular,
-    Ash,
-    Astro,
-    Axum,
-    Blitzjs,
-    Brunch,
-    Bun,
-    Container,
-    CreateReactApp,
-    Django,
-    Docusaurus,
-    Docusaurus2,
-    Dojo,
-    Eleventy,
-    Elysia,
-    Ember,
-    Eve,
-    Express,
-    FactoryEve,
-    Fastapi,
-    Fasthtml,
-    Fastify,
-    Flask,
-    Gatsby,
-    Go,
-    Gridsome,
-    H3,
-    Hexo,
-    Hono,
-    Hugo,
-    Hydrogen,
-    IonicAngular,
-    IonicReact,
-    Jekyll,
-    Koa,
-    Mastra,
-    Middleman,
-    Nestjs,
-    Nextjs,
-    Nitro,
-    Node,
-    Nuxtjs,
-    Parcel,
-    Polymer,
-    Preact,
-    Python,
-    ReactRouter,
-    Redwoodjs,
-    Remix,
-    Ruby,
-    Rust,
-    Saber,
-    Sanity,
-    SanityV2,
-    Sapper,
-    Scully,
-    Services,
-    Solidstart,
-    Solidstart1,
-    Stencil,
-    Storybook,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    TanstackStart,
-    TanstackStartLovable,
-    Umijs,
-    Vite,
-    Vitepress,
-    Vue,
-    Vuepress,
-    Xmcp,
-    Zola,
+    Gitlab,
     Unknown(String),
 }
 
-impl CreateDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::ActixWeb => "actix-web",
-            Self::Angular => "angular",
-            Self::Ash => "ash",
-            Self::Astro => "astro",
-            Self::Axum => "axum",
-            Self::Blitzjs => "blitzjs",
-            Self::Brunch => "brunch",
-            Self::Bun => "bun",
-            Self::Container => "container",
-            Self::CreateReactApp => "create-react-app",
-            Self::Django => "django",
-            Self::Docusaurus => "docusaurus",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Dojo => "dojo",
-            Self::Eleventy => "eleventy",
-            Self::Elysia => "elysia",
-            Self::Ember => "ember",
-            Self::Eve => "eve",
-            Self::Express => "express",
-            Self::FactoryEve => "factory-eve",
-            Self::Fastapi => "fastapi",
-            Self::Fasthtml => "fasthtml",
-            Self::Fastify => "fastify",
-            Self::Flask => "flask",
-            Self::Gatsby => "gatsby",
-            Self::Go => "go",
-            Self::Gridsome => "gridsome",
-            Self::H3 => "h3",
-            Self::Hexo => "hexo",
-            Self::Hono => "hono",
-            Self::Hugo => "hugo",
-            Self::Hydrogen => "hydrogen",
-            Self::IonicAngular => "ionic-angular",
-            Self::IonicReact => "ionic-react",
-            Self::Jekyll => "jekyll",
-            Self::Koa => "koa",
-            Self::Mastra => "mastra",
-            Self::Middleman => "middleman",
-            Self::Nestjs => "nestjs",
-            Self::Nextjs => "nextjs",
-            Self::Nitro => "nitro",
-            Self::Node => "node",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Parcel => "parcel",
-            Self::Polymer => "polymer",
-            Self::Preact => "preact",
-            Self::Python => "python",
-            Self::ReactRouter => "react-router",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Remix => "remix",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Saber => "saber",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Sapper => "sapper",
-            Self::Scully => "scully",
-            Self::Services => "services",
-            Self::Solidstart => "solidstart",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Stencil => "stencil",
-            Self::Storybook => "storybook",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Umijs => "umijs",
-            Self::Vite => "vite",
-            Self::Vitepress => "vitepress",
-            Self::Vue => "vue",
-            Self::Vuepress => "vuepress",
-            Self::Xmcp => "xmcp",
-            Self::Zola => "zola",
+            Self::Gitlab => "gitlab",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for CreateDeploymentResponseVariant1ProjectSettingsFrameworkEnum {
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         serializer.serialize_str(self.as_str())
     }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "gitlab" => Self::Gitlab,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant15 {
+    #[serde(rename = "projectId")]
+    pub project_id: f64,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant15 {
+    pub fn new(
+        project_id: f64,
+        ref_: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant15TypeEnum,
+    ) -> Self {
+        Self {
+            project_id,
+            ref_,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum {
+    #[default]
+    Bitbucket,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Bitbucket => "bitbucket",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "bitbucket" => Self::Bitbucket,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant16 {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub owner: Option<String>,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    #[serde(rename = "repoUuid")]
+    pub repo_uuid: String,
+    pub sha: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub slug: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum,
+    #[serde(rename = "workspaceUuid")]
+    pub workspace_uuid: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant16 {
+    pub fn new(
+        ref_: String,
+        repo_uuid: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant16TypeEnum,
+        workspace_uuid: String,
+    ) -> Self {
+        Self {
+            owner: None,
+            ref_,
+            repo_uuid,
+            sha,
+            slug: None,
+            type_,
+            workspace_uuid,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataAuthor {
+    pub date: String,
+    pub email: String,
+    pub name: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataAuthor {
+    pub fn new(date: String, email: String, name: String) -> Self {
+        Self { date, email, name }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataCommitter {
+    pub date: String,
+    pub email: String,
+    pub name: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataCommitter {
+    pub fn new(date: String, email: String, name: String) -> Self {
+        Self { date, email, name }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadata {
+    pub author: CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataAuthor,
+    pub committer: CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataCommitter,
+    pub message: String,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadata {
+    pub fn new(
+        author: CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataAuthor,
+        committer: CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadataCommitter,
+        message: String,
+    ) -> Self {
+        Self {
+            author,
+            committer,
+            message,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum {
+    #[default]
+    Vercel,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Vercel => "vercel",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "vercel" => Self::Vercel,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant17 {
+    #[serde(rename = "commitMetadata", skip_serializing_if = "Option::is_none")]
+    pub commit_metadata: Option<CreateDeploymentResponseVariant1GitSourceVariant17CommitMetadata>,
+    pub org: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub repo: String,
+    #[serde(rename = "repoId", skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<String>,
+    #[serde(rename = "repoPushedAt", skip_serializing_if = "Option::is_none")]
+    pub repo_pushed_at: Option<f64>,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant17 {
+    pub fn new(
+        org: String,
+        ref_: String,
+        repo: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant17TypeEnum,
+    ) -> Self {
+        Self {
+            commit_metadata: None,
+            org,
+            ref_,
+            repo,
+            repo_id: None,
+            repo_pushed_at: None,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum {
+    #[default]
+    CursorOrigin,
+    Unknown(String),
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::CursorOrigin => "cursor-origin",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "cursor-origin" => Self::CursorOrigin,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateDeploymentResponseVariant1GitSourceVariant18 {
+    pub owner: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub repo: String,
+    #[serde(rename = "repoId")]
+    pub repo_id: String,
+    pub sha: String,
+    #[serde(rename = "type")]
+    pub type_: CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum,
+}
+
+impl CreateDeploymentResponseVariant1GitSourceVariant18 {
+    pub fn new(
+        owner: String,
+        ref_: String,
+        repo: String,
+        repo_id: String,
+        sha: String,
+        type_: CreateDeploymentResponseVariant1GitSourceVariant18TypeEnum,
+    ) -> Self {
+        Self {
+            owner,
+            ref_,
+            repo,
+            repo_id,
+            sha,
+            type_,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum CreateDeploymentResponseVariant1GitSource {
+    Github(Box<CreateDeploymentResponseVariant1GitSourceVariant0>),
+    Github2(Box<CreateDeploymentResponseVariant1GitSourceVariant1>),
+    GithubCustomHost(Box<CreateDeploymentResponseVariant1GitSourceVariant2>),
+    GithubCustomHost2(Box<CreateDeploymentResponseVariant1GitSourceVariant3>),
+    GithubLimited(Box<CreateDeploymentResponseVariant1GitSourceVariant4>),
+    GithubLimited2(Box<CreateDeploymentResponseVariant1GitSourceVariant5>),
+    Gitlab(Box<CreateDeploymentResponseVariant1GitSourceVariant6>),
+    Bitbucket(Box<CreateDeploymentResponseVariant1GitSourceVariant7>),
+    Bitbucket2(Box<CreateDeploymentResponseVariant1GitSourceVariant8>),
+    Vercel(Box<CreateDeploymentResponseVariant1GitSourceVariant9>),
+    CursorOrigin(Box<CreateDeploymentResponseVariant1GitSourceVariant10>),
+    Custom(Box<CreateDeploymentResponseVariant1GitSourceVariant11>),
+    Github3(Box<CreateDeploymentResponseVariant1GitSourceVariant12>),
+    GithubCustomHost3(Box<CreateDeploymentResponseVariant1GitSourceVariant13>),
+    GithubLimited3(Box<CreateDeploymentResponseVariant1GitSourceVariant14>),
+    Gitlab2(Box<CreateDeploymentResponseVariant1GitSourceVariant15>),
+    Bitbucket3(Box<CreateDeploymentResponseVariant1GitSourceVariant16>),
+    Vercel2(Box<CreateDeploymentResponseVariant1GitSourceVariant17>),
+    CursorOrigin2(Box<CreateDeploymentResponseVariant1GitSourceVariant18>),
 }

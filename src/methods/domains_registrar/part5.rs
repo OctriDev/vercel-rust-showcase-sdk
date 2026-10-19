@@ -2,14 +2,155 @@
 // This file is machine-generated from your OpenAPI spec.
 
 use super::*;
-use crate::client::ClientConfig;
-use crate::client::{sdk_request, RequestOptions, RequestOpts};
-use crate::errors::{SdkError, SdkNetworkError};
-use crate::types::{
-    CountryCode, DomainName, E164PhoneNumber, EmailAddress, GetOrderResponseDomainsItem,
-    GetOrderResponseError, NonEmptyTrimmedString, OrderId, TldName,
-};
-use crate::validation::{validate_items, LengthOpts};
+use crate::types::{CountryCode, E164PhoneNumber, EmailAddress, NonEmptyTrimmedString, OrderId};
+
+impl TransferInDomainResponseLinksValue {
+    pub fn new(href: String, method: TransferInDomainResponseLinksValueMethodEnum) -> Self {
+        Self { href, method }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct TransferInDomainResponse {
+    /// A valid order ID
+    #[serde(rename = "orderId")]
+    pub order_id: OrderId,
+    #[serde(rename = "_links")]
+    pub links: std::collections::HashMap<String, TransferInDomainResponseLinksValue>,
+}
+
+impl TransferInDomainResponse {
+    pub fn new(
+        order_id: OrderId,
+        links: std::collections::HashMap<String, TransferInDomainResponseLinksValue>,
+    ) -> Self {
+        Self { order_id, links }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetDomainTransferInResponseStatusEnum {
+    #[default]
+    Canceled,
+    CanceledPendingRefund,
+    Completed,
+    Created,
+    Failed,
+    Pending,
+    PendingInsert,
+    PendingNewAuthCode,
+    PendingTransfer,
+    PendingUnlock,
+    PendingRegistryUnlock,
+    Rejected,
+    SubmittingTransfer,
+    Unknown(String),
+}
+
+impl GetDomainTransferInResponseStatusEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Canceled => "canceled",
+            Self::CanceledPendingRefund => "canceled_pending_refund",
+            Self::Completed => "completed",
+            Self::Created => "created",
+            Self::Failed => "failed",
+            Self::Pending => "pending",
+            Self::PendingInsert => "pending_insert",
+            Self::PendingNewAuthCode => "pending_new_auth_code",
+            Self::PendingTransfer => "pending_transfer",
+            Self::PendingUnlock => "pending_unlock",
+            Self::PendingRegistryUnlock => "pending_registry_unlock",
+            Self::Rejected => "rejected",
+            Self::SubmittingTransfer => "submitting_transfer",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetDomainTransferInResponseStatusEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetDomainTransferInResponseStatusEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "canceled_pending_refund" => Self::CanceledPendingRefund,
+            "completed" => Self::Completed,
+            "created" => Self::Created,
+            "failed" => Self::Failed,
+            "pending" => Self::Pending,
+            "pending_insert" => Self::PendingInsert,
+            "pending_new_auth_code" => Self::PendingNewAuthCode,
+            "pending_transfer" => Self::PendingTransfer,
+            "pending_unlock" => Self::PendingUnlock,
+            "pending_registry_unlock" => Self::PendingRegistryUnlock,
+            "rejected" => Self::Rejected,
+            "submitting_transfer" => Self::SubmittingTransfer,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetDomainTransferInResponseStatusEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetDomainTransferInResponse {
+    pub status: GetDomainTransferInResponseStatusEnum,
+}
+
+impl GetDomainTransferInResponse {
+    pub fn new(status: GetDomainTransferInResponseStatusEnum) -> Self {
+        Self { status }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct RenewDomainContactInformation {
+    /// a non empty string
+    #[serde(rename = "firstName")]
+    pub first_name: NonEmptyTrimmedString,
+    /// a non empty string
+    #[serde(rename = "lastName")]
+    pub last_name: NonEmptyTrimmedString,
+    /// A valid RFC 5322 email address
+    pub email: EmailAddress,
+    /// A valid E.164 phone number
+    pub phone: E164PhoneNumber,
+    /// a non empty string
+    pub address1: NonEmptyTrimmedString,
+    /// a non empty string
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub address2: Option<NonEmptyTrimmedString>,
+    /// a non empty string
+    pub city: NonEmptyTrimmedString,
+    /// a non empty string
+    pub state: NonEmptyTrimmedString,
+    /// a non empty string
+    pub zip: NonEmptyTrimmedString,
+    /// A valid ISO 3166-1 alpha-2 country code
+    pub country: CountryCode,
+    /// a non empty string
+    #[serde(rename = "companyName", skip_serializing_if = "Option::is_none")]
+    pub company_name: Option<NonEmptyTrimmedString>,
+    /// A valid E.164 phone number
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fax: Option<E164PhoneNumber>,
+}
 
 impl RenewDomainContactInformation {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
@@ -249,266 +390,4 @@ impl RenewDomainResponse {
     ) -> Self {
         Self { order_id, links }
     }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetOrderResponseStatusEnum {
-    #[default]
-    Draft,
-    Purchasing,
-    Completed,
-    Failed,
-    Unknown(String),
-}
-
-impl GetOrderResponseStatusEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Draft => "draft",
-            Self::Purchasing => "purchasing",
-            Self::Completed => "completed",
-            Self::Failed => "failed",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetOrderResponseStatusEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetOrderResponseStatusEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "draft" => Self::Draft,
-            "purchasing" => Self::Purchasing,
-            "completed" => Self::Completed,
-            "failed" => Self::Failed,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetOrderResponseStatusEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetOrderResponse {
-    /// A valid order ID
-    #[serde(rename = "orderId")]
-    pub order_id: OrderId,
-    pub domains: Vec<GetOrderResponseDomainsItem>,
-    pub status: GetOrderResponseStatusEnum,
-    /// Typed representation of the `GetOrderResponseError` API schema.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub error: Option<GetOrderResponseError>,
-}
-
-impl GetOrderResponse {
-    pub fn new(
-        order_id: OrderId,
-        domains: Vec<GetOrderResponseDomainsItem>,
-        status: GetOrderResponseStatusEnum,
-    ) -> Self {
-        Self {
-            order_id,
-            domains,
-            status,
-            error: None,
-        }
-    }
-}
-
-/// Searches for domain registration availability and pricing for a batch of exact domain names. Provide between 1 and 200 valid domain names in `domains`; results are returned in input order and include registration and renewal prices in USD for available domains. This operation does not require authentication.
-///
-/// Start domain research here. Get registration availability and pricing for 1–200 exact domain names. Returns results in input order, with registration and renewal prices in USD for available domains. No authentication required.
-///
-/// # Arguments
-///
-/// * `domains` - an array of at most 200 item(s)
-pub fn search_domains(
-    config: &ClientConfig,
-    domains: Vec<DomainName>,
-    team_id: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<SearchDomainsResponse, SdkError> {
-    validate_items(
-        "domains",
-        &domains,
-        LengthOpts {
-            min: Some(1),
-            max: Some(200),
-        },
-    )?;
-
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-
-    let mut __body_map = serde_json::Map::new();
-    __body_map.insert(
-        "domains".to_string(),
-        serde_json::to_value(domains).map_err(|e| {
-            SdkError::Network(SdkNetworkError {
-                message: format!("encode body field: {}", e),
-                request_id: None,
-            })
-        })?,
-    );
-    let __body = serde_json::Value::Object(__body_map);
-
-    Ok(sdk_request::<SearchDomainsResponse>(
-        "POST",
-        "/v1/registrar/domains/search",
-        config,
-        RequestOpts {
-            query: &__query,
-            body: Some(__body),
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "search_domains",
-            options,
-            errors: &[
-                ("400", "HttpApiDecodeError"),
-                ("401", "Unauthorized"),
-                ("403", "NotAuthorizedForScope"),
-                ("429", "TooManyRequests"),
-                ("500", "InternalServerError"),
-            ],
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Lists the top-level domains supported for domain registration. Use this operation to discover which TLDs are available before requesting TLD metadata or checking domain availability. The response is an array of TLD names.
-///
-/// Get a list of TLDs supported by Vercel
-pub fn get_supported_tlds(
-    config: &ClientConfig,
-    team_id: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<Vec<TldName>, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<Vec<TldName>>(
-        "GET",
-        "/v1/registrar/tlds/supported",
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_supported_tlds",
-            options,
-            errors: &[
-                ("400", "HttpApiDecodeError"),
-                ("401", "Unauthorized"),
-                ("403", "NotAuthorizedForScope"),
-                ("429", "TooManyRequests"),
-                ("500", "InternalServerError"),
-            ],
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves metadata for a specific top-level domain. Use this operation to find the language codes supported for the TLD and their corresponding language names. The response contains a map of supported language codes.
-///
-/// Get the metadata for a specific TLD.
-pub fn get_tld(
-    config: &ClientConfig,
-    tld: TldName,
-    team_id: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetTldResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetTldResponse>(
-        "GET",
-        &format!(
-            "/v1/registrar/tlds/{}",
-            crate::client::encode_path_segment(&tld)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_tld",
-            options,
-            errors: &[
-                ("401", "Unauthorized"),
-                ("403", "NotAuthorizedForScope"),
-                ("429", "TooManyRequests"),
-                ("500", "InternalServerError"),
-            ],
-            ..Default::default()
-        },
-    )?
-    .data)
-}
-
-/// Retrieves base price data for a top-level domain (TLD); premium domains may have different prices. Use `years` to request a registration term, or omit it to use the TLD's minimum term. For premium-domain pricing, use the endpoint for getting price data for a domain.
-///
-/// Get price data for a specific TLD. This only reflects base prices for the given TLD. Premium domains may have different prices. Use the [Get price data for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-price-data-for-a-domain) endpoint to get the price data for a specific domain.
-///
-/// # Arguments
-///
-/// * `years` - The number of years to get the price for. If not provided, the
-///   minimum number of years for the TLD will be used.
-pub fn get_tld_price(
-    config: &ClientConfig,
-    tld: TldName,
-    years: Option<String>,
-    team_id: Option<String>,
-    options: Option<&RequestOptions>,
-) -> Result<GetTldPriceResponse, SdkError> {
-    let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
-    if let Some(ref v) = years {
-        __query.push(("years", crate::client::query_value(v)));
-    }
-    if let Some(ref v) = team_id {
-        __query.push(("teamId", crate::client::query_value(v)));
-    }
-
-    Ok(sdk_request::<GetTldPriceResponse>(
-        "GET",
-        &format!(
-            "/v1/registrar/tlds/{}/price",
-            crate::client::encode_path_segment(&tld)
-        ),
-        config,
-        RequestOpts {
-            query: &__query,
-            decoder: crate::client::ResponseDecoder::Json,
-            operation_id: "get_tld_price",
-            options,
-            errors: &[
-                ("401", "Unauthorized"),
-                ("403", "NotAuthorizedForScope"),
-                ("429", "TooManyRequests"),
-                ("500", "InternalServerError"),
-            ],
-            ..Default::default()
-        },
-    )?
-    .data)
 }

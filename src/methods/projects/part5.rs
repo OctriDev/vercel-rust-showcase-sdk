@@ -73,6 +73,22 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemEnvItemTar
     }
 }
 
+impl ::std::convert::From<Vec<ListProjectsResponseVariant0ItemEnvItemTargetVariant0ItemEnum>>
+    for ListProjectsResponseVariant0ItemEnvItemTarget
+{
+    fn from(value: Vec<ListProjectsResponseVariant0ItemEnvItemTargetVariant0ItemEnum>) -> Self {
+        Self::Variant0ItemEnumArray(value)
+    }
+}
+
+impl ::std::convert::From<ListProjectsResponseVariant0ItemEnvItemTargetVariant1Enum>
+    for ListProjectsResponseVariant0ItemEnvItemTarget
+{
+    fn from(value: ListProjectsResponseVariant0ItemEnvItemTargetVariant1Enum) -> Self {
+        Self::Literal(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum ListProjectsResponseVariant0ItemEnvItemTypeEnum {
     #[default]
@@ -265,37 +281,4 @@ pub struct ListProjectsResponseVariant0ItemEnvItem {
     pub visibility: Option<ListProjectsResponseVariant0ItemEnvItemVisibilityEnum>,
     #[serde(rename = "vsmValue", skip_serializing_if = "Option::is_none")]
     pub vsm_value: Option<String>,
-}
-
-impl ListProjectsResponseVariant0ItemEnvItem {
-    pub fn new(
-        key: String,
-        type_: ListProjectsResponseVariant0ItemEnvItemTypeEnum,
-        value: String,
-    ) -> Self {
-        Self {
-            comment: None,
-            configuration_id: None,
-            content_hint: None,
-            created_at: None,
-            created_by: None,
-            custom_environment_ids: None,
-            decrypted: None,
-            edge_config_id: None,
-            edge_config_token_id: None,
-            git_branch: None,
-            id: None,
-            internal_content_hint: None,
-            key,
-            legacy_value: None,
-            sunset_secret_id: None,
-            target: None,
-            type_,
-            updated_at: None,
-            updated_by: None,
-            value,
-            visibility: None,
-            vsm_value: None,
-        }
-    }
 }

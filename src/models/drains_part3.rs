@@ -96,6 +96,20 @@ impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0DeliveryVariant
     }
 }
 
+impl ::std::convert::From<String> for CreateDrainResponseVariant0DeliveryVariant0Secret {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant0SecretVariant1>>
+    for CreateDrainResponseVariant0DeliveryVariant0Secret
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant0SecretVariant1>) -> Self {
+        Self::INTEGRATIONSECRET(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum CreateDrainResponseVariant0DeliveryVariant0TypeEnum {
     #[serde(rename = "http")]
@@ -301,6 +315,20 @@ impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0DeliveryVariant
     }
 }
 
+impl ::std::convert::From<String> for CreateDrainResponseVariant0DeliveryVariant1Secret {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<Box<CreateDrainResponseVariant0DeliveryVariant1SecretVariant1>>
+    for CreateDrainResponseVariant0DeliveryVariant1Secret
+{
+    fn from(value: Box<CreateDrainResponseVariant0DeliveryVariant1SecretVariant1>) -> Self {
+        Self::INTEGRATIONSECRET(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum CreateDrainResponseVariant0DeliveryVariant1TypeEnum {
     #[serde(rename = "otlphttp")]
@@ -470,31 +498,4 @@ impl serde::Serialize for CreateDrainResponseVariant0DeliveryVariant3EncodingEnu
     {
         serializer.serialize_str(self.as_str())
     }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateDrainResponseVariant0DeliveryVariant3EncodingEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "json" => Self::Json,
-            "ndjson" => Self::Ndjson,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateDrainResponseVariant0DeliveryVariant3EncodingEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateDrainResponseVariant0DeliveryVariant3FileStructureEnum {
-    #[default]
-    Hive,
-    Unknown(String),
 }

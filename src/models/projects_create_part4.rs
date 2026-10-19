@@ -3,6 +3,22 @@
 
 // projects_create domain models (part 4)
 
+impl<'de> serde::Deserialize<'de>
+    for CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "preview" => Self::Preview,
+            "production" => Self::Production,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
 impl std::fmt::Display
     for CreateProjectResponseDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
 {
@@ -360,6 +376,30 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<String>
+    for CreateProjectResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for CreateProjectResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for CreateProjectResponseDismissedToastsItemValueVariant2CurrentValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum CreateProjectResponseDismissedToastsItemValueVariant2PreviousValue {
@@ -396,6 +436,30 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no CreateProjectResponseDismissedToastsItemValueVariant2PreviousValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for CreateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for CreateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<bool>
+    for CreateProjectResponseDismissedToastsItemValueVariant2PreviousValue
+{
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 
@@ -468,64 +532,5 @@ impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant0TypeEn
                 f.write_str("redis-url")
             }
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseEnvItemContentHintVariant0 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseEnvItemContentHintVariant0TypeEnum,
-}
-
-impl CreateProjectResponseEnvItemContentHintVariant0 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectResponseEnvItemContentHintVariant0TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
-    #[serde(rename = "redis-rest-api-url")]
-    #[default]
-    RedisRestApiUrl,
-}
-
-impl CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisRestApiUrl => "redis-rest-api-url",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseEnvItemContentHintVariant1TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectResponseEnvItemContentHintVariant1TypeEnum::RedisRestApiUrl => {
-                f.write_str("redis-rest-api-url")
-            }
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseEnvItemContentHintVariant1 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseEnvItemContentHintVariant1TypeEnum,
-}
-
-impl CreateProjectResponseEnvItemContentHintVariant1 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectResponseEnvItemContentHintVariant1TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
     }
 }

@@ -3,6 +3,33 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetRedirectsResponseVariant1Version {
+    /// The staging link for previewing redirects in this version.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<String>,
+    #[serde(rename = "createdBy")]
+    pub created_by: String,
+    /// The unique identifier for the version.
+    pub id: String,
+    /// Whether this version is currently live in production.
+    #[serde(rename = "isLive", skip_serializing_if = "Option::is_none")]
+    pub is_live: Option<bool>,
+    /// Whether this version has not been promoted to production yet and is not serving end users.
+    #[serde(rename = "isStaging", skip_serializing_if = "Option::is_none")]
+    pub is_staging: Option<bool>,
+    /// The key of the version. The key may be duplicated across versions if the contents are the same as a different version.
+    pub key: String,
+    #[serde(rename = "lastModified")]
+    pub last_modified: f64,
+    /// Optional name for the version. If not provided, defaults to an ISO timestamp string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// The number of redirects in this version.
+    #[serde(rename = "redirectCount", skip_serializing_if = "Option::is_none")]
+    pub redirect_count: Option<f64>,
+}
+
 impl GetRedirectsResponseVariant1Version {
     pub fn new(created_by: String, id: String, key: String, last_modified: f64) -> Self {
         Self {
@@ -204,6 +231,26 @@ impl<'de> serde::Deserialize<'de> for GetRedirectsResponse {
     }
 }
 
+impl ::std::convert::From<std::collections::HashMap<String, serde_json::Value>>
+    for GetRedirectsResponse
+{
+    fn from(value: std::collections::HashMap<String, serde_json::Value>) -> Self {
+        Self::ValueMap(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetRedirectsResponseVariant1>> for GetRedirectsResponse {
+    fn from(value: Box<GetRedirectsResponseVariant1>) -> Self {
+        Self::Object(value)
+    }
+}
+
+impl ::std::convert::From<Box<GetRedirectsResponseVariant2>> for GetRedirectsResponse {
+    fn from(value: Box<GetRedirectsResponseVariant2>) -> Self {
+        Self::Object2(value)
+    }
+}
+
 /// The redirect object to edit. The source field is used to match the redirect to modify.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct EditRedirectRedirect {
@@ -264,33 +311,4 @@ pub struct EditRedirectResponseVersion {
     /// The number of redirects in this version.
     #[serde(rename = "redirectCount", skip_serializing_if = "Option::is_none")]
     pub redirect_count: Option<f64>,
-}
-
-impl EditRedirectResponseVersion {
-    pub fn new(created_by: String, id: String, key: String, last_modified: f64) -> Self {
-        Self {
-            alias: None,
-            created_by,
-            id,
-            is_live: None,
-            is_staging: None,
-            key,
-            last_modified,
-            name: None,
-            redirect_count: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct EditRedirectResponse {
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub alias: Option<String>,
-    pub version: EditRedirectResponseVersion,
-}
-
-impl EditRedirectResponse {
-    pub fn new(alias: Option<String>, version: EditRedirectResponseVersion) -> Self {
-        Self { alias, version }
-    }
 }

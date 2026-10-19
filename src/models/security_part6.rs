@@ -3,6 +3,57 @@
 
 // security domain models (part 6)
 
+impl GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BotCategory => "bot_category",
+            Self::BotName => "bot_name",
+            Self::BotProtection => "bot_protection",
+            Self::BotStatus => "bot_status",
+            Self::Cookie => "cookie",
+            Self::DomainEnvironment => "domain_environment",
+            Self::Environment => "environment",
+            Self::GeoAsNumber => "geo_as_number",
+            Self::GeoCity => "geo_city",
+            Self::GeoContinent => "geo_continent",
+            Self::GeoCountry => "geo_country",
+            Self::GeoCountryRegion => "geo_country_region",
+            Self::Header => "header",
+            Self::Host => "host",
+            Self::IpAddress => "ip_address",
+            Self::Ja3Digest => "ja3_digest",
+            Self::Ja4Digest => "ja4_digest",
+            Self::Method => "method",
+            Self::Path => "path",
+            Self::Protocol => "protocol",
+            Self::Query => "query",
+            Self::RateLimitApiId => "rate_limit_api_id",
+            Self::RawPath => "raw_path",
+            Self::Region => "region",
+            Self::ResponseCode => "response_code",
+            Self::Route => "route",
+            Self::Ruleset => "ruleset",
+            Self::Scheme => "scheme",
+            Self::ServerAction => "server_action",
+            Self::SharedCondition => "shared_condition",
+            Self::TargetPath => "target_path",
+            Self::TrafficSource => "traffic_source",
+            Self::TrustedSource => "trusted_source",
+            Self::UserAgent => "user_agent",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de>
     for GetConditionalBypassResponseVariant0ResultItemConditionsItemTypeEnum
 {
@@ -93,6 +144,30 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no GetConditionalBypassResponseVariant0ResultItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for GetConditionalBypassResponseVariant0ResultItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetConditionalBypassResponseVariant0ResultItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetConditionalBypassResponseVariant0ResultItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
     }
 }
 
@@ -407,115 +482,4 @@ pub enum GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditi
     String(String),
     Number(f64),
     StringArray(Vec<String>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
-            let candidate = Self::String(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
-            let candidate = Self::Number(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub key: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub neg: Option<bool>,
-    pub op: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemOpEnum,
-    #[serde(rename = "type")]
-    pub type_:
-        GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemTypeEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value:
-        Option<GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue>,
-}
-
-impl GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem {
-    pub fn new(
-        op: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemOpEnum,
-        type_: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemTypeEnum,
-    ) -> Self {
-        Self {
-            key: None,
-            neg: None,
-            op,
-            type_,
-            value: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetConditionalBypassResponseVariant1ResultItemConditionGroupItem {
-    pub conditions:
-        Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem>,
-}
-
-impl GetConditionalBypassResponseVariant1ResultItemConditionGroupItem {
-    pub fn new(
-        conditions: Vec<
-            GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem,
-        >,
-    ) -> Self {
-        Self { conditions }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetConditionalBypassResponseVariant1ResultItem {
-    #[serde(rename = "conditionGroup")]
-    pub condition_group: Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItem>,
-    pub domain: String,
-}
-
-impl GetConditionalBypassResponseVariant1ResultItem {
-    pub fn new(
-        condition_group: Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItem>,
-        domain: String,
-    ) -> Self {
-        Self {
-            condition_group,
-            domain,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetConditionalBypassResponseVariant1 {
-    pub pagination: GetConditionalBypassResponseVariant1Pagination,
-    pub result: Vec<GetConditionalBypassResponseVariant1ResultItem>,
-}
-
-impl GetConditionalBypassResponseVariant1 {
-    pub fn new(
-        pagination: GetConditionalBypassResponseVariant1Pagination,
-        result: Vec<GetConditionalBypassResponseVariant1ResultItem>,
-    ) -> Self {
-        Self { pagination, result }
-    }
 }

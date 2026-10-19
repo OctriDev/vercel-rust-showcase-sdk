@@ -3,6 +3,206 @@
 
 use super::*;
 
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant3>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant3>,
+    ) -> Self {
+        Self::RedisRestApiReadOnlyToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant4>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant4>,
+    ) -> Self {
+        Self::BlobReadWriteToken(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant5>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant5>,
+    ) -> Self {
+        Self::BlobStoreId(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant6>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant6>,
+    ) -> Self {
+        Self::BlobWebhookPublicKey(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant7>,
+    ) -> Self {
+        Self::PostgresUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant8>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant8>,
+    ) -> Self {
+        Self::PostgresUrlNonPooling(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant9>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant9>,
+    ) -> Self {
+        Self::PostgresPrismaUrl(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant10>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant10>,
+    ) -> Self {
+        Self::PostgresUser(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant11>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant11>,
+    ) -> Self {
+        Self::PostgresHost(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant12>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant12>,
+    ) -> Self {
+        Self::PostgresPassword(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant13>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant13>,
+    ) -> Self {
+        Self::PostgresDatabase(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant14>,
+    ) -> Self {
+        Self::PostgresUrlNoSsl(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant15>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant15>,
+    ) -> Self {
+        Self::IntegrationStoreSecret(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant16>>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHint
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant16>,
+    ) -> Self {
+        Self::FlagsConnectionString(value)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum {
+    #[default]
+    FlagsSecret,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::FlagsSecret => "flags-secret",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "flags-secret" => Self::FlagsSecret,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// Similar to `contentHints`, but should not be exposed to the user.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHint {
+    /// Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.
+    #[serde(rename = "encryptedValue")]
+    pub encrypted_value: String,
+    #[serde(rename = "type")]
+    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHintTypeEnum,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemEnvItemInternalContentHint {
     pub fn new(
         encrypted_value: String,
@@ -153,111 +353,5 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemEn
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant1ProjectsItemEnvItemTarget branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemEnvItemTypeEnum {
-    #[default]
-    Encrypted,
-    Plain,
-    Secret,
-    Sensitive,
-    System,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Encrypted => "encrypted",
-            Self::Plain => "plain",
-            Self::Secret => "secret",
-            Self::Sensitive => "sensitive",
-            Self::System => "system",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemEnvItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemEnvItemTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "encrypted" => Self::Encrypted,
-            "plain" => Self::Plain,
-            "secret" => Self::Secret,
-            "sensitive" => Self::Sensitive,
-            "system" => Self::System,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemEnvItemTypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant1ProjectsItemEnvItemVisibilityEnum {
-    #[default]
-    Config,
-    Secret,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemVisibilityEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Config => "config",
-            Self::Secret => "secret",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant1ProjectsItemEnvItemVisibilityEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant1ProjectsItemEnvItemVisibilityEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "config" => Self::Config,
-            "secret" => Self::Secret,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant1ProjectsItemEnvItemVisibilityEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

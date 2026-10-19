@@ -3,6 +3,21 @@
 
 use super::*;
 
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0ViaVariant1>>
+    for ListProjectsResponseVariant1ProjectsItemCreatorVariant0Via
+{
+    fn from(
+        value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0ViaVariant1>,
+    ) -> Self {
+        Self::Integration(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant1ProjectsItemCreatorVariant0User {
+    pub id: String,
+}
+
 impl ListProjectsResponseVariant1ProjectsItemCreatorVariant0User {
     pub fn new(id: String) -> Self {
         Self { id }
@@ -243,6 +258,38 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant1ProjectsItemCr
     }
 }
 
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0>>
+    for ListProjectsResponseVariant1ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant0>) -> Self {
+        Self::User(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant1>>
+    for ListProjectsResponseVariant1ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant1>) -> Self {
+        Self::App(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant2>>
+    for ListProjectsResponseVariant1ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant2>) -> Self {
+        Self::Integration(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant3>>
+    for ListProjectsResponseVariant1ProjectsItemCreator
+{
+    fn from(value: Box<ListProjectsResponseVariant1ProjectsItemCreatorVariant3>) -> Self {
+        Self::System(value)
+    }
+}
+
 /// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListProjectsResponseVariant1ProjectsItemDeploymentExpiration {
@@ -282,47 +329,5 @@ impl ListProjectsResponseVariant1ProjectsItemDeploymentExpiration {
             expiration_days_errored: None,
             expiration_days_production: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum {
-    #[serde(rename = "redis-url")]
-    #[default]
-    RedisUrl,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::RedisUrl => "redis-url",
-        }
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum::RedisUrl => f.write_str("redis-url"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum,
-}
-
-impl ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0 {
-    pub fn new(
-        store_id: String,
-        type_: ListProjectsResponseVariant1ProjectsItemEnvItemContentHintVariant0TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
     }
 }

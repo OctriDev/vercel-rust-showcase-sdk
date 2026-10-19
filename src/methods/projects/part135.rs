@@ -3,35 +3,7 @@
 
 use super::*;
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseTargetsValueReadyStateEnum {
-    #[default]
-    Blocked,
-    Building,
-    Canceled,
-    Error,
-    Initializing,
-    Queued,
-    Ready,
-    Unknown(String),
-}
-
-impl CreateProjectResponseTargetsValueReadyStateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Blocked => "BLOCKED",
-            Self::Building => "BUILDING",
-            Self::Canceled => "CANCELED",
-            Self::Error => "ERROR",
-            Self::Initializing => "INITIALIZING",
-            Self::Queued => "QUEUED",
-            Self::Ready => "READY",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseTargetsValueReadyStateEnum {
+impl serde::Serialize for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -40,232 +12,270 @@ impl serde::Serialize for CreateProjectResponseTargetsValueReadyStateEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueReadyStateEnum {
+impl<'de> serde::Deserialize<'de> for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "BLOCKED" => Self::Blocked,
-            "BUILDING" => Self::Building,
-            "CANCELED" => Self::Canceled,
-            "ERROR" => Self::Error,
-            "INITIALIZING" => Self::Initializing,
-            "QUEUED" => Self::Queued,
-            "READY" => Self::Ready,
+            "fixed_window" => Self::FixedWindow,
+            "token_bucket" => Self::TokenBucket,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for CreateProjectResponseTargetsValueReadyStateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseTargetsValueReadySubstateEnum {
-    #[default]
-    Promoted,
-    Rolling,
-    Staged,
-    Unknown(String),
-}
-
-impl CreateProjectResponseTargetsValueReadySubstateEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Promoted => "PROMOTED",
-            Self::Rolling => "ROLLING",
-            Self::Staged => "STAGED",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseTargetsValueReadySubstateEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueReadySubstateEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "PROMOTED" => Self::Promoted,
-            "ROLLING" => Self::Rolling,
-            "STAGED" => Self::Staged,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseTargetsValueReadySubstateEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectResponseTargetsValueTypeEnum {
-    #[default]
-    Lambdas,
-    Unknown(String),
-}
-
-impl CreateProjectResponseTargetsValueTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Lambdas => "LAMBDAS",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateProjectResponseTargetsValueTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseTargetsValueTypeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "LAMBDAS" => Self::Lambdas,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateProjectResponseTargetsValueTypeEnum {
+impl std::fmt::Display for CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectResponseTargetsValue {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alias: Option<Vec<String>>,
+pub struct CreateProjectResponseSecurityRulesetsValueRateLimit {
+    pub algo: CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum,
+    pub keys: Vec<String>,
+    pub limit: f64,
+    pub window: f64,
+}
+
+impl CreateProjectResponseSecurityRulesetsValueRateLimit {
+    pub fn new(
+        algo: CreateProjectResponseSecurityRulesetsValueRateLimitAlgoEnum,
+        keys: Vec<String>,
+        limit: f64,
+        window: f64,
+    ) -> Self {
+        Self {
+            algo,
+            keys,
+            limit,
+            window,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseSecurityRulesetsValueRedirect {
+    pub location: String,
+    pub permanent: bool,
+}
+
+impl CreateProjectResponseSecurityRulesetsValueRedirect {
+    pub fn new(location: String, permanent: bool) -> Self {
+        Self {
+            location,
+            permanent,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseSecurityRulesetsValue {
+    pub action: CreateProjectResponseSecurityRulesetsValueActionEnum,
     #[serde(
-        rename = "aliasAssigned",
+        rename = "actionDuration",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub alias_assigned: Option<Option<CreateProjectResponseTargetsValueAliasAssigned>>,
+    pub action_duration: Option<Option<String>>,
     #[serde(
-        rename = "aliasError",
+        rename = "bypassSystem",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub alias_error: Option<Option<CreateProjectResponseTargetsValueAliasError>>,
+    pub bypass_system: Option<Option<bool>>,
+    #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<CreateProjectResponseSecurityRulesetsValueLogHeaders>,
     #[serde(
-        rename = "aliasFinal",
+        rename = "rateLimit",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub alias_final: Option<Option<String>>,
-    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
-    pub automatic_aliases: Option<Vec<String>>,
-    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
-    pub branch_matcher: Option<CreateProjectResponseTargetsValueBranchMatcher>,
-    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
-    pub building_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub builds: Option<Vec<CreateProjectResponseTargetsValueBuildsItem>>,
-    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
-    pub checks_conclusion: Option<CreateProjectResponseTargetsValueChecksConclusionEnum>,
-    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
-    pub checks_state: Option<CreateProjectResponseTargetsValueChecksStateEnum>,
+    pub rate_limit: Option<Option<CreateProjectResponseSecurityRulesetsValueRateLimit>>,
     #[serde(
-        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub redirect: Option<Option<CreateProjectResponseSecurityRulesetsValueRedirect>>,
+}
+
+impl CreateProjectResponseSecurityRulesetsValue {
+    pub fn new(action: CreateProjectResponseSecurityRulesetsValueActionEnum) -> Self {
+        Self {
+            action,
+            action_duration: None,
+            bypass_system: None,
+            log_headers: None,
+            rate_limit: None,
+            redirect: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseSecurity {
+    #[serde(
+        rename = "attackModeActiveUntil",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub attack_mode_active_until: Option<Option<f64>>,
+    #[serde(rename = "attackModeEnabled", skip_serializing_if = "Option::is_none")]
+    pub attack_mode_enabled: Option<bool>,
+    #[serde(
+        rename = "attackModeUpdatedAt",
         skip_serializing_if = "Option::is_none"
     )]
-    pub connect_builds_enabled: Option<bool>,
+    pub attack_mode_updated_at: Option<f64>,
+    #[serde(rename = "botIdEnabled", skip_serializing_if = "Option::is_none")]
+    pub bot_id_enabled: Option<bool>,
+    #[serde(rename = "firewallBypassIps", skip_serializing_if = "Option::is_none")]
+    pub firewall_bypass_ips: Option<Vec<String>>,
     #[serde(
-        rename = "connectConfigurationId",
+        rename = "firewallConfigVersion",
         skip_serializing_if = "Option::is_none"
     )]
-    pub connect_configuration_id: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "createdIn")]
-    pub created_in: String,
-    #[serde(deserialize_with = "Option::deserialize")]
-    pub creator: Option<CreateProjectResponseTargetsValueCreator>,
-    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
-    pub deleted_at: Option<f64>,
-    #[serde(rename = "deploymentHostname")]
-    pub deployment_hostname: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub forced: Option<bool>,
-    pub id: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub meta: Option<std::collections::HashMap<String, String>>,
+    pub firewall_config_version: Option<f64>,
+    #[serde(rename = "firewallEnabled", skip_serializing_if = "Option::is_none")]
+    pub firewall_enabled: Option<bool>,
     #[serde(
-        rename = "monorepoManager",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
-    )]
-    pub monorepo_manager: Option<Option<String>>,
-    pub name: String,
-    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
-    pub oidc_token_claims: Option<CreateProjectResponseTargetsValueOidcTokenClaims>,
-    pub plan: CreateProjectResponseTargetsValuePlanEnum,
-    /// Whether or not preview comments are enabled for the deployment
-    #[serde(
-        rename = "previewCommentsEnabled",
+        rename = "firewallSeawallEnabled",
         skip_serializing_if = "Option::is_none"
     )]
-    pub preview_comments_enabled: Option<bool>,
-    pub private: bool,
-    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
-    pub ready_at: Option<f64>,
-    #[serde(rename = "readyState")]
-    pub ready_state: CreateProjectResponseTargetsValueReadyStateEnum,
-    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
-    pub ready_substate: Option<CreateProjectResponseTargetsValueReadySubstateEnum>,
-    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
-    pub requested_at: Option<f64>,
+    pub firewall_seawall_enabled: Option<bool>,
+    #[serde(rename = "firewallUpdatedAt", skip_serializing_if = "Option::is_none")]
+    pub firewall_updated_at: Option<f64>,
+    #[serde(rename = "ja3Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja3_enabled: Option<bool>,
+    #[serde(rename = "ja4Enabled", skip_serializing_if = "Option::is_none")]
+    pub ja4_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub log_headers: Option<CreateProjectResponseSecurityLogHeaders>,
     #[serde(
+        rename = "managedRules",
         skip_serializing_if = "Option::is_none",
         default,
         with = "crate::client::double_option"
     )]
-    pub target: Option<Option<String>>,
+    pub managed_rules: Option<Option<CreateProjectResponseSecurityManagedRules>>,
+    /// Whether Page Integrity is enabled for this project. Used by the metadata service to gate DynamoDB lookups against the page-integrity-inventory table.
     #[serde(
-        rename = "teamId",
-        skip_serializing_if = "Option::is_none",
-        default,
-        with = "crate::client::double_option"
+        rename = "pageIntegrityEnabled",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub team_id: Option<Option<String>>,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectResponseTargetsValueTypeEnum,
-    pub url: String,
-    /// Present for user creators; omitted for app/integration/system creators.
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<String>,
-    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
-    pub with_cache: Option<bool>,
+    pub page_integrity_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rulesets:
+        Option<std::collections::HashMap<String, CreateProjectResponseSecurityRulesetsValue>>,
+}
+
+impl CreateProjectResponseSecurity {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            attack_mode_active_until: None,
+            attack_mode_enabled: None,
+            attack_mode_updated_at: None,
+            bot_id_enabled: None,
+            firewall_bypass_ips: None,
+            firewall_config_version: None,
+            firewall_enabled: None,
+            firewall_seawall_enabled: None,
+            firewall_updated_at: None,
+            ja3_enabled: None,
+            ja4_enabled: None,
+            log_headers: None,
+            managed_rules: None,
+            page_integrity_enabled: None,
+            rulesets: None,
+        }
+    }
+}
+
+/// Framework slug, when the service has one (omitted otherwise).
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum CreateProjectResponseServicesItemFrameworkEnum {
+    #[default]
+    ActixWeb,
+    Angular,
+    Ash,
+    Astro,
+    Axum,
+    Blitzjs,
+    Brunch,
+    Bun,
+    Container,
+    CreateReactApp,
+    Django,
+    Docusaurus,
+    Docusaurus2,
+    Dojo,
+    Eleventy,
+    Elysia,
+    Ember,
+    Eve,
+    Express,
+    FactoryEve,
+    Fastapi,
+    Fasthtml,
+    Fastify,
+    Flask,
+    Gatsby,
+    Go,
+    Gridsome,
+    H3,
+    Hexo,
+    Hono,
+    Hugo,
+    Hydrogen,
+    IonicAngular,
+    IonicReact,
+    Jekyll,
+    Koa,
+    Mastra,
+    Middleman,
+    Nestjs,
+    Nextjs,
+    Nitro,
+    Node,
+    Nuxtjs,
+    Parcel,
+    Polymer,
+    Preact,
+    Python,
+    ReactRouter,
+    Redwoodjs,
+    Remix,
+    Ruby,
+    Rust,
+    Saber,
+    Sanity,
+    SanityV2,
+    Sapper,
+    Scully,
+    Services,
+    Solidstart,
+    Solidstart1,
+    Stencil,
+    Storybook,
+    Svelte,
+    Sveltekit,
+    Sveltekit1,
+    TanstackStart,
+    TanstackStartLovable,
+    Umijs,
+    Vite,
+    Vitepress,
+    Vue,
+    Vuepress,
+    Xmcp,
+    Zola,
+    Unknown(String),
 }

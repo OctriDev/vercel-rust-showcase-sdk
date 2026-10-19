@@ -302,22 +302,16 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemSecurityLo
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant0ItemSecurityManagedRulesAiBotsActionEnum {
-    #[default]
-    Challenge,
-    Deny,
-    Log,
-    Unknown(String),
+impl ::std::convert::From<Vec<String>> for ListProjectsResponseVariant0ItemSecurityLogHeaders {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
 }
 
-impl ListProjectsResponseVariant0ItemSecurityManagedRulesAiBotsActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<ListProjectsResponseVariant0ItemSecurityLogHeadersVariant1Enum>
+    for ListProjectsResponseVariant0ItemSecurityLogHeaders
+{
+    fn from(value: ListProjectsResponseVariant0ItemSecurityLogHeadersVariant1Enum) -> Self {
+        Self::Literal(value)
     }
 }

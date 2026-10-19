@@ -3,6 +3,17 @@
 
 use super::*;
 
+impl CancelDeploymentResponseChecksDeploymentaliasStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Failed => "failed",
+            Self::Pending => "pending",
+            Self::Succeeded => "succeeded",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for CancelDeploymentResponseChecksDeploymentaliasStateEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -270,13 +281,4 @@ impl std::fmt::Display for CancelDeploymentResponseConfigFunctionTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
-}
-
-/// Build resource configuration snapshot for this deployment.
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CancelDeploymentResponseConfigResourceConfigBuildQueueConfigurationEnum {
-    #[default]
-    SkipNamespaceQueue,
-    WaitForNamespaceQueue,
-    Unknown(String),
 }

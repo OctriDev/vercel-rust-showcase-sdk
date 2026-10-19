@@ -3,6 +3,201 @@
 
 // checks_v2 domain models (part 12)
 
+impl ListCheckRunsResponseRunsItemVariant0 {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        created_at: f64,
+        deployment_id: String,
+        id: String,
+        name: String,
+        owner_id: String,
+        status: ListCheckRunsResponseRunsItemVariant0StatusEnum,
+        timeout: f64,
+        updated_at: f64,
+        check_id: String,
+        source: ListCheckRunsResponseRunsItemVariant0Source,
+    ) -> Self {
+        Self {
+            blocks: None,
+            completed_at: None,
+            conclusion: None,
+            conclusion_text: None,
+            created_at,
+            deployment_id,
+            expectation_ref: None,
+            expectation_revision: None,
+            external_id: None,
+            external_url: None,
+            id,
+            name,
+            output: None,
+            owner_id,
+            project_id: None,
+            requires: None,
+            started_at: None,
+            status,
+            targets: None,
+            task_summary: None,
+            timeout,
+            updated_at,
+            check_id,
+            source,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListCheckRunsResponseRunsItemVariant1BlocksEnum {
+    #[default]
+    BuildStart,
+    DeploymentAlias,
+    DeploymentPromotion,
+    DeploymentStart,
+    None,
+    Unknown(String),
+}
+
+impl ListCheckRunsResponseRunsItemVariant1BlocksEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::BuildStart => "build-start",
+            Self::DeploymentAlias => "deployment-alias",
+            Self::DeploymentPromotion => "deployment-promotion",
+            Self::DeploymentStart => "deployment-start",
+            Self::None => "none",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "build-start" => Self::BuildStart,
+            "deployment-alias" => Self::DeploymentAlias,
+            "deployment-promotion" => Self::DeploymentPromotion,
+            "deployment-start" => Self::DeploymentStart,
+            "none" => Self::None,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant1BlocksEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
+    #[default]
+    Canceled,
+    Failed,
+    Neutral,
+    Skipped,
+    Succeeded,
+    Timeout,
+    Unknown(String),
+}
+
+impl ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Canceled => "canceled",
+            Self::Failed => "failed",
+            Self::Neutral => "neutral",
+            Self::Skipped => "skipped",
+            Self::Succeeded => "succeeded",
+            Self::Timeout => "timeout",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "canceled" => Self::Canceled,
+            "failed" => Self::Failed,
+            "neutral" => Self::Neutral,
+            "skipped" => Self::Skipped,
+            "succeeded" => Self::Succeeded,
+            "timeout" => Self::Timeout,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListCheckRunsResponseRunsItemVariant1ConclusionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListCheckRunsResponseRunsItemVariant1ExpectationRef {
+    #[serde(rename = "invocationAttempt")]
+    pub invocation_attempt: f64,
+    #[serde(rename = "invocationId")]
+    pub invocation_id: String,
+    #[serde(rename = "jobDefinitionId")]
+    pub job_definition_id: String,
+    #[serde(rename = "jobRunAttempt")]
+    pub job_run_attempt: f64,
+}
+
+impl ListCheckRunsResponseRunsItemVariant1ExpectationRef {
+    pub fn new(
+        invocation_attempt: f64,
+        invocation_id: String,
+        job_definition_id: String,
+        job_run_attempt: f64,
+    ) -> Self {
+        Self {
+            invocation_attempt,
+            invocation_id,
+            job_definition_id,
+            job_run_attempt,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListCheckRunsResponseRunsItemVariant1RequiresEnum {
+    #[default]
+    BuildReady,
+    DeploymentUrl,
+    None,
+    Unknown(String),
+}
+
 impl ListCheckRunsResponseRunsItemVariant1RequiresEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -308,212 +503,4 @@ impl ListCheckRunsResponseRunsItemVariant1SourceVariant1 {
 pub enum ListCheckRunsResponseRunsItemVariant1Source {
     Config(Box<ListCheckRunsResponseRunsItemVariant1SourceVariant0>),
     Platform(Box<ListCheckRunsResponseRunsItemVariant1SourceVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItemVariant1Source {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListCheckRunsResponseRunsItemVariant1SourceVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::Config(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<ListCheckRunsResponseRunsItemVariant1SourceVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::Platform(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no ListCheckRunsResponseRunsItemVariant1Source branch accepts this payload",
-            )
-        })
-    }
-}
-
-/// Vercel CI check run without a parent `check` (no `checkId` field).
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListCheckRunsResponseRunsItemVariant1 {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub blocks: Option<ListCheckRunsResponseRunsItemVariant1BlocksEnum>,
-    #[serde(rename = "completedAt", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub conclusion: Option<ListCheckRunsResponseRunsItemVariant1ConclusionEnum>,
-    #[serde(rename = "conclusionText", skip_serializing_if = "Option::is_none")]
-    pub conclusion_text: Option<String>,
-    #[serde(rename = "createdAt")]
-    pub created_at: f64,
-    #[serde(rename = "deploymentId")]
-    pub deployment_id: String,
-    #[serde(rename = "expectationRef", skip_serializing_if = "Option::is_none")]
-    pub expectation_ref: Option<ListCheckRunsResponseRunsItemVariant1ExpectationRef>,
-    /// Latest aggregate revision applied to this check run.
-    #[serde(
-        rename = "expectationRevision",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expectation_revision: Option<f64>,
-    #[serde(rename = "externalId", skip_serializing_if = "Option::is_none")]
-    pub external_id: Option<String>,
-    #[serde(rename = "externalUrl", skip_serializing_if = "Option::is_none")]
-    pub external_url: Option<String>,
-    pub id: String,
-    pub name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub output: Option<std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "ownerId")]
-    pub owner_id: String,
-    #[serde(rename = "projectId", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub requires: Option<ListCheckRunsResponseRunsItemVariant1RequiresEnum>,
-    #[serde(rename = "startedAt", skip_serializing_if = "Option::is_none")]
-    pub started_at: Option<f64>,
-    pub status: ListCheckRunsResponseRunsItemVariant1StatusEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub targets: Option<Vec<String>>,
-    #[serde(rename = "taskSummary", skip_serializing_if = "Option::is_none")]
-    pub task_summary: Option<ListCheckRunsResponseRunsItemVariant1TaskSummary>,
-    pub timeout: f64,
-    #[serde(rename = "updatedAt")]
-    pub updated_at: f64,
-    pub source: ListCheckRunsResponseRunsItemVariant1Source,
-}
-
-impl ListCheckRunsResponseRunsItemVariant1 {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        created_at: f64,
-        deployment_id: String,
-        id: String,
-        name: String,
-        owner_id: String,
-        status: ListCheckRunsResponseRunsItemVariant1StatusEnum,
-        timeout: f64,
-        updated_at: f64,
-        source: ListCheckRunsResponseRunsItemVariant1Source,
-    ) -> Self {
-        Self {
-            blocks: None,
-            completed_at: None,
-            conclusion: None,
-            conclusion_text: None,
-            created_at,
-            deployment_id,
-            expectation_ref: None,
-            expectation_revision: None,
-            external_id: None,
-            external_url: None,
-            id,
-            name,
-            output: None,
-            owner_id,
-            project_id: None,
-            requires: None,
-            started_at: None,
-            status,
-            targets: None,
-            task_summary: None,
-            timeout,
-            updated_at,
-            source,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListCheckRunsResponseRunsItem {
-    Object(Box<ListCheckRunsResponseRunsItemVariant0>),
-    Object2(Box<ListCheckRunsResponseRunsItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListCheckRunsResponseRunsItem {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<ListCheckRunsResponseRunsItemVariant0>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<ListCheckRunsResponseRunsItemVariant1>>(value.clone())
-        {
-            let candidate = Self::Object2(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no ListCheckRunsResponseRunsItem branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListDeploymentCheckRunsResponseRunsItemVariant0BlocksEnum {
-    #[default]
-    BuildStart,
-    DeploymentAlias,
-    DeploymentPromotion,
-    DeploymentStart,
-    None,
-    Unknown(String),
-}
-
-impl ListDeploymentCheckRunsResponseRunsItemVariant0BlocksEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::BuildStart => "build-start",
-            Self::DeploymentAlias => "deployment-alias",
-            Self::DeploymentPromotion => "deployment-promotion",
-            Self::DeploymentStart => "deployment-start",
-            Self::None => "none",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListDeploymentCheckRunsResponseRunsItemVariant0BlocksEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListDeploymentCheckRunsResponseRunsItemVariant0BlocksEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "build-start" => Self::BuildStart,
-            "deployment-alias" => Self::DeploymentAlias,
-            "deployment-promotion" => Self::DeploymentPromotion,
-            "deployment-start" => Self::DeploymentStart,
-            "none" => Self::None,
-            _ => Self::Unknown(value),
-        })
-    }
 }

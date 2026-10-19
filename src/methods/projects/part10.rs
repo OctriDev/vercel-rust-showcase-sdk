@@ -3,6 +3,62 @@
 
 use super::*;
 
+impl serde::Serialize for ListProjectsResponseVariant0ItemNodeVersionEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant0ItemNodeVersionEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "10.x" => Self::_10X,
+            "12.x" => Self::_12X,
+            "14.x" => Self::_14X,
+            "16.x" => Self::_16X,
+            "18.x" => Self::_18X,
+            "20.x" => Self::_20X,
+            "22.x" => Self::_22X,
+            "24.x" => Self::_24X,
+            "26.x" => Self::_26X,
+            "8.10.x" => Self::_810X,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for ListProjectsResponseVariant0ItemNodeVersionEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+/// \- team: `https://oidc.vercel.com/[team_slug]` \- global: `https://oidc.vercel.com`
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListProjectsResponseVariant0ItemOidcTokenConfigIssuerModeEnum {
+    #[default]
+    Global,
+    Team,
+    Unknown(String),
+}
+
+impl ListProjectsResponseVariant0ItemOidcTokenConfigIssuerModeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Global => "global",
+            Self::Team => "team",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
 impl serde::Serialize for ListProjectsResponseVariant0ItemOidcTokenConfigIssuerModeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -246,54 +302,5 @@ impl<'de> serde::Deserialize<'de>
             "upgrade" => Self::Upgrade,
             _ => Self::Unknown(value),
         })
-    }
-}
-
-impl std::fmt::Display
-    for ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransition {
-    #[serde(rename = "algorithmVersion")]
-    pub algorithm_version: String,
-    pub at: f64,
-    pub direction:
-        ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
-}
-
-impl ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransition {
-    pub fn new(
-        algorithm_version: String,
-        at: f64,
-        direction: ListProjectsResponseVariant0ItemResourceConfigBuildMachineElasticTransitionDirectionEnum,
-    ) -> Self {
-        Self {
-            algorithm_version,
-            at,
-            direction,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant0ItemResourceConfigBuildMachineSelectionEnum {
-    #[default]
-    Elastic,
-    Fixed,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant0ItemResourceConfigBuildMachineSelectionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Elastic => "elastic",
-            Self::Fixed => "fixed",
-            Self::Unknown(value) => value.as_str(),
-        }
     }
 }

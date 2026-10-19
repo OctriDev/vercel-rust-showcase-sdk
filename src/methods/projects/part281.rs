@@ -3,350 +3,269 @@
 
 use super::*;
 
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::PostgresUrlNoSsl => "postgres-url-no-ssl",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum::PostgresUrlNoSsl => f.write_str("postgres-url-no-ssl"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant14 {
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant14 {
-    pub fn new(
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant14TypeEnum,
-    ) -> Self {
-        Self { store_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum {
-    #[serde(rename = "integration-store-secret")]
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTargetsValueReadyStateEnum {
     #[default]
-    IntegrationStoreSecret,
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
+    Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum {
+impl DeleteProjectAvatarResponseTargetsValueReadyStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::IntegrationStoreSecret => "integration-store-secret",
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
+            Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum::IntegrationStoreSecret => f.write_str("integration-store-secret"),
-        }
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant15 {
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    #[serde(rename = "integrationProductId")]
-    pub integration_product_id: String,
-    #[serde(rename = "storeId")]
-    pub store_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant15 {
-    pub fn new(
-        integration_configuration_id: String,
-        integration_id: String,
-        integration_product_id: String,
-        store_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant15TypeEnum,
-    ) -> Self {
-        Self {
-            integration_configuration_id,
-            integration_id,
-            integration_product_id,
-            store_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum {
-    #[serde(rename = "flags-connection-string")]
-    #[default]
-    FlagsConnectionString,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FlagsConnectionString => "flags-connection-string",
-        }
-    }
-}
-
-impl std::fmt::Display for CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum::FlagsConnectionString => f.write_str("flags-connection-string"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateProjectEnvResponseCreatedVariant0ContentHintVariant16 {
-    #[serde(rename = "projectId")]
-    pub project_id: String,
-    #[serde(rename = "type")]
-    pub type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum,
-}
-
-impl CreateProjectEnvResponseCreatedVariant0ContentHintVariant16 {
-    pub fn new(
-        project_id: String,
-        type_: CreateProjectEnvResponseCreatedVariant0ContentHintVariant16TypeEnum,
-    ) -> Self {
-        Self { project_id, type_ }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum CreateProjectEnvResponseCreatedVariant0ContentHint {
-    RedisUrl(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant0>),
-    RedisRestApiUrl(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant1>),
-    RedisRestApiToken(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant2>),
-    RedisRestApiReadOnlyToken(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant3>),
-    BlobReadWriteToken(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant4>),
-    BlobStoreId(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant5>),
-    BlobWebhookPublicKey(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant6>),
-    PostgresUrl(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant7>),
-    PostgresUrlNonPooling(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant8>),
-    PostgresPrismaUrl(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant9>),
-    PostgresUser(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant10>),
-    PostgresHost(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant11>),
-    PostgresPassword(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant12>),
-    PostgresDatabase(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant13>),
-    PostgresUrlNoSsl(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant14>),
-    IntegrationStoreSecret(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant15>),
-    FlagsConnectionString(Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant16>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectEnvResponseCreatedVariant0ContentHint {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant0>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant1>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant2>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant3>,
-        >(value.clone())
-        {
-            let candidate = Self::RedisRestApiReadOnlyToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant4>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobReadWriteToken(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant5>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobStoreId(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant6>,
-        >(value.clone())
-        {
-            let candidate = Self::BlobWebhookPublicKey(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant7>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant8>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrlNonPooling(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant9>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresPrismaUrl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant10>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUser(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant11>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresHost(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant12>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresPassword(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant13>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresDatabase(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant14>,
-        >(value.clone())
-        {
-            let candidate = Self::PostgresUrlNoSsl(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant15>,
-        >(value.clone())
-        {
-            let candidate = Self::IntegrationStoreSecret(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            Box<CreateProjectEnvResponseCreatedVariant0ContentHintVariant16>,
-        >(value.clone())
-        {
-            let candidate = Self::FlagsConnectionString(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom(
-                "no CreateProjectEnvResponseCreatedVariant0ContentHint branch accepts this payload",
-            )
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
         })
     }
 }
 
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum {
+pub enum DeleteProjectAvatarResponseTargetsValueReadySubstateEnum {
     #[default]
-    FlagsSecret,
+    Promoted,
+    Rolling,
+    Staged,
     Unknown(String),
 }
 
-impl CreateProjectEnvResponseCreatedVariant0InternalContentHintTypeEnum {
+impl DeleteProjectAvatarResponseTargetsValueReadySubstateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::FlagsSecret => "flags-secret",
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
             Self::Unknown(value) => value.as_str(),
         }
     }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueReadySubstateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum DeleteProjectAvatarResponseTargetsValueTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl DeleteProjectAvatarResponseTargetsValueTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for DeleteProjectAvatarResponseTargetsValueTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for DeleteProjectAvatarResponseTargetsValueTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for DeleteProjectAvatarResponseTargetsValueTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct DeleteProjectAvatarResponseTargetsValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned: Option<Option<DeleteProjectAvatarResponseTargetsValueAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<DeleteProjectAvatarResponseTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<DeleteProjectAvatarResponseTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<DeleteProjectAvatarResponseTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<DeleteProjectAvatarResponseTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<DeleteProjectAvatarResponseTargetsValueChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<DeleteProjectAvatarResponseTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<DeleteProjectAvatarResponseTargetsValueOidcTokenClaims>,
+    pub plan: DeleteProjectAvatarResponseTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: DeleteProjectAvatarResponseTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<DeleteProjectAvatarResponseTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: DeleteProjectAvatarResponseTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }

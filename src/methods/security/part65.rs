@@ -3,273 +3,331 @@
 
 use super::*;
 
-/// PHP Attack \- Safeguard against vulnerability exploits in PHP-based applications.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseCrsPhp {
-    pub action: GetFirewallConfigResponseCrsPhpActionEnum,
-    pub active: bool,
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum UpdateFirewallConfig {
+    FirewallEnabled(Box<UpdateFirewallConfigVariant0>),
+    RulesInsert(Box<UpdateFirewallConfigVariant1>),
+    RulesUpdate(Box<UpdateFirewallConfigVariant2>),
+    RulesRemove(Box<UpdateFirewallConfigVariant3>),
+    RulesPriority(Box<UpdateFirewallConfigVariant4>),
+    CrsUpdate(Box<UpdateFirewallConfigVariant5>),
+    CrsDisable(Box<UpdateFirewallConfigVariant6>),
+    IpInsert(Box<UpdateFirewallConfigVariant7>),
+    IpUpdate(Box<UpdateFirewallConfigVariant8>),
+    IpRemove(Box<UpdateFirewallConfigVariant9>),
+    ManagedRulesUpdate(Box<UpdateFirewallConfigVariant10>),
+    Object(Box<UpdateFirewallConfigVariant11>),
+    Object2(Box<UpdateFirewallConfigVariant12>),
+    Object3(Box<UpdateFirewallConfigVariant13>),
+    Object4(Box<UpdateFirewallConfigVariant14>),
+    Object5(Box<UpdateFirewallConfigVariant15>),
+    Object6(Box<UpdateFirewallConfigVariant16>),
+    Object7(Box<UpdateFirewallConfigVariant17>),
+    Object8(Box<UpdateFirewallConfigVariant18>),
+    Object9(Box<UpdateFirewallConfigVariant19>),
+    Object10(Box<UpdateFirewallConfigVariant20>),
+    Object11(Box<UpdateFirewallConfigVariant21>),
+    Object12(Box<UpdateFirewallConfigVariant22>),
 }
 
-impl GetFirewallConfigResponseCrsPhp {
-    pub fn new(action: GetFirewallConfigResponseCrsPhpActionEnum, active: bool) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseCrsRceActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseCrsRceActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfig {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant0>>(value.clone())
+        {
+            let candidate = Self::FirewallEnabled(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
         }
-    }
-}
-
-impl serde::Serialize for GetFirewallConfigResponseCrsRceActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsRceActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant1>>(value.clone())
+        {
+            let candidate = Self::RulesInsert(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant2>>(value.clone())
+        {
+            let candidate = Self::RulesUpdate(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant3>>(value.clone())
+        {
+            let candidate = Self::RulesRemove(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant4>>(value.clone())
+        {
+            let candidate = Self::RulesPriority(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant5>>(value.clone())
+        {
+            let candidate = Self::CrsUpdate(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant6>>(value.clone())
+        {
+            let candidate = Self::CrsDisable(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant7>>(value.clone())
+        {
+            let candidate = Self::IpInsert(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant8>>(value.clone())
+        {
+            let candidate = Self::IpUpdate(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant9>>(value.clone())
+        {
+            let candidate = Self::IpRemove(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant10>>(value.clone())
+        {
+            let candidate = Self::ManagedRulesUpdate(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant11>>(value.clone())
+        {
+            let candidate = Self::Object(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant12>>(value.clone())
+        {
+            let candidate = Self::Object2(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant13>>(value.clone())
+        {
+            let candidate = Self::Object3(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant14>>(value.clone())
+        {
+            let candidate = Self::Object4(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant15>>(value.clone())
+        {
+            let candidate = Self::Object5(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant16>>(value.clone())
+        {
+            let candidate = Self::Object6(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant17>>(value.clone())
+        {
+            let candidate = Self::Object7(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant18>>(value.clone())
+        {
+            let candidate = Self::Object8(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant19>>(value.clone())
+        {
+            let candidate = Self::Object9(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant20>>(value.clone())
+        {
+            let candidate = Self::Object10(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant21>>(value.clone())
+        {
+            let candidate = Self::Object11(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) =
+            serde_json::from_value::<Box<UpdateFirewallConfigVariant22>>(value.clone())
+        {
+            let candidate = Self::Object12(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom("no UpdateFirewallConfig branch accepts this payload")
         })
     }
 }
 
-impl std::fmt::Display for GetFirewallConfigResponseCrsRceActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant0>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant0>) -> Self {
+        Self::FirewallEnabled(value)
     }
 }
 
-/// Remote Execution Attack \- Prevent unauthorized execution of remote scripts or commands.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseCrsRce {
-    pub action: GetFirewallConfigResponseCrsRceActionEnum,
-    pub active: bool,
-}
-
-impl GetFirewallConfigResponseCrsRce {
-    pub fn new(action: GetFirewallConfigResponseCrsRceActionEnum, active: bool) -> Self {
-        Self { action, active }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant1>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant1>) -> Self {
+        Self::RulesInsert(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseCrsRfiActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseCrsRfiActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant2>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant2>) -> Self {
+        Self::RulesUpdate(value)
     }
 }
 
-impl serde::Serialize for GetFirewallConfigResponseCrsRfiActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant3>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant3>) -> Self {
+        Self::RulesRemove(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsRfiActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant4>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant4>) -> Self {
+        Self::RulesPriority(value)
     }
 }
 
-impl std::fmt::Display for GetFirewallConfigResponseCrsRfiActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant5>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant5>) -> Self {
+        Self::CrsUpdate(value)
     }
 }
 
-/// Remote File Inclusion Attack \- Prohibit unauthorized upload or execution of remote files.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseCrsRfi {
-    pub action: GetFirewallConfigResponseCrsRfiActionEnum,
-    pub active: bool,
-}
-
-impl GetFirewallConfigResponseCrsRfi {
-    pub fn new(action: GetFirewallConfigResponseCrsRfiActionEnum, active: bool) -> Self {
-        Self { action, active }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant6>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant6>) -> Self {
+        Self::CrsDisable(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseCrsSdActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseCrsSdActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant7>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant7>) -> Self {
+        Self::IpInsert(value)
     }
 }
 
-impl serde::Serialize for GetFirewallConfigResponseCrsSdActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant8>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant8>) -> Self {
+        Self::IpUpdate(value)
     }
 }
 
-impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsSdActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant9>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant9>) -> Self {
+        Self::IpRemove(value)
     }
 }
 
-impl std::fmt::Display for GetFirewallConfigResponseCrsSdActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant10>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant10>) -> Self {
+        Self::ManagedRulesUpdate(value)
     }
 }
 
-/// Scanner Detection \- Detect and prevent reconnaissance activities from network scanning tools.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseCrsSd {
-    pub action: GetFirewallConfigResponseCrsSdActionEnum,
-    pub active: bool,
-}
-
-impl GetFirewallConfigResponseCrsSd {
-    pub fn new(action: GetFirewallConfigResponseCrsSdActionEnum, active: bool) -> Self {
-        Self { action, active }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant11>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant11>) -> Self {
+        Self::Object(value)
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseCrsSfActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseCrsSfActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant12>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant12>) -> Self {
+        Self::Object2(value)
     }
 }
 
-impl serde::Serialize for GetFirewallConfigResponseCrsSfActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetFirewallConfigResponseCrsSfActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetFirewallConfigResponseCrsSfActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Session Fixation Attack \- Prevent unauthorized takeover of user sessions by enforcing unique session IDs.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseCrsSf {
-    pub action: GetFirewallConfigResponseCrsSfActionEnum,
-    pub active: bool,
-}
-
-impl GetFirewallConfigResponseCrsSf {
-    pub fn new(action: GetFirewallConfigResponseCrsSfActionEnum, active: bool) -> Self {
-        Self { action, active }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseCrsSqliActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseCrsSqliActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ::std::convert::From<Box<UpdateFirewallConfigVariant13>> for UpdateFirewallConfig {
+    fn from(value: Box<UpdateFirewallConfigVariant13>) -> Self {
+        Self::Object3(value)
     }
 }

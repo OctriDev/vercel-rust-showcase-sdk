@@ -3,6 +3,78 @@
 
 // projects_create domain models (part 8)
 
+impl CreateProjectResponseLinkVariant2 {
+    pub fn new(
+        deploy_hooks: Vec<CreateProjectResponseLinkVariant2DeployHooksItem>,
+        git_credential_id: String,
+        host: String,
+        org: String,
+        production_branch: String,
+        type_: CreateProjectResponseLinkVariant2TypeEnum,
+    ) -> Self {
+        Self {
+            created_at: None,
+            deploy_hooks,
+            git_credential_id,
+            host,
+            org,
+            production_branch,
+            repo: None,
+            repo_id: None,
+            repo_owner_id: None,
+            sourceless: None,
+            type_,
+            updated_at: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectResponseLinkVariant3DeployHooksItem {
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<f64>,
+    pub id: String,
+    pub name: String,
+    #[serde(rename = "ref")]
+    pub ref_: String,
+    pub url: String,
+}
+
+impl CreateProjectResponseLinkVariant3DeployHooksItem {
+    pub fn new(id: String, name: String, ref_: String, url: String) -> Self {
+        Self {
+            created_at: None,
+            id,
+            name,
+            ref_,
+            url,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateProjectResponseLinkVariant3TypeEnum {
+    #[serde(rename = "gitlab")]
+    #[default]
+    Gitlab,
+}
+
+impl CreateProjectResponseLinkVariant3TypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Gitlab => "gitlab",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateProjectResponseLinkVariant3TypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectResponseLinkVariant3TypeEnum::Gitlab => f.write_str("gitlab"),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateProjectResponseLinkVariant3 {
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
@@ -463,86 +535,4 @@ pub enum CreateProjectResponseLink {
     Vercel(Box<CreateProjectResponseLinkVariant5>),
     V0(Box<CreateProjectResponseLinkVariant6>),
     CursorOrigin(Box<CreateProjectResponseLinkVariant7>),
-}
-
-impl<'de> serde::Deserialize<'de> for CreateProjectResponseLink {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant0>>(value.clone())
-        {
-            let candidate = Self::Github(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant1>>(value.clone())
-        {
-            let candidate = Self::GithubLimited(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant2>>(value.clone())
-        {
-            let candidate = Self::GithubCustomHost(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant3>>(value.clone())
-        {
-            let candidate = Self::Gitlab(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant4>>(value.clone())
-        {
-            let candidate = Self::Bitbucket(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant5>>(value.clone())
-        {
-            let candidate = Self::Vercel(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant6>>(value.clone())
-        {
-            let candidate = Self::V0(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<CreateProjectResponseLinkVariant7>>(value.clone())
-        {
-            let candidate = Self::CursorOrigin(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no CreateProjectResponseLink branch accepts this payload")
-        })
-    }
 }

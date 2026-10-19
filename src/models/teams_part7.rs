@@ -3,6 +3,25 @@
 
 // teams domain models (part 7)
 
+/// When enabled, creating shareable links requires Owner role.
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct TeamStrictShareableLinks {
+    /// Required enumerated value serialized in the `enabled` wire field.
+    pub enabled: bool,
+    /// Required `number` value serialized in the `updatedAt` wire field.
+    #[serde(rename = "updatedAt")]
+    pub updated_at: f64,
+}
+
+impl TeamStrictShareableLinks {
+    pub fn new(enabled: bool, updated_at: f64) -> Self {
+        Self {
+            enabled,
+            updated_at,
+        }
+    }
+}
+
 /// Data representing a Team.
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct Team {
@@ -549,18 +568,4 @@ impl<'de> serde::Deserialize<'de>
             _ => Self::Unknown(value),
         })
     }
-}
-
-impl std::fmt::Display for TeamDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Required enumerated value serialized in the `type` wire field.
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum TeamDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
-    #[serde(rename = "system")]
-    #[default]
-    System,
 }

@@ -3,6 +3,68 @@
 
 // checks_v2 domain models (part 5)
 
+impl CreateProjectCheckResponseSourceVariant0KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Integration => "integration",
+        }
+    }
+}
+
+impl std::fmt::Display for CreateProjectCheckResponseSourceVariant0KindEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CreateProjectCheckResponseSourceVariant0KindEnum::Integration => {
+                f.write_str("integration")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct CreateProjectCheckResponseSourceVariant0 {
+    #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
+    pub external_resource_id: Option<String>,
+    #[serde(rename = "integrationConfigurationId")]
+    pub integration_configuration_id: String,
+    #[serde(rename = "integrationId")]
+    pub integration_id: String,
+    pub kind: CreateProjectCheckResponseSourceVariant0KindEnum,
+    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+}
+
+impl CreateProjectCheckResponseSourceVariant0 {
+    pub fn new(
+        integration_configuration_id: String,
+        integration_id: String,
+        kind: CreateProjectCheckResponseSourceVariant0KindEnum,
+    ) -> Self {
+        Self {
+            external_resource_id: None,
+            integration_configuration_id,
+            integration_id,
+            kind,
+            resource_id: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum CreateProjectCheckResponseSourceVariant1KindEnum {
+    #[serde(rename = "webhook")]
+    #[default]
+    Webhook,
+}
+
+impl CreateProjectCheckResponseSourceVariant1KindEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Webhook => "webhook",
+        }
+    }
+}
+
 impl std::fmt::Display for CreateProjectCheckResponseSourceVariant1KindEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -438,54 +500,4 @@ pub enum GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
     #[default]
     Integration,
     Unknown(String),
-}
-
-impl GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Integration => "integration",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "integration" => Self::Integration,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetDeploymentCheckRunResponseVariant0SourceVariant0 {
-    #[serde(rename = "externalResourceId", skip_serializing_if = "Option::is_none")]
-    pub external_resource_id: Option<String>,
-    #[serde(rename = "integrationConfigurationId")]
-    pub integration_configuration_id: String,
-    #[serde(rename = "integrationId")]
-    pub integration_id: String,
-    pub kind: GetDeploymentCheckRunResponseVariant0SourceVariant0KindEnum,
-    #[serde(rename = "resourceId", skip_serializing_if = "Option::is_none")]
-    pub resource_id: Option<String>,
 }

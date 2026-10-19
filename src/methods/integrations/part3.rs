@@ -3,6 +3,83 @@
 
 use super::*;
 
+impl ::std::convert::From<String> for SearchRepoResponseVariant3ReposItemId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for SearchRepoResponseVariant3ReposItemId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum SearchRepoResponseVariant3ReposItemOwnerId {
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de> for SearchRepoResponseVariant3ReposItemOwnerId {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no SearchRepoResponseVariant3ReposItemOwnerId branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<String> for SearchRepoResponseVariant3ReposItemOwnerId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for SearchRepoResponseVariant3ReposItemOwnerId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct SearchRepoResponseVariant3ReposItemOwner {
+    pub id: SearchRepoResponseVariant3ReposItemOwnerId,
+    pub name: String,
+}
+
+impl SearchRepoResponseVariant3ReposItemOwner {
+    pub fn new(id: SearchRepoResponseVariant3ReposItemOwnerId, name: String) -> Self {
+        Self { id, name }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum SearchRepoResponseVariant3ReposItemOwnerTypeEnum {
+    #[default]
+    Team,
+    User,
+    Unknown(String),
+}
+
 impl SearchRepoResponseVariant3ReposItemOwnerTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
@@ -219,81 +296,8 @@ impl<'de> serde::Deserialize<'de> for SearchRepoResponse {
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetBillingPlansResponsePlansItemDetailsItem {
-    pub label: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
-}
-
-impl GetBillingPlansResponsePlansItemDetailsItem {
-    pub fn new(label: String) -> Self {
-        Self { label, value: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetBillingPlansResponsePlansItemHighlightedDetailsItem {
-    pub label: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
-}
-
-impl GetBillingPlansResponsePlansItemHighlightedDetailsItem {
-    pub fn new(label: String) -> Self {
-        Self { label, value: None }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct GetBillingPlansResponsePlansItemQuoteItem {
-    pub amount: String,
-    pub line: String,
-}
-
-impl GetBillingPlansResponsePlansItemQuoteItem {
-    pub fn new(amount: String, line: String) -> Self {
-        Self { amount, line }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetBillingPlansResponsePlansItemScopeEnum {
-    #[default]
-    Installation,
-    Resource,
-    Unknown(String),
-}
-
-impl GetBillingPlansResponsePlansItemScopeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Installation => "installation",
-            Self::Resource => "resource",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for GetBillingPlansResponsePlansItemScopeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for GetBillingPlansResponsePlansItemScopeEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "installation" => Self::Installation,
-            "resource" => Self::Resource,
-            _ => Self::Unknown(value),
-        })
+impl ::std::convert::From<Box<SearchRepoResponseVariant1>> for SearchRepoResponse {
+    fn from(value: Box<SearchRepoResponseVariant1>) -> Self {
+        Self::Object(value)
     }
 }

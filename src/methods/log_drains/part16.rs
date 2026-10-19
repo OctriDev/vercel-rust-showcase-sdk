@@ -3,6 +3,117 @@
 
 use super::*;
 
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant0 {
+    pub fn new(
+        access: ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant0AccessEnum,
+        managed_by: ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant0ManagedByEnum,
+    ) -> Self {
+        Self { access, managed_by }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum {
+    #[serde(rename = "some")]
+    #[default]
+    Some,
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Some => "some",
+        }
+    }
+}
+
+impl std::fmt::Display
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum::Some => f.write_str("some"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum {
+    #[default]
+    Drain,
+    Integration,
+    Unknown(String),
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Drain => "drain",
+            Self::Integration => "integration",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de>
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "drain" => Self::Drain,
+            "integration" => Self::Integration,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1 {
+    pub access: ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum,
+    #[serde(rename = "projectIds")]
+    pub project_ids: Vec<String>,
+    #[serde(rename = "managedBy")]
+    pub managed_by:
+        ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum,
+}
+
+impl ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1 {
+    pub fn new(
+        access: ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1AccessEnum,
+        project_ids: Vec<String>,
+        managed_by: ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1ManagedByEnum,
+    ) -> Self {
+        Self {
+            access,
+            project_ids,
+            managed_by,
+        }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccess {
@@ -35,6 +146,26 @@ impl<'de> serde::Deserialize<'de> for ListLogDrainsResponseVariant1DrainsVariant
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccess branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant0>>
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccess
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant0>,
+    ) -> Self {
+        Self::All(value)
+    }
+}
+
+impl ::std::convert::From<Box<ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1>>
+    for ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccess
+{
+    fn from(
+        value: Box<ListLogDrainsResponseVariant1DrainsVariant1ItemProjectAccessVariant1>,
+    ) -> Self {
+        Self::Some(value)
     }
 }
 
@@ -167,6 +298,22 @@ impl<'de> serde::Deserialize<'de> for ListLogDrainsResponseVariant1Drains {
     }
 }
 
+impl ::std::convert::From<Vec<ListLogDrainsResponseVariant1DrainsVariant0Item>>
+    for ListLogDrainsResponseVariant1Drains
+{
+    fn from(value: Vec<ListLogDrainsResponseVariant1DrainsVariant0Item>) -> Self {
+        Self::Variant0ItemArray(value)
+    }
+}
+
+impl ::std::convert::From<Vec<ListLogDrainsResponseVariant1DrainsVariant1Item>>
+    for ListLogDrainsResponseVariant1Drains
+{
+    fn from(value: Vec<ListLogDrainsResponseVariant1DrainsVariant1Item>) -> Self {
+        Self::Variant1ItemArray(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ListLogDrainsResponseVariant1 {
     pub drains: ListLogDrainsResponseVariant1Drains,
@@ -175,146 +322,5 @@ pub struct ListLogDrainsResponseVariant1 {
 impl ListLogDrainsResponseVariant1 {
     pub fn new(drains: ListLogDrainsResponseVariant1Drains) -> Self {
         Self { drains }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListLogDrainsResponse {
-    Variant0ItemArray(Vec<ListLogDrainsResponseVariant0Item>),
-    Object(Box<ListLogDrainsResponseVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de> for ListLogDrainsResponse {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) =
-            serde_json::from_value::<Vec<ListLogDrainsResponseVariant0Item>>(value.clone())
-        {
-            let candidate = Self::Variant0ItemArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) =
-            serde_json::from_value::<Box<ListLogDrainsResponseVariant1>>(value.clone())
-        {
-            let candidate = Self::Object(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| {
-            serde::de::Error::custom("no ListLogDrainsResponse branch accepts this payload")
-        })
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateConfigurableLogDrainSourcesItemEnum {
-    #[default]
-    Static,
-    Lambda,
-    Build,
-    Edge,
-    External,
-    Firewall,
-    Unknown(String),
-}
-
-impl CreateConfigurableLogDrainSourcesItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Static => "static",
-            Self::Lambda => "lambda",
-            Self::Build => "build",
-            Self::Edge => "edge",
-            Self::External => "external",
-            Self::Firewall => "firewall",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateConfigurableLogDrainSourcesItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateConfigurableLogDrainSourcesItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "static" => Self::Static,
-            "lambda" => Self::Lambda,
-            "build" => Self::Build,
-            "edge" => Self::Edge,
-            "external" => Self::External,
-            "firewall" => Self::Firewall,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateConfigurableLogDrainSourcesItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum CreateConfigurableLogDrainEnvironmentsItemEnum {
-    #[default]
-    Preview,
-    Production,
-    Unknown(String),
-}
-
-impl CreateConfigurableLogDrainEnvironmentsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Preview => "preview",
-            Self::Production => "production",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for CreateConfigurableLogDrainEnvironmentsItemEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for CreateConfigurableLogDrainEnvironmentsItemEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "preview" => Self::Preview,
-            "production" => Self::Production,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for CreateConfigurableLogDrainEnvironmentsItemEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

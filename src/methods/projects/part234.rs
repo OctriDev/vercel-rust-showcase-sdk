@@ -3,36 +3,46 @@
 
 use super::*;
 
-impl UploadProjectAvatarResponseSecurityManagedRulesTrafficSources {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
+impl UploadProjectAvatarResponseOptionsAllowlistPathsItem {
+    pub fn new(value: String) -> Self {
+        Self { value }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct UploadProjectAvatarResponseOptionsAllowlist {
+    pub paths: Vec<UploadProjectAvatarResponseOptionsAllowlistPathsItem>,
+}
+
+impl UploadProjectAvatarResponseOptionsAllowlist {
+    pub fn new(paths: Vec<UploadProjectAvatarResponseOptionsAllowlistPathsItem>) -> Self {
+        Self { paths }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+pub enum UploadProjectAvatarResponsePassportDeploymentTypeEnum {
     #[default]
-    Challenge,
-    Deny,
-    Log,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+impl UploadProjectAvatarResponsePassportDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+impl serde::Serialize for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -41,151 +51,71 @@ impl serde::Serialize for UploadProjectAvatarResponseSecurityManagedRulesVercelR
     }
 }
 
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum
-{
+impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum {
+impl std::fmt::Display for UploadProjectAvatarResponsePassportDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseSecurityManagedRulesVercelRuleset {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub action: Option<UploadProjectAvatarResponseSecurityManagedRulesVercelRulesetActionEnum>,
-    pub active: bool,
+pub struct UploadProjectAvatarResponsePassport {
+    #[serde(rename = "connectorId")]
+    pub connector_id: String,
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UploadProjectAvatarResponsePassportDeploymentTypeEnum,
 }
 
-impl UploadProjectAvatarResponseSecurityManagedRulesVercelRuleset {
-    pub fn new(active: bool) -> Self {
-        Self {
-            action: None,
-            active,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseSecurityManagedRules {
-    pub ai_bots: UploadProjectAvatarResponseSecurityManagedRulesAiBots,
-    pub bot_filter: UploadProjectAvatarResponseSecurityManagedRulesBotFilter,
-    pub owasp: UploadProjectAvatarResponseSecurityManagedRulesOwasp,
-    pub traffic_sources: UploadProjectAvatarResponseSecurityManagedRulesTrafficSources,
-    pub vercel_ruleset: UploadProjectAvatarResponseSecurityManagedRulesVercelRuleset,
-}
-
-impl UploadProjectAvatarResponseSecurityManagedRules {
+impl UploadProjectAvatarResponsePassport {
     pub fn new(
-        ai_bots: UploadProjectAvatarResponseSecurityManagedRulesAiBots,
-        bot_filter: UploadProjectAvatarResponseSecurityManagedRulesBotFilter,
-        owasp: UploadProjectAvatarResponseSecurityManagedRulesOwasp,
-        traffic_sources: UploadProjectAvatarResponseSecurityManagedRulesTrafficSources,
-        vercel_ruleset: UploadProjectAvatarResponseSecurityManagedRulesVercelRuleset,
+        connector_id: String,
+        deployment_type: UploadProjectAvatarResponsePassportDeploymentTypeEnum,
     ) -> Self {
         Self {
-            ai_bots,
-            bot_filter,
-            owasp,
-            traffic_sources,
-            vercel_ruleset,
+            connector_id,
+            deployment_type,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSecurityRulesetsValueActionEnum {
+pub enum UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
     #[default]
-    Allow,
-    Bypass,
-    Challenge,
-    Deny,
-    Log,
-    RateLimit,
-    Redirect,
+    All,
+    AllExceptCustomDomains,
+    Preview,
+    ProdDeploymentUrlsAndAllPreviews,
     Unknown(String),
 }
 
-impl UploadProjectAvatarResponseSecurityRulesetsValueActionEnum {
+impl UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Allow => "allow",
-            Self::Bypass => "bypass",
-            Self::Challenge => "challenge",
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::RateLimit => "rate_limit",
-            Self::Redirect => "redirect",
+            Self::All => "all",
+            Self::AllExceptCustomDomains => "all_except_custom_domains",
+            Self::Preview => "preview",
+            Self::ProdDeploymentUrlsAndAllPreviews => "prod_deployment_urls_and_all_previews",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UploadProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "allow" => Self::Allow,
-            "bypass" => Self::Bypass,
-            "challenge" => Self::Challenge,
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            "rate_limit" => Self::RateLimit,
-            "redirect" => Self::Redirect,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseSecurityRulesetsValueActionEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    #[default]
-    Unknown2,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Unknown2 => "*",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl serde::Serialize for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -195,7 +125,7 @@ impl serde::Serialize for UploadProjectAvatarResponseSecurityRulesetsValueLogHea
 }
 
 impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum
+    for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -203,103 +133,32 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "*" => Self::Unknown2,
+            "all" => Self::All,
+            "all_except_custom_domains" => Self::AllExceptCustomDomains,
+            "preview" => Self::Preview,
+            "prod_deployment_urls_and_all_previews" => Self::ProdDeploymentUrlsAndAllPreviews,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum {
+impl std::fmt::Display for UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum UploadProjectAvatarResponseSecurityRulesetsValueLogHeaders {
-    StringArray(Vec<String>),
-    Literal(UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum),
-}
-
-impl<'de> serde::Deserialize<'de> for UploadProjectAvatarResponseSecurityRulesetsValueLogHeaders {
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
-            let candidate = Self::StringArray(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<
-            UploadProjectAvatarResponseSecurityRulesetsValueLogHeadersVariant1Enum,
-        >(value.clone())
-        {
-            let candidate = Self::Literal(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no UploadProjectAvatarResponseSecurityRulesetsValueLogHeaders branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    #[default]
-    FixedWindow,
-    TokenBucket,
-    Unknown(String),
-}
-
-impl UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::FixedWindow => "fixed_window",
-            Self::TokenBucket => "token_bucket",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "fixed_window" => Self::FixedWindow,
-            "token_bucket" => Self::TokenBucket,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
+/// Password protection settings returned without the secret password hash.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UploadProjectAvatarResponseSecurityRulesetsValueRateLimit {
-    pub algo: UploadProjectAvatarResponseSecurityRulesetsValueRateLimitAlgoEnum,
-    pub keys: Vec<String>,
-    pub limit: f64,
-    pub window: f64,
+pub struct UploadProjectAvatarResponsePasswordProtection {
+    #[serde(rename = "deploymentType")]
+    pub deployment_type: UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+}
+
+impl UploadProjectAvatarResponsePasswordProtection {
+    pub fn new(
+        deployment_type: UploadProjectAvatarResponsePasswordProtectionDeploymentTypeEnum,
+    ) -> Self {
+        Self { deployment_type }
+    }
 }

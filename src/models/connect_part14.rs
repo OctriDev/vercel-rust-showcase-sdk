@@ -3,6 +3,13 @@
 
 // connect domain models (part 14)
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt {
+    Integer(i64),
+    String(String),
+}
+
 impl<'de> serde::Deserialize<'de>
     for ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt
 {
@@ -24,6 +31,20 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<i64> for ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt {
+    fn from(value: i64) -> Self {
+        Self::Integer(value)
+    }
+}
+
+impl ::std::convert::From<String>
+    for ConnectConnectorUpdateDataRequestVariant1ToUpdateItemExpiresAt
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
     }
 }
 
@@ -519,23 +540,4 @@ pub enum ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum {
     Global,
     Message,
     Unknown(String),
-}
-
-impl ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Global => "global",
-            Self::Message => "message",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ConnectConnectorUpdateDataRequestVariant5ShortcutsItemTypeEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
 }

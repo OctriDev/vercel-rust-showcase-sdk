@@ -4,12 +4,12 @@
 use super::*;
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant11ValueActionMitigate {
-    pub action: UpdateFirewallConfigVariant11ValueActionMitigateActionEnum,
+pub struct UpdateFirewallConfigVariant10ValueActionMitigate {
+    pub action: UpdateFirewallConfigVariant10ValueActionMitigateActionEnum,
     #[serde(rename = "rateLimit", skip_serializing_if = "Option::is_none")]
-    pub rate_limit: Option<UpdateFirewallConfigVariant11ValueActionMitigateRateLimit>,
+    pub rate_limit: Option<UpdateFirewallConfigVariant10ValueActionMitigateRateLimit>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub redirect: Option<UpdateFirewallConfigVariant11ValueActionMitigateRedirect>,
+    pub redirect: Option<UpdateFirewallConfigVariant10ValueActionMitigateRedirect>,
     #[serde(
         rename = "actionDuration",
         skip_serializing_if = "Option::is_none",
@@ -25,11 +25,11 @@ pub struct UpdateFirewallConfigVariant11ValueActionMitigate {
     )]
     pub bypass_system: Option<Option<bool>>,
     #[serde(rename = "logHeaders", skip_serializing_if = "Option::is_none")]
-    pub log_headers: Option<UpdateFirewallConfigVariant11ValueActionMitigateLogHeaders>,
+    pub log_headers: Option<UpdateFirewallConfigVariant10ValueActionMitigateLogHeaders>,
 }
 
-impl UpdateFirewallConfigVariant11ValueActionMitigate {
-    pub fn new(action: UpdateFirewallConfigVariant11ValueActionMitigateActionEnum) -> Self {
+impl UpdateFirewallConfigVariant10ValueActionMitigate {
+    pub fn new(action: UpdateFirewallConfigVariant10ValueActionMitigateActionEnum) -> Self {
         Self {
             action,
             rate_limit: None,
@@ -42,12 +42,12 @@ impl UpdateFirewallConfigVariant11ValueActionMitigate {
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant11ValueAction {
+pub struct UpdateFirewallConfigVariant10ValueAction {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub mitigate: Option<UpdateFirewallConfigVariant11ValueActionMitigate>,
+    pub mitigate: Option<UpdateFirewallConfigVariant10ValueActionMitigate>,
 }
 
-impl UpdateFirewallConfigVariant11ValueAction {
+impl UpdateFirewallConfigVariant10ValueAction {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         Self { mitigate: None }
@@ -56,12 +56,12 @@ impl UpdateFirewallConfigVariant11ValueAction {
 
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
-pub enum UpdateFirewallConfigVariant11ValueValidationErrors {
+pub enum UpdateFirewallConfigVariant10ValueValidationErrors {
     StringArray(Vec<String>),
     String(String),
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueValidationErrors {
+impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant10ValueValidationErrors {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
         let mut lossy = None;
@@ -81,28 +81,40 @@ impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant11ValueValidati
         }
         lossy.ok_or_else(|| {
             serde::de::Error::custom(
-                "no UpdateFirewallConfigVariant11ValueValidationErrors branch accepts this payload",
+                "no UpdateFirewallConfigVariant10ValueValidationErrors branch accepts this payload",
             )
         })
     }
 }
 
+impl ::std::convert::From<Vec<String>> for UpdateFirewallConfigVariant10ValueValidationErrors {
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl ::std::convert::From<String> for UpdateFirewallConfigVariant10ValueValidationErrors {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant11Value {
+pub struct UpdateFirewallConfigVariant10Value {
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     pub active: bool,
     #[serde(rename = "conditionGroup")]
-    pub condition_group: Vec<UpdateFirewallConfigVariant11ValueConditionGroupItem>,
-    pub action: UpdateFirewallConfigVariant11ValueAction,
+    pub condition_group: Vec<UpdateFirewallConfigVariant10ValueConditionGroupItem>,
+    pub action: UpdateFirewallConfigVariant10ValueAction,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub valid: Option<bool>,
     #[serde(rename = "validationErrors", skip_serializing_if = "Option::is_none")]
-    pub validation_errors: Option<UpdateFirewallConfigVariant11ValueValidationErrors>,
+    pub validation_errors: Option<UpdateFirewallConfigVariant10ValueValidationErrors>,
 }
 
-impl UpdateFirewallConfigVariant11Value {
+impl UpdateFirewallConfigVariant10Value {
     pub(super) fn validate_constraints(&self) -> Result<(), crate::errors::SdkError> {
         crate::validation::validate_length(
             "name",
@@ -136,8 +148,8 @@ impl UpdateFirewallConfigVariant11Value {
     pub fn new(
         name: String,
         active: bool,
-        condition_group: Vec<UpdateFirewallConfigVariant11ValueConditionGroupItem>,
-        action: UpdateFirewallConfigVariant11ValueAction,
+        condition_group: Vec<UpdateFirewallConfigVariant10ValueConditionGroupItem>,
+        action: UpdateFirewallConfigVariant10ValueAction,
     ) -> Result<Self, crate::errors::SdkError> {
         let value = Self {
             name,
@@ -153,90 +165,111 @@ impl UpdateFirewallConfigVariant11Value {
     }
 }
 
-/// Update a custom rule
+/// Add a custom rule
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant11 {
-    pub action: String,
-    pub id: String,
-    pub value: UpdateFirewallConfigVariant11Value,
-}
-
-impl UpdateFirewallConfigVariant11 {
-    pub fn new(action: String, id: String, value: UpdateFirewallConfigVariant11Value) -> Self {
-        Self { action, id, value }
-    }
-}
-
-/// Remove a custom rule
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant12 {
-    pub action: String,
-    pub id: String,
+pub struct UpdateFirewallConfigVariant10 {
+    pub action: UpdateFirewallConfigVariant10ActionEnum,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub id: Option<String>,
+    pub value: UpdateFirewallConfigVariant10Value,
 }
 
-impl UpdateFirewallConfigVariant12 {
-    pub fn new(action: String, id: String) -> Self {
+impl UpdateFirewallConfigVariant10 {
+    pub fn new(
+        action: UpdateFirewallConfigVariant10ActionEnum,
+        value: UpdateFirewallConfigVariant10Value,
+    ) -> Self {
         Self {
             action,
-            id,
-            value: None,
+            id: None,
+            value,
         }
     }
 }
 
-/// Reorder a custom rule
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct UpdateFirewallConfigVariant13 {
-    pub action: String,
-    pub id: String,
-    pub value: f64,
-}
-
-impl UpdateFirewallConfigVariant13 {
-    pub fn new(action: String, id: String, value: f64) -> Self {
-        Self { action, id, value }
-    }
-}
-
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant14IdEnum {
+pub enum UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum {
     #[default]
-    Sd,
-    Ma,
-    Lfi,
-    Rfi,
-    Rce,
-    Php,
-    Gen,
-    Xss,
-    Sqli,
-    Sf,
-    Java,
+    Host,
+    Path,
+    Method,
+    Header,
+    Query,
+    Cookie,
+    TargetPath,
+    Route,
+    RawPath,
+    IpAddress,
+    Region,
+    Protocol,
+    Scheme,
+    Environment,
+    DomainEnvironment,
+    UserAgent,
+    GeoContinent,
+    GeoCountry,
+    GeoCountryRegion,
+    GeoCity,
+    GeoAsNumber,
+    Ja4Digest,
+    Ja3Digest,
+    RateLimitApiId,
+    ServerAction,
+    BotName,
+    BotCategory,
+    BotStatus,
+    BotProtection,
+    SharedCondition,
+    TrafficSource,
+    Ruleset,
+    ResponseCode,
     Unknown(String),
 }
 
-impl UpdateFirewallConfigVariant14IdEnum {
+impl UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Sd => "sd",
-            Self::Ma => "ma",
-            Self::Lfi => "lfi",
-            Self::Rfi => "rfi",
-            Self::Rce => "rce",
-            Self::Php => "php",
-            Self::Gen => "gen",
-            Self::Xss => "xss",
-            Self::Sqli => "sqli",
-            Self::Sf => "sf",
-            Self::Java => "java",
+            Self::Host => "host",
+            Self::Path => "path",
+            Self::Method => "method",
+            Self::Header => "header",
+            Self::Query => "query",
+            Self::Cookie => "cookie",
+            Self::TargetPath => "target_path",
+            Self::Route => "route",
+            Self::RawPath => "raw_path",
+            Self::IpAddress => "ip_address",
+            Self::Region => "region",
+            Self::Protocol => "protocol",
+            Self::Scheme => "scheme",
+            Self::Environment => "environment",
+            Self::DomainEnvironment => "domain_environment",
+            Self::UserAgent => "user_agent",
+            Self::GeoContinent => "geo_continent",
+            Self::GeoCountry => "geo_country",
+            Self::GeoCountryRegion => "geo_country_region",
+            Self::GeoCity => "geo_city",
+            Self::GeoAsNumber => "geo_as_number",
+            Self::Ja4Digest => "ja4_digest",
+            Self::Ja3Digest => "ja3_digest",
+            Self::RateLimitApiId => "rate_limit_api_id",
+            Self::ServerAction => "server_action",
+            Self::BotName => "bot_name",
+            Self::BotCategory => "bot_category",
+            Self::BotStatus => "bot_status",
+            Self::BotProtection => "bot_protection",
+            Self::SharedCondition => "shared_condition",
+            Self::TrafficSource => "traffic_source",
+            Self::Ruleset => "ruleset",
+            Self::ResponseCode => "response_code",
             Self::Unknown(value) => value.as_str(),
         }
     }
 }
 
-impl serde::Serialize for UpdateFirewallConfigVariant14IdEnum {
+impl serde::Serialize
+    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+{
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -245,72 +278,57 @@ impl serde::Serialize for UpdateFirewallConfigVariant14IdEnum {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant14IdEnum {
+impl<'de> serde::Deserialize<'de>
+    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+{
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "sd" => Self::Sd,
-            "ma" => Self::Ma,
-            "lfi" => Self::Lfi,
-            "rfi" => Self::Rfi,
-            "rce" => Self::Rce,
-            "php" => Self::Php,
-            "gen" => Self::Gen,
-            "xss" => Self::Xss,
-            "sqli" => Self::Sqli,
-            "sf" => Self::Sf,
-            "java" => Self::Java,
+            "host" => Self::Host,
+            "path" => Self::Path,
+            "method" => Self::Method,
+            "header" => Self::Header,
+            "query" => Self::Query,
+            "cookie" => Self::Cookie,
+            "target_path" => Self::TargetPath,
+            "route" => Self::Route,
+            "raw_path" => Self::RawPath,
+            "ip_address" => Self::IpAddress,
+            "region" => Self::Region,
+            "protocol" => Self::Protocol,
+            "scheme" => Self::Scheme,
+            "environment" => Self::Environment,
+            "domain_environment" => Self::DomainEnvironment,
+            "user_agent" => Self::UserAgent,
+            "geo_continent" => Self::GeoContinent,
+            "geo_country" => Self::GeoCountry,
+            "geo_country_region" => Self::GeoCountryRegion,
+            "geo_city" => Self::GeoCity,
+            "geo_as_number" => Self::GeoAsNumber,
+            "ja4_digest" => Self::Ja4Digest,
+            "ja3_digest" => Self::Ja3Digest,
+            "rate_limit_api_id" => Self::RateLimitApiId,
+            "server_action" => Self::ServerAction,
+            "bot_name" => Self::BotName,
+            "bot_category" => Self::BotCategory,
+            "bot_status" => Self::BotStatus,
+            "bot_protection" => Self::BotProtection,
+            "shared_condition" => Self::SharedCondition,
+            "traffic_source" => Self::TrafficSource,
+            "ruleset" => Self::Ruleset,
+            "response_code" => Self::ResponseCode,
             _ => Self::Unknown(value),
         })
     }
 }
 
-impl std::fmt::Display for UpdateFirewallConfigVariant14IdEnum {
+impl std::fmt::Display
+    for UpdateFirewallConfigVariant11ValueConditionGroupItemConditionsItemTypeEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateFirewallConfigVariant14ValueActionEnum {
-    #[default]
-    Deny,
-    Log,
-    Unknown(String),
-}
-
-impl UpdateFirewallConfigVariant14ValueActionEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Deny => "deny",
-            Self::Log => "log",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateFirewallConfigVariant14ValueActionEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateFirewallConfigVariant14ValueActionEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "deny" => Self::Deny,
-            "log" => Self::Log,
-            _ => Self::Unknown(value),
-        })
     }
 }

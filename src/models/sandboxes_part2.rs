@@ -70,6 +70,32 @@ impl<'de> serde::Deserialize<'de> for CreateSandboxesByNameForkV2RequestNetworkP
     }
 }
 
+impl ::std::convert::From<Vec<String>>
+    for CreateSandboxesByNameForkV2RequestNetworkPolicyVariant1Allow
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesByNameForkV2RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    > for CreateSandboxesByNameForkV2RequestNetworkPolicyVariant1Allow
+{
+    fn from(
+        value: std::collections::HashMap<
+            String,
+            Vec<CreateSandboxesByNameForkV2RequestNetworkPolicyVariant1AllowVariant1ValueItem>,
+        >,
+    ) -> Self {
+        Self::Variant1ValueItemArrayMap(value)
+    }
+}
+
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct CreateSandboxesByNameForkV2RequestNetworkPolicyVariant1Subnets {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -532,16 +558,4 @@ impl CreateSandboxesByNameForkV3RequestNetworkPolicyVariant1AllowVariant1ValueIt
     pub fn new() -> Self {
         Self { exact: None, starts_with: None }
     }
-}
-
-/// Matcher for the entry value.
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct CreateSandboxesByNameForkV3RequestNetworkPolicyVariant1AllowVariant1ValueItemMatchQueryStringItemValue
-{
-    /// Match the value exactly. Case-sensitive for paths, header values, and methods; case-insensitive for domains and header keys.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub exact: Option<String>,
-    /// Match values that start with the given prefix.
-    #[serde(rename = "startsWith", skip_serializing_if = "Option::is_none")]
-    pub starts_with: Option<String>,
 }

@@ -123,6 +123,18 @@ impl<'de> serde::Deserialize<'de> for GetTeamMembersResponseMembersItemJoinedFro
     }
 }
 
+impl ::std::convert::From<String> for GetTeamMembersResponseMembersItemJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetTeamMembersResponseMembersItemJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetTeamMembersResponseMembersItemJoinedFromOriginEnum {
     #[default]
@@ -273,16 +285,4 @@ pub enum GetTeamMembersResponseMembersItemProjectsItemRoleEnum {
     ProjectGuest,
     ProjectViewer,
     Unknown(String),
-}
-
-impl GetTeamMembersResponseMembersItemProjectsItemRoleEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Admin => "ADMIN",
-            Self::ProjectDeveloper => "PROJECT_DEVELOPER",
-            Self::ProjectGuest => "PROJECT_GUEST",
-            Self::ProjectViewer => "PROJECT_VIEWER",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

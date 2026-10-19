@@ -3,6 +3,141 @@
 
 // security domain models (part 7)
 
+impl<'de> serde::Deserialize<'de>
+    for GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue
+{
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<Vec<String>>(value.clone()) {
+            let candidate = Self::StringArray(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| serde::de::Error::custom("no GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<String>
+    for GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64>
+    for GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub neg: Option<bool>,
+    pub op: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemOpEnum,
+    #[serde(rename = "type")]
+    pub type_:
+        GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemTypeEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value:
+        Option<GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemValue>,
+}
+
+impl GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem {
+    pub fn new(
+        op: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemOpEnum,
+        type_: GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItemTypeEnum,
+    ) -> Self {
+        Self {
+            key: None,
+            neg: None,
+            op,
+            type_,
+            value: None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetConditionalBypassResponseVariant1ResultItemConditionGroupItem {
+    pub conditions:
+        Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem>,
+}
+
+impl GetConditionalBypassResponseVariant1ResultItemConditionGroupItem {
+    pub fn new(
+        conditions: Vec<
+            GetConditionalBypassResponseVariant1ResultItemConditionGroupItemConditionsItem,
+        >,
+    ) -> Self {
+        Self { conditions }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetConditionalBypassResponseVariant1ResultItem {
+    #[serde(rename = "conditionGroup")]
+    pub condition_group: Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItem>,
+    pub domain: String,
+}
+
+impl GetConditionalBypassResponseVariant1ResultItem {
+    pub fn new(
+        condition_group: Vec<GetConditionalBypassResponseVariant1ResultItemConditionGroupItem>,
+        domain: String,
+    ) -> Self {
+        Self {
+            condition_group,
+            domain,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct GetConditionalBypassResponseVariant1 {
+    pub pagination: GetConditionalBypassResponseVariant1Pagination,
+    pub result: Vec<GetConditionalBypassResponseVariant1ResultItem>,
+}
+
+impl GetConditionalBypassResponseVariant1 {
+    pub fn new(
+        pagination: GetConditionalBypassResponseVariant1Pagination,
+        result: Vec<GetConditionalBypassResponseVariant1ResultItem>,
+    ) -> Self {
+        Self { pagination, result }
+    }
+}
+
 #[derive(Debug, Clone, serde::Serialize)]
 #[serde(untagged)]
 pub enum GetConditionalBypassResponse {
@@ -183,6 +318,26 @@ impl<'de> serde::Deserialize<'de>
             lossy.get_or_insert(candidate);
         }
         lossy.ok_or_else(|| serde::de::Error::custom("no GetFirewallConfigResponseRulesItemVariant0ActionMitigateLogHeaders branch accepts this payload"))
+    }
+}
+
+impl ::std::convert::From<Vec<String>>
+    for GetFirewallConfigResponseRulesItemVariant0ActionMitigateLogHeaders
+{
+    fn from(value: Vec<String>) -> Self {
+        Self::StringArray(value)
+    }
+}
+
+impl
+    ::std::convert::From<
+        GetFirewallConfigResponseRulesItemVariant0ActionMitigateLogHeadersVariant1Enum,
+    > for GetFirewallConfigResponseRulesItemVariant0ActionMitigateLogHeaders
+{
+    fn from(
+        value: GetFirewallConfigResponseRulesItemVariant0ActionMitigateLogHeadersVariant1Enum,
+    ) -> Self {
+        Self::Literal(value)
     }
 }
 
@@ -390,110 +545,5 @@ impl GetFirewallConfigResponseRulesItemVariant0ActionMitigate {
             rate_limit: None,
             redirect: None,
         }
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct GetFirewallConfigResponseRulesItemVariant0Action {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mitigate: Option<GetFirewallConfigResponseRulesItemVariant0ActionMitigate>,
-}
-
-impl GetFirewallConfigResponseRulesItemVariant0Action {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        Self { mitigate: None }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum GetFirewallConfigResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum {
-    #[default]
-    Eq,
-    Ex,
-    Gt,
-    Gte,
-    Inc,
-    List,
-    Lt,
-    Lte,
-    Neq,
-    Nex,
-    Ninc,
-    Pre,
-    Re,
-    Sub,
-    Suf,
-    Unknown(String),
-}
-
-impl GetFirewallConfigResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Eq => "eq",
-            Self::Ex => "ex",
-            Self::Gt => "gt",
-            Self::Gte => "gte",
-            Self::Inc => "inc",
-            Self::List => "list",
-            Self::Lt => "lt",
-            Self::Lte => "lte",
-            Self::Neq => "neq",
-            Self::Nex => "nex",
-            Self::Ninc => "ninc",
-            Self::Pre => "pre",
-            Self::Re => "re",
-            Self::Sub => "sub",
-            Self::Suf => "suf",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize
-    for GetFirewallConfigResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum
-{
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de>
-    for GetFirewallConfigResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum
-{
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "eq" => Self::Eq,
-            "ex" => Self::Ex,
-            "gt" => Self::Gt,
-            "gte" => Self::Gte,
-            "inc" => Self::Inc,
-            "list" => Self::List,
-            "lt" => Self::Lt,
-            "lte" => Self::Lte,
-            "neq" => Self::Neq,
-            "nex" => Self::Nex,
-            "ninc" => Self::Ninc,
-            "pre" => Self::Pre,
-            "re" => Self::Re,
-            "sub" => Self::Sub,
-            "suf" => Self::Suf,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display
-    for GetFirewallConfigResponseRulesItemVariant0ConditionGroupItemConditionsItemOpEnum
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
     }
 }

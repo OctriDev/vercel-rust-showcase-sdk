@@ -3,281 +3,269 @@
 
 use super::*;
 
-impl GetProjectsResponse {
-    #[allow(clippy::too_many_arguments)]
-    pub fn new(
-        account_id: String,
-        alias: Vec<GetProjectsResponseAliasItem>,
-        default_resource_config: GetProjectsResponseDefaultResourceConfig,
-        deployment_expiration: GetProjectsResponseDeploymentExpiration,
-        directory_listing: bool,
-        id: String,
-        name: String,
-        node_version: GetProjectsResponseNodeVersionEnum,
-        resource_config: GetProjectsResponseResourceConfig,
-    ) -> Self {
-        Self {
-            account_id,
-            alias,
-            analytics: None,
-            applied_cve55182_migration: None,
-            auto_assign_custom_domains: None,
-            auto_assign_custom_domains_updated_by: None,
-            auto_expose_system_envs: None,
-            avatar: None,
-            avatar_dark_mode: None,
-            blobs: None,
-            build_command: None,
-            command_for_ignoring_build_step: None,
-            concurrency_bucket_name: None,
-            connect_builds_enabled: None,
-            connect_configuration_id: None,
-            connect_configurations: None,
-            created_at: None,
-            creator: None,
-            crons: None,
-            custom_environments: None,
-            customer_support_code_visibility: None,
-            data_cache: None,
-            default_resource_config,
-            deployment_expiration,
-            deployment_policy: None,
-            dev_command: None,
-            directory_listing,
-            dismissed_toasts: None,
-            enable_affected_projects_deployments: None,
-            enable_external_rewrite_caching: None,
-            enable_preview_feedback: None,
-            enable_production_feedback: None,
-            env: None,
-            expiration: None,
-            features: None,
-            framework: None,
-            git_comments: None,
-            git_fork_protection: None,
-            git_lfs: None,
-            git_provider_options: None,
-            has_active_branches: None,
-            has_deployments: None,
-            id,
-            install_command: None,
-            integrations: None,
-            internal_routes: None,
-            ip_buckets: None,
-            jobs: None,
-            last_alias_request: None,
-            last_rollback_target: None,
-            latest_deployments: None,
-            link: None,
-            live: None,
-            microfrontends: None,
-            name,
-            node_version,
-            oidc_token_config: None,
-            options_allowlist: None,
-            output_directory: None,
-            passive_connect_configuration_id: None,
-            passport: None,
-            password_protection: None,
-            paused: None,
-            permissions: None,
-            production_deployments_fast_lane: None,
-            protected_sourcemaps: None,
-            protection_bypass: None,
-            protection_config: None,
-            resource_config,
-            rollback_description: None,
-            rolling_release: None,
-            root_directory: None,
-            sandbox: None,
-            security: None,
-            serverless_function_zero_config_failover: None,
-            services: None,
-            skew_protection_allowed_domains: None,
-            skew_protection_boundary_at: None,
-            skew_protection_max_age: None,
-            skip_git_connect_during_link: None,
-            source_files_outside_root_directory: None,
-            speed_insights: None,
-            sso_protection: None,
-            static_ips: None,
-            targets: None,
-            tier: None,
-            tracing: None,
-            transfer_completed_at: None,
-            transferred_from_account_id: None,
-            transfer_started_at: None,
-            transfer_to_account_id: None,
-            trusted_ips: None,
-            trusted_sources: None,
-            updated_at: None,
-            usage_status: None,
-            v0: None,
-            v0_created: None,
-            web_analytics: None,
-        }
-    }
-}
-
-/// The framework that is being used for this project. When `null` is used no framework is selected
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum UpdateProjectFrameworkEnum {
+pub enum GetProjectsResponseTargetsValueReadyStateEnum {
     #[default]
-    Container,
-    Blitzjs,
-    Nextjs,
-    Gatsby,
-    Remix,
-    ReactRouter,
-    Astro,
-    Hexo,
-    Eleventy,
-    Docusaurus2,
-    Docusaurus,
-    Preact,
-    Solidstart1,
-    Solidstart,
-    Dojo,
-    Ember,
-    Vue,
-    Scully,
-    IonicAngular,
-    Angular,
-    Polymer,
-    Svelte,
-    Sveltekit,
-    Sveltekit1,
-    IonicReact,
-    CreateReactApp,
-    Gridsome,
-    Umijs,
-    Sapper,
-    Saber,
-    Stencil,
-    Nuxtjs,
-    Redwoodjs,
-    Hugo,
-    Jekyll,
-    Brunch,
-    Middleman,
-    Zola,
-    Hydrogen,
-    Vite,
-    TanstackStart,
-    TanstackStartLovable,
-    Vitepress,
-    Vuepress,
-    Parcel,
-    Fastapi,
-    Flask,
-    Fasthtml,
-    Django,
-    Ash,
-    FactoryEve,
-    Eve,
-    Sanity,
-    SanityV2,
-    Storybook,
-    Nitro,
-    Hono,
-    Express,
-    H3,
-    Koa,
-    Nestjs,
-    Elysia,
-    Fastify,
-    Xmcp,
-    Python,
-    Ruby,
-    Rust,
-    Axum,
-    ActixWeb,
-    Bun,
-    Node,
-    Go,
-    Services,
-    Mastra,
+    Blocked,
+    Building,
+    Canceled,
+    Error,
+    Initializing,
+    Queued,
+    Ready,
     Unknown(String),
 }
 
-impl UpdateProjectFrameworkEnum {
+impl GetProjectsResponseTargetsValueReadyStateEnum {
     pub fn as_str(&self) -> &str {
         match self {
-            Self::Container => "container",
-            Self::Blitzjs => "blitzjs",
-            Self::Nextjs => "nextjs",
-            Self::Gatsby => "gatsby",
-            Self::Remix => "remix",
-            Self::ReactRouter => "react-router",
-            Self::Astro => "astro",
-            Self::Hexo => "hexo",
-            Self::Eleventy => "eleventy",
-            Self::Docusaurus2 => "docusaurus-2",
-            Self::Docusaurus => "docusaurus",
-            Self::Preact => "preact",
-            Self::Solidstart1 => "solidstart-1",
-            Self::Solidstart => "solidstart",
-            Self::Dojo => "dojo",
-            Self::Ember => "ember",
-            Self::Vue => "vue",
-            Self::Scully => "scully",
-            Self::IonicAngular => "ionic-angular",
-            Self::Angular => "angular",
-            Self::Polymer => "polymer",
-            Self::Svelte => "svelte",
-            Self::Sveltekit => "sveltekit",
-            Self::Sveltekit1 => "sveltekit-1",
-            Self::IonicReact => "ionic-react",
-            Self::CreateReactApp => "create-react-app",
-            Self::Gridsome => "gridsome",
-            Self::Umijs => "umijs",
-            Self::Sapper => "sapper",
-            Self::Saber => "saber",
-            Self::Stencil => "stencil",
-            Self::Nuxtjs => "nuxtjs",
-            Self::Redwoodjs => "redwoodjs",
-            Self::Hugo => "hugo",
-            Self::Jekyll => "jekyll",
-            Self::Brunch => "brunch",
-            Self::Middleman => "middleman",
-            Self::Zola => "zola",
-            Self::Hydrogen => "hydrogen",
-            Self::Vite => "vite",
-            Self::TanstackStart => "tanstack-start",
-            Self::TanstackStartLovable => "tanstack-start-lovable",
-            Self::Vitepress => "vitepress",
-            Self::Vuepress => "vuepress",
-            Self::Parcel => "parcel",
-            Self::Fastapi => "fastapi",
-            Self::Flask => "flask",
-            Self::Fasthtml => "fasthtml",
-            Self::Django => "django",
-            Self::Ash => "ash",
-            Self::FactoryEve => "factory-eve",
-            Self::Eve => "eve",
-            Self::Sanity => "sanity",
-            Self::SanityV2 => "sanity-v2",
-            Self::Storybook => "storybook",
-            Self::Nitro => "nitro",
-            Self::Hono => "hono",
-            Self::Express => "express",
-            Self::H3 => "h3",
-            Self::Koa => "koa",
-            Self::Nestjs => "nestjs",
-            Self::Elysia => "elysia",
-            Self::Fastify => "fastify",
-            Self::Xmcp => "xmcp",
-            Self::Python => "python",
-            Self::Ruby => "ruby",
-            Self::Rust => "rust",
-            Self::Axum => "axum",
-            Self::ActixWeb => "actix-web",
-            Self::Bun => "bun",
-            Self::Node => "node",
-            Self::Go => "go",
-            Self::Services => "services",
-            Self::Mastra => "mastra",
+            Self::Blocked => "BLOCKED",
+            Self::Building => "BUILDING",
+            Self::Canceled => "CANCELED",
+            Self::Error => "ERROR",
+            Self::Initializing => "INITIALIZING",
+            Self::Queued => "QUEUED",
+            Self::Ready => "READY",
             Self::Unknown(value) => value.as_str(),
         }
     }
+}
+
+impl serde::Serialize for GetProjectsResponseTargetsValueReadyStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueReadyStateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "BLOCKED" => Self::Blocked,
+            "BUILDING" => Self::Building,
+            "CANCELED" => Self::Canceled,
+            "ERROR" => Self::Error,
+            "INITIALIZING" => Self::Initializing,
+            "QUEUED" => Self::Queued,
+            "READY" => Self::Ready,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseTargetsValueReadyStateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseTargetsValueReadySubstateEnum {
+    #[default]
+    Promoted,
+    Rolling,
+    Staged,
+    Unknown(String),
+}
+
+impl GetProjectsResponseTargetsValueReadySubstateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Promoted => "PROMOTED",
+            Self::Rolling => "ROLLING",
+            Self::Staged => "STAGED",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseTargetsValueReadySubstateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueReadySubstateEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "PROMOTED" => Self::Promoted,
+            "ROLLING" => Self::Rolling,
+            "STAGED" => Self::Staged,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseTargetsValueReadySubstateEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum GetProjectsResponseTargetsValueTypeEnum {
+    #[default]
+    Lambdas,
+    Unknown(String),
+}
+
+impl GetProjectsResponseTargetsValueTypeEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Lambdas => "LAMBDAS",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for GetProjectsResponseTargetsValueTypeEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for GetProjectsResponseTargetsValueTypeEnum {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match value.as_str() {
+            "LAMBDAS" => Self::Lambdas,
+            _ => Self::Unknown(value),
+        })
+    }
+}
+
+impl std::fmt::Display for GetProjectsResponseTargetsValueTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct GetProjectsResponseTargetsValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alias: Option<Vec<String>>,
+    #[serde(
+        rename = "aliasAssigned",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_assigned: Option<Option<GetProjectsResponseTargetsValueAliasAssigned>>,
+    #[serde(
+        rename = "aliasError",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_error: Option<Option<GetProjectsResponseTargetsValueAliasError>>,
+    #[serde(
+        rename = "aliasFinal",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub alias_final: Option<Option<String>>,
+    #[serde(rename = "automaticAliases", skip_serializing_if = "Option::is_none")]
+    pub automatic_aliases: Option<Vec<String>>,
+    #[serde(rename = "branchMatcher", skip_serializing_if = "Option::is_none")]
+    pub branch_matcher: Option<GetProjectsResponseTargetsValueBranchMatcher>,
+    #[serde(rename = "buildingAt", skip_serializing_if = "Option::is_none")]
+    pub building_at: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub builds: Option<Vec<GetProjectsResponseTargetsValueBuildsItem>>,
+    #[serde(rename = "checksConclusion", skip_serializing_if = "Option::is_none")]
+    pub checks_conclusion: Option<GetProjectsResponseTargetsValueChecksConclusionEnum>,
+    #[serde(rename = "checksState", skip_serializing_if = "Option::is_none")]
+    pub checks_state: Option<GetProjectsResponseTargetsValueChecksStateEnum>,
+    #[serde(
+        rename = "connectBuildsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_builds_enabled: Option<bool>,
+    #[serde(
+        rename = "connectConfigurationId",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connect_configuration_id: Option<String>,
+    #[serde(rename = "createdAt")]
+    pub created_at: f64,
+    #[serde(rename = "createdIn")]
+    pub created_in: String,
+    #[serde(deserialize_with = "Option::deserialize")]
+    pub creator: Option<GetProjectsResponseTargetsValueCreator>,
+    #[serde(rename = "deletedAt", skip_serializing_if = "Option::is_none")]
+    pub deleted_at: Option<f64>,
+    #[serde(rename = "deploymentHostname")]
+    pub deployment_hostname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub forced: Option<bool>,
+    pub id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meta: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "monorepoManager",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub monorepo_manager: Option<Option<String>>,
+    pub name: String,
+    #[serde(rename = "oidcTokenClaims", skip_serializing_if = "Option::is_none")]
+    pub oidc_token_claims: Option<GetProjectsResponseTargetsValueOidcTokenClaims>,
+    pub plan: GetProjectsResponseTargetsValuePlanEnum,
+    /// Whether or not preview comments are enabled for the deployment
+    #[serde(
+        rename = "previewCommentsEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub preview_comments_enabled: Option<bool>,
+    pub private: bool,
+    #[serde(rename = "readyAt", skip_serializing_if = "Option::is_none")]
+    pub ready_at: Option<f64>,
+    #[serde(rename = "readyState")]
+    pub ready_state: GetProjectsResponseTargetsValueReadyStateEnum,
+    #[serde(rename = "readySubstate", skip_serializing_if = "Option::is_none")]
+    pub ready_substate: Option<GetProjectsResponseTargetsValueReadySubstateEnum>,
+    #[serde(rename = "requestedAt", skip_serializing_if = "Option::is_none")]
+    pub requested_at: Option<f64>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub target: Option<Option<String>>,
+    #[serde(
+        rename = "teamId",
+        skip_serializing_if = "Option::is_none",
+        default,
+        with = "crate::client::double_option"
+    )]
+    pub team_id: Option<Option<String>>,
+    #[serde(rename = "type")]
+    pub type_: GetProjectsResponseTargetsValueTypeEnum,
+    pub url: String,
+    /// Present for user creators; omitted for app/integration/system creators.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<String>,
+    #[serde(rename = "withCache", skip_serializing_if = "Option::is_none")]
+    pub with_cache: Option<bool>,
 }

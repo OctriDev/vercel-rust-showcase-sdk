@@ -4,7 +4,7 @@
 use super::*;
 
 impl serde::Serialize
-    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -15,7 +15,7 @@ impl serde::Serialize
 }
 
 impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -23,49 +23,188 @@ impl<'de> serde::Deserialize<'de>
     {
         let value = <String as serde::Deserialize>::deserialize(deserializer)?;
         Ok(match value.as_str() {
-            "cli" => Self::Cli,
-            "deploy-hook" => Self::DeployHook,
-            "git" => Self::Git,
-            "integration" => Self::Integration,
-            "rest-api" => Self::RestApi,
-            "v0" => Self::V0,
+            "enhanced" => Self::Enhanced,
+            "standard" => Self::Standard,
+            "turbo" => Self::Turbo,
             _ => Self::Unknown(value),
         })
     }
 }
 
 impl std::fmt::Display
-    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum
+    for ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
-/// `enabled: true` with empty `sources` is deny-all.
+/// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem {
-    pub enabled: bool,
-    pub environments: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
-    pub sources: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+pub struct ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachine {
+    pub cores: f64,
+    /// Machine types an elastic decision can effectively apply or persist. The algorithm may consider Basic, but Basic is normalized to standard before an elastic decision becomes effective.
+    pub label:
+        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum,
+    pub memory: f64,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItem {
+impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachine {
     pub fn new(
-        enabled: bool,
-        environments: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItem>,
-        sources: Vec<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemSourcesItemEnum>,
+        cores: f64,
+        label: ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachineLabelEnum,
+        memory: f64,
     ) -> Self {
         Self {
-            enabled,
-            environments,
-            sources,
+            cores,
+            label,
+            memory,
+        }
+    }
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDefaultResourceConfig {
+    #[serde(
+        rename = "buildMachineElasticLastUpdated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_last_updated: Option<f64>,
+    #[serde(
+        rename = "buildMachineElasticReason",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_reason: Option<
+        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticReasonEnum,
+    >,
+    #[serde(
+        rename = "buildMachineElasticTransition",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_elastic_transition: Option<
+        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineElasticTransition,
+    >,
+    #[serde(
+        rename = "buildMachineSelection",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_machine_selection: Option<
+        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineSelectionEnum,
+    >,
+    #[serde(rename = "buildMachineType", skip_serializing_if = "Option::is_none")]
+    pub build_machine_type:
+        Option<ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildMachineTypeEnum>,
+    #[serde(rename = "buildQueue", skip_serializing_if = "Option::is_none")]
+    pub build_queue:
+        Option<ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigBuildQueue>,
+    #[serde(
+        rename = "elasticConcurrencyEnabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_concurrency_enabled: Option<bool>,
+    #[serde(
+        rename = "enableFunctionsBeta",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_functions_beta: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fluid: Option<bool>,
+    #[serde(
+        rename = "functionDefaultMemoryType",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_memory_type: Option<
+        ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigFunctionDefaultMemoryTypeEnum,
+    >,
+    #[serde(rename = "functionDefaultRegions")]
+    pub function_default_regions: Vec<String>,
+    #[serde(
+        rename = "functionDefaultTimeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_default_timeout: Option<f64>,
+    #[serde(
+        rename = "functionZeroConfigFailover",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub function_zero_config_failover: Option<bool>,
+    #[serde(rename = "isNSNBDisabled", skip_serializing_if = "Option::is_none")]
+    pub is_nsnb_disabled: Option<bool>,
+    /// Server-owned Elastic assignment; responses may fall back to the legacy label. Not accepted as input. Memory is measured in MiB.
+    #[serde(
+        rename = "elasticBuildMachine",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub elastic_build_machine:
+        Option<ListProjectsResponseVariant2ProjectsItemDefaultResourceConfigElasticBuildMachine>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDefaultResourceConfig {
+    pub fn new(function_default_regions: Vec<String>) -> Self {
+        Self {
+            build_machine_elastic_last_updated: None,
+            build_machine_elastic_reason: None,
+            build_machine_elastic_transition: None,
+            build_machine_selection: None,
+            build_machine_type: None,
+            build_queue: None,
+            elastic_concurrency_enabled: None,
+            enable_functions_beta: None,
+            fluid: None,
+            function_default_memory_type: None,
+            function_default_regions,
+            function_default_timeout: None,
+            function_zero_config_failover: None,
+            is_nsnb_disabled: None,
+            elastic_build_machine: None,
+        }
+    }
+}
+
+/// Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentExpiration {
+    /// Minimum number of production deployments to keep for this project, even if they are over the production expiration limit.
+    #[serde(rename = "deploymentsToKeep", skip_serializing_if = "Option::is_none")]
+    pub deployments_to_keep: Option<f64>,
+    /// Number of days to keep non-production deployments (mostly preview deployments) before soft deletion.
+    #[serde(rename = "expirationDays", skip_serializing_if = "Option::is_none")]
+    pub expiration_days: Option<f64>,
+    /// Number of days to keep canceled deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysCanceled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_canceled: Option<f64>,
+    /// Number of days to keep errored deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysErrored",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_errored: Option<f64>,
+    /// Number of days to keep production deployments before soft deletion.
+    #[serde(
+        rename = "expirationDaysProduction",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expiration_days_production: Option<f64>,
+}
+
+impl ListProjectsResponseVariant2ProjectsItemDeploymentExpiration {
+    #[allow(clippy::new_without_default)]
+    pub fn new() -> Self {
+        Self {
+            deployments_to_keep: None,
+            expiration_days: None,
+            expiration_days_canceled: None,
+            expiration_days_errored: None,
+            expiration_days_production: None,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum
 {
     #[default]
     Preview,
@@ -73,7 +212,7 @@ pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemE
     Unknown(String),
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Preview => "preview",
@@ -83,7 +222,7 @@ impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvir
     }
 }
 
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -92,7 +231,7 @@ impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPoli
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -106,21 +245,21 @@ impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDe
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(self.as_str())
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum
 {
     #[serde(rename = "system")]
     #[default]
     System,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::System => "system",
@@ -128,41 +267,36 @@ impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvir
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum::System => f.write_str("system"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0 {
-    pub target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum,
 }
 
-impl
-    ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0
-{
-    pub fn new(
-        target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TargetEnum,
-        type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0TypeEnum,
-    ) -> Self {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0 {
+    pub fn new(target: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TargetEnum, type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant0TypeEnum) -> Self {
         Self { target, type_ }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum
+pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum
 {
     #[serde(rename = "custom")]
     #[default]
     Custom,
 }
 
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum {
     pub fn as_str(&self) -> &str {
         match self {
             Self::Custom => "custom",
@@ -170,150 +304,24 @@ impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvir
     }
 }
 
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum {
+impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
+            ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum::Custom => f.write_str("custom"),
         }
     }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1 {
+pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
     #[serde(rename = "environmentId")]
     pub environment_id: String,
     #[serde(rename = "type")]
-    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum,
+    pub type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum,
 }
 
-impl
-    ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1
-{
-    pub fn new(
-        environment_id: String,
-        type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1TypeEnum,
-    ) -> Self {
-        Self {
-            environment_id,
-            type_,
-        }
-    }
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-#[serde(untagged)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem {
-    System(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>),
-    Custom(Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>),
-}
-
-impl<'de> serde::Deserialize<'de>
-    for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem
-{
-    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
-        let mut lossy = None;
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant0>>(value.clone()) {
-            let candidate = Self::System(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        if let Ok(branch) = serde_json::from_value::<Box<ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItemVariant1>>(value.clone()) {
-            let candidate = Self::Custom(branch);
-            if crate::client::keeps_every_key(&value, &candidate) {
-                return Ok(candidate);
-            }
-            lossy.get_or_insert(candidate);
-        }
-        lossy.ok_or_else(|| serde::de::Error::custom("no ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemEnvironmentsItem branch accepts this payload"))
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum
-{
-    #[default]
-    Bitbucket,
-    Github,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Bitbucket => "bitbucket",
-            Self::Github => "github",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "bitbucket" => Self::Bitbucket,
-            "github" => Self::Github,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-/// Allowlist entry for GitHub and Bitbucket, whose repos are identified by a flat `org`/`repo` (Bitbucket's workspace/owner maps to `org`, its repo slug to `repo`). Omit `repo` to match any repo in the org. Org is matched case-insensitively.
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub struct ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0 {
-    pub org: String,
-    pub provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub repo: Option<String>,
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0 {
-    pub fn new(
-        org: String,
-        provider: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant0ProviderEnum,
-    ) -> Self {
-        Self {
-            org,
-            provider,
-            repo: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Default)]
-pub enum ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum
-{
-    #[default]
-    Gitlab,
-    Unknown(String),
-}
-
-impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyGitSourcesItemSourcesItemVariant1ProviderEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Gitlab => "gitlab",
-            Self::Unknown(value) => value.as_str(),
-        }
+impl ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1 {
+    pub fn new(environment_id: String, type_: ListProjectsResponseVariant2ProjectsItemDeploymentPolicyDeploymentSourcesItemEnvironmentsItemVariant1TypeEnum) -> Self {
+        Self { environment_id, type_ }
     }
 }

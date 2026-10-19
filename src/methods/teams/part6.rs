@@ -3,6 +3,51 @@
 
 use super::*;
 
+#[derive(Debug, Clone, serde::Serialize)]
+#[serde(untagged)]
+pub enum GetTeamAccessRequestResponseJoinedFromGitUserId {
+    String(String),
+    Number(f64),
+}
+
+impl<'de> serde::Deserialize<'de> for GetTeamAccessRequestResponseJoinedFromGitUserId {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let value = <serde_json::Value as serde::Deserialize>::deserialize(deserializer)?;
+        let mut lossy = None;
+        if let Ok(branch) = serde_json::from_value::<String>(value.clone()) {
+            let candidate = Self::String(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        if let Ok(branch) = serde_json::from_value::<f64>(value.clone()) {
+            let candidate = Self::Number(branch);
+            if crate::client::keeps_every_key(&value, &candidate) {
+                return Ok(candidate);
+            }
+            lossy.get_or_insert(candidate);
+        }
+        lossy.ok_or_else(|| {
+            serde::de::Error::custom(
+                "no GetTeamAccessRequestResponseJoinedFromGitUserId branch accepts this payload",
+            )
+        })
+    }
+}
+
+impl ::std::convert::From<String> for GetTeamAccessRequestResponseJoinedFromGitUserId {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl ::std::convert::From<f64> for GetTeamAccessRequestResponseJoinedFromGitUserId {
+    fn from(value: f64) -> Self {
+        Self::Number(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum GetTeamAccessRequestResponseJoinedFromOriginEnum {
     #[default]
@@ -245,31 +290,4 @@ pub enum UpdateTeamMemberTeamPermissionsItemEnum {
     V0chatter,
     V0viewer,
     Unknown(String),
-}
-
-impl UpdateTeamMemberTeamPermissionsItemEnum {
-    pub fn as_str(&self) -> &str {
-        match self {
-            Self::Connectormanager => "ConnectorManager",
-            Self::Integrationmanager => "IntegrationManager",
-            Self::Createproject => "CreateProject",
-            Self::Fullproductiondeployment => "FullProductionDeployment",
-            Self::Usageviewer => "UsageViewer",
-            Self::Envvariablemanager => "EnvVariableManager",
-            Self::Environmentmanager => "EnvironmentManager",
-            Self::Workflowdecryptor => "WorkflowDecryptor",
-            Self::Orgadmin => "OrgAdmin",
-            Self::Orgviewer => "OrgViewer",
-            Self::Aigatewaysettings => "AiGatewaySettings",
-            Self::Aigatewaycredits => "AiGatewayCredits",
-            Self::Aigatewayuser => "AiGatewayUser",
-            Self::Aigatewaybudgetmanager => "AiGatewayBudgetManager",
-            Self::Aigatewaytranscriptsmanager => "AiGatewayTranscriptsManager",
-            Self::Aigatewaytranscriptsviewer => "AiGatewayTranscriptsViewer",
-            Self::V0builder => "V0Builder",
-            Self::V0chatter => "V0Chatter",
-            Self::V0viewer => "V0Viewer",
-            Self::Unknown(value) => value.as_str(),
-        }
-    }
 }

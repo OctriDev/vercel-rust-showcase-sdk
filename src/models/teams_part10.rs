@@ -3,6 +3,34 @@
 
 // teams domain models (part 10)
 
+/// Controls whether directory sync events are processed. \- 'SETUP': Directory connected but role mappings not yet configured. Events are acknowledged but not processed. \- 'ACTIVE': Fully configured. Events are processed normally. \- undefined: Legacy directory (pre-feature), treat as 'ACTIVE' for backwards compatibility.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub enum TeamLimitedSamlDirectorySyncStateEnum {
+    #[default]
+    Active,
+    Setup,
+    Unknown(String),
+}
+
+impl TeamLimitedSamlDirectorySyncStateEnum {
+    pub fn as_str(&self) -> &str {
+        match self {
+            Self::Active => "ACTIVE",
+            Self::Setup => "SETUP",
+            Self::Unknown(value) => value.as_str(),
+        }
+    }
+}
+
+impl serde::Serialize for TeamLimitedSamlDirectorySyncStateEnum {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(self.as_str())
+    }
+}
+
 impl<'de> serde::Deserialize<'de> for TeamLimitedSamlDirectorySyncStateEnum {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -369,6 +397,18 @@ impl<'de> serde::Deserialize<'de>
     }
 }
 
+impl ::std::convert::From<Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant0>> for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant0>) -> Self {
+        Self::System(value)
+    }
+}
+
+impl ::std::convert::From<Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant1>> for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItem {
+    fn from(value: Box<UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemEnvironmentsItemVariant1>) -> Self {
+        Self::Custom(value)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Default)]
 pub enum UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant0ProviderEnum
 {
@@ -455,55 +495,6 @@ impl
         match self {
             Self::Gitlab => "gitlab",
             Self::Unknown(value) => value.as_str(),
-        }
-    }
-}
-
-impl serde::Serialize for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(self.as_str())
-    }
-}
-
-impl<'de> serde::Deserialize<'de> for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let value = <String as serde::Deserialize>::deserialize(deserializer)?;
-        Ok(match value.as_str() {
-            "gitlab" => Self::Gitlab,
-            _ => Self::Unknown(value),
-        })
-    }
-}
-
-impl std::fmt::Display for UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1 {
-    pub provider: UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum,
-    pub namespace: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<String>,
-}
-
-impl UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1 {
-    pub fn new(
-        provider: UpdateTeamsRequestDeploymentPolicyVariant0GitSourcesVariant0ItemSourcesItemVariant1ProviderEnum,
-        namespace: String,
-    ) -> Self {
-        Self {
-            provider,
-            namespace,
-            project: None,
         }
     }
 }
