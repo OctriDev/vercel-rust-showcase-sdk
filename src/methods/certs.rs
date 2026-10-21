@@ -139,6 +139,13 @@ impl UploadCertResponse {
     }
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct GetCertByIdParams {
+    pub id: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
 /// Retrieves a certificate by its identifier. Use `teamId` or `slug` to specify the team context for the request. The response includes the certificate's common names, renewal setting, and creation and expiration timestamps.
 ///
 /// Get cert by id
@@ -150,11 +157,10 @@ impl UploadCertResponse {
 /// * `slug` - The Team slug to perform the request on behalf of.
 pub fn get_cert_by_id(
     config: &ClientConfig,
-    id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: GetCertByIdParams,
     options: Option<&RequestOptions>,
 ) -> Result<GetCertByIdResponse, SdkError> {
+    let GetCertByIdParams { id, team_id, slug } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -178,6 +184,13 @@ pub fn get_cert_by_id(
     .data)
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct RemoveCertParams {
+    pub id: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
 /// Deletes a certificate identified by its certificate ID. Use `teamId` or `slug` to scope the request to a team. The response object confirms the removal.
 ///
 /// Remove cert
@@ -189,11 +202,10 @@ pub fn get_cert_by_id(
 /// * `slug` - The Team slug to perform the request on behalf of.
 pub fn remove_cert(
     config: &ClientConfig,
-    id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: RemoveCertParams,
     options: Option<&RequestOptions>,
 ) -> Result<serde_json::Value, SdkError> {
+    let RemoveCertParams { id, team_id, slug } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -217,6 +229,12 @@ pub fn remove_cert(
     .data)
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct GetCertsParams {
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
 /// Lists certificates available to the authenticated user or team. Use `teamId` or `slug` to scope the request to a team. The response includes certificate details and pagination information.
 ///
 /// Get certs
@@ -227,10 +245,10 @@ pub fn remove_cert(
 /// * `slug` - The Team slug to perform the request on behalf of.
 pub fn get_certs(
     config: &ClientConfig,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: GetCertsParams,
     options: Option<&RequestOptions>,
 ) -> Result<GetCertsResponse, SdkError> {
+    let GetCertsParams { team_id, slug } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -254,6 +272,13 @@ pub fn get_certs(
     .data)
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct IssueCertParams {
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+    pub cns: Option<Vec<String>>,
+}
+
 /// Issues a new certificate for the common names you provide. Supply `cns` to specify the common names for which the certificate should be issued. The response includes the certificate identifier, common names, and certificate dates.
 ///
 /// Issue a new cert
@@ -265,11 +290,10 @@ pub fn get_certs(
 /// * `cns` - The common names the cert should be issued for
 pub fn issue_cert(
     config: &ClientConfig,
-    team_id: Option<String>,
-    slug: Option<String>,
-    cns: Option<Vec<String>>,
+    params: IssueCertParams,
     options: Option<&RequestOptions>,
 ) -> Result<IssueCertResponse, SdkError> {
+    let IssueCertParams { team_id, slug, cns } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));

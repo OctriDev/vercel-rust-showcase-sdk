@@ -169,6 +169,12 @@ pub fn list_user_events(
     .data)
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct ListEventTypesParams {
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
 /// Lists user-facing event types and their descriptions, along with the event categories. Use `teamId` or `slug` to select the team context for the request. Refer to the returned types and categories when filtering or presenting user events.
 ///
 /// Returns the list of user-facing event types with descriptions.
@@ -179,10 +185,10 @@ pub fn list_user_events(
 /// * `slug` - The Team slug to perform the request on behalf of.
 pub fn list_event_types(
     config: &ClientConfig,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: ListEventTypesParams,
     options: Option<&RequestOptions>,
 ) -> Result<ListEventTypesResponse, SdkError> {
+    let ListEventTypesParams { team_id, slug } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
@@ -227,6 +233,11 @@ pub fn get_auth_user(
     .data)
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct RequestDeleteParams {
+    pub reasons: Option<Vec<RequestDeleteReasonsItem>>,
+}
+
 /// Starts the authenticated user's account deletion process by sending a confirmation email. You must follow the link in that email to proceed with deletion; you can optionally include `reasons` to describe why the account is being deleted.
 ///
 /// Initiates the deletion process for the currently authenticated User, by sending a deletion confirmation email. The email contains a link that the user needs to visit in order to proceed with the deletion process.
@@ -237,9 +248,10 @@ pub fn get_auth_user(
 ///   User account is being deleted.
 pub fn request_delete(
     config: &ClientConfig,
-    reasons: Option<Vec<RequestDeleteReasonsItem>>,
+    params: RequestDeleteParams,
     options: Option<&RequestOptions>,
 ) -> Result<RequestDeleteResponse, SdkError> {
+    let RequestDeleteParams { reasons } = params;
     let mut __body_map = serde_json::Map::new();
     if let Some(ref value) = reasons {
         __body_map.insert(

@@ -462,9 +462,11 @@ fn archive_ai_gateway_budget_default_archive_ai_gateway_budget_default_reaches_m
     let _ = &config;
     ai_gateway::archive_ai_gateway_budget_default(
         &config,
-        decode(fixture(r#""team""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::ArchiveAiGatewayBudgetDefaultParams {
+            scope_type: decode(fixture(r#""team""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("archive_ai_gateway_budget_default request failed");
@@ -478,9 +480,11 @@ fn artifact_exists_artifact_exists_reaches_mock_and_decodes_response() {
     let _ = &config;
     artifacts::artifact_exists(
         &config,
-        decode(fixture(r#""12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        artifacts::ArtifactExistsParams {
+            hash: decode(fixture(r#""12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("artifact_exists request failed");
@@ -494,11 +498,13 @@ fn artifact_query_artifact_query_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = artifacts::artifact_query(
         &config,
-        decode(fixture(
-            r#"["12HKQaOmR5t5Uy6vdcQsNIiZgHGB","34HKQaOmR5t5Uy6vasdasdasdasd"]"#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        artifacts::ArtifactQueryParams {
+            hashes: decode(fixture(
+                r#"["12HKQaOmR5t5Uy6vdcQsNIiZgHGB","34HKQaOmR5t5Uy6vasdasdasdasd"]"#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("artifact_query request failed");
@@ -548,10 +554,12 @@ fn batch_remove_project_env_batch_remove_project_env_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = projects::batch_remove_project_env(
         &config,
-        decode(fixture(r#""prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA""#)),
-        decode(fixture(r#"["ids"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::BatchRemoveProjectEnvParams {
+            id_or_name: decode(fixture(r#""prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA""#)),
+            ids: decode(fixture(r#"["ids"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("batch_remove_project_env request failed");
@@ -571,12 +579,14 @@ fn buy_credits_buy_credits_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = billing::buy_credits(
         &config,
-        decode(fixture(
-            r#"{"type":"credits","creditType":"v0","amount":1}"#,
-        )),
-        Some(decode(fixture(r#""source""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        billing::BuyCreditsParams {
+            item: decode(fixture(
+                r#"{"type":"credits","creditType":"v0","amount":1}"#,
+            )),
+            source: Some(decode(fixture(r#""source""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("buy_credits request failed");
@@ -598,9 +608,11 @@ fn buy_domains_buy_domains_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::buy_domains(
         &config,
-        decode(fixture(r#"[{"domainName":"Example Name","autoRenew":false,"years":1,"expectedPrice":0.01,"languageCode":"languageCode"}]"#)),
-        decode(fixture(r#"{"firstName":"aaa","lastName":"aaa","email":"user@example.com","phone":"+10000000","address1":"aaa","address2":"aaa","city":"aaa","state":"aaa","zip":"aaa","country":"country","companyName":"aaa","fax":"+10000000","additional":{}}"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::BuyDomainsParams {
+            domains: decode(fixture(r#"[{"domainName":"Example Name","autoRenew":false,"years":1,"expectedPrice":0.01,"languageCode":"languageCode"}]"#)),
+            contact_information: decode(fixture(r#"{"firstName":"aaa","lastName":"aaa","email":"user@example.com","phone":"+10000000","address1":"aaa","address2":"aaa","city":"aaa","state":"aaa","zip":"aaa","country":"country","companyName":"aaa","fax":"+10000000","additional":{}}"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("buy_domains request failed");
@@ -627,13 +639,15 @@ fn buy_domains_buy_domains_401_decodes_declared_error() {
     };
     let result = domains_registrar::buy_domains(
         &config,
-        decode(fixture(
-            r#"[{"domainName":"Example Name","autoRenew":false,"years":1,"expectedPrice":0.01,"languageCode":"languageCode"}]"#,
-        )),
-        decode(fixture(
-            r#"{"firstName":"aaa","lastName":"aaa","email":"user@example.com","phone":"+10000000","address1":"aaa","address2":"aaa","city":"aaa","state":"aaa","zip":"aaa","country":"country","companyName":"aaa","fax":"+10000000","additional":{}}"#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::BuyDomainsParams {
+            domains: decode(fixture(
+                r#"[{"domainName":"Example Name","autoRenew":false,"years":1,"expectedPrice":0.01,"languageCode":"languageCode"}]"#,
+            )),
+            contact_information: decode(fixture(
+                r#"{"firstName":"aaa","lastName":"aaa","email":"user@example.com","phone":"+10000000","address1":"aaa","address2":"aaa","city":"aaa","state":"aaa","zip":"aaa","country":"country","companyName":"aaa","fax":"+10000000","additional":{}}"#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -728,11 +742,13 @@ fn cancel_deployment_cancel_deployment_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = deployments::cancel_deployment(
         &config,
-        decode(fixture(
-            r#""dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd""#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        deployments::CancelDeploymentParams {
+            id: decode(fixture(
+                r#""dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd""#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("cancel_deployment request failed");
@@ -754,9 +770,11 @@ fn claim_domain_ownership_claim_domain_ownership_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = domains::claim_domain_ownership(
         &config,
-        decode(fixture(r#""example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        domains::ClaimDomainOwnershipParams {
+            domain: decode(fixture(r#""example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("claim_domain_ownership request failed");
@@ -778,10 +796,12 @@ fn clear_repository_permissions_clear_repository_permissions_reaches_mock_and_de
     let _ = &config;
     vcr::clear_repository_permissions(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vcr::ClearRepositoryPermissionsParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("clear_repository_permissions request failed");
@@ -795,10 +815,12 @@ fn complete_rolling_release_complete_rolling_release_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = rolling_release::complete_rolling_release(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""canaryDeployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::CompleteRollingReleaseParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            canary_deployment_id: decode(fixture(r#""canaryDeployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("complete_rolling_release request failed");
@@ -961,8 +983,10 @@ fn create_ai_gateway_rule_create_ai_gateway_rule_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = ai_gateway::create_ai_gateway_rule(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::CreateAiGatewayRuleParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_ai_gateway_rule request failed");
@@ -985,8 +1009,10 @@ fn create_ai_gateway_virtual_model_config_create_ai_gateway_virtual_model_config
     let _ = &config;
     let actual = ai_gateway::create_ai_gateway_virtual_model_config(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::CreateAiGatewayVirtualModelConfigParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_ai_gateway_virtual_model_config request failed");
@@ -1392,10 +1418,12 @@ fn create_deployment_check_run_create_deployment_check_run_reaches_mock_and_deco
     let _ = &config;
     let actual = checks_v2::create_deployment_check_run(
         &config,
-        decode(fixture(r#""deployment-1""#)),
-        decode(fixture(r#""check-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::CreateDeploymentCheckRunParams {
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            check_id: decode(fixture(r#""check-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_deployment_check_run request failed");
@@ -1451,10 +1479,12 @@ fn create_edge_config_create_edge_config_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = global_config::create_edge_config(
         &config,
-        decode(fixture(r#""a""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#"{"key":null}"#))),
+        global_config::CreateEdgeConfigParams {
+            slug: decode(fixture(r#""a""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug_2: Some(decode(fixture(r#""my-team-url-slug""#))),
+            items: Some(decode(fixture(r#"{"key":null}"#))),
+        },
         None,
     )
     .expect("create_edge_config request failed");
@@ -1476,10 +1506,12 @@ fn create_edge_config_token_create_edge_config_token_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = global_config::create_edge_config_token(
         &config,
-        decode(fixture(r#""ecfg_""#)),
-        decode(fixture(r#""label""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::CreateEdgeConfigTokenParams {
+            edge_config_id: decode(fixture(r#""ecfg_""#)),
+            label: decode(fixture(r#""label""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_edge_config_token request failed");
@@ -1499,10 +1531,12 @@ fn create_event_create_event_reaches_mock_and_decodes_response() {
     let _ = &config;
     marketplace::create_event(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(
-            r#"{"type":"installation.updated","billingPlanId":"billingPlan-1"}"#,
-        )),
+        marketplace::CreateEventParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            event: decode(fixture(
+                r#"{"type":"installation.updated","billingPlanId":"billingPlan-1"}"#,
+            )),
+        },
         None,
     )
     .expect("create_event request failed");
@@ -1585,9 +1619,11 @@ fn create_installations_by_integration_configuration_id_resources_by_resource_id
     let _ = &config;
     marketplace::create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
-        decode(fixture(r#"[{"id":"id-1","slug":"slug","origin":"origin","category":"experiment","name":"Example Name","description":"example text","isArchived":false,"createdAt":1,"updatedAt":1}]"#)),
+        marketplace::CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+            items: decode(fixture(r#"[{"id":"id-1","slug":"slug","origin":"origin","category":"experiment","name":"Example Name","description":"example text","isArchived":false,"createdAt":1,"updatedAt":1}]"#)),
+        },
         None,
     )
     .expect("create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items request failed");
@@ -1857,9 +1893,11 @@ fn create_or_transfer_domain_create_or_transfer_domain_reaches_mock_and_decodes_
     let _ = &config;
     let actual = domains::create_or_transfer_domain(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#""add""#))),
+        domains::CreateOrTransferDomainParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            method: Some(decode(fixture(r#""add""#))),
+        },
         None,
     )
     .expect("create_or_transfer_domain request failed");
@@ -2049,10 +2087,12 @@ fn create_record_create_record_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = dns::create_record(
         &config,
-        decode(fixture(r#""example.com""#)),
-        decode(fixture(r#""A""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        dns::CreateRecordParams {
+            domain: decode(fixture(r#""example.com""#)),
+            type_: decode(fixture(r#""A""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_record request failed");
@@ -2072,10 +2112,12 @@ fn create_repository_create_repository_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = vcr::create_repository(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""nginx""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vcr::CreateRepositoryParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            name: decode(fixture(r#""nginx""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_repository request failed");
@@ -2184,10 +2226,12 @@ fn create_sandboxes_sessions_by_session_id_snapshot_v2_create_sandboxes_sessions
     let _ = &config;
     let actual = sandboxes::create_sandboxes_sessions_by_session_id_snapshot_v2(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        None,
+        sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV2Params {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            expiration: None,
+        },
         None,
     )
     .expect("create_sandboxes_sessions_by_session_id_snapshot_v2 request failed");
@@ -2210,10 +2254,12 @@ fn create_sandboxes_sessions_by_session_id_snapshot_v3_create_sandboxes_sessions
     let _ = &config;
     let actual = sandboxes::create_sandboxes_sessions_by_session_id_snapshot_v3(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        None,
+        sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV3Params {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            expiration: None,
+        },
         None,
     )
     .expect("create_sandboxes_sessions_by_session_id_snapshot_v3 request failed");
@@ -2395,7 +2441,9 @@ fn create_security_firewall_config_by_config_version_activate_create_security_fi
     let _ = &config;
     let actual = security::create_security_firewall_config_by_config_version_activate(
         &config,
-        decode(fixture(r#""configVersion""#)),
+        security::CreateSecurityFirewallConfigByConfigVersionActivateParams {
+            config_version: decode(fixture(r#""configVersion""#)),
+        },
         None,
     )
     .expect("create_security_firewall_config_by_config_version_activate request failed");
@@ -2473,8 +2521,10 @@ fn create_speed_insights_toggle_create_speed_insights_toggle_reaches_mock_and_de
     let _ = &config;
     let actual = speed_insights::create_speed_insights_toggle(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#"false"#)),
+        speed_insights::CreateSpeedInsightsToggleParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            value: decode(fixture(r#"false"#)),
+        },
         None,
     )
     .expect("create_speed_insights_toggle request failed");
@@ -2494,10 +2544,12 @@ fn create_storage_stores_blob_create_storage_stores_blob_reaches_mock_and_decode
     let _ = &config;
     let actual = storage::create_storage_stores_blob(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""arn1""#))),
-        Some(decode(fixture(r#""public""#))),
-        Some(decode(fixture(r#""project-1""#))),
+        storage::CreateStorageStoresBlobParams {
+            name: decode(fixture(r#""Example Name""#)),
+            region: Some(decode(fixture(r#""arn1""#))),
+            access: Some(decode(fixture(r#""public""#))),
+            project_id: Some(decode(fixture(r#""project-1""#))),
+        },
         None,
     )
     .expect("create_storage_stores_blob request failed");
@@ -2519,9 +2571,11 @@ fn create_team_create_team_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::create_team(
         &config,
-        decode(fixture(r#""a-random-team""#)),
-        Some(decode(fixture(r#""A Random Team""#))),
-        Some(decode(fixture(r#"{"sessionReferrer":"sessionReferrer","landingPage":"landingPage","pageBeforeConversionPage":"pageBeforeConversionPage","utm":{"utmSource":"utmSource","utmMedium":"utmMedium","utmCampaign":"utmCampaign","utmTerm":"utmTerm"}}"#))),
+        teams::CreateTeamParams {
+            slug: decode(fixture(r#""a-random-team""#)),
+            name: Some(decode(fixture(r#""A Random Team""#))),
+            attribution: Some(decode(fixture(r#"{"sessionReferrer":"sessionReferrer","landingPage":"landingPage","pageBeforeConversionPage":"pageBeforeConversionPage","utm":{"utmSource":"utmSource","utmMedium":"utmMedium","utmCampaign":"utmCampaign","utmTerm":"utmTerm"}}"#))),
+        },
         None,
     )
     .expect("create_team request failed");
@@ -2541,10 +2595,12 @@ fn create_trace_session_create_trace_session_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = projects::create_trace_session(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::CreateTraceSessionParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            hostname: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_trace_session request failed");
@@ -2565,10 +2621,12 @@ fn create_vercel_ci_task_analysis_create_vercel_ci_task_analysis_reaches_mock_an
     let _ = &config;
     let actual = vercel_ci::create_vercel_ci_task_analysis(
         &config,
-        decode(fixture(r#""owner""#)),
-        decode(fixture(r#""repo""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::CreateVercelCiTaskAnalysisParams {
+            owner: decode(fixture(r#""owner""#)),
+            repo: decode(fixture(r#""repo""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_vercel_ci_task_analysis request failed");
@@ -2589,12 +2647,14 @@ fn create_vercel_ci_task_configuration_pull_request_create_vercel_ci_task_config
     let _ = &config;
     let actual = vercel_ci::create_vercel_ci_task_configuration_pull_request(
         &config,
-        decode(fixture(r#""analysis-1""#)),
-        decode(fixture(
-            r#"[{"name":"Example Name","configPath":"configPath"}]"#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::CreateVercelCiTaskConfigurationPullRequestParams {
+            analysis_id: decode(fixture(r#""analysis-1""#)),
+            tasks: decode(fixture(
+                r#"[{"name":"Example Name","configPath":"configPath"}]"#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("create_vercel_ci_task_configuration_pull_request request failed");
@@ -2642,8 +2702,10 @@ fn create_web_insights_toggle_create_web_insights_toggle_reaches_mock_and_decode
     let _ = &config;
     let actual = web::create_web_insights_toggle(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#"false"#)),
+        web::CreateWebInsightsToggleParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            value: decode(fixture(r#"false"#)),
+        },
         None,
     )
     .expect("create_web_insights_toggle request failed");
@@ -2705,9 +2767,11 @@ fn delete_access_group_delete_access_group_reaches_mock_and_decodes_response() {
     let _ = &config;
     access_groups::delete_access_group(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        access_groups::DeleteAccessGroupParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_access_group request failed");
@@ -2721,10 +2785,12 @@ fn delete_access_group_project_delete_access_group_project_reaches_mock_and_deco
     let _ = &config;
     access_groups::delete_access_group_project(
         &config,
-        decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
-        decode(fixture(r#""prj_ndlgr43fadlPyCtREAqxxdyFK""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        access_groups::DeleteAccessGroupProjectParams {
+            access_group_id_or_name: decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
+            project_id: decode(fixture(r#""prj_ndlgr43fadlPyCtREAqxxdyFK""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_access_group_project request failed");
@@ -2738,9 +2804,11 @@ fn delete_ai_gateway_rule_delete_ai_gateway_rule_reaches_mock_and_decodes_respon
     let _ = &config;
     ai_gateway::delete_ai_gateway_rule(
         &config,
-        decode(fixture(r#""rule-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::DeleteAiGatewayRuleParams {
+            rule_id: decode(fixture(r#""rule-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_ai_gateway_rule request failed");
@@ -2800,9 +2868,11 @@ fn delete_alias_delete_alias_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = aliases::delete_alias(
         &config,
-        decode(fixture(r#""2WjyKQmM8ZnGcJsPWMrHRHrE""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        aliases::DeleteAliasParams {
+            alias_id: decode(fixture(r#""2WjyKQmM8ZnGcJsPWMrHRHrE""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_alias request failed");
@@ -2822,8 +2892,10 @@ fn delete_all_artifacts_delete_all_artifacts_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = artifacts::delete_all_artifacts(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        artifacts::DeleteAllArtifactsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_all_artifacts request failed");
@@ -2843,11 +2915,13 @@ fn delete_auth_token_delete_auth_token_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = authentication::delete_auth_token(
         &config,
-        decode(fixture(
-            r#""5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391""#,
-        )),
-        Some(decode(fixture(r#""logout""#))),
-        Some(decode(fixture(r#""v0""#))),
+        authentication::DeleteAuthTokenParams {
+            token_id: decode(fixture(
+                r#""5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391""#,
+            )),
+            reason: Some(decode(fixture(r#""logout""#))),
+            logout_source: Some(decode(fixture(r#""v0""#))),
+        },
         None,
     )
     .expect("delete_auth_token request failed");
@@ -2870,10 +2944,12 @@ fn delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid_
     let _ = &config;
     vcr::delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        vcr::DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            uuid: decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        },
         None,
     )
     .expect("delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid request failed");
@@ -2888,10 +2964,12 @@ fn delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference
     let _ = &config;
     let actual = vcr::delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855""#)),
+        vcr::DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            reference: decode(fixture(r#""sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855""#)),
+        },
         None,
     )
     .expect("delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference request failed");
@@ -2911,10 +2989,12 @@ fn delete_conditional_bypass_delete_conditional_bypass_reaches_mock_and_decodes_
     let _ = &config;
     let actual = security::delete_conditional_bypass(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        security::DeleteConditionalBypassParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            domain: decode(fixture(r#""domain""#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("delete_conditional_bypass request failed");
@@ -2934,9 +3014,11 @@ fn delete_configurable_log_drain_delete_configurable_log_drain_reaches_mock_and_
     let _ = &config;
     log_drains::delete_configurable_log_drain(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        log_drains::DeleteConfigurableLogDrainParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_configurable_log_drain request failed");
@@ -2950,9 +3032,11 @@ fn delete_configuration_delete_configuration_reaches_mock_and_decodes_response()
     let _ = &config;
     integrations::delete_configuration(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        integrations::DeleteConfigurationParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_configuration request failed");
@@ -2966,9 +3050,11 @@ fn delete_connector_delete_connector_reaches_mock_and_decodes_response() {
     let _ = &config;
     connect::delete_connector(
         &config,
-        decode(fixture(r#""connector""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::DeleteConnectorParams {
+            connector: decode(fixture(r#""connector""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_connector request failed");
@@ -2987,9 +3073,11 @@ fn delete_connector_delete_connector_400_decodes_declared_error() {
     };
     let result = connect::delete_connector(
         &config,
-        decode(fixture(r#""connector""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::DeleteConnectorParams {
+            connector: decode(fixture(r#""connector""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -3013,10 +3101,12 @@ fn delete_connector_project_connection_delete_connector_project_connection_reach
     let _ = &config;
     connect::delete_connector_project_connection(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::DeleteConnectorProjectConnectionParams {
+            connector: decode(fixture(r#""connector""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_connector_project_connection request failed");
@@ -3036,10 +3126,12 @@ fn delete_connector_project_connection_delete_connector_project_connection_400_d
     };
     let result = connect::delete_connector_project_connection(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::DeleteConnectorProjectConnectionParams {
+            connector: decode(fixture(r#""connector""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -3062,12 +3154,14 @@ fn delete_deployment_delete_deployment_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = deployments::delete_deployment(
         &config,
-        decode(fixture(
-            r#""dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd""#,
-        )),
-        Some(decode(fixture(r#""https://files-orcin-xi.vercel.app/""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        deployments::DeleteDeploymentParams {
+            id: decode(fixture(
+                r#""dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd""#,
+            )),
+            url: Some(decode(fixture(r#""https://files-orcin-xi.vercel.app/""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_deployment request failed");
@@ -3088,9 +3182,11 @@ fn delete_domain_delete_domain_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains::delete_domain(
         &config,
-        decode(fixture(r#""example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        domains::DeleteDomainParams {
+            domain: decode(fixture(r#""example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_domain request failed");
@@ -3110,9 +3206,11 @@ fn delete_drain_delete_drain_reaches_mock_and_decodes_response() {
     let _ = &config;
     drains::delete_drain(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        drains::DeleteDrainParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_drain request failed");
@@ -3126,10 +3224,12 @@ fn delete_drive_delete_drive_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = sandboxes::delete_drive(
         &config,
-        decode(fixture(r#""workspace""#)),
-        Some(decode(fixture(r#""prj_abc123""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::DeleteDriveParams {
+            name: decode(fixture(r#""workspace""#)),
+            project_id: Some(decode(fixture(r#""prj_abc123""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_drive request failed");
@@ -3151,9 +3251,11 @@ fn delete_edge_config_delete_edge_config_reaches_mock_and_decodes_response() {
     let _ = &config;
     global_config::delete_edge_config(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::DeleteEdgeConfigParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_edge_config request failed");
@@ -3167,9 +3269,11 @@ fn delete_edge_config_schema_delete_edge_config_schema_reaches_mock_and_decodes_
     let _ = &config;
     global_config::delete_edge_config_schema(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::DeleteEdgeConfigSchemaParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_edge_config_schema request failed");
@@ -3245,9 +3349,11 @@ fn delete_installations_by_integration_configuration_id_resources_by_resource_id
     let _ = &config;
     marketplace::delete_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items_by_item_id(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
-        decode(fixture(r#""item-1""#)),
+        marketplace::DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+            item_id: decode(fixture(r#""item-1""#)),
+        },
         None,
     )
     .expect("delete_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items_by_item_id request failed");
@@ -3261,9 +3367,11 @@ fn delete_integration_log_drain_delete_integration_log_drain_reaches_mock_and_de
     let _ = &config;
     log_drains::delete_integration_log_drain(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        log_drains::DeleteIntegrationLogDrainParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_integration_log_drain request failed");
@@ -3277,8 +3385,10 @@ fn delete_integration_resource_delete_integration_resource_reaches_mock_and_deco
     let _ = &config;
     marketplace::delete_integration_resource(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
+        marketplace::DeleteIntegrationResourceParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+        },
         None,
     )
     .expect("delete_integration_resource request failed");
@@ -3292,9 +3402,11 @@ fn delete_kms_issuer_delete_kms_issuer_reaches_mock_and_decodes_response() {
     let _ = &config;
     kms::delete_kms_issuer(
         &config,
-        decode(fixture(r#""issuer-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        kms::DeleteKmsIssuerParams {
+            issuer_id: decode(fixture(r#""issuer-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_kms_issuer request failed");
@@ -3328,9 +3440,11 @@ fn delete_microfrontends_group_delete_microfrontends_group_reaches_mock_and_deco
     let _ = &config;
     let actual = teams::delete_microfrontends_group(
         &config,
-        decode(fixture(r#""mfe_""#)),
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        teams::DeleteMicrofrontendsGroupParams {
+            group_id: decode(fixture(r#""mfe_""#)),
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_microfrontends_group request failed");
@@ -3350,9 +3464,11 @@ fn delete_network_delete_network_reaches_mock_and_decodes_response() {
     let _ = &config;
     networking::delete_network(
         &config,
-        decode(fixture(r#""uzrmorq7bn05z-fz""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::DeleteNetworkParams {
+            network_id: decode(fixture(r#""uzrmorq7bn05z-fz""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_network request failed");
@@ -3366,10 +3482,12 @@ fn delete_private_link_endpoint_delete_private_link_endpoint_reaches_mock_and_de
     let _ = &config;
     networking::delete_private_link_endpoint(
         &config,
-        decode(fixture(r#""ple_a1b2c3d4e5f6g7h8""#)),
-        decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::DeletePrivateLinkEndpointParams {
+            endpoint_id: decode(fixture(r#""ple_a1b2c3d4e5f6g7h8""#)),
+            project_id: decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_private_link_endpoint request failed");
@@ -3383,9 +3501,11 @@ fn delete_project_delete_project_reaches_mock_and_decodes_response() {
     let _ = &config;
     projects::delete_project(
         &config,
-        decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::DeleteProjectParams {
+            id_or_name: decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_project request failed");
@@ -3399,9 +3519,11 @@ fn delete_project_avatar_delete_project_avatar_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = projects::delete_project_avatar(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::DeleteProjectAvatarParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_project_avatar request failed");
@@ -3423,10 +3545,12 @@ fn delete_project_check_delete_project_check_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = checks_v2::delete_project_check(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""check-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::DeleteProjectCheckParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            check_id: decode(fixture(r#""check-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_project_check request failed");
@@ -3474,10 +3598,12 @@ fn delete_repository_delete_repository_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = vcr::delete_repository(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vcr::DeleteRepositoryParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_repository request failed");
@@ -3523,9 +3649,11 @@ fn delete_rolling_release_config_delete_rolling_release_config_reaches_mock_and_
     let _ = &config;
     let actual = rolling_release::delete_rolling_release_config(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::DeleteRollingReleaseConfigParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_rolling_release_config request failed");
@@ -3545,10 +3673,12 @@ fn delete_routes_delete_routes_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = project_routes::delete_routes(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#"["routeIds"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        project_routes::DeleteRoutesParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            route_ids: decode(fixture(r#"["routeIds"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_routes request failed");
@@ -3598,10 +3728,12 @@ fn delete_sdk_key_delete_sdk_key_reaches_mock_and_decodes_response() {
     let _ = &config;
     feature_flags::delete_sdk_key(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""hashKey""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::DeleteSdkKeyParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            hash_key: decode(fixture(r#""hashKey""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_sdk_key request failed");
@@ -3616,7 +3748,9 @@ fn delete_security_firewall_config_by_config_version_delete_security_firewall_co
     let _ = &config;
     security::delete_security_firewall_config_by_config_version(
         &config,
-        decode(fixture(r#""configVersion""#)),
+        security::DeleteSecurityFirewallConfigByConfigVersionParams {
+            config_version: decode(fixture(r#""configVersion""#)),
+        },
         None,
     )
     .expect("delete_security_firewall_config_by_config_version request failed");
@@ -3630,9 +3764,11 @@ fn delete_session_snapshot_delete_session_snapshot_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = sandboxes::delete_session_snapshot(
         &config,
-        decode(fixture(r#""snap_1234567890123456789012345678""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::DeleteSessionSnapshotParams {
+            snapshot_id: decode(fixture(r#""snap_1234567890123456789012345678""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_session_snapshot request failed");
@@ -3654,9 +3790,11 @@ fn delete_shared_env_variable_delete_shared_env_variable_reaches_mock_and_decode
     let _ = &config;
     let actual = environment::delete_shared_env_variable(
         &config,
-        decode(fixture(r#"["env_abc123","env_abc124"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::DeleteSharedEnvVariableParams {
+            ids: decode(fixture(r#"["env_abc123","env_abc124"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_shared_env_variable request failed");
@@ -3677,9 +3815,14 @@ fn delete_storage_stores_blob_by_id_delete_storage_stores_blob_by_id_reaches_moc
         return;
     };
     let _ = &config;
-    let actual =
-        storage::delete_storage_stores_blob_by_id(&config, decode(fixture(r#""id-1""#)), None)
-            .expect("delete_storage_stores_blob_by_id request failed");
+    let actual = storage::delete_storage_stores_blob_by_id(
+        &config,
+        storage::DeleteStorageStoresBlobByIdParams {
+            id: decode(fixture(r#""id-1""#)),
+        },
+        None,
+    )
+    .expect("delete_storage_stores_blob_by_id request failed");
     let actual = serde_json::to_value(actual).expect("serialize generated response");
     let expected = fixture(r#"{"id":"id-1"}"#);
     assert!(
@@ -3696,12 +3839,14 @@ fn delete_team_delete_team_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::delete_team(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""team_LLHUOMOoDlqOp8wPE4kFo9pE""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(
-            r#"[{"slug":"slug","description":"example text"}]"#,
-        ))),
+        teams::DeleteTeamParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            new_default_team_id: Some(decode(fixture(r#""team_LLHUOMOoDlqOp8wPE4kFo9pE""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            reasons: Some(decode(fixture(
+                r#"[{"slug":"slug","description":"example text"}]"#,
+            ))),
+        },
         None,
     )
     .expect("delete_team request failed");
@@ -3722,10 +3867,12 @@ fn delete_team_invite_code_delete_team_invite_code_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = teams::delete_team_invite_code(
         &config,
-        decode(fixture(
-            r#""2wn2hudbr4chb1ecywo9dvzo7g9sscs6mzcz8htdde0txyom4l""#,
-        )),
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+        teams::DeleteTeamInviteCodeParams {
+            invite_id: decode(fixture(
+                r#""2wn2hudbr4chb1ecywo9dvzo7g9sscs6mzcz8htdde0txyom4l""#,
+            )),
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+        },
         None,
     )
     .expect("delete_team_invite_code request failed");
@@ -3745,9 +3892,11 @@ fn delete_webhook_delete_webhook_reaches_mock_and_decodes_response() {
     let _ = &config;
     webhooks::delete_webhook(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        webhooks::DeleteWebhookParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("delete_webhook request failed");
@@ -3876,8 +4025,10 @@ fn eject_managed_connector_eject_managed_connector_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = connect::eject_managed_connector(
         &config,
-        decode(fixture(r#""connector""#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::EjectManagedConnectorParams {
+            connector: decode(fixture(r#""connector""#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("eject_managed_connector request failed");
@@ -3899,7 +4050,9 @@ fn exchange_sso_token_exchange_sso_token_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = authentication::exchange_sso_token(
         &config,
-        decode(fixture(r#"{"code":"code","state":"state","client_id":"client-1","client_secret":"client_secret","redirect_uri":"https://example.com","grant_type":"authorization_code"}"#)),
+        authentication::ExchangeSsoTokenParams {
+            body: decode(fixture(r#"{"code":"code","state":"state","client_id":"client-1","client_secret":"client_secret","redirect_uri":"https://example.com","grant_type":"authorization_code"}"#)),
+        },
         None,
     )
     .expect("exchange_sso_token request failed");
@@ -3921,10 +4074,12 @@ fn extend_session_timeout_extend_session_timeout_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = sandboxes::extend_session_timeout(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        decode(fixture(r#"300000"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::ExtendSessionTimeoutParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            duration: decode(fixture(r#"300000"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("extend_session_timeout request failed");
@@ -3977,7 +4132,9 @@ fn finalize_installation_finalize_installation_reaches_mock_and_decodes_response
     let _ = &config;
     marketplace::finalize_installation(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
+        marketplace::FinalizeInstallationParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+        },
         None,
     )
     .expect("finalize_installation request failed");
@@ -4019,9 +4176,11 @@ fn generate_firewall_rule_generate_firewall_rule_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = security::generate_firewall_rule(
         &config,
-        Some(decode(fixture(r#""project-1""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        security::GenerateFirewallRuleParams {
+            project_id: Some(decode(fixture(r#""project-1""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("generate_firewall_rule request failed");
@@ -4071,7 +4230,9 @@ fn get_account_info_get_account_info_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = marketplace::get_account_info(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
+        marketplace::GetAccountInfoParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+        },
         None,
     )
     .expect("get_account_info request failed");
@@ -4093,10 +4254,12 @@ fn get_active_attack_status_get_active_attack_status_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = security::get_active_attack_status(
         &config,
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#"1"#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        security::GetActiveAttackStatusParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            since: Some(decode(fixture(r#"1"#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_active_attack_status request failed");
@@ -4147,10 +4310,12 @@ fn get_ai_gateway_virtual_model_config_by_slug_get_ai_gateway_virtual_model_conf
     let _ = &config;
     let actual = ai_gateway::get_ai_gateway_virtual_model_config_by_slug(
         &config,
-        decode(fixture(r#""vmcSlug""#)),
-        Some(decode(fixture(r#""owner-1""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::GetAiGatewayVirtualModelConfigBySlugParams {
+            vmc_slug: decode(fixture(r#""vmcSlug""#)),
+            owner_id: Some(decode(fixture(r#""owner-1""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_ai_gateway_virtual_model_config_by_slug request failed");
@@ -4202,9 +4367,11 @@ fn get_auth_token_get_auth_token_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = authentication::get_auth_token(
         &config,
-        decode(fixture(
-            r#""5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391""#,
-        )),
+        authentication::GetAuthTokenParams {
+            token_id: decode(fixture(
+                r#""5d9f2ebd38ddca62e5d51e9c1704c72530bdc8bfdd41e782a6687c48399e8391""#,
+            )),
+        },
         None,
     )
     .expect("get_auth_token request failed");
@@ -4273,8 +4440,10 @@ fn get_bulk_availability_get_bulk_availability_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = domains_registrar::get_bulk_availability(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetBulkAvailabilityParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_bulk_availability request failed");
@@ -4299,8 +4468,10 @@ fn get_bulk_availability_get_bulk_availability_400_decodes_declared_error() {
     };
     let result = domains_registrar::get_bulk_availability(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetBulkAvailabilityParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -4325,9 +4496,11 @@ fn get_bulk_price_get_bulk_price_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_bulk_price(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#"1"#))),
+        domains_registrar::GetBulkPriceParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            years: Some(decode(fixture(r#"1"#))),
+        },
         None,
     )
     .expect("get_bulk_price request failed");
@@ -4354,9 +4527,11 @@ fn get_bulk_price_get_bulk_price_401_decodes_declared_error() {
     };
     let result = domains_registrar::get_bulk_price(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#"1"#))),
+        domains_registrar::GetBulkPriceParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            years: Some(decode(fixture(r#"1"#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -4413,10 +4588,12 @@ fn get_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid_get
     let _ = &config;
     vcr::get_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        vcr::GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            uuid: decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        },
         None,
     )
     .expect(
@@ -4459,9 +4636,11 @@ fn get_cert_by_id_get_cert_by_id_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = certs::get_cert_by_id(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        certs::GetCertByIdParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_cert_by_id request failed");
@@ -4482,8 +4661,10 @@ fn get_certs_get_certs_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = certs::get_certs(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        certs::GetCertsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_certs request failed");
@@ -4505,10 +4686,12 @@ fn get_check_get_check_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = checks::get_check(
         &config,
-        decode(fixture(r#""dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
-        decode(fixture(r#""check_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks::GetCheckParams {
+            deployment_id: decode(fixture(r#""dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
+            check_id: decode(fixture(r#""check_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_check request failed");
@@ -4559,9 +4742,11 @@ fn get_configurable_log_drain_get_configurable_log_drain_reaches_mock_and_decode
     let _ = &config;
     let actual = log_drains::get_configurable_log_drain(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        log_drains::GetConfigurableLogDrainParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_configurable_log_drain request failed");
@@ -4583,9 +4768,11 @@ fn get_configuration_get_configuration_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = integrations::get_configuration(
         &config,
-        decode(fixture(r#""icfg_cuwj0AdCdH3BwWT4LPijCC7t""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        integrations::GetConfigurationParams {
+            id: decode(fixture(r#""icfg_cuwj0AdCdH3BwWT4LPijCC7t""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_configuration request failed");
@@ -4607,9 +4794,11 @@ fn get_configuration_products_get_configuration_products_reaches_mock_and_decode
     let _ = &config;
     let actual = integrations::get_configuration_products(
         &config,
-        decode(fixture(r#""icfg_cuwj0AdCdH3BwWT4LPijCC7t""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        integrations::GetConfigurationProductsParams {
+            id: decode(fixture(r#""icfg_cuwj0AdCdH3BwWT4LPijCC7t""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_configuration_products request failed");
@@ -4659,9 +4848,11 @@ fn get_connector_get_connector_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = connect::get_connector(
         &config,
-        decode(fixture(r#""connector""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::GetConnectorParams {
+            connector: decode(fixture(r#""connector""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_connector request failed");
@@ -4688,9 +4879,11 @@ fn get_connector_get_connector_400_decodes_declared_error() {
     };
     let result = connect::get_connector(
         &config,
-        decode(fixture(r#""connector""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::GetConnectorParams {
+            connector: decode(fixture(r#""connector""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -4714,10 +4907,12 @@ fn get_connector_project_connection_get_connector_project_connection_reaches_moc
     let _ = &config;
     let actual = connect::get_connector_project_connection(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::GetConnectorProjectConnectionParams {
+            connector: decode(fixture(r#""connector""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_connector_project_connection request failed");
@@ -4744,10 +4939,12 @@ fn get_connector_project_connection_get_connector_project_connection_400_decodes
     };
     let result = connect::get_connector_project_connection(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::GetConnectorProjectConnectionParams {
+            connector: decode(fixture(r#""connector""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -4801,8 +4998,10 @@ fn get_contact_info_schema_get_contact_info_schema_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = domains_registrar::get_contact_info_schema(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetContactInfoSchemaParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_contact_info_schema request failed");
@@ -4827,8 +5026,10 @@ fn get_contact_info_schema_get_contact_info_schema_401_decodes_declared_error() 
     };
     let result = domains_registrar::get_contact_info_schema(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetContactInfoSchemaParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -4853,10 +5054,12 @@ fn get_custom_environment_get_custom_environment_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = environment::get_custom_environment(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""environmentSlugOr-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::GetCustomEnvironmentParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            environment_slug_or_id: decode(fixture(r#""environmentSlugOr-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_custom_environment request failed");
@@ -4878,10 +5081,12 @@ fn get_deployment_get_deployment_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = deployments::get_deployment(
         &config,
-        decode(fixture(r#""dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ""#)),
-        Some(decode(fixture(r#""true""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        deployments::GetDeploymentParams {
+            id_or_url: decode(fixture(r#""dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ""#)),
+            with_git_repo_info: Some(decode(fixture(r#""true""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_deployment request failed");
@@ -4903,10 +5108,12 @@ fn get_deployment_check_run_get_deployment_check_run_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = checks_v2::get_deployment_check_run(
         &config,
-        decode(fixture(r#""deployment-1""#)),
-        decode(fixture(r#""ckr_89ha9sdhh9a9""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::GetDeploymentCheckRunParams {
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            check_run_id: decode(fixture(r#""ckr_89ha9sdhh9a9""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_deployment_check_run request failed");
@@ -4965,9 +5172,11 @@ fn get_deployment_feature_flags_get_deployment_feature_flags_reaches_mock_and_de
     let _ = &config;
     let actual = feature_flags::get_deployment_feature_flags(
         &config,
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::GetDeploymentFeatureFlagsParams {
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_deployment_feature_flags request failed");
@@ -5032,8 +5241,10 @@ fn get_domain_auth_code_get_domain_auth_code_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = domains_registrar::get_domain_auth_code(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainAuthCodeParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_domain_auth_code request failed");
@@ -5058,8 +5269,10 @@ fn get_domain_auth_code_get_domain_auth_code_401_decodes_declared_error() {
     };
     let result = domains_registrar::get_domain_auth_code(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainAuthCodeParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -5084,8 +5297,10 @@ fn get_domain_availability_get_domain_availability_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = domains_registrar::get_domain_availability(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainAvailabilityParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_domain_availability request failed");
@@ -5110,8 +5325,10 @@ fn get_domain_availability_get_domain_availability_400_decodes_declared_error() 
     };
     let result = domains_registrar::get_domain_availability(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainAvailabilityParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -5165,8 +5382,10 @@ fn get_domain_contact_verification_get_domain_contact_verification_reaches_mock_
     let _ = &config;
     let actual = domains_registrar::get_domain_contact_verification(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainContactVerificationParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_domain_contact_verification request failed");
@@ -5191,8 +5410,10 @@ fn get_domain_contact_verification_get_domain_contact_verification_401_decodes_d
     };
     let result = domains_registrar::get_domain_contact_verification(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainContactVerificationParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -5217,9 +5438,11 @@ fn get_domain_price_get_domain_price_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_domain_price(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""years""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainPriceParams {
+            domain: decode(fixture(r#""domain""#)),
+            years: Some(decode(fixture(r#""years""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_domain_price request failed");
@@ -5245,9 +5468,11 @@ fn get_domain_price_get_domain_price_401_decodes_declared_error() {
     };
     let result = domains_registrar::get_domain_price(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""years""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainPriceParams {
+            domain: decode(fixture(r#""domain""#)),
+            years: Some(decode(fixture(r#""years""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -5301,9 +5526,11 @@ fn get_domains_get_domains_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains::get_domains(
         &config,
-        decode(fixture(r#""example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        domains::GetDomainsParams {
+            domain: decode(fixture(r#""example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_domains request failed");
@@ -5324,9 +5551,14 @@ fn get_domains_records_by_record_id_get_domains_records_by_record_id_reaches_moc
         return;
     };
     let _ = &config;
-    let actual =
-        domains::get_domains_records_by_record_id(&config, decode(fixture(r#""record-1""#)), None)
-            .expect("get_domains_records_by_record_id request failed");
+    let actual = domains::get_domains_records_by_record_id(
+        &config,
+        domains::GetDomainsRecordsByRecordIdParams {
+            record_id: decode(fixture(r#""record-1""#)),
+        },
+        None,
+    )
+    .expect("get_domains_records_by_record_id request failed");
     let actual = serde_json::to_value(actual).expect("serialize generated response");
     let expected = fixture(
         r#"{"comment":"comment","createdAt":1,"creator":"creator","domain":"domain","id":"id-1","name":"Example Name","recordType":"A","ttl":1,"type":"A","value":"value"}"#,
@@ -5345,8 +5577,10 @@ fn get_domain_transfer_in_get_domain_transfer_in_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = domains_registrar::get_domain_transfer_in(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainTransferInParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_domain_transfer_in request failed");
@@ -5371,8 +5605,10 @@ fn get_domain_transfer_in_get_domain_transfer_in_400_decodes_declared_error() {
     };
     let result = domains_registrar::get_domain_transfer_in(
         &config,
-        decode(fixture(r#""domain""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetDomainTransferInParams {
+            domain: decode(fixture(r#""domain""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -5398,9 +5634,11 @@ fn get_domain_verification_record_get_domain_verification_record_reaches_mock_an
     let _ = &config;
     let actual = domains::get_domain_verification_record(
         &config,
-        decode(fixture(r#""example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        domains::GetDomainVerificationRecordParams {
+            domain: decode(fixture(r#""example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_domain_verification_record request failed");
@@ -5421,9 +5659,11 @@ fn get_drain_get_drain_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = drains::get_drain(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        drains::GetDrainParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_drain request failed");
@@ -5445,10 +5685,12 @@ fn get_drains_get_drains_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = drains::get_drains(
         &config,
-        Some(decode(fixture(r#""project-1""#))),
-        Some(decode(fixture(r#"false"#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        drains::GetDrainsParams {
+            project_id: Some(decode(fixture(r#""project-1""#))),
+            include_metadata: Some(decode(fixture(r#"false"#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_drains request failed");
@@ -5470,10 +5712,12 @@ fn get_drive_get_drive_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = sandboxes::get_drive(
         &config,
-        decode(fixture(r#""workspace""#)),
-        Some(decode(fixture(r#""prj_abc123""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::GetDriveParams {
+            name_or_id: decode(fixture(r#""workspace""#)),
+            project_id: Some(decode(fixture(r#""prj_abc123""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_drive request failed");
@@ -5495,9 +5739,11 @@ fn get_edge_config_get_edge_config_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = global_config::get_edge_config(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config request failed");
@@ -5519,10 +5765,12 @@ fn get_edge_config_backup_get_edge_config_backup_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = global_config::get_edge_config_backup(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        decode(fixture(r#""edgeConfigBackupVersion-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigBackupParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            edge_config_backup_version_id: decode(fixture(r#""edgeConfigBackupVersion-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_backup request failed");
@@ -5573,10 +5821,12 @@ fn get_edge_config_item_get_edge_config_item_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = global_config::get_edge_config_item(
         &config,
-        decode(fixture(r#""ecfg_""#)),
-        decode(fixture(r#""edgeConfigItemKey""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigItemParams {
+            edge_config_id: decode(fixture(r#""ecfg_""#)),
+            edge_config_item_key: decode(fixture(r#""edgeConfigItemKey""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_item request failed");
@@ -5598,9 +5848,11 @@ fn get_edge_config_items_get_edge_config_items_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = global_config::get_edge_config_items(
         &config,
-        decode(fixture(r#""ecfg_""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigItemsParams {
+            edge_config_id: decode(fixture(r#""ecfg_""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_items request failed");
@@ -5622,8 +5874,10 @@ fn get_edge_configs_get_edge_configs_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = global_config::get_edge_configs(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_configs request failed");
@@ -5645,9 +5899,11 @@ fn get_edge_config_schema_get_edge_config_schema_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = global_config::get_edge_config_schema(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigSchemaParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_schema request failed");
@@ -5667,10 +5923,12 @@ fn get_edge_config_token_get_edge_config_token_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = global_config::get_edge_config_token(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        decode(fixture(r#""token""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigTokenParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            token: decode(fixture(r#""token""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_token request failed");
@@ -5692,9 +5950,11 @@ fn get_edge_config_tokens_get_edge_config_tokens_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = global_config::get_edge_config_tokens(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::GetEdgeConfigTokensParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_edge_config_tokens request failed");
@@ -5716,10 +5976,12 @@ fn get_firewall_config_get_firewall_config_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = security::get_firewall_config(
         &config,
-        decode(fixture(r#""configVersion""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        security::GetFirewallConfigParams {
+            config_version: decode(fixture(r#""configVersion""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_firewall_config request failed");
@@ -5798,9 +6060,11 @@ fn get_flag_settings_get_flag_settings_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = feature_flags::get_flag_settings(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::GetFlagSettingsParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_flag_settings request failed");
@@ -5823,8 +6087,10 @@ fn get_installations_by_integration_configuration_id_resources_by_resource_id_ex
     let _ = &config;
     let actual = marketplace::get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
+        marketplace::GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+        },
         None,
     )
     .expect("get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config request failed");
@@ -5846,8 +6112,10 @@ fn get_integration_log_drains_get_integration_log_drains_reaches_mock_and_decode
     let _ = &config;
     let actual = log_drains::get_integration_log_drains(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        log_drains::GetIntegrationLogDrainsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_integration_log_drains request failed");
@@ -5869,8 +6137,10 @@ fn get_integration_resource_get_integration_resource_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = marketplace::get_integration_resource(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
+        marketplace::GetIntegrationResourceParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+        },
         None,
     )
     .expect("get_integration_resource request failed");
@@ -5892,7 +6162,9 @@ fn get_integration_resources_get_integration_resources_reaches_mock_and_decodes_
     let _ = &config;
     let actual = marketplace::get_integration_resources(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
+        marketplace::GetIntegrationResourcesParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+        },
         None,
     )
     .expect("get_integration_resources request failed");
@@ -5914,8 +6186,10 @@ fn get_invoice_get_invoice_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = marketplace::get_invoice(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""invoice-1""#)),
+        marketplace::GetInvoiceParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            invoice_id: decode(fixture(r#""invoice-1""#)),
+        },
         None,
     )
     .expect("get_invoice request failed");
@@ -5937,9 +6211,11 @@ fn get_kms_issuer_get_kms_issuer_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = kms::get_kms_issuer(
         &config,
-        decode(fixture(r#""issuer-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        kms::GetKmsIssuerParams {
+            issuer_id: decode(fixture(r#""issuer-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_kms_issuer request failed");
@@ -5961,8 +6237,10 @@ fn get_member_get_member_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = marketplace::get_member(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""member-1""#)),
+        marketplace::GetMemberParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            member_id: decode(fixture(r#""member-1""#)),
+        },
         None,
     )
     .expect("get_member request failed");
@@ -5984,9 +6262,11 @@ fn get_microfrontends_config_get_microfrontends_config_reaches_mock_and_decodes_
     let _ = &config;
     let actual = microfrontends::get_microfrontends_config(
         &config,
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        microfrontends::GetMicrofrontendsConfigParams {
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_microfrontends_config request failed");
@@ -6009,9 +6289,11 @@ fn get_microfrontends_config_for_project_get_microfrontends_config_for_project_r
     let _ = &config;
     let actual = microfrontends::get_microfrontends_config_for_project(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        microfrontends::GetMicrofrontendsConfigForProjectParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_microfrontends_config_for_project request failed");
@@ -6033,8 +6315,10 @@ fn get_microfrontends_groups_get_microfrontends_groups_reaches_mock_and_decodes_
     let _ = &config;
     let actual = microfrontends::get_microfrontends_groups(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        microfrontends::GetMicrofrontendsGroupsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_microfrontends_groups request failed");
@@ -6054,9 +6338,11 @@ fn get_microfrontends_in_group_get_microfrontends_in_group_reaches_mock_and_deco
     let _ = &config;
     let actual = microfrontends::get_microfrontends_in_group(
         &config,
-        decode(fixture(r#""group-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        microfrontends::GetMicrofrontendsInGroupParams {
+            group_id: decode(fixture(r#""group-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_microfrontends_in_group request failed");
@@ -6107,8 +6393,10 @@ fn get_observability_configuration_projects_get_observability_configuration_proj
     let _ = &config;
     let actual = observability::get_observability_configuration_projects(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        observability::GetObservabilityConfigurationProjectsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_observability_configuration_projects request failed");
@@ -6146,7 +6434,9 @@ fn get_observability_schema_by_metric_id_get_observability_schema_by_metric_id_r
     let _ = &config;
     let actual = observability::get_observability_schema_by_metric_id(
         &config,
-        decode(fixture(r#""metric-1""#)),
+        observability::GetObservabilitySchemaByMetricIdParams {
+            metric_id: decode(fixture(r#""metric-1""#)),
+        },
         None,
     )
     .expect("get_observability_schema_by_metric_id request failed");
@@ -6197,8 +6487,10 @@ fn get_order_get_order_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_order(
         &config,
-        decode(fixture(r#""order-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetOrderParams {
+            order_id: decode(fixture(r#""order-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_order request failed");
@@ -6225,8 +6517,10 @@ fn get_order_get_order_400_decodes_declared_error() {
     };
     let result = domains_registrar::get_order(
         &config,
-        decode(fixture(r#""order-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetOrderParams {
+            order_id: decode(fixture(r#""order-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -6251,10 +6545,12 @@ fn get_project_check_get_project_check_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = checks_v2::get_project_check(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""stf_89ha9sdhh9a9""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::GetProjectCheckParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            check_id: decode(fixture(r#""stf_89ha9sdhh9a9""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_project_check request failed");
@@ -6276,10 +6572,12 @@ fn get_project_domain_get_project_domain_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = projects::get_project_domain(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""www.example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::GetProjectDomainParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            domain: decode(fixture(r#""www.example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_project_domain request failed");
@@ -6301,10 +6599,12 @@ fn get_project_env_get_project_env_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = projects::get_project_env(
         &config,
-        decode(fixture(r#""prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA""#)),
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::GetProjectEnvParams {
+            id_or_name: decode(fixture(r#""prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA""#)),
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_project_env request failed");
@@ -6354,9 +6654,11 @@ fn get_projects_get_projects_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = projects::get_projects(
         &config,
-        decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::GetProjectsParams {
+            id_or_name: decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_projects request failed");
@@ -6378,10 +6680,12 @@ fn get_project_token_get_project_token_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = projects::get_project_token(
         &config,
-        decode(fixture(r#""my-project, <prj_id>""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#""vercel-cli:pull""#))),
+        projects::GetProjectTokenParams {
+            id_or_name: decode(fixture(r#""my-project, <prj_id>""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            source: Some(decode(fixture(r#""vercel-cli:pull""#))),
+        },
         None,
     )
     .expect("get_project_token request failed");
@@ -6401,10 +6705,12 @@ fn get_project_trace_get_project_trace_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = projects::get_project_trace(
         &config,
-        decode(fixture(r#""prj_123""#)),
-        decode(fixture(r#""cli-req-abc""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::GetProjectTraceParams {
+            project_id: decode(fixture(r#""prj_123""#)),
+            request_id: decode(fixture(r#""cli-req-abc""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_project_trace request failed");
@@ -6484,10 +6790,12 @@ fn get_repository_get_repository_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = vcr::get_repository(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vcr::GetRepositoryParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_repository request failed");
@@ -6565,10 +6873,12 @@ fn get_rolling_release_get_rolling_release_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = rolling_release::get_rolling_release(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""ACTIVE""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::GetRollingReleaseParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            state: Some(decode(fixture(r#""ACTIVE""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_rolling_release request failed");
@@ -6591,9 +6901,11 @@ fn get_rolling_release_billing_status_get_rolling_release_billing_status_reaches
     let _ = &config;
     let actual = rolling_release::get_rolling_release_billing_status(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::GetRollingReleaseBillingStatusParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_rolling_release_billing_status request failed");
@@ -6614,9 +6926,11 @@ fn get_rolling_release_config_get_rolling_release_config_reaches_mock_and_decode
     let _ = &config;
     let actual = rolling_release::get_rolling_release_config(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::GetRollingReleaseConfigParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_rolling_release_config request failed");
@@ -6681,9 +6995,11 @@ fn get_route_versions_get_route_versions_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = project_routes::get_route_versions(
         &config,
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        project_routes::GetRouteVersionsParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_route_versions request failed");
@@ -6705,10 +7021,12 @@ fn get_runtime_logs_get_runtime_logs_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = logs::get_runtime_logs(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        logs::GetRuntimeLogsParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_runtime_logs request failed");
@@ -6730,9 +7048,11 @@ fn get_sdk_keys_get_sdk_keys_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = feature_flags::get_sdk_keys(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::GetSdkKeysParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_sdk_keys request failed");
@@ -6846,9 +7166,11 @@ fn get_session_get_session_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = sandboxes::get_session(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::GetSessionParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_session request failed");
@@ -6898,10 +7220,12 @@ fn get_session_command_logs_get_session_command_logs_reaches_mock_and_decodes_re
     let _ = &config;
     let mut events = sandboxes::get_session_command_logs(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        decode(fixture(r#""cmd_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::GetSessionCommandLogsParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            cmd_id: decode(fixture(r#""cmd_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_session_command_logs request failed");
@@ -6927,9 +7251,11 @@ fn get_session_snapshot_get_session_snapshot_reaches_mock_and_decodes_response()
     let _ = &config;
     let actual = sandboxes::get_session_snapshot(
         &config,
-        decode(fixture(r#""snap_1234567890123456789012345678""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::GetSessionSnapshotParams {
+            snapshot_id: decode(fixture(r#""snap_1234567890123456789012345678""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_session_snapshot request failed");
@@ -6951,9 +7277,11 @@ fn get_shared_env_var_get_shared_env_var_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = environment::get_shared_env_var(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::GetSharedEnvVarParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_shared_env_var request failed");
@@ -6975,9 +7303,11 @@ fn get_storage_stores_by_id_get_storage_stores_by_id_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = storage::get_storage_stores_by_id(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#"false"#))),
-        Some(decode(fixture(r#"false"#))),
+        storage::GetStorageStoresByIdParams {
+            id: decode(fixture(r#""id-1""#)),
+            skip_metadata: Some(decode(fixture(r#"false"#))),
+            include_guides: Some(decode(fixture(r#"false"#))),
+        },
         None,
     )
     .expect("get_storage_stores_by_id request failed");
@@ -6999,7 +7329,9 @@ fn get_supported_tlds_get_supported_tlds_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_supported_tlds(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetSupportedTldsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_supported_tlds request failed");
@@ -7024,7 +7356,9 @@ fn get_supported_tlds_get_supported_tlds_400_decodes_declared_error() {
     };
     let result = domains_registrar::get_supported_tlds(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetSupportedTldsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -7049,8 +7383,10 @@ fn get_team_access_request_get_team_access_request_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = teams::get_team_access_request(
         &config,
-        decode(fixture(r#""user-1""#)),
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+        teams::GetTeamAccessRequestParams {
+            user_id: decode(fixture(r#""user-1""#)),
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+        },
         None,
     )
     .expect("get_team_access_request request failed");
@@ -7106,8 +7442,10 @@ fn get_teams_get_teams_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::get_teams(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        teams::GetTeamsParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_teams request failed");
@@ -7129,8 +7467,10 @@ fn get_tld_get_tld_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_tld(
         &config,
-        decode(fixture(r#""tld""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetTldParams {
+            tld: decode(fixture(r#""tld""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_tld request failed");
@@ -7155,8 +7495,10 @@ fn get_tld_get_tld_401_decodes_declared_error() {
     };
     let result = domains_registrar::get_tld(
         &config,
-        decode(fixture(r#""tld""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetTldParams {
+            tld: decode(fixture(r#""tld""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -7181,9 +7523,11 @@ fn get_tld_price_get_tld_price_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::get_tld_price(
         &config,
-        decode(fixture(r#""tld""#)),
-        Some(decode(fixture(r#""years""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetTldPriceParams {
+            tld: decode(fixture(r#""tld""#)),
+            years: Some(decode(fixture(r#""years""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("get_tld_price request failed");
@@ -7209,9 +7553,11 @@ fn get_tld_price_get_tld_price_401_decodes_declared_error() {
     };
     let result = domains_registrar::get_tld_price(
         &config,
-        decode(fixture(r#""tld""#)),
-        Some(decode(fixture(r#""years""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::GetTldPriceParams {
+            tld: decode(fixture(r#""tld""#)),
+            years: Some(decode(fixture(r#""years""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -7236,10 +7582,12 @@ fn get_vercel_ci_invocation_get_vercel_ci_invocation_reaches_mock_and_decodes_re
     let _ = &config;
     let actual = vercel_ci::get_vercel_ci_invocation(
         &config,
-        decode(fixture(r#""invocation-1""#)),
-        decode(fixture(r#""attempt""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::GetVercelCiInvocationParams {
+            invocation_id: decode(fixture(r#""invocation-1""#)),
+            attempt: decode(fixture(r#""attempt""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_vercel_ci_invocation request failed");
@@ -7433,9 +7781,11 @@ fn get_vercel_ci_task_analysis_get_vercel_ci_task_analysis_reaches_mock_and_deco
     let _ = &config;
     let actual = vercel_ci::get_vercel_ci_task_analysis(
         &config,
-        decode(fixture(r#""analysis-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::GetVercelCiTaskAnalysisParams {
+            analysis_id: decode(fixture(r#""analysis-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_vercel_ci_task_analysis request failed");
@@ -7522,9 +7872,11 @@ fn get_versions_get_versions_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = bulk_redirects::get_versions(
         &config,
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        bulk_redirects::GetVersionsParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_versions request failed");
@@ -7546,9 +7898,11 @@ fn get_webhook_get_webhook_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = webhooks::get_webhook(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        webhooks::GetWebhookParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_webhook request failed");
@@ -7570,9 +7924,11 @@ fn get_webhooks_get_webhooks_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = webhooks::get_webhooks(
         &config,
-        Some(decode(fixture(r#""a""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        webhooks::GetWebhooksParams {
+            project_id: Some(decode(fixture(r#""a""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("get_webhooks request failed");
@@ -7594,9 +7950,11 @@ fn git_namespaces_git_namespaces_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = integrations::git_namespaces(
         &config,
-        Some(decode(fixture(r#""ghes-test.now.systems""#))),
-        Some(decode(fixture(r#""github""#))),
-        Some(decode(fixture(r#"false"#))),
+        integrations::GitNamespacesParams {
+            host: Some(decode(fixture(r#""ghes-test.now.systems""#))),
+            provider: Some(decode(fixture(r#""github""#))),
+            viewer_metadata: Some(decode(fixture(r#"false"#))),
+        },
         None,
     )
     .expect("git_namespaces request failed");
@@ -7619,12 +7977,14 @@ fn head_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest_head_by_
     let _ = &config;
     vcr::head_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(
-            r#""sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855""#,
-        )),
+        vcr::HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            digest: decode(fixture(
+                r#""sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855""#,
+            )),
+        },
         None,
     )
     .expect("head_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest request failed");
@@ -7639,10 +7999,12 @@ fn head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference_h
     let _ = &config;
     vcr::head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""latest""#)),
+        vcr::HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            reference: decode(fixture(r#""latest""#)),
+        },
         None,
     )
     .expect("head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference request failed");
@@ -7657,8 +8019,10 @@ fn head_installations_by_integration_configuration_id_resources_by_resource_id_e
     let _ = &config;
     marketplace::head_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
+        marketplace::HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+        },
         None,
     )
     .expect("head_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config request failed");
@@ -7705,10 +8069,12 @@ fn invalidate_by_src_images_invalidate_by_src_images_reaches_mock_and_decodes_re
     let _ = &config;
     edge_cache::invalidate_by_src_images(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#"["srcImages"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        edge_cache::InvalidateBySrcImagesParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            src_images: decode(fixture(r#"["srcImages"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("invalidate_by_src_images request failed");
@@ -7742,9 +8108,11 @@ fn invite_user_to_team_invite_user_to_team_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::invite_user_to_team(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#"[{"email":"john@example.com","role":"VIEWER","projects":[{"projectId":"prj_ndlgr43fadlPyCtREAqxxdyFK","role":"ADMIN"}]}]"#))),
+        teams::InviteUserToTeamParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            body: Some(decode(fixture(r#"[{"email":"john@example.com","role":"VIEWER","projects":[{"projectId":"prj_ndlgr43fadlPyCtREAqxxdyFK","role":"ADMIN"}]}]"#))),
+        },
         None,
     )
     .expect("invite_user_to_team request failed");
@@ -7766,9 +8134,11 @@ fn issue_cert_issue_cert_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = certs::issue_cert(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#"["cns"]"#))),
+        certs::IssueCertParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            cns: Some(decode(fixture(r#"["cns"]"#))),
+        },
         None,
     )
     .expect("issue_cert request failed");
@@ -7789,8 +8159,10 @@ fn join_team_join_team_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::join_team(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""fisdh38aejkeivn34nslfore9vjtn4ls""#))),
+        teams::JoinTeamParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            invite_code: Some(decode(fixture(r#""fisdh38aejkeivn34nslfore9vjtn4ls""#))),
+        },
         None,
     )
     .expect("join_team request failed");
@@ -7927,8 +8299,10 @@ fn list_ai_gateway_budget_defaults_list_ai_gateway_budget_defaults_reaches_mock_
     let _ = &config;
     let actual = ai_gateway::list_ai_gateway_budget_defaults(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::ListAiGatewayBudgetDefaultsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_ai_gateway_budget_defaults request failed");
@@ -7979,9 +8353,11 @@ fn list_ai_gateway_routers_list_ai_gateway_routers_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = ai_gateway::list_ai_gateway_routers(
         &config,
-        Some(decode(fixture(r#""owner-1""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::ListAiGatewayRoutersParams {
+            owner_id: Some(decode(fixture(r#""owner-1""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_ai_gateway_routers request failed");
@@ -8093,9 +8469,11 @@ fn list_aliases_for_deployment_list_aliases_for_deployment_reaches_mock_and_deco
     let _ = &config;
     let actual = aliases::list_aliases_for_deployment(
         &config,
-        decode(fixture(r#""dpl_FjvFJncQHQcZMznrUm9EoB8sFuPa""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        aliases::ListAliasesForDeploymentParams {
+            id: decode(fixture(r#""dpl_FjvFJncQHQcZMznrUm9EoB8sFuPa""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_aliases_for_deployment request failed");
@@ -8135,10 +8513,12 @@ fn list_billing_charges_list_billing_charges_reaches_mock_and_decodes_response()
     let _ = &config;
     let mut events = billing::list_billing_charges(
         &config,
-        decode(fixture(r#""2025-01-01T00:00:00.000Z""#)),
-        decode(fixture(r#""2025-01-31T00:00:00.000Z""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        billing::ListBillingChargesParams {
+            from: decode(fixture(r#""2025-01-01T00:00:00.000Z""#)),
+            to: decode(fixture(r#""2025-01-31T00:00:00.000Z""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_billing_charges request failed");
@@ -8164,10 +8544,12 @@ fn list_check_runs_list_check_runs_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = checks_v2::list_check_runs(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""ckr_89ha9sdhh9a9""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::ListCheckRunsParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            check_id: decode(fixture(r#""ckr_89ha9sdhh9a9""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_check_runs request failed");
@@ -8189,9 +8571,11 @@ fn list_checks_list_checks_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = checks::list_checks(
         &config,
-        decode(fixture(r#""dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks::ListChecksParams {
+            deployment_id: decode(fixture(r#""dpl_2qn7PZrx89yxY34vEZPD31Y9XVj6""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_checks request failed");
@@ -8347,8 +8731,10 @@ fn list_contract_commitments_list_contract_commitments_reaches_mock_and_decodes_
     let _ = &config;
     let mut events = billing::list_contract_commitments(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        billing::ListContractCommitmentsParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_contract_commitments request failed");
@@ -8374,9 +8760,11 @@ fn list_deployment_check_runs_list_deployment_check_runs_reaches_mock_and_decode
     let _ = &config;
     let actual = checks_v2::list_deployment_check_runs(
         &config,
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::ListDeploymentCheckRunsParams {
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_deployment_check_runs request failed");
@@ -8398,9 +8786,11 @@ fn list_deployment_files_list_deployment_files_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = deployments::list_deployment_files(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        deployments::ListDeploymentFilesParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_deployment_files request failed");
@@ -8481,10 +8871,12 @@ fn list_environment_custom_list_environment_custom_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = environment::list_environment_custom(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""gitBranch""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::ListEnvironmentCustomParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            git_branch: Some(decode(fixture(r#""gitBranch""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_environment_custom request failed");
@@ -8506,8 +8898,10 @@ fn list_event_types_list_event_types_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = user::list_event_types(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        user::ListEventTypesParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_event_types request failed");
@@ -8561,10 +8955,12 @@ fn list_flag_segments_list_flag_segments_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = feature_flags::list_flag_segments(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#"false"#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::ListFlagSegmentsParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            with_metadata: Some(decode(fixture(r#"false"#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_flag_segments request failed");
@@ -8651,10 +9047,12 @@ fn list_kms_issuers_list_kms_issuers_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = kms::list_kms_issuers(
         &config,
-        Some(decode(fixture(r#"1"#))),
-        Some(decode(fixture(r#""a""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        kms::ListKmsIssuersParams {
+            limit: Some(decode(fixture(r#"1"#))),
+            next: Some(decode(fixture(r#""a""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_kms_issuers request failed");
@@ -8766,9 +9164,11 @@ fn list_private_link_endpoints_list_private_link_endpoints_reaches_mock_and_deco
     let _ = &config;
     let actual = networking::list_private_link_endpoints(
         &config,
-        decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::ListPrivateLinkEndpointsParams {
+            project_id: decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_private_link_endpoints request failed");
@@ -8790,10 +9190,12 @@ fn list_project_checks_list_project_checks_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = checks_v2::list_project_checks(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""build-start""#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        checks_v2::ListProjectChecksParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            blocks: Some(decode(fixture(r#""build-start""#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_project_checks request failed");
@@ -9104,9 +9506,11 @@ fn list_session_commands_list_session_commands_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = sandboxes::list_session_commands(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::ListSessionCommandsParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_session_commands request failed");
@@ -9254,10 +9658,12 @@ fn list_team_flag_settings_list_team_flag_settings_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = feature_flags::list_team_flag_settings(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#"20"#))),
-        Some(decode(fixture(r#""cursor""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        feature_flags::ListTeamFlagSettingsParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            limit: Some(decode(fixture(r#"20"#))),
+            cursor: Some(decode(fixture(r#""cursor""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_team_flag_settings request failed");
@@ -9311,9 +9717,11 @@ fn list_teams_list_teams_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::list_teams(
         &config,
-        Some(decode(fixture(r#"20"#))),
-        Some(decode(fixture(r#"1540095775951"#))),
-        Some(decode(fixture(r#"1540095775951"#))),
+        teams::ListTeamsParams {
+            limit: Some(decode(fixture(r#"20"#))),
+            since: Some(decode(fixture(r#"1540095775951"#))),
+            until: Some(decode(fixture(r#"1540095775951"#))),
+        },
         None,
     )
     .expect("list_teams request failed");
@@ -9369,10 +9777,12 @@ fn list_vercel_ci_branches_list_vercel_ci_branches_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = vercel_ci::list_vercel_ci_branches(
         &config,
-        Some(decode(fixture(r#""query""#))),
-        Some(decode(fixture(r#"1"#))),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::ListVercelCiBranchesParams {
+            query: Some(decode(fixture(r#""query""#))),
+            limit: Some(decode(fixture(r#"1"#))),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_vercel_ci_branches request failed");
@@ -9393,9 +9803,11 @@ fn list_vercel_ci_invocation_attempts_list_vercel_ci_invocation_attempts_reaches
     let _ = &config;
     let actual = vercel_ci::list_vercel_ci_invocation_attempts(
         &config,
-        decode(fixture(r#""invocation-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::ListVercelCiInvocationAttemptsParams {
+            invocation_id: decode(fixture(r#""invocation-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_vercel_ci_invocation_attempts request failed");
@@ -9456,10 +9868,12 @@ fn list_vercel_ci_job_definitions_list_vercel_ci_job_definitions_reaches_mock_an
     let _ = &config;
     let actual = vercel_ci::list_vercel_ci_job_definitions(
         &config,
-        decode(fixture(r#""invocation-1""#)),
-        decode(fixture(r#""attempt""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::ListVercelCiJobDefinitionsParams {
+            invocation_id: decode(fixture(r#""invocation-1""#)),
+            attempt: decode(fixture(r#""attempt""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("list_vercel_ci_job_definitions request failed");
@@ -9629,12 +10043,14 @@ fn patch_edge_config_items_patch_edge_config_items_reaches_mock_and_decodes_resp
     let _ = &config;
     let actual = global_config::patch_edge_config_items(
         &config,
-        decode(fixture(r#""ecfg_""#)),
-        decode(fixture(
-            r#"[{"operation":"create","key":"a","value":null,"description":"example text"}]"#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::PatchEdgeConfigItemsParams {
+            edge_config_id: decode(fixture(r#""ecfg_""#)),
+            items: decode(fixture(
+                r#"[{"operation":"create","key":"a","value":null,"description":"example text"}]"#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("patch_edge_config_items request failed");
@@ -9680,12 +10096,14 @@ fn patch_url_protection_bypass_patch_url_protection_bypass_reaches_mock_and_deco
     let _ = &config;
     let actual = aliases::patch_url_protection_bypass(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(
-            r#"{"ttl":1,"revoke":{"secret":"secret","regenerate":false}}"#,
-        ))),
+        aliases::PatchUrlProtectionBypassParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            body: Some(decode(fixture(
+                r#"{"ttl":1,"revoke":{"secret":"secret","regenerate":false}}"#,
+            ))),
+        },
         None,
     )
     .expect("patch_url_protection_bypass request failed");
@@ -9705,9 +10123,11 @@ fn pause_project_pause_project_reaches_mock_and_decodes_response() {
     let _ = &config;
     projects::pause_project(
         &config,
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::PauseProjectParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("pause_project request failed");
@@ -9721,9 +10141,11 @@ fn post_team_dsync_roles_post_team_dsync_roles_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = teams::post_team_dsync_roles(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        decode(fixture(r#"{"key":"OWNER"}"#)),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        teams::PostTeamDsyncRolesParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            roles: decode(fixture(r#"{"key":"OWNER"}"#)),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("post_team_dsync_roles request failed");
@@ -9777,9 +10199,11 @@ fn read_access_group_read_access_group_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = access_groups::read_access_group(
         &config,
-        decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        access_groups::ReadAccessGroupParams {
+            id_or_name: decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("read_access_group request failed");
@@ -9801,10 +10225,12 @@ fn read_access_group_project_read_access_group_project_reaches_mock_and_decodes_
     let _ = &config;
     let actual = access_groups::read_access_group_project(
         &config,
-        decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
-        decode(fixture(r#""prj_ndlgr43fadlPyCtREAqxxdyFK""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        access_groups::ReadAccessGroupProjectParams {
+            access_group_id_or_name: decode(fixture(r#""ag_1a2b3c4d5e6f7g8h9i0j""#)),
+            project_id: decode(fixture(r#""prj_ndlgr43fadlPyCtREAqxxdyFK""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("read_access_group_project request failed");
@@ -9826,9 +10252,11 @@ fn read_network_read_network_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = networking::read_network(
         &config,
-        decode(fixture(r#""uzrmorq7bn05z-fz""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::ReadNetworkParams {
+            network_id: decode(fixture(r#""uzrmorq7bn05z-fz""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("read_network request failed");
@@ -9850,10 +10278,12 @@ fn read_private_link_endpoint_read_private_link_endpoint_reaches_mock_and_decode
     let _ = &config;
     let actual = networking::read_private_link_endpoint(
         &config,
-        decode(fixture(r#""ple_a1b2c3d4e5f6g7h8""#)),
-        decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::ReadPrivateLinkEndpointParams {
+            endpoint_id: decode(fixture(r#""ple_a1b2c3d4e5f6g7h8""#)),
+            project_id: decode(fixture(r#""prj_a1b2c3d4e5f6g7h8""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("read_private_link_endpoint request failed");
@@ -9945,9 +10375,11 @@ fn remove_cert_remove_cert_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = certs::remove_cert(
         &config,
-        decode(fixture(r#""id-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        certs::RemoveCertParams {
+            id: decode(fixture(r#""id-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("remove_cert request failed");
@@ -10049,10 +10481,12 @@ fn remove_project_member_remove_project_member_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = project_members::remove_project_member(
         &config,
-        decode(fixture(r#""prj_pavWOn1iLObbXLRiwVvzmPrTWyTf""#)),
-        decode(fixture(r#""ndlgr43fadlPyCtREAqxxdyFK""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        project_members::RemoveProjectMemberParams {
+            id_or_name: decode(fixture(r#""prj_pavWOn1iLObbXLRiwVvzmPrTWyTf""#)),
+            uid: decode(fixture(r#""ndlgr43fadlPyCtREAqxxdyFK""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("remove_project_member request failed");
@@ -10072,10 +10506,12 @@ fn remove_record_remove_record_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = dns::remove_record(
         &config,
-        decode(fixture(r#""example.com""#)),
-        decode(fixture(r#""rec_V0fra8eEgQwEpFhYG2vTzC3K""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        dns::RemoveRecordParams {
+            domain: decode(fixture(r#""example.com""#)),
+            record_id: decode(fixture(r#""rec_V0fra8eEgQwEpFhYG2vTzC3K""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("remove_record request failed");
@@ -10116,9 +10552,11 @@ fn remove_team_member_remove_team_member_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = teams::remove_team_member(
         &config,
-        decode(fixture(r#""ndlgr43fadlPyCtREAqxxdyFK""#)),
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        Some(decode(fixture(r#""team_nllPyCtREAqxxdyFKbbMDlxd""#))),
+        teams::RemoveTeamMemberParams {
+            uid: decode(fixture(r#""ndlgr43fadlPyCtREAqxxdyFK""#)),
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            new_default_team_id: Some(decode(fixture(r#""team_nllPyCtREAqxxdyFKbbMDlxd""#))),
+        },
         None,
     )
     .expect("remove_team_member request failed");
@@ -10232,10 +10670,12 @@ fn replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_referenc
     let _ = &config;
     let actual = vcr::replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""latest""#)),
+        vcr::ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            reference: decode(fixture(r#""latest""#)),
+        },
         None,
     )
     .expect("replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference request failed");
@@ -10256,10 +10696,12 @@ fn replace_connector_trigger_destinations_replace_connector_trigger_destinations
     let _ = &config;
     let actual = connect::replace_connector_trigger_destinations(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#"[{"projectId":"project-1","path":"x"}]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::ReplaceConnectorTriggerDestinationsParams {
+            connector: decode(fixture(r#""connector""#)),
+            destinations: decode(fixture(r#"[{"projectId":"project-1","path":"x"}]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("replace_connector_trigger_destinations request failed");
@@ -10287,10 +10729,12 @@ fn replace_connector_trigger_destinations_replace_connector_trigger_destinations
     };
     let result = connect::replace_connector_trigger_destinations(
         &config,
-        decode(fixture(r#""connector""#)),
-        decode(fixture(r#"[{"projectId":"project-1","path":"x"}]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        connect::ReplaceConnectorTriggerDestinationsParams {
+            connector: decode(fixture(r#""connector""#)),
+            destinations: decode(fixture(r#"[{"projectId":"project-1","path":"x"}]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -10314,7 +10758,9 @@ fn replace_domains_by_domain_records_replace_domains_by_domain_records_reaches_m
     let _ = &config;
     let actual = domains::replace_domains_by_domain_records(
         &config,
-        decode(fixture(r#""example.com""#)),
+        domains::ReplaceDomainsByDomainRecordsParams {
+            domain: decode(fixture(r#""example.com""#)),
+        },
         None,
     )
     .expect("replace_domains_by_domain_records request failed");
@@ -10335,9 +10781,11 @@ fn replace_installations_by_integration_configuration_id_resources_by_resource_i
     let _ = &config;
     let actual = marketplace::replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
-        decode(fixture(r#"{"key":null}"#)),
+        marketplace::ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+            data: decode(fixture(r#"{"key":null}"#)),
+        },
         None,
     )
     .expect("replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config request failed");
@@ -10359,8 +10807,10 @@ fn request_access_to_team_request_access_to_team_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = teams::request_access_to_team(
         &config,
-        decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-        decode(fixture(r#"{"origin":"github","commitId":"f498d25d8bd654b578716203be73084b31130cd7","repoId":"67753070","repoPath":"jane-doe/example","gitUserId":103053343,"gitUserLogin":"jane-doe"}"#)),
+        teams::RequestAccessToTeamParams {
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            joined_from: decode(fixture(r#"{"origin":"github","commitId":"f498d25d8bd654b578716203be73084b31130cd7","repoId":"67753070","repoPath":"jane-doe/example","gitUserId":103053343,"gitUserLogin":"jane-doe"}"#)),
+        },
         None,
     )
     .expect("request_access_to_team request failed");
@@ -10382,9 +10832,11 @@ fn request_delete_request_delete_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = user::request_delete(
         &config,
-        Some(decode(fixture(
-            r#"[{"slug":"slug","description":"example text"}]"#,
-        ))),
+        user::RequestDeleteParams {
+            reasons: Some(decode(fixture(
+                r#"[{"slug":"slug","description":"example text"}]"#,
+            ))),
+        },
         None,
     )
     .expect("request_delete request failed");
@@ -10405,10 +10857,12 @@ fn request_promote_request_promote_reaches_mock_and_decodes_response() {
     let _ = &config;
     projects::request_promote(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::RequestPromoteParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("request_promote request failed");
@@ -10468,10 +10922,12 @@ fn restore_edge_config_backup_restore_edge_config_backup_reaches_mock_and_decode
     let _ = &config;
     let actual = global_config::restore_edge_config_backup(
         &config,
-        decode(fixture(r#""ecfg_""#)),
-        decode(fixture(r#""edgeConfigBackupVersion-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::RestoreEdgeConfigBackupParams {
+            edge_config_id: decode(fixture(r#""ecfg_""#)),
+            edge_config_backup_version_id: decode(fixture(r#""edgeConfigBackupVersion-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("restore_edge_config_backup request failed");
@@ -10521,10 +10977,12 @@ fn retry_vercel_ci_invocation_retry_vercel_ci_invocation_reaches_mock_and_decode
     let _ = &config;
     let actual = vercel_ci::retry_vercel_ci_invocation(
         &config,
-        decode(fixture(r#""invocation-1""#)),
-        decode(fixture(r#""attempt""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        vercel_ci::RetryVercelCiInvocationParams {
+            invocation_id: decode(fixture(r#""invocation-1""#)),
+            attempt: decode(fixture(r#""attempt""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("retry_vercel_ci_invocation request failed");
@@ -10545,10 +11003,12 @@ fn revoke_installation_credential_revoke_installation_credential_reaches_mock_an
     let _ = &config;
     let actual = marketplace::revoke_installation_credential(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""token""#)),
-        decode(fixture(r#""client_secret""#)),
-        Some(decode(fixture(r#""client-1""#))),
+        marketplace::RevokeInstallationCredentialParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            token: decode(fixture(r#""token""#)),
+            client_secret: decode(fixture(r#""client_secret""#)),
+            client_id: Some(decode(fixture(r#""client-1""#))),
+        },
         None,
     )
     .expect("revoke_installation_credential request failed");
@@ -10568,10 +11028,12 @@ fn revoke_kms_signing_key_revoke_kms_signing_key_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = kms::revoke_kms_signing_key(
         &config,
-        decode(fixture(r#""issuer-1""#)),
-        decode(fixture(r#""key-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        kms::RevokeKmsSigningKeyParams {
+            issuer_id: decode(fixture(r#""issuer-1""#)),
+            key_id: decode(fixture(r#""key-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("revoke_kms_signing_key request failed");
@@ -10594,9 +11056,11 @@ fn rotate_installation_credential_rotate_installation_credential_reaches_mock_an
     let _ = &config;
     let actual = marketplace::rotate_installation_credential(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""client_secret""#)),
-        Some(decode(fixture(r#""client-1""#))),
+        marketplace::RotateInstallationCredentialParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            client_secret: decode(fixture(r#""client_secret""#)),
+            client_id: Some(decode(fixture(r#""client-1""#))),
+        },
         None,
     )
     .expect("rotate_installation_credential request failed");
@@ -10698,8 +11162,10 @@ fn search_domains_search_domains_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains_registrar::search_domains(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::SearchDomainsParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("search_domains request failed");
@@ -10724,8 +11190,10 @@ fn search_domains_search_domains_400_decodes_declared_error() {
     };
     let result = domains_registrar::search_domains(
         &config,
-        decode(fixture(r#"["domains"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::SearchDomainsParams {
+            domains: decode(fixture(r#"["domains"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -10806,8 +11274,10 @@ fn sign_kms_message_sign_kms_message_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = kms::sign_kms_message(
         &config,
-        decode(fixture(r#""issuer-1""#)),
-        decode(fixture(r#""a""#)),
+        kms::SignKmsMessageParams {
+            issuer_id: decode(fixture(r#""issuer-1""#)),
+            message: decode(fixture(r#""a""#)),
+        },
         None,
     )
     .expect("sign_kms_message request failed");
@@ -10829,10 +11299,12 @@ fn sign_kms_token_sign_kms_token_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = kms::sign_kms_token(
         &config,
-        decode(fixture(r#""issuer-1""#)),
-        Some(decode(fixture(r#"{}"#))),
-        Some(decode(fixture(r#"{}"#))),
-        Some(Some(decode(fixture(r#"300"#)))),
+        kms::SignKmsTokenParams {
+            issuer_id: decode(fixture(r#""issuer-1""#)),
+            claims: Some(decode(fixture(r#"{}"#))),
+            headers: Some(decode(fixture(r#"{}"#))),
+            ttl: Some(Some(decode(fixture(r#"300"#)))),
+        },
         None,
     )
     .expect("sign_kms_token request failed");
@@ -10912,10 +11384,12 @@ fn start_rolling_release_start_rolling_release_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = rolling_release::start_rolling_release(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#""canaryDeployment-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::StartRollingReleaseParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            canary_deployment_id: decode(fixture(r#""canaryDeployment-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("start_rolling_release request failed");
@@ -10937,8 +11411,10 @@ fn status_status_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = artifacts::status(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        artifacts::StatusParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("status request failed");
@@ -10958,9 +11434,11 @@ fn stop_session_stop_session_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = sandboxes::stop_session(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        sandboxes::StopSessionParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("stop_session request failed");
@@ -11035,9 +11513,11 @@ fn submit_prepayment_balances_submit_prepayment_balances_reaches_mock_and_decode
     let _ = &config;
     marketplace::submit_prepayment_balances(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""2024-01-01T00:00:00Z""#)),
-        decode(fixture(r#"[{"resourceId":"resource-1","credit":"credit","nameLabel":"Example Name","currencyValueInCents":1}]"#)),
+        marketplace::SubmitPrepaymentBalancesParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            timestamp: decode(fixture(r#""2024-01-01T00:00:00Z""#)),
+            balances: decode(fixture(r#"[{"resourceId":"resource-1","credit":"credit","nameLabel":"Example Name","currencyValueInCents":1}]"#)),
+        },
         None,
     )
     .expect("submit_prepayment_balances request failed");
@@ -11051,10 +11531,12 @@ fn test_drain_test_drain_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = drains::test_drain(
         &config,
-        decode(fixture(r#"{"key":{"version":"version"}}"#)),
-        decode(fixture(r#"{"type":"type","endpoint":"endpoint","compression":"gzip","encoding":"json","headers":{"key":"key"},"secret":"secret"}"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        drains::TestDrainParams {
+            schemas: decode(fixture(r#"{"key":{"version":"version"}}"#)),
+            delivery: decode(fixture(r#"{"type":"type","endpoint":"endpoint","compression":"gzip","encoding":"json","headers":{"key":"key"},"secret":"secret"}"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("test_drain request failed");
@@ -11144,10 +11626,12 @@ fn unlink_shared_env_variable_unlink_shared_env_variable_reaches_mock_and_decode
     let _ = &config;
     let actual = environment::unlink_shared_env_variable(
         &config,
-        decode(fixture(r#""id-1""#)),
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::UnlinkSharedEnvVariableParams {
+            id: decode(fixture(r#""id-1""#)),
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("unlink_shared_env_variable request failed");
@@ -11167,9 +11651,11 @@ fn unpause_project_unpause_project_reaches_mock_and_decodes_response() {
     let _ = &config;
     projects::unpause_project(
         &config,
-        decode(fixture(r#""project-1""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::UnpauseProjectParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("unpause_project request failed");
@@ -11247,8 +11733,10 @@ fn update_ai_gateway_rule_update_ai_gateway_rule_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = ai_gateway::update_ai_gateway_rule(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::UpdateAiGatewayRuleParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_ai_gateway_rule request failed");
@@ -11271,8 +11759,10 @@ fn update_ai_gateway_virtual_model_config_update_ai_gateway_virtual_model_config
     let _ = &config;
     let actual = ai_gateway::update_ai_gateway_virtual_model_config(
         &config,
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::UpdateAiGatewayVirtualModelConfigParams {
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_ai_gateway_virtual_model_config request failed");
@@ -11295,9 +11785,11 @@ fn update_ai_gateway_virtual_model_config_by_slug_update_ai_gateway_virtual_mode
     let _ = &config;
     let actual = ai_gateway::update_ai_gateway_virtual_model_config_by_slug(
         &config,
-        decode(fixture(r#""vmcSlug""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        ai_gateway::UpdateAiGatewayVirtualModelConfigBySlugParams {
+            vmc_slug: decode(fixture(r#""vmcSlug""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_ai_gateway_virtual_model_config_by_slug request failed");
@@ -11319,11 +11811,13 @@ fn update_attack_challenge_mode_update_attack_challenge_mode_reaches_mock_and_de
     let _ = &config;
     let actual = security::update_attack_challenge_mode(
         &config,
-        decode(fixture(
-            r#"{"projectId":"project-1","attackModeEnabled":false,"attackModeActiveUntil":1}"#,
-        )),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        security::UpdateAttackChallengeModeParams {
+            body: decode(fixture(
+                r#"{"projectId":"project-1","attackModeEnabled":false,"attackModeActiveUntil":1}"#,
+            )),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_attack_challenge_mode request failed");
@@ -11344,10 +11838,12 @@ fn update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid_
     let _ = &config;
     let actual = vcr::update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &config,
-        decode(fixture(r#""team-slug""#)),
-        decode(fixture(r#""project-slug""#)),
-        decode(fixture(r#""nginx""#)),
-        decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        vcr::UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams {
+            team_slug: decode(fixture(r#""team-slug""#)),
+            project_slug: decode(fixture(r#""project-slug""#)),
+            repository_name: decode(fixture(r#""nginx""#)),
+            uuid: decode(fixture(r#""0123456789abcdef0123456789abcdef01234567""#)),
+        },
         None,
     )
     .expect("update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid request failed");
@@ -11549,9 +12045,11 @@ fn update_domain_auto_renew_update_domain_auto_renew_reaches_mock_and_decodes_re
     let _ = &config;
     domains_registrar::update_domain_auto_renew(
         &config,
-        decode(fixture(r#""domain""#)),
-        decode(fixture(r#"false"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::UpdateDomainAutoRenewParams {
+            domain: decode(fixture(r#""domain""#)),
+            auto_renew: decode(fixture(r#"false"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("update_domain_auto_renew request failed");
@@ -11570,9 +12068,11 @@ fn update_domain_auto_renew_update_domain_auto_renew_401_decodes_declared_error(
     };
     let result = domains_registrar::update_domain_auto_renew(
         &config,
-        decode(fixture(r#""domain""#)),
-        decode(fixture(r#"false"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::UpdateDomainAutoRenewParams {
+            domain: decode(fixture(r#""domain""#)),
+            auto_renew: decode(fixture(r#"false"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -11597,9 +12097,11 @@ fn update_domain_nameservers_update_domain_nameservers_reaches_mock_and_decodes_
     let _ = &config;
     domains_registrar::update_domain_nameservers(
         &config,
-        decode(fixture(r#""domain""#)),
-        decode(fixture(r#"["Example Name"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::UpdateDomainNameserversParams {
+            domain: decode(fixture(r#""domain""#)),
+            nameservers: decode(fixture(r#"["Example Name"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     )
     .expect("update_domain_nameservers request failed");
@@ -11618,9 +12120,11 @@ fn update_domain_nameservers_update_domain_nameservers_401_decodes_declared_erro
     };
     let result = domains_registrar::update_domain_nameservers(
         &config,
-        decode(fixture(r#""domain""#)),
-        decode(fixture(r#"["Example Name"]"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        domains_registrar::UpdateDomainNameserversParams {
+            domain: decode(fixture(r#""domain""#)),
+            nameservers: decode(fixture(r#"["Example Name"]"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+        },
         None,
     );
     let Err(::octridev_vercel::errors::SdkError::Http(error)) = result else {
@@ -11645,10 +12149,12 @@ fn update_domains_update_domains_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = domains::update_domains(
         &config,
-        decode(fixture(r#""domain""#)),
-        decode(fixture(r#"{"op":"update","renew":false,"customNameservers":["Example Name"],"zone":false,"echMode":"auto"}"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        domains::UpdateDomainsParams {
+            domain: decode(fixture(r#""domain""#)),
+            body: decode(fixture(r#"{"op":"update","renew":false,"customNameservers":["Example Name"],"zone":false,"echMode":"auto"}"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_domains request failed");
@@ -11704,10 +12210,12 @@ fn update_edge_config_update_edge_config_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = global_config::update_edge_config(
         &config,
-        decode(fixture(r#""edgeConfig-1""#)),
-        decode(fixture(r#""a""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        global_config::UpdateEdgeConfigParams {
+            edge_config_id: decode(fixture(r#""edgeConfig-1""#)),
+            slug: decode(fixture(r#""a""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug_2: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_edge_config request failed");
@@ -11729,10 +12237,12 @@ fn update_firewall_config_update_firewall_config_reaches_mock_and_decodes_respon
     let _ = &config;
     let actual = security::update_firewall_config(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#"{"action":"firewallEnabled","id":null,"value":{"name":"Example Name","description":"example text","active":false,"conditionGroup":[{"conditions":[{"type":"host","op":"re","neg":false,"key":"key","value":"value"}]}],"action":{"mitigate":{"action":"deny"}},"valid":false,"validationErrors":["validationErrors"]}}"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        security::UpdateFirewallConfigParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            body: decode(fixture(r#"{"action":"firewallEnabled","id":null,"value":{"name":"Example Name","description":"example text","active":false,"conditionGroup":[{"conditions":[{"type":"host","op":"re","neg":false,"key":"key","value":"value"}]}],"action":{"mitigate":{"action":"deny"}},"valid":false,"validationErrors":["validationErrors"]}}"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_firewall_config request failed");
@@ -12065,10 +12575,12 @@ fn update_network_update_network_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = networking::update_network(
         &config,
-        decode(fixture(r#""uzrmorq7bn05z-fz""#)),
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        networking::UpdateNetworkParams {
+            network_id: decode(fixture(r#""uzrmorq7bn05z-fz""#)),
+            name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_network request failed");
@@ -12091,10 +12603,12 @@ fn update_observability_configuration_project_update_observability_configuration
     let _ = &config;
     let actual = observability::update_observability_configuration_project(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        decode(fixture(r#"false"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        observability::UpdateObservabilityConfigurationProjectParams {
+            project_id_or_name: decode(fixture(r#""Example Name""#)),
+            disabled: decode(fixture(r#"false"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_observability_configuration_project request failed");
@@ -12312,9 +12826,11 @@ fn update_projects_rollback_description_update_projects_rollback_description_rea
     let _ = &config;
     projects::update_projects_rollback_description(
         &config,
-        decode(fixture(r#""project-1""#)),
-        decode(fixture(r#""deployment-1""#)),
-        Some(decode(fixture(r#""example text""#))),
+        projects::UpdateProjectsRollbackDescriptionParams {
+            project_id: decode(fixture(r#""project-1""#)),
+            deployment_id: decode(fixture(r#""deployment-1""#)),
+            description: Some(decode(fixture(r#""example text""#))),
+        },
         None,
     )
     .expect("update_projects_rollback_description request failed");
@@ -12418,10 +12934,12 @@ fn update_resource_secrets_by_id_update_resource_secrets_by_id_reaches_mock_and_
     let _ = &config;
     marketplace::update_resource_secrets_by_id(
         &config,
-        decode(fixture(r#""integrationConfiguration-1""#)),
-        decode(fixture(r#""resource-1""#)),
-        decode(fixture(r#"[{"name":"Example Name","value":"value","prefix":"prefix","environmentOverrides":{"development":"development","preview":"preview","production":"production"}}]"#)),
-        Some(decode(fixture(r#"false"#))),
+        marketplace::UpdateResourceSecretsByIdParams {
+            integration_configuration_id: decode(fixture(r#""integrationConfiguration-1""#)),
+            resource_id: decode(fixture(r#""resource-1""#)),
+            secrets: decode(fixture(r#"[{"name":"Example Name","value":"value","prefix":"prefix","environmentOverrides":{"development":"development","preview":"preview","production":"production"}}]"#)),
+            partial: Some(decode(fixture(r#"false"#))),
+        },
         None,
     )
     .expect("update_resource_secrets_by_id request failed");
@@ -12435,9 +12953,11 @@ fn update_rolling_release_config_update_rolling_release_config_reaches_mock_and_
     let _ = &config;
     let actual = rolling_release::update_rolling_release_config(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        rolling_release::UpdateRollingReleaseConfigParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_rolling_release_config request failed");
@@ -12528,10 +13048,12 @@ fn update_session_network_policy_update_session_network_policy_reaches_mock_and_
     let _ = &config;
     let actual = sandboxes::update_session_network_policy(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#"{"mode":"custom","allowedDomains":["api.github.com","*.npmjs.org"],"allowedCIDRs":["35.192.0.0/12","104.16.0.0/12"],"deniedCIDRs":["35.192.0.0/12"],"injectionRules":[{"domain":"domain","headers":{"key":"key"},"match":{"path":{"exact":"exact","startsWith":"startsWith"},"method":["method"],"queryString":[{"key":{"exact":"exact","startsWith":"startsWith"},"value":{"exact":"exact","startsWith":"startsWith"}}],"headers":[{"key":{"exact":"exact","startsWith":"startsWith"},"value":{"exact":"exact","startsWith":"startsWith"}}]}}]}"#))),
+        sandboxes::UpdateSessionNetworkPolicyParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            body: Some(decode(fixture(r#"{"mode":"custom","allowedDomains":["api.github.com","*.npmjs.org"],"allowedCIDRs":["35.192.0.0/12","104.16.0.0/12"],"deniedCIDRs":["35.192.0.0/12"],"injectionRules":[{"domain":"domain","headers":{"key":"key"},"match":{"path":{"exact":"exact","startsWith":"startsWith"},"method":["method"],"queryString":[{"key":{"exact":"exact","startsWith":"startsWith"},"value":{"exact":"exact","startsWith":"startsWith"}}],"headers":[{"key":{"exact":"exact","startsWith":"startsWith"},"value":{"exact":"exact","startsWith":"startsWith"}}]}}]}"#))),
+        },
         None,
     )
     .expect("update_session_network_policy request failed");
@@ -12553,9 +13075,11 @@ fn update_shared_env_variable_update_shared_env_variable_reaches_mock_and_decode
     let _ = &config;
     let actual = environment::update_shared_env_variable(
         &config,
-        decode(fixture(r#"{"env_2WjyKQmM8ZnGcJsPWMrHRHrE":{"key":"API_URL","value":"https://api.vercel.com","target":["production","preview"],"projectIdUpdates":{"link":["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]}}}"#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        environment::UpdateSharedEnvVariableParams {
+            updates: decode(fixture(r#"{"env_2WjyKQmM8ZnGcJsPWMrHRHrE":{"key":"API_URL","value":"https://api.vercel.com","target":["production","preview"],"projectIdUpdates":{"link":["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"]}}}"#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("update_shared_env_variable request failed");
@@ -12598,46 +13122,14 @@ fn update_static_ips_update_static_ips_reaches_mock_and_decodes_response() {
 }
 
 #[test]
-fn update_team_member_update_team_member_reaches_mock_and_decodes_response() {
+fn update_team_update_team_reaches_mock_and_decodes_response() {
     let Some(config) = configured_client() else {
         return;
     };
     let _ = &config;
-    let actual = teams::update_team_member(
+    let actual = teams::update_team(
         &config,
-        teams::UpdateTeamMemberParams {
-            uid: decode(fixture(r#""ndfasllgPyCtREAqxxdyFKb""#)),
-            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
-            confirmed: Some(decode(fixture(r#"true"#))),
-            role: Some(decode(fixture(r#""VIEWER""#))),
-            team_permissions: Some(decode(fixture(
-                r#"["CreateProject","FullProductionDeployment"]"#,
-            ))),
-            projects: Some(decode(fixture(
-                r#"[{"projectId":"prj_ndlgr43fadlPyCtREAqxxdyFK","role":"ADMIN"}]"#,
-            ))),
-            joined_from: Some(decode(fixture(r#"{"ssoUserId":null}"#))),
-        },
-        None,
-    )
-    .expect("update_team_member request failed");
-    let actual = serde_json::to_value(actual).expect("serialize generated response");
-    let expected = fixture(r#"{"id":"id-1"}"#);
-    assert!(
-        representative(&actual, &expected),
-        "update_team_member decoded {actual}, expected representative {expected}"
-    );
-}
-
-#[test]
-fn update_teams_update_teams_reaches_mock_and_decodes_response() {
-    let Some(config) = configured_client() else {
-        return;
-    };
-    let _ = &config;
-    let actual = teams::update_teams(
-        &config,
-        teams::UpdateTeamsParams {
+        teams::UpdateTeamParams {
             team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
             slug: Some(decode(fixture(r#""my-team-url-slug""#))),
             avatar: Some(Some(decode(fixture(r#""a""#)))),
@@ -12672,14 +13164,46 @@ fn update_teams_update_teams_reaches_mock_and_decodes_response() {
         },
         None,
     )
-    .expect("update_teams request failed");
+    .expect("update_team request failed");
     let actual = serde_json::to_value(actual).expect("serialize generated response");
     let expected = fixture(
         r#"{"apiKeysInvalidatedAt":1,"appTokensInvalidatedAt":1,"avatar":"a","billing":{"plan":"enterprise"},"connect":{"enabled":false},"createdAt":1630748523395,"creatorId":"R6efeCJQ2HKXywuasPDc0fOWB","defaultContinuousUsageKind":"metered","defaultDeploymentProtection":{"passwordProtection":{"deploymentType":"deploymentType"},"ssoProtection":{"deploymentType":"deploymentType"}},"defaultExpirationSettings":{"deploymentsToKeep":1,"expirationDays":1,"expirationDaysCanceled":1,"expirationDaysErrored":1,"expirationDaysProduction":1},"defaultPassport":{"connectorId":"connector-1","deploymentType":"all"},"defaultProjectJobs":{"flag-definitions-present":{"targets":["targets"]},"lint":{"targets":["targets"]},"mfe-config-present":{"targets":["targets"]},"typecheck":{"targets":["targets"]}},"defaultRoles":{"teamPermissions":["AiGatewayBudgetManager"],"teamRoles":["BILLING"]},"deploymentPolicy":{"deploymentSources":[{"enabled":false,"environments":[{"target":"preview","type":"system"}],"sources":["cli"]}],"gitSources":[{"enabled":false,"environments":[{"target":"preview","type":"system"}],"sources":[{"org":"org","provider":"bitbucket","repo":"repo"}]}]},"deploymentStorageRollout":{"cohort":"already_metered","meteredAt":1,"meterReason":"low_scheduled","retentionAppliedAt":1,"retentionOptOutAt":1},"description":"Our mission is to make cloud computing accessible to everyone","disableHardAutoBlocks":1,"disableRepositoryDispatchEvents":false,"disjunctiveProductionSecretPolicy":"on","dpAccessRequestsMode":"none","emailDomain":"example.com","enablePreviewFeedback":"on","enableProductionFeedback":"on","hideIpAddresses":false,"hideIpAddressesInLogDrains":false,"id":"team_nllPyCtREAqxxdyFKbbMDlxd","integrationTokensInvalidatedAt":1,"inviteCode":"hasihf9e89","ipBuckets":[{"bucket":"bucket","default":false,"supportUntil":1}],"limited":false,"membership":{"accessRequestedAt":1,"confirmed":true,"created":1,"createdAt":1,"entitlements":[{"entitlement":"entitlement"}],"isOrgBackingTeamMembership":false,"joinedFrom":{"commitId":"commit-1","dsyncConnectedAt":1,"dsyncUserId":"dsyncUser-1","gitUserId":"gitUser-1","gitUserLogin":"gitUserLogin","idpUserId":"idpUser-1","origin":"account-update","repoId":"repo-1","repoPath":"repoPath","ssoConnectedAt":1,"ssoUserId":"ssoUser-1"},"organizationId":"organization-1","role":"BILLING","teamId":"team-1","teamPermissions":["AiGatewayBudgetManager"],"teamRoles":["BILLING"],"uid":"u-1"},"name":"My Team","nsnbConfig":{"preference":"auto-approval"},"orgRootTeamId":"team_nllPyCtREAqxxdyFKbbMDlxd","parentId":"org_nllPyCtREAqxxdyFKbbMDlxd","personalAccessTokensInvalidatedAt":1,"platform":true,"previewDeploymentSuffix":"example.dev","remoteCaching":{"enabled":false},"requireVerifiedCommits":true,"resourceConfig":{"blobStores":1,"buildEntitlements":{"enhancedBuilds":false},"buildMachine":{"default":"basic"},"concurrentBuilds":1,"customEnvironmentsPerProject":1,"edgeConfigs":1,"edgeConfigSize":1,"elasticConcurrencyEnabled":false,"kvDatabases":1,"postgresDatabases":1,"serverlessFunctionMaxMemorySize":1},"saml":{"connection":{"connectedAt":1611796915677,"lastReceivedWebhookEvent":1611796915677,"lastSyncedAt":1611796915677,"state":"active","syncState":"ACTIVE","type":"OktaSAML","status":"active"},"defaultRedirectUri":"v0.app","directory":{"connectedAt":1611796915677,"lastReceivedWebhookEvent":1611796915677,"lastSyncedAt":1611796915677,"state":"active","syncState":"ACTIVE","type":"OktaSAML"},"enforced":false,"roles":{"key":{"accessGroupId":"accessGroup-1"}}},"sensitiveEnvironmentVariablePolicy":"on","slug":"my-team","stagingPrefix":"stagingPrefix","strictConnectors":{"enabled":false,"updatedAt":1},"strictDeploymentProtectionSettings":{"enabled":false,"updatedAt":1},"strictPasswordProtectionSettings":{"enabled":false,"updatedAt":1},"strictShareableLinks":{"enabled":false,"updatedAt":1},"updatedAt":1611796915677}"#,
     );
     assert!(
         representative(&actual, &expected),
-        "update_teams decoded {actual}, expected representative {expected}"
+        "update_team decoded {actual}, expected representative {expected}"
+    );
+}
+
+#[test]
+fn update_team_member_update_team_member_reaches_mock_and_decodes_response() {
+    let Some(config) = configured_client() else {
+        return;
+    };
+    let _ = &config;
+    let actual = teams::update_team_member(
+        &config,
+        teams::UpdateTeamMemberParams {
+            uid: decode(fixture(r#""ndfasllgPyCtREAqxxdyFKb""#)),
+            team_id: decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#)),
+            confirmed: Some(decode(fixture(r#"true"#))),
+            role: Some(decode(fixture(r#""VIEWER""#))),
+            team_permissions: Some(decode(fixture(
+                r#"["CreateProject","FullProductionDeployment"]"#,
+            ))),
+            projects: Some(decode(fixture(
+                r#"[{"projectId":"prj_ndlgr43fadlPyCtREAqxxdyFK","role":"ADMIN"}]"#,
+            ))),
+            joined_from: Some(decode(fixture(r#"{"ssoUserId":null}"#))),
+        },
+        None,
+    )
+    .expect("update_team_member request failed");
+    let actual = serde_json::to_value(actual).expect("serialize generated response");
+    let expected = fixture(r#"{"id":"id-1"}"#);
+    assert!(
+        representative(&actual, &expected),
+        "update_team_member decoded {actual}, expected representative {expected}"
     );
 }
 
@@ -12838,10 +13362,12 @@ fn upload_project_avatar_upload_project_avatar_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = projects::upload_project_avatar(
         &config,
-        decode(fixture(r#""Example Name""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(vec![90, 88, 104, 104, 98, 88, 66, 115, 90, 81, 61, 61]),
+        projects::UploadProjectAvatarParams {
+            id_or_name: decode(fixture(r#""Example Name""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            body: Some(vec![90, 88, 104, 104, 98, 88, 66, 115, 90, 81, 61, 61]),
+        },
         None,
     )
     .expect("upload_project_avatar request failed");
@@ -12989,10 +13515,12 @@ fn verify_project_domain_verify_project_domain_reaches_mock_and_decodes_response
     let _ = &config;
     let actual = projects::verify_project_domain(
         &config,
-        decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
-        decode(fixture(r#""example.com""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
+        projects::VerifyProjectDomainParams {
+            id_or_name: decode(fixture(r#""prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB""#)),
+            domain: decode(fixture(r#""example.com""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+        },
         None,
     )
     .expect("verify_project_domain request failed");
@@ -13044,10 +13572,12 @@ fn write_session_files_write_session_files_reaches_mock_and_decodes_response() {
     let _ = &config;
     let actual = sandboxes::write_session_files(
         &config,
-        decode(fixture(r#""sbx_abc123""#)),
-        Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
-        Some(decode(fixture(r#""my-team-url-slug""#))),
-        Some(decode(fixture(r#""/home/vercel-sandbox""#))),
+        sandboxes::WriteSessionFilesParams {
+            session_id: decode(fixture(r#""sbx_abc123""#)),
+            team_id: Some(decode(fixture(r#""team_1a2b3c4d5e6f7g8h9i0j1k2l""#))),
+            slug: Some(decode(fixture(r#""my-team-url-slug""#))),
+            x_cwd: Some(decode(fixture(r#""/home/vercel-sandbox""#))),
+        },
         None,
     )
     .expect("write_session_files request failed");

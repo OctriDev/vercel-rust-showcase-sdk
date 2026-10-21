@@ -169,6 +169,14 @@ impl GetRuntimeLogsResponse {
     }
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct GetRuntimeLogsParams {
+    pub project_id: String,
+    pub deployment_id: String,
+    pub team_id: Option<String>,
+    pub slug: Option<String>,
+}
+
 /// Retrieves a stream of runtime logs for a deployment in a project. Use `projectId` and `deploymentId` to identify the deployment, and optionally set `teamId` or `slug` to specify the team context.
 ///
 /// Returns a stream of logs for a given deployment.
@@ -179,12 +187,15 @@ impl GetRuntimeLogsResponse {
 /// * `slug` - The Team slug to perform the request on behalf of.
 pub fn get_runtime_logs(
     config: &ClientConfig,
-    project_id: String,
-    deployment_id: String,
-    team_id: Option<String>,
-    slug: Option<String>,
+    params: GetRuntimeLogsParams,
     options: Option<&RequestOptions>,
 ) -> Result<GetRuntimeLogsResponse, SdkError> {
+    let GetRuntimeLogsParams {
+        project_id,
+        deployment_id,
+        team_id,
+        slug,
+    } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(2);
     if let Some(ref v) = team_id {
         __query.push(("teamId", crate::client::query_value(v)));
