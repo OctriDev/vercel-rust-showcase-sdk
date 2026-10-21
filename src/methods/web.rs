@@ -16,13 +16,19 @@ impl CreateWebInsightsToggleResponse {
     }
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct CreateWebInsightsToggleParams {
+    pub project_id: String,
+    pub value: bool,
+}
+
 /// Updates the Web Insights setting for a project. Supply `projectId` and the `value` to set the toggle to true or false. The response returns the resulting toggle value.
 pub fn create_web_insights_toggle(
     config: &ClientConfig,
-    project_id: String,
-    value: bool,
+    params: CreateWebInsightsToggleParams,
     options: Option<&RequestOptions>,
 ) -> Result<CreateWebInsightsToggleResponse, SdkError> {
+    let CreateWebInsightsToggleParams { project_id, value } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
     __query.extend([("projectId", crate::client::query_value(&project_id))]);
 

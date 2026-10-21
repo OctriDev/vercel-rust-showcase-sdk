@@ -27,7 +27,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         ..Default::default()
     };
     let client = Vercel::new(config);
-    let result = client.log_drains.get_configurable("id-1".to_string(), None, None, None)?;
+    let result = client.log_drains.get_configurable(octridev_vercel::methods::log_drains::GetConfigurableLogDrainParams { id: "id-1".to_string(), ..Default::default() }, None)?;
     println!("{result:#?}");
     Ok(())
 }

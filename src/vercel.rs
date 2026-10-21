@@ -21,19 +21,11 @@ impl AccessGroupsNamespace {
     /// Allows to read an access group
     pub fn read(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::access_groups::ReadAccessGroupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::access_groups::ReadAccessGroupResponse, crate::errors::SdkError>
     {
-        crate::methods::access_groups::read_access_group(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::access_groups::read_access_group(&self.config, params, options)
     }
     /// Updates an access group's metadata, members, or project roles. Supply only the fields you want to change; `name` is limited to 50 characters and `projects` associates projects with roles.
     ///
@@ -51,18 +43,10 @@ impl AccessGroupsNamespace {
     /// Allows to delete an access group
     pub fn delete(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::access_groups::DeleteAccessGroupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::access_groups::delete_access_group(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::access_groups::delete_access_group(&self.config, params, options)
     }
     /// Lists members of an access group, with optional search and cursor-based pagination. Use `search` to match members by name, username, or email, and `next` to retrieve the next page.
     ///
@@ -130,23 +114,13 @@ impl AccessGroupsNamespace {
     /// Allows reading an access group project
     pub fn read_project(
         &self,
-        access_group_id_or_name: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::access_groups::ReadAccessGroupProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::access_groups::ReadAccessGroupProjectResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::access_groups::read_access_group_project(
-            &self.config,
-            access_group_id_or_name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::access_groups::read_access_group_project(&self.config, params, options)
     }
     /// Updates the role assigned to a project in an access group. Supply `role` with a supported project role, or null to remove the project-level role.
     ///
@@ -166,20 +140,10 @@ impl AccessGroupsNamespace {
     /// Allows deletion of an access group project
     pub fn delete_project(
         &self,
-        access_group_id_or_name: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::access_groups::DeleteAccessGroupProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::access_groups::delete_access_group_project(
-            &self.config,
-            access_group_id_or_name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::access_groups::delete_access_group_project(&self.config, params, options)
     }
 }
 
@@ -200,14 +164,12 @@ impl AiGatewayNamespace {
     /// Create a virtual model config (VMC)
     pub fn create_virtual_model_config(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::CreateAiGatewayVirtualModelConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayVirtualModelConfig, crate::errors::SdkError> {
         crate::methods::ai_gateway::create_ai_gateway_virtual_model_config(
             &self.config,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -230,14 +192,12 @@ impl AiGatewayNamespace {
     /// Update a virtual model config
     pub fn update_virtual_model_config(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::UpdateAiGatewayVirtualModelConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayVirtualModelConfig, crate::errors::SdkError> {
         crate::methods::ai_gateway::update_ai_gateway_virtual_model_config(
             &self.config,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -290,18 +250,12 @@ impl AiGatewayNamespace {
     /// Get a virtual model config by path slug
     pub fn get_virtual_model_config_by_slug(
         &self,
-        vmc_slug: String,
-        owner_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::GetAiGatewayVirtualModelConfigBySlugParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayVirtualModelConfig, crate::errors::SdkError> {
         crate::methods::ai_gateway::get_ai_gateway_virtual_model_config_by_slug(
             &self.config,
-            vmc_slug,
-            owner_id,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -310,16 +264,12 @@ impl AiGatewayNamespace {
     /// Update a virtual model config by path slug
     pub fn update_virtual_model_config_by_slug(
         &self,
-        vmc_slug: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::UpdateAiGatewayVirtualModelConfigBySlugParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayVirtualModelConfig, crate::errors::SdkError> {
         crate::methods::ai_gateway::update_ai_gateway_virtual_model_config_by_slug(
             &self.config,
-            vmc_slug,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -342,29 +292,20 @@ impl AiGatewayNamespace {
     /// List the authenticated team's active and archived custom routers.
     pub fn list_routers(
         &self,
-        owner_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::ListAiGatewayRoutersParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayRouterList, crate::errors::SdkError> {
-        crate::methods::ai_gateway::list_ai_gateway_routers(
-            &self.config,
-            owner_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::ai_gateway::list_ai_gateway_routers(&self.config, params, options)
     }
     /// Creates a routing rule for the authenticated team. Use `teamId` or `slug` to select the team context when needed. A 201 response returns the created rule, including its identifier and configuration.
     ///
     /// Create a routing rule
     pub fn create_rule(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::CreateAiGatewayRuleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayRule, crate::errors::SdkError> {
-        crate::methods::ai_gateway::create_ai_gateway_rule(&self.config, team_id, slug, options)
+        crate::methods::ai_gateway::create_ai_gateway_rule(&self.config, params, options)
     }
     /// Lists the authenticated team's AI Gateway routing rules, ordered from oldest to newest. Use `includeDisabled` to control whether disabled rules are included, and use `limit` and `cursor` to retrieve a page of results. Paged responses include `nextCursor` for the next request; it is null on the last page.
     ///
@@ -397,29 +338,20 @@ impl AiGatewayNamespace {
     /// Update a routing rule (enabled, action, or description)
     pub fn update_rule(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::UpdateAiGatewayRuleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayRule, crate::errors::SdkError> {
-        crate::methods::ai_gateway::update_ai_gateway_rule(&self.config, team_id, slug, options)
+        crate::methods::ai_gateway::update_ai_gateway_rule(&self.config, params, options)
     }
     /// Deletes a routing rule from the authenticated team's active rules; deletion is soft, so the rule is not necessarily permanently removed. Supply the rule's `ruleId` and use `teamId` or `slug` to select the team context when needed.
     ///
     /// Delete a routing rule (soft delete)
     pub fn delete_rule(
         &self,
-        rule_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::DeleteAiGatewayRuleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::ai_gateway::delete_ai_gateway_rule(
-            &self.config,
-            rule_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::ai_gateway::delete_ai_gateway_rule(&self.config, params, options)
     }
     /// Lists the authenticated team's AI Gateway budgets as a flat list, with optional filtering by scope. Use `scopeType` to filter by team, project, user, or API key, and use `limit` and `cursor` to paginate results. Paged responses include `nextCursor` and `defaultCoveredCounts`.
     ///
@@ -472,16 +404,10 @@ impl AiGatewayNamespace {
     /// List the team's AI Gateway budget defaults as a flat per-scope list (one row per team/project/api-key/user scope with a default set). An empty list is a normal state for the dashboard.
     pub fn list_budget_defaults(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::ListAiGatewayBudgetDefaultsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<AiGatewayBudgetDefaultList, crate::errors::SdkError> {
-        crate::methods::ai_gateway::list_ai_gateway_budget_defaults(
-            &self.config,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::ai_gateway::list_ai_gateway_budget_defaults(&self.config, params, options)
     }
     /// Creates or updates an AI Gateway budget default for one scope. Supply `scopeType` and `limitAmount`; only team owners and admins have authority to manage these defaults. The response returns the saved default configuration.
     ///
@@ -498,18 +424,10 @@ impl AiGatewayNamespace {
     /// Delete an AI Gateway budget default for one scope. Team-level authority only (owners/admins).
     pub fn archive_budget_default(
         &self,
-        scope_type: crate::methods::ai_gateway::ArchiveAiGatewayBudgetDefaultEnum,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::ai_gateway::ArchiveAiGatewayBudgetDefaultParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::ai_gateway::archive_ai_gateway_budget_default(
-            &self.config,
-            scope_type,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::ai_gateway::archive_ai_gateway_budget_default(&self.config, params, options)
     }
 }
 
@@ -540,11 +458,10 @@ impl ArtifactsNamespace {
     /// Check the status of Remote Caching for this principal. Returns a JSON-encoded status indicating if Remote Caching is enabled, disabled, or disabled due to usage limits.
     pub fn status(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::artifacts::StatusParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<StatusResponse, crate::errors::SdkError> {
-        crate::methods::artifacts::status(&self.config, team_id, slug, options)
+        crate::methods::artifacts::status(&self.config, params, options)
     }
     /// Uploads an artifact to the cache using its hash. Send the artifact as an octet-stream body and provide its size in the `Content-Length` header. The uploaded artifact can then be downloaded using the same hash.
     ///
@@ -571,21 +488,17 @@ impl ArtifactsNamespace {
     /// Check that a cache artifact with the given `hash` exists. This request returns response headers only and is equivalent to a `GET` request to this endpoint where the response contains no body.
     pub fn exists(
         &self,
-        hash: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::artifacts::ArtifactExistsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::artifacts::artifact_exists(&self.config, hash, team_id, slug, options)
+        crate::methods::artifacts::artifact_exists(&self.config, params, options)
     }
     /// Retrieves cache information for multiple artifacts. Supply the artifact hashes in the `hashes` array to query information about each one. Use `teamId` or `slug` to make the request on behalf of a team.
     ///
     /// Query information about an array of artifacts.
     pub fn query(
         &self,
-        hashes: Vec<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::artifacts::ArtifactQueryParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         std::collections::HashMap<
@@ -594,19 +507,18 @@ impl ArtifactsNamespace {
         >,
         crate::errors::SdkError,
     > {
-        crate::methods::artifacts::artifact_query(&self.config, hashes, team_id, slug, options)
+        crate::methods::artifacts::artifact_query(&self.config, params, options)
     }
     /// Deletes all cache artifacts stored for the authenticated team or user, clearing the Remote Cache. Use `teamId` or `slug` to select a team; subsequent builds repopulate the cache.
     ///
     /// Deletes all cache artifacts stored for the authenticated team or user, clearing the Remote Cache. Subsequent builds will re-populate the cache.
     pub fn delete_all(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::artifacts::DeleteAllArtifactsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::artifacts::DeleteAllArtifactsResponse, crate::errors::SdkError>
     {
-        crate::methods::artifacts::delete_all_artifacts(&self.config, team_id, slug, options)
+        crate::methods::artifacts::delete_all_artifacts(&self.config, params, options)
     }
 }
 
@@ -627,10 +539,7 @@ impl BillingNamespace {
     /// Returns the billing charge data in FOCUS v1.3 JSONL format for a specified Vercel team, within a date range specified by `from` and `to` query parameters. Supports 1-day granularity with a maximum date range of 1 year. The response is streamed as newline-delimited JSON (JSONL) and can be optionally compressed with gzip if the `Accept-Encoding: gzip` header is provided. `SkuId` is the stable product ID. For unmapped items, it is derived from the item identifier. This is only available for Owner, Member, Developer, Security, Billing, and Enterprise Viewer roles for the supplied team.
     pub fn list_charges(
         &self,
-        from: String,
-        to: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::billing::ListBillingChargesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         impl Iterator<
@@ -641,22 +550,14 @@ impl BillingNamespace {
         >,
         crate::errors::SdkError,
     > {
-        crate::methods::billing::list_billing_charges(
-            &self.config,
-            from,
-            to,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::billing::list_billing_charges(&self.config, params, options)
     }
     /// Lists a Vercel team's contract commitments in FOCUS v1.3 JSONL format. Use this endpoint for Enterprise contract commitment allocations by contract period. Non-Enterprise customers receive an empty response.
     ///
     /// Returns commitment allocations per contract period in FOCUS v1.3 JSONL format for a specified Vercel team. The response is streamed as newline-delimited JSON (JSONL). This endpoint is only applicable to Enterprise Vercel customers. An empty response is returned for non-Enterprise (Pro/Flex) customers.
     pub fn list_contract_commitments(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::billing::ListContractCommitmentsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         impl Iterator<
@@ -667,20 +568,17 @@ impl BillingNamespace {
         >,
         crate::errors::SdkError,
     > {
-        crate::methods::billing::list_contract_commitments(&self.config, team_id, slug, options)
+        crate::methods::billing::list_contract_commitments(&self.config, params, options)
     }
     /// Submits a credit purchase for a Vercel team using the default payment method on file; the purchase is charged immediately through a Stripe invoice. Set `item.creditType` to `v0`, `gateway`, or `agent` and provide a positive integer `item.amount`. You can use the `source` query parameter to identify the caller; it defaults to `api` when omitted.
     ///
     /// Purchases credits for a Vercel team using the default payment method on file. The purchase is charged immediately via Stripe invoice. Supported credit types are `v0`, `gateway`, and `agent`. The `amount` field specifies the number of credits to purchase and must be a positive integer. An optional `source` query parameter can be provided to identify the caller. Defaults to `api` if not specified. This is only available for Owner, Member, Developer, Security, and Billing roles for the supplied team.
     pub fn buy_credits(
         &self,
-        item: crate::methods::billing::BuyCreditsItem,
-        source: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::billing::BuyCreditsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<BuyCreditsResponse, crate::errors::SdkError> {
-        crate::methods::billing::buy_credits(&self.config, item, source, team_id, slug, options)
+        crate::methods::billing::buy_credits(&self.config, params, options)
     }
 }
 
@@ -753,18 +651,10 @@ impl BulkRedirectsNamespace {
     /// Get the version history for a project's bulk redirects
     pub fn get_versions(
         &self,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::bulk_redirects::GetVersionsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::bulk_redirects::GetVersionsResponse, crate::errors::SdkError> {
-        crate::methods::bulk_redirects::get_versions(
-            &self.config,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::bulk_redirects::get_versions(&self.config, params, options)
     }
     /// Changes a bulk redirect version by promoting staging, restoring a previous production version, or discarding a version. Supply the version `id` and an `action`; the response contains the updated version details.
     ///
@@ -796,20 +686,10 @@ impl ChecksV2Namespace {
     /// List all checks for a project, optionally filtered by target.
     pub fn list_project_checks(
         &self,
-        project_id_or_name: String,
-        blocks: Option<crate::methods::checks_v2::ListProjectChecksEnum>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::ListProjectChecksParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks_v2::ListProjectChecksResponse, crate::errors::SdkError> {
-        crate::methods::checks_v2::list_project_checks(
-            &self.config,
-            project_id_or_name,
-            blocks,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::list_project_checks(&self.config, params, options)
     }
     /// Creates a check for a project. Provide `name` and `requires`, and configure its targets, source, blocking behavior, and timeout as needed. The check uses `deployment-url` for `requires`, `deployment-alias` for `blocks`, and 300 seconds for `timeout` when those fields are omitted.
     ///
@@ -827,20 +707,10 @@ impl ChecksV2Namespace {
     /// Return a detailed response for a single check.
     pub fn get_project_check(
         &self,
-        project_id_or_name: String,
-        check_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::GetProjectCheckParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks_v2::GetProjectCheckResponse, crate::errors::SdkError> {
-        crate::methods::checks_v2::get_project_check(
-            &self.config,
-            project_id_or_name,
-            check_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::get_project_check(&self.config, params, options)
     }
     /// Updates a project check's configuration, including its name, targets, and deployment behavior. Supply only the properties you want to change; `requires`, `blocks`, and `timeout` have defaults when omitted. Use the project and check identifiers to select the check to update.
     ///
@@ -858,100 +728,52 @@ impl ChecksV2Namespace {
     /// Delete an existing check and all of its runs.
     pub fn delete_project_check(
         &self,
-        project_id_or_name: String,
-        check_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::DeleteProjectCheckParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks_v2::DeleteProjectCheckResponse, crate::errors::SdkError>
     {
-        crate::methods::checks_v2::delete_project_check(
-            &self.config,
-            project_id_or_name,
-            check_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::delete_project_check(&self.config, params, options)
     }
     /// Lists all runs associated with a project check. Use the project and check identifiers to select the check whose run history you need. The response groups the results in a `runs` array.
     ///
     /// List all runs associated with a given check.
     pub fn list_check_runs(
         &self,
-        project_id_or_name: String,
-        check_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::ListCheckRunsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks_v2::ListCheckRunsResponse, crate::errors::SdkError> {
-        crate::methods::checks_v2::list_check_runs(
-            &self.config,
-            project_id_or_name,
-            check_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::list_check_runs(&self.config, params, options)
     }
     /// Lists all check runs associated with a deployment. Use `deploymentId` to select the deployment whose check runs you want to inspect. The response groups the results in a `runs` array.
     ///
     /// List all check runs for a deployment.
     pub fn list_deployment_check_runs(
         &self,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::ListDeploymentCheckRunsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks_v2::ListDeploymentCheckRunsResponse, crate::errors::SdkError>
     {
-        crate::methods::checks_v2::list_deployment_check_runs(
-            &self.config,
-            deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::list_deployment_check_runs(&self.config, params, options)
     }
     /// Creates a check run for a deployment. Supply `checkId` to associate the run with a project-level check; the request body is optional in the operation definition, but `checkId` is required when you provide a body. Use the deployment identifier to select the deployment for the new run.
     ///
     /// Creates a new check run for a deployment.
     pub fn create_deployment_check_run(
         &self,
-        deployment_id: String,
-        check_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::CreateDeploymentCheckRunParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<CreateDeploymentCheckRunResponse, crate::errors::SdkError> {
-        crate::methods::checks_v2::create_deployment_check_run(
-            &self.config,
-            deployment_id,
-            check_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::create_deployment_check_run(&self.config, params, options)
     }
     /// Retrieves a single check run for a deployment. Use the deployment and check run identifiers to select the record. The response includes the run details and supports both runs backed by a project-level check and Vercel CI runs without a parent check.
     ///
     /// Return a detailed response for a single check run.
     pub fn get_deployment_check_run(
         &self,
-        deployment_id: String,
-        check_run_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks_v2::GetDeploymentCheckRunParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetDeploymentCheckRunResponse, crate::errors::SdkError> {
-        crate::methods::checks_v2::get_deployment_check_run(
-            &self.config,
-            deployment_id,
-            check_run_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks_v2::get_deployment_check_run(&self.config, params, options)
     }
     /// Updates a check run's status and related metadata for a deployment. Supply only the fields you want to change; `status` and `conclusion` are limited to their documented values, and `externalUrl` accepts the specified URL formats. The response returns the updated check run.
     ///
@@ -1000,12 +822,10 @@ impl ChecksNamespace {
     /// This operation is deprecated and may be removed in a future release.
     pub fn list(
         &self,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks::ListChecksParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks::ListChecksResponse, crate::errors::SdkError> {
-        crate::methods::checks::list_checks(&self.config, deployment_id, team_id, slug, options)
+        crate::methods::checks::list_checks(&self.config, params, options)
     }
     /// Retrieves the details of a single check for a deployment. Use `deploymentId` and `checkId` to identify the deployment and check. This operation is closing down and will be removed on a date not specified in the API definition.
     ///
@@ -1016,20 +836,10 @@ impl ChecksNamespace {
     /// This operation is deprecated and may be removed in a future release.
     pub fn get(
         &self,
-        deployment_id: String,
-        check_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::checks::GetCheckParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::checks::GetCheckResponse, crate::errors::SdkError> {
-        crate::methods::checks::get_check(
-            &self.config,
-            deployment_id,
-            check_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::checks::get_check(&self.config, params, options)
     }
     /// Updates an existing check for a deployment. Supply the check fields you want to change, such as `status`, `conclusion`, or `output`; call the operation with OAuth2 authentication. A 200 response returns the updated check object.
     ///
@@ -1098,44 +908,30 @@ impl NetworkingNamespace {
     /// Allows to delete a Secure Compute network.
     pub fn delete_network(
         &self,
-        network_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::DeleteNetworkParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::networking::delete_network(&self.config, network_id, team_id, slug, options)
+        crate::methods::networking::delete_network(&self.config, params, options)
     }
     /// Updates the name of a Secure Compute network. Supply the new `name` in the request body; the network's other configuration is not changed by this operation. A 200 response returns the updated network object.
     ///
     /// Allows to update a Secure Compute network.
     pub fn update_network(
         &self,
-        network_id: String,
-        name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::UpdateNetworkParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Network, crate::errors::SdkError> {
-        crate::methods::networking::update_network(
-            &self.config,
-            network_id,
-            name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::networking::update_network(&self.config, params, options)
     }
     /// Retrieves a Secure Compute network by its identifier. Use `networkId` to select the network and the optional team parameters to make the request on behalf of a team. The response includes network configuration, status, and associated-resource metadata.
     ///
     /// Allows to read a Secure Compute network.
     pub fn read_network(
         &self,
-        network_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::ReadNetworkParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Network, crate::errors::SdkError> {
-        crate::methods::networking::read_network(&self.config, network_id, team_id, slug, options)
+        crate::methods::networking::read_network(&self.config, params, options)
     }
     /// Creates a PrivateLink endpoint connecting a project to an AWS VPC endpoint service. Supply `projectId`, `name`, `vercelRegion`, and `awsServiceName`; Advanced Networking must be enabled for the project in the selected Vercel region. The endpoint is provisioned asynchronously, and the 201 response includes its current status.
     ///
@@ -1152,58 +948,30 @@ impl NetworkingNamespace {
     /// Lists all PrivateLink endpoints for a project.
     pub fn list_private_link_endpoints(
         &self,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::ListPrivateLinkEndpointsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<PrivateLinkEndpoint>, crate::errors::SdkError> {
-        crate::methods::networking::list_private_link_endpoints(
-            &self.config,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::networking::list_private_link_endpoints(&self.config, params, options)
     }
     /// Retrieves a PrivateLink endpoint for a project. Supply `projectId` and `endpointId` to identify the endpoint, and use the optional team parameters to make the request on behalf of a team. The response includes endpoint status, service configuration, and available DNS names.
     ///
     /// Reads a single PrivateLink endpoint.
     pub fn read_private_link_endpoint(
         &self,
-        endpoint_id: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::ReadPrivateLinkEndpointParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<PrivateLinkEndpoint, crate::errors::SdkError> {
-        crate::methods::networking::read_private_link_endpoint(
-            &self.config,
-            endpoint_id,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::networking::read_private_link_endpoint(&self.config, params, options)
     }
     /// Deletes a PrivateLink endpoint, including its project connections and installation records. Use this operation when you no longer need the endpoint or its associated records.
     ///
     /// Deletes a PrivateLink endpoint.
     pub fn delete_private_link_endpoint(
         &self,
-        endpoint_id: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::networking::DeletePrivateLinkEndpointParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::networking::delete_private_link_endpoint(
-            &self.config,
-            endpoint_id,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::networking::delete_private_link_endpoint(&self.config, params, options)
     }
     /// Updates a PrivateLink endpoint's name or private DNS setting. Supply `name`, `enablePrivateDns`, or both; omitted values keep their current settings. When `enablePrivateDns` is true, the response includes the endpoint service's private DNS names.
     ///
@@ -1255,24 +1023,20 @@ impl ConnectNamespace {
     /// Get the connector by ID. Accepts a dashboard/team requester or a deployment's project OIDC token; project requesters may only read connectors linked to their project and environment.
     pub fn get_connector(
         &self,
-        connector: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::connect::GetConnectorParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ConnectConnector, crate::errors::SdkError> {
-        crate::methods::connect::get_connector(&self.config, connector, team_id, slug, options)
+        crate::methods::connect::get_connector(&self.config, params, options)
     }
     /// Deletes a connector and its project connections and installation records. Use this operation when you want to remove the connector and its associated connections and installations from the team.
     ///
     /// Delete a connector, its project connections, and its installation records.
     pub fn delete_connector(
         &self,
-        connector: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::connect::DeleteConnectorParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::connect::delete_connector(&self.config, connector, team_id, slug, options)
+        crate::methods::connect::delete_connector(&self.config, params, options)
     }
     /// Creates a connector with provider configuration or a service connection method, and can optionally link it to a project. Choose either full configuration with `type` or preset configuration with `service` and `connectionMethod`; supply `data` for the provider configuration.
     ///
@@ -1299,18 +1063,12 @@ impl ConnectNamespace {
     /// Replace the full set of destinations that receive trigger requests for a connector.
     pub fn replace_connector_trigger_destinations(
         &self,
-        connector: String,
-        destinations: Vec<ConnectTriggerDestinationInput>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::connect::ReplaceConnectorTriggerDestinationsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ConnectConnector, crate::errors::SdkError> {
         crate::methods::connect::replace_connector_trigger_destinations(
             &self.config,
-            connector,
-            destinations,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -1319,11 +1077,10 @@ impl ConnectNamespace {
     /// Disconnect a managed connector from its provider-side manager.
     pub fn eject_managed_connector(
         &self,
-        connector: String,
-        slug: Option<String>,
+        params: crate::methods::connect::EjectManagedConnectorParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ConnectConnector, crate::errors::SdkError> {
-        crate::methods::connect::eject_managed_connector(&self.config, connector, slug, options)
+        crate::methods::connect::eject_managed_connector(&self.config, params, options)
     }
     /// List the projects connected to a connector and the environments where each connection is available.
     pub fn list_connector_project_connections(
@@ -1336,20 +1093,10 @@ impl ConnectNamespace {
     /// Get the configuration that connects a connector to a project.
     pub fn get_connector_project_connection(
         &self,
-        connector: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::connect::GetConnectorProjectConnectionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ConnectProjectConnection, crate::errors::SdkError> {
-        crate::methods::connect::get_connector_project_connection(
-            &self.config,
-            connector,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::connect::get_connector_project_connection(&self.config, params, options)
     }
     /// Connect a connector to a project, or replace the environments on an existing project connection.
     pub fn upsert_connector_project_connection(
@@ -1364,20 +1111,10 @@ impl ConnectNamespace {
     /// Disconnect a connector from a project.
     pub fn delete_connector_project_connection(
         &self,
-        connector: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::connect::DeleteConnectorProjectConnectionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::connect::delete_connector_project_connection(
-            &self.config,
-            connector,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::connect::delete_connector_project_connection(&self.config, params, options)
     }
     /// List the connectors connected to a project and the environments where each connection is available.
     pub fn list_project_connector_connections(
@@ -1457,20 +1194,10 @@ impl DeploymentsNamespace {
     /// Retrieves information for a deployment either by supplying its ID (`id` property) or Hostname (`url` property). Additional details will be included when the authenticated user or team is an owner of the deployment.
     pub fn get(
         &self,
-        id_or_url: String,
-        with_git_repo_info: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::deployments::GetDeploymentParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetDeploymentResponse, crate::errors::SdkError> {
-        crate::methods::deployments::get_deployment(
-            &self.config,
-            id_or_url,
-            with_git_repo_info,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::deployments::get_deployment(&self.config, params, options)
     }
     /// Creates a deployment for the authenticated team or user and starts its build. Supply `name` and either a Git source or deployment files for a non-Git deployment; you can also provide a `deploymentId` to redeploy an existing deployment. Poll the returned `readyState` to track progress through the build states.
     ///
@@ -1487,13 +1214,11 @@ impl DeploymentsNamespace {
     /// Cancels a deployment that is currently in progress, stopping the build before it completes. Use this to recover quickly from accidental deploys, wrong-branch pushes, or builds with known errors — without waiting for them to finish. Returns 400 if the deployment is no longer cancelable (already `READY`, `ERROR`, or `CANCELED`). Returns the updated deployment object with `readyState: 'CANCELED'` on success.
     pub fn cancel(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::deployments::CancelDeploymentParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::deployments::CancelDeploymentResponse, crate::errors::SdkError>
     {
-        crate::methods::deployments::cancel_deployment(&self.config, id, team_id, slug, options)
+        crate::methods::deployments::cancel_deployment(&self.config, params, options)
     }
     /// Uploads a file for use in a deployment. Send the file content as the request body before creating the deployment that uses it. A successful response confirms the file is already uploaded or has been uploaded.
     ///
@@ -1510,12 +1235,10 @@ impl DeploymentsNamespace {
     /// Allows to retrieve the file structure of the source code of a deployment by supplying the deployment unique identifier. If the deployment was created with the Vercel CLI or the API directly with the `files` key, it will have a file tree that can be retrievable.
     pub fn list_files(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::deployments::ListDeploymentFilesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<FileTree>, crate::errors::SdkError> {
-        crate::methods::deployments::list_deployment_files(&self.config, id, team_id, slug, options)
+        crate::methods::deployments::list_deployment_files(&self.config, params, options)
     }
     /// Allows to retrieve the content of a file by supplying the file identifier and the deployment unique identifier. The response body will contain a JSON response containing the contents of the file encoded as base64.
     pub fn get_file_contents(
@@ -1540,21 +1263,11 @@ impl DeploymentsNamespace {
     /// This API allows you to delete a deployment, either by supplying its `id` in the URL or the `url` of the deployment as a query parameter. You can obtain the ID, for example, by listing all deployments.
     pub fn delete(
         &self,
-        id: String,
-        url: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::deployments::DeleteDeploymentParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::deployments::DeleteDeploymentResponse, crate::errors::SdkError>
     {
-        crate::methods::deployments::delete_deployment(
-            &self.config,
-            id,
-            url,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::deployments::delete_deployment(&self.config, params, options)
     }
 }
 
@@ -1585,13 +1298,10 @@ impl DnsNamespace {
     /// Creates a DNS record for a domain.
     pub fn create_record(
         &self,
-        domain: String,
-        type_: crate::methods::dns::CreateRecordTypeEnum,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::dns::CreateRecordParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<CreateRecordResponse, crate::errors::SdkError> {
-        crate::methods::dns::create_record(&self.config, domain, type_, team_id, slug, options)
+        crate::methods::dns::create_record(&self.config, params, options)
     }
     /// Updates an existing DNS record for a domain. Supply only the record properties you want to change, such as its `name`, `value`, or `ttl`; record-specific data can be provided through `srv` or `https`. The response contains the updated DNS record.
     ///
@@ -1608,13 +1318,10 @@ impl DnsNamespace {
     /// Removes an existing DNS record from a domain name.
     pub fn remove_record(
         &self,
-        domain: String,
-        record_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::dns::RemoveRecordParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::dns::remove_record(&self.config, domain, record_id, team_id, slug, options)
+        crate::methods::dns::remove_record(&self.config, params, options)
     }
 }
 
@@ -1633,22 +1340,22 @@ impl DomainsNamespace {
     /// Replaces the DNS records associated with a domain. Use this operation when you need to stage a replacement set of records rather than update one record individually. The response returns the identifiers of the records involved.
     pub fn replace_by_domain_records(
         &self,
-        domain: String,
+        params: crate::methods::domains::ReplaceDomainsByDomainRecordsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::domains::ReplaceDomainsByDomainRecordsResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::domains::replace_domains_by_domain_records(&self.config, domain, options)
+        crate::methods::domains::replace_domains_by_domain_records(&self.config, params, options)
     }
     /// Retrieves a DNS record by its unique identifier. Use this operation to inspect the record's domain, name, type, value, and other available properties. The response contains the requested record.
     pub fn get_records_by_record_id(
         &self,
-        record_id: String,
+        params: crate::methods::domains::GetDomainsRecordsByRecordIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::GetDomainsRecordsByRecordIdResponse, crate::errors::SdkError>
     {
-        crate::methods::domains::get_domains_records_by_record_id(&self.config, record_id, options)
+        crate::methods::domains::get_domains_records_by_record_id(&self.config, params, options)
     }
     /// Retrieves configuration information for a domain, including its detected configuration and recommended DNS values. Use `projectIdOrName` to associate a domain that is not yet linked to a project, and `strict` to control whether the response includes only nameservers assigned directly to the domain. The response also indicates supported certificate challenges and whether the domain is misconfigured.
     ///
@@ -1665,38 +1372,22 @@ impl DomainsNamespace {
     /// Get the TXT verification record needed to claim ownership of a domain for the authenticated team. The caller must add this TXT record to `_vercel.{domain}` in their DNS configuration, then call POST /domains/:domain/claim to complete the ownership transfer.
     pub fn get_verification_record(
         &self,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::domains::GetDomainVerificationRecordParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::GetDomainVerificationRecordResponse, crate::errors::SdkError>
     {
-        crate::methods::domains::get_domain_verification_record(
-            &self.config,
-            domain,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::domains::get_domain_verification_record(&self.config, params, options)
     }
     /// Claims ownership of a domain for the authenticated user's team by verifying a TXT record. First add the record returned by GET /domains/:domain/verification to `_vercel.{domain}` in your DNS configuration. Once verified, ownership transfers to your team even if another user or team currently owns the domain.
     ///
     /// Claim ownership of a domain for the authenticated team by verifying a TXT record. The caller must first add a TXT record to `_vercel.{domain}` (obtained from GET /domains/:domain/verification), then call this endpoint to complete the ownership transfer. If the TXT record is verified, the domain ownership will be transferred to the caller's team, even if the domain is currently owned by another user or team.
     pub fn claim_ownership(
         &self,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::domains::ClaimDomainOwnershipParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::ClaimDomainOwnershipResponse, crate::errors::SdkError>
     {
-        crate::methods::domains::claim_domain_ownership(
-            &self.config,
-            domain,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::domains::claim_domain_ownership(&self.config, params, options)
     }
     /// Lists project domains associated with an apex domain owned by the authenticated user's account. Use `limit` to control the maximum number of results and `since` or `until` to filter by creation time using JavaScript timestamps. The response includes pagination metadata and the matching project domains.
     ///
@@ -1714,12 +1405,10 @@ impl DomainsNamespace {
     /// Get information for a single domain in an account or team.
     pub fn get(
         &self,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::domains::GetDomainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::GetDomainsResponse, crate::errors::SdkError> {
-        crate::methods::domains::get_domains(&self.config, domain, team_id, slug, options)
+        crate::methods::domains::get_domains(&self.config, params, options)
     }
     /// Lists domains registered to the authenticated user or team. Use `since` and `until` to filter by creation time, and `limit` to control the number of domains returned; the response includes pagination metadata.
     ///
@@ -1736,44 +1425,31 @@ impl DomainsNamespace {
     /// This endpoint is used for adding a new apex domain name with Vercel for the authenticating user. Note: This endpoint is no longer used for initiating domain transfers from external registrars to Vercel. For this, please use the endpoint [Transfer-in a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/transfer-in-a-domain).
     pub fn create_or_transfer(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
-        method: Option<String>,
+        params: crate::methods::domains::CreateOrTransferDomainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::CreateOrTransferDomainResponse, crate::errors::SdkError>
     {
-        crate::methods::domains::create_or_transfer_domain(
-            &self.config,
-            team_id,
-            slug,
-            method,
-            options,
-        )
+        crate::methods::domains::create_or_transfer_domain(&self.config, params, options)
     }
     /// Updates settings for an apex domain or moves the domain to another user or team. Use the update operation for domain settings, or the move-out operation to specify a `destination`; use the dedicated registrar endpoints to change auto-renew or nameservers.
     ///
     /// Update or move apex domain. Note: This endpoint is no longer used for updating auto-renew or nameservers. For this, please use the endpoints [Update auto-renew for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-auto-renew-for-a-domain) and [Update nameservers for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/update-nameservers-for-a-domain).
     pub fn update(
         &self,
-        domain: String,
-        body: crate::methods::domains::UpdateDomains,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::domains::UpdateDomainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<UpdateDomainsResponse, crate::errors::SdkError> {
-        crate::methods::domains::update_domains(&self.config, domain, body, team_id, slug, options)
+        crate::methods::domains::update_domains(&self.config, params, options)
     }
     /// Deletes a registered domain from Vercel. Use `domain` to identify the domain to remove; deleting it also removes any aliases associated with it.
     ///
     /// Delete a previously registered domain name from Vercel. Deleting a domain will automatically remove any associated aliases.
     pub fn delete(
         &self,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::domains::DeleteDomainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains::DeleteDomainResponse, crate::errors::SdkError> {
-        crate::methods::domains::delete_domain(&self.config, domain, team_id, slug, options)
+        crate::methods::domains::delete_domain(&self.config, params, options)
     }
 }
 
@@ -1794,155 +1470,111 @@ impl DomainsRegistrarNamespace {
     /// Start domain research here. Get registration availability and pricing for 1–200 exact domain names. Returns results in input order, with registration and renewal prices in USD for available domains. No authentication required.
     pub fn search_domains(
         &self,
-        domains: Vec<DomainName>,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::SearchDomainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::SearchDomainsResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::search_domains(&self.config, domains, team_id, options)
+        crate::methods::domains_registrar::search_domains(&self.config, params, options)
     }
     /// Lists the top-level domains supported for domain registration. Use this operation to discover which TLDs are available before requesting TLD metadata or checking domain availability. The response is an array of TLD names.
     ///
     /// Get a list of TLDs supported by Vercel
     pub fn get_supported_tlds(
         &self,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetSupportedTldsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<TldName>, crate::errors::SdkError> {
-        crate::methods::domains_registrar::get_supported_tlds(&self.config, team_id, options)
+        crate::methods::domains_registrar::get_supported_tlds(&self.config, params, options)
     }
     /// Retrieves metadata for a specific top-level domain. Use this operation to find the language codes supported for the TLD and their corresponding language names. The response contains a map of supported language codes.
     ///
     /// Get the metadata for a specific TLD.
     pub fn get_tld(
         &self,
-        tld: TldName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetTldParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetTldResponse, crate::errors::SdkError> {
-        crate::methods::domains_registrar::get_tld(&self.config, tld, team_id, options)
+        crate::methods::domains_registrar::get_tld(&self.config, params, options)
     }
     /// Retrieves base price data for a top-level domain (TLD); premium domains may have different prices. Use `years` to request a registration term, or omit it to use the TLD's minimum term. For premium-domain pricing, use the endpoint for getting price data for a domain.
     ///
     /// Get price data for a specific TLD. This only reflects base prices for the given TLD. Premium domains may have different prices. Use the [Get price data for a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-price-data-for-a-domain) endpoint to get the price data for a specific domain.
     pub fn get_tld_price(
         &self,
-        tld: TldName,
-        years: Option<String>,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetTldPriceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetTldPriceResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::get_tld_price(&self.config, tld, years, team_id, options)
+        crate::methods::domains_registrar::get_tld_price(&self.config, params, options)
     }
     /// Retrieves the availability status for a specific domain. Use `domain` to check whether the name is available before attempting to purchase it. If it is available, you can purchase it through the single-domain or multiple-domain purchase endpoint.
     ///
     /// Get availability for a specific domain. If the domain is available, it can be purchased using the [Buy a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/buy-a-domain) endpoint or the [Buy multiple domains](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/buy-multiple-domains) endpoint.
     pub fn get_domain_availability(
         &self,
-        domain: DomainName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetDomainAvailabilityParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::domains_registrar::GetDomainAvailabilityResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::domains_registrar::get_domain_availability(
-            &self.config,
-            domain,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_domain_availability(&self.config, params, options)
     }
     /// Retrieves price data for a specific domain, including purchase, renewal, and transfer prices. Use `years` to request pricing for a particular term, or omit it to use the minimum term for the domain's TLD.
     ///
     /// Get price data for a specific domain
     pub fn get_domain_price(
         &self,
-        domain: DomainName,
-        years: Option<String>,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetDomainPriceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetDomainPriceResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::get_domain_price(
-            &self.config,
-            domain,
-            years,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_domain_price(&self.config, params, options)
     }
     /// Retrieves price data for multiple domains in one request. Supply `domains` with the names to price, and optionally set `years` to request a specific term; omitted terms use the minimum term for each TLD. Use the returned prices to evaluate domains before purchasing them.
     ///
     /// Get price data for multiple domains in a single request.
     pub fn get_bulk_price(
         &self,
-        domains: Vec<DomainName>,
-        team_id: Option<String>,
-        years: Option<f64>,
+        params: crate::methods::domains_registrar::GetBulkPriceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetBulkPriceResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::get_bulk_price(
-            &self.config,
-            domains,
-            team_id,
-            years,
-            options,
-        )
+        crate::methods::domains_registrar::get_bulk_price(&self.config, params, options)
     }
     /// Checks the availability of multiple domains in one request. Supply `domains` with the names to check, up to 50 per request. If domains are available, you can purchase them through the single-domain or multiple-domain purchase endpoint.
     ///
     /// Get availability for multiple domains. If the domains are available, they can be purchased using the [Buy a domain](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/buy-a-domain) endpoint or the [Buy multiple domains](https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/buy-multiple-domains) endpoint.
     pub fn get_bulk_availability(
         &self,
-        domains: Vec<DomainName>,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetBulkAvailabilityParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::domains_registrar::GetBulkAvailabilityResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::domains_registrar::get_bulk_availability(
-            &self.config,
-            domains,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_bulk_availability(&self.config, params, options)
     }
     /// Retrieves the contact information schema for a domain's TLD. Use the schema to identify any TLD-specific contact fields you need to supply when registering a domain. The required fields can differ between TLDs.
     ///
     /// Some TLDs require additional contact information. Use this endpoint to get the schema for the tld-specific contact information for a domain.
     pub fn get_contact_info_schema(
         &self,
-        domain: DomainName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetContactInfoSchemaParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::domains_registrar::get_contact_info_schema(
-            &self.config,
-            domain,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_contact_info_schema(&self.config, params, options)
     }
     /// Retrieves the authorization code for a domain registered with the domain registrar. Use this code when transferring the domain from the registrar to another registrar. The domain must be eligible for transfer out before its code can be retrieved.
     ///
     /// Get the auth code for a domain. This is required to transfer a domain from Vercel to another registrar.
     pub fn get_domain_auth_code(
         &self,
-        domain: DomainName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetDomainAuthCodeParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetDomainAuthCodeResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::get_domain_auth_code(
-            &self.config,
-            domain,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_domain_auth_code(&self.config, params, options)
     }
     /// Purchases a domain using the supplied registration term, renewal preference, expected price, and contact information. Provide `contactInformation` with the required registrant details and use the TLD contact schema to determine whether additional fields are needed. For a punycode domain, include `languageCode`.
     ///
@@ -1960,19 +1592,11 @@ impl DomainsRegistrarNamespace {
     /// Buy multiple domains at once
     pub fn buy_domains(
         &self,
-        domains: Vec<crate::methods::domains_registrar::BuyDomainsDomainsItem>,
-        contact_information: crate::methods::domains_registrar::BuyDomainsContactInformation,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::BuyDomainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::BuyDomainsResponse, crate::errors::SdkError>
     {
-        crate::methods::domains_registrar::buy_domains(
-            &self.config,
-            domains,
-            contact_information,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::buy_domains(&self.config, params, options)
     }
     /// Transfers a domain to the account from another registrar. Provide the losing registrar's `authCode`, the transfer term in `years`, the `expectedPrice`, and registrant `contactInformation`; set `autoRenew` to control future renewals. A 200 response includes the transfer order's `orderId` and links for related actions.
     ///
@@ -1990,19 +1614,13 @@ impl DomainsRegistrarNamespace {
     /// Get the transfer status for a domain
     pub fn get_domain_transfer_in(
         &self,
-        domain: DomainName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetDomainTransferInParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::domains_registrar::GetDomainTransferInResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::domains_registrar::get_domain_transfer_in(
-            &self.config,
-            domain,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::get_domain_transfer_in(&self.config, params, options)
     }
     /// Renews a domain registered with Vercel for the specified number of years. Provide `years` and `expectedPrice`, and include `contactInformation` when updating the registrant details as part of the renewal. A 200 response includes the renewal order's `orderId` and links for related actions.
     ///
@@ -2020,50 +1638,32 @@ impl DomainsRegistrarNamespace {
     /// Update the auto-renew setting for a domain
     pub fn update_domain_auto_renew(
         &self,
-        domain: DomainName,
-        auto_renew: bool,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::UpdateDomainAutoRenewParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::domains_registrar::update_domain_auto_renew(
-            &self.config,
-            domain,
-            auto_renew,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::update_domain_auto_renew(&self.config, params, options)
     }
     /// Updates the nameservers assigned to a domain. Provide `nameservers` as an array of valid nameserver values, or pass an empty array to use Vercel's default nameservers. A 204 response confirms the change and contains no response body.
     ///
     /// Update the nameservers for a domain. Pass an empty array to use Vercel's default nameservers.
     pub fn update_domain_nameservers(
         &self,
-        domain: DomainName,
-        nameservers: Vec<Nameserver>,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::UpdateDomainNameserversParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::domains_registrar::update_domain_nameservers(
-            &self.config,
-            domain,
-            nameservers,
-            team_id,
-            options,
-        )
+        crate::methods::domains_registrar::update_domain_nameservers(&self.config, params, options)
     }
     /// Retrieves the registrant contact verification status for a domain. Use this after purchasing a domain to check whether its registrant contact has been verified. A 400 is returned if the domain was bought less than 30 minutes before the request.
     ///
     /// Get the registrant contact verification status for a domain. Use this after purchasing a domain to determine whether the contact has been verified. Note that a bought_too_recently error will be returned if the domain was bought less than 30 minutes before the request.
     pub fn get_domain_contact_verification(
         &self,
-        domain: DomainName,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetDomainContactVerificationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetDomainContactVerificationResponse, crate::errors::SdkError> {
         crate::methods::domains_registrar::get_domain_contact_verification(
             &self.config,
-            domain,
-            team_id,
+            params,
             options,
         )
     }
@@ -2072,11 +1672,10 @@ impl DomainsRegistrarNamespace {
     /// Get information about a domain order by its ID
     pub fn get_order(
         &self,
-        order_id: OrderId,
-        team_id: Option<String>,
+        params: crate::methods::domains_registrar::GetOrderParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::domains_registrar::GetOrderResponse, crate::errors::SdkError> {
-        crate::methods::domains_registrar::get_order(&self.config, order_id, team_id, options)
+        crate::methods::domains_registrar::get_order(&self.config, params, options)
     }
 }
 
@@ -2097,37 +1696,21 @@ impl LogDrainsNamespace {
     /// Retrieves a Configurable Log Drain. This endpoint must be called with a team AccessToken (integration OAuth2 clients are not allowed). Only log drains owned by the authenticated team can be accessed.
     pub fn get_configurable(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::log_drains::GetConfigurableLogDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::log_drains::GetConfigurableLogDrainResponse, crate::errors::SdkError>
     {
-        crate::methods::log_drains::get_configurable_log_drain(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::log_drains::get_configurable_log_drain(&self.config, params, options)
     }
     /// Deletes a configurable log drain owned by the authenticated team. Call this deprecated operation with a team AccessToken; integration OAuth2 clients are not allowed.
     ///
     /// Deletes a Configurable Log Drain. This endpoint must be called with a team AccessToken (integration OAuth2 clients are not allowed). Only log drains owned by the authenticated team can be deleted.
     pub fn delete_configurable(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::log_drains::DeleteConfigurableLogDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::log_drains::delete_configurable_log_drain(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::log_drains::delete_configurable_log_drain(&self.config, params, options)
     }
     /// Lists log drains owned by the authenticated account. Use `projectId` or `projectIdOrName` to scope the list to a project, and `includeMetadata` to control whether project metadata is included; this deprecated operation requires an account AccessToken.
     ///
@@ -2154,14 +1737,13 @@ impl LogDrainsNamespace {
     /// Retrieves a list of all Integration log drains that are defined for the authenticated user or team. When using an OAuth2 token, the list is limited to log drains created by the authenticated integration.
     pub fn get_integration(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::log_drains::GetIntegrationLogDrainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         Vec<crate::methods::log_drains::GetIntegrationLogDrainsResponseItem>,
         crate::errors::SdkError,
     > {
-        crate::methods::log_drains::get_integration_log_drains(&self.config, team_id, slug, options)
+        crate::methods::log_drains::get_integration_log_drains(&self.config, params, options)
     }
     /// Creates an integration log drain for delivering logs to a destination URL. Use an OAuth2 client token because log drains created through this operation are tied to integrations. Provide `name` and `url`; you can also configure projects, sources, environments, headers, and delivery format.
     ///
@@ -2178,18 +1760,10 @@ impl LogDrainsNamespace {
     /// Deletes the Integration log drain with the provided `id`. When using an OAuth2 Token, the log drain can be deleted only if the integration owns it.
     pub fn delete_integration(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::log_drains::DeleteIntegrationLogDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::log_drains::delete_integration_log_drain(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::log_drains::delete_integration_log_drain(&self.config, params, options)
     }
 }
 
@@ -2220,44 +1794,30 @@ impl DrainsNamespace {
     /// Allows to retrieve the list of Drains of the authenticated team.
     pub fn get(
         &self,
-        project_id: Option<String>,
-        include_metadata: Option<bool>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::drains::GetDrainsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::drains::GetDrainsResponse, crate::errors::SdkError> {
-        crate::methods::drains::get_drains(
-            &self.config,
-            project_id,
-            include_metadata,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::drains::get_drains(&self.config, params, options)
     }
     /// Deletes a specific Drain identified by its path parameter. Use `teamId` or `slug` to perform the request on behalf of a team. The successful response has no content.
     ///
     /// Delete a specific Drain by passing the drain id in the URL.
     pub fn delete(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::drains::DeleteDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::drains::delete_drain(&self.config, id, team_id, slug, options)
+        crate::methods::drains::delete_drain(&self.config, params, options)
     }
     /// Retrieves a Drain by its identifier. Use `id` in the path to select the Drain, and use `teamId` or `slug` to make the request on behalf of a team.
     ///
     /// Get the information for a specific Drain by passing the drain id in the URL.
     pub fn get_drain(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::drains::GetDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetDrainResponse, crate::errors::SdkError> {
-        crate::methods::drains::get_drain(&self.config, id, team_id, slug, options)
+        crate::methods::drains::get_drain(&self.config, params, options)
     }
     /// Updates the configuration of an existing Drain. Send only the fields you want to change, such as `name`, `delivery`, or `status`; `status` can be `enabled` or `disabled`. You can also update its project scope, schemas, sampling rules, transforms, filter, or source.
     ///
@@ -2274,13 +1834,10 @@ impl DrainsNamespace {
     /// Validate the delivery configuration of a Drain using sample events.
     pub fn test(
         &self,
-        schemas: std::collections::HashMap<String, crate::methods::drains::TestDrainSchemasValue>,
-        delivery: TestDrainRequestDelivery,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::drains::TestDrainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::drains::TestDrainResponse, crate::errors::SdkError> {
-        crate::methods::drains::test_drain(&self.config, schemas, delivery, team_id, slug, options)
+        crate::methods::drains::test_drain(&self.config, params, options)
     }
 }
 
@@ -2321,20 +1878,10 @@ impl EdgeCacheNamespace {
     /// Marks a source image as stale, causing its corresponding transformed images to be revalidated in the background on the next request.
     pub fn invalidate_by_src_images(
         &self,
-        project_id_or_name: String,
-        src_images: Vec<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::edge_cache::InvalidateBySrcImagesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::edge_cache::invalidate_by_src_images(
-            &self.config,
-            project_id_or_name,
-            src_images,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::edge_cache::invalidate_by_src_images(&self.config, params, options)
     }
     /// Marks cache entries associated with source images as deleted so they are revalidated in the foreground on the next request. Provide `projectIdOrName` and between 1 and 8 entries in `srcImages`; you can optionally set `revalidationDeadlineSeconds`. Use this operation cautiously because foreground revalidation can send many concurrent requests to the origin; prefer source image invalidation for routine use.
     ///
@@ -2365,149 +1912,86 @@ impl GlobalConfigNamespace {
     /// Returns all Global Configs.
     pub fn get_edge_configs(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         Vec<crate::methods::global_config::GetEdgeConfigsResponseItem>,
         crate::errors::SdkError,
     > {
-        crate::methods::global_config::get_edge_configs(&self.config, team_id, slug, options)
+        crate::methods::global_config::get_edge_configs(&self.config, params, options)
     }
     /// Creates a Global Config for the authenticated user or specified team. Supply a `slug` that is at most 64 characters and contains only letters, numbers, underscores, or hyphens; you can also provide initial `items`.
     ///
     /// Creates a Global Config.
     pub fn create_edge_config(
         &self,
-        slug: String,
-        team_id: Option<String>,
-        slug_2: Option<String>,
-        items: Option<std::collections::HashMap<String, serde_json::Value>>,
+        params: crate::methods::global_config::CreateEdgeConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::global_config::CreateEdgeConfigResponse, crate::errors::SdkError>
     {
-        crate::methods::global_config::create_edge_config(
-            &self.config,
-            slug,
-            team_id,
-            slug_2,
-            items,
-            options,
-        )
+        crate::methods::global_config::create_edge_config(&self.config, params, options)
     }
     /// Retrieves a Global Config by its identifier. Use `teamId` or `slug` to make the request on behalf of a team when needed.
     ///
     /// Returns a Global Config.
     pub fn get_edge_config(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::global_config::GetEdgeConfigResponse, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config(&self.config, params, options)
     }
     /// Replaces a Global Config's name. Supply the required `slug` in the request body; use `teamId` or `slug` to make the request on behalf of a team when needed.
     ///
     /// Updates a Global Config.
     pub fn update_edge_config(
         &self,
-        edge_config_id: String,
-        slug: String,
-        team_id: Option<String>,
-        slug_2: Option<String>,
+        params: crate::methods::global_config::UpdateEdgeConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::global_config::UpdateEdgeConfigResponse, crate::errors::SdkError>
     {
-        crate::methods::global_config::update_edge_config(
-            &self.config,
-            edge_config_id,
-            slug,
-            team_id,
-            slug_2,
-            options,
-        )
+        crate::methods::global_config::update_edge_config(&self.config, params, options)
     }
     /// Deletes a Global Config by its identifier. Use `teamId` or `slug` to make the request on behalf of a team when needed; deletion removes the specified Global Config.
     ///
     /// Delete a Global Config by id.
     pub fn delete_edge_config(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::DeleteEdgeConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::global_config::delete_edge_config(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::delete_edge_config(&self.config, params, options)
     }
     /// Lists all items in a Global Config. Use the `edgeConfigId` path parameter to select the config; it must begin with the `ecfg_` prefix.
     ///
     /// Returns all items of a Global Config.
     pub fn get_edge_config_items(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigItemsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<GlobalConfigItem>, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_items(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_items(&self.config, params, options)
     }
     /// Updates multiple items in a Global Config in one request. Supply the required `items` array with the item operations to apply; the `edgeConfigId` must begin with the `ecfg_` prefix.
     ///
     /// Update multiple Global Config Items in batch.
     pub fn patch_edge_config_items(
         &self,
-        edge_config_id: String,
-        items: Vec<PatchEdgeConfigItemsRequestItemsItem>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::PatchEdgeConfigItemsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::global_config::PatchEdgeConfigItemsResponse, crate::errors::SdkError>
     {
-        crate::methods::global_config::patch_edge_config_items(
-            &self.config,
-            edge_config_id,
-            items,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::patch_edge_config_items(&self.config, params, options)
     }
     /// Retrieves the schema associated with a Global Config. Use `edgeConfigId` to select the config and `teamId` or `slug` to make the request on behalf of a team when needed.
     ///
     /// Returns the schema of a Global Config.
     pub fn get_edge_config_schema(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigSchemaParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_schema(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_schema(&self.config, params, options)
     }
     /// Updates the schema for a Global Config. Supply the required `definition` object; use `dryRun` to request a schema update without applying it, if supported by the API.
     ///
@@ -2524,56 +2008,30 @@ impl GlobalConfigNamespace {
     /// Deletes the schema of existing Global Config.
     pub fn delete_edge_config_schema(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::DeleteEdgeConfigSchemaParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::global_config::delete_edge_config_schema(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::delete_edge_config_schema(&self.config, params, options)
     }
     /// Retrieves a specific item from a Global Config. Supply the config identifier and item key to select the item; the config identifier must begin with the `ecfg_` prefix.
     ///
     /// Returns a specific Global Config Item.
     pub fn get_edge_config_item(
         &self,
-        edge_config_id: String,
-        edge_config_item_key: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigItemParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GlobalConfigItem, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_item(
-            &self.config,
-            edge_config_id,
-            edge_config_item_key,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_item(&self.config, params, options)
     }
     /// Lists the tokens associated with a Global Config. Use `edgeConfigId` to select the Global Config and optionally `teamId` or `slug` to make the request on behalf of a team. The response includes token metadata and a masked token representation.
     ///
     /// Returns all tokens of a Global Config.
     pub fn get_edge_config_tokens(
         &self,
-        edge_config_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigTokensParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<GlobalConfigToken>, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_tokens(
-            &self.config,
-            edge_config_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_tokens(&self.config, params, options)
     }
     /// Deletes one or more tokens from an existing Global Config. Provide token values or token IDs in the request body to choose which tokens to delete. Each supplied list must contain at least one item.
     ///
@@ -2590,84 +2048,44 @@ impl GlobalConfigNamespace {
     /// Return meta data about a Global Config token.
     pub fn get_edge_config_token(
         &self,
-        edge_config_id: String,
-        token: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GlobalConfigToken, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_token(
-            &self.config,
-            edge_config_id,
-            token,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_token(&self.config, params, options)
     }
     /// Creates a token for an existing Global Config. Provide a `label` to identify the token, with a maximum length of 52 characters. The 201 response includes the new token and its ID.
     ///
     /// Adds a token to an existing Global Config.
     pub fn create_edge_config_token(
         &self,
-        edge_config_id: String,
-        label: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::CreateEdgeConfigTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::global_config::CreateEdgeConfigTokenResponse, crate::errors::SdkError>
     {
-        crate::methods::global_config::create_edge_config_token(
-            &self.config,
-            edge_config_id,
-            label,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::create_edge_config_token(&self.config, params, options)
     }
     /// Retrieves a specific version of a Global Config from backup storage. Use `edgeConfigId` and `edgeConfigBackupVersionId` to select the Global Config and backup version. The response contains the backup data and its associated metadata.
     ///
     /// Retrieves a specific version of a Global Config from backup storage.
     pub fn get_edge_config_backup(
         &self,
-        edge_config_id: String,
-        edge_config_backup_version_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::GetEdgeConfigBackupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetEdgeConfigBackupResponse, crate::errors::SdkError> {
-        crate::methods::global_config::get_edge_config_backup(
-            &self.config,
-            edge_config_id,
-            edge_config_backup_version_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::get_edge_config_backup(&self.config, params, options)
     }
     /// Restores a specific backup version of a Global Config. Use `edgeConfigId` and `edgeConfigBackupVersionId` to select the Global Config and the version to restore. The response reports the resulting digest, previous digest, restored backup version, and status.
     ///
     /// Restores a Global Config backup.
     pub fn restore_edge_config_backup(
         &self,
-        edge_config_id: String,
-        edge_config_backup_version_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::global_config::RestoreEdgeConfigBackupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::global_config::RestoreEdgeConfigBackupResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::global_config::restore_edge_config_backup(
-            &self.config,
-            edge_config_id,
-            edge_config_backup_version_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::global_config::restore_edge_config_backup(&self.config, params, options)
     }
     /// Lists backups of a Global Config. Use `next` to continue from a pagination cursor, `limit` to control the number of results, and `metadata` to filter the backups. The response includes backup records and pagination information.
     ///
@@ -2721,74 +2139,43 @@ impl EnvironmentNamespace {
     /// Updates a given Shared Environment Variable for a Team.
     pub fn update_shared_env_variable(
         &self,
-        updates: std::collections::HashMap<
-            String,
-            crate::methods::environment::UpdateSharedEnvVariableUpdatesValue,
-        >,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::UpdateSharedEnvVariableParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::UpdateSharedEnvVariableResponse, crate::errors::SdkError>
     {
-        crate::methods::environment::update_shared_env_variable(
-            &self.config,
-            updates,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::environment::update_shared_env_variable(&self.config, params, options)
     }
     /// Deletes one or more shared environment variables for a team. Supply their identifiers in the `ids` array and use `teamId` or `slug` to select the team context. The response reports which identifiers were deleted and which failed.
     ///
     /// Deletes one or many Shared Environment Variables for a given team.
     pub fn delete_shared_env_variable(
         &self,
-        ids: Vec<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::DeleteSharedEnvVariableParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::DeleteSharedEnvVariableResponse, crate::errors::SdkError>
     {
-        crate::methods::environment::delete_shared_env_variable(
-            &self.config,
-            ids,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::environment::delete_shared_env_variable(&self.config, params, options)
     }
     /// Retrieves the decrypted value and metadata for a shared environment variable. Supply its `id` and, when needed, `teamId` or `slug` to select the team context. The response includes whether the value is decrypted and the projects and custom environments associated with it.
     ///
     /// Retrieve the decrypted value of a Shared Environment Variable by id.
     pub fn get_shared_env_var(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::GetSharedEnvVarParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::GetSharedEnvVarResponse, crate::errors::SdkError> {
-        crate::methods::environment::get_shared_env_var(&self.config, id, team_id, slug, options)
+        crate::methods::environment::get_shared_env_var(&self.config, params, options)
     }
     /// Disconnects a shared environment variable from a project without deleting the variable. Supply the variable's `id` and the target `projectId`, and use `teamId` or `slug` to select the team context. The response identifies the shared environment variable that was unlinked.
     ///
     /// Disconnects a shared environment variable for a given project
     pub fn unlink_shared_env_variable(
         &self,
-        id: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::UnlinkSharedEnvVariableParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::UnlinkSharedEnvVariableResponse, crate::errors::SdkError>
     {
-        crate::methods::environment::unlink_shared_env_variable(
-            &self.config,
-            id,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::environment::unlink_shared_env_variable(&self.config, params, options)
     }
     /// Creates a custom environment for a project. Provide a `slug` and, if needed, a `description`, branch-matching configuration, or source for copied environment variables. The environment cannot be named Production or Preview.
     ///
@@ -2806,42 +2193,22 @@ impl EnvironmentNamespace {
     /// Retrieve custom environments for the project. Must not be named 'Production' or 'Preview'.
     pub fn list_custom(
         &self,
-        id_or_name: String,
-        git_branch: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::ListEnvironmentCustomParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::ListEnvironmentCustomResponse, crate::errors::SdkError>
     {
-        crate::methods::environment::list_environment_custom(
-            &self.config,
-            id_or_name,
-            git_branch,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::environment::list_environment_custom(&self.config, params, options)
     }
     /// Retrieves a custom environment from a project by its identifier or slug. Use the project identifier or name together with `environmentSlugOrId` to select the environment.
     ///
     /// Retrieve a custom environment for the project. Must not be named 'Production' or 'Preview'.
     pub fn get_custom(
         &self,
-        id_or_name: String,
-        environment_slug_or_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::environment::GetCustomEnvironmentParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::environment::GetCustomEnvironmentResponse, crate::errors::SdkError>
     {
-        crate::methods::environment::get_custom_environment(
-            &self.config,
-            id_or_name,
-            environment_slug_or_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::environment::get_custom_environment(&self.config, params, options)
     }
     /// Updates a custom environment’s slug, description, or branch-matching configuration. Supply only the properties you want to change; the environment cannot be named Production or Preview.
     ///
@@ -2894,11 +2261,10 @@ impl UserNamespace {
     /// Returns the list of user-facing event types with descriptions.
     pub fn list_event_types(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::user::ListEventTypesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ListEventTypesResponse, crate::errors::SdkError> {
-        crate::methods::user::list_event_types(&self.config, team_id, slug, options)
+        crate::methods::user::list_event_types(&self.config, params, options)
     }
     /// Retrieves information about the authenticated user. Use this endpoint to obtain the user information associated with the request's authentication context.
     ///
@@ -2914,10 +2280,10 @@ impl UserNamespace {
     /// Initiates the deletion process for the currently authenticated User, by sending a deletion confirmation email. The email contains a link that the user needs to visit in order to proceed with the deletion process.
     pub fn request_delete(
         &self,
-        reasons: Option<Vec<crate::methods::user::RequestDeleteReasonsItem>>,
+        params: crate::methods::user::RequestDeleteParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::user::RequestDeleteResponse, crate::errors::SdkError> {
-        crate::methods::user::request_delete(&self.config, reasons, options)
+        crate::methods::user::request_delete(&self.config, params, options)
     }
 }
 
@@ -3009,19 +2375,11 @@ impl FeatureFlagsNamespace {
     /// Retrieve feature flag settings for a project.
     pub fn get_flag_settings(
         &self,
-        project_id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::GetFlagSettingsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::feature_flags::GetFlagSettingsResponse, crate::errors::SdkError>
     {
-        crate::methods::feature_flags::get_flag_settings(
-            &self.config,
-            project_id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::get_flag_settings(&self.config, params, options)
     }
     /// Updates feature flag settings for a project, including whether flags are enabled and which environments are synchronized. Send only the settings fields you want to change; entity and attribute entries have required fields and size limits. The response contains the resulting settings.
     ///
@@ -3039,21 +2397,11 @@ impl FeatureFlagsNamespace {
     /// Retrieve feature flag settings for projects in a team.
     pub fn list_team_flag_settings(
         &self,
-        team_id: String,
-        limit: Option<i64>,
-        cursor: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::ListTeamFlagSettingsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::feature_flags::ListTeamFlagSettingsResponse, crate::errors::SdkError>
     {
-        crate::methods::feature_flags::list_team_flag_settings(
-            &self.config,
-            team_id,
-            limit,
-            cursor,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::list_team_flag_settings(&self.config, params, options)
     }
     /// Lists feature flags across all projects in a team. Filter the results by state, kind, tags, creator, maintainers, or search text, and use `cursor` to continue through the results. The response includes an opaque next cursor for pagination.
     ///
@@ -3092,21 +2440,11 @@ impl FeatureFlagsNamespace {
     /// List all feature flag segments for a project.
     pub fn list_flag_segments(
         &self,
-        project_id_or_name: String,
-        with_metadata: Option<bool>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::ListFlagSegmentsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::feature_flags::ListFlagSegmentsResponse, crate::errors::SdkError>
     {
-        crate::methods::feature_flags::list_flag_segments(
-            &self.config,
-            project_id_or_name,
-            with_metadata,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::list_flag_segments(&self.config, params, options)
     }
     /// Retrieves a feature flag segment from a project by its identifier or slug. Use `withMetadata` to control whether the response includes segment metadata.
     ///
@@ -3143,39 +2481,23 @@ impl FeatureFlagsNamespace {
     /// Retrieve the feature flags of a deployment.
     pub fn get(
         &self,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::GetDeploymentFeatureFlagsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::feature_flags::GetDeploymentFeatureFlagsResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::feature_flags::get_deployment_feature_flags(
-            &self.config,
-            deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::get_deployment_feature_flags(&self.config, params, options)
     }
     /// Lists the SDK keys for a project. Use `projectIdOrName` to select the project whose keys you want to inspect. The response contains safe key metadata and does not include cleartext secrets.
     ///
     /// Gets all SDK keys for a project.
     pub fn get_sdk_keys(
         &self,
-        project_id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::GetSdkKeysParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::feature_flags::GetSdkKeysResponse, crate::errors::SdkError> {
-        crate::methods::feature_flags::get_sdk_keys(
-            &self.config,
-            project_id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::get_sdk_keys(&self.config, params, options)
     }
     /// Creates an SDK key for a project. Supply `sdkKeyType` and `environment` in the request body, and optionally provide a `label` to identify the key. The response includes the cleartext key value, which is disclosed only when the key is created.
     ///
@@ -3192,20 +2514,10 @@ impl FeatureFlagsNamespace {
     /// Deletes an SDK key.
     pub fn delete_sdk_key(
         &self,
-        project_id_or_name: String,
-        hash_key: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::feature_flags::DeleteSdkKeyParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::feature_flags::delete_sdk_key(
-            &self.config,
-            project_id_or_name,
-            hash_key,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::feature_flags::delete_sdk_key(&self.config, params, options)
     }
 }
 
@@ -3226,19 +2538,11 @@ impl IntegrationsNamespace {
     /// Lists git namespaces for a supported provider. Supported providers are `github`, `gitlab` and `bitbucket`. If the provider is not provided, it will try to obtain it from the user that authenticated the request.
     pub fn git_namespaces(
         &self,
-        host: Option<String>,
-        provider: Option<crate::methods::integrations::GitNamespacesEnum>,
-        viewer_metadata: Option<bool>,
+        params: crate::methods::integrations::GitNamespacesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Vec<crate::methods::integrations::GitNamespacesResponseItem>, crate::errors::SdkError>
     {
-        crate::methods::integrations::git_namespaces(
-            &self.config,
-            host,
-            provider,
-            viewer_metadata,
-            options,
-        )
+        crate::methods::integrations::git_namespaces(&self.config, params, options)
     }
     /// Searches for Git repositories linked to a namespace for a supported provider. Use `namespaceId` and `provider` to narrow the search, or omit them to let the API infer values from the authenticated user; `query` can filter the repositories. Supply `host` when using a custom Git host.
     ///
@@ -3291,45 +2595,33 @@ impl IntegrationsNamespace {
     /// Allows to retrieve a the configuration with the provided id in case it exists. The authenticated user or team must be the owner of the config in order to access it.
     pub fn get_configuration(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::integrations::GetConfigurationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetConfigurationResponse, crate::errors::SdkError> {
-        crate::methods::integrations::get_configuration(&self.config, id, team_id, slug, options)
+        crate::methods::integrations::get_configuration(&self.config, params, options)
     }
     /// Deletes an integration configuration and all resources associated with it. Use `id` to identify the configuration and `teamId` or `slug` to make the request on behalf of a team. Deletion also removes associated webhooks, log drains, and project environment variables.
     ///
     /// Allows to remove the configuration with the `id` provided in the parameters. The configuration and all of its resources will be removed. This includes Webhooks, LogDrains and Project Env variables.
     pub fn delete_configuration(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::integrations::DeleteConfigurationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::integrations::delete_configuration(&self.config, id, team_id, slug, options)
+        crate::methods::integrations::delete_configuration(&self.config, params, options)
     }
     /// Lists the products available for an integration configuration. Use `id` to select the configuration, and use `teamId` or `slug` when making the request on behalf of a team. Each product includes a `metadataSchema` describing its required and optional metadata fields.
     ///
     /// Returns products available for an integration configuration. Each product includes a `metadataSchema` field with the JSON Schema for required and optional metadata fields.
     pub fn get_configuration_products(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::integrations::GetConfigurationProductsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::integrations::GetConfigurationProductsResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::integrations::get_configuration_products(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::integrations::get_configuration_products(&self.config, params, options)
     }
     /// Creates an integration store and handles free or paid billing plans. Supply `name`, `integrationConfigurationId`, and `integrationProductIdOrSlug`; omit `billingPlanId` to discover a free plan or provide one for a paid resource. Use `paymentMethodId` when you need to select a payment method other than the default.
     ///
@@ -3373,138 +2665,88 @@ impl MarketplaceNamespace {
     /// Fetches the best account or user’s contact info
     pub fn get_account_info(
         &self,
-        integration_configuration_id: String,
+        params: crate::methods::marketplace::GetAccountInfoParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::marketplace::GetAccountInfoResponse, crate::errors::SdkError> {
-        crate::methods::marketplace::get_account_info(
-            &self.config,
-            integration_configuration_id,
-            options,
-        )
+        crate::methods::marketplace::get_account_info(&self.config, params, options)
     }
     /// Retrieves the role and other available information for a member of an integration installation. Use the member's user ID from the SSO OIDC token's `user_id` claim to identify the member.
     ///
     /// Returns the member role and other information for a given member ID ("user_id" claim in the SSO OIDC token).
     pub fn get_member(
         &self,
-        integration_configuration_id: String,
-        member_id: String,
+        params: crate::methods::marketplace::GetMemberParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::marketplace::GetMemberResponse, crate::errors::SdkError> {
-        crate::methods::marketplace::get_member(
-            &self.config,
-            integration_configuration_id,
-            member_id,
-            options,
-        )
+        crate::methods::marketplace::get_member(&self.config, params, options)
     }
     /// Rotates an installation credential by issuing a replacement access token. Authenticate with the credential being replaced and the integration's client secret; the previous credential remains valid until you explicitly revoke it, so store the replacement before completing that step.
     ///
     /// Issues a replacement access token for an installation, so a partner can rotate a credential it believes is compromised without the customer having to reinstall. Authenticated by the credential being replaced plus the integration's client secret: a leaked access token on its own cannot rotate itself, which would otherwise let an attacker take over the installation and lock the partner out. The previous credential intentionally stays valid so in-flight requests keep working. Retiring it is a separate, explicit operation — a partner is never left mid-rotation without a working credential.
     pub fn rotate_installation_credential(
         &self,
-        integration_configuration_id: String,
-        client_secret: String,
-        client_id: Option<String>,
+        params: crate::methods::marketplace::RotateInstallationCredentialParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::marketplace::RotateInstallationCredentialResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::marketplace::rotate_installation_credential(
-            &self.config,
-            integration_configuration_id,
-            client_secret,
-            client_id,
-            options,
-        )
+        crate::methods::marketplace::rotate_installation_credential(&self.config, params, options)
     }
     /// Revokes a superseded credential for an integration installation after you have rotated it. Authenticate with a live installation credential and the integration's client secret, then name the old credential in the request body; the last live credential cannot be revoked.
     ///
     /// Retires a superseded installation credential, so a partner can complete a rotation it started with `POST /credentials/rotate` — the leaked credential stops working without the customer having to reinstall. Authenticated by a live installation credential plus the integration's client secret. The credential to retire is named in the body rather than being the one that authenticates, so the ordinary flow is: rotate, store the replacement, then authenticate with the replacement and revoke the old one. Refuses to retire an installation's last live credential. Rotation exists so remediation is not customer-visible; revoking the only credential would undo that and leave the install needing a reinstall.
     pub fn revoke_installation_credential(
         &self,
-        integration_configuration_id: String,
-        token: String,
-        client_secret: String,
-        client_id: Option<String>,
+        params: crate::methods::marketplace::RevokeInstallationCredentialParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::marketplace::RevokeInstallationCredentialResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::marketplace::revoke_installation_credential(
-            &self.config,
-            integration_configuration_id,
-            token,
-            client_secret,
-            client_id,
-            options,
-        )
+        crate::methods::marketplace::revoke_installation_credential(&self.config, params, options)
     }
     /// Submits an event to notify Vercel about a change to an installation or one of its resources. Send an installation update when its billing plan changes outside Vercel, or a resource update when a linked resource's state changes; Vercel uses its read APIs to retrieve the updated state.
     ///
     /// Partner notifies Vercel of any changes made to an Installation or a Resource. Vercel is expected to use `list-resources` and other read APIs to get the new state. `resource.updated` event should be dispatched when any state of a resource linked to Vercel is modified by the partner. `installation.updated` event should be dispatched when an installation's billing plan is changed via the provider instead of Vercel. Resource update use cases: \- The user renames a database in the partner’s application. The partner should dispatch a `resource.updated` event to notify Vercel to update the resource in Vercel’s datastores. \- A resource has been suspended due to a lack of use. The partner should dispatch a `resource.updated` event to notify Vercel to update the resource's status in Vercel's datastores.
     pub fn create_event(
         &self,
-        integration_configuration_id: String,
-        event: CreateEventRequestEvent,
+        params: crate::methods::marketplace::CreateEventParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::create_event(
-            &self.config,
-            integration_configuration_id,
-            event,
-            options,
-        )
+        crate::methods::marketplace::create_event(&self.config, params, options)
     }
     /// Lists the resources associated with an integration installation. Use the installation identifier to retrieve its resources, including each resource's partner and product identifiers and its name.
     ///
     /// Get all resources for a given installation ID.
     pub fn get_integration_resources(
         &self,
-        integration_configuration_id: String,
+        params: crate::methods::marketplace::GetIntegrationResourcesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::marketplace::GetIntegrationResourcesResponse, crate::errors::SdkError>
     {
-        crate::methods::marketplace::get_integration_resources(
-            &self.config,
-            integration_configuration_id,
-            options,
-        )
+        crate::methods::marketplace::get_integration_resources(&self.config, params, options)
     }
     /// Retrieves a resource associated with an integration installation by its partner-provided ID. Use both path identifiers to scope the lookup to the installation that owns the resource.
     ///
     /// Get a resource by its partner ID.
     pub fn get_integration_resource(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
+        params: crate::methods::marketplace::GetIntegrationResourceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::marketplace::GetIntegrationResourceResponse, crate::errors::SdkError>
     {
-        crate::methods::marketplace::get_integration_resource(
-            &self.config,
-            integration_configuration_id,
-            resource_id,
-            options,
-        )
+        crate::methods::marketplace::get_integration_resource(&self.config, params, options)
     }
     /// Deletes a resource owned by an installation. Use `integrationConfigurationId` and `resourceId` to identify the installation and resource to remove. A 204 response confirms the deletion without returning a response body.
     ///
     /// Delete a resource owned by the selected installation ID.
     pub fn delete_integration_resource(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
+        params: crate::methods::marketplace::DeleteIntegrationResourceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::delete_integration_resource(
-            &self.config,
-            integration_configuration_id,
-            resource_id,
-            options,
-        )
+        crate::methods::marketplace::delete_integration_resource(&self.config, params, options)
     }
     /// Imports or upserts a resource into an integration installation, including resources created independently in the provider's system. Use this operation to synchronize an existing resource to Vercel; for a user-initiated import, call it before redirecting the user back to Vercel.
     ///
@@ -3551,30 +2793,20 @@ impl MarketplaceNamespace {
     /// This endpoint allows the partner to mark an installation as finalized. This means you will not send any more invoices for the installation. Use this after a customer has requested uninstall and you have sent any remaining invoices. This will allow the uninstall process to proceed immediately after all invoices have been paid. Use the `credentials.access_token` we provided in the Upsert Installation body to authorize this request.
     pub fn finalize_installation(
         &self,
-        integration_configuration_id: String,
+        params: crate::methods::marketplace::FinalizeInstallationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::finalize_installation(
-            &self.config,
-            integration_configuration_id,
-            options,
-        )
+        crate::methods::marketplace::finalize_installation(&self.config, params, options)
     }
     /// Retrieves invoice details and status for an installation. Use the installation and invoice identifiers to select the invoice, and use the returned state and timestamps to track its billing lifecycle. Consult billing events through webhooks when you need invoice event notifications.
     ///
     /// Get Invoice details and status for a given invoice ID. See [Billing Events with Webhooks documentation](https://vercel.com/docs/integrations/create-integration/marketplace-api#working-with-billing-events-through-webhooks) on how to receive invoice events. This endpoint is used to retrieve the invoice details.
     pub fn get_invoice(
         &self,
-        integration_configuration_id: String,
-        invoice_id: String,
+        params: crate::methods::marketplace::GetInvoiceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::marketplace::GetInvoiceResponse, crate::errors::SdkError> {
-        crate::methods::marketplace::get_invoice(
-            &self.config,
-            integration_configuration_id,
-            invoice_id,
-            options,
-        )
+        crate::methods::marketplace::get_invoice(&self.config, params, options)
     }
     /// Submits a refund request for an invoice previously created through the invoice submission operation. Provide the refund reason and amount along with the `refund` action. The requested amount cannot exceed the invoice total.
     ///
@@ -3591,18 +2823,10 @@ impl MarketplaceNamespace {
     /// Sends the prepayment balances. The partner should do this at least once a day and ideally once per hour. Use the `credentials.access_token` we provided in the Upsert Installation body to authorize this request.
     pub fn submit_prepayment_balances(
         &self,
-        integration_configuration_id: String,
-        timestamp: String,
-        balances: Vec<crate::methods::marketplace::SubmitPrepaymentBalancesBalancesItem>,
+        params: crate::methods::marketplace::SubmitPrepaymentBalancesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::submit_prepayment_balances(
-            &self.config,
-            integration_configuration_id,
-            timestamp,
-            balances,
-            options,
-        )
+        crate::methods::marketplace::submit_prepayment_balances(&self.config, params, options)
     }
     /// Replaces the secrets for a resource connected to an installation. This operation is deprecated and has been replaced by PUT /v1/installations/{integrationConfigurationId}/resources/{resourceId}/secrets; existing connected projects may continue using old secrets until you redeploy them. Use `partial` to update only the supplied secrets instead of replacing the full set.
     ///
@@ -3623,32 +2847,20 @@ impl MarketplaceNamespace {
     /// This endpoint updates the secrets of a resource. If a resource has projects connected, the connected secrets are updated with the new secrets. The old secrets may still be used by existing connected projects because they are not automatically redeployed. Redeployment is a manual action and must be completed by the user. All new project connections will use the new secrets. Use cases for this endpoint: \- Resetting the credentials of a database in the partner. If the user requests the credentials to be updated in the partner’s application, the partner post the new set of secrets to Vercel, the user should redeploy their application and the expire the old credentials.
     pub fn update_resource_secrets_by_id(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
-        secrets: Vec<crate::methods::marketplace::UpdateResourceSecretsByIdSecretsItem>,
-        partial: Option<bool>,
+        params: crate::methods::marketplace::UpdateResourceSecretsByIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::update_resource_secrets_by_id(
-            &self.config,
-            integration_configuration_id,
-            resource_id,
-            secrets,
-            partial,
-            options,
-        )
+        crate::methods::marketplace::update_resource_secrets_by_id(&self.config, params, options)
     }
     /// Creates one or more experimentation items for an integration resource. Supply an `items` array whose entries identify each item with `id`, `slug`, and `origin`; each item can also include category and descriptive metadata.
     ///
     /// Create one or multiple experimentation items
     pub fn create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
-        items: Vec<crate::methods::marketplace::CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsItemsItem>,
+        params: crate::methods::marketplace::CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items(&self.config, integration_configuration_id, resource_id, items, options)
+        crate::methods::marketplace::create_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items(&self.config, params, options)
     }
     /// Updates an existing experimentation item for an integration resource. Identify the item with `itemId` and provide its required `slug` and `origin`, along with any other fields you want to change.
     ///
@@ -3665,35 +2877,32 @@ impl MarketplaceNamespace {
     /// Delete an existing experimentation item
     pub fn delete_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items_by_item_id(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
-        item_id: String,
+        params: crate::methods::marketplace::DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::marketplace::delete_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items_by_item_id(&self.config, integration_configuration_id, resource_id, item_id, options)
+        crate::methods::marketplace::delete_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_items_by_item_id(&self.config, params, options)
     }
     /// Retrieves response metadata for a user-provided Global Config associated with an integration resource. Use this endpoint when the user has enabled Global Config syncing and you need to check the configuration without requesting its contents.
     ///
     /// When the user enabled Global Config syncing, then this endpoint can be used by the partner to fetch the contents of the Global Config.
     pub fn head_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(
         &self,
-        integration_configuration_id: String,
-        resource_id: String,
+        params: crate::methods::marketplace::HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::marketplace::head_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, integration_configuration_id, resource_id, options)
+        crate::methods::marketplace::head_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, params, options)
     }
     /// Retrieves the contents of a user-provided Global Config for an integration resource. Use this endpoint when the user has enabled Global Config syncing; the response includes the configuration items, digest, and update time.
     ///
     /// When the user enabled Global Config syncing, then this endpoint can be used by the partner to fetch the contents of the Global Config.
-    pub fn get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self, integration_configuration_id: String, resource_id: String, options: Option<&crate::client::RequestOptions>) -> Result<crate::methods::marketplace::GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse, crate::errors::SdkError>{
-        crate::methods::marketplace::get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, integration_configuration_id, resource_id, options)
+    pub fn get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self, params: crate::methods::marketplace::GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams, options: Option<&crate::client::RequestOptions>) -> Result<crate::methods::marketplace::GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse, crate::errors::SdkError>{
+        crate::methods::marketplace::get_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, params, options)
     }
     /// Replaces the data in a user-provided Global Config for an integration resource. Use this endpoint to push configuration data when the user has enabled Global Config syncing, and provide the new value in `data`.
     ///
     /// When the user enabled Global Config syncing, then this endpoint can be used by the partner to push their configuration data into the relevant Global Config.
-    pub fn replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self, integration_configuration_id: String, resource_id: String, data: std::collections::HashMap<String, serde_json::Value>, options: Option<&crate::client::RequestOptions>) -> Result<crate::methods::marketplace::ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse, crate::errors::SdkError>{
-        crate::methods::marketplace::replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, integration_configuration_id, resource_id, data, options)
+    pub fn replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self, params: crate::methods::marketplace::ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigParams, options: Option<&crate::client::RequestOptions>) -> Result<crate::methods::marketplace::ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse, crate::errors::SdkError>{
+        crate::methods::marketplace::replace_installations_by_integration_configuration_id_resources_by_resource_id_experimentation_global_config(&self.config, params, options)
     }
 }
 
@@ -3714,10 +2923,10 @@ impl AuthenticationNamespace {
     /// During the autorization process, Vercel sends the user to the provider [redirectLoginUrl](https://vercel.com/docs/integrations/create-integration/submit-integration#redirect-login-url), that includes the OAuth authorization `code` parameter. The provider then calls the SSO Token Exchange endpoint with the sent code and receives the OIDC token. They log the user in based on this token and redirects the user back to the Vercel account using deep-link parameters included the redirectLoginUrl. Providers should not persist the returned `id_token` in a database since the token will expire. See [\*\*Authentication with SSO\*\*](https://vercel.com/docs/integrations/create-integration/marketplace-api#authentication-with-sso) for more details.
     pub fn exchange_sso_token(
         &self,
-        body: crate::methods::authentication::ExchangeSsoToken,
+        params: crate::methods::authentication::ExchangeSsoTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<ExchangeSsoTokenResponse, crate::errors::SdkError> {
-        crate::methods::authentication::exchange_sso_token(&self.config, body, options)
+        crate::methods::authentication::exchange_sso_token(&self.config, params, options)
     }
     /// Lists authentication tokens for the authenticated user. The response includes token records and pagination metadata for reviewing the user's tokens.
     ///
@@ -3744,29 +2953,21 @@ impl AuthenticationNamespace {
     /// Retrieve metadata about an authentication token belonging to the currently authenticated User.
     pub fn get_auth_token(
         &self,
-        token_id: String,
+        params: crate::methods::authentication::GetAuthTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::authentication::GetAuthTokenResponse, crate::errors::SdkError> {
-        crate::methods::authentication::get_auth_token(&self.config, token_id, options)
+        crate::methods::authentication::get_auth_token(&self.config, params, options)
     }
     /// Deletes an authentication token, invalidating it for future HTTP requests. Pass `current` as `tokenId` to invalidate the token used to authenticate the request; the logout parameters apply only when deleting that token.
     ///
     /// Invalidate an authentication token, such that it will no longer be valid for future HTTP requests.
     pub fn delete_auth_token(
         &self,
-        token_id: String,
-        reason: Option<crate::methods::authentication::DeleteAuthTokenEnum>,
-        logout_source: Option<crate::methods::authentication::DeleteAuthTokenEnum116a3556>,
+        params: crate::methods::authentication::DeleteAuthTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::authentication::DeleteAuthTokenResponse, crate::errors::SdkError>
     {
-        crate::methods::authentication::delete_auth_token(
-            &self.config,
-            token_id,
-            reason,
-            logout_source,
-            options,
-        )
+        crate::methods::authentication::delete_auth_token(&self.config, params, options)
     }
 }
 
@@ -3809,37 +3010,30 @@ impl KmsNamespace {
     /// Sign a raw message with a KMS issuer's active signing key. Authenticate the request with a Vercel OIDC token in the `Authorization: Bearer` header; the issuer's policies decide which workloads are allowed to sign. The response `signature` is standard-base64 of the raw signature over the decoded message bytes. `keyId`, `algorithm`, and `fingerprint` identify the signing key in the issuer's JWKS.
     pub fn sign_message(
         &self,
-        issuer_id: String,
-        message: String,
+        params: crate::methods::kms::SignKmsMessageParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::kms::SignKmsMessageResponse, crate::errors::SdkError> {
-        crate::methods::kms::sign_kms_message(&self.config, issuer_id, message, options)
+        crate::methods::kms::sign_kms_message(&self.config, params, options)
     }
     /// Signs a JWT with an issuer's active KMS signing key. Authenticate with a Vercel OIDC token in the `Authorization` header, and ensure the issuer's policies allow the workload to sign. You can provide claims and additional token headers, or omit them to sign a token with default settings.
     ///
     /// Sign a JWT with a KMS issuer's active signing key. Authenticate the request with a Vercel OIDC token in the `Authorization: Bearer` header; the issuer's policies decide which workloads are allowed to sign. `keyId`, `algorithm`, and `fingerprint` identify the signing key in the issuer's JWKS.
     pub fn sign_token(
         &self,
-        issuer_id: String,
-        claims: Option<serde_json::Value>,
-        headers: Option<serde_json::Value>,
-        ttl: Option<Option<f64>>,
+        params: crate::methods::kms::SignKmsTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::kms::SignKmsTokenResponse, crate::errors::SdkError> {
-        crate::methods::kms::sign_kms_token(&self.config, issuer_id, claims, headers, ttl, options)
+        crate::methods::kms::sign_kms_token(&self.config, params, options)
     }
     /// Lists KMS issuers belonging to the authenticated user's team. Use `limit` to control the page size and `next` to continue from a previous page; `teamId` or `slug` can scope the request to a team.
     ///
     /// Retrieve the list of KMS issuers that belong to the authenticated team. The results are paginated.
     pub fn list_issuers(
         &self,
-        limit: Option<i64>,
-        next: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::kms::ListKmsIssuersParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::kms::ListKmsIssuersResponse, crate::errors::SdkError> {
-        crate::methods::kms::list_kms_issuers(&self.config, limit, next, team_id, slug, options)
+        crate::methods::kms::list_kms_issuers(&self.config, params, options)
     }
     /// Creates a KMS issuer for the authenticated user's team to own asymmetric signing keys. Supply `name` and optionally configure the signing `algorithm`, claims validation schema, policy, or imported private key. The response includes the issuer and its signing keys.
     ///
@@ -3876,32 +3070,20 @@ impl KmsNamespace {
     /// Immediately revoke a signing key that is already scheduled for revocation.
     pub fn revoke_signing_key(
         &self,
-        issuer_id: String,
-        key_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::kms::RevokeKmsSigningKeyParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::kms::RevokeKmsSigningKeyResponse, crate::errors::SdkError> {
-        crate::methods::kms::revoke_kms_signing_key(
-            &self.config,
-            issuer_id,
-            key_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::kms::revoke_kms_signing_key(&self.config, params, options)
     }
     /// Retrieves a KMS issuer by its identifier. Use a team bearer token for issuer management access or an OIDC token authorized by one of the issuer's policies for signing access. An OIDC-authorized response omits policies because that token does not grant management access.
     ///
     /// Retrieve a single KMS issuer by its ID. Accepts either a team bearer token (existing path) or an OIDC token authorized by one of the issuer's policies (e.g. a connex-grant token). The OIDC path returns the issuer without policies, since a policy token only proves signing access, not management access.
     pub fn get_issuer(
         &self,
-        issuer_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::kms::GetKmsIssuerParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::kms::GetKmsIssuerResponse, crate::errors::SdkError> {
-        crate::methods::kms::get_kms_issuer(&self.config, issuer_id, team_id, slug, options)
+        crate::methods::kms::get_kms_issuer(&self.config, params, options)
     }
     /// Updates a KMS issuer's name or claims schema. Include one or both fields to change; pass `null` for `claimsSchema` to remove the schema. The response contains the updated issuer.
     ///
@@ -3918,12 +3100,10 @@ impl KmsNamespace {
     /// Delete a KMS issuer and its signing keys.
     pub fn delete_issuer(
         &self,
-        issuer_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::kms::DeleteKmsIssuerParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::kms::delete_kms_issuer(&self.config, issuer_id, team_id, slug, options)
+        crate::methods::kms::delete_kms_issuer(&self.config, params, options)
     }
     /// Creates a policy on a KMS issuer that grants a project's deployments permission to sign with the issuer. Supply `kind`, `projectId`, and at least one `environments` entry; optionally include `tokenClaims` for claims to add to signed tokens. The response returns the created policy.
     ///
@@ -3974,20 +3154,10 @@ impl LogsNamespace {
     /// Returns a stream of logs for a given deployment.
     pub fn get_runtime(
         &self,
-        project_id: String,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::logs::GetRuntimeLogsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::logs::GetRuntimeLogsResponse, crate::errors::SdkError> {
-        crate::methods::logs::get_runtime_logs(
-            &self.config,
-            project_id,
-            deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::logs::get_runtime_logs(&self.config, params, options)
     }
 }
 
@@ -4008,67 +3178,43 @@ impl MicrofrontendsNamespace {
     /// Get the microfrontends group IDs for a team.
     pub fn get_groups(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::microfrontends::GetMicrofrontendsGroupsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::microfrontends::get_microfrontends_groups(
-            &self.config,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::microfrontends::get_microfrontends_groups(&self.config, params, options)
     }
     /// Lists the projects in a microfrontends group. Use `groupId` to identify the group, and optionally use `teamId` or `slug` to specify the team context.
     ///
     /// Get the microfrontends for a given group ID.
     pub fn get_in_group(
         &self,
-        group_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::microfrontends::GetMicrofrontendsInGroupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::microfrontends::GetMicrofrontendsInGroupResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::microfrontends::get_microfrontends_in_group(
-            &self.config,
-            group_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::microfrontends::get_microfrontends_in_group(&self.config, params, options)
     }
     /// Retrieves the microfrontends configuration for a specific deployment. Supply the deployment identifier and, when needed, `teamId` or `slug` to scope the request to a team.
     ///
     /// Get the microfrontends config for a deployment.
     pub fn get_config(
         &self,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::microfrontends::GetMicrofrontendsConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::microfrontends::GetMicrofrontendsConfigResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::microfrontends::get_microfrontends_config(
-            &self.config,
-            deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::microfrontends::get_microfrontends_config(&self.config, params, options)
     }
     /// Retrieves the production microfrontends configuration for a project. Identify the project with `projectIdOrName` and use `teamId` or `slug` to scope the request to a team when needed.
     ///
     /// Get the microfrontends config for a project by ID or name.
     pub fn get_config_for_project(
         &self,
-        project_id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::microfrontends::GetMicrofrontendsConfigForProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::microfrontends::GetMicrofrontendsConfigForProjectResponse,
@@ -4076,9 +3222,7 @@ impl MicrofrontendsNamespace {
     > {
         crate::methods::microfrontends::get_microfrontends_config_for_project(
             &self.config,
-            project_id_or_name,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4118,8 +3262,7 @@ impl ObservabilityNamespace {
     /// Lists the projects that are currently configured as disabled for Observability Plus on a team.
     pub fn get_configuration_projects(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::observability::GetObservabilityConfigurationProjectsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::observability::GetObservabilityConfigurationProjectsResponse,
@@ -4127,8 +3270,7 @@ impl ObservabilityNamespace {
     > {
         crate::methods::observability::get_observability_configuration_projects(
             &self.config,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4137,10 +3279,7 @@ impl ObservabilityNamespace {
     /// Updates whether Observability Plus is disabled for a single project.
     pub fn update_configuration_project(
         &self,
-        project_id_or_name: String,
-        disabled: bool,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::observability::UpdateObservabilityConfigurationProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::observability::UpdateObservabilityConfigurationProjectResponse,
@@ -4148,10 +3287,7 @@ impl ObservabilityNamespace {
     > {
         crate::methods::observability::update_observability_configuration_project(
             &self.config,
-            project_id_or_name,
-            disabled,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4176,7 +3312,7 @@ impl ObservabilityNamespace {
     /// Retrieves the Observability schema for a specific metric. Supply `metricId` to get the metric's supported aggregations, dimensions, unit, and default aggregation.
     pub fn get_schema_by_metric_id(
         &self,
-        metric_id: String,
+        params: crate::methods::observability::GetObservabilitySchemaByMetricIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         Vec<crate::methods::observability::GetObservabilitySchemaByMetricIdResponseItem>,
@@ -4184,7 +3320,7 @@ impl ObservabilityNamespace {
     > {
         crate::methods::observability::get_observability_schema_by_metric_id(
             &self.config,
-            metric_id,
+            params,
             options,
         )
     }
@@ -4229,21 +3365,11 @@ impl ProjectMembersNamespace {
     /// Remove a member from a specific project
     pub fn remove(
         &self,
-        id_or_name: String,
-        uid: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::project_members::RemoveProjectMemberParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::project_members::RemoveProjectMemberResponse, crate::errors::SdkError>
     {
-        crate::methods::project_members::remove_project_member(
-            &self.config,
-            id_or_name,
-            uid,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::project_members::remove_project_member(&self.config, params, options)
     }
 }
 
@@ -4294,20 +3420,10 @@ impl ProjectRoutesNamespace {
     /// Delete one or more routing rules from a project by ID. Stages a new version with the routes removed.
     pub fn delete_routes(
         &self,
-        project_id: String,
-        route_ids: Vec<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::project_routes::DeleteRoutesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::project_routes::DeleteRoutesResponse, crate::errors::SdkError> {
-        crate::methods::project_routes::delete_routes(
-            &self.config,
-            project_id,
-            route_ids,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::project_routes::delete_routes(&self.config, params, options)
     }
     /// Updates a routing rule in a project by replacing it or restoring its value from the current production version. Supply `route` with the complete replacement rule, or set `restore` to restore the production value. The update stages a new routing-rule version.
     ///
@@ -4335,19 +3451,11 @@ impl ProjectRoutesNamespace {
     /// Get the version history for a project's routing rules. Returns the staging version (if one exists) followed by production versions, most recent first. The staging version has `isStaging: true` and the current production version has `isLive: true`.
     pub fn get_route_versions(
         &self,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::project_routes::GetRouteVersionsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::project_routes::GetRouteVersionsResponse, crate::errors::SdkError>
     {
-        crate::methods::project_routes::get_route_versions(
-            &self.config,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::project_routes::get_route_versions(&self.config, params, options)
     }
     /// Promotes staged routing rules to production, restores an earlier production version, or discards staged changes. Supply the version `id` and choose an `action` of `promote`, `restore`, or `discard`. The response returns the resulting routing-rule version.
     ///
@@ -4389,20 +3497,10 @@ impl ProjectsNamespace {
     /// Returns the OTEL trace for a given Vercel CLI request.
     pub fn get_trace(
         &self,
-        project_id: String,
-        request_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::GetProjectTraceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::GetProjectTraceResponse, crate::errors::SdkError> {
-        crate::methods::projects::get_project_trace(
-            &self.config,
-            project_id,
-            request_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::get_project_trace(&self.config, params, options)
     }
     /// Creates a project with a required `name` and optional settings for its framework, build commands, environment variables, Git connection, and sandbox regions. Supply only the settings you want to configure; supported build and install commands can be detected automatically when set to `null`. A 200 response returns the created project object.
     ///
@@ -4419,52 +3517,30 @@ impl ProjectsNamespace {
     /// Generates an OIDC token for the project and returns it.
     pub fn get_token(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        source: Option<String>,
+        params: crate::methods::projects::GetProjectTokenParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::GetProjectTokenResponse, crate::errors::SdkError> {
-        crate::methods::projects::get_project_token(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            source,
-            options,
-        )
+        crate::methods::projects::get_project_token(&self.config, params, options)
     }
     /// Creates a short-lived HS256 JWT scoped to a deployment hostname. Supply the project identifier and deployment hostname in the request body to define the token scope. The Vercel CLI presents the token to the proxy with requests it wants traced.
     ///
     /// Mints a short-lived HS256 JWT scoped to a deployment hostname. The Vercel CLI presents this JWT to the Vercel proxy on requests it wants traced.
     pub fn create_trace_session(
         &self,
-        project_id: String,
-        hostname: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::CreateTraceSessionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::CreateTraceSessionResponse, crate::errors::SdkError> {
-        crate::methods::projects::create_trace_session(
-            &self.config,
-            project_id,
-            hostname,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::create_trace_session(&self.config, params, options)
     }
     /// Retrieves project information using the project's ID or name. Use the `teamId` or `slug` query parameter to make the request on behalf of a team.
     ///
     /// Get the information for a specific project by passing either the project `id` or `name` in the URL.
     pub fn get(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::GetProjectsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::GetProjectsResponse, crate::errors::SdkError> {
-        crate::methods::projects::get_projects(&self.config, id_or_name, team_id, slug, options)
+        crate::methods::projects::get_projects(&self.config, params, options)
     }
     /// Updates configuration fields for a project identified by its ID or name. Submit the settings you want to change; supported build and install commands can be set to `null` for automatic detection. The response contains the updated project object.
     ///
@@ -4481,52 +3557,32 @@ impl ProjectsNamespace {
     /// Delete a specific project by passing either the project `id` or `name` in the URL.
     pub fn delete(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::DeleteProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::projects::delete_project(&self.config, id_or_name, team_id, slug, options)
+        crate::methods::projects::delete_project(&self.config, params, options)
     }
     /// Uploads an image to use as the avatar for a project identified by its ID or name. Send the raw image bytes and declare the image type with the `Content-Type` header; accepted formats are JPG, PNG, and SVG. SVG images are sanitized and optimized before storage, and the response returns the updated project.
     ///
     /// Upload an image as the avatar of the project identified by `idOrName`. The request body is the raw bytes of a JPG, PNG, or SVG image; the `Content-Type` header must declare which. SVG payloads are sanitized and optimized server-side before storage. The final SHA-1 of the stored bytes becomes the project's `avatar` value. The actual upload pipeline (validation, sanitization, S3 write, conditional `updateProject`, and event emission) lives in the shared `@api/project-avatar-upload` helper so it can be reused by background workers.
     pub fn upload_avatar(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        body: Option<Vec<u8>>,
+        params: crate::methods::projects::UploadProjectAvatarParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::UploadProjectAvatarResponse, crate::errors::SdkError>
     {
-        crate::methods::projects::upload_project_avatar(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            body,
-            options,
-        )
+        crate::methods::projects::upload_project_avatar(&self.config, params, options)
     }
     /// Removes the avatar assignment from a project identified by its ID or name. This clears the project's avatar field so a later production deployment can run avatar auto-detection again, but it does not delete the stored image. The response returns the updated project.
     ///
     /// Remove the avatar of the project identified by `idOrName`. Deletes the chosen avatar field so the next production deploy can run auto-detection again. Does not delete the stored image.
     pub fn delete_avatar(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::DeleteProjectAvatarParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::DeleteProjectAvatarResponse, crate::errors::SdkError>
     {
-        crate::methods::projects::delete_project_avatar(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::delete_project_avatar(&self.config, params, options)
     }
     /// Lists domains associated with a project. Use the query parameters to filter by environment, branch, redirect, or verification status, and to control the result limit and sort order.
     ///
@@ -4543,20 +3599,10 @@ impl ProjectsNamespace {
     /// Get project domain by project id/name and domain name.
     pub fn get_domain(
         &self,
-        id_or_name: String,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::GetProjectDomainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::GetProjectDomainResponse, crate::errors::SdkError> {
-        crate::methods::projects::get_project_domain(
-            &self.config,
-            id_or_name,
-            domain,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::get_project_domain(&self.config, params, options)
     }
     /// Updates a project domain’s configuration, including its Git branch association and redirect settings. Supply only the configuration fields you want to change; `redirectStatusCode` accepts 301, 302, 307, 308, or null.
     ///
@@ -4604,21 +3650,11 @@ impl ProjectsNamespace {
     /// Attempts to verify a project domain with `verified = false` by checking the correctness of the project domain's `verification` challenge.
     pub fn verify_domain(
         &self,
-        id_or_name: String,
-        domain: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::VerifyProjectDomainParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::VerifyProjectDomainResponse, crate::errors::SdkError>
     {
-        crate::methods::projects::verify_project_domain(
-            &self.config,
-            id_or_name,
-            domain,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::verify_project_domain(&self.config, params, options)
     }
     /// Lists environment variables for a project, identified by its project ID or name. Use `gitBranch` to filter preview-target variables by branch, or select a custom environment with `customEnvironmentId` or `customEnvironmentSlug`.
     ///
@@ -4645,20 +3681,10 @@ impl ProjectsNamespace {
     /// Retrieve the environment variable for a given project.
     pub fn get_env(
         &self,
-        id_or_name: String,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::GetProjectEnvParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetProjectEnvResponse, crate::errors::SdkError> {
-        crate::methods::projects::get_project_env(
-            &self.config,
-            id_or_name,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::get_project_env(&self.config, params, options)
     }
     /// Deletes a specific environment variable from a project. Identify the project and variable in the path, and use `customEnvironmentId` when the removal applies to a particular custom environment.
     ///
@@ -4685,21 +3711,11 @@ impl ProjectsNamespace {
     /// Delete multiple environment variables for a given project in a single batch operation.
     pub fn batch_remove_env(
         &self,
-        id_or_name: String,
-        ids: Vec<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::BatchRemoveProjectEnvParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::projects::BatchRemoveProjectEnvResponse, crate::errors::SdkError>
     {
-        crate::methods::projects::batch_remove_project_env(
-            &self.config,
-            id_or_name,
-            ids,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::batch_remove_project_env(&self.config, params, options)
     }
     /// Creates a request to transfer a project from one team to another. Use `idOrName` to identify the project, and optionally provide callback details to receive a signed webhook when the transfer is accepted. The response includes a transfer code that remains valid for 24 hours and can be used by another team to accept the request.
     ///
@@ -4755,16 +3771,12 @@ impl ProjectsNamespace {
     /// Updates the reason for a rollback, without changing the rollback status itself.
     pub fn update_rollback_description(
         &self,
-        project_id: String,
-        deployment_id: String,
-        description: Option<String>,
+        params: crate::methods::projects::UpdateProjectsRollbackDescriptionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
         crate::methods::projects::update_projects_rollback_description(
             &self.config,
-            project_id,
-            deployment_id,
-            description,
+            params,
             options,
         )
     }
@@ -4784,20 +3796,10 @@ impl ProjectsNamespace {
     /// Allows users to promote a deployment to production. Note: This does NOT rebuild the deployment. If you need that, then call create-deployments endpoint.
     pub fn request_promote(
         &self,
-        project_id: String,
-        deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::RequestPromoteParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::projects::request_promote(
-            &self.config,
-            project_id,
-            deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::projects::request_promote(&self.config, params, options)
     }
     /// Lists aliases associated with the latest promotion request for a project and their mapping status. Use `since` and `until` to filter by creation time, and `failedOnly` to limit results to aliases that failed to map to the requested deployment. Use `limit` to cap the number of aliases returned.
     ///
@@ -4814,24 +3816,20 @@ impl ProjectsNamespace {
     /// Pause a project by passing its project `id` in the URL. If the project does not exist given the id then the request will fail with 400 status code. If the project disables auto assigning custom production domains and blocks the active Production Deployment then the request will return with 200 status code.
     pub fn pause(
         &self,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::PauseProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::projects::pause_project(&self.config, project_id, team_id, slug, options)
+        crate::methods::projects::pause_project(&self.config, params, options)
     }
     /// Unpauses a project identified by its project ID. Use `teamId` or `slug` to select the team context when needed. When the project enables automatic assignment of custom production domains, unpausing also unblocks its active production deployment.
     ///
     /// Unpause a project by passing its project `id` in the URL. If the project does not exist given the id then the request will fail with 400 status code. If the project enables auto assigning custom production domains and unblocks the active Production Deployment then the request will return with 200 status code.
     pub fn unpause(
         &self,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::projects::UnpauseProjectParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::projects::unpause_project(&self.config, project_id, team_id, slug, options)
+        crate::methods::projects::unpause_project(&self.config, params, options)
     }
 }
 
@@ -4852,16 +3850,12 @@ impl RollingReleaseNamespace {
     /// Get the Rolling Releases billing status for a project. The team level billing status is used to determine if the project can be configured for rolling releases.
     pub fn get_billing_status(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::GetRollingReleaseBillingStatusParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<GetRollingReleaseBillingStatusResponse, crate::errors::SdkError> {
         crate::methods::rolling_release::get_rolling_release_billing_status(
             &self.config,
-            id_or_name,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4870,30 +3864,20 @@ impl RollingReleaseNamespace {
     /// Get the Rolling Releases configuration for a project. The project-level config is simply a template that will be used for any future rolling release, and not the configuration for any active rolling release.
     pub fn get_config(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::GetRollingReleaseConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::rolling_release::GetRollingReleaseConfigResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::rolling_release::get_rolling_release_config(
-            &self.config,
-            id_or_name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::rolling_release::get_rolling_release_config(&self.config, params, options)
     }
     /// Deletes a project's rolling release configuration and disables rolling releases for future deployments. Disabling the configuration does not change a rollout that is already in progress. To stop an active rollout as well, use the completion or abort operation after disabling rolling releases.
     ///
     /// Disable Rolling Releases for a project means that future deployments will not undergo a rolling release. Changing the config never alters a rollout that's already in-flight—it only affects the next production deployment. If you want to also stop the current rollout, call this endpoint to disable the feature, and then call either the /complete or /abort endpoint.
     pub fn delete_config(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::DeleteRollingReleaseConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::rolling_release::DeleteRollingReleaseConfigResponse,
@@ -4901,9 +3885,7 @@ impl RollingReleaseNamespace {
     > {
         crate::methods::rolling_release::delete_rolling_release_config(
             &self.config,
-            id_or_name,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4912,16 +3894,12 @@ impl RollingReleaseNamespace {
     /// Update (or disable) Rolling Releases for a project. When disabling with the resolve-on-disable feature flag enabled, any active rolling release document is resolved using the disableRolloutAction parameter: "abort" to roll back (default), or "complete" to promote the canary to production. When enabling or updating config, changes only affect the next production deployment and do not alter a rollout that's already in-flight. Note: Enabling Rolling Releases automatically enables skew protection on the project with the default value if it wasn't configured already.
     pub fn update_config(
         &self,
-        id_or_name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::UpdateRollingReleaseConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<UpdateRollingReleaseConfigResponse, crate::errors::SdkError> {
         crate::methods::rolling_release::update_rolling_release_config(
             &self.config,
-            id_or_name,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -4930,21 +3908,11 @@ impl RollingReleaseNamespace {
     /// Return the Rolling Release for a project, regardless of whether the rollout is active, aborted, or completed. If the feature is enabled but no deployment has occurred yet, null will be returned.
     pub fn get(
         &self,
-        id_or_name: String,
-        state: Option<crate::methods::rolling_release::GetRollingReleaseEnum>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::GetRollingReleaseParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::rolling_release::GetRollingReleaseResponse, crate::errors::SdkError>
     {
-        crate::methods::rolling_release::get_rolling_release(
-            &self.config,
-            id_or_name,
-            state,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::rolling_release::get_rolling_release(&self.config, params, options)
     }
     /// Advances a project's active rolling release to a specified stage. Use this operation when the rolling release requires manual approval, and identify the canary deployment and target stage in the request body. The response includes the updated rolling release information.
     ///
@@ -4968,44 +3936,24 @@ impl RollingReleaseNamespace {
     /// Start a rolling release for a deployment. If a rolling release is already active for the same canary deployment, returns the current state without side effects.
     pub fn start(
         &self,
-        id_or_name: String,
-        canary_deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::StartRollingReleaseParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::rolling_release::StartRollingReleaseResponse, crate::errors::SdkError>
     {
-        crate::methods::rolling_release::start_rolling_release(
-            &self.config,
-            id_or_name,
-            canary_deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::rolling_release::start_rolling_release(&self.config, params, options)
     }
     /// Completes a project's rolling release and sends 100% of traffic to the canary deployment. Supply `canaryDeploymentId` to identify the deployment to promote. The response includes the updated rolling release information.
     ///
     /// Force-complete a Rolling Release. The canary deployment will begin serving 100% of the traffic.
     pub fn complete(
         &self,
-        id_or_name: String,
-        canary_deployment_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::rolling_release::CompleteRollingReleaseParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::rolling_release::CompleteRollingReleaseResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::rolling_release::complete_rolling_release(
-            &self.config,
-            id_or_name,
-            canary_deployment_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::rolling_release::complete_rolling_release(&self.config, params, options)
     }
 }
 
@@ -5057,20 +4005,10 @@ impl SandboxesNamespace {
     /// Gets an existing drive by project and name or drive ID. Returns 404 if doesn't exist.
     pub fn get_drive(
         &self,
-        name_or_id: String,
-        project_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::GetDriveParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::GetDriveResponse, crate::errors::SdkError> {
-        crate::methods::sandboxes::get_drive(
-            &self.config,
-            name_or_id,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::get_drive(&self.config, params, options)
     }
     /// Creates a drive with the specified name or retrieves the existing drive with that name in the project. Use `projectId` to associate the drive with a project unless your Vercel OIDC token is scoped to one; configure its size with `maxSizeBytes` and storage location with `region`. The response includes the drive object and its identifier.
     ///
@@ -5087,20 +4025,10 @@ impl SandboxesNamespace {
     /// Deletes a drive by project and name. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
     pub fn delete_drive(
         &self,
-        name: String,
-        project_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::DeleteDriveParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::DeleteDriveResponse, crate::errors::SdkError> {
-        crate::methods::sandboxes::delete_drive(
-            &self.config,
-            name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::delete_drive(&self.config, params, options)
     }
     /// Forks a source drive into a new drive that inherits the source drive's region and maximum size. Provide the new drive's name in the request body and identify the project unless your Vercel OIDC token is scoped to one. The response contains the created drive object.
     ///
@@ -5128,38 +4056,22 @@ impl SandboxesNamespace {
     /// Retrieves detailed information about a specific snapshot, including its creation time, size, expiration date, and the source session it was created from.
     pub fn get_session_snapshot(
         &self,
-        snapshot_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::GetSessionSnapshotParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::GetSessionSnapshotResponse, crate::errors::SdkError>
     {
-        crate::methods::sandboxes::get_session_snapshot(
-            &self.config,
-            snapshot_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::get_session_snapshot(&self.config, params, options)
     }
     /// Deletes a sandbox snapshot and frees its associated storage. Use `snapshotId` to select the snapshot to remove; a deleted snapshot cannot be used to create new sessions. <Callout type="warning"\>Deletion is permanent and cannot be undone.</Callout\>
     ///
     /// Permanently deletes a snapshot and frees its associated storage. This action cannot be undone. After deletion, the snapshot can no longer be used to create new sessions.
     pub fn delete_session_snapshot(
         &self,
-        snapshot_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::DeleteSessionSnapshotParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::DeleteSessionSnapshotResponse, crate::errors::SdkError>
     {
-        crate::methods::sandboxes::delete_session_snapshot(
-            &self.config,
-            snapshot_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::delete_session_snapshot(&self.config, params, options)
     }
     /// Lists sessions for a sandbox, with results paginated by an opaque cursor and sorted by creation time. Filter by project and sandbox name, and use `limit`, `cursor`, and `sortOrder` to shape the results. The response includes session records and pagination metadata.
     ///
@@ -5176,12 +4088,10 @@ impl SandboxesNamespace {
     /// Retrieves detailed information about a specific session, including its current status, resource configuration, and exposed routes.
     pub fn get_session(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::GetSessionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::GetSessionResponse, crate::errors::SdkError> {
-        crate::methods::sandboxes::get_session(&self.config, session_id, team_id, slug, options)
+        crate::methods::sandboxes::get_session(&self.config, params, options)
     }
     /// Retrieves a named sandbox, its current session, and its exposed routes. Set `resume` to true to create a new sandbox instance from the most recent snapshot when the named sandbox is stopped; it defaults to false. The response indicates whether the sandbox resumed and includes sandbox and session details.
     ///
@@ -5218,19 +4128,11 @@ impl SandboxesNamespace {
     /// Retrieves a list of all commands that have been executed in a session, including their current status, exit codes, and execution times, ordered from the most recent to the oldest.
     pub fn list_session_commands(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::ListSessionCommandsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::ListSessionCommandsResponse, crate::errors::SdkError>
     {
-        crate::methods::sandboxes::list_session_commands(
-            &self.config,
-            session_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::list_session_commands(&self.config, params, options)
     }
     /// Submits a shell command for execution in a session and returns a command ID for tracking its progress. Use `wait` to stream status updates until the command finishes; set `logs` as well to stream execution output in real time.
     ///
@@ -5297,79 +4199,47 @@ impl SandboxesNamespace {
     /// Streams the output of a command in real-time using newline-delimited JSON (ND-JSON). Each entry includes the output data and stream type. Stream types include `stdout`, `stderr`, and `error` (for stream failures).
     pub fn get_session_command_logs(
         &self,
-        session_id: String,
-        cmd_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::GetSessionCommandLogsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         impl Iterator<Item = Result<GetSessionCommandLogsResponse, crate::errors::SdkError>>,
         crate::errors::SdkError,
     > {
-        crate::methods::sandboxes::get_session_command_logs(
-            &self.config,
-            session_id,
-            cmd_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::get_session_command_logs(&self.config, params, options)
     }
     /// Stops a running session and releases its allocated resources, terminating all processes within it. This action cannot be undone, and the stopped session cannot be restarted.
     ///
     /// Stops a running session and releases its allocated resources. All running processes within the session will be terminated. This action cannot be undone. A stopped session cannot be restarted.
     pub fn stop_session(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::StopSessionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<StopSessionResponse, crate::errors::SdkError> {
-        crate::methods::sandboxes::stop_session(&self.config, session_id, team_id, slug, options)
+        crate::methods::sandboxes::stop_session(&self.config, params, options)
     }
     /// Extends the maximum execution time of a running session. Supply the additional duration in milliseconds; the session must be active, and the resulting timeout cannot exceed your account's maximum allowed limit.
     ///
     /// Extends the maximum execution time of a running session. The session must be active and able to accept commands. The total timeout cannot exceed the maximum allowed limit for your account.
     pub fn extend_session_timeout(
         &self,
-        session_id: String,
-        duration: f64,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::sandboxes::ExtendSessionTimeoutParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::sandboxes::ExtendSessionTimeoutResponse, crate::errors::SdkError>
     {
-        crate::methods::sandboxes::extend_session_timeout(
-            &self.config,
-            session_id,
-            duration,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::sandboxes::extend_session_timeout(&self.config, params, options)
     }
     /// Replaces the network access policy for a running session, controlling which external hosts it can reach. This is a full replacement, so any previously configured network rules are overwritten; choose the policy mode and rules for the complete configuration you want applied.
     ///
     /// Replaces the network access policy of a running session. Use this to control which external hosts the session can communicate with. This is a full replacement. Any previously configured network rules will be overwritten.
     pub fn update_session_network_policy(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        body: Option<crate::methods::sandboxes::UpdateSessionNetworkPolicy>,
+        params: crate::methods::sandboxes::UpdateSessionNetworkPolicyParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::sandboxes::UpdateSessionNetworkPolicyResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::sandboxes::update_session_network_policy(
-            &self.config,
-            session_id,
-            team_id,
-            slug,
-            body,
-            options,
-        )
+        crate::methods::sandboxes::update_session_network_policy(&self.config, params, options)
     }
     /// Retrieves a file from a session's filesystem. Supply `path` to identify the file and optionally use `cwd` to resolve a relative path from a different base directory. The file is returned as a binary stream for download.
     ///
@@ -5396,30 +4266,17 @@ impl SandboxesNamespace {
     /// Uploads and extracts files to a session's filesystem. Files must be uploaded as a gzipped tarball (`.tar.gz`) with the `Content-Type` header set to `application/gzip`. The tarball contents are extracted to the session's working directory, or to a custom directory specified via the `x-cwd` header.
     pub fn write_session_files(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        x_cwd: Option<String>,
+        params: crate::methods::sandboxes::WriteSessionFilesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::sandboxes::write_session_files(
-            &self.config,
-            session_id,
-            team_id,
-            slug,
-            x_cwd,
-            options,
-        )
+        crate::methods::sandboxes::write_session_files(&self.config, params, options)
     }
     /// Creates a point-in-time snapshot of a running session's filesystem. Use a snapshot to restore the filesystem later or initialize another session with the same environment; the session must be running and able to accept commands. The source session is terminated after the snapshot is created.
     ///
     /// Creates a point-in-time snapshot of a running session's filesystem. Snapshots can be used to quickly restore a session to a previous state or to create new sessions with pre-configured environments. The session must be running and able to accept commands for a snapshot to be created. The session will be terminated after the snapshot is created.
     pub fn create_sessions_by_session_id_snapshot_v2(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        expiration: Option<Option<i64>>,
+        params: crate::methods::sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV2Params,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV2Response,
@@ -5427,10 +4284,7 @@ impl SandboxesNamespace {
     > {
         crate::methods::sandboxes::create_sandboxes_sessions_by_session_id_snapshot_v2(
             &self.config,
-            session_id,
-            team_id,
-            slug,
-            expiration,
+            params,
             options,
         )
     }
@@ -5462,10 +4316,7 @@ impl SandboxesNamespace {
     /// Creates a point-in-time snapshot of a running session's filesystem. Snapshots can be used to quickly restore a session to a previous state or to create new sessions with pre-configured environments. The session must be running and able to accept commands for a snapshot to be created. The session will be terminated after the snapshot is created. Unlike v2, snapshots expire after 7 days when neither the request nor the sandbox configuration specifies an expiration.
     pub fn create_sessions_by_session_id_snapshot_v3(
         &self,
-        session_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        expiration: Option<Option<i64>>,
+        params: crate::methods::sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV3Params,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::sandboxes::CreateSandboxesSessionsBySessionIdSnapshotV3Response,
@@ -5473,10 +4324,7 @@ impl SandboxesNamespace {
     > {
         crate::methods::sandboxes::create_sandboxes_sessions_by_session_id_snapshot_v3(
             &self.config,
-            session_id,
-            team_id,
-            slug,
-            expiration,
+            params,
             options,
         )
     }
@@ -5522,19 +4370,11 @@ impl SecurityNamespace {
     /// Update the setting for determining if the project has Attack Challenge mode enabled.
     pub fn update_attack_challenge_mode(
         &self,
-        body: crate::methods::security::UpdateAttackChallengeMode,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::security::UpdateAttackChallengeModeParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::security::UpdateAttackChallengeModeResponse, crate::errors::SdkError>
     {
-        crate::methods::security::update_attack_challenge_mode(
-            &self.config,
-            body,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::security::update_attack_challenge_mode(&self.config, params, options)
     }
     /// Retrieves the active and draft firewall configurations for a project, along with its configuration versions. Use this operation to inspect the current WAF settings and review available versions before changing or activating a configuration.
     ///
@@ -5561,52 +4401,32 @@ impl SecurityNamespace {
     /// Process updates to modify the existing firewall config for a project
     pub fn update_firewall_config(
         &self,
-        project_id: String,
-        body: crate::methods::security::UpdateFirewallConfig,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::security::UpdateFirewallConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::security::update_firewall_config(
-            &self.config,
-            project_id,
-            body,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::security::update_firewall_config(&self.config, params, options)
     }
     /// Retrieves a specific firewall configuration version for a project. Use `configVersion` to select the version to inspect; the deployed version is identified as `active`.
     ///
     /// Retrieve the specified firewall configuration for a project. The deployed configVersion will be `active`
     pub fn get_firewall_config2(
         &self,
-        config_version: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::security::GetFirewallConfigParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::security::GetFirewallConfigResponse, crate::errors::SdkError> {
-        crate::methods::security::get_firewall_config(
-            &self.config,
-            config_version,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::security::get_firewall_config(&self.config, params, options)
     }
     /// Deletes a firewall configuration version. Supply `configVersion` to identify the version to remove; use this operation when that version should no longer be available.
     ///
     /// Promotes a draft WAF config to an active config
     pub fn delete_firewall_config_by_config_version(
         &self,
-        config_version: String,
+        params: crate::methods::security::DeleteSecurityFirewallConfigByConfigVersionParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
         crate::methods::security::delete_security_firewall_config_by_config_version(
             &self.config,
-            config_version,
+            params,
             options,
         )
     }
@@ -5615,7 +4435,7 @@ impl SecurityNamespace {
     /// Promotes a draft WAF config to an active config
     pub fn create_firewall_config_by_config_version_activate(
         &self,
-        config_version: String,
+        params: crate::methods::security::CreateSecurityFirewallConfigByConfigVersionActivateParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::security::CreateSecurityFirewallConfigByConfigVersionActivateResponse,
@@ -5623,7 +4443,7 @@ impl SecurityNamespace {
     > {
         crate::methods::security::create_security_firewall_config_by_config_version_activate(
             &self.config,
-            config_version,
+            params,
             options,
         )
     }
@@ -5632,21 +4452,11 @@ impl SecurityNamespace {
     /// Retrieve active attack data within the last N days (default: 1 day)
     pub fn get_active_attack_status(
         &self,
-        project_id: String,
-        since: Option<f64>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::security::GetActiveAttackStatusParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::security::GetActiveAttackStatusResponse, crate::errors::SdkError>
     {
-        crate::methods::security::get_active_attack_status(
-            &self.config,
-            project_id,
-            since,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::security::get_active_attack_status(&self.config, params, options)
     }
     /// Lists system bypass rules configured for a project. Filter the results with `sourceIp`, `domain`, or `projectScope`, and use `offset` and `limit` to page through matching rules.
     ///
@@ -5704,21 +4514,11 @@ impl SecurityNamespace {
     /// Delete a conditional firewall bypass rule from a project domain.
     pub fn delete_conditional_bypass(
         &self,
-        project_id: String,
-        domain: String,
-        slug: Option<String>,
-        team_id: Option<String>,
+        params: crate::methods::security::DeleteConditionalBypassParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::security::DeleteConditionalBypassResponse, crate::errors::SdkError>
     {
-        crate::methods::security::delete_conditional_bypass(
-            &self.config,
-            project_id,
-            domain,
-            slug,
-            team_id,
-            options,
-        )
+        crate::methods::security::delete_conditional_bypass(&self.config, params, options)
     }
     /// Lists firewall actions for a project, with optional filters for time, host, IP address, activity, action, and rule. Filters are combined across parameters and matched as alternatives within repeated parameters; use the returned pagination cursor to fetch subsequent results. Rule names reflect the project's current active firewall configuration and active team rulesets.
     ///
@@ -5753,19 +4553,11 @@ impl SecurityNamespace {
     /// Generate a firewall rule from a natural language description.
     pub fn generate_firewall_rule(
         &self,
-        project_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::security::GenerateFirewallRuleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::security::GenerateFirewallRuleResponse, crate::errors::SdkError>
     {
-        crate::methods::security::generate_firewall_rule(
-            &self.config,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::security::generate_firewall_rule(&self.config, params, options)
     }
 }
 
@@ -5784,19 +4576,13 @@ impl SpeedInsightsNamespace {
     /// Updates the Speed Insights toggle for a project. Provide the `value` field to set the toggle state, and use `projectId` to select the project. The response confirms the resulting toggle value.
     pub fn create_toggle(
         &self,
-        project_id: String,
-        value: bool,
+        params: crate::methods::speed_insights::CreateSpeedInsightsToggleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::speed_insights::CreateSpeedInsightsToggleResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::speed_insights::create_speed_insights_toggle(
-            &self.config,
-            project_id,
-            value,
-            options,
-        )
+        crate::methods::speed_insights::create_speed_insights_toggle(&self.config, params, options)
     }
 }
 
@@ -5815,47 +4601,29 @@ impl StorageNamespace {
     /// Retrieves a storage store by its identifier. Use `skip-metadata` to control whether project metadata is included and `include-guides` to control whether guides are included in the response.
     pub fn get_stores_by_id(
         &self,
-        id: String,
-        skip_metadata: Option<bool>,
-        include_guides: Option<bool>,
+        params: crate::methods::storage::GetStorageStoresByIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::storage::GetStorageStoresByIdResponse, crate::errors::SdkError>
     {
-        crate::methods::storage::get_storage_stores_by_id(
-            &self.config,
-            id,
-            skip_metadata,
-            include_guides,
-            options,
-        )
+        crate::methods::storage::get_storage_stores_by_id(&self.config, params, options)
     }
     /// Creates a Blob store with a name and optional region, access setting, and project association. Choose a supported region and set `access` to `public` or `private`; access defaults to public when omitted. The response includes the created store and its configuration.
     pub fn create_stores_blob(
         &self,
-        name: String,
-        region: Option<crate::methods::storage::CreateStorageStoresBlobRegionEnum>,
-        access: Option<crate::methods::storage::CreateStorageStoresBlobAccessEnum>,
-        project_id: Option<String>,
+        params: crate::methods::storage::CreateStorageStoresBlobParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::storage::CreateStorageStoresBlobResponse, crate::errors::SdkError>
     {
-        crate::methods::storage::create_storage_stores_blob(
-            &self.config,
-            name,
-            region,
-            access,
-            project_id,
-            options,
-        )
+        crate::methods::storage::create_storage_stores_blob(&self.config, params, options)
     }
     /// Deletes a Blob store by its identifier. Use the returned identifier to confirm which store was deleted. The store must be accessible to the authenticated user.
     pub fn delete_stores_blob_by_id(
         &self,
-        id: String,
+        params: crate::methods::storage::DeleteStorageStoresBlobByIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::storage::DeleteStorageStoresBlobByIdResponse, crate::errors::SdkError>
     {
-        crate::methods::storage::delete_storage_stores_blob_by_id(&self.config, id, options)
+        crate::methods::storage::delete_storage_stores_blob_by_id(&self.config, params, options)
     }
 }
 
@@ -5886,45 +4654,40 @@ impl TeamsNamespace {
     /// Invite a user to join the team specified in the URL. The authenticated user needs to be an `OWNER` in order to successfully invoke this endpoint. The user to be invited must be specified by email.
     pub fn invite_user_to(
         &self,
-        team_id: String,
-        slug: Option<String>,
-        body: Option<Vec<crate::methods::teams::InviteUserToTeamItem>>,
+        params: crate::methods::teams::InviteUserToTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<InvitedTeamMember, crate::errors::SdkError> {
-        crate::methods::teams::invite_user_to_team(&self.config, team_id, slug, body, options)
+        crate::methods::teams::invite_user_to_team(&self.config, params, options)
     }
     /// Submits a request for the authenticated user to join the specified team. Include `joinedFrom.origin` to identify where the request originated, and provide the relevant repository or Git account details when applicable. A team owner must approve the request, and no more than 100 users can have pending access requests at the same time.
     ///
     /// Request access to a team as a member. An owner has to approve the request. Only 100 users can request access to a team at the same time.
     pub fn request_access_to(
         &self,
-        team_id: String,
-        joined_from: crate::methods::teams::RequestAccessToTeamJoinedFrom,
+        params: crate::methods::teams::RequestAccessToTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::RequestAccessToTeamResponse, crate::errors::SdkError> {
-        crate::methods::teams::request_access_to_team(&self.config, team_id, joined_from, options)
+        crate::methods::teams::request_access_to_team(&self.config, params, options)
     }
     /// Retrieves the status of a user's request to join a team. Use `userId` to identify whose request to check; the endpoint returns the authenticated user's status when that path segment is not provided. A declined request is reported as not found.
     ///
     /// Check the status of a join request. It'll respond with a 404 if the request has been declined. If no `userId` path segment was provided, this endpoint will instead return the status of the authenticated user.
     pub fn get_access_request(
         &self,
-        user_id: String,
-        team_id: String,
+        params: crate::methods::teams::GetTeamAccessRequestParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::GetTeamAccessRequestResponse, crate::errors::SdkError> {
-        crate::methods::teams::get_team_access_request(&self.config, user_id, team_id, options)
+        crate::methods::teams::get_team_access_request(&self.config, params, options)
     }
     /// Joins the authenticated user to a team using the team identifier and, when applicable, an invite code. Include `inviteCode` in the request body when joining with a code. The response identifies the team the user joined and the source of the join.
     ///
     /// Join a team with a provided invite code or team ID.
     pub fn join(
         &self,
-        team_id: String,
-        invite_code: Option<String>,
+        params: crate::methods::teams::JoinTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::JoinTeamResponse, crate::errors::SdkError> {
-        crate::methods::teams::join_team(&self.config, team_id, invite_code, options)
+        crate::methods::teams::join_team(&self.config, params, options)
     }
     /// Updates a member's membership on the specified team, including their team role, permissions, or project roles. You can also confirm an unconfirmed member by setting `confirmed` to `true`. The authenticated user must be a team owner, except when disconnecting their own SAML connection.
     ///
@@ -5941,109 +4704,80 @@ impl TeamsNamespace {
     /// Remove a Team Member from the Team, or dismiss a user that requested access, or leave a team. Directory Sync members can be removed when their directory email is absent or does not match the user's primary or verified secondary emails.
     pub fn remove_member(
         &self,
-        uid: String,
-        team_id: String,
-        new_default_team_id: Option<String>,
+        params: crate::methods::teams::RemoveTeamMemberParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::RemoveTeamMemberResponse, crate::errors::SdkError> {
-        crate::methods::teams::remove_team_member(
-            &self.config,
-            uid,
-            team_id,
-            new_default_team_id,
-            options,
-        )
+        crate::methods::teams::remove_team_member(&self.config, params, options)
     }
     /// Retrieves information about the specified team, including its billing plan, creation details, and team configuration. Use the team identifier to select the team; you can also supply its slug as request context.
     ///
     /// Get information for the Team specified by the `teamId` parameter.
     pub fn get(
         &self,
-        team_id: String,
-        slug: Option<String>,
+        params: crate::methods::teams::GetTeamsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Team, crate::errors::SdkError> {
-        crate::methods::teams::get_teams(&self.config, team_id, slug, options)
+        crate::methods::teams::get_teams(&self.config, params, options)
     }
     /// Updates the specified team's information using the fields supplied in the request body. Include only the team properties you want to change, such as its name, slug, avatar, or feedback settings. The authenticated user must be a team owner to update the team.
     ///
     /// Update the information of a Team specified by the `teamId` parameter. The request body should contain the information that will be updated on the Team.
     pub fn update(
         &self,
-        params: crate::methods::teams::UpdateTeamsParams,
+        params: crate::methods::teams::UpdateTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<Team, crate::errors::SdkError> {
-        crate::methods::teams::update_teams(&self.config, params, options)
+        crate::methods::teams::update_team(&self.config, params, options)
     }
     /// Lists teams that the authenticated user belongs to, with pagination metadata. Use `limit` to cap the number of teams and `since` or `until` to filter by creation time in milliseconds.
     ///
     /// Get a paginated list of all the Teams the authenticated User is a member of.
     pub fn list(
         &self,
-        limit: Option<f64>,
-        since: Option<f64>,
-        until: Option<f64>,
+        params: crate::methods::teams::ListTeamsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::ListTeamsResponse, crate::errors::SdkError> {
-        crate::methods::teams::list_teams(&self.config, limit, since, until, options)
+        crate::methods::teams::list_teams(&self.config, params, options)
     }
     /// Creates a new team under the authenticated user's account. Supply `slug` and optionally `name`; the team name is generated from the slug when you omit `name`. A successful response includes the created team's identifier and slug.
     ///
     /// Create a new Team under your account. You need to send a POST request with the desired Team slug, and optionally the Team name.
     pub fn create(
         &self,
-        slug: String,
-        name: Option<String>,
-        attribution: Option<crate::methods::teams::CreateTeamAttribution>,
+        params: crate::methods::teams::CreateTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::CreateTeamResponse, crate::errors::SdkError> {
-        crate::methods::teams::create_team(&self.config, slug, name, attribution, options)
+        crate::methods::teams::create_team(&self.config, params, options)
     }
     /// Updates Directory Sync role mappings for a team, associating directory groups with team roles or access groups. Identify the team with `teamId` or `slug` and provide the mappings in `roles`.
     ///
     /// Update the Directory Sync role mappings for a Team. This endpoint allows updating the mapping between directory groups and team roles or access groups.
     pub fn post_dsync_roles(
         &self,
-        team_id: String,
-        roles: std::collections::HashMap<
-            String,
-            crate::methods::teams::PostTeamDsyncRolesRolesValue,
-        >,
-        slug: Option<String>,
+        params: crate::methods::teams::PostTeamDsyncRolesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::PostTeamDsyncRolesResponse, crate::errors::SdkError> {
-        crate::methods::teams::post_team_dsync_roles(&self.config, team_id, roles, slug, options)
+        crate::methods::teams::post_team_dsync_roles(&self.config, params, options)
     }
     /// Deletes a team under the authenticated user's account. Identify the team with `teamId` and optionally provide `newDefaultTeamId` to select a replacement default team. Enterprise teams can be deleted only in test billing mode and when they are not linked to an organization.
     ///
     /// Delete a team under your account. You need to send a `DELETE` request with the desired team `id`. An optional array of reasons for deletion may also be sent. Enterprise teams can only be deleted in test billing mode and when not linked to an organization.
     pub fn delete(
         &self,
-        team_id: String,
-        new_default_team_id: Option<String>,
-        slug: Option<String>,
-        reasons: Option<Vec<crate::methods::teams::DeleteTeamReasonsItem>>,
+        params: crate::methods::teams::DeleteTeamParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::DeleteTeamResponse, crate::errors::SdkError> {
-        crate::methods::teams::delete_team(
-            &self.config,
-            team_id,
-            new_default_team_id,
-            slug,
-            reasons,
-            options,
-        )
+        crate::methods::teams::delete_team(&self.config, params, options)
     }
     /// Deletes an active team invite code. Use `teamId` and `inviteId` to identify the team and invite code to remove.
     ///
     /// Delete an active Team invite code.
     pub fn delete_invite_code(
         &self,
-        invite_id: String,
-        team_id: String,
+        params: crate::methods::teams::DeleteTeamInviteCodeParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::teams::DeleteTeamInviteCodeResponse, crate::errors::SdkError> {
-        crate::methods::teams::delete_team_invite_code(&self.config, invite_id, team_id, options)
+        crate::methods::teams::delete_team_invite_code(&self.config, params, options)
     }
     /// Updates the settings of a microfrontends group in a team. Supply any of `name`, `fallbackEnvironment`, or `enablePolyrepoBranchRouting` to change that setting; fields you omit are not specified for update.
     ///
@@ -6061,18 +4795,10 @@ impl TeamsNamespace {
     /// Deletes a microfrontends group from the team associated with the group ID.
     pub fn delete_microfrontends_group(
         &self,
-        group_id: String,
-        team_id: String,
-        slug: Option<String>,
+        params: crate::methods::teams::DeleteMicrofrontendsGroupParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::teams::delete_microfrontends_group(
-            &self.config,
-            group_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::teams::delete_microfrontends_group(&self.config, params, options)
     }
 }
 
@@ -6093,20 +4819,10 @@ impl VcrNamespace {
     /// Create a container registry repository for a project.
     pub fn create_repository(
         &self,
-        project_id: String,
-        name: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vcr::CreateRepositoryParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vcr::CreateRepositoryResponse, crate::errors::SdkError> {
-        crate::methods::vcr::create_repository(
-            &self.config,
-            project_id,
-            name,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vcr::create_repository(&self.config, params, options)
     }
     /// Lists container registry repositories for a project in the authenticated team. Supply `projectId` to select the project; use `cursor` to continue through paginated results and `limit` to control the page size.
     ///
@@ -6134,40 +4850,20 @@ impl VcrNamespace {
     /// Fetch a container registry repository for a project by ID or name.
     pub fn get_repository(
         &self,
-        id_or_name: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vcr::GetRepositoryParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vcr::GetRepositoryResponse, crate::errors::SdkError> {
-        crate::methods::vcr::get_repository(
-            &self.config,
-            id_or_name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vcr::get_repository(&self.config, params, options)
     }
     /// Deletes a container registry repository by scheduling it for removal. The repository disappears from list and get results immediately, while its images and associated data are reclaimed asynchronously.
     ///
     /// Schedule a repository for deletion. The repository is marked so it disappears from list/get immediately; subscriber-vcr reclaims every image (manifests, blobs, tags and rows) and finally deletes the repository row asynchronously via the VcrRepositoryRemoved event.
     pub fn delete_repository(
         &self,
-        id_or_name: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vcr::DeleteRepositoryParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::vcr::delete_repository(
-            &self.config,
-            id_or_name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vcr::delete_repository(&self.config, params, options)
     }
     /// Lists images and their tags for a container registry repository. Supply `projectId` and `idOrName` to identify the repository, and use `untagged` to filter for images without tags. Use `cursor` to continue through paginated results.
     ///
@@ -6246,20 +4942,10 @@ impl VcrNamespace {
     /// Revoke every team's access to a VCR repository. Clearing an unshared repository is a no-op.
     pub fn clear_repository_permissions(
         &self,
-        id_or_name: String,
-        project_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vcr::ClearRepositoryPermissionsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::vcr::clear_repository_permissions(
-            &self.config,
-            id_or_name,
-            project_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vcr::clear_repository_permissions(&self.config, params, options)
     }
     /// Lists tags in a VCR repository, with optional pagination and sorting for non-pinned tags. Use `cursor` to continue from a previous page and the sort parameters to control tag ordering. The response includes a `nextCursor` when another page is available.
     ///
@@ -6326,18 +5012,12 @@ impl VcrNamespace {
     /// HEAD /v2/:teamSlug/:projectSlug/:repositoryName/blobs/:digest Check whether a blob exists. Used by the Docker client before pushing a layer to avoid re-uploading content that already exists.
     pub fn head_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        digest: String,
+        params: crate::methods::vcr::HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
         crate::methods::vcr::head_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
             &self.config,
-            team_slug,
-            project_slug,
-            repository_name,
-            digest,
+            params,
             options,
         )
     }
@@ -6346,18 +5026,12 @@ impl VcrNamespace {
     /// GET /v2/:teamSlug/:projectSlug/:repositoryName/blobs/:digest Fetch a blob by digest.
     pub fn get_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        digest: String,
+        params: crate::methods::vcr::GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
         crate::methods::vcr::get_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
             &self.config,
-            team_slug,
-            project_slug,
-            repository_name,
-            digest,
+            params,
             options,
         )
     }
@@ -6366,18 +5040,12 @@ impl VcrNamespace {
     /// DELETE /v2/:teamSlug/:projectSlug/:repositoryName/blobs/:digest Blob deletion is intentionally not supported. Matches the behaviour of most public registries.
     pub fn delete_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        digest: String,
+        params: crate::methods::vcr::DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
         crate::methods::vcr::delete_by_team_slug_by_project_slug_by_repository_name_blobs_by_digest(
             &self.config,
-            team_slug,
-            project_slug,
-            repository_name,
-            digest,
+            params,
             options,
         )
     }
@@ -6386,39 +5054,30 @@ impl VcrNamespace {
     /// GET /v2/:teamSlug/:projectSlug/:repositoryName/blobs/uploads/:uuid Query the status of an in-progress blob upload. Used by clients to resume a partial upload after an interruption.
     pub fn get_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        uuid: String,
+        params: crate::methods::vcr::GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::vcr::get_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, team_slug, project_slug, repository_name, uuid, options)
+        crate::methods::vcr::get_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, params, options)
     }
     /// Deletes an in-progress blob upload from a Docker repository and discards its session. Use this operation to cancel an upload; it also aborts the underlying multipart upload if one was started. Supply the repository components and upload session `uuid`.
     ///
     /// DELETE /v2/:teamSlug/:projectSlug/:repositoryName/blobs/uploads/:uuid Cancel an in-flight blob upload. Aborts the underlying S3 multipart upload (if one was started) and discards the session.
     pub fn delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        uuid: String,
+        params: crate::methods::vcr::DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::vcr::delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, team_slug, project_slug, repository_name, uuid, options)
+        crate::methods::vcr::delete_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, params, options)
     }
     /// Uploads a chunk of blob data to an in-progress Docker repository upload. The chunk is streamed to storage and hashed incrementally, so you can call this operation multiple times for a chunked upload. Supply the repository components and upload session `uuid`.
     ///
     /// PATCH /v2/:teamSlug/:projectSlug/:repositoryName/blobs/uploads/:uuid Upload a chunk of blob data. The request body is streamed directly to S3 as a multipart upload part while hashing incrementally. The client may call this multiple times for chunked uploads.
     pub fn update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        uuid: String,
+        params: crate::methods::vcr::UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::vcr::update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, team_slug, project_slug, repository_name, uuid, options)
+        crate::methods::vcr::update_by_team_slug_by_project_slug_by_repository_name_blobs_uploads_by_uuid(&self.config, params, options)
     }
     /// Completes a blob upload to a Docker repository. Include the final data chunk in the request body for a monolithic upload, or omit it to finalize a previously uploaded chunked blob. Supply the upload session `uuid` and the blob's `digest`.
     ///
@@ -6449,52 +5108,40 @@ impl VcrNamespace {
     /// PUT /v2/:teamSlug/:projectSlug/:repositoryName/manifests/:reference Upload an image manifest. The digest is computed from the body and returned in the Docker-Content-Digest header.
     pub fn replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        reference: String,
+        params: crate::methods::vcr::ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::vcr::replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, team_slug, project_slug, repository_name, reference, options)
+        crate::methods::vcr::replace_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, params, options)
     }
     /// Checks whether a manifest exists in a Docker repository by its tag or digest reference. Docker clients use this check during a push to determine whether the manifest or a referenced config blob is already present. Supply the repository components and a valid `reference`.
     ///
     /// HEAD /v2/:teamSlug/:projectSlug/:repositoryName/manifests/:reference Check whether a manifest exists. Used by Docker client during push to determine if a manifest (or config blob referenced by digest) is already present.
     pub fn head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        reference: String,
+        params: crate::methods::vcr::HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::vcr::head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, team_slug, project_slug, repository_name, reference, options)
+        crate::methods::vcr::head_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, params, options)
     }
     /// Retrieves an image manifest from a Docker repository using its tag or digest as the reference. Use this operation when you need to fetch the manifest associated with a repository reference. Supply a valid `reference` along with the repository components.
     ///
     /// GET /v2/:teamSlug/:projectSlug/:repositoryName/manifests/:reference Fetch a manifest by tag or digest.
     pub fn get_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        reference: String,
+        params: crate::methods::vcr::GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<(), crate::errors::SdkError> {
-        crate::methods::vcr::get_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, team_slug, project_slug, repository_name, reference, options)
+        crate::methods::vcr::get_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, params, options)
     }
     /// Deletes an image manifest from a Docker repository by its content-addressable digest. Use this operation to remove a manifest by digest rather than by tag. Supply the repository components and a digest-form `reference`.
     ///
     /// DELETE /v2/:teamSlug/:projectSlug/:repositoryName/manifests/:reference Reference must be a digest.
     pub fn delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(
         &self,
-        team_slug: String,
-        project_slug: String,
-        repository_name: String,
-        reference: String,
+        params: crate::methods::vcr::DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::vcr::delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, team_slug, project_slug, repository_name, reference, options)
+        crate::methods::vcr::delete_by_team_slug_by_project_slug_by_repository_name_manifests_by_reference(&self.config, params, options)
     }
     /// Lists image tags in a Docker repository. Use `teamSlug`, `projectSlug`, and `repositoryName` to identify the repository, and `n` to control the page size. Pass the opaque cursor from a previous response's `Link` header in `last` to continue listing.
     ///
@@ -6573,73 +5220,42 @@ impl VercelCiNamespace {
     /// List branches
     pub fn list_branches(
         &self,
-        query: Option<String>,
-        limit: Option<f64>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::ListVercelCiBranchesParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vercel_ci::ListVercelCiBranchesResponse, crate::errors::SdkError>
     {
-        crate::methods::vercel_ci::list_vercel_ci_branches(
-            &self.config,
-            query,
-            limit,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::list_vercel_ci_branches(&self.config, params, options)
     }
     /// Starts an asynchronous Vercel CI task analysis for a repository. Supply the repository `owner` and `repo` in the request body, and use `teamId` or `slug` to perform the request on behalf of a team. A 202 response confirms acceptance and provides an `analysisId` to check the analysis status.
     ///
     /// Create task analysis
     pub fn create_task_analysis(
         &self,
-        owner: String,
-        repo: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::CreateVercelCiTaskAnalysisParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::vercel_ci::CreateVercelCiTaskAnalysisResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::vercel_ci::create_vercel_ci_task_analysis(
-            &self.config,
-            owner,
-            repo,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::create_vercel_ci_task_analysis(&self.config, params, options)
     }
     /// Retrieves the current status of a Vercel CI task analysis. Use `analysisId` to identify the analysis and optionally pass `teamId` or `slug` to make the request on behalf of a team. The response includes a failure reason when one is available.
     ///
     /// Get task analysis
     pub fn get_task_analysis(
         &self,
-        analysis_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::GetVercelCiTaskAnalysisParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vercel_ci::GetVercelCiTaskAnalysisResponse, crate::errors::SdkError>
     {
-        crate::methods::vercel_ci::get_vercel_ci_task_analysis(
-            &self.config,
-            analysis_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::get_vercel_ci_task_analysis(&self.config, params, options)
     }
     /// Creates a GitHub pull request that adds Vercel CI tags for tasks discovered in a completed analysis. Identify the analysis with `analysisId` and provide the tasks and configuration paths in the request body. The response includes the pull request URL and the names of changed tasks.
     ///
     /// Create task configuration pull request
     pub fn create_task_configuration_pull_request(
         &self,
-        analysis_id: String,
-        tasks: Vec<crate::methods::vercel_ci::CreateVercelCiTaskConfigurationPullRequestTasksItem>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::CreateVercelCiTaskConfigurationPullRequestParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::vercel_ci::CreateVercelCiTaskConfigurationPullRequestResponse,
@@ -6647,10 +5263,7 @@ impl VercelCiNamespace {
     > {
         crate::methods::vercel_ci::create_vercel_ci_task_configuration_pull_request(
             &self.config,
-            analysis_id,
-            tasks,
-            team_id,
-            slug,
+            params,
             options,
         )
     }
@@ -6672,21 +5285,13 @@ impl VercelCiNamespace {
     /// List Invocation Attempts
     pub fn list_invocation_attempts(
         &self,
-        invocation_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::ListVercelCiInvocationAttemptsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::vercel_ci::ListVercelCiInvocationAttemptsResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::vercel_ci::list_vercel_ci_invocation_attempts(
-            &self.config,
-            invocation_id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::list_vercel_ci_invocation_attempts(&self.config, params, options)
     }
     /// Retrieves an invocation attempt with its job definitions, latest job runs, and task definitions and active task runs. Use `attempt` to select an attempt, or omit it to use the latest; set `follow` to `1` to receive newline-delimited JSON updates until the attempt finishes or the stream times out.
     ///
@@ -6704,65 +5309,35 @@ impl VercelCiNamespace {
     /// Get Invocation
     pub fn get_invocation(
         &self,
-        invocation_id: String,
-        attempt: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::GetVercelCiInvocationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vercel_ci::GetVercelCiInvocationResponse, crate::errors::SdkError>
     {
-        crate::methods::vercel_ci::get_vercel_ci_invocation(
-            &self.config,
-            invocation_id,
-            attempt,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::get_vercel_ci_invocation(&self.config, params, options)
     }
     /// Triggers a retry of a terminal Vercel CI invocation attempt. Use `invocationId` and `attempt` to identify the attempt to retry. The response confirms that the retry was scheduled and provides the new attempt number.
     ///
     /// Retry Invocation
     pub fn retry_invocation(
         &self,
-        invocation_id: String,
-        attempt: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::RetryVercelCiInvocationParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::vercel_ci::RetryVercelCiInvocationResponse, crate::errors::SdkError>
     {
-        crate::methods::vercel_ci::retry_vercel_ci_invocation(
-            &self.config,
-            invocation_id,
-            attempt,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::retry_vercel_ci_invocation(&self.config, params, options)
     }
     /// Lists the job definitions associated with an invocation attempt. Use `invocationId` and `attempt` to select the attempt whose jobs you want to inspect. Each result includes the job definition's identifier, kind, name, command, and creation time.
     ///
     /// List Job Definitions
     pub fn list_job_definitions(
         &self,
-        invocation_id: String,
-        attempt: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::vercel_ci::ListVercelCiJobDefinitionsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<
         crate::methods::vercel_ci::ListVercelCiJobDefinitionsResponse,
         crate::errors::SdkError,
     > {
-        crate::methods::vercel_ci::list_vercel_ci_job_definitions(
-            &self.config,
-            invocation_id,
-            attempt,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::vercel_ci::list_vercel_ci_job_definitions(&self.config, params, options)
     }
     /// Retrieves a specific job definition for an invocation attempt. Use `invocationId`, `attempt`, and `jobDefinitionId` to identify the definition. The response contains the job definition's kind, name, command, and creation time.
     ///
@@ -6892,11 +5467,10 @@ impl WebNamespace {
     /// Updates the Web Insights setting for a project. Supply `projectId` and the `value` to set the toggle to true or false. The response returns the resulting toggle value.
     pub fn create_insights_toggle(
         &self,
-        project_id: String,
-        value: bool,
+        params: crate::methods::web::CreateWebInsightsToggleParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::web::CreateWebInsightsToggleResponse, crate::errors::SdkError> {
-        crate::methods::web::create_web_insights_toggle(&self.config, project_id, value, options)
+        crate::methods::web::create_web_insights_toggle(&self.config, params, options)
     }
 }
 
@@ -6984,36 +5558,30 @@ impl WebhooksNamespace {
     /// Get a list of webhooks
     pub fn get(
         &self,
-        project_id: Option<String>,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::webhooks::GetWebhooksParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::webhooks::GetWebhooksResponse, crate::errors::SdkError> {
-        crate::methods::webhooks::get_webhooks(&self.config, project_id, team_id, slug, options)
+        crate::methods::webhooks::get_webhooks(&self.config, params, options)
     }
     /// Retrieves a webhook by its identifier. Use `teamId` or `slug` to specify the team context for the request. The response includes the webhook URL, subscribed events, associated project IDs, and timestamps.
     ///
     /// Get a webhook
     pub fn get_webhook(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::webhooks::GetWebhookParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::webhooks::GetWebhookResponse, crate::errors::SdkError> {
-        crate::methods::webhooks::get_webhook(&self.config, id, team_id, slug, options)
+        crate::methods::webhooks::get_webhook(&self.config, params, options)
     }
     /// Deletes a webhook by its identifier. Use `teamId` or `slug` to specify the team context for the request. The operation returns no response body when the deletion succeeds.
     ///
     /// Deletes a webhook
     pub fn delete(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::webhooks::DeleteWebhookParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::webhooks::delete_webhook(&self.config, id, team_id, slug, options)
+        crate::methods::webhooks::delete_webhook(&self.config, params, options)
     }
 }
 
@@ -7034,19 +5602,11 @@ impl AliasesNamespace {
     /// Retrieves all Aliases for the Deployment with the given ID. The authenticated user or team must own the deployment.
     pub fn list_for_deployment(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::aliases::ListAliasesForDeploymentParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::aliases::ListAliasesForDeploymentResponse, crate::errors::SdkError>
     {
-        crate::methods::aliases::list_aliases_for_deployment(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            options,
-        )
+        crate::methods::aliases::list_aliases_for_deployment(&self.config, params, options)
     }
     /// Creates an alias for the deployment identified by a deployment or alias ID or URL. Provide the alias name in `alias`, and optionally set `redirect` to route the alias to another hostname with a 307 status code. If the alias is already assigned to another deployment, it is removed from that deployment and assigned to this one.
     ///
@@ -7083,32 +5643,20 @@ impl AliasesNamespace {
     /// Delete an Alias with the specified ID.
     pub fn delete_alias(
         &self,
-        alias_id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::aliases::DeleteAliasParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::aliases::DeleteAliasResponse, crate::errors::SdkError> {
-        crate::methods::aliases::delete_alias(&self.config, alias_id, team_id, slug, options)
+        crate::methods::aliases::delete_alias(&self.config, params, options)
     }
     /// Updates protection-bypass settings for an alias or deployment URL. Use the request body to configure a shareable link, user-scoped access, or an override for access behavior. The `ttl` value for a shareable link cannot exceed 63,072,000 seconds.
     ///
     /// Update the protection bypass for the alias or deployment URL (used for user access & comment access for deployments). Used as shareable links and user scoped access for Vercel Authentication and also to allow external (logged in) people to comment on previews for Preview Comments (next-live-mode).
     pub fn patch_url_protection_bypass(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
-        body: Option<crate::methods::aliases::PatchUrlProtectionBypass>,
+        params: crate::methods::aliases::PatchUrlProtectionBypassParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<std::collections::HashMap<String, serde_json::Value>, crate::errors::SdkError> {
-        crate::methods::aliases::patch_url_protection_bypass(
-            &self.config,
-            id,
-            team_id,
-            slug,
-            body,
-            options,
-        )
+        crate::methods::aliases::patch_url_protection_bypass(&self.config, params, options)
     }
 }
 
@@ -7129,47 +5677,40 @@ impl CertsNamespace {
     /// Get cert by id
     pub fn get_by_id(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::certs::GetCertByIdParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::certs::GetCertByIdResponse, crate::errors::SdkError> {
-        crate::methods::certs::get_cert_by_id(&self.config, id, team_id, slug, options)
+        crate::methods::certs::get_cert_by_id(&self.config, params, options)
     }
     /// Deletes a certificate identified by its certificate ID. Use `teamId` or `slug` to scope the request to a team. The response object confirms the removal.
     ///
     /// Remove cert
     pub fn remove(
         &self,
-        id: String,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::certs::RemoveCertParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<serde_json::Value, crate::errors::SdkError> {
-        crate::methods::certs::remove_cert(&self.config, id, team_id, slug, options)
+        crate::methods::certs::remove_cert(&self.config, params, options)
     }
     /// Lists certificates available to the authenticated user or team. Use `teamId` or `slug` to scope the request to a team. The response includes certificate details and pagination information.
     ///
     /// Get certs
     pub fn get(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
+        params: crate::methods::certs::GetCertsParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::certs::GetCertsResponse, crate::errors::SdkError> {
-        crate::methods::certs::get_certs(&self.config, team_id, slug, options)
+        crate::methods::certs::get_certs(&self.config, params, options)
     }
     /// Issues a new certificate for the common names you provide. Supply `cns` to specify the common names for which the certificate should be issued. The response includes the certificate identifier, common names, and certificate dates.
     ///
     /// Issue a new cert
     pub fn issue(
         &self,
-        team_id: Option<String>,
-        slug: Option<String>,
-        cns: Option<Vec<String>>,
+        params: crate::methods::certs::IssueCertParams,
         options: Option<&crate::client::RequestOptions>,
     ) -> Result<crate::methods::certs::IssueCertResponse, crate::errors::SdkError> {
-        crate::methods::certs::issue_cert(&self.config, team_id, slug, cns, options)
+        crate::methods::certs::issue_cert(&self.config, params, options)
     }
     /// Uploads a certificate using its certificate authority, key, and certificate data. Provide `ca`, `key`, and `cert` in the request body; you can also set `skipValidation` to control certificate validation. The response includes the uploaded certificate details.
     ///

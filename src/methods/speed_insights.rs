@@ -16,13 +16,19 @@ impl CreateSpeedInsightsToggleResponse {
     }
 }
 
+#[derive(Debug, Clone, Default)]
+pub struct CreateSpeedInsightsToggleParams {
+    pub project_id: String,
+    pub value: bool,
+}
+
 /// Updates the Speed Insights toggle for a project. Provide the `value` field to set the toggle state, and use `projectId` to select the project. The response confirms the resulting toggle value.
 pub fn create_speed_insights_toggle(
     config: &ClientConfig,
-    project_id: String,
-    value: bool,
+    params: CreateSpeedInsightsToggleParams,
     options: Option<&RequestOptions>,
 ) -> Result<CreateSpeedInsightsToggleResponse, SdkError> {
+    let CreateSpeedInsightsToggleParams { project_id, value } = params;
     let mut __query: Vec<(&str, String)> = Vec::with_capacity(1);
     __query.extend([("projectId", crate::client::query_value(&project_id))]);
 
